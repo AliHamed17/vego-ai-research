@@ -40,22 +40,6 @@ Record file changes and rollback notes here.
 - Rollback note: Remove C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan to roll back the local planning package; source tracking entries are append-only audit records.
 - Git commit: none recorded by script.
 
-## 2026-07-12 - Fable (Claude) - Enhancement Plan Phase 1 (Overview, Verify-All Gate, Coherence Repair)
-
-- Files added:
-  - `docs/research/h-layer/enhancement-plan-2026-07-12.md` (verified findings F1-F8; backlog E1-E11; Phase-1 record)
-  - `scripts/build_hlayer_program_overview.py` (read-only unified program overview: replay suite + conformance + program validation + EXP-005 gate + decision snapshot + 14 iterations + metric trajectories)
-  - `scripts/tests/test_build_hlayer_program_overview.py` (4 tests: section join, alias mapping old/new iteration schemas, gate/boundary text, missing-section tolerance)
-  - `scripts/verify-hlayer-all.ps1` (one-command 9-check gate; -SkipSlow / -WithOverview)
-  - ignored: `reports/generated/hlayer_program_overview/`, `reports/generated/hlayer_iterations/iter_014/`
-- Files updated:
-  - `docs/research/h-layer/experiment-iteration-ledger.md` (F1 count fix twelve->thirteen; iteration 014 row)
-  - `docs/research/h-layer/experiment-iteration-loop.md` (F2 stale status fix; "Program Views And The Standing Gate" section; cadence -> 014)
-  - `docs/dashboards/results-dashboard.md` (standing-views note), `docs/research/README.md` (ledger row corrected 010->014; plan row), `docs/agent-memory/progress.md`, `docs/agent-memory/session-log.md`
-  - removed stray `.pyc` files from `scripts/` root (F7)
-- Rollback note: delete the four added files and generated outputs; revert the listed docs. Iteration 014 is an accepted reliability_only coherence snapshot - do not delete it without also reverting the promoted suite state. No VEGO-AI file touched (hash guard + git verified).
-- Commands run and results: verify-hlayer-all first run FAIL on program validator (found F8: out-of-band suite run desynced iter_013 from promoted suite); run-hlayer-iteration.ps1 -> iteration 014 promoted (suite hlayer-20260720T173308Z-d79047f5e2); verify-hlayer-all -WithOverview rerun: 9/9 PASS (protected paths, VEGO-AI clean, evidence 18/18, offline validator, program validator, conformance, pytest 94 + 53 incl. 4 new, overview).
-
 ## 2026-07-20 22:22 +03:00 - Codex - July 21 Supervisor Package And Repository Hardening
 
 - Files changed:
@@ -453,4 +437,12 @@ Record file changes and rollback notes here.
   - docs/research/bigui/experiment-catalog-snapshot-v1.json
   - docs/research/hardening/release-manifest-v3.json
 - Rollback note: Commits 0595590..2ed820c on main; all repairs additive or manifest rebinds; b605937's content preserved unchanged.
+- Git commit: none recorded by script.
+
+## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
+
+- Files changed:
+  - docs/research/meetings/2026-08-11-full-gaps-and-blockers-report.md
+  - docs/agent-memory/issues.md
+- Rollback note: Two new files added, non-destructive; no code changes.
 - Git commit: none recorded by script.

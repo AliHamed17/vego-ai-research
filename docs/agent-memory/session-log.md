@@ -2,82 +2,6 @@
 
 Chronological prompt history for Codex and Claude.
 
-## 2026-07-28 14:02 +03:00 - Claude - Evaluation phase: component verdicts, advisory analyst, Iris matrix, full-eval runner
-
-- Request: Full project/thesis enhancement: per-experiment evaluation vs the paper architecture, progress benchmark, per-agent purpose/value verdicts with real evidence, LLM added to understand program logic, Iris July-1 points on the real implementation, E2E test, full final report.
-- Actions taken:
-  - Built scripts/build_agent_contribution_report.py: per-component evidence-based verdicts (6 contributing, 2 partial, 1 not-yet-measurable); A1 agreement 0.778-0.875 within paper range, A2 guideline F1 0.267-0.545 below paper 0.70-0.88 (weakest measured link)
-  - Built scripts/hlayer_llm_analyst.py: advisory-only analyst, LLM mode via hardened framework client, deterministic fallback; writes only reports/generated/llm_analyst/
-  - Wrote docs/research/iris-july1-implementation-matrix.md mapping all 12 July-1 directives to real implementations with honest status
-  - Built scripts/run-full-evaluation.ps1 (gate -> benchmark -> contribution -> overview -> analyst); PASSES end to end
-  - Fixed cross-branch trusted-authorization drift by adopting the cacfab7 record version (matches CI variable); recorded ISS-019
-  - Re-anchored thesis evidence snapshot (--source-revision HEAD), BigUI catalog, and research hub; all 16 verification checks pass
-- Files changed:
-  - scripts/build_agent_contribution_report.py
-  - scripts/tests/test_agent_contribution_report.py
-  - scripts/hlayer_llm_analyst.py
-  - scripts/run-full-evaluation.ps1
-  - docs/research/iris-july1-implementation-matrix.md
-  - docs/research/comprehensive-evaluation-plan-2026-07-26.md
-  - configs/protected-change-authorization-v1.json
-  - docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json
-  - docs/research/bigui/experiment-catalog-snapshot-v1.json
-  - VEGO-AI-Research-Hub.html
-  - docs/agent-memory/current-state.md
-  - docs/agent-memory/progress.md
-  - docs/agent-memory/issues.md
-  - docs/agent-memory/decisions.md
-- Commands/checks:
-  - .\scripts\run-full-evaluation.ps1 -> FULL EVALUATION PASSED (gate 16/16, benchmark PASS, contribution PASS, overview PASS, analyst PASS)
-  - python -m pytest scripts/tests/test_bigui_catalog.py -q -> 11 passed
-  - python scripts/validate_thesis_evidence_package.py -> PASS
-- Status: completed
-- Next steps: Push feature/evaluation-phase, PR to main, merge per standing authorization; human-gated: 24-row label campaign, M-01..M-06 decisions, mid-August survey presentation.
-
-## 2026-07-28 15:46 +03:00 - Claude - Adversarial review fixes, honest-evidence rewrite, and main merge for the evaluation phase
-
-- Request: Continue: full enhancement with real per-agent answers, E2E working system, Iris points implemented, full report.
-- Actions taken:
-  - Ran a 19-agent adversarial review workflow over the new evaluation-phase code: 16 findings confirmed, 2 refuted
-  - Rewrote build_agent_contribution_report.py so every signal is read from its cited artifact or omitted (exp001 totals.*, exp009 synthetic_* keys, exp006 ratio semantics, exp016/018 real keys); verdicts carry explicit categories and degrade to NOT-YET-MEASURABLE without inputs; headline and weakest links computed from data (A2 F1 floor corrected to 0.267)
-  - Added hermetic fresh-clone test proving no fabricated signals; 3/3 tests pass
-  - Hardened run-full-evaluation.ps1 (stale LASTEXITCODE crash-as-PASS fixed, per-stage logs) and hlayer_llm_analyst.py (untrusted-data quarantine, sanitized markdown, redacted fallback reason, dict validation)
-  - Fixed Iris matrix D1 (removed nonexistent shadow-writer claim; live capture is SPEC'D + HUMAN-GATED) and D1/D2 visibility numbers to the artifact's item-to-event ratio semantics
-  - Merged origin/main into feature/evaluation-phase (PR #15 was CONFLICTING; branch had diverged at PR #6); resolved all 12 conflicts to our superset side; tree differs from main by exactly the intended 22 files
-  - Full evaluation PASSED end to end after every change round
-- Files changed:
-  - scripts/build_agent_contribution_report.py
-  - scripts/tests/test_agent_contribution_report.py
-  - scripts/hlayer_llm_analyst.py
-  - scripts/run-full-evaluation.ps1
-  - docs/research/iris-july1-implementation-matrix.md
-- Commands/checks:
-  - .\scripts\run-full-evaluation.ps1 -> FULL EVALUATION PASSED (three consecutive green runs incl. post-merge)
-  - python -m pytest scripts/tests/test_agent_contribution_report.py -q -> 3 passed
-  - git merge origin/main -> resolved, tree delta vs main = 22 intended files
-- Status: completed
-- Next steps: Await PR #15 CI, merge to main per standing authorization, deliver final report. Human-gated: 24-row label campaign, M-01..M-06, mid-August survey.
-
-## 2026-07-28 19:14 +03:00 - Claude - Enhanced supervisor deck for 29 July, with a fact-check that corrected two published figures
-
-- Request: Enhance the 29 July PPTX: architecture visualizations, one compacted architecture slide, a slide per component, interaction/sequence flows, Iris checklist, timeline, benchmark, evaluation criteria, questions, next steps.
-- Actions taken:
-  - Rebuilt the supervisor deck as 52 native-shape slides (VEGO-AI-Progress-Review-2026-07-29-ENHANCED.pptx, delivered to Downloads): one compacted whole-architecture slide, was/changed/now, authority model, 13 per-component slides, 5 UML sequence diagrams, agent interaction matrix, evaluation rubric, verdict scoreboard, paper-reference-band plot, claim ladder, timeline, benchmark, dosage, Iris D1-D12 checklist, blockers, questions, next steps
-  - Ran a 4-agent fact-check of every planned figure against repo artifacts: 35 confirmed, 10 corrected
-  - Recorded ISS-021: tracked docs say '179 student models' but 179 is scored ranking rows with 14 duplicate case_ids; correct counts are 83 distinct models / 165 model-setting evaluations / 179 scored rows
-  - Recorded ISS-020: the benchmark analytics report claims EXP-036 meets its latency target while the pinned artifact records engineeringTargetMet=false, with confidence intervals that do not bracket their own point estimates
-  - Corrected in the deck: EXP-033 parity is 15 runs (5 fixture artifacts x 3 repetitions) not 15 artifacts; the K=30/35 capture sweep is EXP-008 not EXP-007; research test count is 143 not 113; the '9 experiments on 5 July' baseline is unsupported and was replaced with the citable 6-in-late-June figure
-  - Ran two visual-QA agent sweeps over all 52 rendered slides: 3 blockers, 6 majors and 12 minors found and fixed (component-template title duplication, verdict overflow, sequence-label lifeline crossings, chart axis/number formats, contrast)
-- Files changed:
-  - docs/agent-memory/issues.md
-- Commands/checks:
-  - node deck/build.js -> 52 slides
-  - validate.py -> All validations PASSED
-  - PowerPoint COM export -> 52 slides rendered for QA
-  - python scripts/check_evidence_consistency.py -> PASS
-- Status: completed
-- Next steps: Present 29 July. Fix ISS-020/ISS-021 in the tracked docs before those figures enter a thesis chapter.
-
 ## 2026-07-30 15:10 +03:00 - Codex - Implement July 29 doctoral requirements-closure program
 
 - Request: Implement the VEGO-AI July 29 requirements-closure and PhD proposal execution plan.
@@ -325,3 +249,22 @@ Chronological prompt history for Codex and Claude.
   - All CI --check scripts (hardening, catalog, benchmark, comparison, bigui, thesis evidence/review/progress, evidence consistency, privacy, ratchet) -> PASS
 - Status: completed
 - Next steps: Push to main and verify CI. Ali-only before Aug 12: verify final RQ wording vs saved chat (P0), share Drive (P3), replicate rq_tag column into Google Sheet, paste Chapter-3 draft into Word, check inbox for Iris's email (P6), one walkthrough dry run.
+
+## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
+
+- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason \u2014 full report of gaps and what's already done, per the requirements.
+- Actions taken:
+  - Ran an 8-way parallel sweep (Workflow) across every gap-tracking source: the 44-control master traceability register, the IRIS-EXP validator (structure/readiness/closure modes), EXP-005 evaluation gate, medical-readiness scorecard, issues.md/decisions.md, literature/thesis scope, Confluence sync, and the external-fact/candidacy register
+  - Discovered a real bug: a template-variable substitution issue caused every sub-agent's prompt to literally contain 'repo undefined'; 6 of 8 agents self-corrected to the real main checkout, 2 (medical-readiness, issues-and-decisions) instead read a second, stale git worktree on this machine and falsely concluded real files/tables don't exist -- discarded those 2 sweeps and rebuilt those sections from my own direct reads
+  - Collapsed 126 raw tracked items into 11 root-blocker actions (RQ-wording decisions, EXP-005 labeling, transcript human review, Drive sharing, live rehearsal, first weekly cycle, literature searches, university candidacy confirmation, medical 6-gate clearance, Clalit meeting, Confluence Rovo grant) plus data-accuracy/process-debt/deferred-by-design/connectivity sections
+  - Ran an adversarial verification workflow against the raw sweep + primary sources; found and fixed 2 genuine omissions (R-03, R-19) and 1 imprecise paraphrase (D3 status wording)
+  - Logged ISS-031 (the stale-worktree risk) as a new tracked issue
+  - Synced the finished report into the Obsidian vault and Google Drive alongside the Aug-12 package
+- Files changed:
+  - docs/research/meetings/2026-08-11-full-gaps-and-blockers-report.md
+  - docs/agent-memory/issues.md
+- Commands/checks:
+  - uv run python scripts/validate_iris_requirements_closure.py --all --mode structure/readiness/closure -> structure 10/10 PASS (CI-enforced bar); readiness/closure correctly PENDING/FAIL on human evidence not yet produced (by design)
+  - 8-agent + 2-agent verification workflows via Workflow tool
+- Status: completed
+- Next steps: Ali executes the 11 root-blocker actions in the report, roughly in the stated order. No further agent action needed until Ali reports movement on one of them.
