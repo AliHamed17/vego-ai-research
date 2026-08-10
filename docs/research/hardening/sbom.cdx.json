@@ -33,9 +33,9 @@
     },
     {
       "name": "pypdf",
-      "purl": "pkg:pypi/pypdf@6.14.2",
+      "purl": "pkg:pypi/pypdf@6.15.0",
       "type": "library",
-      "version": "6.14.2"
+      "version": "6.15.0"
     },
     {
       "name": "pytest",
