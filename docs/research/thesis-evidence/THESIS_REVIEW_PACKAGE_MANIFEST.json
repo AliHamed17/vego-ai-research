@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "b605937a45cbef241084a4085030c3788a33b3af",
-  "packageRevision": "b5f72930f6f1a9075637cfce1d458c358557a074",
+  "sourceRevision": "45c03f4ce5ae7f18dddc856c9ac416fd5d6d016a",
+  "packageRevision": "45c03f4ce5ae7f18dddc856c9ac416fd5d6d016a",
   "sourceTreeHash": "b129a13c429d39e57f54909e044fda9acbf7fbc0b23f4f97a688995fc32ae346",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "ab7bdbb3e513ab62f4743592a1dd4d02ec94e96037d0a8aa5df579ad3390afb0",
+    "sha256": "39d1b75bc94b09ffafe3f60cfd4f433eab73ddeba78451be085f42769ec9a610",
     "bytes": 48267,
     "tracked": true
   },
@@ -22,7 +22,7 @@
     },
     "interactiveHtml": {
       "path": "VEGO-AI-Thesis-Baseline-Progress.html",
-      "sha256": "676614ee436c83c98f38f680e902c645a4d3eb57ece45e11f5b617e14dc2c00c",
+      "sha256": "ae0fbf91601ab2a6d69822998c49f78aa684f1308593d0794f6a0bb92e4ed8c3",
       "bytes": 81862,
       "tracked": true
     }
@@ -33,12 +33,12 @@
       "filename": "VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.pdf",
       "tracked": false,
       "availableInClone": false,
-      "sha256": null,
-      "bytes": null
+      "sha256": "181279212f4c4d140a158a3766b533b6de1dad4a6f17eea67626f838460bed97",
+      "bytes": 1401639
     },
     "renderVerification": {
       "status": "NOT_RECORDED",
-      "pdfPageCount": null,
+      "pdfPageCount": 91,
       "renderedPageCount": null,
       "sheetCount": null,
       "qaReportSha256": null
@@ -331,7 +331,7 @@
     }
   ],
   "toolVersions": {
-    "python": "3.13.14",
+    "python": "3.10.0",
     "jsonschema": "4.26.0"
   },
   "protectedRuntimeChanged": false,
