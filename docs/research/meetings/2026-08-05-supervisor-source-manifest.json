@@ -76,8 +76,8 @@
         "docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md"
       ],
       "kind": "file",
-      "bytes": 16562,
-      "sha256": "24D31870416A65628B9248C4BEED6857E032FD19C30BBA95EF98B5BC386A08E7"
+      "bytes": 16531,
+      "sha256": "11A5332658A9BB6E72B364E21E28DE7D4233F001559DA791B9DC6EBBF73637CF"
     },
     {
       "path": "docs/research/meetings/2026-08-05-supervisor-delivery-access-record.md",
@@ -102,8 +102,8 @@
         "docs/research/meetings/2026-08-05-supervisor-pre-read.md"
       ],
       "kind": "file",
-      "bytes": 7462,
-      "sha256": "6966E08170F804D76CC7833CB7CEF877F13050BAA515DB11B8DB306EC2B683BA"
+      "bytes": 9542,
+      "sha256": "D94B5C1CAB9596C2A80625EF06BFE7A6DB2E79F32D53D90A53B450EF47990653"
     },
     {
       "path": "docs/research/meetings/2026-08-05-supervisor-presentation-checklist.md",
@@ -119,8 +119,8 @@
         "docs/research/meetings/2026-08-05-supervisor-presentation-checklist.md#decision-worksheet"
       ],
       "kind": "file",
-      "bytes": 15703,
-      "sha256": "8493471F4045B9D779CF0B2543502C37D1776B42CC2C1F4EDBDE3504AD732B68"
+      "bytes": 16770,
+      "sha256": "D5E1E978953E170213BC8CA2D5B32C677F674D4FA4C4741609FDF71401A6C61D"
     },
     {
       "path": "docs/research/meetings/2026-08-05-supervisor-presentation-manifest.md",
@@ -253,8 +253,8 @@
         "docs/research/phd-proposal/legacy-rq-crosswalk.md"
       ],
       "kind": "file",
-      "bytes": 12589,
-      "sha256": "8B289ED4E1E8B52433608E97AAA3BBA0C6F51700E57254C666C4BCF5446DD2A3"
+      "bytes": 13447,
+      "sha256": "9FF09A5844F190BC4F310AAF9DFBD144D58D4C4B0CFDE6A076149FC1BEF50B55"
     },
     {
       "path": "docs/research/phd-proposal/literature-review-protocol.md",
@@ -281,8 +281,8 @@
         "docs/research/phd-proposal/master-traceability-register.md (R-15, R-16, A-02, A-03)"
       ],
       "kind": "file",
-      "bytes": 39036,
-      "sha256": "41B90DAD3591553F3E49261AF48ED99C8307FEC3BE6FE7C84A941F27846242E2"
+      "bytes": 40758,
+      "sha256": "3FCF5AC92249DEE62789386AA80DF4E5EAA4D9E3220B4D0014A0F5AB21663CD1"
     },
     {
       "path": "docs/research/phd-proposal/resource-raci-raid-register.md",
@@ -320,8 +320,8 @@
         "docs/research/phd-proposal/three-study-contract.md"
       ],
       "kind": "file",
-      "bytes": 12957,
-      "sha256": "0058778275CC7487FE2D6895C911749B3550DFFAC5EF170524BDBF8A67193BEE"
+      "bytes": 14215,
+      "sha256": "6F9D25FBBA74229B08031AEE3CE71B8CA9D861EFF2C76B23E5C9A5E2286F1CAF"
     },
     {
       "path": "docs/research/phd-proposal/university-process-verification-checklist.md",
