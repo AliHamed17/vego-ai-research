@@ -48,7 +48,7 @@ A pattern is routed to the human review queue if any of the following conditions
 
 **M1.2** adds a deterministic, order-independent `review_signature` computed over stable fields (setting, pattern ID, classification, and justification hash), plus a `source_pattern_id` that links back to the Agent 4 output. The signature serves two purposes: it allows later feedback (M2) to join safely even if the queue is regenerated from a different run order, and it provides a tamper-detection mechanism — if the AI's output changes between queue generation and feedback attachment, the signature mismatch is detected and recorded.
 
-*Contribution to SQ1:* VEGO-AI can now identify and persist where human judgment is requested, instead of leaving the signal unused. The current policy routes 11 of 27 patterns rather than routing every pattern. Whether this selection captures the cases that matter most or reduces reviewer effort without harmful misses remains an empirical question for EXP-021, EXP-022, and EXP-026.
+*Contribution to SQ1 (selective intervention):* VEGO-AI can now identify and persist where human judgment is requested, instead of leaving the signal unused. The current policy routes 11 of 27 patterns rather than routing every pattern. Whether this selection captures the cases that matter most or reduces reviewer effort without harmful misses remains an empirical question for EXP-021, EXP-022, and EXP-026.
 
 ## 5.3 M2 — Human Feedback Manager
 
@@ -66,7 +66,7 @@ Feedback joins by `review_id` and **verifies the `review_signature`** of the tar
 
 `human_feedback_manager.py` produces `human_review_queue_resolved.jsonl` — a new file that contains the original queue items enriched with the attached feedback. The original `human_review_queue.jsonl` is never overwritten. This preserves the audit trail: the original queue represents the AI's uncertainty, and the resolved queue represents the human's response to that uncertainty.
 
-*Contribution to SQ2/SQ4:* Human feedback becomes structured, validated, and linked to the specific AI decision it addresses. Information flows bidirectionally: the AI's evidence and justification inform the human's review, and the human's structured decision feeds forward into the memory layer.
+*Contribution to SQ2 (governed knowledge reuse):* Human feedback becomes structured, validated, and linked to the specific AI decision it addresses. Information flows bidirectionally: the AI's evidence and justification inform the human's review, and the human's structured decision feeds forward into the memory layer.
 
 ## 5.4 M3 — Human Judgment Memory
 
@@ -90,7 +90,7 @@ This design choice reflects a deliberate stance: the reuse mechanism should be a
 
 When retrieval finds multiple relevant memory items that disagree (one expert approved a pattern, another rejected a similar one), the system surfaces the conflict rather than auto-resolving it. Each memory item carries a `conflict_status` that can be `none`, `detected`, or `resolved`, and conflicting items are presented together with their respective rationales. This preserves human authority over disagreements — the system does not silently choose between conflicting expert opinions but ensures that the consumer of the advice knows a disagreement exists.
 
-*Contribution to SQ3/SQ4:* Expert judgment becomes durable, queryable, provenance-tracked knowledge. A judgment about "Customer as an actor" is not discarded after one case but stored with scope and provenance and surfaced when a similar pattern recurs — even in a different setting or domain.
+*Contribution to SQ2 (governed knowledge reuse):* Expert judgment becomes durable, queryable, provenance-tracked knowledge. A judgment about "Customer as an actor" is not discarded after one case but stored with scope and provenance and surfaced when a similar pattern recurs — even in a different setting or domain.
 
 ## 5.5 M4A — Memory Advisory Layer
 
@@ -106,7 +106,7 @@ The advisory layer's defining constraint is enforced in both code and schema: `a
 
 This hard boundary is a design decision, not a temporary limitation. It reflects the principle that reusable human judgment should be surfaced as evidence for a human or a controlled experiment to act upon, not as an automatic override. The system presents "here is what past experts have said about similar cases" and leaves the decision about whether to act on that evidence to the consumer — whether that consumer is a human reviewer or the controlled comparison of M4B-1.
 
-*Contribution to SQ2:* Reusable human judgment is surfaced as advisory evidence while the original AI output is preserved verbatim. Information flows in both directions: the AI's classification provides the context for retrieval, and the human's past judgments provide advisory evidence for the current case.
+*Contribution to SQ2 (governed knowledge reuse):* Reusable human judgment is surfaced as advisory evidence while the original AI output is preserved verbatim. Information flows in both directions: the AI's classification provides the context for retrieval, and the human's past judgments provide advisory evidence for the current case.
 
 ## 5.6 M4B-1 — Deterministic Memory-Informed Comparison
 
@@ -141,7 +141,7 @@ Two fields are schema-enforced constants: `mode = "experimental"` and `ai_behavi
 
 The non-destructive guarantee is enforced at three levels. At the code level, M4B-1 reads from the baseline outputs and writes only to `memory_informed_comparison.json` — it never opens the baseline files for writing. At the schema level, the `ai_behavior_changed_in_baseline = false` constant makes any violation a schema error. At the guard level, `scripts/check_evidence_consistency.py` verifies on every prompt that the baseline outputs remain unmodified and that `ai_classification_changed` remains zero.
 
-*Contribution to SQ4:* Reusable human judgment can drive a measurable, non-destructive comparison without changing the original result. The comparison artifact is the input to the empirical evaluation (Chapter 6), which will measure whether the memory-informed classifications are more accurate than the originals when compared against independent expert labels.
+*Contribution to SQ3 (evaluation and transfer):* Reusable human judgment can drive a measurable, non-destructive comparison without changing the original result. The comparison artifact is the input to the empirical evaluation (Chapter 6), which will measure whether the memory-informed classifications are more accurate than the originals when compared against independent expert labels.
 
 ### Running example: "Customer as actor" through M4B-1
 

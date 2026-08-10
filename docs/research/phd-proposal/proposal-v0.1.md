@@ -40,6 +40,13 @@ The aim is to design and evaluate a domain-neutral framework for governed reuse 
 2. how that judgment should be represented, validated, reconciled, stored, and reused transparently; and
 3. to what extent the complete framework improves assessment and transfers across domains.
 
+*Sync note (2026-08-10):* item 3 still paraphrases the pre-2026-08-05 SQ3 framing ("to what extent ...
+improves assessment"). The 2026-08-05 working refinement (§3.2, provisional pending `D-RQ-02`) reframes
+SQ3 around *how* expert judgment is reused and transferred across guideline-operationalization contexts
+without unsafe generalization or loss of human authority, rather than an "extent of improvement" framing.
+This numbered list has not been rewritten to match, to avoid guessing at wording beyond what §3.2 states;
+it should be revisited once `D-RQ-02` is confirmed.
+
 ### 1.3 Candidate novelty
 
 The candidate contribution is the combined lifecycle:
@@ -144,17 +151,26 @@ This statement remains provisional until the literature matrix supports:
 
 ## 3. Research questions
 
+> **2026-08-10 migration note:** the umbrella research question and SQ1–SQ3 below were refined live
+> during the 2026-08-05 supervisor call (Iris Reinhartz-Berger and Arnon Sturm), updating the
+> ~2026-07-30/08-01 working draft recorded in [`2026-08-05-rq-decision-pack.md`](./2026-08-05-rq-decision-pack.md).
+> **This wording is provisional — pending formal `D-RQ-01`/`D-RQ-02` sign-off**; both decisions remain
+> `Pending` in that pack. See [`../meetings/2026-08-05-supervisor-meeting.md`](../meetings/2026-08-05-supervisor-meeting.md)
+> (items E5–E10) for the machine-derived evidence and [`../meetings/2026-08-05-supervisor-provenance-manifest.md`](../meetings/2026-08-05-supervisor-provenance-manifest.md)
+> for source provenance and caveats. The exact text still needs to be checked against Ali's own saved
+> working draft from the call before it is treated as final.
+
 ### 3.1 Umbrella research question
 
-**How can reusable human judgment be captured, governed, and reused in agentic AI assessment of domain-specific artifacts and processes to support auditable, reliable, and transferable human–AI co-reasoning?**
+**How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?**
 
 ### 3.2 Exactly three subquestions
 
-**SQ1 — Selective intervention:** When and how should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
+**SQ1 — Selective intervention:** When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
 
-**SQ2 — Governed knowledge reuse:** How should expert judgments be represented, validated, reconciled, and stored so they can be reused transparently without unsafe generalization or loss of human authority?
+**SQ2 — Governed knowledge reuse:** How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority?
 
-**SQ3 — Evaluation and transfer:** To what extent does the resulting framework improve assessment quality, consistency, traceability, and expert effort across domains, first in software/modeling and, when governance and access permit, in healthcare?
+**SQ3 — Evaluation and transfer:** How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare?
 
 ### 3.3 Internal coherence
 

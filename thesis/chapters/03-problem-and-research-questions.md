@@ -2,6 +2,15 @@
 
 > Draft. Sources: `docs/research/research-plan.md`, `docs/research/methodology.md`. Frames the study as
 > design science and fixes the research question and sub-questions.
+>
+> **2026-08-10 migration note:** the research question and sub-questions below were updated to the
+> umbrella-RQ + exactly-three-subquestions structure (`SQ1` selective intervention, `SQ2` governed
+> knowledge reuse, `SQ3` evaluation and transfer) required by the 2026-07-29 supervisor meeting and
+> refined live in the 2026-08-05 supervisor working call. **This wording is provisional — pending formal
+> `D-RQ-01`/`D-RQ-02` sign-off** in [`docs/research/phd-proposal/2026-08-05-rq-decision-pack.md`](../../docs/research/phd-proposal/2026-08-05-rq-decision-pack.md);
+> see [`docs/research/meetings/2026-08-05-supervisor-meeting.md`](../../docs/research/meetings/2026-08-05-supervisor-meeting.md)
+> for the machine-derived evidence and [`docs/research/phd-proposal/legacy-rq-crosswalk.md`](../../docs/research/phd-proposal/legacy-rq-crosswalk.md)
+> for how the previous five thesis sub-questions (retained below in §3.3) map onto the new three.
 
 ## 3.1 Problem statement
 
@@ -15,29 +24,59 @@ This problem has three dimensions. First, it is a *design* problem: what mechani
 
 ## 3.2 Research question
 
-> **RQ.** What approaches have been proposed to support human–AI collaboration in AI-assisted domain
-> modeling and model assessment, and how can they inform the design of reusable human-judgment mechanisms in
-> systems such as VEGO-AI?
+> **U-RQ.** How can human judgment be captured, governed, and used to support agentic-AI-driven
+> variability exploration in guideline operationalization scenarios, enabling reliable human–AI
+> co-reasoning?
 
-This is a literature-review-oriented and design-science-compatible question. It asks both about the state of the art (what has been proposed) and about design implications (how prior work informs the artifact). VEGO-AI is the motivating case and the artifact, not the sole object of the review.
+**Status: provisional working wording**, refined live from the 2026-07-29 working baseline during the
+2026-08-05 supervisor call (Iris and Arnon). It replaces "reusable ... and reused" with "used" (the reuse
+concept moves to SQ2 below), drops the "auditable" / "transferable" qualifiers from the headline, and
+names *variability exploration* and *guideline operationalization* explicitly — addressing Arnon's
+critique that the prior wording blurred the proposed Agentic-AI solution with the actual research
+question. It is machine-transcribed and **not yet supervisor-confirmed** (`D-RQ-01`); the exact final
+text must be checked against Ali's own saved working draft from the call before it is treated as final.
+
+This is a design-science-compatible umbrella question: it asks how a mechanism (human judgment capture
+and governance) can support a target activity (variability exploration in guideline operationalization)
+reliably. VEGO-AI is the motivating case and the artifact, not the sole object of the underlying literature
+review, which continues to inform the design (Chapter 2).
 
 ## 3.3 Sub-questions
 
-The research question decomposes into five sub-questions, each addressing a distinct aspect of the human–AI collaboration design space and mapped to specific thesis chapters and milestones.
+The research question decomposes into **exactly three** sub-questions, each mapped to one primary study
+(see `docs/research/phd-proposal/three-study-contract.md`) and to specific thesis chapters and milestones.
+Wording below is provisional in the same sense as §3.2 (`D-RQ-02`, pending sign-off).
 
-**SQ1 — Control and timing.** How do existing approaches distribute control and timing between human and AI (in-the-loop, on-the-loop, co-reasoning)? This question motivates the Selective Intervention Policy (M1) and its decision to escalate by exception rather than reviewing every case. It is addressed in Chapter 2 (§2.5) and Chapter 5 (§5.2).
+**SQ1 — Selective intervention.** When and how, in variability exploration scenarios, should an agentic
+assessment system request human judgment so that important uncertainties are addressed without
+unnecessary expert burden? This question motivates the Selective Intervention Policy (M1) and its
+decision to escalate by exception rather than reviewing every case. It is addressed in Chapter 2 (§2.5)
+and Chapter 5 (§5.2).
 
-**SQ2 — Direction of information.** Does information flow AI→human (explanation), human→AI (feedback), or both? This question underpins the bidirectional design of the artifact: the AI's evidence is preserved and the human's rationale is captured, stored, and resurfaced. It is addressed in Chapter 2 (§2.6) and Chapter 5 (§5.3–§5.5).
+**SQ2 — Governed knowledge reuse.** How should expert judgment — including the system's core reasoning —
+be represented, validated, reconciled, and stored so it can be reused transparently without unsafe
+generalization or loss of human authority? This question underpins the bidirectional, structured design
+of the artifact (M2–M4A): the AI's evidence is preserved and the expert's rationale is captured, validated,
+stored with provenance, and resurfaced as advisory evidence. It is the central question of the thesis and
+is addressed in Chapter 2 (§2.6, §2.8) and Chapter 5 (§5.3–§5.5).
 
-**SQ3 — Role of judgment.** Is human judgment treated as a temporary correction for current AI limits, or as an essential, reusable asset? This is the central question of the thesis, and it motivates the Human Judgment Memory (M3) as a provenance-tracked, conflict-aware store rather than a transient label buffer. It is addressed in Chapter 2 (§2.6, §2.8) and Chapter 5 (§5.4).
+**SQ3 — Evaluation and transfer.** How can expert judgment be reused and transferred across different
+guideline-operationalization contexts without unsafe generalization or loss of human authority, first in
+software/modeling and, when governance and access permit, in healthcare? This question governs the
+non-destructive parallel comparison (M4B-1) and the evaluation methodology (Chapter 6): transfer is tested
+first within the current software-engineering domain, consistent with the domain-neutral framing in §3.6.
+It is addressed in Chapter 5 (§5.6) and evaluated in Chapter 6.
 
-**SQ4 — Structure and reuse.** How (if at all) is human feedback structured, stored, and reused across cases, models, or runs? This question maps directly to the schema-validated feedback (M2), the judgment memory (M3), and the advisory retrieval (M4A). It is addressed in Chapter 5 and evaluated in Chapter 6.
-
-**SQ5 — The MDE-assessment gap.** What gap remains specifically for interpreting *model variability*, and where does VEGO-AI sit within it? This question positions the contribution against the broader model-assessment literature and is addressed in Chapter 2 (§2.3, §2.4, §2.8).
+**On the retired SQ4/SQ5 (previous draft).** The prior five-sub-question draft's SQ4 (structure and reuse)
+is absorbed into SQ2 (representation/storage) and SQ3 (the effect of reuse), and its SQ5 (the MDE-assessment
+gap) is retained as literature positioning rather than a numbered sub-question — it motivates *why* this
+problem is open (§3.1, Chapter 2) but is not itself a study. See
+`docs/research/phd-proposal/legacy-rq-crosswalk.md` §3 for the full item-by-item disposition; nothing from
+the prior draft is silently dropped.
 
 ## 3.4 Evaluation research questions and hypotheses
 
-The main RQ and SQ1–SQ5 govern the literature synthesis and artifact design. A
+The main RQ and SQ1–SQ3 govern the literature synthesis and artifact design. A
 separate set of empirical questions governs the accuracy-evidence phase. Keeping
 these sets distinct prevents the absence of performance labels from obscuring
 what the design-science work has already established.
@@ -98,11 +137,12 @@ The following table maps the research questions to the thesis structure:
 
 | Question | Addressed in | Artifact layer | Evaluated in |
 | --- | --- | --- | --- |
-| SQ1 Control & timing | Ch 2 §2.5, Ch 5 §5.2 | M1 Selective Review | Ch 7 §7.3 |
-| SQ2 Information direction | Ch 2 §2.6, Ch 5 §5.3–5.5 | M2–M4A | Ch 7 §7.3 |
-| SQ3 Role of judgment | Ch 2 §2.6/§2.8, Ch 5 §5.4 | M3 Judgment Memory | Ch 7 §7.3–7.4 |
-| SQ4 Structure & reuse | Ch 5 §5.3–5.6 | M2–M4B-1 | Ch 6, Ch 7 |
-| SQ5 MDE-assessment gap | Ch 2 §2.3/§2.4/§2.8 | — (positioning) | Ch 9 §9.1 |
+| SQ1 Selective intervention | Ch 2 §2.5, Ch 5 §5.2 | M1 Selective Review | Ch 7 §7.3 |
+| SQ2 Governed knowledge reuse | Ch 2 §2.6/§2.8, Ch 5 §5.3–5.5 | M2–M4A | Ch 7 §7.3–7.4 |
+| SQ3 Evaluation and transfer | Ch 5 §5.6 | M4B-1 | Ch 6, Ch 7 |
+| MDE-assessment gap (positioning, not a numbered SQ) | Ch 2 §2.3/§2.4/§2.8 | — (positioning) | Ch 9 §9.1 |
 | E-RQ1 Baseline errors | Ch 6 §6.10 | B0/B2 | EXP-020/021 |
 | E-RQ2 Targeting & retrieval | Ch 6 §6.10 | M1/M3/M4A | EXP-022 |
 | E-RQ3 Unseen paired effect | Ch 6 §6.10 | B3–B5 | EXP-023–025 |
+
+*Crosswalk from the prior five-sub-question draft is in `docs/research/phd-proposal/legacy-rq-crosswalk.md` §3.*

@@ -55,6 +55,15 @@ How can reusable human judgment be captured, governed, and reused in agentic AI 
 | SQ2 — Governed knowledge reuse | How should expert judgments be represented, validated, reconciled, and stored so they can be reused transparently without unsafe generalization or loss of human authority? | Judgment representation, validation, reconciliation, provenance, authority, and safe reuse |
 | SQ3 — Evaluation and transfer | To what extent does the resulting framework improve assessment quality, consistency, traceability, and expert effort across domains, first in software/modeling and, when governance and access permit, in healthcare? | Empirical effects, limitations, and cross-domain transfer |
 
+> **Update note (added after the 2026-08-05 supervisor call).** The umbrella RQ and SQ1–SQ3 wording above is the correct historical record of what this plan carried on 29 July 2026 and is left unchanged here. On 2026-08-05, a supervisor call with Iris Reinhartz-Berger and Arnon Sturm refined this wording live, in conversation. That refinement is machine-transcribed and recorded, with full evidence and caveats, in [`../meetings/2026-08-05-supervisor-meeting.md`](../meetings/2026-08-05-supervisor-meeting.md) (items E5–E10) and [`../meetings/2026-08-05-supervisor-provenance-manifest.md`](../meetings/2026-08-05-supervisor-provenance-manifest.md).
+>
+> The resulting new canonical working wording is **provisional**, not supervisor-approved — decisions D-RQ-01 (umbrella RQ wording) and D-RQ-02 (SQ1–3 wording) remain formally "Pending" in [`2026-08-05-rq-decision-pack.md`](./2026-08-05-rq-decision-pack.md) until Ali verifies the exact text against his own saved working draft from the call and a supervisor decision is logged. It is reproduced here for traceability only, not as a replacement for the text above:
+>
+> - **U-RQ:** How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
+> - **SQ1 — Selective intervention:** When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
+> - **SQ2 — Governed knowledge reuse:** How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority?
+> - **SQ3 — Evaluation and transfer:** How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare?
+
 ### Three-study mapping
 
 | Study | RQ | Method | Evidence/data | Primary artifacts | Exit evidence |

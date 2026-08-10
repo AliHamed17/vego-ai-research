@@ -176,7 +176,29 @@ EXPECTED_STATUS_COUNTS = {
     "Open": 5,
     "Blocked": 9,
 }
-CANONICAL_QUESTIONS = (
+# 2026-08-10: split into LIVE (current working draft, refined during the 2026-08-05
+# supervisor call) and HISTORICAL (intentional frozen snapshots that must keep the
+# pre-call wording verbatim: the 2026-07-29 execution-plan record and the
+# 2026-08-05 decision pack's "before" baseline). This tracks INTERNAL CONSISTENCY
+# of whichever wording each file is supposed to carry - it does NOT assert
+# supervisor approval. D-RQ-01/D-RQ-02 remain Pending in the decision pack
+# regardless of what this check reports; approval status is tracked there, not here.
+CANONICAL_QUESTIONS_LIVE = (
+    "How can human judgment be captured, governed, and used to support "
+    "agentic-AI-driven variability exploration in guideline operationalization "
+    "scenarios, enabling reliable human–AI co-reasoning?",
+    "When and how, in variability exploration scenarios, should an agentic "
+    "assessment system request human judgment so that important uncertainties "
+    "are addressed without unnecessary expert burden?",
+    "How should expert judgment — including the system's core reasoning — be "
+    "represented, validated, reconciled, and stored so it can be reused "
+    "transparently without unsafe generalization or loss of human authority?",
+    "How can expert judgment be reused and transferred across different "
+    "guideline-operationalization contexts without unsafe generalization or "
+    "loss of human authority, first in software/modeling and, when governance "
+    "and access permit, in healthcare?",
+)
+CANONICAL_QUESTIONS_HISTORICAL = (
     "How can reusable human judgment be captured, governed, and reused in "
     "agentic AI assessment of domain-specific artifacts and processes to "
     "support auditable, reliable, and transferable human–AI co-reasoning?",
@@ -190,13 +212,16 @@ CANONICAL_QUESTIONS = (
     "consistency, traceability, and expert effort across domains, first in "
     "software/modeling and, when governance and access permit, in healthcare?",
 )
-RQ_FILES = (
+LIVE_RQ_FILES = (
     MASTER,
     ROOT / "docs/research/phd-proposal/README.md",
-    ROOT / "docs/research/phd-proposal/2026-07-29-doctoral-execution-plan.md",
-    ROOT / "docs/research/phd-proposal/2026-08-05-rq-decision-pack.md",
     ROOT / "docs/research/phd-proposal/three-study-contract.md",
     ROOT / "docs/research/phd-proposal/proposal-v0.1.md",
+)
+# Frozen snapshots: must keep pre-2026-08-05-call wording verbatim by design.
+HISTORICAL_RQ_FILES = (
+    ROOT / "docs/research/phd-proposal/2026-07-29-doctoral-execution-plan.md",
+    ROOT / "docs/research/phd-proposal/2026-08-05-rq-decision-pack.md",
 )
 MEDIA_DURATION_SECONDS = Decimal("2786.283")
 
@@ -1022,15 +1047,24 @@ def exp02() -> Result:
 
 def exp03() -> Result:
     rq_missing: list[str] = []
-    for path in RQ_FILES:
+    for path in LIVE_RQ_FILES:
         text = read(path)
-        for index, question in enumerate(CANONICAL_QUESTIONS):
+        for index, question in enumerate(CANONICAL_QUESTIONS_LIVE):
             if question not in text:
                 rq_missing.append(f"{path.relative_to(ROOT)}: RQ{index}")
+    for path in HISTORICAL_RQ_FILES:
+        text = read(path)
+        for index, question in enumerate(CANONICAL_QUESTIONS_HISTORICAL):
+            if question not in text:
+                rq_missing.append(f"{path.relative_to(ROOT)}: RQ{index} (historical snapshot)")
+    # PRESENTATION_DECK was built 2026-08-03, before the 2026-08-05 call refined the
+    # wording, and has not been rebuilt since (still checked against HISTORICAL
+    # per its own "STALE" / not-yet-rehearsed status). Rebuild and switch this to
+    # CANONICAL_QUESTIONS_LIVE once the deck is regenerated from the live wording.
     deck_text = re.sub(r"\s+", "", pptx_visible_text(PRESENTATION_DECK))
-    for index, question in enumerate(CANONICAL_QUESTIONS):
+    for index, question in enumerate(CANONICAL_QUESTIONS_HISTORICAL):
         if re.sub(r"\s+", "", question) not in deck_text:
-            rq_missing.append(f"{PRESENTATION_DECK.relative_to(ROOT)}: RQ{index}")
+            rq_missing.append(f"{PRESENTATION_DECK.relative_to(ROOT)}: RQ{index} (historical, as-built 2026-08-03)")
 
     claim_text = read(CLAIM_REGISTER)
     required_claim_states = (

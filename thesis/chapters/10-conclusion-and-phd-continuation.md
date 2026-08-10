@@ -23,17 +23,19 @@ and preserves the original baseline throughout.
 
 ## 10.2 Revisiting the research questions
 
-**RQ.** The research question asked what approaches support human–AI collaboration in AI-assisted domain modeling and model assessment, and how they can inform the design of reusable human-judgment mechanisms. The thesis answered this by surveying six areas of related work, identifying four gaps, and demonstrating a concrete artifact that closes them.
+> **2026-08-10 migration note:** restated against the exactly-three-subquestion structure of Chapter 3
+> §3.3; see `docs/research/phd-proposal/legacy-rq-crosswalk.md` §3 for how the prior five-sub-question
+> draft maps onto SQ1–SQ3. This wording remains provisional pending `D-RQ-01`/`D-RQ-02` supervisor sign-off.
 
-**SQ1 (Control and timing):** the artifact positions itself between on-the-loop and co-reasoning, escalating by exception while making the human's rationale durable and retrievable.
+**U-RQ.** The research question asked how human judgment can be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning. The thesis answered this by surveying six areas of related work, identifying the gaps summarized below, and demonstrating a concrete artifact that closes them.
 
-**SQ2 (Information direction):** information flows bidirectionally — the AI's evidence informs the human's review, and the human's structured decision feeds forward through memory and advisory retrieval.
+**SQ1 (Selective intervention):** the artifact positions itself between on-the-loop and co-reasoning, escalating by exception while making the human's rationale durable and retrievable.
 
-**SQ3 (Role of judgment):** human judgment is treated as a reusable asset, not a transient correction. The judgment memory stores it with provenance and retrieves it for similar future cases. The running example (§4.4–§7.3) illustrates this concretely: a single expert judgment about "Customer as actor" is captured, stored, retrieved as advisory evidence, and used in a controlled comparison — demonstrating the full lifecycle.
+**SQ2 (Governed knowledge reuse):** information flows bidirectionally — the AI's evidence informs the human's review, and the human's structured decision feeds forward through memory and advisory retrieval. Human judgment is treated as a reusable asset, not a transient correction: the judgment memory stores it with provenance and retrieves it for similar future cases. The running example (§4.4–§7.3) illustrates this concretely: a single expert judgment about "Customer as actor" is captured, stored, retrieved as advisory evidence, and used in a controlled comparison — demonstrating the full lifecycle. The combination of schema-validated feedback, provenance-tracked memory, and explainable retrieval is novel in the model-assessment context.
 
-**SQ4 (Structure and reuse):** the combination of schema-validated feedback, provenance-tracked memory, explainable retrieval, and deterministic parallel comparison is novel in the model-assessment context.
+**SQ3 (Evaluation and transfer):** the deterministic parallel comparison mechanism (M4B-1) makes reuse measurable without changing the original result, which is what a transfer claim requires; whether reuse in fact transfers safely across settings and — when governance and access permit — across domains is the open empirical question carried into Chapter 6's evidence gates, not a result claimed here.
 
-**SQ5 (The MDE-assessment gap):** the thesis contributes the missing human-judgment lifecycle for variability interpretation, extending VEGO-AI's substantial/occasional distinction with reusable expert knowledge.
+**Positioning (was SQ5, the MDE-assessment gap):** the thesis contributes the missing human-judgment lifecycle for variability interpretation, extending VEGO-AI's substantial/occasional distinction with reusable expert knowledge. Retained as literature positioning rather than a numbered sub-question, per the crosswalk.
 
 ## 10.3 Honest status
 

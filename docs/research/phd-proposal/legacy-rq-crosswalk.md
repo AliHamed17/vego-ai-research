@@ -4,17 +4,26 @@ Status: **working consolidation map for supervisor review**
 
 Purpose: preserve the value of earlier research questions while enforcing the 29 July requirement for one umbrella question and exactly three subquestions. This document does not declare earlier questions invalid. It reclassifies them as subconstructs, study-level experimental questions, literature tasks, or conditional transfer factors.
 
+**2026-08-10 status note:** the wording below was refined live during the 2026-08-05 supervisor call
+(Iris and Arnon) against the wording this document originally recorded. The crosswalk logic in §§2–8
+(which legacy item maps to which canonical SQ) is **unaffected** by this wording refinement — only the
+exact phrasing of U-RQ/SQ1–SQ3 changed, not their scope or boundaries. `D-RQ-01`/`D-RQ-02` remain formally
+`Pending` until Ali verifies the exact wording against his own saved working draft and a supervisor
+decision is logged; see `docs/research/meetings/2026-08-05-supervisor-meeting.md` for the evidence. Chapter
+3 of the thesis (`thesis/chapters/03-problem-and-research-questions.md`) has been migrated to this wording.
+
 ## 1. Canonical working hierarchy
 
-**U-RQ:** How can reusable human judgment be captured, governed, and reused in agentic AI assessment of domain-specific artifacts and processes to support auditable, reliable, and transferable human–AI co-reasoning?
+**U-RQ:** How can human judgment be captured, governed, and used to support agentic-AI-driven variability
+exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
 
 | Canonical ID | Exact working question |
 | --- | --- |
-| SQ1 — Selective intervention | When and how should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden? |
-| SQ2 — Governed knowledge reuse | How should expert judgments be represented, validated, reconciled, and stored so they can be reused transparently without unsafe generalization or loss of human authority? |
-| SQ3 — Evaluation and transfer | To what extent does the resulting framework improve assessment quality, consistency, traceability, and expert effort across domains, first in software/modeling and, when governance and access permit, in healthcare? |
+| SQ1 — Selective intervention | When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden? |
+| SQ2 — Governed knowledge reuse | How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority? |
+| SQ3 — Evaluation and transfer | How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare? |
 
-The wording remains pending supervisor decision in [`2026-08-05-rq-decision-pack.md`](./2026-08-05-rq-decision-pack.md).
+The wording remains pending supervisor decision in [`2026-08-05-rq-decision-pack.md`](./2026-08-05-rq-decision-pack.md) (`D-RQ-01`, `D-RQ-02`).
 
 ## 2. Current `research-plan.md` crosswalk
 

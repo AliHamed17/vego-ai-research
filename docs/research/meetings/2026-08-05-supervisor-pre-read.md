@@ -40,6 +40,15 @@ To what extent does the resulting framework improve assessment quality, consiste
 
 Two alternate phrasings of the same four conceptual slots are provided in the decision pack. They are wording options, not extra questions.
 
+> **Post-meeting update (2026-08-10):** The umbrella RQ and SQ1–SQ3 wording proposed above was this pre-read's going-in draft for the 2026-08-05 call. During that call, Iris Reinhartz-Berger and Arnon Sturm refined the wording live, in conversation. The refined text was machine-transcribed and is recorded, with full evidence and caveats, in [`2026-08-05-supervisor-meeting.md`](./2026-08-05-supervisor-meeting.md) (see items E5–E10) and the provenance manifest, [`2026-08-05-supervisor-provenance-manifest.md`](./2026-08-05-supervisor-provenance-manifest.md). That source records the following **provisional, working wording** — it is *not* supervisor-approved:
+>
+> - **U-RQ:** How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
+> - **SQ1 — Selective intervention:** When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
+> - **SQ2 — Governed knowledge reuse:** How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority?
+> - **SQ3 — Evaluation and transfer:** How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare?
+>
+> Decisions D-RQ-01 (umbrella RQ wording) and D-RQ-02 (SQ1–SQ3 wording) remain **Pending** in [`2026-08-05-rq-decision-pack.md`](../phd-proposal/2026-08-05-rq-decision-pack.md) until Ali verifies this text against his own saved working draft from the call and a supervisor decision is logged. The pre-read text below is left as originally prepared (the pre-call draft) and should not be read as the outcome of the call.
+
 ## Three-study map
 
 | Study | Question | Method and output |

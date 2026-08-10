@@ -1,0 +1,13 @@
+{
+  "audio": "docs/audio1638342429.m4a",
+  "language_requested": "he",
+  "language_detected": "he",
+  "language_probability": 1,
+  "model": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+  "engine": "faster-whisper",
+  "device": "cpu",
+  "compute_type": "int8",
+  "segments": 2347,
+  "audio_duration_seconds": 3393.9626875,
+  "transcription_wall_seconds": 2825.6
+}

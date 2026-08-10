@@ -1,21 +1,32 @@
 # Three-Study Research Contract
 
-Last updated: 2026-07-30
+Last updated: 2026-08-10 (wording refined per the 2026-08-05 supervisor working call; see status note below)
 Status: Working research contract for supervisor review; question wording, study scope, and Plan A/Plan B assignment are not approved until recorded in the decision/change log.
+
+**2026-08-10 status note:** the umbrella RQ and SQ1–SQ3 wording below were refined live during the
+2026-08-05 supervisor call (Iris and Arnon), against the `2026-07-30` working baseline recorded in
+[`2026-08-05-rq-decision-pack.md`](./2026-08-05-rq-decision-pack.md). This is a **machine-transcribed,
+provisional correction — `D-RQ-01`/`D-RQ-02` remain formally `Pending`** in that pack and in
+`docs/research/meetings/2026-08-05-supervisor-presentation-checklist.md` until Ali verifies the exact
+text against his own saved working draft from the call and logs a supervisor-confirmed decision. Do not
+treat the wording below as approved. See
+[`docs/research/meetings/2026-08-05-supervisor-meeting.md`](../meetings/2026-08-05-supervisor-meeting.md)
+for the evidence.
 
 ## Scientific spine
 
 ### Working umbrella research question
 
-> How can reusable human judgment be captured, governed, and reused in agentic AI assessment of domain-specific artifacts and processes to support auditable, reliable, and transferable human–AI co-reasoning?
+> How can human judgment be captured, governed, and used to support agentic-AI-driven variability
+> exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
 
 ### Working subquestions
 
-1. **SQ1 — Selective intervention:** When and how should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
-2. **SQ2 — Governed knowledge reuse:** How should expert judgments be represented, validated, reconciled, and stored so they can be reused transparently without unsafe generalization or loss of human authority?
-3. **SQ3 — Evaluation and transfer:** To what extent does the resulting framework improve assessment quality, consistency, traceability, and expert effort across domains, first in software/modeling and, when governance and access permit, in healthcare?
+1. **SQ1 — Selective intervention:** When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
+2. **SQ2 — Governed knowledge reuse:** How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority?
+3. **SQ3 — Evaluation and transfer:** How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare?
 
-These questions are deliberately domain-neutral. The software/modeling program can answer all three. Medicine is an optional evaluation context, not a prerequisite for the doctorate.
+These questions are deliberately domain-neutral. The software/modeling program can answer all three. Medicine is an optional evaluation context, not a prerequisite for the doctorate. (SQ3's software-modeling-first / conditional-healthcare framing is carried over unchanged from the pre-call baseline; the call's edits sharpened the *reuse-and-transfer* framing but did not revisit the domain sequencing, which is Plan A/Plan B territory in §"Plan A and Plan B execution contract" below.)
 
 ## Study contracts
 

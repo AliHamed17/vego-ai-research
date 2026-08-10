@@ -79,8 +79,8 @@ exception, not a final disposition.
 
 | ID | Decision requested | Priority | Outcome | Exact correction or rationale | Approver |
 | --- | --- | --- | --- | --- | --- |
-| D-RQ-01 | Umbrella-RQ wording | Mandatory | Pending | — | Iris and Arnon |
-| D-RQ-02 | SQ1, SQ2, and SQ3 wording | Mandatory | Pending | — | Iris and Arnon |
+| D-RQ-01 | Umbrella-RQ wording | Mandatory | Confirm with correction (informal — 2026-08-05 working call, not this rehearsed P-03 presentation) | Dropped "reused"/"reusable" (moved to SQ2) and the "auditable"/"transferable" headline qualifiers; named "variability exploration" and "guideline operationalization" explicitly (Arnon: prior wording blurred the Agentic-AI solution with the research question); kept "reliable ... human–AI co-reasoning". Exact text needs Ali's Step-0 verification against his saved working draft before this becomes a logged decision. See `docs/research/meetings/2026-08-05-supervisor-meeting.md` E5-E7. | Iris and Arnon |
+| D-RQ-02 | SQ1, SQ2, and SQ3 wording | Mandatory | Confirm with correction (informal — 2026-08-05 working call, not this rehearsed P-03 presentation) | SQ1: inserted "variability exploration scenarios," otherwise unchanged. SQ2: tied explicitly to "core reasoning," kept "expert" over "human." SQ3: reworded from an extent-of-improvement framing to a reuse/transfer framing, dropping "transparently." Exact text needs Ali's Step-0 verification before this becomes a logged decision. See `docs/research/meetings/2026-08-05-supervisor-meeting.md` E8-E10. | Iris and Arnon |
 | D-RQ-03 | Three-study mapping and method direction | Mandatory | Pending | — | Iris and Arnon |
 | D-RQ-04 | Plan A as conditional medical transfer and Plan B as complete non-medical route | Mandatory | Pending | — | Iris and Arnon |
 | D-RQ-05 | Every RQ remains answerable under Plan B | Mandatory | Pending | — | Iris and Arnon |

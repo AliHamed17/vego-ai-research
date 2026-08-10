@@ -54,27 +54,39 @@ candidate claims, not conclusions.
 
 ### Umbrella research question
 
-**How can reusable human judgment be captured, governed, and reused in agentic
-AI assessment of domain-specific artifacts and processes to support auditable,
-reliable, and transferable human–AI co-reasoning?**
+**How can human judgment be captured, governed, and used to support
+agentic-AI-driven variability exploration in guideline operationalization
+scenarios, enabling reliable human–AI co-reasoning?**
 
 ### Exactly three subquestions
 
-**SQ1 - Selective intervention:** When and how should an agentic assessment
-system request human judgment so that important uncertainties are addressed
-without unnecessary expert burden?
+**SQ1 - Selective intervention:** When and how, in variability exploration
+scenarios, should an agentic assessment system request human judgment so that
+important uncertainties are addressed without unnecessary expert burden?
 
-**SQ2 - Governed knowledge reuse:** How should expert judgments be represented,
-validated, reconciled, and stored so they can be reused transparently without
-unsafe generalization or loss of human authority?
+**SQ2 - Governed knowledge reuse:** How should expert judgment - including the
+system's core reasoning — be represented, validated, reconciled, and stored so
+it can be reused transparently without unsafe generalization or loss of human
+authority?
 
-**SQ3 - Evaluation and transfer:** To what extent does the resulting framework
-improve assessment quality, consistency, traceability, and expert effort across
-domains, first in software/modeling and, when governance and access permit, in
-healthcare?
+**SQ3 - Evaluation and transfer:** How can expert judgment be reused and
+transferred across different guideline-operationalization contexts without
+unsafe generalization or loss of human authority, first in software/modeling
+and, when governance and access permit, in healthcare?
 
-These questions are the synchronized working wording. D-RQ-01 and D-RQ-02 must
-approve or correct them before they are described as supervisor-approved.
+This is the NEW canonical working wording, refined live during the 5 August
+2026 supervisor call with Iris Reinhartz-Berger and Arnon Sturm. It supersedes
+the ~30 July - 1 August working draft recorded in the
+[RQ decision pack](./2026-08-05-rq-decision-pack.md), which is preserved there
+unchanged as the pre-call snapshot. Evidence and caveats for this refinement
+are in the
+[2026-08-05 supervisor meeting record](../meetings/2026-08-05-supervisor-meeting.md)
+(items E5-E10) and the
+[2026-08-05 supervisor provenance manifest](../meetings/2026-08-05-supervisor-provenance-manifest.md).
+This wording remains **provisional and not supervisor-approved**: D-RQ-01
+(umbrella RQ wording) and D-RQ-02 (SQ1-3 wording) stay Pending until Ali
+verifies the exact text against his own saved working draft from the call and
+a supervisor decision is logged.
 
 ## 4. Three-study argument and evaluation contract
 
