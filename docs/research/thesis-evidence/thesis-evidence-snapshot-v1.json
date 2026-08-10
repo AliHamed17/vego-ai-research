@@ -1,9 +1,9 @@
 {
   "schemaVersion": "ThesisEvidenceSnapshot-v1",
   "generatedAt": "2026-07-25T23:30:48+00:00",
-  "sourceRevision": "45c03f4ce5ae7f18dddc856c9ac416fd5d6d016a",
+  "sourceRevision": "acb42b2071db13285a9cc5a73fb4019d5063d1b7",
   "sourceTreeHash": "3eb339ee61cfb0b0a320c325f4939308c0b9464d8ef666c5382843f6064043c9",
-  "canonicalSourcesDirty": true,
+  "canonicalSourcesDirty": false,
   "programSnapshot": {
     "path": "docs/research/h-layer/program-status-snapshot-v1.json",
     "sha256": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
