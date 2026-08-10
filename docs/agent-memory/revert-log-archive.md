@@ -1646,3 +1646,75 @@ Historical entries.
   - `docs/agent-memory/progress.md` (inserted milestone row)
 - Rollback note: delete the seven added files and the generated prototype run JSON; revert `docs/research/README.md` and `docs/agent-memory/progress.md`. Baseline code under `VEGO-AI/` remains completely clean; no baseline behavior changes.
 - Commands run: `python -m compileall -q scripts/hlayer_prototype/` (PASS); `python scripts/hlayer_prototype/hlayer-prototype-scaffold.py --dry-run` (PASS); `python scripts/hlayer_prototype/hlayer-prototype-scaffold.py --test-conflict` (PASS).
+
+## 2026-07-10 - Codex - Research Loop Iterations 4, 5, and 6
+
+- Files added:
+  - None (tracked code edits only)
+  - ignored: `reports/generated/hlayer_iterations/iter_004/`, `iter_005/`, `iter_006/`
+- Files updated:
+  - `scripts/exp007_dosage_replay.py` (H5 subject bundling implementation)
+  - `scripts/hlayer_iteration_compare.py` (M-B5 and M-B6 metrics comparison rows)
+  - `docs/research/h-layer/experiment-iteration-loop.md` (Tracked Metrics table)
+  - `docs/research/h-layer/experiment-iteration-ledger.md` (three ledger rows added)
+  - `docs/agent-memory/progress.md` (milestone row added)
+- Rollback note: discard local Git changes in `scripts/exp007_dosage_replay.py`, `scripts/hlayer_iteration_compare.py`, and the modified markdown documents. Delete the ignored iterations reports. No VEGO-AI source behavior changed.
+- Commands run: `python -m compileall -q scripts/` (PASS); `.\scripts\run-hlayer-iteration.ps1` (Iterations 4, 5, and 6 suite execution PASS).
+
+## 2026-07-10 - Codex - Research Loop Iteration 7
+
+- Files added:
+  - `scripts/exp009_seeded_conflict.py` (sycophancy check simulation)
+  - `scripts/exp010_convergence_sweep.py` (dialogue convergence bound sweep)
+  - ignored: `reports/generated/exp009/`, `reports/generated/exp010/`, `reports/generated/hlayer_iterations/iter_007/`
+- Files updated:
+  - `experiments/registry.md` (updated statuses to complete)
+  - `scripts/build-hlayer-experiments.ps1` (wired new scripts in execution runner)
+  - `docs/research/h-layer/experiment-iteration-ledger.md` (ledger row added)
+  - `docs/agent-memory/progress.md` (milestone row added)
+- Rollback note: delete the two added scripts and the generated report folders; revert the updated registry and build scripts. No VEGO-AI source behavior changed.
+- Commands run: `python -m compileall -q scripts/` (PASS); `.\scripts\run-hlayer-iteration.ps1` (Iteration 7 execution PASS).
+
+## 2026-07-10 - Codex - Research Loop Iteration 8
+
+- Files added:
+  - None (tracked code edits only)
+  - ignored: `reports/generated/exp004/`, `reports/generated/hlayer_iterations/iter_008/`
+- Files updated:
+  - `experiments/EXP-009-hverify-seeded-conflict-dry-run/README.md` (updated status to complete)
+  - `experiments/EXP-010-convergence-bound-sweep/README.md` (updated status to complete)
+  - `scripts/build-hlayer-experiments.ps1` (wired EXP-004 into the suite runner)
+  - `scripts/run-hlayer-iteration.ps1` (updated iteration snapshot loop to copy exp004/009/010)
+  - `docs/research/h-layer/experiment-iteration-ledger.md` (ledger row added)
+  - `docs/agent-memory/progress.md` (milestone row added)
+- Rollback note: delete the generated report folders; discard local Git changes in the modified readmes, build scripts, progress logs, and ledgers. No VEGO-AI source behavior changed.
+- Commands run: `python -m compileall -q scripts/` (PASS); `.\scripts\run-hlayer-iteration.ps1` (Iteration 8 execution PASS).
+
+## 2026-07-10 23:48 +03:00 - Codex - Reconcile Iteration 10 and implement gated feedback flow
+
+- Files changed:
+  - scripts/feedback_generalizer.py and scripts/tests/test_feedback_generalizer.py
+  - scripts/hlayer_prototype/hlayer-prototype-scaffold.py and scripts/validate_hlayer_program.py
+  - docs/research/h-layer/* status, prompt, learning, iteration, and demo-runbook files
+  - experiments/registry.md and docs/dashboards/*
+  - docs/agent-memory current-state, progress, issues, decisions, resource-memory, review-state, README, and handoff
+- Rollback note: Revert the listed scripts/docs changes; ignored reports/generated feedback_generalizer and hlayer_demo artifacts may be deleted without affecting source or baseline outputs.
+- Git commit: none recorded by script.
+
+## 2026-07-10 23:59 +03:00 - Codex - Close final feedback-flow safety findings
+
+- Files changed:
+  - scripts/feedback_generalizer.py and scripts/tests/test_feedback_generalizer.py
+  - scripts/hlayer_prototype/hlayer-prototype-scaffold.py and scripts/validate_hlayer_program.py
+  - H-layer eligibility docs and shared current-state/decision/issue memory
+- Rollback note: Revert the listed script/doc changes; generated proposal/demo outputs are ignored and may be removed.
+- Git commit: none recorded by script.
+
+## 2026-07-11 00:09 +03:00 - Codex - Finalize trusted-export and atomic publication gates
+
+- Files changed:
+  - scripts/feedback_generalizer.py and scripts/tests/test_feedback_generalizer.py
+  - docs/research/h-layer/feedback-learning-rlhf-plan.md, prompt requirements/architecture, and trusted-feedback-export-manifest.template.json
+  - shared handoff, decisions, issues, current-state, and status surfaces
+- Rollback note: Revert the listed code/docs; if a future rollback failure leaves a .rollback file, preserve and restore it manually rather than deleting it.
+- Git commit: none recorded by script.
