@@ -121,7 +121,7 @@ Implementation totals in this snapshot preserve the audited baseline: `2` accept
 
 | ID | Extraction | Implementation | Acceptance | Ongoing control |
 | --- | --- | --- | --- | --- |
-| R-01 | Machine-only; dual review pending | Evidence ready; wording refined at the 5 Aug working call | Pending Iris/Arnon logged decision | 5 Aug checkpoint held informally (not P-03 rehearsed presentation); Ali to verify exact text against his saved working draft, then log decision |
+| R-01 | Machine-only; dual review pending | Evidence ready | Pending Iris/Arnon decision | 5 Aug checkpoint held informally (not the P-03 rehearsed presentation); wording refined at that call; Ali to verify exact text against his saved working draft, then log the decision |
 | R-02 | Machine-only; dual review pending | Evidence ready | Pending Iris/Arnon decision | 5 Aug checkpoint; Ali; study-contract decision |
 | R-03 | Machine-only; dual review pending | Evidence ready | Pending Iris/Arnon decision | Each proposal version; Ali; six-area completeness evidence |
 | R-04 | Machine-only; dual review pending | Partial | Pending Iris/Arnon adequacy review | Weekly proposal delta; Ali; novelty/scale/resource evidence |
@@ -155,7 +155,7 @@ Implementation totals in this snapshot preserve the audited baseline: `2` accept
 | A-13 | Machine-only; dual review pending | Not started | Pending official route and submission evidence | On confirmed deadline; Ali; approved package and receipt |
 | A-14 | Machine-only; dual review pending | Not started | Pending Graduate Studies response | Immediate inquiry; assigned owner; authoritative policy evidence |
 | A-15 | Machine-only; dual review pending | Not started — blocked | Pending written partner event/status | On partner response; external owner; invitation/minutes evidence |
-| Q-01 | Machine-only; dual review pending | Working answer drafted from 5 Aug call | Pending Iris/Arnon logged decision | 5 Aug checkpoint held informally; supervisors; exact wording outcome and log entry still needed |
+| Q-01 | Machine-only; dual review pending | Not started | Pending Iris/Arnon decision | 5 Aug checkpoint held informally; working answer drafted from that call; supervisors; exact wording outcome and log entry still needed |
 | Q-02 | Machine-only; dual review pending | Not started — blocked | Pending medical-role decision | 26 Aug gate; supervisors/clinical owner; route evidence |
 | Q-03 | Machine-only; dual review pending | Evidence ready | Pending Iris/Arnon decision | 5 Aug checkpoint; supervisors; fallback outcome |
 | Q-04 | Machine-only; dual review pending | Not started | Pending literature-taxonomy decision | 5 Aug/next literature review; supervisors; field decision |
