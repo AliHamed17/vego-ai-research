@@ -4,7 +4,7 @@
 
 - Integrity refresh: `2026-08-10T18:11:46.365923+03:00`
 - Repository base revision at refresh: `0595590216b9ec832de6f70b11f0da8b87e85c6b` (the Aug-10 gate-repair commit following the 2026-08-05 meeting-record merge; all frozen package paths below are byte-identical to this commit)
-- Working-tree note: the working tree matches this revision for every frozen package path; it is not the human RG-04 release freeze. The local PDF and workbooks remain intentionally ignored and are bound below by exact hashes; the older backup ZIP is explicitly stale. Any post-rehearsal package correction requires a new artifact hash and base revision. A provenance-only descendant may record this binding without changing the controlled package paths.
+- Working-tree note: the working tree matches this revision for every frozen package path; it is not the human RG-04 release freeze. When uncommitted non-package documentation exists alongside this binding, the base revision alone does not contain those updates, and the provenance binding may be committed in a later descendant. The local PDF and workbooks remain intentionally ignored and are bound below by exact hashes; the older backup ZIP is explicitly stale. Any post-rehearsal package correction requires a new artifact hash and base revision. A provenance-only descendant may record this binding without changing the controlled package paths.
 
 The integrity refresh revalidated the immutable raw media, ASR, and machine-translation hashes without changing those files. Derived call and governance artifacts received new hashes after their controlled documentation updates.
 
