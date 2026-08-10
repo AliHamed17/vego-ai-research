@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "886c5fbbaab5f1b5021b6661c5a9542a6bc3a934",
-  "packageRevision": "7878f93ad27f1109ab891e4889b6f2f17f78c11a",
-  "sourceTreeHash": "c2998ffdf54d235db0af1a1f76890c2927f2537524fb0d7b40f86381422e9bc0",
+  "sourceRevision": "b605937a45cbef241084a4085030c3788a33b3af",
+  "packageRevision": "b605937a45cbef241084a4085030c3788a33b3af",
+  "sourceTreeHash": "b129a13c429d39e57f54909e044fda9acbf7fbc0b23f4f97a688995fc32ae346",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "e5b5c38c5bd6e4b7e2c340d9220a45075585b556f2b1c35e24da662407222a43",
+    "sha256": "ab7bdbb3e513ab62f4743592a1dd4d02ec94e96037d0a8aa5df579ad3390afb0",
     "bytes": 48267,
     "tracked": true
   },
@@ -22,7 +22,7 @@
     },
     "interactiveHtml": {
       "path": "VEGO-AI-Thesis-Baseline-Progress.html",
-      "sha256": "89861a4493b5d7e0a6af8ab15ff758118ddd4184cda2fea52a38b72a390a82f5",
+      "sha256": "676614ee436c83c98f38f680e902c645a4d3eb57ece45e11f5b617e14dc2c00c",
       "bytes": 81862,
       "tracked": true
     }
@@ -33,12 +33,12 @@
       "filename": "VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.pdf",
       "tracked": false,
       "availableInClone": false,
-      "sha256": "181279212f4c4d140a158a3766b533b6de1dad4a6f17eea67626f838460bed97",
-      "bytes": 1401639
+      "sha256": null,
+      "bytes": null
     },
     "renderVerification": {
       "status": "NOT_RECORDED",
-      "pdfPageCount": 91,
+      "pdfPageCount": null,
       "renderedPageCount": null,
       "sheetCount": null,
       "qaReportSha256": null
@@ -279,7 +279,7 @@
     },
     {
       "path": "thesis/chapters/03-problem-and-research-questions.md",
-      "sha256": "cd8b27b2b9b8276d46a67688a05269bbf0e722914b3ca3263e266c0c332c57e7"
+      "sha256": "847139c06b296aa0751563b78aa68dd8a550ba12577d2f006022770feff400a1"
     },
     {
       "path": "thesis/chapters/04-vego-ai-baseline-pipeline.md",
@@ -287,7 +287,7 @@
     },
     {
       "path": "thesis/chapters/05-human-ai-co-reasoning-artifact.md",
-      "sha256": "de9cc1034f932b793a184fc970d8ce857b17dc48c3d066599083cc1ae684fcba"
+      "sha256": "820a2401dffd803e4e2ce6907ccd65588c7b3c59ae1e69bcfb96428873fffed3"
     },
     {
       "path": "thesis/chapters/06-evaluation-methodology.md",
@@ -303,11 +303,11 @@
     },
     {
       "path": "thesis/chapters/09-discussion.md",
-      "sha256": "2d4aef3ad19f1a23eedd384229186b4f466757870d842dc46b65cb9ad390abb5"
+      "sha256": "f0bdf14309286e919fcb5c90e658b80d506d2beca7852129dca983f7fb7afc0e"
     },
     {
       "path": "thesis/chapters/10-conclusion-and-phd-continuation.md",
-      "sha256": "dccbe777a471b7fa9a0c0b1b985520209bd55bb54a534f0bcf6be1f0f0555e95"
+      "sha256": "640c3485c5716412a04038c74672aee44bd9f0c1ac6b212eaaa07946456d78bc"
     },
     {
       "path": "thesis/chapters/11-references.md",
@@ -331,7 +331,7 @@
     }
   ],
   "toolVersions": {
-    "python": "3.13.3",
+    "python": "3.13.14",
     "jsonschema": "4.26.0"
   },
   "protectedRuntimeChanged": false,
