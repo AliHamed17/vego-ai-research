@@ -31,6 +31,8 @@ $notes = @(
   @("docs\research\meetings\2026-08-05-master-plan.md", "Master Plan (bilingual).md"),
   @("literature\per-rq-literature-map.md", "Per-RQ Literature Map.md"),
   @("docs\research\meetings\2026-08-12-walkthrough-outline.md", "Aug-12 Walkthrough Script.md"),
+  @("docs\research\meetings\2026-08-12-executive-brief.md", "Executive Brief (bilingual).md"),
+  @("docs\research\meetings\2026-08-12-anticipated-qa.md", "Anticipated Q&A (bilingual).md"),
   @("docs\research\meetings\2026-08-10-work-report.md", "Work Report (bilingual).md"),
   @("docs\research\meetings\2026-08-05-supervisor-meeting.md", "Canonical Meeting Record (Aug 5).md")
 )
@@ -38,7 +40,9 @@ $binaries = @(
   "presentations\VEGO-AI-Aug12-Progress-Review-2026-08-12.pptx",
   "outputs\aug12-supervisor-delivery-2026-08-10\VEGO-AI-Aug12-Progress-Review-2026-08-12.pdf",
   "outputs\aug12-supervisor-delivery-2026-08-10\VEGO-AI-Per-RQ-Literature-2026-08-12.xlsx",
-  "outputs\aug12-supervisor-delivery-2026-08-10\VEGO-AI-Chapter-3-Gap-and-Research-Questions-2026-08-12.docx"
+  "outputs\aug12-supervisor-delivery-2026-08-10\VEGO-AI-Chapter-3-Gap-and-Research-Questions-2026-08-12.docx",
+  "outputs\aug12-supervisor-delivery-2026-08-10\VEGO-AI-Executive-Brief-2026-08-12.docx",
+  "outputs\aug12-supervisor-delivery-2026-08-10\VEGO-AI-Anticipated-QA-2026-08-12.docx"
 )
 
 function Publish-To($root, [switch]$IncludeNotes) {

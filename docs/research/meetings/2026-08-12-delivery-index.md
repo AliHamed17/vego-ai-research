@@ -18,6 +18,8 @@ needs ≥20; medical readiness 0/6; no verbatim transcript quotation; reconstruc
 | 1b | `outputs/aug12-supervisor-delivery-2026-08-10/VEGO-AI-Aug12-Progress-Review-2026-08-12.pdf` | PDF | Portable/backup copy of the same deck (open on any device; email-safe). |
 | 2 | `outputs/aug12-supervisor-delivery-2026-08-10/VEGO-AI-Per-RQ-Literature-2026-08-12.xlsx` | Excel (4 sheets) | **Iris's requested literature spreadsheet** — README, Inventory (RQ-tagged), Coverage Gaps, Search Protocol. Drive-ready; replicate its tag column into the native Sheet. |
 | 3 | `outputs/aug12-supervisor-delivery-2026-08-10/VEGO-AI-Chapter-3-Gap-and-Research-Questions-2026-08-12.docx` | Word | **Chapter 3, paste-ready** into the Word proposal (Ali works in Word). |
+| 4 | `outputs/aug12-supervisor-delivery-2026-08-10/VEGO-AI-Executive-Brief-2026-08-12.docx` | Word | **One-page executive brief** (EN+HE) — the 60-second version to open with or hand over. |
+| 5 | `outputs/aug12-supervisor-delivery-2026-08-10/VEGO-AI-Anticipated-QA-2026-08-12.docx` | Word | **Anticipated Q&A / rebuttal prep** (EN+HE) — 12 likely Iris/Arnon questions with evidence-honest answers (read before the meeting). |
 
 ## 2. Supporting documents (repo markdown, sources of record) / מסמכים תומכים
 
@@ -27,6 +29,8 @@ needs ≥20; medical readiness 0/6; no verbatim transcript quotation; reconstruc
 | `docs/research/meetings/2026-08-05-master-plan.md` | Bilingual master plan — every Iris/Arnon requirement, work breakdown, timeline. |
 | `literature/per-rq-literature-map.md` | Per-RQ inventory + coverage-gap analysis (the .xlsx is derived from this). |
 | `docs/research/meetings/2026-08-12-walkthrough-outline.md` | Presenter's screen-share script and claim-discipline guardrails. |
+| `docs/research/meetings/2026-08-12-executive-brief.md` | One-page executive brief (source of the brief .docx). |
+| `docs/research/meetings/2026-08-12-anticipated-qa.md` | Anticipated Q&A / rebuttal prep (source of the Q&A .docx). |
 | `docs/research/meetings/2026-08-05-tracking.md` | Weekly status tracker. |
 | `docs/research/meetings/2026-08-10-work-report.md` | Bilingual work report. |
 | `docs/research/meetings/2026-08-05-supervisor-meeting.md` | Canonical machine-derived meeting record (E1–E15, A08-01..09) — the evidence base for all of the above. |
@@ -42,7 +46,11 @@ markdown are tracked. Bytes and hashes as generated 2026-08-10.
 | VEGO-AI-Aug12-Progress-Review-2026-08-12.pdf | 346059 | `526C64AB0A27F6E63E756E662F34BA0529A45BAA43485C54C49001FDB74D1073` | no (gitignored) |
 | VEGO-AI-Per-RQ-Literature-2026-08-12.xlsx | 12536 | `A038BB5CF9FFC668A4F825B8732F2343397C862BD8CCA8756F4295C1A7BF1587` | no (gitignored) |
 | VEGO-AI-Chapter-3-Gap-and-Research-Questions-2026-08-12.docx | 44643 | `E979D10F8B6AF20844C718D7A07A4E1EBE736138413FA1544DA51A9887B10687` | no (gitignored) |
+| VEGO-AI-Executive-Brief-2026-08-12.docx | 39229 | `93029F6850529D29F4C6F210EE605340EEBDBDDB9EDD6C016BF1F3F50D34E7CD` | no (gitignored) |
+| VEGO-AI-Anticipated-QA-2026-08-12.docx | 42645 | `81C2B6F390DCC51CF83ECDE89759518EB0996551FF70A5B0CD6A15AEAF0A248C` | no (gitignored) |
 | chapter-3-gap-and-research-questions-draft.md | 19305 | `90E145921C7CF0FB2E0C8ABEE9D61CD5BEC8D8AAC2CD185FB7FE8E2AB6AD7884` | yes |
+| 2026-08-12-executive-brief.md | 4654 | `7DB67EE00266B637EF997A7B503AC533ED42D07ABBB0C098BFDB975732A321A8` | yes |
+| 2026-08-12-anticipated-qa.md | 12581 | `0C84592841A7A529825CA7EDBF3285051577E7E6B100A76C076825AE6F0D4FB9` | yes |
 | 2026-08-05-master-plan.md | 17699 | `1AE451D5824E026ABC85F9A285DB1E65C9508AB29B3EE164B406D35C7C0677B1` | yes |
 | per-rq-literature-map.md | 7232 | `ADEDCBFC078590D86F057C89AD282BB549DEE8B30FD0888CA8D3D8DE7649114B` | yes |
 | 2026-08-12-walkthrough-outline.md | 4707 | `132B3B2F0B10ADBF7B026CF46D87D17BDEFF196377C2CE9387F37744A258EE95` | yes |
