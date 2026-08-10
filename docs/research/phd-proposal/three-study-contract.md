@@ -17,8 +17,7 @@ for the evidence.
 
 ### Working umbrella research question
 
-> How can human judgment be captured, governed, and used to support agentic-AI-driven variability
-> exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
+> How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
 
 ### Working subquestions
 
