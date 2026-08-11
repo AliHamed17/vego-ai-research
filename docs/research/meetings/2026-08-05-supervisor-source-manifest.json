@@ -23,8 +23,8 @@
         "docs/research/governance/medical-readiness-scorecard.md"
       ],
       "kind": "file",
-      "bytes": 13428,
-      "sha256": "E340FEA182953DA2E0D635FAFFD91E02DB207BB941A5E176E45F95F03CD5264E"
+      "bytes": 13673,
+      "sha256": "04A7E964C9E24ABF84B6B97B5453870DB946C2F004EC91FD4383F23FE0ABD18B"
     },
     {
       "path": "docs/research/governance/mimic-metadata-audit-2026-07-30.md",
@@ -119,8 +119,8 @@
         "docs/research/meetings/2026-08-05-supervisor-presentation-checklist.md#decision-worksheet"
       ],
       "kind": "file",
-      "bytes": 16770,
-      "sha256": "D5E1E978953E170213BC8CA2D5B32C677F674D4FA4C4741609FDF71401A6C61D"
+      "bytes": 16799,
+      "sha256": "41E17BCA95E381AF705ECD18C62096D9BB2C8D97520C992ECAFC3EC177B37607"
     },
     {
       "path": "docs/research/meetings/2026-08-05-supervisor-presentation-manifest.md",
