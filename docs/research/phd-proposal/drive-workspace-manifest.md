@@ -1,8 +1,24 @@
 # PhD Working Drive Manifest
 
-Date: 2026-07-30 · Contents populated: 2026-08-11
+Date: 2026-07-30 · Contents populated: 2026-08-11 · Consolidated to a single root: 2026-08-12
 Owner: Ali (research lead)
 Status: **structure implemented and populated privately; supervisor sharing and access testing still pending Ali review**
+
+**2026-08-12 consolidation — one canonical root.** Two near-identical trees had appeared in Drive:
+this root and a second folder named `VEGO-AI PhD` (Drive ID `1omVq81a5zygRrNi3VYqoOUp_ZNKrchty`),
+created on 2026-08-10 by an agent session that had not yet found this documented root. A parallel
+session was meanwhile publishing into this root. The duplication was resolved in favour of **this**
+root, because its nine folder IDs are recorded below, it holds the native Google literature Sheet,
+and it was the one Ali created deliberately. Before deletion, every file unique to `VEGO-AI PhD` was
+verified present here (the private preparation folder, and the original `MediVARIA_OnePage_v1.docx`,
+hash-checked byte-identical); its top-level supervisor-package copy was confirmed to be a strict
+subset of `06_Weekly_Meetings\2026-08-12 Supervisor Package`. A stray `VEGO-AI Reports` folder
+(three compliance PDFs) was folded into `04_SE_Modeling_Studies\compliance-reports`. The Obsidian
+vault mirror was consolidated the same way.
+
+To stop this recurring, `scripts/publish-working-drive-pro.ps1` now refuses to publish to any root
+whose leaf name is not `VEGO-AI PhD Working 2026` unless `-AllowNonCanonicalRoot` is passed
+(used only for the vault mirror).
 
 **2026-08-11 population record.** The nine-folder skeleton created on 2026-07-30 held only the
 native literature Sheet; no working outputs had been uploaded, leaving the second half of `A-04`

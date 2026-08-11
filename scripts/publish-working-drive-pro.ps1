@@ -24,12 +24,34 @@
   .\scripts\publish-working-drive-pro.ps1 -WorkingRoot "G:\My Drive\VEGO-AI PhD Working 2026" -ProDocsRoot "<scratch>\prodocs"
 #>
 param(
-  [Parameter(Mandatory = $true)][string]$WorkingRoot,
+  [string]$WorkingRoot = "G:\My Drive\VEGO-AI PhD Working 2026",
   [Parameter(Mandatory = $true)][string]$ProDocsRoot,
-  [switch]$KeepMarkdown
+  [switch]$KeepMarkdown,
+  [switch]$AllowNonCanonicalRoot
 )
 
 $ErrorActionPreference = "Stop"
+
+# ---------------------------------------------------------------------------
+# ONE canonical Drive root. On 2026-08-12 two near-identical trees existed
+# ("VEGO-AI PhD" and "VEGO-AI PhD Working 2026") because two agent sessions
+# published to different roots. They were consolidated into
+# "VEGO-AI PhD Working 2026" - the root whose nine folder IDs are recorded in
+# docs/research/phd-proposal/drive-workspace-manifest.md and which holds the
+# native Google literature Sheet. Publishing anywhere else re-creates the
+# duplication, so it is refused unless explicitly overridden.
+# ---------------------------------------------------------------------------
+$canonicalLeaf = "VEGO-AI PhD Working 2026"
+$leaf = Split-Path -Leaf $WorkingRoot
+if ($leaf -ne $canonicalLeaf -and -not $AllowNonCanonicalRoot) {
+  throw @"
+Refusing to publish to a non-canonical root: '$WorkingRoot'
+
+The canonical PhD Drive root is '...\$canonicalLeaf'. Publishing elsewhere is
+what created duplicate folder trees before. Pass -AllowNonCanonicalRoot only if
+you genuinely intend a second copy (for example the Obsidian vault mirror).
+"@
+}
 $repo = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")
 $out = Join-Path $repo "outputs\aug12-supervisor-delivery-2026-08-10"
 
