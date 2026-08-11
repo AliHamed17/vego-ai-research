@@ -76,6 +76,7 @@ $extras = @{
     (New-Extra "$out\VEGO-AI-Executive-Brief-2026-08-12.pdf" "Executive Brief (EN + HE).pdf")
   )
   "03_Literature_Review"    = @(
+    (New-Extra "$out\VEGO-AI-Research-Literature-Workbook.xlsx" "Research Literature Workbook (139 verified sources).xlsx"),
     (New-Extra "$out\VEGO-AI-Per-RQ-Literature-2026-08-12.xlsx" "Literature Review - Per Research Question.xlsx")
   )
 }
