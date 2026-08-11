@@ -1,8 +1,19 @@
 # PhD Working Drive Manifest
 
-Date: 2026-07-30
+Date: 2026-07-30 · Contents populated: 2026-08-11
 Owner: Ali (research lead)
-Status: **implemented privately; supervisor sharing and access testing pending Ali review**
+Status: **structure implemented and populated privately; supervisor sharing and access testing still pending Ali review**
+
+**2026-08-11 population record.** The nine-folder skeleton created on 2026-07-30 held only the
+native literature Sheet; no working outputs had been uploaded, leaving the second half of `A-04`
+("upload current outputs") open. 54 repo-derived files were published on 2026-08-11 by
+[`scripts/publish-working-drive.ps1`](../../../scripts/publish-working-drive.ps1), which maps repository
+documents to the intended content defined in the table below and writes a per-folder `_README.md`
+stating that folder's honest current state. The native Google Sheet was not touched.
+`07_Submission_Package` and `99_Archive` deliberately received only a `_README.md` — nothing has been
+Ali-approved for submission, and nothing is yet both superseded and reviewed. Sharing and access
+testing remain open (see the access gate at the end of this document); populating the folder is not
+sharing it.
 
 ## Boundary
 
