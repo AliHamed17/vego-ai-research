@@ -32,14 +32,15 @@ One clarification so this doesn't read as "CI is red": **your automated CI only 
 
 **Closes as a consequence:** R-01, R-02, R-03 (six-section proposal completeness — "Pending Iris/Arnon decision"), R-04, R-07, R-08, R-10, A-01, A-10, Q-01, Q-03, Q-04, the `decisions.md` "Recommended, pending approval" entry, IRIS-EXP-09's two [FAIL] checks, and most of IRIS-EXP-10's dependency chain.
 **Owner:** Ali (Step-0 verification first, for D-RQ-01/02 only) → Iris and Arnon (the actual decision).
-**Minor doc bug found along the way:** the checklist's prose says "five mandatory" decisions, but the table itself marks six rows Mandatory (D-RQ-01,02,03,04,05,07). Worth a one-line fix.
+**Minor doc bug found along the way, now fixed:** the checklist's prose said "five mandatory" decisions while the table marked six rows Mandatory (D-RQ-01,02,03,04,05,07) — corrected 2026-08-11.
 
 ### B. Get real expert labels into EXP-005 (0 of 24 generalization-safe rows labeled)
 
 **What's missing:** `reports/generated/exp005-gate.json` — `labels_supplied_count: 0`. Of 27 blind rows, 24 are "generalization-safe" (not duplicates of anything used to build the classifier, so a label there says something real about unseen-case performance). The gate needs **≥20** valid labels (30–50 preferred) before `accuracy_improvement_claim_allowed` or `quantitative_evaluation_allowed` can flip to `true`. Right now `reviewer_reliability.status = "no labels supplied"` — there's nothing yet to compute agreement/kappa from.
 
 **Closes as a consequence:** R-08's evidence-boundary claim state, ISS-006, ISS-007, ISS-013, the Preliminary-Results section-5 "Blocked" claim state, and — for the first time in the project — makes an actual accuracy/generalization statement possible.
-**Owner:** Ali or an appointed independent expert reviewer, sitting down and labeling. No script or agent can substitute for this. A second reviewer should independently label for reliability; disagreements go through `exp005_adjudication_sheet.csv`.
+**Owner:** Ali or an appointed independent expert reviewer, sitting down and labeling. No script or agent can substitute for this — fabricating labels here would be exactly the false-accuracy-narrative risk ISS-012/ISS-013 exist to prevent. A second reviewer should independently label for reliability; disagreements go through `exp005_adjudication_sheet.csv`.
+**Tooling readiness, checked 2026-08-11:** `scripts/exp005_interactive_labeler.py` runs cleanly (smoke-tested), is resumable row-by-row, and writes directly into the schema `build-exp005-label-review.ps1` expects. Nothing left to build here — this is purely waiting on someone to sit down and do it.
 
 ### C. Complete human review of the 1,195 transcript segments (both calls)
 
@@ -62,6 +63,7 @@ One clarification so this doesn't read as "CI is red": **your automated CI only 
 
 **Closes as a consequence:** IRIS-EXP-02, IRIS-EXP-08's rehearsal check, and unblocks rebuilding the offline package backup (currently stale/invalidated because it predates this step).
 **Owner:** Ali.
+**Prep readiness, checked 2026-08-11:** `2026-08-05-supervisor-rehearsal-record.md` already exists as a near-complete form — every automated/render/content QA check is pre-filled and PASS; only the human fields (participant names, start/end time, duration, per-checkpoint pass/fail) are open placeholders. There is nothing left to draft; the only remaining step is the rehearsal itself.
 
 ### F. Get through one full real weekly supervisor cycle with evidence-linked minutes
 
@@ -83,6 +85,7 @@ One clarification so this doesn't read as "CI is red": **your automated CI only 
 
 **Closes as a consequence:** A-14, R-05 (candidacy presentation deck can't be scoped without this), R-18, A-12, A-13, Q-08.
 **Owner:** Ali initiates the written inquiry; Graduate Studies and the supervisors confirm.
+**Draft readiness, checked 2026-08-11:** `docs/research/phd-proposal/university-process-inquiry-draft.md` already exists and is thorough — 12 precise, well-scoped questions covering deadline, reviewer count, nomination, committee composition, mandatory forms, submission channel, format, candidacy exam, lead times, preliminary-results expectations, and the amendment process. Nothing to add to its content. What's actually missing is administrative, not editorial: the exact recipient/office contact, Ali's own program/student details (deliberately left as a placeholder — not something I should guess), and Ali's explicit send-approval. This is genuinely one click away from being sent.
 
 ### I. Name owners and clear all six medical entry gates — or let Plan B take over by design
 
@@ -91,6 +94,7 @@ One clarification so this doesn't read as "CI is red": **your automated CI only 
 **Closes as a consequence, if cleared:** R-09, R-12, A-09, A-11, Q-02, Q-05, Q-06, Q-09, and the entire Plan-A medical branch.
 **Owner:** clinical/governance owners (currently unfilled) + Iris/Arnon + Ali.
 **The project's own safety valve:** this is explicitly gated to a **2026-08-26** checkpoint. If any gate lacks a named owner, an evidence path, and a feasible date by then, **Plan B (non-medical, software/modeling only) becomes the committed default** — this is a designed fallback, not a crisis, and every research question stays answerable under it (that's exactly what D-RQ-05 asks Iris/Arnon to confirm).
+**Added 2026-08-11:** this track is pursued externally under the name **MediVARIA** (a supplied one-page technical/funding proposal, last edited by Iris on 2026-05-05) — see the [MediVARIA overview](../governance/medivaria-medical-extension-overview.md). It supplies a name and an architecture mapping, not a partner or a gate: Medical Partner is independently listed there as "TBD," consistent with this blocker. It also surfaces one new open question only Ali can answer: whether MediVARIA is this same Plan-A track under a public name, or a related-but-separate funding effort — flagged in the overview doc, not guessed here.
 
 ### J. Get the Clalit/innovation-partner meeting actually scheduled and documented
 
@@ -118,9 +122,8 @@ IRIS-EXP-10's remaining closure-only checks (certificate issuance, submission re
 | --- | --- | --- |
 | ISS-012 | Risk that synthetic EXP-004/EXP-005 results get misread as real accuracy evidence | Ongoing discipline: keep synthetic outputs labeled "policy-risk screening only," quote the real-label gate status in every accuracy report |
 | ISS-013 | Single-reviewer EXP-005 labels would be weak evidence for strong claims | Needs the second reviewer + adjudication from Root Blocker B |
-| R-11 / A-08 | The medical-resource familiarization audit claims "four elapsed hours" with no timing record to substantiate it | Produce an actual timing record, or retract the specific claim |
+| R-11 / A-08 | *(Re-checked 2026-08-11 — this is NOT an active issue.)* The original "four elapsed hours" claim was already caught and corrected by decision `DC-013` on 2026-07-30, and every tracked doc since (`master-traceability-register.md`, `iris-requirements-closure-audit.md`, `2026-07-29-doctoral-execution-plan.md`, `proposal-v0.1.md`, the checklist's own Forbidden-claims list) already says "not claimed"/"not recorded," never asserts it as fact. Nothing to fix. The only genuinely open piece is that no one has gone back to capture a real elapsed-time log for a *future* time-boxed audit — low priority, not a live risk. |
 | A-05 | "Source-resource sharing reported sent" but Ali's actual receipt/view access was never independently verified | Verify and record actual access, and note owner/usage restrictions |
-| Checklist wording | Prose says "five mandatory" decisions; table marks six Mandatory | One-line fix to the presentation checklist |
 | Thesis chapter | The candidate "design theory / governed reuse" chapter self-flags a missing canonical citation before it can be submission-ready | Ali finds and cites a canonical design-theory-anatomy reference (e.g., Gregor & Hevner) |
 | EF-13 | Drive folder ACL/owner-authority is only "partially corroborated" — full permission boundary not established | Pull the existing drive-boundary-verification record and get an accountable named-user authorization |
 

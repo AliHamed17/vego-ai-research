@@ -1,6 +1,7 @@
 # Medical Track Readiness Scorecard
 
 **Assessment date:** 2026-07-30
+**Public/funding-facing name:** this track is pursued externally under the name **MediVARIA** — see the [MediVARIA overview](./medivaria-medical-extension-overview.md) for what that document adds. It does not change anything below; still 0/6.
 **Overall verdict:** **NO-GO — BLOCKED (0/6 entry gates passed)**
 **Permitted work now:** governance documentation, public literature review, proposal design, stakeholder coordination, and metadata-only reconciliation that does not expose medical rows.
 **Not permitted:** inspection of a patient/event/encounter row, clinical-note access, medical computation, local-model execution on medical data, a bounded pilot, export, or medical evidence claims.

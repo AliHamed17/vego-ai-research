@@ -90,7 +90,7 @@ exception, not a final disposition.
 | D-RQ-09 | Bounded metadata/schema MIMIC boundary and continued no-row inspection | Time permitting | Pending | — | Iris and Arnon |
 | D-RQ-10 | Owners for medical feasibility and university-process verification | Assignment | Pending | — | Iris and Arnon |
 
-If time is short, close the five mandatory architecture/evidence decisions and assign one next task for unresolved ownership. Do not rush all ten decisions into ambiguous outcomes.
+If time is short, close the six mandatory architecture/evidence decisions (D-RQ-01, 02, 03, 04, 05, 07) and assign one next task for unresolved ownership. Do not rush all ten decisions into ambiguous outcomes.
 
 ## Experiment presentation checklist
 
