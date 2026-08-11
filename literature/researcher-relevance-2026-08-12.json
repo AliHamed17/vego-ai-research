@@ -1,0 +1,802 @@
+{
+ "key_researchers": [
+  {
+   "name": "Iris Reinhartz-Berger",
+   "affiliation": "Professor, Department of Information Systems, University of Haifa, Israel",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook, checked against her institutional page)",
+   "connects_to": "Whole architecture; the substantial-vs-occasional distinction (she defined it); granularity of the human-judgment layer",
+   "why_relevant": "Primary supervisor and first author of the VEGO-AI base paper. She has already published in the human-LLM co-reasoning space herself (Iterative vs Plan-Driven Approaches in Human-LLM Collaborative Modeling, CAiSE 2026; Leveraging LLMs for Domain Modeling, CAiSE 2025), so SQ1 cannot claim to open the control-handover question - only the move from fixed interaction schedules to uncertainty-specific triggering."
+  },
+  {
+   "name": "Arnon Sturm",
+   "affiliation": "Department of Software and Information Systems Engineering, Ben-Gurion University of the Negev, Israel",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "Cheers/ParkWise corpus design and study protocol; SQ3 transfer argument; regulated-domain analogy for the medical extension",
+   "why_relevant": "Co-supervisor and VEGO-AI co-author. The human-vs-machine domain modelling experiments with Bragilovski and Dalpiaz (RE 2024, REJ 2025, EMSE 2026) are the methodological template for measuring when machine output helps or misleads a human. His ER 2025 legal-domain explainable-AI paper is a direct precedent for taking conceptual-modelling machinery into a regulated domain."
+  },
+  {
+   "name": "Maxim Bragilovski",
+   "affiliation": "PhD researcher, Department of Software and Information Systems Engineering, Ben-Gurion University of the Negev",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial - role confirmed, current status not re-confirmed",
+   "connects_to": "Cheers/ParkWise UML corpus and the four-agent pipeline as inherited infrastructure",
+   "why_relevant": "VEGO-AI co-author whose empirical pipeline this doctorate inherits. His four-paper arc (REFSQ 2022, RE 2024, REJ 2025, EMSE 2026) is the evidence base showing that machine-produced models sometimes help and sometimes harm novice modellers - which is the empirical justification for making intervention selective rather than uniform."
+  },
+  {
+   "name": "Arava Tsoury",
+   "affiliation": "University of Haifa, Israel",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial - co-authorship confirmed, exact current post not confirmed",
+   "connects_to": "The human-judgment layer's record schema",
+   "why_relevant": "Co-author of the CAiSE 2026 human-LLM collaborative modelling study and of an Information Systems 2025 paper on how humans combine multiple information sources to explain observations - an empirical account of how a person justifies a judgment, which is exactly the raw material a judgment-representation schema must encode. Inside the supervisor's own group, so approach her before looking outside it."
+  },
+  {
+   "name": "Jordi Cabot",
+   "affiliation": "Head of the Software Engineering RDI Unit, Luxembourg Institute of Science and Technology (LIST); affiliate professor, University of Luxembourg; FNR PEARL Chair (BESSER)",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The human-judgment layer's trigger; BESSER as a plausible SQ3 transfer host",
+   "why_relevant": "Co-author of Towards Human-in-the-Loop LLM-Enabled Domain Modeling (ER 2025), the closest published statement of SQ1's problem outside the supervisors' group. It supplies a non-LLM arbiter architecture with uncertainty-ranked question selection but no policy for when to invoke the human at all. Treat as a competitor for the SQ1 novelty claim, not background. Plausible external examiner."
+  },
+  {
+   "name": "Henderik A. (Erik) Proper",
+   "affiliation": "Full Professor of Enterprise and Process Engineering, Business Informatics Group, TU Wien, Austria (moved from Luxembourg January 2023)",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ3 governance framing; legitimacy of carrying a modelling judgment between organisational contexts",
+   "why_relevant": "Co-author of the ER 2025 human-in-the-loop LLM domain modelling paper and a long-standing authority on the foundations of domain modelling in enterprise contexts. He is the person best placed to challenge or endorse the claim that guideline operationalisation transfers across contexts."
+  },
+  {
+   "name": "Dominik Bork",
+   "affiliation": "Associate Professor, leads the Business Informatics Group, Institute of Information Systems Engineering, TU Wien, Austria",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ2 - reconciling judgments captured at different views and granularities",
+   "why_relevant": "Direct co-author of the primary supervisor (Reinhartz-Berger, Ali, Bork, CAiSE 2025 on LLM granularity and strategy in domain modelling). The natural external bridge between the Haifa variability line and the Vienna conceptual-modelling line; shares a group with Proper. His multi-view modelling and model-consistency work supplies machinery for reconciling judgments without collapsing them."
+  },
+  {
+   "name": "Syed Juned Ali",
+   "affiliation": "Business Informatics Group, TU Wien, Austria",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The human-judgment layer; a reusable interaction dataset for a Study 1 pilot",
+   "why_relevant": "Lead author of How are LLMs Used for Conceptual Modeling? (ER 2024) and of the associated annotated prompt event-log dataset - the most directly reusable SQ1 data asset in this reference set, because it records real human-LLM interaction during conceptual modelling without requiring new expert recruitment."
+  },
+  {
+   "name": "Gunter Mussbacher",
+   "affiliation": "Associate Professor, Department of Electrical and Computer Engineering, McGill University, Montreal, Canada",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The Model Inspector agent; the substantial-vs-occasional distinction",
+   "why_relevant": "Runs the closest competing programme on automated model assessment (Automated Domain Modeling with LLMs: A Comparative Study, MODELS 2023; Embedding-based Automated Assessment of Domain Models, MODELS Companion 2024; Detecting mistakes in a domain model, MODELS Companion 2022). His mistake-detection work assumes 'mistake' is well defined, which is exactly what the occasional-variability category problematises. His comparative protocol is the yardstick SQ3 will be measured against."
+  },
+  {
+   "name": "Daniel (Daniel) Varro",
+   "affiliation": "Professor of Software Engineering, McGill University; also Linkoping University, Sweden; co-founder of IncQuery Labs",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial - genuinely multi-site, reported differently across sources",
+   "connects_to": "SQ2's 'unsafe generalization' detector; consistency of a model after a reused judgment is applied",
+   "why_relevant": "Senior author on the MODELS 2023 comparative study and the embedding-based assessment work. His formal machinery for consistency checking and automatic generation of consistent models is the rigour anchor for verifying that reusing a stored judgment does not introduce inconsistency into the target model."
+  },
+  {
+   "name": "Boqi (Percy) Chen",
+   "affiliation": "PhD 2025, Department of Electrical and Computer Engineering, McGill University (supervised by Mussbacher and Varro)",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified this session (McGill ECE PhD defence announcement and personal page)",
+   "connects_to": "The Model Inspector agent; the nearest published analogue of an LLM judging model correctness",
+   "why_relevant": "Co-author of the MODELS 2023 comparative study, the embedding-based assessment paper, the multi-step iterative domain modelling paper, and MCeT: Behavioral Model Correctness Evaluation using LLMs (MODELS 2025). MCeT is the baseline any claim about LLM-based model assessment quality must acknowledge."
+  },
+  {
+   "name": "Kua Chen",
+   "affiliation": "Department of Electrical and Computer Engineering, McGill University, Canada",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial - group affiliation confirmed this session, current status not confirmed",
+   "connects_to": "The Cheers/ParkWise corpus treated as an assessment corpus; a natural ablation baseline",
+   "why_relevant": "Lead author of Automated Domain Modeling with Large Language Models: A Comparative Study (MODELS 2023) and of Embedding-based Automated Assessment of Domain Models (MODELS Companion 2024). Embedding-based assessment is the mechanical alternative to VEGO-AI's agentic reasoning, so it is the obvious cheap baseline a reviewer will ask about."
+  },
+  {
+   "name": "Yujing Yang",
+   "affiliation": "McGill University, Canada",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial - group affiliation confirmed this session",
+   "connects_to": "The multi-agent iteration pattern behind the four VEGO-AI agents",
+   "why_relevant": "CORRECTION: the requested name 'Yi Yang' does not correspond to anyone in this reference set; the person is Yujing Yang. Lead author of Multi-step Iterative Automated Domain Modeling with Large Language Models (MODELS Companion 2024) and co-author of the 2023 comparative study and the embedding-based assessment paper. Fix the name before it enters any supervisor-facing document."
+  },
+  {
+   "name": "Jorg Kienzle",
+   "affiliation": "School of Computer Science, McGill University, Montreal, Canada",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The substantial-vs-occasional distinction; the reuse semantics of the human-judgment layer",
+   "why_relevant": "Owns the reference-solution automated grading line (Automated Grading of Class Diagrams, MODELS-C 2019; Is automated grading of models effective?, MODELS 2020) whose single-correct-answer assumption this doctorate replaces with governed expert judgment. Separately, with Alam and Mussbacher he originated Concern-Oriented Reuse, which already treats a variability decision as a first-class deferrable reusable artifact - a Tier-2-style mechanism inside a Tier-1 person."
+  },
+  {
+   "name": "Omar Alam",
+   "affiliation": "Department of Computing and Information Systems, Trent University, Peterborough, Canada (NOT Concordia or McGill; PhD at McGill)",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial (workbook explicitly corrects the common affiliation error)",
+   "connects_to": "SQ2 - the boundary between structural reuse and governed reuse",
+   "why_relevant": "Co-author of both grading papers and lead author of Modelling a family of systems for crisis management with concern-oriented reuse (SPE 2017). CORE is the reference point for how far reuse of modelling decisions can be pushed by structure alone, and therefore where governance - validation, reconciliation, retained human authority - has to take over. Closest structural analogue and clearest contrast case at once."
+  },
+  {
+   "name": "Weiyi Bian",
+   "affiliation": "UNCERTAIN - associated with the Alam/Kienzle grading line; reported variously against Trent University and McGill",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Uncertain - affiliation not confirmed this session",
+   "connects_to": "The Cheers/ParkWise corpus; the direct methodological ancestor of student-UML-graded-against-a-reference study designs",
+   "why_relevant": "Lead author of both Automated Grading of Class Diagrams (MODELS-C 2019) and Is automated grading of models effective? (MODELS 2020), the latter empirically evaluated on real undergraduate cohorts of 103 and 89 students. This is the closest existing study design to the corpus the thesis uses, and its assumption is the one the thesis overturns."
+  },
+  {
+   "name": "Maria Blanca Ibanez",
+   "affiliation": "Universidad Carlos III de Madrid, Leganes, Spain",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ1's escalation trigger - which failure class should raise a request",
+   "why_relevant": "Lead author of Can Multimodal Large Language Models Grade Like an Expert? (Computer Applications in Engineering Education, 2025). Her finding that multimodal LLMs fail specifically on semantic interpretation and evaluative reasoning is the most directly usable empirical justification for escalating on interpretation rather than on syntax."
+  },
+  {
+   "name": "Nacir Bouali (with Faizan Ahmed)",
+   "affiliation": "University of Twente, Netherlands",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial - inferred from the CSEDU 2025 author group; not directly confirmed",
+   "connects_to": "SQ1 - mixed-initiative assessment where the instructor retains authority",
+   "why_relevant": "Co-author of Toward Automated UML Diagram Assessment: Comparing LLM-Generated Scores with Teaching Assistants (CSEDU 2025) and of a 2026 follow-up found in this session (Beyond Grading Accuracy: Exploring Alignment of TAs and LLMs, arXiv:2603.16357) that analyses 92 diagrams with six open-source LLMs at criterion level and explicitly frames the result as support for mixed-initiative grading with instructor oversight. New prior art not yet in the workbook - add and verify the venue."
+  },
+  {
+   "name": "Lola Burgueno",
+   "affiliation": "Associate Professor, University of Malaga (Atenea group / ITIS Software), Spain",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "Study 1's evaluation design; the definition of 'important uncertainty' in the human-judgment layer",
+   "why_relevant": "Co-author of On the Utility of Domain Modeling Assistance with Large Language Models (MAGDA, ACM TOSEM 2026), a rigorous user study of whether LLM modelling assistance actually helps - the evaluation design Study 1 should replicate, redirected from suggestion quality to intervention triggering. Her separate uncertainty-management line gives SQ1 a formal vocabulary. She is also General Chair of MODELS 2026, the venue of the base paper."
+  },
+  {
+   "name": "Houari Sahraoui",
+   "affiliation": "Professor, GEODES lab, DIRO, Universite de Montreal, Canada; Vice-Dean, Faculty of Arts and Sciences",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The evaluation story - the strongest adversary for the thesis's claims",
+   "why_relevant": "Senior author on MAGDA and on the few-shot prompt learning for model completion line. Thirty years of automating and evaluating software development makes him the person most likely to ask whether the governed-judgment layer actually beats a well-tuned fully automatic baseline. SQ3's design should pre-empt exactly that comparison."
+  },
+  {
+   "name": "Istvan David",
+   "affiliation": "Assistant Professor, McMaster University, Canada; leads the Sustainable Systems and Methods Lab; McMaster Centre for Software Certification (McSCert)",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ2's reconciliation problem; a software-side analogue of regulated-domain governance for the medical extension",
+   "why_relevant": "MAGDA co-author with a PhD on model consistency management in multi-paradigm settings. His consistency work is directly reusable when stored judgments conflict, and the McSCert certification context is the closest software-side analogue of the governance regime a healthcare arm would need. An early-career collaborator rather than an examiner."
+  },
+  {
+   "name": "Fabiano Dalpiaz",
+   "affiliation": "Professor of Software Production, Utrecht University, Netherlands; PI of the RE lab; Editor-in-Chief of Springer's Requirements Engineering; Steering Committee chair of REFSQ",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The corpus and study protocol; publication routing for SQ1 and SQ2",
+   "why_relevant": "Already a co-author of both Sturm and Bragilovski (REFSQ 2022, RE 2024, REJ 2025, EMSE 2026), so effectively part of the extended supervisory network. His stated focus on the synergies of AI and humans for building trustworthy software is the closest existing statement of the umbrella question in the RE community, and he gatekeeps the two most natural outlets."
+  },
+  {
+   "name": "Hoa Khanh Dam",
+   "affiliation": "Professor and Deputy Head of School (Research), University of Wollongong, Australia",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The four-agent architecture; SQ2's gap statement",
+   "why_relevant": "Sole author of Towards Multi-Agentic AI for automated software design and modelling (ASEW 2025), which explicitly names conflict and inconsistency reconciliation across agent-produced design models as an open challenge. This is the clearest external statement of the SQ2 gap - cite it so the gap is community-recognised rather than self-declared."
+  },
+  {
+   "name": "Qin Ma and Pierre Kelsen",
+   "affiliation": "University of Luxembourg (co-authors with first author Jonathan Silva Mercado)",
+   "tier": "Tier 1 - DIRECT",
+   "verification": "Partial",
+   "connects_to": "The specific mechanism SQ1 must build on or differentiate from",
+   "why_relevant": "The Luxembourg group behind the ER 2025 rule-based moderator and uncertainty-ranked question selection. Worth monitoring for a journal extension that could close more of SQ1 before the thesis does."
+  },
+  {
+   "name": "Hussein Mozannar",
+   "affiliation": "MIT (Clinical Machine Learning group / Institute for Data, Systems and Society), USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The trigger between the Variability Explorer and the human-judgment layer",
+   "why_relevant": "Most consistent author on the modern learning-to-defer line (ICML 2020 consistent surrogates; AISTATS 2023 exact algorithms; a human-AI deferral benchmark). His formulations and released code are the most likely direct baseline for SQ1's escalation policy - read them for what they assume about the expert."
+  },
+  {
+   "name": "David Sontag",
+   "affiliation": "MIT (Clinical Machine Learning Group, CSAIL), USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ1 implementation; a healthcare bridge for SQ3 (read-ahead only - Plan A passes 0 of 6 gates)",
+   "why_relevant": "Senior author on the deferral line and its clinical framing. The group's publication record and public repositories give SQ1 reusable implementations, and the clinical framing is the safest way to read ahead on the medical extension without making any clinical claim."
+  },
+  {
+   "name": "Ran El-Yaniv",
+   "affiliation": "Technion - Israel Institute of Technology",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "How Study 1 reports results without needing an accuracy headline",
+   "why_relevant": "Foundational author on selective classification (JMLR 2010 with Wiener; NeurIPS 2017 with Geifman). The risk-coverage framing - accuracy as a function of the fraction of cases handled without a human - is the reporting instrument SQ1 should adopt, and it is compatible with the current zero-expert-label position because it is a design commitment rather than a result."
+  },
+  {
+   "name": "Yonatan Geifman",
+   "affiliation": "Technion at the time of the 2017 work; current position uncertain (widely reported to have moved to industry)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Uncertain - current affiliation not confirmed",
+   "connects_to": "The concrete wrapper implementation for a coverage-controlled trigger",
+   "why_relevant": "Co-author of Selective Classification for Deep Neural Networks (NeurIPS 2017) and its practical SGR procedure - the closest thing to an off-the-shelf mechanism for guaranteeing a target risk at a chosen coverage level, which is the operational form of 'without unnecessary expert burden'."
+  },
+  {
+   "name": "Mehryar Mohri",
+   "affiliation": "Google Research and Courant Institute, New York University, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "SQ1's objective function under a bounded expert-attention constraint",
+   "why_relevant": "Theory backbone from Learning with Rejection (ALT 2016) through Budgeted Multiple-Expert Deferral (2025). The budgeted work is the most current formal treatment of the constraint that expert attention is finite - which is what turns 'without unnecessary expert burden' from an aspiration into a specifiable objective."
+  },
+  {
+   "name": "Jesse Davis",
+   "affiliation": "KU Leuven, Belgium (DTAI)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The internal structure of the trigger - two distinct escalation channels",
+   "why_relevant": "Senior author of the Machine Learning (2024) reject-option survey. Its ambiguity-versus-novelty rejection taxonomy maps directly onto two different reasons to escalate: 'the four agents disagree' versus 'this case is unlike anything the system has seen', which should not share a threshold."
+  },
+  {
+   "name": "Yarin Gal",
+   "affiliation": "University of Oxford, OATML, UK",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The four agents specifically - avoiding escalation on mere wording differences",
+   "why_relevant": "Co-author of Semantic Uncertainty (ICLR 2023). Meaning-level rather than token-level agreement is what stops the system escalating when two agents expressed the same judgment in different words - a concrete and necessary component of any multi-agent disagreement trigger."
+  },
+  {
+   "name": "Lucy Lu Wang",
+   "affiliation": "University of Washington, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The U-RQ's 'governed' clause",
+   "why_relevant": "Senior author of Know Your Limits: A Survey of Abstention in Large Language Models (TACL 2025). Its epistemic-versus-normative abstention distinction is what allows SQ1 to be framed as governance - some escalations happen because the system does not know, others because it is not the system's place to decide - rather than as pure uncertainty handling."
+  },
+  {
+   "name": "Anirudha Majumdar",
+   "affiliation": "Princeton University, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The formal statement of SQ1 in full: important uncertainties addressed, expert burden minimised",
+   "why_relevant": "Senior author of KnowNo / Robots That Ask For Help (CoRL 2023) - conformal-prediction-calibrated help-seeking by an LLM planner with a minimised help rate and a task-success guarantee. This is the closest existing end-to-end template for what SQ1 is trying to build, in a different application domain."
+  },
+  {
+   "name": "Burr Settles",
+   "affiliation": "University of Wisconsin-Madison at the time of the 2009 survey; current position uncertain (widely reported to be in industry research)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Uncertain - current affiliation not confirmed",
+   "connects_to": "The trigger's candidate-selection policies",
+   "why_relevant": "Author of the canonical Active Learning Literature Survey (2009) - the catalogue of query strategies (uncertainty sampling, query-by-committee, expected model change). Important caveat to state explicitly: active learning selects examples to improve a model, whereas SQ1 selects cases to resolve a judgment; borrowing the framing wholesale would misdescribe the contribution."
+  },
+  {
+   "name": "Eric Horvitz",
+   "affiliation": "Microsoft, Chief Scientific Officer, USA (exact 2026 title not independently re-confirmed)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The derivation of the triggering criterion itself",
+   "why_relevant": "Principles of Mixed-Initiative User Interfaces (CHI 1999) is the theoretical origin of SQ1: weigh the uncertainty of the user's goals against the expected utility of acting versus asking, and take initiative only when automation's expected value exceeds leaving control with the human. Any credible SQ1 chapter derives from, or argues explicitly against, this framing. Also a co-author on the CHI 2019 guidelines."
+  },
+  {
+   "name": "Saleema Amershi",
+   "affiliation": "Partner Research Manager, Microsoft Research AI Frontiers (leads the teams behind AutoGen and Magentic-One), Redmond, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The four agents; the interaction design of an intervention request; preservation of human authority inside an agent team",
+   "why_relevant": "First author of the 18 Guidelines for Human-AI Interaction (CHI 2019), the design vocabulary for what a well-governed intervention request looks like - make clear what the system can do, scope services when in doubt, support efficient correction and dismissal. Her multi-agent platform work is the closest industrial analogue to VEGO-AI's four-agent architecture."
+  },
+  {
+   "name": "Eduardo Mosqueira-Rey",
+   "affiliation": "Universidade da Coruna, Spain",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The Chapter 2 positioning sentence for the human-judgment layer",
+   "why_relevant": "Lead author of the AI Review (2023) human-in-the-loop ML state of the art. Its control-locus taxonomy - active learning, interactive ML, machine teaching - is the standard vocabulary for positioning governed human judgment between system-driven and expert-driven loops."
+  },
+  {
+   "name": "Andreas Metzger",
+   "affiliation": "Senior researcher, Software Systems Engineering, University of Duisburg-Essen and paluno - The Ruhr Institute for Software Technology, Germany",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "A ready-made, empirically validated triggering formalism for SQ1; also Tier 3 via the SPL line",
+   "why_relevant": "Mechanically the most useful person on this list for SQ1. Proactive Process Adaptation Using Deep Learning Ensembles (CAiSE 2019) uses per-prediction reliability estimates to decide the earliest moment an automated action is trustworthy enough to fire - structurally identical to deciding when an agentic assessor should stop and ask. His TAAS 2024 user study on explainable online RL supplies the human-facing evaluation half."
+  },
+  {
+   "name": "Stefanie Rinderle-Ma",
+   "affiliation": "Technical University of Munich (TUM), Chair of Information Systems and Business Process Management, Germany",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The shape of the human-judgment request; a cross-domain (process) bridge for SQ3",
+   "why_relevant": "Senior author of Conversational Process Modelling (BPM Forum 2023). Her group is the leading source on dialogue-based elicitation between systems and domain experts - the interaction-design half of SQ1. Placed in Tier 2 rather than Tier 1 because what the thesis takes is the mechanism, and BPM is a transfer context rather than the home setting."
+  },
+  {
+   "name": "Jessica S. Ancker",
+   "affiliation": "Vanderbilt University Medical Center, USA (the study was conducted at Weill Cornell Medicine)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "A state-dependent interruption cost - the piece the deferral literature lacks; also touches the medical extension",
+   "why_relevant": "Author of the definitive quantitative alert-fatigue study (BMC MIDM 2017): override rates rise with workload and repeated alerts. This is the empirical basis for making the cost of interrupting an expert depend on their current state - a genuine and defensible contribution opening for SQ1 that requires no clinical data and no Plan A gate."
+  },
+  {
+   "name": "Lora Aroyo",
+   "affiliation": "Research Scientist and team lead (Data Excellence for Evaluating Responsibly), Google DeepMind / Google Research, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The substantial-vs-occasional distinction head-on; the EXP-005 label protocol; the judgment store's conflict semantics",
+   "why_relevant": "The central figure for SQ2's hardest assumption. CrowdTruth (AI Magazine 2015) and the later DICES/DIVE datasets argue that annotator disagreement is signal, not noise, and that a single gold standard is the wrong target. Applied here: when two experts disagree about whether a difference is substantial or occasional, the store must preserve that rather than silently resolving it."
+  },
+  {
+   "name": "Barbara Plank",
+   "affiliation": "LMU Munich / Munich Center for Machine Learning (MCML), Germany",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "How SQ2 stores multi-expert judgment; the human-agreement ceiling for SQ3 transfer experiments",
+   "why_relevant": "Author of the human label variation position paper (EMNLP 2022) and co-author of Learning from Disagreement (JAIR 2021). The human-agreement ceiling is the honest denominator for any future EXP-005 analysis, and the reason a naive accuracy target would be the wrong instrument even once labels exist."
+  },
+  {
+   "name": "Federico Cabitza",
+   "affiliation": "University of Milano-Bicocca, Italy (uncertain - not confirmed this session)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Uncertain",
+   "connects_to": "The EXP-005 labelling protocol design",
+   "why_relevant": "Co-author of Toward a Perspectivist Turn in Ground Truthing for Predictive Computing (AAAI 2023). The perspectivist position reframes the 0-of-24 label situation as a design question about what a label should be, rather than only a data shortfall - useful for writing the protocol before the labels arrive."
+  },
+  {
+   "name": "Massimo Poesio",
+   "affiliation": "Queen Mary University of London, UK (uncertain - not confirmed this session)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Uncertain",
+   "connects_to": "The agreement statistics the expert-labelling protocol will report",
+   "why_relevant": "Co-author of Learning from Disagreement (JAIR 2021) and of the standard inter-coder agreement survey (Computational Linguistics 2008). Supplies the statistics vocabulary the labelling protocol must commit to in advance so that later results cannot be accused of post-hoc metric selection."
+  },
+  {
+   "name": "Pang Wei Koh",
+   "affiliation": "University of Washington, USA (Stanford at the time of the WILDS paper); current affiliation not directly confirmed",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "SQ3's evaluation backbone; makes E12's domain-specific vs broadly-transferable distinction operational",
+   "why_relevant": "Lead author of WILDS (ICML 2021). The in-distribution vs out-of-distribution reporting convention and the domain-generalisation / subpopulation-shift split give SQ3 a precise vocabulary for the distinction Arnon demanded between a domain-specific uncertainty and a general capability gap."
+  },
+  {
+   "name": "Sayash Kapoor",
+   "affiliation": "Princeton University, USA (consistent with the research portal record; not directly confirmed)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "Leakage controls over the Cheers/ParkWise corpus",
+   "why_relevant": "Co-author of Leakage and the reproducibility crisis in machine-learning-based science (Patterns 2023). The eight-type leakage taxonomy and the model info sheet template are the most directly reusable methodology artifacts for SQ3 - and with two domains and two diagram languages, cross-split leakage is a live and specific threat, not a generic one."
+  },
+  {
+   "name": "Arvind Narayanan",
+   "affiliation": "Princeton University, USA (not directly confirmed)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The sceptical-reader persona every results sentence must survive",
+   "why_relevant": "Co-author of the leakage and reproducibility work and a prominent critic of over-claimed ML evaluation. Given the 0-of-24 expert-label position, writing every SQ3 evaluation sentence against this persona is the most practical guard against the project's main failure mode."
+  },
+  {
+   "name": "Thomas Zimmermann",
+   "affiliation": "Microsoft Research at the time of the 2009 study; later University of California, Irvine (current affiliation not confirmed)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "SQ3's governance gate - predicting transferability rather than assuming it",
+   "why_relevant": "Lead author of Cross-project defect prediction: a large scale experiment on data vs domain vs process (ESEC/FSE 2009), the key SE precedent for learning WHEN transfer is advisable rather than assuming it. That decision-procedure idea is exactly what the SQ3 governance gate should imitate."
+  },
+  {
+   "name": "Rogardt Heldal",
+   "affiliation": "Western Norway University of Applied Sciences, Norway",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The validity chapter; the strongest counter-position to SQ3",
+   "why_relevant": "Sole author of Is generalisation hindering the adoption of your findings? (ESEM 2024), based on a failed variability-management artifact across five organisations - the closest published counter-position to SQ3's default assumption, in the same problem domain. Cite him against yourself; it is stronger than being cited by an examiner."
+  },
+  {
+   "name": "Annibale Panichella",
+   "affiliation": "Delft University of Technology (TU Delft), Netherlands",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The reporting standard SQ3's evaluation must meet; GPT-4o version drift as a recorded threat",
+   "why_relevant": "Co-author of Breaking the Silence: the Threats of Using LLMs in Software Engineering (ICSE-NIER 2024). He is leading the methodological conversation about how LLM-based SE studies should be designed and reported, which is the bar an examining panel will apply to any VEGO-AI experiment."
+  },
+  {
+   "name": "Ewout W. Steyerberg",
+   "affiliation": "Erasmus MC, Rotterdam, Netherlands (affiliation as listed on the 2016 paper; current post not re-confirmed)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified for the cited paper",
+   "connects_to": "Study 3's design using only the existing corpus",
+   "why_relevant": "Originator, with Frank Harrell, of the internal / internal-external / external validation hierarchy. Internal-external (leave-one-cluster-out) validation is the most practical transfer design available here - leave-one-domain-out across Cheers and ParkWise, leave-one-language-out across class and use-case diagrams - and it needs no new dataset and no medical gate."
+  },
+  {
+   "name": "Gary S. Collins",
+   "affiliation": "University of Oxford, Centre for Statistics in Medicine, UK (inferred from TRIPOD authorship, not directly confirmed)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The reporting standard a healthcare arm would have to satisfy; transplantable to the software side now",
+   "why_relevant": "Lead author of TRIPOD and TRIPOD+AI. Sets the reporting bar for any clinical prediction claim - relevant as read-ahead only, since Plan A passes 0 of 6 entry gates. His mandatory-context-disclosure framing can be adopted on the software side immediately without any clinical commitment."
+  },
+  {
+   "name": "Alan R. Hevner",
+   "affiliation": "University of South Florida, Muma College of Business, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The artifact / relevance / rigour framing of the whole thesis",
+   "why_relevant": "Co-author of the 2004 MISQ guidelines, sole author of the three-cycle view, co-author of Gregor and Hevner (2013) and Baskerville et al. (2018). The single most-cited voice in DSR and the frame an examiner will implicitly benchmark the methodology chapter against. His recent work with vom Brocke and Maedche covers DSR in AI-augmented settings."
+  },
+  {
+   "name": "Ken Peffers",
+   "affiliation": "University of Nevada, Las Vegas - Lee Business School, Professor Emeritus of MIS, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The per-RQ study / artifact / design / evaluation structure Iris required (E13)",
+   "why_relevant": "Lead author of the DSRM process model that will structure the methodology chapter and the three sub-question iterations. Also a long-standing editorial figure around DESRIST, the natural venue community for a DSR-framed methodological contribution."
+  },
+  {
+   "name": "Shirley Gregor",
+   "affiliation": "Australian National University, Research School of Management, Australia",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ2's judgment-representation schema; the thesis's contribution-positioning argument",
+   "why_relevant": "Author of the knowledge contribution framework (Gregor and Hevner 2013), the anatomy of a design theory (Jones and Gregor 2007) and the anatomy of a design principle (Gregor, Kruse and Seidel 2020). The design-principle anatomy is a ready-made schema for storing reusable expert judgment WITH explicit boundary conditions - which is precisely the 'without unsafe generalization' clause of SQ2."
+  },
+  {
+   "name": "Roel J. Wieringa",
+   "affiliation": "University of Twente, Enschede, Netherlands - Chair of Information Systems, emeritus",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "Chapter 3's gap argument (E4) and Chapter 4's study designs",
+   "why_relevant": "Author of the SE-facing design science text (2014). His design-problem vs knowledge-question split is the sharpest available tool for Arnon's requirement to separate the proposed agentic solution from the research question. Technical Action Research is a live candidate design for expert-in-the-loop studies where the researcher is also the tool builder."
+  },
+  {
+   "name": "John R. Venable",
+   "affiliation": "Curtin University, Perth - School of Management and Marketing, Australia",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "Every evaluation-design decision across all three studies",
+   "why_relevant": "Lead author of FEDS (EJIS 2016), the 2012 comprehensive evaluation framework, and the 2026 MEDS successor. He effectively owns the DSR-evaluation literature; the Human Risk and Effectiveness strategy is the one that fits a human-judgment governance artifact. Still publishing in 2026, so a contemporary rather than a historical citation."
+  },
+  {
+   "name": "Richard Baskerville",
+   "affiliation": "Georgia State University, Atlanta, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ2's formalisation of expert learning into reusable design knowledge; the defence of an artifact-leaning doctorate",
+   "why_relevant": "Unusually central because he sits on both methodological lines the thesis needs: co-author of Action Design Research (2011), the precedent for formalising expert learning into reusable design knowledge, and co-author of FEDS/MEDS on evaluation. Also co-author of Baskerville et al. (2018) on the artifact-versus-theory balance."
+  },
+  {
+   "name": "Jan Pries-Heje",
+   "affiliation": "Roskilde University, Denmark",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The evaluation strategy chosen for each of the three studies",
+   "why_relevant": "Co-author of FEDS (2016), the 2012 comprehensive evaluation framework, and MEDS (2026). Part of the three-person team that defines how DSR evaluations are designed; read alongside Venable and Baskerville rather than separately."
+  },
+  {
+   "name": "Sandeep Purao",
+   "affiliation": "Bentley University, Waltham MA, USA",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "The reuse half of the human-judgment layer",
+   "why_relevant": "ADR co-author and co-author of How Designers Use Design Principles (JAIS 2022). That second strand hits SQ2's blind spot directly: representing and storing expert judgment well is not enough - the thesis must show the judgment is APPLIED appropriately when reused, which is where his application-modes work is the relevant instrument."
+  },
+  {
+   "name": "Matti Rossi",
+   "affiliation": "Aalto University School of Business, Finland",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "Positioning continuous in-system formalisation of judgment against ADR's end-of-study formalisation",
+   "why_relevant": "ADR co-author (2011) and co-author of Baskerville et al. (2018). He has also commented on how ADR is being stretched and misapplied (with Sein, EJIS 2019), which is useful when the thesis argues that formalising judgment continuously inside the running system is a different move from ADR's end-of-study formalisation."
+  },
+  {
+   "name": "Maung K. Sein",
+   "affiliation": "University of Agder, Norway",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Partial",
+   "connects_to": "The risk SQ3 exists to manage",
+   "why_relevant": "Lead author of Action Design Research. His ensemble-artifact premise - that an IT artifact is inseparable from the organisational context that shaped it - is the strongest existing statement of the transfer risk SQ3 is designed to manage. Citing him makes that risk a recognised methodological concern rather than a self-identified weakness."
+  },
+  {
+   "name": "Per Runeson",
+   "affiliation": "Lund University, Department of Computer Science, Sweden",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified (workbook)",
+   "connects_to": "Study 1 and Study 2 empirical protocols",
+   "why_relevant": "Lead author of the SE case study guidelines (2009) and the 2012 book. Supplies the empirical protocol, unit-of-analysis discipline and validity-threat taxonomy that the DSR literature does not provide, and that the SE half of an examining panel will expect for any study involving modelling experts."
+  },
+  {
+   "name": "Claes Wohlin",
+   "affiliation": "Blekinge Institute of Technology, Sweden (uncertain - not confirmed this session)",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Uncertain",
+   "connects_to": "Any controlled comparison inside Study 1",
+   "why_relevant": "Lead author of Experimentation in Software Engineering (2012), the standard SE adaptation of experimental design - the reference for threats-to-validity classification and for designing a controlled comparison of triggering policies if Study 1 takes that form."
+  },
+  {
+   "name": "Jan Recker",
+   "affiliation": "Nucleus Professor for Information Systems and Digital Innovation, University of Hamburg, Germany; Adjunct at University of Agder and QUT",
+   "tier": "Tier 2 - ADJACENT-METHOD",
+   "verification": "Verified this session (University of Hamburg Business School pages)",
+   "connects_to": "The formulation and defence of the research questions themselves (E4, E5, E6)",
+   "why_relevant": "Author of the standard IS research-methods guide and Senior Editor at MIS Quarterly. His treatment of how to state, scope and defend a research question is the most direct methodological support for the required rewrite of the umbrella RQ - narrowing it to variability identification and classification, and removing reuse into a sub-question."
+  },
+  {
+   "name": "Klaus Pohl",
+   "affiliation": "Professor, Software Systems Engineering, University of Duisburg-Essen; paluno - The Ruhr Institute for Software Technology, Germany",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The gap statement: human judgment governance was never on the SPL agenda",
+   "why_relevant": "Co-author of the standard SPLE textbook (2005) and of Software product line engineering and variability management: achievements and challenges (FOSE 2014, with Metzger). He defines the canonical variability vocabulary and the field's research agenda, which makes him the authority to cite when arguing that governance of human judgment was never part of that agenda - a 'why is this open' argument rather than a 'why is my design good' one."
+  },
+  {
+   "name": "Klaus Schmid",
+   "affiliation": "Professor, Software Systems Engineering, Institute of Computer Science, University of Hildesheim, Germany (previously Fraunhofer IESE)",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "Community-recognised gap positioning for SQ2 and SQ3",
+   "why_relevant": "Co-author of Generative AI And Software Variability - A Research Vision (VaMoS 2024) and of the SPL variability-metrics SLR (IST 2019). The vision paper is the variability community's own statement of the open agenda at the generative-AI intersection - the document to position against so the gap is theirs rather than self-declared. Also active in VARIABILITY 2026, a plausible venue."
+  },
+  {
+   "name": "Thorsten Berger",
+   "affiliation": "Professor and Chair of Software Engineering, Ruhr University Bochum, Germany; Guest Professor, Chalmers University of Technology and University of Gothenburg, Sweden",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "External-validity check on the substantial-vs-occasional distinction",
+   "why_relevant": "Leading empiricist on variability in real systems - Linux kernel, Android ecosystems, automotive, robotics - and co-author of the VaMoS 2024 vision. His stance that real variability is messy and only partly intentional is the challenge SQ3 must answer if the substantial/occasional distinction is to hold beyond student UML models."
+  },
+  {
+   "name": "Sven Apel",
+   "affiliation": "Professor and Chair of Software Engineering, Saarland University / Saarland Informatics Campus, Germany; ERC Advanced Grant holder",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "A design constraint on the trigger: machine uncertainty may not track human difficulty; also the validity chapter",
+   "why_relevant": "Combines SPL and configurable systems with explicit attention to the human factor, including empirical and neurophysiological methods, and co-authored Views on Internal and External Validity in Empirical SE (ICSE 2015). His recent line testing whether machine uncertainty and human difficulty coincide bears directly on SQ1 - if they do not, model confidence cannot be used as a proxy for 'the human should look at this'. (The specific 2026 ICSE paper on fixation-related potentials and LLM perplexity is reported second-hand in the workbook and was NOT verified this session.)"
+  },
+  {
+   "name": "Sofia Ananieva",
+   "affiliation": "FZI Research Center for Information Technology / Karlsruhe Institute of Technology, Germany",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified this session - NOTE her dblp record appears under the name Sofia Linsbauer, so search both",
+   "connects_to": "SQ2's representation substrate - what a judgment is anchored to",
+   "why_relevant": "Lead author of A conceptual model for unifying variability in space and time (EMSE 2022) and of the KIT monograph on consistent view-based management of variability. A unified conceptual vocabulary for variability is the substrate on which a captured judgment must be anchored if it is to be retrievable and checkable later."
+  },
+  {
+   "name": "Jean-Sebastien Sottet",
+   "affiliation": "Lead Researcher, Luxembourg Institute of Science and Technology (LIST), Belvaux, Luxembourg",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified this session (LIST research profile, dblp)",
+   "connects_to": "SQ3's silent-drift risk; the same institutional orbit as Cabot",
+   "why_relevant": "Works on model-driven engineering, human-centred/'natural' modelling, model-driven digital twins and semantic drift; involved in the KONTEX workshop at MODELS 2026. Semantic drift is precisely the SQ3 failure mode where a stored judgment's meaning shifts as it is carried into a new context."
+  },
+  {
+   "name": "Martin Weyssow",
+   "affiliation": "Research Scientist, Singapore Management University (Centre for Research on Intelligent Software Engineering); PhD at DIRO, Universite de Montreal under Houari Sahraoui",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified this session (personal site, FormaliSE 2026 profile)",
+   "connects_to": "The Sahraoui/GEODES lineage of model-assistance mechanisms",
+   "why_relevant": "His earlier work on recommendation and completion support during modelling activities is context for what 'assistance' meant in MDE before governance was added. His current line is LLMs for software vulnerability detection, which is off-thesis - read the modelling papers only."
+  },
+  {
+   "name": "Monique Snoeck",
+   "affiliation": "Faculty of Economics and Business, KU Leuven, Belgium (Full Professor of Management Information Systems)",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The content of the judgment - the quality criteria an expert applies to a candidate model",
+   "why_relevant": "Co-author of Assessing the Suitability of LLMs in Generating UML Class Diagrams as Conceptual Models (EMMSAD 2025) and the authority on conceptual-model quality in the MERODE lineage. Supplies the quality criteria against which an expert is asked to judge, which is distinct from the trigger that asks them."
+  },
+  {
+   "name": "Roman Lukyanenko",
+   "affiliation": "Associate Professor of Information Systems, McIntire School of Commerce, University of Virginia, USA",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ2 in reverse - curated human judgment governing the agentic system",
+   "why_relevant": "Co-authored Intelligent Agile: Conceptual Modeling and AI for Next-Generation Agile Software Development (HICSS 2026) WITH Arnon Sturm, so an existing supervisory connection exists. His Conceptual Modeling for Machine Learning line argues that domain knowledge in conceptual models should govern how ML is fed and constrained; his information-quality and crowdsourcing work also bears on validating stored judgments."
+  },
+  {
+   "name": "Veda C. Storey",
+   "affiliation": "J. Mack Robinson College of Business, Georgia State University, USA",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Partial",
+   "connects_to": "Positioning the contribution within conceptual modelling rather than only within variability/SPL",
+   "why_relevant": "Senior co-author of Conceptual Modeling: Topics, Themes, and Technology Trends (ACM Computing Surveys, 2023) and of the HICSS 2026 Intelligent Agile paper with Sturm. The field-level authority on where conceptual modelling research is heading. NOTE: venue, year and DOI of the CSUR survey are flagged Partial in the workbook - confirm before citing."
+  },
+  {
+   "name": "Marcello La Rosa",
+   "affiliation": "Queensland University of Technology at the time of the 2017 survey; subsequently University of Melbourne (current affiliation uncertain)",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Partial",
+   "connects_to": "SQ3's cross-domain variability comparison; the safest analogue to clinical pathway variation",
+   "why_relevant": "Lead author of Business Process Variability Modeling: A Survey (ACM Computing Surveys 2017). Provides the cross-domain variability evidence and comparison framework SQ3's transfer argument depends on, and is the closest analogue to clinical pathway variation that can be used now without any patient data or clinical claim."
+  },
+  {
+   "name": "Sebastian Gotz (with Uwe Assmann)",
+   "affiliation": "TUD Dresden University of Technology, Faculty of Computer Science, Software Technology group, Germany",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Verified (workbook)",
+   "connects_to": "The storage format of the human-judgment layer",
+   "why_relevant": "Authors of Towards an Interoperable Model-driven Automated Assessment System for Computer Science Education (MODELS Companion 2024) - the closest existing work on portable representations for assessment artefacts, which is the substrate question underlying SQ2's 'how should judgment be stored'."
+  },
+  {
+   "name": "Alessio Ferrari (with Sallam Abualhaija and Chetan Arora)",
+   "affiliation": "Associated with CNR-ISTI Pisa (Ferrari), SnT University of Luxembourg (Abualhaija) and Monash University (Arora) in prior work - none confirmed this session",
+   "tier": "Tier 3 - DOMAIN-CONTEXT",
+   "verification": "Uncertain",
+   "connects_to": "Cross-domain, cross-document-type reliability evidence for SQ3; a likely reviewer community",
+   "why_relevant": "Authors of Model Generation with LLMs: From Requirements to UML Sequence Diagrams (REW 2024). Provides evidence about how LLM model generation behaves across domains and document types, which is the reliability baseline SQ3's transfer argument sits on. Also an active RE/LLM community likely to review the doctorate's outputs."
+  },
+  {
+   "name": "Ben Green",
+   "affiliation": "University of Michigan, USA (previously Harvard, Berkman Klein Center)",
+   "tier": "Tier 4 - BACKGROUND (but elevated in the read-first list)",
+   "verification": "Partial",
+   "connects_to": "The honesty of the entire human-judgment layer claim; the word 'governed' in the umbrella RQ",
+   "why_relevant": "The Principles and Limits of Algorithm-in-the-Loop Decision Making (CSCW 2019) and The flaws of policies requiring human oversight of government algorithms (CLSR 2022). His argument is that human-oversight mandates routinely fail to deliver real oversight. The U-RQ's promise to 'govern' human judgment is a promise to do better than the thing he shows does not work - so this is the standard the thesis sets for itself."
+  },
+  {
+   "name": "Been Kim",
+   "affiliation": "Senior Staff Research Scientist, Google DeepMind, USA",
+   "tier": "Tier 4 - BACKGROUND",
+   "verification": "Verified (workbook)",
+   "connects_to": "SQ2's representation problem; SQ3's silent concept drift",
+   "why_relevant": "Her TCAV line expresses model behaviour in terms of human-defined concepts rather than raw features, and her recent 'neologism' argument is that human-machine communication needs new shared vocabulary. Substantial vs occasional is a human concept that must become machine-checkable without collapsing into a surface heuristic. Tier 4 rather than 2 because the thesis is unlikely to implement TCAV - read it for the framing."
+  },
+  {
+   "name": "Hilde Weerts",
+   "affiliation": "Eindhoven University of Technology, Department of Mathematics and Computer Science, Netherlands",
+   "tier": "Tier 4 - BACKGROUND",
+   "verification": "Verified this session (institutional research profile); her specific human-oversight work NOT verified",
+   "connects_to": "The regulatory framing around AI Act Article 14 (human oversight), which is already a verified source in the workbook",
+   "why_relevant": "Works on algorithmic fairness in relation to EU non-discrimination law and the AI Act (Algorithmic Unfairness through the Lens of EU Non-Discrimination Law, FAccT 2023) and on Fairlearn. IF she has specific work operationalising Article 14 human-oversight requirements she moves to Tier 2 for the governance mechanism - verify before relying on that."
+  },
+  {
+   "name": "Percy Liang",
+   "affiliation": "Stanford University, USA (uncertain - consistent with the cited papers but not confirmed this session)",
+   "tier": "Tier 4 - BACKGROUND",
+   "verification": "Uncertain",
+   "connects_to": "The human-judgment layer's retrieval design (via Generative Agents); SQ3's reporting convention (via WILDS)",
+   "why_relevant": "His relevance is entirely through two large multi-author artifacts where he is senior author: WILDS (ICML 2021) and Generative Agents (UIST 2023), whose memory stream - retrieval scored by recency, importance and relevance, plus reflection - is the nearest published analogue of a human-judgment memory. Read the papers; do not treat him as a person-level match for this thesis."
+  }
+ ],
+ "sources": [
+  {
+   "title": "Not All Differences Matter: Variability Exploration of Domain Models via Agentic AI",
+   "authors": "Iris Reinhartz-Berger, Maxim Bragilovski, Arnon Sturm",
+   "year": "2026",
+   "venue": "ACM/IEEE 29th International Conference on Model Driven Engineering Languages and Systems (MODELS '26); DOI 10.1145/3822455.3830312",
+   "why_read_first": "READ FIRST. The framework everything is measured against - read it as the specification of what the thesis extends. WARNING: the public record is currently UNVERIFIED (DOI returned 404, ACM DL blocked automated access, not yet on the first author's dblp page). Most likely a timing artefact since MODELS 2026 runs 4-9 October 2026, but a human must confirm the final DOI and pages before citing."
+  },
+  {
+   "title": "Towards Human-in-the-Loop LLM-Enabled Domain Modeling",
+   "authors": "Jonathan Silva Mercado, Qin Ma, Jordi Cabot, Pierre Kelsen, Henderik A. Proper",
+   "year": "2025",
+   "venue": "Conceptual Modeling - ER 2025, LNCS 16189, Springer, pp. 127-145; DOI 10.1007/978-3-032-08623-5_7",
+   "why_read_first": "READ SECOND. The closest published statement of SQ1's problem outside the supervisors' group. It supplies the architectural pattern SQ1 needs - a separate non-LLM arbiter with uncertainty-ranked question selection - but gives no policy for when to invoke the human at all. Treat as a competitor, not background."
+  },
+  {
+   "title": "Iterative vs. Plan-Driven Approaches in Human-LLM Collaborative Modeling: An Empirical Study",
+   "authors": "Iris Reinhartz-Berger, Arava Tsoury",
+   "year": "2026",
+   "venue": "CAiSE 2026 (Advanced Information Systems Engineering), pp. 3-20; DOI 10.1007/978-3-032-28117-3_1",
+   "why_read_first": "READ THIRD. The supervisor's own baseline. It fixes the design space of when control passes between human and LLM but compares two fixed regimes rather than learning a policy - which is exactly the opening SQ1 must claim, and it cannot be omitted."
+  },
+  {
+   "title": "Principles of Mixed-Initiative User Interfaces",
+   "authors": "Eric Horvitz",
+   "year": "1999",
+   "venue": "SIGCHI Conference on Human Factors in Computing Systems (CHI '99), Pittsburgh, pp. 159-166; DOI 10.1145/302979.303030",
+   "why_read_first": "READ EARLY, not as history. The expected-utility criterion for acting versus asking is the decision-theoretic argument SQ1's trigger must be derived from or explicitly argued against."
+  },
+  {
+   "title": "Consistent Estimators for Learning to Defer to an Expert",
+   "authors": "Hussein Mozannar, David A. Sontag",
+   "year": "2020",
+   "venue": "ICML 2020, PMLR 119, pp. 7076-7087; arXiv:2006.01862",
+   "why_read_first": "The concrete formalism and released code most likely to become SQ1's baseline. Read it specifically for what it assumes about the expert - those assumptions are where a modelling-assessment setting will break them."
+  },
+  {
+   "title": "Is automated grading of models effective? Assessing automated grading of class diagrams",
+   "authors": "Weiyi Bian, Omar Alam, Jorg Kienzle",
+   "year": "2020",
+   "venue": "MODELS 2020 (23rd ACM/IEEE Int. Conf. on Model Driven Engineering Languages and Systems), pp. 365-376; DOI 10.1145/3365438.3410944",
+   "why_read_first": "The single-correct-answer assumption in its clearest form, on student class diagrams evaluated against real cohorts. This is the contrast case that makes the substantial-vs-occasional distinction load-bearing rather than decorative."
+  },
+  {
+   "title": "Truth Is a Lie: Crowd Truth and the Seven Myths of Human Annotation",
+   "authors": "Lora Aroyo, Chris Welty",
+   "year": "2015",
+   "venue": "AI Magazine 36(1), pp. 15-24; DOI 10.1609/aimag.v36i1.2564",
+   "why_read_first": "Read BEFORE designing the EXP-005 label protocol, not after. It changes what 'a label' should be when two experts legitimately disagree about whether a difference is substantial or occasional."
+  },
+  {
+   "title": "On the Utility of Domain Modeling Assistance with Large Language Models",
+   "authors": "Meriem Ben Chaaben, Lola Burgueno, Istvan David, Houari A. Sahraoui",
+   "year": "2026",
+   "venue": "ACM Transactions on Software Engineering and Methodology (MAGDA); DOI 10.1145/3744920; preprint arXiv:2410.12577",
+   "why_read_first": "The evaluation design Study 1 should imitate - a rigorous user study of whether LLM modelling assistance actually helps - redirected from suggestion quality to intervention triggering."
+  },
+  {
+   "title": "The flaws of policies requiring human oversight of government algorithms",
+   "authors": "Ben Green",
+   "year": "2022",
+   "venue": "Computer Law & Security Review, volume 45",
+   "why_read_first": "The strongest available argument that mandated 'human oversight' is usually theatre. Read it as the standard the word 'governed' in the umbrella research question commits the thesis to meeting."
+  },
+  {
+   "title": "WILDS: A Benchmark of in-the-Wild Distribution Shifts",
+   "authors": "Pang Wei Koh, Shiori Sagawa, et al. (23 authors, incl. Percy Liang)",
+   "year": "2021",
+   "venue": "ICML 2021, PMLR 139",
+   "why_read_first": "Gives SQ3 its in-distribution vs out-of-distribution reporting convention and the domain-generalization / subpopulation-shift split - the vocabulary that makes the required domain-specific vs broadly-transferable distinction operational rather than rhetorical."
+  },
+  {
+   "title": "Generative AI And Software Variability - A Research Vision",
+   "authors": "Sandra Greiner, Klaus Schmid, Thorsten Berger, Sebastian Krieter, Kristof Meixner",
+   "year": "2024",
+   "venue": "18th Int. Working Conference on Variability Modelling of Software-Intensive Systems (VaMoS 2024), Bern; DOI 10.1145/3634713.3634722",
+   "why_read_first": "The variability community's own statement of the open agenda at the generative-AI intersection. Cite it so the gap addressed by SQ2 and SQ3 is theirs rather than self-declared."
+  },
+  {
+   "title": "A Design Science Research Methodology for Information Systems Research",
+   "authors": "Ken Peffers, Tuure Tuunanen, Marcus A. Rothenberger, Samir Chatterjee",
+   "year": "2007",
+   "venue": "Journal of Management Information Systems 24(3), pp. 45-77",
+   "why_read_first": "The process model that structures Chapter 4 and the three sub-question iterations. Read alongside FEDS (Venable, Pries-Heje & Baskerville, EJIS 2016) for the evaluation-strategy vocabulary that makes each study design defensible."
+  },
+  {
+   "title": "FEDS: a Framework for Evaluation in Design Science Research",
+   "authors": "John Venable, Jan Pries-Heje, Richard Baskerville",
+   "year": "2016",
+   "venue": "European Journal of Information Systems 25(1), pp. 77-89",
+   "why_read_first": "Pairs with Peffers. The Human Risk & Effectiveness evaluation strategy is the one that fits a human-judgment governance artifact, and it justifies an evaluation design that does not rest on a single accuracy number."
+  },
+  {
+   "title": "Beyond Grading Accuracy: Exploring Alignment of TAs and LLMs",
+   "authors": "Matthijs Jansen op de Haar, Nacir Bouali, Faizan Ahmed",
+   "year": "2026",
+   "venue": "arXiv:2603.16357 (v1 17 March 2026, v2 17 June 2026); publication venue unknown",
+   "why_read_first": "NEW - found and verified on arXiv in this session, not yet in the literature workbook. Criterion-level comparison of six open-source LLMs against teaching-assistant grades on 92 UML class diagrams, framed explicitly as support for mixed-initiative grading with instructor oversight. Close to SQ1; add to the workbook and check whether it has been formally published."
+  },
+  {
+   "title": "Is generalisation hindering the adoption of your findings?",
+   "authors": "Rogardt Heldal",
+   "year": "2024",
+   "venue": "18th ACM/IEEE Int. Symposium on Empirical Software Engineering and Measurement (ESEM 2024), pp. 348-358; DOI 10.1145/3674805.3686694",
+   "why_read_first": "Just outside the top twelve but important: the closest published counter-position to SQ3's default assumption, based on a failed variability-management artifact across five organisations. Cite it against yourself before an examiner does."
+  },
+  {
+   "title": "Design Science Methodology for Information Systems and Software Engineering",
+   "authors": "Roel J. Wieringa",
+   "year": "2014",
+   "venue": "Springer, Berlin/Heidelberg (book); ISBN 978-3-662-43838-1",
+   "why_read_first": "Just outside the top twelve. His design-problem vs knowledge-question split is the sharpest tool available for the supervisor requirement to separate the proposed agentic solution from the research question."
+  },
+  {
+   "title": "Research Perspectives: The Anatomy of a Design Principle",
+   "authors": "Shirley Gregor, Leona Chandra Kruse, Stefan Seidel",
+   "year": "2020",
+   "venue": "Journal of the Association for Information Systems 21, pp. 1622-1652; DOI 10.17705/1jais.00649",
+   "why_read_first": "Just outside the top twelve. A ready-made schema for storing reusable expert judgment WITH explicit boundary conditions, which is precisely SQ2's 'without unsafe generalization' clause. Note: the issue number is unconfirmed in the workbook and the second author's name appears in two forms."
+  },
+  {
+   "title": "Can Multimodal Large Language Models Grade Like an Expert? A Study on UML Class Diagram Assessment Accuracy",
+   "authors": "Maria Blanca Ibanez, Maria Lucia Barron-Estrada, Ramon Zatarain-Cabada",
+   "year": "2025",
+   "venue": "Computer Applications in Engineering Education 33(5), article e70080; DOI 10.1002/cae.70080",
+   "why_read_first": "The most usable empirical justification for escalating on semantic interpretation and evaluative reasoning rather than on syntax - i.e. evidence about WHICH failure class the SQ1 trigger should be tuned to catch."
+  },
+  {
+   "title": "Towards Multi-Agentic AI for automated software design and modelling: challenges and opportunities",
+   "authors": "Hoa Khanh Dam",
+   "year": "2025",
+   "venue": "ASEW 2025 (IEEE/ACM ASE Workshops), MAS-GAIN workshop, Seoul, pp. 311-314; DOI 10.1109/ASEW67777.2025.00063",
+   "why_read_first": "The clearest EXTERNAL statement of the SQ2 gap: it explicitly names conflict and inconsistency reconciliation across agent-produced design models as an open challenge. Cite it so the gap is community-recognised."
+  },
+  {
+   "title": "Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners",
+   "authors": "Allen Z. Ren, Anushri Dixit, et al. (14 authors, senior author Anirudha Majumdar)",
+   "year": "2023",
+   "venue": "Conference on Robot Learning (CoRL 2023), PMLR 229, pp. 661-682; arXiv:2307.01928",
+   "why_read_first": "The closest existing end-to-end template for SQ1 in a different application domain: conformal-prediction-calibrated help-seeking with an explicitly minimised help rate and a task-success guarantee."
+  }
+ ]
+}

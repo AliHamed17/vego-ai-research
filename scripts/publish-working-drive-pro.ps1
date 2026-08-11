@@ -69,7 +69,15 @@ $extras = @{
   "00_Admin_and_Decisions"  = @(
     (New-Extra "$out\VEGO-AI-Requirements-and-Tracking-2026-08-12.xlsx" "Requirements and Progress Tracking.xlsx")
   )
+  "01_Research_Questions"   = @(
+    (New-Extra "$out\VEGO-AI-Research-Questions-and-Answering-Plan.docx" "Research Questions and Answering Plan.docx"),
+    (New-Extra "$out\VEGO-AI-Research-Questions-and-Answering-Plan.pdf" "Research Questions and Answering Plan.pdf")
+  )
   "02_PhD_Proposal"         = @(
+    (New-Extra "$out\VEGO-AI-Chapter-1-Introduction-draft.docx" "Chapter 1 - Introduction (early draft).docx"),
+    (New-Extra "$out\VEGO-AI-Chapter-1-Introduction-draft.pdf" "Chapter 1 - Introduction (early draft).pdf"),
+    (New-Extra "$out\VEGO-AI-Chapter-6-Work-Plan.docx" "Chapter 6 - Work Plan.docx"),
+    (New-Extra "$out\VEGO-AI-Chapter-6-Work-Plan.pdf" "Chapter 6 - Work Plan.pdf"),
     (New-Extra "$out\VEGO-AI-Chapter-3-Gap-and-Research-Questions-2026-08-12.docx" "Chapter 3 - Gap and Research Questions.docx"),
     (New-Extra "$out\VEGO-AI-Chapter-3-Gap-and-Research-Questions-2026-08-12.pdf" "Chapter 3 - Gap and Research Questions.pdf"),
     (New-Extra "$out\VEGO-AI-Executive-Brief-2026-08-12.docx" "Executive Brief (EN + HE).docx"),
@@ -77,6 +85,7 @@ $extras = @{
   )
   "03_Literature_Review"    = @(
     (New-Extra "$out\VEGO-AI-Research-Literature-Workbook.xlsx" "Research Literature Workbook (139 verified sources).xlsx"),
+    (New-Extra "$out\VEGO-AI-Researchers-Related-To-This-Research.xlsx" "Researchers Related To This Research (95, tiered).xlsx"),
     (New-Extra "$out\VEGO-AI-Per-RQ-Literature-2026-08-12.xlsx" "Literature Review - Per Research Question.xlsx")
   )
 }
