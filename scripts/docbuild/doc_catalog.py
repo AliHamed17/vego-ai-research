@@ -112,6 +112,12 @@ CATALOG = [
      "Medical Derived-Artifact Provenance Template", "Medical Derived-Artifact Provenance Template",
      "Blank template for a future authorized artifact. No medical artifact has been produced or approved for export."),
 
+    ("docs/research/governance/vego-ai-foundation-paper-record.md", "05_Medical_Feasibility_Gated",
+     "VEGO-AI Foundation Paper - Record and Claim Verification", "VEGO-AI Foundation Paper Record",
+     "Verified against the published MODELS 2026 paper. Three of four cited figures are exact; one is overstated and is corrected here."),
+    ("docs/research/governance/supplied-drive-inventory-2026-08-11.md", "05_Medical_Feasibility_Gated",
+     "Supplied Drive Inventory (metadata only, 2026-08-11)", "Supplied Drive Folders - Metadata-Only Inventory",
+     "Metadata-only observation. No patient row was opened, copied, or processed. Records a third clinical dataset (EHRSHOT) not named in any prior control."),
     # ---------------- 06_Weekly_Meetings ----------------
     ("docs/research/meetings/2026-08-05-supervisor-meeting.md", "06_Weekly_Meetings",
      "2026-08-05 Meeting Record (machine transcript, unreviewed)", "Supervisor Meeting Record, 5 August 2026",

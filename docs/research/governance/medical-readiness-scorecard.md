@@ -3,6 +3,7 @@
 **Assessment date:** 2026-07-30
 **Public/funding-facing name:** this track is pursued externally under the name **MediVARIA** — see the [MediVARIA overview](./medivaria-medical-extension-overview.md) for what that document adds. It does not change anything below; still 0/6.
 **Overall verdict:** **NO-GO — BLOCKED (0/6 entry gates passed)**
+**2026-08-11 — a third clinical dataset was observed.** A supplied Drive folder contains **EHRSHOT** (OMOP-CDM patient-level tables) alongside `mimic-iii-1.4`. EHRSHOT is named in none of the gates, questions, or plans below, all of which were written against MIMIC and Clalit. Gate 1 and Gate 3 both require a *named* data source, so this must be resolved before either gate can be assessed, let alone passed. Inventory and required actions: [supplied-drive inventory](./supplied-drive-inventory-2026-08-11.md); fact row `EF-17`. Nothing in that folder has been opened, copied, or processed — its presence changes no verdict below.
 **Permitted work now:** governance documentation, public literature review, proposal design, stakeholder coordination, and metadata-only reconciliation that does not expose medical rows.
 **Not permitted:** inspection of a patient/event/encounter row, clinical-note access, medical computation, local-model execution on medical data, a bounded pilot, export, or medical evidence claims.
 
