@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 600" width="1180" height="600" font-family="Calibri, 'Segoe UI', Arial, sans-serif">
+<rect width="1180" height="600" fill="#ffffff"/>
+<rect x="30" y="70" width="470" height="424" rx="10" ry="10" fill="#f5f8fd" stroke="#2f5aa8" stroke-width="1.5"/>
+<text x="60" y="100" font-size="12" fill="#2f5aa8" text-anchor="start" font-weight="700" letter-spacing="0.06em">VEGO-AI BASELINE (published)</text>
+<rect x="540" y="70" width="610" height="424" rx="10" ry="10" fill="#fdf9f0" stroke="#c8860d" stroke-width="1.5"/>
+<text x="570" y="100" font-size="12" fill="#8a5c05" text-anchor="start" font-weight="700" letter-spacing="0.06em">DOCTORAL EXTENSION — GOVERNED HUMAN JUDGMENT</text>
+<rect x="60" y="124" width="190" height="62" rx="8" ry="8" fill="#2f5aa8"/>
+<text x="155.0" y="145.5" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Language Advisor</text>
+<text x="155.0" y="164.5" font-size="11" fill="#e8edf7" text-anchor="middle">language template</text>
+<rect x="280" y="124" width="190" height="62" rx="8" ry="8" fill="#1e8e5a"/>
+<text x="375.0" y="145.5" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Domain Advisor</text>
+<text x="375.0" y="164.5" font-size="11" fill="#e8edf7" text-anchor="middle">reference guidelines</text>
+<rect x="60" y="214" width="190" height="62" rx="8" ry="8" fill="#6b3fa0"/>
+<text x="155.0" y="235.5" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Model Inspector</text>
+<text x="155.0" y="254.5" font-size="11" fill="#e8edf7" text-anchor="middle">compliance + signals</text>
+<rect x="280" y="214" width="190" height="62" rx="8" ry="8" fill="#c8860d"/>
+<text x="375.0" y="235.5" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Variability Explorer</text>
+<text x="375.0" y="254.5" font-size="11" fill="#e8edf7" text-anchor="middle">substantial / occasional</text>
+<path d="M250.0,155.0 L272.4,155.0" stroke="#44506b" stroke-width="1.3" fill="none"/>
+<polygon points="280.0,155.0 271.7,158.4 271.7,151.6" fill="#44506b"/>
+<path d="M155.0,186.0 L155.0,206.3" stroke="#44506b" stroke-width="1.3" fill="none"/>
+<polygon points="155.0,214.0 151.6,205.7 158.4,205.7" fill="#44506b"/>
+<path d="M250.0,245.0 L272.4,245.0" stroke="#44506b" stroke-width="1.3" fill="none"/>
+<polygon points="280.0,245.0 271.7,248.4 271.7,241.6" fill="#44506b"/>
+<path d="M375.0,186.0 L375.0,206.3" stroke="#44506b" stroke-width="1.3" fill="none"/>
+<polygon points="375.0,214.0 371.6,205.7 378.4,205.7" fill="#44506b"/>
+<rect x="60" y="306" width="410" height="76" rx="6" ry="6" fill="#ffffff" stroke="#c3cad8" stroke-width="1.2"/>
+<text x="80" y="330" font-size="12" fill="#1b2a4a" text-anchor="start" font-weight="700">Baseline outputs</text>
+<text x="80" y="350" font-size="11" fill="#5b6472" text-anchor="start">compliance vectors · uncovered fragments · deviation patterns</text>
+<text x="80" y="368" font-size="11" fill="#5b6472" text-anchor="start">confidence signals · review flags</text>
+<text x="265" y="424" font-size="11.5" fill="#2f5aa8" text-anchor="middle" font-style="italic">The baseline detects and classifies variability.</text>
+<text x="265" y="444" font-size="11.5" fill="#2f5aa8" text-anchor="middle" font-style="italic">It does not decide when to ask a person,</text>
+<text x="265" y="464" font-size="11.5" fill="#2f5aa8" text-anchor="middle" font-style="italic">nor what to keep from the answer.</text>
+<rect x="570" y="124" width="250" height="74" rx="8" ry="8" fill="#ffffff" stroke="#2f5aa8" stroke-width="1.6"/>
+<text x="695.0" y="151.5" font-size="13" fill="#1b2a4a" text-anchor="middle" font-weight="700">RQ1 · Selective intervention</text>
+<text x="695.0" y="170.5" font-size="11" fill="#5b6472" text-anchor="middle">when should the system ask?</text>
+<rect x="870" y="124" width="250" height="74" rx="8" ry="8" fill="#ffffff" stroke="#c3cad8" stroke-width="1.4"/>
+<text x="995.0" y="151.5" font-size="13" fill="#1b2a4a" text-anchor="middle" font-weight="700">Expert review</text>
+<text x="995.0" y="170.5" font-size="11" fill="#5b6472" text-anchor="middle">decision · rationale · scope</text>
+<rect x="570" y="236" width="250" height="74" rx="8" ry="8" fill="#ffffff" stroke="#1e8e5a" stroke-width="1.6"/>
+<text x="695.0" y="263.5" font-size="13" fill="#1b2a4a" text-anchor="middle" font-weight="700">RQ2 · Judgment lifecycle</text>
+<text x="695.0" y="282.5" font-size="11" fill="#5b6472" text-anchor="middle">represent · validate · store</text>
+<rect x="870" y="236" width="250" height="74" rx="8" ry="8" fill="#ffffff" stroke="#c3cad8" stroke-width="1.4"/>
+<text x="995.0" y="263.5" font-size="13" fill="#1b2a4a" text-anchor="middle" font-weight="700">Judgment memory</text>
+<text x="995.0" y="282.5" font-size="11" fill="#5b6472" text-anchor="middle">scoped · contestable · revocable</text>
+<rect x="720" y="348" width="250" height="74" rx="8" ry="8" fill="#ffffff" stroke="#6b3fa0" stroke-width="1.6"/>
+<text x="845.0" y="375.5" font-size="13" fill="#1b2a4a" text-anchor="middle" font-weight="700">RQ3 · Transfer and evaluation</text>
+<text x="845.0" y="394.5" font-size="11" fill="#5b6472" text-anchor="middle">domain-specific vs transferable</text>
+<path d="M470.0,245.0 L564.1,165.9" stroke="#c8860d" stroke-width="1.6" fill="none"/>
+<polygon points="570.0,161.0 565.8,168.9 561.4,163.8" fill="#c8860d"/>
+<text x="500" y="196" font-size="10" fill="#8a5c05" text-anchor="start" font-style="italic">uncertainty</text>
+<path d="M820.0,161.0 L862.4,161.0" stroke="#44506b" stroke-width="1.4" fill="none"/>
+<polygon points="870.0,161.0 861.7,164.4 861.7,157.6" fill="#44506b"/>
+<path d="M995.0,198.0 L995.0,228.3" stroke="#44506b" stroke-width="1.4" fill="none"/>
+<polygon points="995.0,236.0 991.6,227.7 998.4,227.7" fill="#44506b"/>
+<path d="M870.0,273.0 L827.6,273.0" stroke="#44506b" stroke-width="1.4" fill="none"/>
+<polygon points="820.0,273.0 828.3,269.6 828.3,276.4" fill="#44506b"/>
+<path d="M695.0,198.0 L695.0,228.3" stroke="#44506b" stroke-width="1.4" fill="none"/>
+<polygon points="695.0,236.0 691.6,227.7 698.4,227.7" fill="#44506b"/>
+<path d="M695.0,310.0 L753.4,344.1" stroke="#44506b" stroke-width="1.4" fill="none"/>
+<polygon points="760.0,348.0 751.1,346.7 754.5,340.9" fill="#44506b"/>
+<path d="M995.0,310.0 L936.6,344.1" stroke="#44506b" stroke-width="1.4" fill="none"/>
+<polygon points="930.0,348.0 935.5,340.9 938.9,346.7" fill="#44506b"/>
+<rect x="570" y="440" width="550" height="40" rx="6" ry="6" fill="#fff8e8" stroke="#c8860d" stroke-width="1.2"/>
+<text x="845" y="465" font-size="11" fill="#8a5c05" text-anchor="middle">Safety invariant: reused judgment stays advisory unless an authorised change path is approved.</text>
+<text x="590" y="540" font-size="13.5" fill="#1b2a4a" text-anchor="middle" font-weight="700">Figure 2. The baseline and the doctoral extension.</text>
+<text x="590" y="560" font-size="11.5" fill="#5b6472" text-anchor="middle">The doctorate adds the decision of when to ask, what to preserve from the answer, and where a judgment may safely apply.</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 430" width="1180" height="430" font-family="Calibri, 'Segoe UI', Arial, sans-serif">
+<rect width="1180" height="430" fill="#ffffff"/>
+<rect x="40" y="60" width="245" height="250" rx="10" ry="10" fill="#eef4fd" stroke="#2f5aa8" stroke-width="1.6"/>
+<text x="162" y="96" font-size="14" fill="#2f5aa8" text-anchor="middle" font-weight="700">L1 · Mechanism</text>
+<text x="162" y="140" font-size="11" fill="#1f2430" text-anchor="middle">implemented artifacts,</text>
+<text x="162" y="159" font-size="11" fill="#1f2430" text-anchor="middle">schemas, routing,</text>
+<text x="162" y="178" font-size="11" fill="#1f2430" text-anchor="middle">traceability</text>
+<rect x="62" y="246" width="201" height="34" rx="5" ry="5" fill="#ffffff" stroke="#1e8e5a" stroke-width="1.3"/>
+<text x="162" y="268" font-size="11" fill="#1e8e5a" text-anchor="middle" font-weight="700">Available now</text>
+<rect x="325" y="60" width="245" height="250" rx="10" ry="10" fill="#e9f6ee" stroke="#1e8e5a" stroke-width="1.6"/>
+<text x="447" y="96" font-size="14" fill="#1e8e5a" text-anchor="middle" font-weight="700">L2 · Conformance</text>
+<text x="447" y="140" font-size="11" fill="#1f2430" text-anchor="middle">contract tests,</text>
+<text x="447" y="159" font-size="11" fill="#1f2430" text-anchor="middle">scenario coverage,</text>
+<text x="447" y="178" font-size="11" fill="#1f2430" text-anchor="middle">failure containment</text>
+<rect x="347" y="246" width="201" height="34" rx="5" ry="5" fill="#ffffff" stroke="#1e8e5a" stroke-width="1.3"/>
+<text x="447" y="268" font-size="11" fill="#1e8e5a" text-anchor="middle" font-weight="700">Available with cited tests</text>
+<rect x="610" y="60" width="245" height="250" rx="10" ry="10" fill="#fdf4e3" stroke="#c8860d" stroke-width="1.6"/>
+<text x="732" y="96" font-size="14" fill="#c8860d" text-anchor="middle" font-weight="700">L3 · Human validity</text>
+<text x="732" y="140" font-size="11" fill="#1f2430" text-anchor="middle">independent expert labels,</text>
+<text x="732" y="159" font-size="11" fill="#1f2430" text-anchor="middle">inter-rater agreement,</text>
+<text x="732" y="178" font-size="11" fill="#1f2430" text-anchor="middle">adjudication</text>
+<rect x="632" y="246" width="201" height="34" rx="5" ry="5" fill="#ffffff" stroke="#b3261e" stroke-width="1.3"/>
+<text x="732" y="268" font-size="11" fill="#b3261e" text-anchor="middle" font-weight="700">EXP-005 open: 0 of 24</text>
+<rect x="895" y="60" width="245" height="250" rx="10" ry="10" fill="#fbe7e5" stroke="#b3261e" stroke-width="1.6"/>
+<text x="1017" y="96" font-size="14" fill="#b3261e" text-anchor="middle" font-weight="700">L4 · Transfer and impact</text>
+<text x="1017" y="140" font-size="11" fill="#1f2430" text-anchor="middle">leakage-safe second setting,</text>
+<text x="1017" y="159" font-size="11" fill="#1f2430" text-anchor="middle">workload study,</text>
+<text x="1017" y="178" font-size="11" fill="#1f2430" text-anchor="middle">comparative outcomes</text>
+<rect x="917" y="246" width="201" height="34" rx="5" ry="5" fill="#ffffff" stroke="#b3261e" stroke-width="1.3"/>
+<text x="1017" y="268" font-size="11" fill="#b3261e" text-anchor="middle" font-weight="700">Not claimable yet</text>
+<path d="M285.0,185.0 L316.5,185.0" stroke="#44506b" stroke-width="1.6" fill="none"/>
+<polygon points="325.0,185.0 315.7,188.7 315.7,181.3" fill="#44506b"/>
+<path d="M570.0,185.0 L601.5,185.0" stroke="#44506b" stroke-width="1.6" fill="none"/>
+<polygon points="610.0,185.0 600.7,188.7 600.7,181.3" fill="#44506b"/>
+<path d="M855.0,185.0 L886.5,185.0" stroke="#44506b" stroke-width="1.6" fill="none"/>
+<polygon points="895.0,185.0 885.7,188.7 885.7,181.3" fill="#44506b"/>
+<rect x="40" y="336" width="1100" height="34" rx="6" ry="6" fill="#f5f7fb" stroke="#c3cad8" stroke-width="1.2"/>
+<text x="590" y="358" font-size="11.5" fill="#1b2a4a" text-anchor="middle">Levels are cumulative: mechanism readiness does not imply human validity, and human validity does not imply transfer.</text>
+<text x="590" y="404" font-size="13.5" fill="#1b2a4a" text-anchor="middle" font-weight="700">Figure 4. Evidence ladder and claim gates.</text>
+</svg>

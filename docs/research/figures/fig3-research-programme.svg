@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 520" width="1180" height="520" font-family="Calibri, 'Segoe UI', Arial, sans-serif">
+<rect width="1180" height="520" fill="#ffffff"/>
+<rect x="60" y="60" width="340" height="300" rx="10" ry="10" fill="#ffffff" stroke="#2f5aa8" stroke-width="1.8"/>
+<rect x="60" y="60" width="340" height="52" rx="10" ry="10" fill="#2f5aa8"/>
+<rect x="60" y="96" width="340" height="16" rx="0" ry="0" fill="#2f5aa8"/>
+<text x="230" y="84" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="700">RQ1 · Selective intervention</text>
+<text x="230" y="102" font-size="11" fill="#e8edf7" text-anchor="middle">Study 1</text>
+<text x="80" y="142" font-size="10.5" fill="#2f5aa8" text-anchor="start" font-weight="700">Inputs</text>
+<text x="80" y="160" font-size="11" fill="#1f2430" text-anchor="start">uncertainty · impact · novelty · workload</text>
+<text x="80" y="200" font-size="10.5" fill="#2f5aa8" text-anchor="start" font-weight="700">Artifact</text>
+<text x="80" y="218" font-size="11" fill="#1f2430" text-anchor="start">intervention policy and review request</text>
+<text x="80" y="258" font-size="10.5" fill="#2f5aa8" text-anchor="start" font-weight="700">Primary evidence</text>
+<text x="80" y="276" font-size="11" fill="#1f2430" text-anchor="start">critical-uncertainty coverage vs expert burden</text>
+<rect x="420" y="60" width="340" height="300" rx="10" ry="10" fill="#ffffff" stroke="#1e8e5a" stroke-width="1.8"/>
+<rect x="420" y="60" width="340" height="52" rx="10" ry="10" fill="#1e8e5a"/>
+<rect x="420" y="96" width="340" height="16" rx="0" ry="0" fill="#1e8e5a"/>
+<text x="590" y="84" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="700">RQ2 · Governed judgment lifecycle</text>
+<text x="590" y="102" font-size="11" fill="#e8edf7" text-anchor="middle">Study 2</text>
+<text x="440" y="142" font-size="10.5" fill="#1e8e5a" text-anchor="start" font-weight="700">Inputs</text>
+<text x="440" y="160" font-size="11" fill="#1f2430" text-anchor="start">expert response · system reasoning · sources</text>
+<text x="440" y="200" font-size="10.5" fill="#1e8e5a" text-anchor="start" font-weight="700">Artifact</text>
+<text x="440" y="218" font-size="11" fill="#1f2430" text-anchor="start">judgment record and lifecycle controls</text>
+<text x="440" y="258" font-size="10.5" fill="#1e8e5a" text-anchor="start" font-weight="700">Primary evidence</text>
+<text x="440" y="276" font-size="11" fill="#1f2430" text-anchor="start">provenance · conflicts · scope · authority</text>
+<rect x="780" y="60" width="340" height="300" rx="10" ry="10" fill="#ffffff" stroke="#6b3fa0" stroke-width="1.8"/>
+<rect x="780" y="60" width="340" height="52" rx="10" ry="10" fill="#6b3fa0"/>
+<rect x="780" y="96" width="340" height="16" rx="0" ry="0" fill="#6b3fa0"/>
+<text x="950" y="84" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="700">RQ3 · Transfer and evaluation</text>
+<text x="950" y="102" font-size="11" fill="#e8edf7" text-anchor="middle">Study 3</text>
+<text x="800" y="142" font-size="10.5" fill="#6b3fa0" text-anchor="start" font-weight="700">Inputs</text>
+<text x="800" y="160" font-size="11" fill="#1f2430" text-anchor="start">frozen baseline · governed memory · new contexts</text>
+<text x="800" y="200" font-size="10.5" fill="#6b3fa0" text-anchor="start" font-weight="700">Artifact</text>
+<text x="800" y="218" font-size="11" fill="#1f2430" text-anchor="start">transfer taxonomy and evaluation protocol</text>
+<text x="800" y="258" font-size="10.5" fill="#6b3fa0" text-anchor="start" font-weight="700">Primary evidence</text>
+<text x="800" y="276" font-size="11" fill="#1f2430" text-anchor="start">safe reuse · failure modes · validity</text>
+<path d="M400.0,210.0 L410.6,210.0" stroke="#44506b" stroke-width="1.8" fill="none"/>
+<polygon points="420.0,210.0 409.8,214.1 409.8,205.9" fill="#44506b"/>
+<text x="410" y="196" font-size="10" fill="#5b6472" text-anchor="middle">captured</text>
+<text x="410" y="236" font-size="10" fill="#5b6472" text-anchor="middle">judgments</text>
+<path d="M760.0,210.0 L770.6,210.0" stroke="#44506b" stroke-width="1.8" fill="none"/>
+<polygon points="780.0,210.0 769.8,214.1 769.8,205.9" fill="#44506b"/>
+<text x="770" y="196" font-size="10" fill="#5b6472" text-anchor="middle">governed</text>
+<text x="770" y="236" font-size="10" fill="#5b6472" text-anchor="middle">judgments</text>
+<path d="M950.0,360.0 L950.0,400.0 L230.0,400.0 L230.0,367.6" stroke="#6b3fa0" stroke-width="1.5" fill="none" stroke-dasharray="6 4"/>
+<polygon points="230.0,360.0 233.4,368.3 226.6,368.3" fill="#6b3fa0"/>
+<text x="590" y="394" font-size="11" fill="#6b3fa0" text-anchor="middle" font-style="italic">transfer failures and scope boundaries refine the intervention and governance policies</text>
+<text x="590" y="460" font-size="13.5" fill="#1b2a4a" text-anchor="middle" font-weight="700">Figure 3. Three questions, one cumulative programme.</text>
+<text x="590" y="480" font-size="11.5" fill="#5b6472" text-anchor="middle">Each question hands a defined product to the next; results from the last refine the first two.</text>
+</svg>
