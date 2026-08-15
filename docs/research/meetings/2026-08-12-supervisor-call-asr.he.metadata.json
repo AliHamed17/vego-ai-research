@@ -1,0 +1,21 @@
+{
+  "audio": "Zoom local recording: \"2026-08-12 09.02.28 Iris Reinhartz-Berger's Personal Meeting Room\\audio1571465503.m4a\" (OneDrive, gitignored, local only)",
+  "chat_log": "chat.txt in the same Zoom folder confirms attendees: עלי חאמד (Ali Hamed), Iris Reinhartz-Berger, Arnon Sturm",
+  "language_requested": "he",
+  "model": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+  "engine": "faster-whisper",
+  "device": "cpu",
+  "compute_type": "int8",
+  "cpu_threads": 16,
+  "vad_filter": true,
+  "condition_on_previous_text": false,
+  "beam_size": 5,
+  "segments": 1064,
+  "audio_duration_seconds": 3223.93,
+  "transcription_wall_seconds": 1347,
+  "output_files": [
+    "artifacts/meetings/2026-08-12-iris-arnon/machine.jsonl (gitignored, artifacts/**)",
+    "artifacts/meetings/2026-08-12-iris-arnon/machine-transcript.txt (gitignored, artifacts/**)"
+  ],
+  "note": "Undiarized: speaker identity is inferred from turn order and content, not from the ASR. Do not quote as attributed speech before human review, consistent with the 2026-08-05 record's policy."
+}

@@ -446,3 +446,31 @@ Record file changes and rollback notes here.
   - docs/agent-memory/issues.md
 - Rollback note: Two new files added, non-destructive; no code changes.
 - Git commit: none recorded by script.
+
+## 2026-08-11 - Claude - Aug-12 supervisor package rebuilt to deliverable quality
+
+- Files added:
+  - `docs/research/phd-proposal/chapter-3-gap-and-research-questions.md` (A08-02; ~5,200 words, 66 citation markers, supersedes the uncited `-draft` version)
+  - `docs/research/phd-proposal/sections-2-and-4-thinking-notes.md` (A08-04; 4 §2 options, 9 §4 artifact options, 14 supervisor questions)
+  - `docs/research/phd-proposal/proposal-v0.3-aug12.md` (A08-06 proposal half; raises D-TITLE-01)
+  - `docs/research/meetings/2026-08-12-package-readme.md`, `-executive-brief.md` (EN+HE), `-walkthrough-and-qa.md`
+  - `scripts/build_aug12_literature_workbook.py`, `build_aug12_tracking_workbook.py`, `build_aug12_think_pass.py`, `build_aug12_presentation.py`, `md_to_docx.py`, `office_to_pdf.ps1`
+  - generated: `outputs/aug12/` (16 files: 6 docx + 7 pdf + 2 xlsx + 1 pptx)
+- Published: all 16 files to `G:\My Drive\VEGO-AI PhD Working 2026\06_Weekly_Meetings\2026-08-12 Supervisor Package\`
+- Key content decisions: Chapter 3 now grounds every positioning claim in a VERIFIED seed corpus (the 29 refs of the group's own MAS4Models submission + 8 resource-pack entries); a 4-lens workflow independently fabrication-checked all 40 sources (zero invented); absence claims scoped to "on title-level evidence"; two wording discrepancies surfaced for A08-01 rather than silently resolved (E6 exploration-vs-identification; E8 human-vs-expert judgment); decomposition sufficiency raised as an open question in §3.8.
+- Boundaries held: literature searches remain PROTOCOL READY / NOT RUN and every artifact says so; EXP-005 0/24 and medical gates 0/6 stated in the chapter, the tracker and the deck; no accuracy/generalization/clinical/effort claim (regex scan clean across all new artifacts); §2 and §4 thought about but NOT started per Iris's instruction.
+- Rollback note: delete the added docs/scripts and `outputs/aug12/`, and remove the 16 files from the Drive package folder. The prior `chapter-3-...-draft.md` is retained unchanged as the superseded version. No VEGO-AI source file touched.
+- Verification: evidence-consistency guard 18/18 PASS; forbidden-claim regex scan clean; all 16 Drive files confirmed present.
+
+## 2026-08-14 - Claude - Transcribed and analyzed the 2026-08-12 Iris/Arnon supervisor call
+
+- Files added:
+  - `docs/research/meetings/2026-08-12-supervisor-meeting.md` (evidence matrix `F1`-`F17`, action items `A0812-01`..`10`, "still open" carry-forward section)
+  - `docs/research/meetings/2026-08-12-post-meeting-plan.md` (bilingual EN+HE next-week plan)
+  - `docs/research/meetings/2026-08-12-supervisor-call-asr.he.metadata.json` (ASR run provenance)
+  - `docs/research/phd-proposal/literature-review-structure-and-queries-draft.md` (fulfills `F5`/`A0812-02`/`A0812-03`)
+  - (not tracked, gitignored under `artifacts/**`) `artifacts/meetings/2026-08-12-iris-arnon/machine.jsonl`, `machine-transcript.txt` - produced by a concurrent session (worktree `relaxed-raman-7b6fff`) running faster-whisper `large-v3-turbo` (he, cpu, int8); this session watched for completion rather than re-transcribing
+- Files edited:
+  - `docs/agent-memory/progress.md` (Next Steps section replaced with the August-12-derived list)
+- Rollback note: all additions are new documentation files; nothing generated, code, or VEGO-AI source was touched. Deleting the four added files and reverting `progress.md`'s Next Steps section restores the prior state exactly.
+- Git commit: none recorded by script; not yet committed.
