@@ -2,7 +2,7 @@
 
 Generated deterministically from Git-tracked shareable files.
 
-Totals: **8** Mermaid · **21** SVG · **9** HTML.
+Totals: **8** Mermaid · **26** SVG · **9** HTML.
 
 <details><summary>All diagram/graph files</summary>
 
@@ -13,6 +13,11 @@ Totals: **8** Mermaid · **21** SVG · **9** HTML.
 - `VEGO-AI-Live-Demo.html`
 - `VEGO-AI-Research-Hub.html`
 - `VEGO-AI-Thesis-Baseline-Progress.html`
+- `docs/research/figures/fig1-vego-ai-architecture.svg`
+- `docs/research/figures/fig2-baseline-and-extension.svg`
+- `docs/research/figures/fig3-research-programme.svg`
+- `docs/research/figures/fig4-evidence-ladder.svg`
+- `docs/research/figures/fig5-three-year-plan.svg`
 - `docs/research/meetings/2026-07-21-supervisor-explainer.base.html`
 - `thesis/figures/fig-4-1-baseline-pipeline.mmd`
 - `thesis/figures/fig-5-1-co-reasoning-artifact.mmd`
