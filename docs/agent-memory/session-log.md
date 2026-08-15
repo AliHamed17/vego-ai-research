@@ -268,3 +268,23 @@ Chronological prompt history for Codex and Claude.
   - 8-agent + 2-agent verification workflows via Workflow tool
 - Status: completed
 - Next steps: Ali executes the 11 root-blocker actions in the report, roughly in the stated order. No further agent action needed until Ali reports movement on one of them.
+
+## 2026-08-14 23:06 +03:00 - Claude - Transcribed and analyzed the 2026-08-12 Iris/Arnon supervisor call
+
+- Request: User attached the 2026-08-12 Zoom recording folder (Iris Reinhartz-Berger's Personal Meeting Room) and asked for a full second-by-second transcript, a bilingual (EN+HE) summary, every instruction/requirement from the call, and a comprehensive verified plan for the next week, cross-checked against what was already covered.
+- Actions taken:
+  - Found a concurrent session (git worktree `relaxed-raman-7b6fff`, same underlying repo) already running the transcription with the established recipe (`transcription-setup-windows` memory: faster-whisper `large-v3-turbo`, he, cpu, int8, vad_filter) into `artifacts/meetings/2026-08-12-iris-arnon/`; did not start a duplicate job, instead set a background watch (poll on PID) that returned when it finished - 00:53:44 audio, 1064 segments, 1347s wall time
+  - Read the full 1064-segment transcript plus the Zoom chat log (confirms attendees: Ali, Iris, Arnon; two shared links)
+  - Cross-checked the call against the pre-existing state: the 2026-08-05 record (`E1`-`E15`, `A08-01`..`09`), the 2026-08-12 pre-meeting anticipated-Q&A (six mandatory + four optional decisions, `D-RQ-01`/`02`, `E6`, `E8`), and `literature-search-execution-register.md`'s frozen `QL-01`-`QL-05` queries
+  - Built a structured evidence matrix (`F1`-`F17`) and action-item table (`A0812-01`..`10`) in the house format used for prior meetings, explicitly flagging which pre-meeting decisions were **not** raised or resolved on this call (RQ wording sign-off, `E6`, `E8`, Plan A/B and evidence-boundary wording, owner assignments)
+  - Fulfilled Iris's live in-meeting request (`F5`) to hand the RQs to an AI assistant for a literature-chapter subsection breakdown and per-subsection Google Scholar queries, discovered the frozen `QL-01`-`QL-05` register already answers most of this, and reconciled it against Iris's later structural correction (`F10`) that the chapter must follow conventional literature-review structure, not RQ-mirrored subsections
+  - Produced the bilingual (EN+HE) post-meeting plan, flagging one time-critical non-research item (a scholarship reference-letter request due "the 15th")
+- Files changed:
+  - docs/research/meetings/2026-08-12-supervisor-meeting.md
+  - docs/research/meetings/2026-08-12-post-meeting-plan.md
+  - docs/research/meetings/2026-08-12-supervisor-call-asr.he.metadata.json
+  - docs/research/phd-proposal/literature-review-structure-and-queries-draft.md
+  - docs/agent-memory/progress.md, decisions.md, revert-log.md (this entry)
+- Commands/checks: none run yet (pending privacy/diff-check pass before commit).
+- Status: completed (analysis and drafting); not yet committed/pushed.
+- Next steps: Ali executes `A0812-01` through `A0812-10` per `2026-08-12-post-meeting-plan.md`, starting with the time-critical scholarship-letter item. Confirm privacy/diff checks and commit before the next session.

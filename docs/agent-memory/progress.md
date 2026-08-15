@@ -212,16 +212,17 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
-Note (2026-07-30): The July 29 package is a controlled working baseline, not a supervisor-approved proposal. The exact pre-read, Drive, and Sheet have not been shared. Medical work is blocked at 0/6 gates and EXP-005 remains 0/24.
+Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor package was delivered and the August 12 meeting happened; see [`2026-08-12-supervisor-meeting.md`](../research/meetings/2026-08-12-supervisor-meeting.md) (evidence matrix `F1`-`F17`) and its bilingual companion [`2026-08-12-post-meeting-plan.md`](../research/meetings/2026-08-12-post-meeting-plan.md) for the current, live next-step list. Medical work remains blocked at 0/6 gates and EXP-005 remains 0/24 — unchanged by this call.
 
-1. Ali reviews the exact August 5 supervisor package and authorizes any external sharing.
-2. Confirm meeting logistics, build the current presentation from the checklist, add source notes, render/inspect it, and complete a dated human rehearsal; simulated outcomes never enter the real decision log.
-3. At the August 5 meeting, record decisions on RQ wording, the three-study map, Plan A/B labels, literature categories, medical-route ownership, Penina dates, and the official-process inquiry.
-4. Record every supervisor decision within 24 hours in the decision/change log and update all affected artifacts.
-5. Execute the literature database searches, log exact queries and dates, deduplicate, screen, verify paper identities and claims, and prepare the August 12 synthesis.
-6. Complete bilingual Hebrew/English and speaker review before using direct transcript quotations or final attribution.
-7. Obtain written department/Graduate Studies confirmation of the candidacy deadline, reviewer count, nomination path, committee rules, and presentation requirements.
-8. Keep patient-row inspection, medical computation, external APIs, and pilots blocked until all six medical entry gates pass.
-9. Run the August 26 medical go/no-go; default the September proposal to Plan B if any critical prerequisite remains unproved.
-10. Appoint two independent EXP-005 reviewers plus an adjudicator and collect the 24 generalization-safe labels without inferring or prefilling any value.
-11. Refresh dashboards, evidence checks, project health, and agent memory after each implementation tranche.
+1. **Time-critical:** send scholarship-reference details to Iris and Arnon before the stated "15th" deadline (`F16`/`A0812-07`).
+2. This week: literature review (Chapter 2) only — do not start methodology; Iris explicitly resequenced this mid-call (`F1`/`F14`/`A0812-01`).
+3. Restructure Chapter 2 away from RQ-mirrored subsections per Iris's correction; use [`literature-review-structure-and-queries-draft.md`](../research/phd-proposal/literature-review-structure-and-queries-draft.md) as the starting table of contents (`F10`/`A0812-03`).
+4. Work through the one ACL-2026 paper's GitHub taxonomy corpus, classify relevance against the RQs (not the VEGO-AI solution), and log gaps (`F12`/`A0812-04`).
+5. Confirm or re-derive the "Foundations" Google Scholar query drafted live on the call, then decide whether it becomes `QL-06` or folds into `QL-01` (`F9`/`A0812-06`) — still goes through the frozen freeze-before-run protocol, not an ad hoc search.
+6. Prepare the branch-classification slide (highly/less/not-relevant/missing) for the next meeting (`F13`/`A0812-05`).
+7. Confirm the correct email address and re-share the Drive with Arnon — closes the `A08-05` item open since August 5 (`F17`/`A0812-08`).
+8. Still open, not resolved by the August 12 call — put on the next meeting's agenda explicitly: `D-RQ-01`/`D-RQ-02` (RQ wording sign-off), `E6` (exploration vs. identification/classification), `E8` (human vs. expert judgment), the Plan A/B boundary wording, the evidence-boundary wording, and owner assignment for medical-feasibility/university-process verification.
+9. Obtain written department/Graduate Studies confirmation of the candidacy deadline, reviewer count, nomination path, committee rules, and presentation requirements (unresolved since 2026-07-30, `ISS-024`).
+10. Keep patient-row inspection, medical computation, external APIs, and pilots blocked until all six medical entry gates pass; the Clalit meeting confirmed for 2026-08-26 is the next real checkpoint on that path.
+11. Appoint two independent EXP-005 reviewers plus an adjudicator and collect the 24 generalization-safe labels without inferring or prefilling any value.
+12. Refresh dashboards, evidence checks, project health, and agent memory after each implementation tranche.

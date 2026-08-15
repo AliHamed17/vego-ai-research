@@ -1,66 +1,76 @@
-# Executive Brief — Aug-12 Supervisor Meeting (one page)
+# Executive Brief — 2026-08-12 Supervisor Meeting
 
-# תקציר מנהלים — פגישת מנחים 12 באוגוסט (עמוד אחד)
-
-Status: **presentation-ready, not supervisor-approved.** Wording provisional pending `D-RQ-01`/`D-RQ-02`.
+**Ali Hamed · PhD-track proposal · for Prof. Iris Reinhartz-Berger and Prof. Arnon**
 
 ---
 
-## English
+## In one paragraph
 
-**What this is.** A progress checkpoint on the PhD-track thesis proposal, one week after the
-5 August working call. Goal today: **confirm the research-question architecture** and set one next task.
+Chapter 3 (Gap and Research Questions) is **complete** and, unlike the previous draft, **grounded in
+citations**: it positions four bodies of work, states for each what it establishes and what it leaves
+open, and defines the two constructs the thesis depends on. The per-RQ literature spreadsheet is
+delivered with 40 verified sources plus the per-question **coverage-gap analysis** — the part beyond a
+plain inventory. Sections 2 and 4 were **thought about and deliberately not started**, as instructed;
+the thinking is delivered as options with trade-offs. The Word proposal and a separate tracking
+document are both maintained. **The evidence position is unchanged and stated plainly: 0 of 24 expert
+labels, 0 of 6 medical gates, searches not run — and no claim in this package depends on any of them.**
 
-**The recommendation to confirm.** One umbrella RQ — *how human judgment can be captured, governed, and
-used to support agentic-AI-driven variability exploration in guideline operationalization scenarios,
-enabling reliable human–AI co-reasoning* — decomposed into exactly three sub-questions: **SQ1** selective
-intervention, **SQ2** governed knowledge reuse, **SQ3** evaluation and transfer, each mapped to one study.
+## The three headlines
 
-**Status headline.** Chapter 3 (Gap & Research Questions) is drafted in full and incorporates every
-correction from 5 August. The per-question literature workbook is built with coverage tagging. The
-architecture and mechanisms (M1–M4B-1) are implemented and tested.
+**1. The gap now has a shape you can attack.** Automated assessment detects deviations but does not
+interpret them. Agentic-assistance research shows expert correction is needed but treats it as a
+one-off repair. Human-in-the-loop research gives mechanisms but no selection policy under a bounded
+attention budget. Variability engineering formalises *designed* variability, not the *observed
+interpretive* kind at issue here. **The connection between them — when to ask, what to keep, where it
+may be reused — is where the open questions sit.**
 
-**Evidence boundary (read this).** Current evidence is mechanism/architecture readiness only.
-EXP-005 = **0 labels supplied** (27 blind rows, 24 generalization-safe; the gate needs ≥20). Medical
-readiness **0/6** gates; MIMIC not selected. No accuracy, generalization, effort, or clinical claim is
-made — and none is needed at proposal stage.
+**2. Two wording questions came back unresolved, deliberately.** The recording is machine-transcribed
+with inferred speakers, so it cannot settle exact wording. Rather than choose silently I flagged
+both: *exploration* vs *identification/classification* in the main question (`E6`), and *human* vs
+*expert* judgment across the question set (`E8`). Both need my saved draft and your ruling.
 
-**Decisions requested today.** Six mandatory: umbrella RQ, SQ1–SQ3, three-study mapping, Plan A/B,
-every-RQ-answerable-under-Plan-B, evidence-boundary wording. Four time-permitting/assignment: the
-26-Aug fallback date, literature scope, the MIMIC metadata boundary, and owners for medical feasibility
-and university-process verification.
+**3. Eight decisions are waiting for you** — listed in the tracking workbook. The first three (final
+wording, title, decomposition sufficiency) block everything downstream.
 
-**Plan.** ~3-month semester-aligned blocks over a 3-year horizon. Plan A (medical) is a conditional
-extension gated on six entry gates; Plan B (software/modeling) answers every question without medical data.
+## What is complete, what is not, and why
 
----
+| | Status | Why |
+| --- | --- | --- |
+| Chapter 3 | **Complete** | The deliverable you set for today |
+| Per-RQ literature spreadsheet | **Complete** | 40 sources tagged + coverage gaps + frozen protocol |
+| §2 and §4 | **Deliberately not started** | Your instruction: think, don't start |
+| Chapters 1, 4, 6 | Not started | `E13` sequencing — Introduction is written last |
+| Chapter 5 | Status only | Software/modelling mechanism evidence; no results chapter yet |
 
-## עברית
+## The honest constraint
 
-**מה זה.** נקודת בקרת התקדמות על הצעת המחקר לדוקטורט, שבוע אחרי שיחת העבודה של 5 באוגוסט. המטרה
-היום: **לאשר את מבנה שאלות המחקר** ולקבוע משימה אחת הבאה.
+The binding constraint is **not** writing or engineering: it is **independent expert labels**.
+EXP-005 needs ≥20 generalization-safe labels for any quantitative claim and currently has **0 of 24**.
+That needs two independent reviewers and an adjudicator — a resourcing question, not a build task,
+and it is on the decisions list.
 
-**ההמלצה לאישור.** שאלת-על אחת — *כיצד ניתן ללכוד, לנהל ולהשתמש בשיפוט אנושי לתמיכה בחקר שונוּת
-מונע-AI-אג'נטי בתרחישי הפעלת הנחיות, המאפשר שיתוף-פעולה אדם–AI אמין* — המתפרקת לשלוש תת-שאלות
-בדיוק: **SQ1** התערבות סלקטיבית, **SQ2** שימוש חוזר מבוקר בידע, **SQ3** הערכה והעברה, כל אחת ממופה
-למחקר אחד.
+## Notable finding from the coverage analysis
 
-**כותרת הסטטוס.** פרק 3 (פער ושאלות מחקר) נכתב במלואו ומשלב כל תיקון מ-5 באוגוסט. גיליון הספרות לפי
-שאלה נבנה עם תיוג כיסוי. הארכיטקטורה והמנגנונים (M1–M4B-1) ממומשים ונבדקו.
-
-**גבול הראיות (לקרוא).** הראיות הנוכחיות הן מוכנות מנגנון/ארכיטקטורה בלבד. EXP-005 = **0 תיוגים
-סופקו** (27 שורות עיוורות, 24 בטוחות-להכללה; השער דורש ≥20). מוכנות רפואית **0/6** שערים; MIMIC לא
-נבחר. לא נטענת שום טענת דיוק, הכללה, מאמץ, או קלינית — ואף אחת אינה נדרשת בשלב ההצעה.
-
-**החלטות נדרשות היום.** שש מחייבות: שאלת-העל, SQ1–SQ3, מיפוי שלושת המחקרים, תוכנית A/B, כל-שאלה-
-ניתנת-למענה-בתוכנית-B, וניסוח גבול הראיות. ארבע בזמן פנוי/הקצאה: תאריך הנסיגה 26.8, תחום הספרות,
-גבול המטא-דאטה של MIMIC, ובעלי תפקיד להיתכנות רפואית ולאימות תהליך האוניברסיטה.
-
-**התוכנית.** בלוקים של כ-3 חודשים מיושרי-סמסטר על אופק 3 שנים. תוכנית A (רפואית) היא הרחבה מותנית
-בשישה שערי כניסה; תוכנית B (תוכנה/מודלים) עונה על כל השאלות בלי נתונים רפואיים.
+The seed corpus contains **no design-science methodology sources** — despite the methodology chapter
+being design-science-based per your `E13` confirmation. That is a concrete, fixable hole and it is
+now visible rather than latent.
 
 ---
 
-*Companion documents: [[Chapter 3 - Gap and Research Questions]], [[Master Plan (bilingual)]],
-[[Per-RQ Literature Map]], [[Anticipated Q&A]], [[Aug-12 Walkthrough Script]]. Full file list and
-integrity hashes: [[Delivery Index]].*
+## תקציר מנהלים — בעברית
+
+**פרק 3 (פער ושאלות מחקר) הושלם**, וכעת הוא מעוגן במקורות: הוא ממקם ארבעה גופי ידע, מציין לכל אחד מה
+הוא מבסס ומה נותר פתוח, ומגדיר את שני המושגים שעליהם התזה נשענת. **גיליון הספרות לפי שאלת מחקר** הוגש
+עם 40 מקורות מאומתים ועם **ניתוח פערי הכיסוי** לכל שאלה — החלק שמעבר לרשימה בלבד. סעיפים 2 ו-4
+**נחשבו ולא הוחלו**, בדיוק לפי ההנחיה; החשיבה מוגשת כאפשרויות עם יתרונות וחסרונות. מסמך ההצעה בוורד
+ומסמך המעקב הנפרד — שניהם מתוחזקים.
+
+**מצב הראיות ללא שינוי ומוצג במפורש:** 0 מתוך 24 תיוגי מומחה, 0 מתוך 6 שערים רפואיים, חיפושי הספרות
+לא הורצו. אף טענה בחבילה הזו אינה נשענת עליהם.
+
+**שתי שאלות ניסוח חזרו ללא הכרעה, במכוון** — ההקלטה היא תמלול מכונה עם זיהוי דוברים משוער ואינה יכולה
+לקבוע ניסוח מדויק: *exploration* מול *identification/classification* בשאלה הראשית, ו-*human* מול
+*expert* לאורך מערך השאלות. שתיהן דורשות את הטיוטה השמורה שלי ואת הכרעתכם.
+
+**המגבלה הכנה:** החסם אינו כתיבה או פיתוח אלא **תיוגי מומחה בלתי תלויים** — נדרשים לפחות 20 ויש 0.
+זו שאלת משאבים (שני בודקים ומכריע), לא משימת בנייה.
