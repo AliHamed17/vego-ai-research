@@ -21,7 +21,7 @@ described below — check every new claim and citation before it goes on a slide
   `-bare` version (no title/subtitle) for embedding, since the slide already carries
   the heading. Follow the `dataviz` skill for any new chart (validated palette,
   direct labels, no dual axes).
-- **Synthesized findings** (streams, the analysis framework, gaps): 
+- **Synthesized findings** (streams, the analysis framework, gaps):
   `outputs\course-presentation\findings.json` — this is what the deck script reads for
   slide text. Edit this file, not hard-coded strings in the build script, when changing
   findings content.
