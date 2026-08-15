@@ -1,0 +1,84 @@
+{
+  "schema_version": "vego-ai.aug19-package-build-receipt.v1",
+  "package_status": "Ready for Ali review - not delivered, accepted, or closed",
+  "sources": {
+    "content_sha256": "13864e8c2ce50ce75b48e5ae5b44b895fb185245357802cbcf4e78cea2eaaae3",
+    "control_register_sha256": "5f6422d0573fd144cf99a7d14623f3b52874028197210a9119c41a36b83c79f7",
+    "acl_source_manifest_sha256": "572b48d280424b3c6aeaeb5577b2b9b345283cd95775578fa21ea16d30df1819",
+    "acl_corpus_git_commit": "974552efd90d233980c588746f50928d8e397b0e",
+    "taxonomy_repository_commit": "7b3ba9deefe99172748582f6025d995ccc2a6f86"
+  },
+  "runtimes": {
+    "python": "3.11.14",
+    "python_executable_sha256": "c57a84aa7c5f7a8e74bf5f79d5a172c2ebae81ae35f7a5c55de06904011a63a5",
+    "python_docx": "1.2.0",
+    "pypdf": "6.15.0",
+    "node": "v24.19.0",
+    "node_executable_sha256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+    "powershell": "7.6.4",
+    "powershell_executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+    "artifact_tool": "2.8.43",
+    "office": [
+      "16.0"
+    ],
+    "pdf_renderer": "bundled pdftoppm",
+    "pdf_renderer_sha256": "742cbbd9a00931ad16c6618410bc40471375d639a45c61c1d86f3dcfc54b6388",
+    "docx_sanitizer_sha256": "c8dafcef80220593411103ea3caefaa221e0ec7970bf31237f6ffbe762b0d4bf"
+  },
+  "office_export_receipt_sha256": "4393fc05dfa4805716be2bfffac310e59b05b88a1b338fd46b663c480c2c49fa",
+  "artifacts_before_manifest": {
+    "Chapter_2_Literature_Review_EN.docx": {
+      "sha256": "447506b5dc59801ae4d621a9d0fb659e3d07ae918b582693ffb374414ffd8e46",
+      "bytes": 45853,
+      "pages": null
+    },
+    "Chapter_2_Literature_Review_EN.pdf": {
+      "sha256": "f4912f992225b64646efde682dfce4d1284b034d4e7706ce255dc5fde06d529a",
+      "bytes": 341614,
+      "pages": 8
+    },
+    "Chapter_2_Literature_Review_HE.docx": {
+      "sha256": "bf327940abada8ab163ef7f084fdc7564bbd3bee34e0b4159c763a833699968a",
+      "bytes": 47563,
+      "pages": null
+    },
+    "Chapter_2_Literature_Review_HE.pdf": {
+      "sha256": "04899f2c3fcdf14a3babedc081f3f2c31d8d605e92c9a2d1f7d4c952973773dd",
+      "bytes": 348747,
+      "pages": 7
+    },
+    "Human_Agent_Classification_Bilingual.pptx": {
+      "sha256": "312990ee0b763e7264930fe81c6a2dd53224ddbc0631c68a1f8811d66ca4700f",
+      "bytes": 14007,
+      "pages": null
+    },
+    "Human_Agent_Classification_Bilingual.pdf": {
+      "sha256": "91d1ce408332367af9dec7fac35db0dcfa636225d0d22caa152709a9371c5771",
+      "bytes": 100389,
+      "pages": 1
+    },
+    "Supervisor_PreRead_EN.pdf": {
+      "sha256": "c87247cc115ff887fe3b6fa003c419cb766ef9b5a3c514691cdd74652fe426a1",
+      "bytes": 254617,
+      "pages": 2
+    },
+    "Supervisor_PreRead_HE.pdf": {
+      "sha256": "02585fa566d9dd9bf7cc1a3b9346861ac988124af0459c46b6404c864303c995",
+      "bytes": 233746,
+      "pages": 2
+    },
+    "Supervisor_Tracker_and_Decisions_Bilingual.pdf": {
+      "sha256": "74f59205407cc17a5d2703173910d8b292915f7cd3036335b4c4ad4fd0d1f4b5",
+      "bytes": 403932,
+      "pages": 5
+    }
+  },
+  "render_index_sha256": "3d3bf8da90cb3ddd37008b2df5cb39e2b9438b08f48ae91b4f50260f584a465c",
+  "visual_inspection": "Pending",
+  "workbook_binding": {
+    "logical_alias": "VEGO-AI-PHD-LITERATURE-WORKBOOK",
+    "mode": "withheld",
+    "binding_sha256": null,
+    "live_url_recorded": false
+  }
+}

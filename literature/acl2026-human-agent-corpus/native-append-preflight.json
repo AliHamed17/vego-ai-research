@@ -1,0 +1,43 @@
+{
+  "schema_version": "VEGO-NativeAppendPreflight-v1",
+  "capture_input_sha256": "68242fa0bad8c71ff13c98f13263fa42d237e8d1cf46f5a46280369127c65346",
+  "offline_staging_lossless": true,
+  "lossless_checks": {
+    "work_count": 116,
+    "paper_ids_match_work_order": true,
+    "screening_ids_match_work_order": true,
+    "paper_and_screening_ids_identical": true,
+    "formula_prefix_scan": "Passed"
+  },
+  "idempotency_guard_enabled": true,
+  "replay_rejected_by_key_guard": true,
+  "replay_collision_counts": {
+    "Papers": 116,
+    "Screening": 116,
+    "Search_Log": 1
+  },
+  "captured_existing_key_collisions": {
+    "Papers.Paper_ID": [],
+    "Papers.normalized_title": [],
+    "Papers.DOI": [],
+    "Papers.URL": [],
+    "Screening.Paper_ID": [],
+    "Search_Log.Query_ID": []
+  },
+  "live_append_ready": false,
+  "live_append_blocker": "Unavailable from connector; live append blocked",
+  "staged_counts": {
+    "Papers": 116,
+    "Screening": 116,
+    "Search_Log": 1
+  },
+  "expected_post_append_counts": {
+    "Papers": 122,
+    "Search_Log": 7,
+    "Screening": 122,
+    "Taxonomy_and_Gaps": 8,
+    "Resources": 12,
+    "Controlled_Lists": 11
+  },
+  "write_status": "Offline validation only; no Google Sheet write performed"
+}

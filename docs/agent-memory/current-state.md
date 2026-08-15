@@ -2,7 +2,53 @@
 
 Fast orientation for Codex and Claude. Update this whenever the project state changes.
 
-**Last Updated:** 2026-08-04 by Claude (merged the Iris workstream into `main` via PR #16, resolving conflicts with the already-merged evaluation-phase PR #15, plus a CI-hardening fix pass). The separate VEGO-AI H-layer evaluation-phase workstream below was last updated 2026-07-28 by Claude.
+**Last Updated:** 2026-08-15 by Codex (August 12 evidence-to-delivery review branch; local work only, not delivered or merged).
+
+## August 12 evidence-to-delivery control update
+
+- Work is isolated on `review/aug12-evidence-delivery`; public `main` remains at the pre-review
+  revision. No direct-main push, Drive upload/permission change, native-Sheet write, Gmail send, or
+  restricted medical-row access occurred in this tranche.
+- Scholarship is the urgent human lane. The written deadline is **2026-08-16** and exactly two
+  recommendations are required. Iris and Arnon are the locked pair. Arnon's two-page PDF passed
+  local readability/identity/length checks; the Iris and Arnon replies remain Gmail drafts with
+  `sent=false`. Iris's letter, eligibility resolution, Ali-controlled sending/submission, and receipts
+  remain open.
+- The August 12 source chain is byte-bound to four Zoom files covering **53:44.448**. The preserved
+  Hebrew ASR has **1,064** machine segments and the aligned machine-English output has 1,064 rows.
+  Full timeline accounting includes **215** lead/internal/tail gaps totalling **166.788 seconds**.
+  Human review remains **0/1,280 records per reviewer**, adjudication is 0, and reviewed media is
+  0/3,224.448 seconds. The versioned private v3 machine-evidence package passed independent
+  adversarial review; this does not promote any row to human-verified evidence. Direct quotations
+  and named attribution remain prohibited.
+- Canonical August 12 controls use `F12-001..019`, `A12-001..010`, `D12-001..005`,
+  `Q12-001..009`, and `R12-001..009`. Claude's conflicting draft IDs are preserved only through a
+  crosswalk. The corrected bilingual report is a controlled machine-derived paraphrase, not accepted
+  minutes.
+- The bounded ACL taxonomy repository is pinned to commit
+  `7b3ba9deefe99172748582f6025d995ccc2a6f86`: 525 occurrences resolve to 116 works. Deterministic
+  inventory and offline native-workbook staging passed independent review; human screening remains
+  **0/116**, live append is blocked, and QL-01..QL-05 remain protocol-ready/unexecuted.
+- The exact August 19 supervisor package has **10 allowlisted files** and excludes media,
+  transcripts, private preparation, scholarship files, and workbook duplication. It was rebuilt under
+  Python 3.11.14 / `pypdf 6.15.0`; the package validator, independent 25-page visual review, privacy,
+  links/citations, parity, and focused/full script checks pass. Its maximum status is **Ready for Ali
+  review**.
+- The next meeting is confirmed for **2026-08-19 09:00-10:00 Asia/Jerusalem**. RQ wording, E6,
+  E8, Plan A/B wording, evidence-boundary wording, and Proposal v0.4 Section 4 disposition remain
+  open. Silence is `Defer`.
+- Current Drive controls fail: the root and inherited workbook/package are link-readable, Iris is a
+  Writer, and Arnon lacks the intended access. The existing 16-file folder mixes deliverables with
+  preparation material. Permission and package changes require Ali's exact-package approval.
+- Public GitHub `main` is unprotected and the last main workflow remains red on stale generated
+  visualization content. PR #14 remains open/conflicting and is intentionally untouched. The August
+  12 work must use a clean sanitized PR; no merge or protection change is authorized without Ali.
+- Evidence boundaries are unchanged: EXP-005 is **0/24** and medical readiness is **0/6**. No
+  closure certificate is eligible.
+- A real Office-automation incident occurred during package construction: an unsafe PowerPoint COM
+  attempt closed a pre-existing user PowerPoint process. The source presentation survived; the incident
+  is recorded, PowerPoint COM is retired for this package, and no claim is made that the user application
+  state was restored.
 
 Both workstreams below are now merged into `main` (PR #15, then PR #16). Sections are still grouped by original workstream for orientation, since they cover distinct parts of the repo, but there is no longer a pending merge between them; `main` is the single current state for both. Feature branch `docs/iris-july29-phd-execution` is retained (not deleted) at commit `20b04fc` for reference.
 
@@ -14,10 +60,16 @@ Both workstreams below are now merged into `main` (PR #15, then PR #16). Section
 * Branch `docs/iris-july29-phd-execution` preserves the ten July 29 evidence artifacts in `3d0beca`, the initial assurance tranche in `28ece6e`, the enhanced closure package in `18c0f2b`, and the next-step execution snapshot in `9a9279f`; production VEGO-AI behavior is unchanged.
 * The bilingual-review-pending July 29 registers control all 19 requirements, 15 actions, and 10 questions; the closure audit has `44/44` locators, with **2 verified complete, 6 awaiting human acceptance, 22 partial, 5 open, and 9 blocked**.
 * The recommended architecture is one umbrella RQ plus three subquestions: selective intervention, governed knowledge reuse, and evaluation/transfer. Iris and Arnon approval remains pending for the August 5 checkpoint.
-* Plan A is a staged medical extension; Plan B completes the doctorate in software/modeling. Any unproved critical medical prerequisite on August 26 triggers Plan B for the September proposal.
+* The earlier working fallback described Plan A as a staged medical extension and Plan B as a
+  software/modeling route. The labels and fallback wording are now explicitly provisional and require
+  Iris/Arnon disposition; medical work remains blocked at 0/6 regardless of the eventual label.
 * Proposal `v0.1`, the RQ decision pack, three-study contract, legacy crosswalk, claim register, RACI/RAID register, pre-read, and governance templates now form the first controlled tranche.
-* A private Ali-owned nine-folder PhD working Drive and native six-tab literature Sheet exist. They have not been shared or sent; searches and screening are prepared but not yet executed.
-* Ali, Iris, and Arnon are confirmed accepted on the recurring Wednesday 09:00-10:00 Asia/Jerusalem calendar event through October 7.
+* An Ali-owned nine-folder PhD working Drive and native six-tab literature Sheet exist. Current
+  access fails the release policy: inherited resources are link-readable, Iris is Writer, and Arnon
+  lacks the intended Commenter access. No August 12 release or permission mutation was performed.
+* Historical project records describe a Wednesday 09:00-10:00 Asia/Jerusalem recurrence through
+  October 7. The August 15 live refresh confirmed the next checkpoint only: August 19, 09:00-10:00.
+  Recheck later occurrences before relying on series-wide RSVP state.
 * The metadata-only MIMIC audit observed 25 CSVs totaling 39.65 GiB versus 26 official MIMIC-III v1.4 tables; `NOTEEVENTS` and provenance are unresolved. No patient rows were inspected.
 * Medical readiness is **NO-GO at 0/6 entry gates**. EXP-005 remains blocked at 0/24 generalization-safe labels; no medical, accuracy, or generalization gain is claimed.
 * A deterministic preliminary ledger covers S-0001–S-1195: 910 machine-linked segments and 285 conservative human-review placeholders. Separate Reviewer A/B and third-person adjudication inputs now feed a fail-closed merger; human bilingual/speaker review remains 0/1,195 segments plus 0/1 full-media record per reviewer, and no adjudicated output exists.
@@ -70,7 +122,7 @@ Original VEGO-AI Agent 1-4 pipeline (baseline)
 | **ISS-023** | High | Medical readiness is 0/6 mandatory entry gates, with all accountable Plan A roles and approvals unproved. | Name owners and collect use-case, people, authorization, ethics/privacy, environment, and protocol evidence. |
 | **ISS-024** | High | The official candidacy process, deadline, reviewer count, committee rules, and presentation requirements are unverified. | Obtain written confirmation from the department or Graduate Studies coordinator. |
 | **ISS-025** | High | The shared MIMIC resource has 25 observed CSVs rather than 26 official tables and lacks canonical provenance. | Reconcile the manifest inside an authorized VDI only after all six entry gates pass. |
-| **ISS-026** | Medium | The private PhD Drive and literature Sheet are not shared or access-tested. | Ali reviews the exact package, then explicitly authorizes sharing and recipient access checks. |
+| **ISS-026** | Superseded | The July 30 snapshot said the Drive and Sheet were unshared; the August 15 read-only refresh disproved that snapshot. | Use ISS-035 as the current permission and audience-separation control. |
 | **ISS-027** | High | The current August 5 PPTX/PDF, source notes, control appendix, workbook, and automated/render QA exist locally; human timed/adversarial rehearsal, Ali release approval, delivery, and Iris/Arnon access tests remain unproved. Candidacy presentation rules and its separate deck also remain unverified. | Ali reviews the exact frozen package; run and record both human rehearsals; correct and rerender if needed; then share only with authorization and record two recipient access tests. |
 
 | **ISS-028** | Medium | The prior local offline ZIP contains the superseded PPTX/PDF and is marked stale/invalidated; readiness now verifies ZIP member hashes instead of trusting a filename or manifest hash alone. | Rebuild and re-hash the ZIP only after the exact package passes human rehearsal and RG-04 freeze. |
@@ -79,15 +131,24 @@ Original VEGO-AI Agent 1-4 pipeline (baseline)
 ---
 
 ## 4. Next Action
-1. **Ali review gate:** inspect the exact August 5 pre-read, corrected PPTX/PDF, RQ pack, proposal, Drive structure, literature Sheet, release runbook, and execution workbook before any external sharing.
-2. **August 5 decision gate:** obtain and record Iris/Arnon decisions on the one-plus-three hierarchy, study map, Plan A/B labels, literature categories, medical owner, Penina dates, and official-process owner.
-3. **Presentation gate:** Ali reviews the exact frozen local package; complete dated timed and adversarial human rehearsals, correct/rerender any defects, and record authorized delivery plus Iris/Arnon access tests without copying simulated outcomes into the real decision log.
-4. **Literature tranche:** execute the recorded searches, deduplicate, screen, verify identities/claims, and prepare the August 12 synthesis without treating tools as evidence.
-5. **Transcript gate:** complete bilingual and speaker review; continue using paraphrases only until then.
-6. **EXP-005 gate:** appoint two independent reviewers plus an adjudicator and collect the 24 safe labels; do not infer or prefill labels.
-7. **Medical gate:** keep all row-level work blocked at 0/6 and collect only documentary proof for the six prerequisites.
-8. **August 26 fallback:** run the medical go/no-go review and default the September proposal to Plan B if any critical prerequisite remains unproved.
-9. **Administrative gate:** obtain written confirmation of the official candidacy process and rebaseline within one working day if required.
+1. **Scholarship emergency:** Ali reviews and sends the Iris draft, obtains the missing letter or
+   direct-send confirmation, resolves eligibility and academic-value conflicts, submits by the written
+   August 16 deadline, and preserves receipts.
+2. **Bounded literature:** screen and identity-check all 116 works in the pinned ACL corpus. Keep
+   QL-01..QL-05 protocol-ready and unexecuted; do not expand methodology during this tranche.
+3. **Media review:** Ali completes Reviewer A; name an independent bilingual Reviewer B and a
+   distinct adjudicator; complete all 1,280 records before quotation or final attribution.
+4. **August 19 review:** use the exact ten-file package and record only explicit Confirm, Confirm with
+   correction, Retire or supersede, or Defer outcomes. Silence is Defer.
+5. **Open research controls:** obtain supervisor disposition on RQ wording, E6, E8, Plan A/B wording,
+   evidence-boundary wording, and whether Proposal v0.4 Section 4 is retained, revised later, or superseded.
+6. **Drive release:** after Ali approves exact bytes, remove link access, make Iris and Arnon
+   Commenters, supersede the mixed 16-file folder without deleting it, create the clean allowlisted
+   folder, and test both recipient accounts.
+7. **Repository gate:** use only a clean sanitized PR, pass all required checks, and obtain Ali approval
+   before merge. Leave PR #14 and branch protection unchanged without separate decisions.
+8. **Evidence gates:** keep EXP-005 at 0/24 and medical work at 0/6; collect no restricted rows or
+   invented labels and issue no closure certificate.
 
 ---
 

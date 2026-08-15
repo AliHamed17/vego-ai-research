@@ -10,6 +10,7 @@ Track milestones, current work, and next steps here.
 
 | Date | Milestone | Status | Notes |
 | --- | --- | --- | --- |
+| 2026-08-15 | August 12 evidence-to-delivery tranche | Locally built and independently reviewed in parts / human and external gates pending | Gate 0 preserved Claude's dirty drafts and created an isolated review branch. Scholarship evidence and unsent Gmail drafts are prepared. The four-source 53:44.448 media chain, 1,064-row machine alignment, 215-gap ledger, canonical controls/crosswalk, bilingual review protocol, corrected bilingual report, claim register, and open-decision sheet exist; human review is 0/1,280 per reviewer. The ACL corpus is pinned at 525 occurrences / 116 works with deterministic offline workbook staging and 0/116 human screening. The exact ten-file August 19 bilingual package passed independent construction/visual review under pypdf 6.15.0 and is Ready for Ali review only. Drive, supervisor, PR/CI, send/submission, EXP-005 0/24, and medical 0/6 gates remain open. |
 | 2026-08-01 | Iris next-step execution program operationalized | Implemented locally / human and external gates pending | Commit `9a9279f` adds a canonical 29-work-package control board and fail-closed validator, reviewer batch operations/validator, supervisor release runbook, literature execution register, university inquiry draft, proposal v0.2 working draft, ten-sheet execution workbook, and exact-package implementation manifest. It corrects native appendix titles, slide-11 footer, and machine-alignment wording in the August 5 deck and invalidates the superseded offline ZIP. Structure passes after provenance binding; readiness and closure intentionally remain non-zero. |
 | 2026-08-01 | Enhanced Iris Zoom-to-submission closure tranche | Implemented locally / human and external gates pending | Commit `18c0f2b` adds deterministic S-0001–S-1195 preliminary disposition CSV/JSON and review workbook, a separate fail-closed two-reviewer/adjudication merge path, four-dimensional control state, IRIS-EXP-05–10, SCI-EXP crosswalk, external-fact/certificate controls, schema-bound submission receipt, and `structure`/`readiness`/`closure` validation. It also adds a 12-slide English core plus nine-slide appendix with 21/21 source-note sections; the PDF, native-render QA, and workbook remain local hash-bound derivatives. The earlier offline ZIP was later invalidated by presentation corrections. Structure passes only after current provenance binding; readiness/closure remain non-zero until human review, rehearsal, delivery, supervisor acceptance, approval, and submission evidence exist. |
 | 2026-07-30 | July 29 supervisor evidence preserved | Done | Ten machine-derived working-evidence artifacts preserved on `docs/iris-july29-phd-execution` in commit `3d0beca`; human bilingual/speaker review remains open. |
@@ -212,16 +213,21 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
-Note (2026-07-30): The July 29 package is a controlled working baseline, not a supervisor-approved proposal. The exact pre-read, Drive, and Sheet have not been shared. Medical work is blocked at 0/6 gates and EXP-005 remains 0/24.
+Note (2026-08-15): The August 12 tranche is locally Ready for Ali review only. Drive access is
+currently too broad, Gmail remains draft-only, human media review is 0/1,280 per reviewer, ACL
+screening is 0/116, EXP-005 is 0/24, and medical readiness is 0/6.
 
-1. Ali reviews the exact August 5 supervisor package and authorizes any external sharing.
-2. Confirm meeting logistics, build the current presentation from the checklist, add source notes, render/inspect it, and complete a dated human rehearsal; simulated outcomes never enter the real decision log.
-3. At the August 5 meeting, record decisions on RQ wording, the three-study map, Plan A/B labels, literature categories, medical-route ownership, Penina dates, and the official-process inquiry.
-4. Record every supervisor decision within 24 hours in the decision/change log and update all affected artifacts.
-5. Execute the literature database searches, log exact queries and dates, deduplicate, screen, verify paper identities and claims, and prepare the August 12 synthesis.
-6. Complete bilingual Hebrew/English and speaker review before using direct transcript quotations or final attribution.
-7. Obtain written department/Graduate Studies confirmation of the candidacy deadline, reviewer count, nomination path, committee rules, and presentation requirements.
-8. Keep patient-row inspection, medical computation, external APIs, and pilots blocked until all six medical entry gates pass.
-9. Run the August 26 medical go/no-go; default the September proposal to Plan B if any critical prerequisite remains unproved.
-10. Appoint two independent EXP-005 reviewers plus an adjudicator and collect the 24 generalization-safe labels without inferring or prefilling any value.
-11. Refresh dashboards, evidence checks, project health, and agent memory after each implementation tranche.
+1. Ali sends the reviewed Iris scholarship request, resolves eligibility and academic-value conflicts,
+   submits the exact application by August 16, and retains letter/send/submission receipts.
+2. Complete human screening and identity verification for all 116 pinned ACL works. Do not execute
+   QL-01..QL-05 or expand methodology during the bounded literature tranche.
+3. Complete Reviewer A, independent bilingual Reviewer B, and distinct adjudication across all 1,280
+   August 12 records before direct quotation, final attribution, or accepted minutes.
+4. Use the exact ten-file package at the August 19 checkpoint and capture explicit supervisor outcomes
+   for RQ wording, E6, E8, Plan A/B wording, evidence-boundary wording, and Section 4 disposition.
+5. Only after Ali approves exact bytes, correct Drive permissions, create the clean allowlisted folder,
+   and record Iris/Arnon access tests. Leave the mixed 16-file folder intact but mark it superseded.
+6. Use only a clean sanitized PR; require all repository checks and Ali approval before merge. Leave
+   PR #14 and branch protection to separate decisions.
+7. Keep patient-row work blocked at medical 0/6 and EXP-005 at 0/24. Do not infer labels or issue a
+   closure certificate.

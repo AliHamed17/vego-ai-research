@@ -1,0 +1,117 @@
+{
+  "schema_version": "VEGO-LocalCandidateCorpusAudit-v1",
+  "source_path": "literature/verified-research-corpus-2026-08-12.json",
+  "input_sha256": "df21d7ea6b9d664967fd6c3981b884ff9e4c7a74bf8ca629c6a80e0483b4d23c",
+  "input_source_locator": {
+    "repository_path": "literature/verified-research-corpus-2026-08-12.json",
+    "repository_commit": "3659de33c569d9cd107133a74372c24364f98048"
+  },
+  "drive_xlsx_binding_status": "Not established; import blocked",
+  "source_declared_counts": {
+    "total": 144,
+    "verified": 132,
+    "partial": 11,
+    "unverified": 1
+  },
+  "source_actual_counts": {
+    "total": 144,
+    "verified": 132,
+    "partial": 11,
+    "unverified": 1
+  },
+  "declared_counts_match_actual": true,
+  "raw_records": 144,
+  "deduplicated_works": 139,
+  "duplicate_title_groups": 5,
+  "duplicate_groups": [
+    {
+      "normalized_title": "automated domain modeling with large language models a comparative study",
+      "count": 2,
+      "titles": [
+        "Automated Domain Modeling with Large Language Models: A Comparative Study"
+      ],
+      "years": [
+        "2023"
+      ],
+      "verification_states": [
+        "VERIFIED_ONLINE"
+      ]
+    },
+    {
+      "normalized_title": "consistent estimators for learning to defer to an expert",
+      "count": 2,
+      "titles": [
+        "Consistent Estimators for Learning to Defer to an Expert"
+      ],
+      "years": [
+        "2020"
+      ],
+      "verification_states": [
+        "VERIFIED_ONLINE"
+      ]
+    },
+    {
+      "normalized_title": "on the utility of domain modeling assistance with large language models",
+      "count": 2,
+      "titles": [
+        "On the Utility of Domain Modeling Assistance with Large Language Models"
+      ],
+      "years": [
+        "2024",
+        "2026"
+      ],
+      "verification_states": [
+        "VERIFIED_ONLINE"
+      ]
+    },
+    {
+      "normalized_title": "towards human in the loop llm enabled domain modeling",
+      "count": 2,
+      "titles": [
+        "Towards Human-in-the-Loop LLM-Enabled Domain Modeling"
+      ],
+      "years": [
+        "2025",
+        "2025 conference / 2026 Springer imprint"
+      ],
+      "verification_states": [
+        "PARTIALLY_VERIFIED",
+        "VERIFIED_ONLINE"
+      ]
+    },
+    {
+      "normalized_title": "truth is a lie crowd truth and the seven myths of human annotation",
+      "count": 2,
+      "titles": [
+        "Truth Is a Lie: Crowd Truth and the Seven Myths of Human Annotation"
+      ],
+      "years": [
+        "2015"
+      ],
+      "verification_states": [
+        "VERIFIED_ONLINE"
+      ]
+    }
+  ],
+  "verification_after_title_grouping": {
+    "source_label_verified": 127,
+    "source_label_partial": 11,
+    "source_label_unverified": 1
+  },
+  "verification_after_dedup": {
+    "verified": 127,
+    "partial": 11,
+    "unverified": 1
+  },
+  "acl_title_overlap": 0,
+  "native_workbook": {
+    "spreadsheet_alias": "NATIVE-WORKBOOK-PRIVATE-01",
+    "spreadsheet_locator": "private-binding://native-literature-workbook",
+    "identity_withheld_from_public_artifacts": true,
+    "snapshot_date": "2026-08-15",
+    "paper_rows": 6,
+    "overlap_with_local_candidates": 4,
+    "status": "Verified live read for metadata, bounded values, and validations; sanitized public derivative; native table metadata unavailable"
+  },
+  "claim_boundary": "139 is the number of normalized-title works, not the number independently verified. Conservative per-work aggregation uses the weakest source label in each title group; source labels are not independent bibliographic verification."
+}

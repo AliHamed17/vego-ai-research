@@ -1,0 +1,36 @@
+{
+  "schema_version": "VEGO-FoundationsQueryTest-v1",
+  "query_id": "FOUNDATIONS-LIVE-TEST-001",
+  "capture_input_sha256": "c926c9912f948602e8361bc19e6250a46ee80aeeef2ef3a4396dbfa0e7ea3d58",
+  "query_status": "Best-effort reconstruction; not confirmed against call audio",
+  "exact_query": "(\"agentic AI\" OR \"autonomous agent\" OR \"LLM agent\") AND (\"human-AI collaboration\" OR \"human-AI interaction\") AND (variability OR variant)",
+  "platform": "Google Scholar",
+  "interface_locale": "English (hl=en)",
+  "search_scope": "Articles; Any time; include citations; exclude patents",
+  "observation_date": "2026-08-15",
+  "time_zone": "Asia/Jerusalem (UTC+03:00 at capture)",
+  "result_summary_as_displayed": "About 2,500 results (0.25 sec)",
+  "result_count": {
+    "value": 2500,
+    "qualifier": "Approximate, unverified operator-reported platform estimate"
+  },
+  "captcha_observed": false,
+  "authentication_block_observed": false,
+  "export_performed": false,
+  "screening_performed": false,
+  "evidence_status": "Unverified operator observation",
+  "readiness_eligible": false,
+  "browser_evidence": {
+    "method": "Unverified operator observation; no durable DOM or screenshot",
+    "durable_capture_available": false,
+    "first_visible_result": "LLM-Based Human-Agent Collaboration and Interaction Systems: A Survey"
+  },
+  "access_limitations": [
+    "The result count is approximate and can change over time, location, and session.",
+    "Google Scholar's interpretation of nested Boolean expressions was not independently validated.",
+    "Only the visible results page and count were observed; no result export or screening occurred.",
+    "The query wording remains unverified against the 2026-08-12 audio."
+  ],
+  "formal_query_boundary": "Exploratory Foundations query only; not QL-01 through QL-05 and not a formal reproducible database search.",
+  "verification_note": "No durable screenshot or DOM capture was preserved. All displayed-result details remain an unverified operator observation and cannot satisfy readiness or closure gates."
+}

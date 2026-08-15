@@ -1,0 +1,37 @@
+{
+  "schema_version": "vego-ai.qa-incident.v1",
+  "recorded_at": "2026-08-15T02:22:03.8603274+03:00",
+  "incident_time_basis": "Observed before the 2026-08-15T02:18:21+03:00 Office-export receipt was written",
+  "severity": "User-session impact; no source-file loss observed",
+  "component": "Retired PowerPoint COM export route",
+  "baseline_user_process": {
+    "process_name": "POWERPNT",
+    "pid": 16844,
+    "was_present_before_export": true
+  },
+  "route_and_attempt": {
+    "route": "Per-file PowerPoint COM worker",
+    "attempt": 1,
+    "failure_mode": "COM attached to the pre-existing user PowerPoint process; worker cleanup called Quit on the attached application"
+  },
+  "observed_impact": {
+    "user_process_closed": true,
+    "source_artifact_label": "Existing user presentation; private title and absolute path omitted",
+    "source_file_still_present": true,
+    "source_file_bytes": 842153,
+    "source_file_sha256": "72439CCB80E8326B822A3B3391B85187689893568A9F8B3984D34F5D9478CAE1",
+    "source_file_last_saved_utc": "2026-08-14T20:43:34.969301Z",
+    "standard_autorecover_candidate_found": false
+  },
+  "operator_actions": {
+    "reopen_attempted": false,
+    "reason": "Reopening a user presentation was outside the authorized package-build scope",
+    "powerpoint_com_route_retired": true
+  },
+  "containment": [
+    "Removed PowerPoint from the Office COM export batch",
+    "Builds the one-slide PDF from the artifact-tool PNG render instead",
+    "Added regression checks prohibiting PowerPoint.Application and POWERPNT in the exporter"
+  ],
+  "closure_state": "Contained in build code; user application state not restored automatically"
+}

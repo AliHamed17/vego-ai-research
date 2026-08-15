@@ -3,7 +3,6 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
 BUILDER_PATH = ROOT / "scripts/build-progress-tracker.py"
 
@@ -52,3 +51,21 @@ def test_recent_activity_returns_latest_entries_newest_first(tmp_path: Path) -> 
     assert "008-015" in snapshot
     assert "Iteration 015" in snapshot
     assert builder.snapshot_generated_at(status) == "2026-07-25 23:27 UTC"
+
+
+def test_evidence_guard_summary_discloses_skipped_inputs() -> None:
+    builder = load_builder()
+    output = (
+        "3/3 present checks passed; 5 skipped (reports not generated).\n"
+        "EVIDENCE CONSISTENCY: PASS\n"
+    )
+    assert builder.evidence_guard_summary(output, 0) == (
+        "3/3 present checks passed; 5 skipped", "PASS"
+    )
+
+
+def test_evidence_guard_summary_fails_closed_without_counts() -> None:
+    builder = load_builder()
+    assert builder.evidence_guard_summary("unexpected output", 1) == (
+        "see guard", "FAIL"
+    )

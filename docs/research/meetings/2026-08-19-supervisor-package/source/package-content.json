@@ -1,0 +1,617 @@
+{
+  "schema_version": "VEGO-Aug19-SupervisorPackage-v1",
+  "status": "Canonical provisional controls mapped; local package build complete; release and delivery pending Ali approval",
+  "meeting": {
+    "date": "2026-08-19",
+    "time": "09:00-10:00",
+    "timezone": "Asia/Jerusalem",
+    "duration_minutes": 60
+  },
+  "boundaries": {
+    "scope": "Literature only",
+    "section_4": "Frozen pre-existing methodology draft",
+    "rq_wording": "Open",
+    "e6_exploration_identification": "Open",
+    "e8_human_expert": "Open",
+    "plan_a_b": "Open",
+    "methodology_conflict": "Open",
+    "exp_005": "0/24",
+    "medical_readiness": "0/6",
+    "human_screening": "Pending"
+  },
+  "evidence": {
+    "acl_survey": {
+      "title": "LLM-Based Human-Agent Collaboration and Interaction Systems: A Survey",
+      "authors": "Zou et al.",
+      "venue": "Findings of ACL 2026",
+      "pages": "36335-36364",
+      "doi": "10.18653/v1/2026.findings-acl.1811",
+      "landing_url": "https://aclanthology.org/2026.findings-acl.1811/",
+      "pdf_url": "https://aclanthology.org/2026.findings-acl.1811.pdf",
+      "evidence_state": "Primary survey reviewed with page-level anchors"
+    },
+    "taxonomy_repository": {
+      "url": "https://github.com/HenryPengZou/Awesome-Human-Agent-Collaboration-Interaction-Systems",
+      "commit": "7b3ba9deefe99172748582f6025d995ccc2a6f86",
+      "readme_sha256": "3410215aad4085e4caf15b1217e19825da988bc7e5189fe8baa870fa2794bf5c",
+      "evidence_state": "Pinned repository metadata and taxonomy; not full-text screening"
+    },
+    "corpus": {
+      "raw_occurrences": 525,
+      "distinct_works": 116,
+      "human_screened": 0,
+      "machine_preliminary_relevance": {
+        "core_candidate": 11,
+        "relevant_candidate": 40,
+        "contextual_candidate": 47,
+        "peripheral_candidate": 18
+      },
+      "taxonomy_rows": {
+        "Human Feedback": 89,
+        "Interaction": 89,
+        "Orchestration": 90,
+        "Communication": 89
+      }
+    },
+    "local_candidate_corpus": {
+      "raw_records": 144,
+      "deduplicated_works": 139,
+      "verified": 127,
+      "partial": 11,
+      "unverified": 1,
+      "acl_title_overlap": 0,
+      "boundary": "139 is a deduplicated work count, not a verified-source count"
+    },
+    "foundations_query": {
+      "query_status": "Unverified operator observation; not confirmed against call audio or independent evidence",
+      "captured_at": "2026-08-15T01:33:41.328+03:00",
+      "displayed_count": "Operator reported about 2,500 results; unverified",
+      "captcha_observed": "Operator reported none; unverified",
+      "export_performed": false,
+      "screening_performed": false,
+      "formal_query_boundary": "Not execution of QL-01, QL-02, QL-03, QL-04, or QL-05"
+    }
+  },
+  "workbook": {
+    "title": "VEGO-AI PhD Literature Workbook v0.1",
+    "logical_alias": "VEGO-AI-PHD-LITERATURE-WORKBOOK",
+    "delivery": "Native workbook referenced by logical alias; not duplicated; live link withheld until Ali-approved release",
+    "link_status": "Withheld pending Ali-approved private release binding",
+    "private_binding_policy": "Inject the live URL only from an ignored private binding after Ali approves the exact release package",
+    "snapshot_date": "2026-08-15",
+    "paper_rows": 6,
+    "write_status": "Read-only snapshot; staged rows not written",
+    "release_status": "Blocked pending Ali approval, permission correction, and recipient access tests"
+  },
+  "source_anchors": [
+    {
+      "id": "C2-ACL-01",
+      "locator": "p. 36335, Abstract",
+      "safe_statement_en": "The survey frames LLM-based human-agent systems as incorporating human information, feedback, or control and organizes the field around environment and profiling, feedback, interaction, orchestration, and communication.",
+      "safe_statement_he": "הסקירה ממסגרת מערכות אדם-סוכן המבוססות על מודלי שפה כמערכות המשלבות מידע, משוב או שליטה אנושיים, ומארגנת את התחום סביב סביבה ואפיון, משוב, אינטראקציה, תזמור ותקשורת.",
+      "boundary_en": "Survey-author framing; not proof of improved performance, reliability, or safety.",
+      "boundary_he": "זהו מסגור של מחברי הסקירה; אין זו הוכחה לשיפור ביצועים, אמינות או בטיחות."
+    },
+    {
+      "id": "C2-ACL-02",
+      "locator": "p. 36336, Figure 1 and Section 2",
+      "safe_statement_en": "The survey model identifies five system components and human roles involving information or clarification, feedback or correction, and control or action.",
+      "safe_statement_he": "מודל הסקירה מזהה חמישה רכיבי מערכת ותפקידי אדם הכוללים מידע או הבהרה, משוב או תיקון, ושליטה או פעולה.",
+      "boundary_en": "Taxonomy backbone only; listed benefits are not VEGO-AI results.",
+      "boundary_he": "בסיס טקסונומי בלבד; התועלות המנויות אינן תוצאות של VEGO-AI."
+    },
+    {
+      "id": "C2-ACL-03",
+      "locator": "pp. 36337-36338, Section 3.2 and Table 1",
+      "safe_statement_en": "Human feedback is categorized by type, granularity, and phase, including evaluative, corrective, guidance, and implicit forms.",
+      "safe_statement_he": "משוב אנושי מסווג לפי סוג, גרנולריות ושלב, ובכלל זה משוב הערכתי, מתקן, מנחה ומרומז.",
+      "boundary_en": "Category definitions are source-reported; individual corpus findings remain unscreened.",
+      "boundary_he": "הגדרות הקטגוריות מדווחות במקור; ממצאי העבודות הבודדות טרם נסקרו."
+    },
+    {
+      "id": "C2-ACL-04",
+      "locator": "pp. 36339-36340, Section 3.3, Figure 2 and Table 2",
+      "safe_statement_en": "Interaction is separated into collaboration, competition, and coopetition; collaboration is refined into delegation, supervision, cooperation, and coordination.",
+      "safe_statement_he": "אינטראקציה מובחנת לשיתוף פעולה, תחרות ושילוב ביניהם; שיתוף פעולה מפורט להאצלה, פיקוח, שיתוף ותיאום.",
+      "boundary_en": "One survey taxonomy, not the only possible classification.",
+      "boundary_he": "טקסונומיה אחת של סקירה, ולא הסיווג האפשרי היחיד."
+    },
+    {
+      "id": "C2-ACL-05",
+      "locator": "pp. 36340-36341, Sections 3.4-3.5 and Table 2",
+      "safe_statement_en": "Orchestration distinguishes task strategy from temporal synchronization, while communication distinguishes structure from mode.",
+      "safe_statement_he": "תזמור מבחין בין אסטרטגיית משימה לבין סנכרון בזמן, ואילו תקשורת מבחינה בין מבנה לבין אופן תקשורת.",
+      "boundary_en": "Implementation effectiveness cannot be inferred without primary-study review.",
+      "boundary_he": "אין להסיק אפקטיביות יישומית ללא סקירת המחקרים הראשוניים."
+    },
+    {
+      "id": "C2-ACL-06",
+      "locator": "pp. 36341-36342, Section 3.6 and Table 3",
+      "safe_statement_en": "The survey adds a five-level Human Agency Scale spanning full automation through human-driven work.",
+      "safe_statement_he": "הסקירה מוסיפה סולם סוכנות אנושית בן חמש רמות, מאוטומציה מלאה ועד עבודה המונעת בידי אדם.",
+      "boundary_en": "Scale selection and suitability require critical appraisal.",
+      "boundary_he": "בחירת הסולם והתאמתו מחייבות הערכה ביקורתית."
+    }
+  ],
+  "candidate_sources": [
+    {
+      "id": "C2-KS-01",
+      "title": "LLM-Based Human-Agent Collaboration and Interaction Systems: A Survey",
+      "url": "https://arxiv.org/abs/2505.00753",
+      "use_en": "Taxonomy backbone",
+      "use_he": "בסיס טקסונומי"
+    },
+    {
+      "id": "C2-KS-02",
+      "title": "Ask or Assume? Uncertainty-Aware Clarification-Seeking in Coding Agents",
+      "url": "https://arxiv.org/abs/2603.26233",
+      "use_en": "Clarification candidate",
+      "use_he": "מועמד לבחינת בקשת הבהרה"
+    },
+    {
+      "id": "C2-KS-03",
+      "title": "Ask-before-Plan: Proactive Language Agents for Real-World Planning",
+      "url": "https://aclanthology.org/2024.findings-emnlp.636/",
+      "use_en": "Proactive-intervention candidate",
+      "use_he": "מועמד להתערבות יזומה"
+    },
+    {
+      "id": "C2-KS-04",
+      "title": "A Decoupled Human-in-the-Loop System for Controlled Autonomy in Agentic Workflows",
+      "url": "https://arxiv.org/abs/2604.23049",
+      "use_en": "Bounded-autonomy candidate",
+      "use_he": "מועמד לאוטונומיה מוגבלת"
+    },
+    {
+      "id": "C2-KS-05",
+      "title": "Human Oversight of Agentic Systems in Practice",
+      "url": "https://arxiv.org/abs/2606.05391",
+      "use_en": "Oversight-work candidate",
+      "use_he": "מועמד לבחינת עבודת פיקוח"
+    },
+    {
+      "id": "C2-KS-06",
+      "title": "Collaborative Gym: A Framework for Enabling and Evaluating Human-Agent Collaboration",
+      "url": "https://arxiv.org/abs/2412.15701",
+      "use_en": "Evaluation candidate",
+      "use_he": "מועמד להערכה"
+    },
+    {
+      "id": "C2-KS-07",
+      "title": "MINT: Evaluating LLMs in Multi-turn Interaction with Tools and Language Feedback",
+      "url": "https://arxiv.org/abs/2309.10691",
+      "use_en": "Feedback-environment candidate",
+      "use_he": "מועמד לסביבת משוב"
+    },
+    {
+      "id": "C2-KS-08",
+      "title": "Aligning LLM Agents by Learning Latent Preference from User Edits",
+      "url": "https://openreview.net/forum?id=DlYNGpCuwa",
+      "use_en": "Judgment or preference candidate",
+      "use_he": "מועמד לשיפוט או העדפה"
+    },
+    {
+      "id": "C2-KS-09",
+      "title": "Collaborative Memory: Multi-User Memory Sharing in LLM Agents with Dynamic Access Control",
+      "url": "https://arxiv.org/abs/2505.18279v1",
+      "use_en": "Memory and access-control candidate",
+      "use_he": "מועמד לזיכרון ובקרת גישה"
+    },
+    {
+      "id": "C2-KS-10",
+      "title": "HAS-Bench: Evaluating LLM-Based Human-Agent Systems under Configurable Human Participation",
+      "url": "https://arxiv.org/abs/2607.04329",
+      "use_en": "Participation-evaluation candidate",
+      "use_he": "מועמד להערכת השתתפות"
+    },
+    {
+      "id": "C2-KS-11",
+      "title": "SPHERE: An Evaluation Card for Human-AI Systems",
+      "url": "https://arxiv.org/abs/2504.07971",
+      "use_en": "Evaluation-card candidate",
+      "use_he": "מועמד לכרטיס הערכה"
+    },
+    {
+      "id": "C2-KS-12",
+      "title": "AgentDS: Benchmarking the Future of Human-AI Collaboration in Domain-Specific Data Science",
+      "url": "https://arxiv.org/abs/2603.19005",
+      "use_en": "Domain-transfer candidate",
+      "use_he": "מועמד להעברה בין תחומים"
+    }
+  ],
+  "chapter2": {
+    "title_en": "Chapter 2 - Literature Review: Human-Agent Collaboration and Governed Judgment",
+    "title_he": "פרק 2 - סקירת ספרות: שיתוף פעולה אדם-סוכן ומשילות של שיפוט",
+    "subtitle_en": "Evidence-bounded draft for supervisor review - literature only",
+    "subtitle_he": "טיוטה התחומה לראיות הזמינות לבדיקת המנחים - ספרות בלבד",
+    "en": [
+      {
+        "id": "C2-01",
+        "title": "Review scope and evidence method",
+        "paragraphs": [
+          "This chapter is a bounded literature tranche prepared in response to the closing instruction from the 12 August supervision call: advance the literature first and defer further methodology development until the literature has progressed. The pre-existing Section 4 methodology draft is therefore frozen and is neither extended nor treated as approved in this package.",
+          "The evidence base has four levels. First, the ACL 2026 survey is used with page-level anchors for survey-level statements. Second, its associated taxonomy repository is pinned to commit 7b3ba9deefe99172748582f6025d995ccc2a6f86 and parsed deterministically. Third, twelve works are listed only as conservative candidates for human title, abstract, and full-text review. Fourth, the separate local corpus, native workbook, and one live query test are recorded as process evidence rather than as a completed review.",
+          "The pinned repository contains 525 in-scope occurrences that resolve to 116 distinct works. Deterministic title and taxonomy mapping is complete, but human screening is 0/116. The preliminary machine mapping classifies 11 works as core candidates, 40 as relevant, 47 as contextual, and 18 as peripheral. These labels prioritize review; they do not establish inclusion, quality, identity, or findings.",
+          "QL-01 through QL-05 remain protocol-ready and unexecuted. An unverified operator observation from the Google Scholar Foundations test reported about 2,500 displayed results and no CAPTCHA on 15 August. No export or screening occurred, and neither the count nor the query wording has been independently confirmed. This observation does not satisfy readiness and is not counted as formal-query execution."
+        ],
+        "table": {
+          "headers": ["Evidence layer", "Current coverage", "Permitted use"],
+          "rows": [
+            ["ACL survey", "Primary source with six page-level anchors", "Survey-level taxonomy statements"],
+            ["Pinned repository", "525 occurrences; 116 works", "Title and taxonomy metadata only"],
+            ["Candidate set", "12 conservative starting points", "Prioritization for human screening"],
+            ["Formal searches", "QL-01-QL-05 unexecuted", "Protocol status only"]
+          ]
+        },
+        "citations": ["C2-ACL-01", "C2-ACL-02"]
+      },
+      {
+        "id": "C2-02",
+        "title": "Problem setting: operationalized guidelines and variability",
+        "paragraphs": [
+          "The proposal's working problem concerns assessment of operationalized guidelines and the variability that appears when people, teams, or domains instantiate those guidelines differently. This is a project problem statement, not a literature finding from the bounded ACL corpus. Domain-modeling and guideline-operationalization sources still require targeted human screening before the chapter can establish the breadth, prevalence, or consequences of that variability.",
+          "Within this working problem, human judgment can enter at three analytically distinct points: deciding when intervention is warranted, determining how a judgment and its basis are represented and governed, and evaluating whether later use or transfer remains valid. These are organizing lenses for the review, not approved research-question wording. The unresolved choices between exploration and identification and between human and expert terminology remain visible decisions rather than silently fixed vocabulary.",
+          "The software and modeling artifacts already produced by VEGO-AI provide preliminary mechanism evidence only. They do not establish improved accuracy, generalization, expert-effort reduction, clinical value, or doctoral novelty. EXP-005 remains at 0/24 independent safe labels and medical readiness remains at 0/6 gates."
+        ],
+        "citations": []
+      },
+      {
+        "id": "C2-03",
+        "title": "Human-agent collaboration design space",
+        "paragraphs": [
+          "Zou et al. describe human-agent systems through environment and profiling, feedback, interaction, orchestration, and communication. Their model assigns humans roles involving information or clarification, feedback or correction, and control or action. This survey-level architecture provides a useful vocabulary for comparing how human participation is configured without assuming that any one configuration is effective [C2-ACL-01; C2-ACL-02].",
+          "The associated repository makes four operational branches explicit. Human Feedback captures what information or control is supplied and when; Interaction distinguishes collaboration, competition, and coopetition and refines collaboration into delegation, supervision, cooperation, and coordination; Orchestration separates task strategy from temporal synchronization; and Communication separates structure from mode [C2-ACL-03; C2-ACL-04; C2-ACL-05].",
+          "The survey also proposes a five-level Human Agency Scale from full automation to human-driven work [C2-ACL-06]. For this research, the scale is a candidate analytical aid rather than an adopted measure. Its construct validity, fit with domain experts, and relationship to workload or authority must be appraised before use."
+        ],
+        "table": {
+          "headers": ["Taxonomy branch", "Encoded dimensions", "Use in this review"],
+          "rows": [
+            ["Human Feedback", "Type, subtype, granularity, phase", "Characterize what humans provide and when"],
+            ["Interaction", "Type and collaboration variant", "Distinguish delegation, supervision, cooperation, coordination"],
+            ["Orchestration", "Strategy and synchronization", "Separate task ordering from temporal control"],
+            ["Communication", "Structure and mode", "Separate who communicates from how"]
+          ]
+        },
+        "citations": ["C2-ACL-01", "C2-ACL-02", "C2-ACL-03", "C2-ACL-04", "C2-ACL-05", "C2-ACL-06"]
+      },
+      {
+        "id": "C2-04",
+        "title": "Selective intervention and bounded oversight",
+        "paragraphs": [
+          "The survey's feedback taxonomy distinguishes type, granularity, and phase, which supports a structured account of when human input enters an agentic workflow [C2-ACL-03]. It does not by itself determine which uncertainty signal should trigger intervention, how importance should be defined, or how review burden should be measured. Those are empirical and design questions that require primary-study review and an explicit evaluation protocol.",
+          "Four repository works are high-priority candidates for this section because their titles or taxonomy positions concern clarification seeking, proactive intervention, controlled autonomy, or oversight work (C2-KS-02 through C2-KS-05). At this stage the chapter attributes no method, result, or conclusion to them. Their independent identity, abstracts, study design, and full text remain to be reviewed by a human.",
+          "A defensible synthesis must separate system routing counts from measured human effort. Queue volume, trigger frequency, and modeled review rate can characterize mechanism behavior; they cannot establish reduced burden without real reviewers, time-on-task, and an agreed comparator."
+        ],
+        "citations": ["C2-ACL-03", "C2-KS-02", "C2-KS-03", "C2-KS-04", "C2-KS-05"]
+      },
+      {
+        "id": "C2-05",
+        "title": "Feedback, judgment representation, governance, and reuse",
+        "paragraphs": [
+          "Feedback categories describe what a human supplies to a system, but governed reuse requires additional properties: case grounding, provenance, accountable authority, validation and adjudication, conflict handling, scope, expiry, revocation, and a traceable rationale for later retrieval. These properties are not explicit dimensions in the pinned repository taxonomy schema. This is a schema-coverage observation, not a claim that no paper in the corpus discusses them.",
+          "The titles and taxonomy positions of MINT, preference learning from user edits, and collaborative memory with access control make C2-KS-07 through C2-KS-09 reasonable candidates for this section. No finding is attributed before identity verification and full-text screening.",
+          "The proposed governed-judgment lifecycle therefore remains a contribution hypothesis. The literature review must test whether prior work already represents these properties, how authority and disagreement are handled, and whether reuse is evaluated across genuinely separated contexts. Until that screening is complete, statements such as 'no framework exists' are not permitted."
+        ],
+        "citations": ["C2-ACL-03", "C2-KS-07", "C2-KS-08", "C2-KS-09"]
+      },
+      {
+        "id": "C2-06",
+        "title": "Evaluation, transfer, and context boundaries",
+        "paragraphs": [
+          "The bounded corpus includes candidate benchmarks and evaluation frameworks for human-agent participation and domain-specific collaboration (C2-KS-06 and C2-KS-10 through C2-KS-12). Their presence shows that evaluation and human participation are represented in the corpus; it does not establish that any of them evaluates reuse of governed judgment across operationalized-guideline contexts.",
+          "Transfer must be decomposed before it can be claimed. System behavior may transfer while a particular judgment does not; a judgment may remain valid within a diagram family but not across domains; and agreement may reflect shared ambiguity rather than correct generalization. The literature review must therefore record unit of transfer, context boundaries, comparator, reference standard, subgroup effects, and leakage controls for every included study.",
+          "Plan A and Plan B wording remains open. Healthcare is a conditional transfer context, not an established evidence source, and no patient-row work is authorized. With medical readiness at 0/6, this chapter uses no clinical-performance or partner-access claim. Under the protected fallback, every research question must remain answerable using software or modeling evidence and an authorized non-medical replication context."
+        ],
+        "citations": ["C2-KS-06", "C2-KS-10", "C2-KS-11", "C2-KS-12"]
+      },
+      {
+        "id": "C2-07",
+        "title": "Synthesis and candidate gaps",
+        "paragraphs": [
+          "The current evidence supports a bounded synthesis: the survey provides a mature vocabulary for feedback, interaction, orchestration, communication, and levels of human agency; the pinned repository provides a reproducible candidate corpus; and the taxonomy schema does not explicitly encode several governance and transfer dimensions central to the working problem.",
+          "Four candidate gaps remain hypotheses pending human screening: how intervention timing is linked to independently defined importance; how judgments are grounded, validated, reconciled, scoped, and revoked; when a judgment artifact can be reused across contexts; and how expert burden is measured rather than projected. The absence of these fields from the taxonomy schema is evidence about schema coverage only. It is not evidence that the underlying literature lacks relevant methods.",
+          "The contribution claim must therefore remain conditional. If full-text review finds existing tested approaches covering these dimensions, the proposal should narrow, absorb, or supersede the corresponding contribution. If the dimensions remain weakly connected after review, the proposal may justify a design-science contribution, but only with a source-backed gap matrix and falsifiable evaluation plan."
+        ],
+        "table": {
+          "headers": ["Candidate gap", "Current evidence state", "Required closure evidence"],
+          "rows": [
+            ["Intervention timing and importance", "Pending full-text review", "Primary studies plus an independent importance definition"],
+            ["Provenance, authority, conflict and revocation", "Not explicit in taxonomy schema", "Full-text coding across included works"],
+            ["Safe judgment reuse across contexts", "Not explicit in taxonomy schema", "Transfer-unit and context-boundary evidence"],
+            ["Measured expert burden", "Not explicit in taxonomy schema", "Human time-on-task and workload measures"]
+          ]
+        },
+        "citations": ["C2-ACL-01", "C2-ACL-03", "C2-ACL-04", "C2-ACL-05"]
+      },
+      {
+        "id": "C2-08",
+        "title": "Next literature tranche and source register",
+        "paragraphs": [
+          "The recommended next task is a controlled human screening tranche over the twelve conservative candidates. For each work, verify bibliographic identity, review title and abstract, record include or exclude with a reason, and review full text only when included. Authors' conclusions and Ali's synthesis must remain separate fields in the native workbook.",
+          "The native workbook remains the canonical literature record and is referenced here only by the opaque alias VEGO-AI-PHD-LITERATURE-WORKBOOK. Its live link is withheld from this tracked review package and may be injected only from an ignored private binding after Ali approves the exact release package. The 15 August snapshot contains six paper rows; the 116 staged corpus rows have not been written. Any append requires Ali approval, a fresh header and row-count check, and corrected restricted sharing before recipient access testing.",
+          "The broader QL-01 through QL-05 searches remain deferred. The next supervisor decision is whether this bounded corpus plus the twelve-work screening tranche is sufficient for the proposal-stage Chapter 2, or whether a specific database query must be advanced before methodology resumes."
+        ],
+        "citations": ["C2-ACL-01", "C2-ACL-02", "C2-ACL-03", "C2-ACL-04", "C2-ACL-05", "C2-ACL-06"]
+      }
+    ],
+    "he": [
+      {
+        "id": "C2-01",
+        "title": "תחום הסקירה ושיטת הראיות",
+        "paragraphs": [
+          "פרק זה הוא מקטע ספרות מוגבל שהוכן בהתאם להנחיה המסכמת משיחת ההנחיה ב-12 באוגוסט: לקדם תחילה את הספרות ולדחות פיתוח נוסף של המתודולוגיה עד שתושג התקדמות בסקירה. לפיכך, טיוטת פרק 4 הקיימת מוקפאת, אינה מורחבת ואינה מוצגת כמאושרת בחבילה זו.",
+          "לבסיס הראיות ארבע רמות. ראשית, סקירת ACL 2026 משמשת עם עוגני עמודים לטענות ברמת הסקירה. שנית, מאגר הטקסונומיה הנלווה ננעל בגרסה 7b3ba9deefe99172748582f6025d995ccc2a6f86 ונותח באופן דטרמיניסטי. שלישית, שתים-עשרה עבודות מוצגות רק כמועמדות שמרניות לסינון אנושי של כותרת, תקציר וטקסט מלא. רביעית, המאגר המקומי, חוברת העבודה המקורית ובדיקת שאילתה חיה אחת מתועדים כראיות תהליך ולא כסקירה שהושלמה.",
+          "המאגר הנעול כולל 525 מופעים בתחום שהצטמצמו ל-116 עבודות שונות. מיפוי דטרמיניסטי של כותרות וטקסונומיה הושלם, אך הסינון האנושי עומד על 0 מתוך 116. המיפוי המכני המקדמי מסווג 11 עבודות כמועמדות ליבה, 40 כרלוונטיות, 47 כהקשריות ו-18 כהיקפיות. התוויות מתעדפות סקירה; הן אינן קובעות הכללה, איכות, זהות או ממצאים.",
+          "השאילתות QL-01 עד QL-05 מוכנות ברמת פרוטוקול וטרם בוצעו. לפי תצפית מפעיל שלא אומתה, בדיקת Foundations ב-Google Scholar הציגה כ-2,500 תוצאות ולא הוצג CAPTCHA ב-15 באוגוסט. לא בוצעו יצוא או סינון, והכמות ונוסח השאילתה לא אומתו באופן עצמאי. תצפית זו אינה עומדת בשער המוכנות ואין לספור אותה כביצוע שאילתה פורמלית."
+        ],
+        "table": {
+          "headers": ["שכבת ראיות", "כיסוי נוכחי", "שימוש מותר"],
+          "rows": [
+            ["סקירת ACL", "מקור ראשוני עם שישה עוגני עמודים", "טענות טקסונומיות ברמת הסקירה"],
+            ["מאגר נעול", "525 מופעים; 116 עבודות", "מטא-נתונים של כותרות וטקסונומיה בלבד"],
+            ["מערך מועמדים", "12 נקודות התחלה שמרניות", "תעדוף לסינון אנושי"],
+            ["חיפושים פורמליים", "QL-01 עד QL-05 לא בוצעו", "סטטוס פרוטוקול בלבד"]
+          ]
+        },
+        "citations": ["C2-ACL-01", "C2-ACL-02"]
+      },
+      {
+        "id": "C2-02",
+        "title": "מסגרת הבעיה: הנחיות שעברו אופרציונליזציה ושונות",
+        "paragraphs": [
+          "בעיית העבודה של ההצעה עוסקת בהערכת הנחיות שעברו אופרציונליזציה ובשונות הנוצרת כאשר אנשים, צוותים או תחומים מממשים את ההנחיות בדרכים שונות. זהו ניסוח בעיה של הפרויקט ולא ממצא ספרותי מהמאגר המוגבל של ACL. מקורות על מידול תחום ועל אופרציונליזציה של הנחיות עדיין מחייבים סינון אנושי ממוקד לפני שניתן יהיה לבסס את היקף השונות, שכיחותה או השלכותיה.",
+          "בתוך בעיית העבודה, שיפוט אנושי עשוי להיכנס בשלוש נקודות אנליטיות נפרדות: קביעה מתי נדרשת התערבות, החלטה כיצד שיפוט והבסיס שלו מיוצגים ומנוהלים, והערכת התקפות של שימוש או העברה מאוחרים. אלו עדשות ארגון לסקירה ולא נוסח מאושר של שאלות המחקר. הבחירות הפתוחות בין exploration לבין identification ובין human לבין expert נותרות החלטות גלויות ואינן מקובעות בשקט.",
+          "ארטיפקטי התוכנה והמידול שכבר הופקו ב-VEGO-AI מספקים ראיות מכניזם מקדמיות בלבד. הם אינם מבססים שיפור בדיוק, הכללה, הפחתת מאמץ מומחה, ערך קליני או חדשנות דוקטורט. EXP-005 נשאר על 0 מתוך 24 תוויות בטוחות עצמאיות, והמוכנות הרפואית על 0 מתוך 6 שערים."
+        ],
+        "citations": []
+      },
+      {
+        "id": "C2-03",
+        "title": "מרחב התכנון של שיתוף פעולה אדם-סוכן",
+        "paragraphs": [
+          "Zou ושותפיו מתארים מערכות אדם-סוכן באמצעות סביבה ואפיון, משוב, אינטראקציה, תזמור ותקשורת. המודל שלהם מייחס לאדם תפקידים של מידע או הבהרה, משוב או תיקון, ושליטה או פעולה. ארכיטקטורה זו ברמת הסקירה מספקת אוצר מילים שימושי להשוואת תצורות של השתתפות אנושית, בלי להניח שתצורה מסוימת אפקטיבית [C2-ACL-01; C2-ACL-02].",
+          "המאגר הנלווה מגדיר במפורש ארבעה ענפים תפעוליים. משוב אנושי מתאר מה האדם מספק ומתי; אינטראקציה מבחינה בין שיתוף פעולה, תחרות ושילוב ביניהם, ומפרטת שיתוף פעולה להאצלה, פיקוח, שיתוף ותיאום; תזמור מפריד בין אסטרטגיית משימה לבין סנכרון בזמן; ותקשורת מפרידה בין מבנה לבין אופן תקשורת [C2-ACL-03; C2-ACL-04; C2-ACL-05].",
+          "הסקירה מציעה גם סולם סוכנות אנושית בן חמש רמות, מאוטומציה מלאה ועד עבודה המונעת בידי אדם [C2-ACL-06]. במחקר זה הסולם הוא כלי אנליטי מועמד ולא מדד שאומץ. יש להעריך את תוקף המבנה שלו, התאמתו למומחי תחום והקשר שלו לעומס או לסמכות לפני שימוש."
+        ],
+        "table": {
+          "headers": ["ענף טקסונומי", "ממדים מקודדים", "שימוש בסקירה זו"],
+          "rows": [
+            ["משוב אנושי", "סוג, תת-סוג, גרנולריות, שלב", "אפיון מה האדם מספק ומתי"],
+            ["אינטראקציה", "סוג וגרסת שיתוף פעולה", "הבחנה בין האצלה, פיקוח, שיתוף ותיאום"],
+            ["תזמור", "אסטרטגיה וסנכרון", "הפרדת סדר משימות משליטה בזמן"],
+            ["תקשורת", "מבנה ואופן", "הפרדת זהות המתקשרים מאופן התקשורת"]
+          ]
+        },
+        "citations": ["C2-ACL-01", "C2-ACL-02", "C2-ACL-03", "C2-ACL-04", "C2-ACL-05", "C2-ACL-06"]
+      },
+      {
+        "id": "C2-04",
+        "title": "התערבות סלקטיבית ופיקוח מוגבל",
+        "paragraphs": [
+          "טקסונומיית המשוב של הסקירה מבחינה בין סוג, גרנולריות ושלב, ובכך מאפשרת תיאור מובנה של מועד כניסת הקלט האנושי לזרימת עבודה של מערכת סוכנים [C2-ACL-03]. היא אינה קובעת כשלעצמה איזה אות אי-ודאות צריך להפעיל התערבות, כיצד להגדיר חשיבות או כיצד למדוד עומס סקירה. אלו שאלות אמפיריות ותכנוניות המחייבות סקירת מחקרים ראשוניים ופרוטוקול הערכה מפורש.",
+          "ארבע עבודות במאגר הן מועמדות בעדיפות גבוהה לפרק זה משום שכותרותיהן או מיקומן הטקסונומי עוסקים בבקשת הבהרה, התערבות יזומה, אוטונומיה מבוקרת או עבודת פיקוח (C2-KS-02 עד C2-KS-05). בשלב זה אין בפרק ייחוס של שיטה, תוצאה או מסקנה לעבודות אלו. זהותן העצמאית, התקצירים, תכנון המחקר והטקסט המלא עדיין ממתינים לבדיקה אנושית.",
+          "סינתזה ניתנת להגנה חייבת להפריד בין ספירות ניתוב של המערכת לבין מאמץ אנושי שנמדד. נפח תור, תדירות טריגרים ושיעור סקירה ממודל עשויים לאפיין התנהגות מנגנון; הם אינם מבססים הפחתת עומס ללא סוקרים אמיתיים, זמן משימה ומשווה מוסכם."
+        ],
+        "citations": ["C2-ACL-03", "C2-KS-02", "C2-KS-03", "C2-KS-04", "C2-KS-05"]
+      },
+      {
+        "id": "C2-05",
+        "title": "משוב, ייצוג שיפוט, משילות ושימוש חוזר",
+        "paragraphs": [
+          "קטגוריות משוב מתארות מה אדם מספק למערכת, אך שימוש חוזר מנוהל מחייב תכונות נוספות: עיגון למקרה, ייחוס ומקור ראייתי, סמכות אחראית, אימות והכרעה, טיפול בקונפליקט, תחום תוקף, תפוגה, ביטול ונימוק עקיב לאחזור מאוחר. תכונות אלו אינן ממדים מפורשים בסכמת הטקסונומיה של המאגר הנעול. זו תצפית על כיסוי הסכמה ולא טענה שאף מאמר במאגר אינו דן בהן.",
+          "הכותרות והמיקום הטקסונומי של MINT, למידת העדפות מעריכות משתמש וזיכרון שיתופי עם בקרת גישה הופכים את C2-KS-07 עד C2-KS-09 למועמדים סבירים לפרק זה. אין לייחס ממצא לפני אימות זהות וסינון טקסט מלא.",
+          "לפיכך, מחזור החיים המוצע לשיפוט מנוהל נותר השערת תרומה. סקירת הספרות צריכה לבדוק אם עבודה קודמת כבר מייצגת תכונות אלו, כיצד מטופלות סמכות ומחלוקת, והאם שימוש חוזר מוערך בהקשרים שהופרדו באמת. עד להשלמת הסינון, ניסוחים כגון 'לא קיימת מסגרת' אינם מותרים."
+        ],
+        "citations": ["C2-ACL-03", "C2-KS-07", "C2-KS-08", "C2-KS-09"]
+      },
+      {
+        "id": "C2-06",
+        "title": "הערכה, העברה וגבולות הקשר",
+        "paragraphs": [
+          "המאגר המוגבל כולל מדדים ומסגרות הערכה מועמדים להשתתפות אדם-סוכן ולשיתוף פעולה תלוי-תחום (C2-KS-06 ו-C2-KS-10 עד C2-KS-12). נוכחותם מראה שהערכה והשתתפות אנושית מיוצגות במאגר; היא אינה מבססת שאחד מהם מעריך שימוש חוזר בשיפוט מנוהל בין הקשרים של הנחיות שעברו אופרציונליזציה.",
+          "יש לפרק העברה לפני שניתן לטעון לה. התנהגות מערכת עשויה לעבור בעוד שיפוט מסוים אינו עובר; שיפוט עשוי להישאר תקף בתוך משפחת דיאגרמות אך לא בין תחומים; והסכמה עשויה לשקף עמימות משותפת ולא הכללה נכונה. לכן סקירת הספרות חייבת לתעד לכל מחקר את יחידת ההעברה, גבולות ההקשר, המשווה, תקן הייחוס, השפעות תת-קבוצה ובקרות זליגה.",
+          "ניסוח Plan A ו-Plan B נותר פתוח. בריאות היא הקשר העברה מותנה ולא מקור ראיות מבוסס, ולא אושרה עבודה ברמת שורות מטופל. כאשר המוכנות הרפואית עומדת על 0 מתוך 6, פרק זה אינו עושה טענה על ביצוע קליני או גישת שותף. בברירת המחדל המוגנת, כל שאלת מחקר חייבת להישאר ניתנת למענה באמצעות ראיות תוכנה או מידול והקשר שכפול לא-רפואי מאושר."
+        ],
+        "citations": ["C2-KS-06", "C2-KS-10", "C2-KS-11", "C2-KS-12"]
+      },
+      {
+        "id": "C2-07",
+        "title": "סינתזה ופערים מועמדים",
+        "paragraphs": [
+          "הראיות הנוכחיות תומכות בסינתזה מוגבלת: הסקירה מספקת אוצר מילים מפותח למשוב, אינטראקציה, תזמור, תקשורת ורמות סוכנות אנושית; המאגר הנעול מספק קורפוס מועמדים בר-שחזור; וסכמת הטקסונומיה אינה מקודדת במפורש כמה ממדי משילות והעברה המרכזיים לבעיית העבודה.",
+          "ארבעה פערים מועמדים נשארים השערות עד לסינון אנושי: כיצד מועד ההתערבות מקושר לחשיבות שהוגדרה באופן עצמאי; כיצד שיפוטים מעוגנים, מאומתים, מיושבים, מוגבלים ומבוטלים; מתי ניתן להשתמש מחדש בארטיפקט שיפוט בין הקשרים; וכיצד מודדים עומס מומחה במקום להעריך אותו. היעדר שדות אלו מסכמת הטקסונומיה הוא ראיה רק לכיסוי הסכמה. אין זו ראיה שהספרות עצמה חסרה שיטות רלוונטיות.",
+          "לכן טענת התרומה חייבת להישאר מותנית. אם סקירת טקסט מלא תמצא גישות קיימות ונבדקות המכסות ממדים אלו, ההצעה צריכה לצמצם, לספוג או להחליף את התרומה המתאימה. אם לאחר הסקירה הממדים יישארו מחוברים באופן חלש, ניתן יהיה להצדיק תרומת מדעי-התכנון רק עם מטריצת פערים מבוססת מקורות ותכנית הערכה ניתנת להפרכה."
+        ],
+        "table": {
+          "headers": ["פער מועמד", "מצב ראיות נוכחי", "ראיות נדרשות לסגירה"],
+          "rows": [
+            ["מועד התערבות וחשיבות", "ממתין לסקירת טקסט מלא", "מחקרים ראשוניים והגדרה עצמאית לחשיבות"],
+            ["ייחוס ומקור ראייתי, סמכות, קונפליקט וביטול", "לא מפורש בסכמת הטקסונומיה", "קידוד טקסט מלא של עבודות כלולות"],
+            ["שימוש חוזר בטוח בשיפוט בין הקשרים", "לא מפורש בסכמת הטקסונומיה", "ראיות ליחידת העברה ולגבולות הקשר"],
+            ["עומס מומחה שנמדד", "לא מפורש בסכמת הטקסונומיה", "זמן משימה ומדדי עומס אנושיים"]
+          ]
+        },
+        "citations": ["C2-ACL-01", "C2-ACL-03", "C2-ACL-04", "C2-ACL-05"]
+      },
+      {
+        "id": "C2-08",
+        "title": "מקטע הספרות הבא ומרשם המקורות",
+        "paragraphs": [
+          "המשימה הבאה המומלצת היא מקטע סינון אנושי מבוקר של שתים-עשרה המועמדות השמרניות. לכל עבודה יש לאמת זהות ביבליוגרפית, לבדוק כותרת ותקציר, לתעד הכללה או החרגה עם סיבה, ולסקור טקסט מלא רק אם נכללה. מסקנות המחברים והסינתזה של עלי חייבות להישאר בשדות נפרדים בחוברת העבודה המקורית.",
+          "חוברת הספרות הקנונית נזכרת כאן רק באמצעות הכינוי האטום VEGO-AI-PHD-LITERATURE-WORKBOOK ואינה משוכפלת בחבילה זו. הקישור החי אינו נכלל בחבילת הבדיקה המתועדת, וניתן להזריקו רק מתוך קובץ קישור פרטי שאינו במעקב Git ולאחר שעלי יאשר את חבילת השחרור המדויקת. תמונת המצב מ-15 באוגוסט כוללת שש שורות מאמרים; 116 שורות הקורפוס שהוכנו להוספה טרם נכתבו. כל הוספה מחייבת אישור של עלי, בדיקה טרייה של כותרות וספירות שורות, ותיקון הרשאות השיתוף לפני בדיקות גישת נמענים.",
+          "החיפושים הרחבים QL-01 עד QL-05 נשארים דחויים. החלטת המנחים הבאה היא אם הקורפוס המוגבל ומקטע הסינון בן שתים-עשרה העבודות מספיקים לפרק 2 בשלב ההצעה, או שיש לקדם שאילתת מאגר מסוימת לפני חזרה למתודולוגיה."
+        ],
+        "citations": ["C2-ACL-01", "C2-ACL-02", "C2-ACL-03", "C2-ACL-04", "C2-ACL-05", "C2-ACL-06"]
+      }
+    ]
+  },
+  "classification_slide": {
+    "title": "Derived corpus relevance | סיווג רלוונטיות נגזר",
+    "subtitle": "Machine metadata mapping for prioritization; human screening remains 0/116 | מיפוי מטא-נתונים מכני לתעדוף; הסינון האנושי נשאר 0/116",
+    "rows": [
+      ["High | גבוהה", "Machine Core candidate | מועמדת ליבה מכנית", "11 works | 11 עבודות", "Priority for human screening, not inclusion | עדיפות לסינון אנושי, לא הכללה"],
+      ["Low | נמוכה", "Relevant + Contextual candidates | מועמדות רלוונטיות + הקשריות", "87 works | 87 עבודות", "Combined presentation class; review still pending | מחלקת הצגה משולבת; הסקירה עדיין ממתינה"],
+      ["No | ללא", "Machine Peripheral candidate | מועמדת היקפית מכנית", "18 works | 18 עבודות", "Not a human exclusion decision | לא החלטת החרגה אנושית"],
+      ["Missing | חסר", "Nine grouped themes not encoded by the taxonomy schema | תשע קבוצות נושא שאינן מקודדות בסכמת הטקסונומיה", "Themes, not works | נושאים, לא עבודות", "Schema observation; papers may still cover them | תצפית על הסכמה; ייתכן שהמאמרים מכסים אותם"]
+    ],
+    "boundary": "High/Low/No is a derived display mapping from Core/Relevant+Contextual/Peripheral. Missing refers to schema coverage, not absence from the literature."
+  },
+  "preread": {
+    "status_en": "Ready for Ali review - not delivered, accepted, or closed",
+    "status_he": "מוכן לבדיקת עלי - לא נמסר, לא התקבל ולא נסגר",
+    "purpose_en": "Review the literature-only Chapter 2 tranche, confirm the evidence boundary, and select one next literature task.",
+    "purpose_he": "לבדוק את מקטע פרק 2 המתמקד בספרות בלבד, לאשר את גבול הראיות ולבחור משימת ספרות אחת להמשך.",
+    "completed_en": [
+      "Pinned the ACL taxonomy repository and reconciled 525 occurrences into 116 works.",
+      "Created six page-level anchors into the ACL survey and twelve conservative screening candidates.",
+      "Produced matched English and Hebrew Chapter 2 drafts and one bilingual classification slide.",
+      "Kept QL-01-QL-05 unexecuted, Section 4 frozen, EXP-005 at 0/24, and medical readiness at 0/6."
+    ],
+    "completed_he": [
+      "נעילת מאגר הטקסונומיה של ACL והתאמת 525 מופעים ל-116 עבודות.",
+      "יצירת שישה עוגני עמודים בסקירת ACL ושתים-עשרה מועמדות שמרניות לסינון.",
+      "הפקת טיוטות פרק 2 תואמות באנגלית ובעברית ושקף סיווג דו-לשוני אחד.",
+      "השארת QL-01 עד QL-05 ללא ביצוע, הקפאת פרק 4, EXP-005 על 0/24 ומוכנות רפואית על 0/6."
+    ],
+    "walkthrough_en": [
+      "Evidence boundary and package status",
+      "Pinned corpus and taxonomy coverage",
+      "Chapter 2 synthesis and candidate gaps",
+      "Open research and methodology choices",
+      "Decision read-back and one next task"
+    ],
+    "walkthrough_he": [
+      "גבול הראיות ומצב החבילה",
+      "הקורפוס הנעול וכיסוי הטקסונומיה",
+      "סינתזת פרק 2 והפערים המועמדים",
+      "בחירות מחקר ומתודולוגיה פתוחות",
+      "הקראת החלטות ומשימת המשך אחת"
+    ],
+    "recommended_next_task_en": "Human-screen the twelve conservative candidates in the native workbook, with identity verification and separate author-conclusion and researcher-synthesis fields.",
+    "recommended_next_task_he": "לבצע סינון אנושי של שתים-עשרה המועמדות השמרניות בחוברת העבודה המקורית, עם אימות זהות והפרדה בין מסקנות המחברים לסינתזת החוקר."
+  },
+  "decisions": [
+    {
+      "canonical_control_id": "A12-003; D12-003",
+      "state": "Open",
+      "question_en": "Confirm or correct the Chapter 2 structure and evidence hierarchy.",
+      "question_he": "לאשר או לתקן את מבנה פרק 2 ואת היררכיית הראיות."
+    },
+    {
+      "canonical_control_id": "D12-002; Q12-009; R12-007",
+      "state": "Open",
+      "question_en": "Is the bounded ACL corpus plus twelve-work human screening sufficient for the proposal-stage literature chapter?",
+      "question_he": "האם קורפוס ACL המוגבל וסינון אנושי של 12 עבודות מספיקים לפרק הספרות בשלב ההצעה?"
+    },
+    {
+      "canonical_control_id": "A12-002; A12-004; Q12-009",
+      "state": "Open",
+      "question_en": "Confirm the twelve-work human screening tranche as the single next task, or replace it with one named database query.",
+      "question_he": "לאשר את מקטע הסינון בן 12 העבודות כמשימת ההמשך היחידה, או להחליפו בשאילתת מאגר מוגדרת אחת."
+    },
+    {
+      "canonical_control_id": "A12-010; Q12-006; R12-008",
+      "state": "Open",
+      "question_en": "Retain, revise later, or supersede the frozen pre-existing Section 4 methodology draft after Chapter 2 review.",
+      "question_he": "להשאיר, לתקן בהמשך או להחליף את טיוטת המתודולוגיה המוקפאת של פרק 4 לאחר בדיקת פרק 2."
+    },
+    {
+      "canonical_control_id": "D12-005; Q12-001; R12-009",
+      "state": "Deferred",
+      "question_en": "Exact umbrella and sub-question wording remains unresolved and was not settled on 12 August.",
+      "question_he": "הנוסח המדויק של שאלת-העל ותתי-השאלות נשאר פתוח ולא הוכרע ב-12 באוגוסט."
+    },
+    {
+      "canonical_control_id": "D12-005; Q12-002",
+      "state": "Deferred",
+      "question_en": "Exploration versus identification remains unresolved.",
+      "question_he": "הבחירה בין exploration לבין identification נשארת פתוחה."
+    },
+    {
+      "canonical_control_id": "D12-005; Q12-003",
+      "state": "Deferred",
+      "question_en": "Human versus expert terminology remains unresolved.",
+      "question_he": "הבחירה בין human לבין expert נשארת פתוחה."
+    },
+    {
+      "canonical_control_id": "Q12-004",
+      "state": "Deferred",
+      "question_en": "Plan A and Plan B wording remains unresolved.",
+      "question_he": "ניסוח Plan A ו-Plan B נשאר פתוח."
+    },
+    {
+      "canonical_control_id": "D12-001; Q12-006; R12-008",
+      "state": "Deferred",
+      "question_en": "The apparent conflict between the pre-existing methodology draft and the literature-first sequence remains unresolved.",
+      "question_he": "הסתירה לכאורה בין טיוטת המתודולוגיה הקיימת לבין סדר העבודה המעדיף ספרות נשארת פתוחה."
+    }
+  ],
+  "tracker": [
+    {
+      "control": "ACL corpus",
+      "status": "Evidence ready",
+      "evidence_en": "525 occurrences, 116 works, pinned commit; machine mapping only",
+      "evidence_he": "525 מופעים, 116 עבודות, גרסה נעולה; מיפוי מכני בלבד"
+    },
+    {
+      "control": "Human corpus screening",
+      "status": "Blocked",
+      "evidence_en": "0/116 reviewed by a human",
+      "evidence_he": "0/116 נבדקו בידי אדם"
+    },
+    {
+      "control": "Chapter 2 EN/HE",
+      "status": "Ready for Ali review",
+      "evidence_en": "Matched IDs and literature-only boundary; supervisor acceptance pending",
+      "evidence_he": "מזהים תואמים וגבול ספרות בלבד; קבלת המנחים ממתינה"
+    },
+    {
+      "control": "Native literature workbook",
+      "status": "Not updated",
+      "evidence_en": "Six paper rows; 116 append candidates staged but not written",
+      "evidence_he": "שש שורות מאמרים; 116 מועמדות להוספה הוכנו אך לא נכתבו"
+    },
+    {
+      "control": "QL-01 through QL-05",
+      "status": "Deferred",
+      "evidence_en": "Protocol ready; no formal execution",
+      "evidence_he": "פרוטוקול מוכן; לא בוצע חיפוש פורמלי"
+    },
+    {
+      "control": "Section 4 methodology",
+      "status": "Frozen",
+      "evidence_en": "Pre-existing draft; no extension in this tranche",
+      "evidence_he": "טיוטה קיימת; ללא הרחבה במקטע זה"
+    },
+    {
+      "control": "RQ/E6/E8/Plan A-B",
+      "status": "Open",
+      "evidence_en": "No supervisor disposition recorded on 12 August",
+      "evidence_he": "לא תועדה הכרעת מנחים ב-12 באוגוסט"
+    },
+    {
+      "control": "EXP-005",
+      "status": "Blocked",
+      "evidence_en": "0/24 safe independent labels",
+      "evidence_he": "0/24 תוויות בטוחות עצמאיות"
+    },
+    {
+      "control": "Medical readiness",
+      "status": "Blocked",
+      "evidence_en": "0/6 gates; no row-level work authorized",
+      "evidence_he": "0/6 שערים; לא אושרה עבודה ברמת שורות"
+    },
+    {
+      "control": "Clean supervisor release",
+      "status": "Blocked pending Ali approval",
+      "evidence_en": "Existing 16-file folder mixes prep and deliverables; root is link-public, Iris is Writer, Arnon absent",
+      "evidence_he": "התיקייה הקיימת בת 16 קבצים מערבבת הכנה ותוצרים; השורש ציבורי בקישור, איריס עורכת וארנון ללא גישה"
+    },
+    {
+      "control": "Delivery and access tests",
+      "status": "Not performed",
+      "evidence_en": "No upload, permission change, recipient test, or delivery receipt",
+      "evidence_he": "לא בוצעו העלאה, שינוי הרשאה, בדיקת נמען או אישור מסירה"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 <!--
-last_updated: 2026-07-04
+last_updated: 2026-08-15
 staleness_threshold_days: 14
 -->
 
@@ -11,11 +11,12 @@ Durable decisions for this project.
 
 | Date | Title | Status | Notes / Superseded By |
 |---|---|---|---|
+| 2026-08-15 | August 12 Two-Speed Evidence-to-Delivery Program | Active local working authority | Scholarship and bounded literature proceed urgently; evidence/governance closure runs in parallel. Draft-only Gmail and no connector release remain binding. |
 | 2026-08-04 | Fresh-Worktree Verification Before Trusting Local Checkouts | Active | A long-lived local checkout can silently drift from the committed, attribute-normalized state (line endings, stale generated manifests); verify CI-relevant checks in a disposable `git worktree add --detach HEAD` before pushing, not just the primary working copy. |
 | 2026-08-03 | Independent Audit Standard for the Iris Closure Package | Active | 21-agent adversarial audit found 0 refuted findings; restored all 10 IRIS-EXP structure checks to PASS. |
 | 2026-07-30 | July 29 Requirements-Closure Authority | Active working authority | The 19 requirements, 15 actions, and 10 open questions control the successor program, subject to bilingual confirmation and supervisor decisions. |
 | 2026-07-30 | One-Plus-Three Research Architecture | Recommended, pending approval | One umbrella RQ and SQ1 selective intervention, SQ2 governed knowledge reuse, and SQ3 evaluation/transfer map to three studies. |
-| 2026-07-30 | Plan A / Plan B and August 26 Fallback | Active working default | Plan A is a gated medical extension; Plan B completes through software/modeling and becomes the September default if any critical medical prerequisite is unproved. |
+| 2026-07-30 | Plan A / Plan B and August 26 Fallback | Provisional; exact wording open | The earlier fallback remains historical working context, but the labels and final disposition require explicit Iris/Arnon confirmation. Medical work remains blocked at 0/6 either way. |
 | 2026-07-30 | Three-Zone PhD Data Boundary | Active | Repository metadata/aggregate evidence, private working Drive, and restricted VDI are separated; patient rows and restricted derivatives never enter Git, ordinary Drive, or online LLMs. |
 | 2026-06-11 | Shared Agent Memory | Active | Uses AGENTS.md, CLAUDE.md, and docs/agent-memory/ |
 | 2026-06-11 | Current-State First Workflow | Active | Stored in current-state.md and progress.md |
@@ -429,3 +430,20 @@ Durable decisions for this project.
 - Decision: Before pushing a branch and expecting CI to pass, verify CI-equivalent checks (full test suite, structure-mode validator, hardening manifest, diff hygiene) in a disposable `git worktree add --detach HEAD` at the exact commit being pushed, not only in the primary long-lived local checkout.
 - Reason: Pushing `docs/iris-july29-phd-execution` triggered CI for the first time this branch had ever run (`supervisor-package.yml` had never executed against it before), and it failed repeatedly for reasons invisible locally: (1) gitignored PDF/workbook artifacts that only ever existed on this machine, crashing validators that assumed local presence; (2) a missing `.gitattributes` `eol=lf` rule for `.jsonl`, so Windows `core.autocrlf` silently corrupted the raw ASR transcript on any fresh checkout while the long-lived local copy (checked out before the rule existed, or written directly by a script) stayed correct; (3) 4 further tracked files (`pyproject.toml`, one `.mjs`, two `.ps1`) whose on-disk bytes in this specific checkout had drifted from the declared attribute policy and were never re-smudged, corrupting an aggregate content hash (the evaluation-phase hardening manifest) that a fresh checkout computed differently. None of these were visible running tests directly in the primary checkout; each was only caught by diffing a fresh worktree's files byte-for-byte against the primary checkout, or by running the actual GitHub Actions job.
 - Consequence: 6 CI-blocking commits (`bf980ec` through `20b04fc`) fixed all of the above; CI went green on both the feature branch and the resulting `main` merge commit (`a78c1bf`). Adopt this verification step as standard practice before any push expected to pass CI, especially after a long-lived local checkout has accumulated manual edits, scratch scripts, or older `.gitattributes` history.
+
+## 2026-08-15 - August 12 Two-Speed Evidence-to-Delivery Program
+
+- Decision: Use two lanes: urgent scholarship/literature work and parallel evidence/governance closure.
+- Decision: Use Iris and Arnon as the exactly two scholarship recommenders. Keep Gmail authority draft-only; software does not send or claim a receipt.
+- Decision: Treat the closing August 12 instruction as the provisional immediate control: literature first, methodology later after satisfactory literature progress. Preserve earlier discussion as superseded context.
+- Decision: Bound this week's literature work to the exact pinned ACL 2026 survey-taxonomy corpus. Keep QL-01..QL-05 protocol-ready and unexecuted; do not represent inventory as human screening.
+- Decision: Keep RQ wording, exploration versus identification/classification, human versus expert judgment, Plan A/B wording, evidence-boundary wording, and Proposal v0.4 Section 4 disposition visibly open. Silence is `Defer`.
+- Decision: Use the `F12`/`A12`/`D12`/`Q12`/`R12` namespaces. Claude's conflicting draft identifiers remain historical and crosswalked; they are not canonical controls.
+- Decision: Keep raw media, machine transcripts, reviewer returns, scholarship evidence, and private workbook bindings outside Git. Public artifacts contain sanitized aliases and hashes only.
+- Decision: The exact supervisor folder has ten allowlisted files; the native workbook is currently
+  represented by a withheld logical alias and will be linked privately rather than duplicated only
+  after Ali approves the exact release. No upload or permission change occurs before that approval.
+- Decision: After approval, remove link access, change Iris to Commenter, add Arnon as Commenter, supersede the old mixed folder without deleting it, and run both recipient access tests.
+- Decision: Use an isolated PR and never push this work directly to `main`. PR #14 and branch protection require separate Ali decisions.
+- Reason: The call evidence, connector refresh, and independent reviews show that local structure can be made reliable while bilingual review, corpus screening, permissions, supervisor outcomes, and institutional receipts remain human/external gates.
+- Consequence: `Ready for Ali review` is the maximum local status. No delivered, accepted, closed, or 100% certificate claim is permitted.

@@ -1,0 +1,80 @@
+{
+  "schema_version": "VEGO-ACL2026-Corpus-v1",
+  "source": {
+    "survey_url": "https://aclanthology.org/2026.findings-acl.1811/",
+    "survey_doi": "10.18653/v1/2026.findings-acl.1811",
+    "repository_url": "https://github.com/HenryPengZou/Awesome-Human-Agent-Collaboration-Interaction-Systems",
+    "commit": "7b3ba9deefe99172748582f6025d995ccc2a6f86",
+    "readme_url": "https://raw.githubusercontent.com/HenryPengZou/Awesome-Human-Agent-Collaboration-Interaction-Systems/7b3ba9deefe99172748582f6025d995ccc2a6f86/README.md",
+    "readme_sha256": "3410215aad4085e4caf15b1217e19825da988bc7e5189fe8baa870fa2794bf5c",
+    "retrieval_date": "2026-08-15"
+  },
+  "source_inputs": {
+    "pinned_repository_readme": {
+      "locator": "https://raw.githubusercontent.com/HenryPengZou/Awesome-Human-Agent-Collaboration-Interaction-Systems/7b3ba9deefe99172748582f6025d995ccc2a6f86/README.md",
+      "sha256": "3410215aad4085e4caf15b1217e19825da988bc7e5189fe8baa870fa2794bf5c",
+      "evidence_status": "Immutable repository source"
+    },
+    "local_candidate_corpus": {
+      "locator": "literature/verified-research-corpus-2026-08-12.json",
+      "sha256": "df21d7ea6b9d664967fd6c3981b884ff9e4c7a74bf8ca629c6a80e0483b4d23c",
+      "evidence_status": "Repository-bound candidate source labels"
+    },
+    "native_workbook_capture": {
+      "locator": "literature/acl2026-human-agent-corpus/evidence-inputs/native-workbook-connector-capture-2026-08-15.json",
+      "sha256": "68242fa0bad8c71ff13c98f13263fa42d237e8d1cf46f5a46280369127c65346",
+      "evidence_status": "Verified live read for metadata, bounded values, and validations; sanitized public derivative; native table metadata unavailable"
+    },
+    "foundations_query_capture": {
+      "locator": "literature/acl2026-human-agent-corpus/evidence-inputs/foundations-query-observation-capture-2026-08-15.json",
+      "sha256": "c926c9912f948602e8361bc19e6250a46ee80aeeef2ef3a4396dbfa0e7ea3d58",
+      "evidence_status": "Unverified operator observation"
+    }
+  },
+  "scope": {
+    "included_sections": [
+      "Applications, Datasets & Benchmarks",
+      "Latest Research Papers",
+      "Taxonomy"
+    ],
+    "deduplication": "connected components over normalized title and strong identifiers; all source occurrences retained; conflicting strong IDs rejected unless the exact publisher/preprint alias set was reviewed",
+    "screening_level": "Machine repository-metadata/title mapping only",
+    "native_workbook_write_status": "Not written; append candidates staged only"
+  },
+  "counts": {
+    "raw_occurrences": 525,
+    "distinct_works": 116,
+    "latest_research_works": 106,
+    "application_works": 57,
+    "taxonomy_works": 90
+  },
+  "taxonomy_rows": {
+    "Communication": 89,
+    "Human Feedback": 89,
+    "Interaction": 89,
+    "Orchestration": 90
+  },
+  "boundaries": {
+    "formal_queries": "QL-01 through QL-05: protocol ready / deferred after proposal",
+    "research_questions": "Provisional / unresolved",
+    "methodology": "Frozen pre-existing draft",
+    "human_screening": "Pending for 116 of 116 works",
+    "novelty_claim": "Not permitted from this extraction alone"
+  },
+  "artifacts": {
+    "occurrences.csv": "b4a6c15de438af8bfeb5482a6922009aae815dae4b7395c375063961ee7d3eae",
+    "works.csv": "cf00e3af7b771965ee23fef739b54da214ca39541b1741522fb62a608a8fb136",
+    "screening.csv": "311d6d49ba221ab62fc70eca5dae54b56d4f8ee548345fdbc9d5cf622a8753cd",
+    "conservative-key-sources.csv": "79bc1120a3014bedcbbe1439354e64fa1305e38a2de67a7084e83fabb3dba6a8",
+    "native-papers-append-staging.csv": "472997959e9525c91e065086ce2b71bf908fb5ec0dae5eb321a483258e31926a",
+    "native-screening-append-staging.csv": "d8137bf35c0f62639e77667373a4954c592b5ae67eb8fd4f1e0eaad1bbeac562",
+    "native-search-log-append-staging.csv": "002e1c84eeae9a4ec822ae7aa754cbb48434f3670ddee1839e0f66915f00eebb",
+    "native-append-preflight.json": "d369b0940c544dbd9f6f950357320d3035c885ff8424be6ab97358d716b57ea4",
+    "native-workbook-snapshot-2026-08-15.json": "a7c46ea90c56a538af0a581c17127004f0ebc902ae423b948290145a7ac5a50e",
+    "foundations-query-test-2026-08-15.json": "8942d2892aa8ed593c9e6983cc217ee70e00ee2b62cad2ce19b08b256c8ebf8f",
+    "local-candidate-corpus-audit.json": "cc461e4c271b26e7c322f089bc96a0b77f18b34290ac4aece8b06f2a1e758f6e",
+    "README.md": "d1fedcd205b8158c237385d95729cc59fe62818dc8190509962cf10bda2bee1d",
+    "taxonomy-gap-matrix.md": "de7ec93ffb5af335be670dadc32c01cad7083a8a3a1ab50793942c7245ac81ed",
+    "chapter2-source-anchors.md": "82ae3a55b86461c95ca07eba312de26dd4eac02805cba6e45fa0ebaa68769b9b"
+  }
+}

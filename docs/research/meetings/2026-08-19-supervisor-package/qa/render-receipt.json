@@ -1,0 +1,22 @@
+{
+  "schema_version": "vego-ai.aug19-visual-inspection-receipt.v1",
+  "reviewer_role": "Codex-build-QA-pending-independent-review",
+  "render_index_sha256": "3d3bf8da90cb3ddd37008b2df5cb39e2b9438b08f48ae91b4f50260f584a465c",
+  "office_receipt_sha256": "4393fc05dfa4805716be2bfffac310e59b05b88a1b338fd46b663c480c2c49fa",
+  "render_count": 26,
+  "page_counts": {
+    "Chapter_2_Literature_Review_EN.pdf": 8,
+    "Chapter_2_Literature_Review_HE.pdf": 7,
+    "Supervisor_PreRead_EN.pdf": 2,
+    "Supervisor_PreRead_HE.pdf": 2,
+    "Supervisor_Tracker_and_Decisions_Bilingual.pdf": 5,
+    "Human_Agent_Classification_Bilingual.pdf": 1
+  },
+  "docx_pdf_page_parity": true,
+  "all_pages_and_slides_visually_inspected": true,
+  "english_hebrew_parity": true,
+  "rtl_inspected": true,
+  "citations_and_links_inspected": true,
+  "inspection_scope": "Every indexed PDF page plus the artifact-tool PPTX slide render",
+  "findings": []
+}

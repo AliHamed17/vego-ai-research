@@ -1,0 +1,128 @@
+{
+  "schema_version": "vego-ai.aug19-supervisor-package-manifest.v1",
+  "package_status": "Ready for Ali review - not delivered, accepted, or closed",
+  "meeting": {
+    "date": "2026-08-19",
+    "time": "09:00-10:00",
+    "timezone": "Asia/Jerusalem",
+    "duration_minutes": 60
+  },
+  "scope": "Literature only",
+  "artifacts": [
+    {
+      "file": "Chapter_2_Literature_Review_EN.docx",
+      "sha256": "447506b5dc59801ae4d621a9d0fb659e3d07ae918b582693ffb374414ffd8e46",
+      "bytes": 45853,
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    {
+      "file": "Chapter_2_Literature_Review_EN.pdf",
+      "sha256": "f4912f992225b64646efde682dfce4d1284b034d4e7706ce255dc5fde06d529a",
+      "bytes": 341614,
+      "media_type": "application/pdf",
+      "pages": 8
+    },
+    {
+      "file": "Chapter_2_Literature_Review_HE.docx",
+      "sha256": "bf327940abada8ab163ef7f084fdc7564bbd3bee34e0b4159c763a833699968a",
+      "bytes": 47563,
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    {
+      "file": "Chapter_2_Literature_Review_HE.pdf",
+      "sha256": "04899f2c3fcdf14a3babedc081f3f2c31d8d605e92c9a2d1f7d4c952973773dd",
+      "bytes": 348747,
+      "media_type": "application/pdf",
+      "pages": 7
+    },
+    {
+      "file": "Human_Agent_Classification_Bilingual.pptx",
+      "sha256": "312990ee0b763e7264930fe81c6a2dd53224ddbc0631c68a1f8811d66ca4700f",
+      "bytes": 14007,
+      "media_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "slides": 1
+    },
+    {
+      "file": "Human_Agent_Classification_Bilingual.pdf",
+      "sha256": "91d1ce408332367af9dec7fac35db0dcfa636225d0d22caa152709a9371c5771",
+      "bytes": 100389,
+      "media_type": "application/pdf",
+      "pages": 1
+    },
+    {
+      "file": "Supervisor_PreRead_EN.pdf",
+      "sha256": "c87247cc115ff887fe3b6fa003c419cb766ef9b5a3c514691cdd74652fe426a1",
+      "bytes": 254617,
+      "media_type": "application/pdf",
+      "pages": 2
+    },
+    {
+      "file": "Supervisor_PreRead_HE.pdf",
+      "sha256": "02585fa566d9dd9bf7cc1a3b9346861ac988124af0459c46b6404c864303c995",
+      "bytes": 233746,
+      "media_type": "application/pdf",
+      "pages": 2
+    },
+    {
+      "file": "Supervisor_Tracker_and_Decisions_Bilingual.pdf",
+      "sha256": "74f59205407cc17a5d2703173910d8b292915f7cd3036335b4c4ad4fd0d1f4b5",
+      "bytes": 403932,
+      "media_type": "application/pdf",
+      "pages": 5
+    }
+  ],
+  "bindings": {
+    "acl_corpus_git_commit": "974552efd90d233980c588746f50928d8e397b0e",
+    "taxonomy_repository_commit": "7b3ba9deefe99172748582f6025d995ccc2a6f86",
+    "content_sha256": "13864e8c2ce50ce75b48e5ae5b44b895fb185245357802cbcf4e78cea2eaaae3",
+    "control_register_sha256": "5f6422d0573fd144cf99a7d14623f3b52874028197210a9119c41a36b83c79f7",
+    "acl_source_manifest_sha256": "572b48d280424b3c6aeaeb5577b2b9b345283cd95775578fa21ea16d30df1819",
+    "python_runtime": "3.11.14",
+    "python_executable_sha256": "c57a84aa7c5f7a8e74bf5f79d5a172c2ebae81ae35f7a5c55de06904011a63a5",
+    "python_docx_runtime": "1.2.0",
+    "pypdf_runtime": "6.15.0",
+    "node_runtime": "v24.19.0",
+    "node_executable_sha256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+    "powershell_runtime": "7.6.4",
+    "powershell_executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+    "artifact_tool_runtime": "2.8.43",
+    "office_runtime": "16.0",
+    "pdf_renderer_sha256": "742cbbd9a00931ad16c6618410bc40471375d639a45c61c1d86f3dcfc54b6388",
+    "docx_sanitizer_sha256": "c8dafcef80220593411103ea3caefaa221e0ec7970bf31237f6ffbe762b0d4bf",
+    "build_receipt_sha256": "cafb0908f26752a3032f65c023c379ca168b2c9e3e5e3a41f9fcd556d42f4c4a",
+    "render_receipt_sha256": "ad6a103b6d8b0b1853ae68d661b350fd2dfa689d7a3ec9e1fe32c2aae272af7c"
+  },
+  "boundaries": {
+    "scope": "Literature only",
+    "section_4": "Frozen pre-existing methodology draft",
+    "rq_wording": "Open",
+    "e6_exploration_identification": "Open",
+    "e8_human_expert": "Open",
+    "plan_a_b": "Open",
+    "methodology_conflict": "Open",
+    "exp_005": "0/24",
+    "medical_readiness": "0/6",
+    "human_screening": "Pending"
+  },
+  "workbook": {
+    "title": "VEGO-AI PhD Literature Workbook v0.1",
+    "logical_alias": "VEGO-AI-PHD-LITERATURE-WORKBOOK",
+    "delivery": "Native workbook referenced by logical alias; not duplicated; live link withheld until Ali-approved release",
+    "link_status": "Withheld pending Ali-approved private release binding",
+    "binding_mode": "withheld",
+    "release_status": "Blocked pending Ali approval, permission correction, and recipient access tests"
+  },
+  "release": {
+    "ali_exact_package_approval": "Pending",
+    "drive_permission_correction": "Blocked pending Ali approval",
+    "recipient_access_tests": "Not performed",
+    "delivered": false
+  },
+  "qa": {
+    "docx_pdf_page_parity": true,
+    "all_pages_and_slides_visually_inspected": true,
+    "english_hebrew_parity": true,
+    "rtl_inspected": true,
+    "citations_and_links_inspected": true
+  }
+}

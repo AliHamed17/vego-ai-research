@@ -22,24 +22,6 @@ Record file changes and rollback notes here.
 - Git branch: `feature/evaluation-phase` created and active.
 - Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
 
-## 2026-07-14 12:38 +03:00 - Codex - Research Master Plan Package
-
-- Files changed:
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\README.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\MASTER_RESEARCH_PLAN.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\EXPERIMENT_ROADMAP.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\ARCHITECTURE_AND_FLOWS.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\VISUALIZATION_PLAN.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\EVALUATION_PLAN.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\ENHANCEMENT_BACKLOG.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\THESIS_STRUCTURE.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\SUPERVISOR_DECISIONS.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\RISK_AND_VALIDITY_REGISTER.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\REPRODUCIBILITY_CHECKLIST.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\TIMELINE_AND_MILESTONES.md
-- Rollback note: Remove C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan to roll back the local planning package; source tracking entries are append-only audit records.
-- Git commit: none recorded by script.
-
 ## 2026-07-20 22:22 +03:00 - Codex - July 21 Supervisor Package And Repository Hardening
 
 - Files changed:
@@ -49,7 +31,6 @@ Record file changes and rollback notes here.
   - Agent memory session/revert logs and archives; archive conservation was verified with zero missing or changed historical entries.
 - Rollback note: Revert the July 21 package commits to remove tracked package/governance/gallery/QA changes; delete only the dated 2026-07-21 share folder and ignored PDF/log outputs if those copies must be withdrawn. Do not alter July 15 history, raw ASR, Agent 4, protected VEGO-AI runtime paths, baseline outputs, or EXP-005 labels.
 - Git commit: none recorded by script.
-
 ## 2026-07-24 20:24 +03:00 - Codex - Thesis accuracy-evidence advancement package
 
 - Files changed:
@@ -445,4 +426,17 @@ Record file changes and rollback notes here.
   - docs/research/meetings/2026-08-11-full-gaps-and-blockers-report.md
   - docs/agent-memory/issues.md
 - Rollback note: Two new files added, non-destructive; no code changes.
+- Git commit: none recorded by script.
+
+## 2026-08-15 04:43 +03:00 - Codex - August 12 evidence-to-delivery implementation
+
+- Files changed:
+  - docs/research/meetings/2026-08-12-*
+  - docs/research/meetings/2026-08-19-supervisor-package/**
+  - literature/acl2026-human-agent-corpus/**
+  - scripts/build_aug12_meeting_evidence.py and focused tests
+  - scripts/build_acl2026_corpus.py and focused tests
+  - docs/operations/2026-08-vatat-scholarship-status.md
+  - docs/agent-memory canonical status files
+- Rollback note: Revert only the August 12 review-branch commits if the local implementation must be withdrawn; preserve private append-only evidence packages, raw sources, human-return areas, incident records, and external drafts.
 - Git commit: none recorded by script.
