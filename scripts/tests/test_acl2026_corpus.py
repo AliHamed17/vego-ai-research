@@ -104,6 +104,18 @@ def test_generated_manifest_is_pinned_and_hash_bound() -> None:
         assert hashlib.sha256((CORPUS / name).read_bytes()).hexdigest() == expected_hash
 
 
+def test_generated_csvs_are_lf_normalized_for_manifest_portability() -> None:
+    attributes = (ROOT / ".gitattributes").read_text(encoding="utf-8")
+    assert (
+        "literature/acl2026-human-agent-corpus/*.csv text eol=lf" in attributes
+    )
+    manifest = json.loads((CORPUS / "source-manifest.json").read_text(encoding="utf-8"))
+    csv_names = sorted(name for name in manifest["artifacts"] if name.endswith(".csv"))
+    assert csv_names
+    for name in csv_names:
+        assert b"\r\n" not in (CORPUS / name).read_bytes(), name
+
+
 def test_generated_occurrences_and_taxonomy_counts_are_exact() -> None:
     occurrences = _read_csv("occurrences.csv")
     works = _read_csv("works.csv")

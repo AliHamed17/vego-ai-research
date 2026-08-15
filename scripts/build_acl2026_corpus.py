@@ -1277,7 +1277,7 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> bytes:
     if not rows:
         raise ValueError(f"cannot write empty CSV: {path}")
     buffer = io.StringIO(newline="")
-    writer = csv.DictWriter(buffer, fieldnames=list(rows[0]))
+    writer = csv.DictWriter(buffer, fieldnames=list(rows[0]), lineterminator="\n")
     writer.writeheader()
     writer.writerows(rows)
     content = buffer.getvalue().encode("utf-8-sig")
