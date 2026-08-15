@@ -156,7 +156,10 @@
     "scripts/tests/fixtures/failing_evidence_guard.py",
     "scripts/tests/fixtures/pass_then_fail_protected_guard.py",
     "scripts/tests/supervisor_package_browser_smoke.mjs",
+    "scripts/tests/test_acl2026_corpus.py",
     "scripts/tests/test_agent_contribution_report.py",
+    "scripts/tests/test_aug12_meeting_evidence.py",
+    "scripts/tests/test_aug19_supervisor_package.py",
     "scripts/tests/test_aug1_oct7_execution_program.py",
     "scripts/tests/test_bigui_catalog.py",
     "scripts/tests/test_bigui_run_store.py",
@@ -164,6 +167,7 @@
     "scripts/tests/test_build_hlayer_program_overview.py",
     "scripts/tests/test_build_progress_tracker.py",
     "scripts/tests/test_change_authorization.py",
+    "scripts/tests/test_compare_aug12_translation_attempts.py",
     "scripts/tests/test_dependency_lock.py",
     "scripts/tests/test_exp005_interactive_labeler.py",
     "scripts/tests/test_experiment_benchmark.py",
@@ -205,7 +209,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "b6d4ab1073c0d72c6e864bcad4da34211cac59292f187be3c60b05280bbd14ff",
+  "sourceTreeSha256": "6750978e02b2602b73423ce4fae71c21d68143f65a6389d2db635e87729d22b8",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

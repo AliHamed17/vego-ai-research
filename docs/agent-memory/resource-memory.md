@@ -2,7 +2,31 @@
 
 This file is the compact shared resource index for Codex and Claude. It points agents to reusable research resources without forcing every prompt to reload downloaded source files.
 
-Last updated: 2026-08-01 by Codex.
+Last updated: 2026-08-15 by Codex.
+
+## August 12 Evidence-to-Delivery Resources
+
+Tracked sanitized controls:
+
+- `docs/research/meetings/2026-08-12-control-register.csv`
+- `docs/research/meetings/2026-08-12-claude-id-crosswalk.csv`
+- `docs/research/meetings/2026-08-12-human-review-protocol.md`
+- `docs/research/meetings/2026-08-12-machine-evidence-provenance.md`
+- `docs/research/meetings/2026-08-12-corrected-meeting-report.en-he.md`
+- `docs/research/meetings/2026-08-12-claim-register.csv`
+- `docs/research/meetings/2026-08-12-open-decisions.en-he.md`
+- `literature/acl2026-human-agent-corpus/`
+- `docs/research/meetings/2026-08-19-supervisor-package/final/`
+
+Private aliases and boundaries:
+
+- `PRIVATE_EVIDENCE/packages/aug12-machine-evidence-v3`: exact ten-file machine-only evidence package; human review remains 0/1,280 records per reviewer.
+- `NATIVE-WORKBOOK-PRIVATE-01`: canonical native literature workbook binding; public direct locator withheld.
+- Scholarship evidence/drafts remain ignored and private; Gmail copies remain drafts and unsent.
+
+Current release boundary: the ACL inventory/offline staging, private machine-only media v3 package,
+and exact August 19 package have passed scoped independent review. Human media review remains
+0/1,280 records per reviewer. No connector delivery or acceptance is implied.
 
 ## Iris Next-Step Execution Program
 
@@ -48,15 +72,16 @@ External working resources:
 
 | Resource | URL | Current boundary |
 | --- | --- | --- |
-| Private Ali-owned PhD working folder | https://drive.google.com/drive/folders/1Och2Vlux87uqk6QZy0F4xr2WhfzY_cd- | Nine-folder structure created; not shared or sent pending Ali review. |
-| Native literature workbook | https://docs.google.com/spreadsheets/d/1tVAM10bxlmL7_8SbgDgN5BRfAR2f5Q4pGvQmx-Ypp4A/edit | Six tabs and six seed records created; searches and screening are not yet executed. |
-| Supplied MIMIC source folder | https://drive.google.com/drive/folders/1_RheL2DUcicQLGXJyY_soUb91zn9XLsz | Source/viewer resource only; leave unchanged and do not treat file visibility as authorization. |
+| Private Ali-owned PhD working folder | `private-binding://phd-working-root` | Nine-folder structure created; current permission state fails the August 12 release control. Direct locator is private. |
+| Native literature workbook | `private-binding://native-literature-workbook` | Six tabs and six seed records exist; broad searches and screening are not complete. Direct locator is private. |
+| Supplied MIMIC source folder | `restricted-binding://mimic-source-folder` | Source/viewer resource only; leave unchanged and do not treat file visibility as authorization. Direct locator is restricted. |
 
 Operational state:
 
 - Branch: `docs/iris-july29-phd-execution`.
 - Preserved evidence commit: `3d0beca`.
-- Recurring calendar: Wednesday 09:00-10:00 Asia/Jerusalem through the October 7 occurrence; Ali, Iris, and Arnon accepted.
+- Calendar: historical records describe a Wednesday 09:00-10:00 recurrence through October 7; the
+  August 15 live refresh confirmed only the August 19, 09:00-10:00 checkpoint. Recheck later RSVP state.
 - Medical readiness: 0/6; no patient-row inspection or medical computation is authorized.
 - External sharing: Ali must review and authorize the exact package first.
 

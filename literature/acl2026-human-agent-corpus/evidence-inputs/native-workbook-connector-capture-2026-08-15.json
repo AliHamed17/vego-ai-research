@@ -1,0 +1,612 @@
+{
+  "schema_version": "VEGO-NativeWorkbookConnectorCapture-v1",
+  "capture_id": "NATIVE-SHEET-READ-2026-08-15-01",
+  "captured_at_utc": "2026-08-14T23:00:36.438Z",
+  "capture_time_zone": "Asia/Jerusalem",
+  "evidence_status": "Verified live read for metadata, bounded values, and validations; sanitized public derivative; native table metadata unavailable",
+  "access_mode": "Read-only connector calls; no spreadsheet mutation",
+  "spreadsheet": {
+    "spreadsheet_alias": "NATIVE-WORKBOOK-PRIVATE-01",
+    "spreadsheet_locator": "private-binding://native-literature-workbook",
+    "identity_withheld_from_public_artifacts": true,
+    "private_unsanitized_capture_sha256": "851aaf1d99d97e7d69a18b361163c3e8cf24c003c45b568652dc5551005b61f4",
+    "title": "VEGO-AI PhD Literature Workbook v0.1",
+    "locale": "en_GB",
+    "time_zone": "Asia/Jerusalem",
+    "metadata_response_sha256": "14cd59bbb4e79deada507e93d679beb04e68f1983a21498efb522684c5fab770"
+  },
+  "connector_actions": [
+    {
+      "action": "get_spreadsheet_cells",
+      "ranges": [
+        "Papers!A1:AJ7",
+        "Search_Log!A1:N7",
+        "Screening!A1:K7",
+        "Taxonomy_and_Gaps!A1:L9",
+        "Resources!A1:I13",
+        "Controlled_Lists!A1:L12"
+      ],
+      "cell_fields": "dataValidation,userEnteredValue",
+      "result": "success"
+    },
+    {
+      "action": "get_spreadsheet_metadata",
+      "include_conditional_format_rules": true,
+      "result": "success"
+    }
+  ],
+  "sheet_captures": {
+    "Papers": {
+      "sheet_id": 419655458,
+      "title": "Papers",
+      "grid_rows": 1000,
+      "grid_columns": 36,
+      "frozen_rows": 1,
+      "used_range": "Papers!A1:AJ7",
+      "headers": [
+        "Paper_ID",
+        "Title",
+        "Authors",
+        "Year",
+        "Venue",
+        "Publication_Type",
+        "DOI",
+        "URL",
+        "Database",
+        "Query_ID",
+        "Search_Date",
+        "Access_or_License",
+        "Objective",
+        "Domain",
+        "Study_Design",
+        "Data_or_Corpus",
+        "Sample",
+        "Artifact_or_System",
+        "Baseline",
+        "Metrics",
+        "Main_Results",
+        "Authors_Conclusions",
+        "Authors_Limitations",
+        "Taxonomy_Tags",
+        "SQ_Map",
+        "Plan_Map",
+        "Use_Case_Map",
+        "Gap_Evidence",
+        "Quality_Rating",
+        "Transferability",
+        "Researcher_Synthesis",
+        "Inclusion_Decision",
+        "Exclusion_Reason",
+        "Follow_Up",
+        "Reviewer",
+        "Review_Date"
+      ],
+      "data_rows": 6,
+      "sanitized_value_columns": [
+        "Paper_ID",
+        "Title",
+        "DOI",
+        "URL"
+      ],
+      "sanitized_values": [
+        [
+          "Paper_ID",
+          "Title",
+          "DOI",
+          "URL"
+        ],
+        [
+          "HAI-001",
+          "Guidelines for Human-AI Interaction",
+          "10.1145/3290605.3300233",
+          "https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/"
+        ],
+        [
+          "GOV-001",
+          "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+          "10.6028/NIST.AI.100-1",
+          "https://www.nist.gov/itl/ai-risk-management-framework"
+        ],
+        [
+          "HITL-001",
+          "Human-in-the-loop machine learning: a state of the art",
+          "10.1007/s10462-022-10246-w",
+          "https://link.springer.com/article/10.1007/s10462-022-10246-w"
+        ],
+        [
+          "MDE-001",
+          "AI Assisted Domain Modeling Explainability and Traceability",
+          "10.1145/3652620.3688197",
+          "https://dl.acm.org/doi/10.1145/3652620.3688197"
+        ],
+        [
+          "VEGO-BASE-001",
+          "Not All Differences Matter: Variability Exploration of Domain Models via Agentic AI",
+          null,
+          null
+        ],
+        [
+          "MDE-CAND-002",
+          "Towards Human-in-the-Loop LLM-Enabled Domain Modeling",
+          null,
+          null
+        ]
+      ],
+      "schema_sha256": "7b5a6b7118a2b5302b780e534bb2f9b9263ceeb5231484348bd8e48e5e559d49",
+      "values_sha256": "870542afedf5deed71dca626c9a67c878b6500ce05049edc7f425b1430720a46",
+      "validation_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "table_evidence_sha256": "6fe72b056082c672f1e681e294847c5e7fb0b5e12299c33f7d1d0623fa17154c",
+      "connector_sheet_response_sha256": "0950e256facd0e7288cfdb9f4946703b2bad5ae4548367ec90ded9f563e7cab2",
+      "validation_entry_count": 0
+    },
+    "Search_Log": {
+      "sheet_id": 1473703545,
+      "title": "Search_Log",
+      "grid_rows": 1000,
+      "grid_columns": 26,
+      "frozen_rows": 1,
+      "used_range": "Search_Log!A1:N7",
+      "headers": [
+        "Query_ID",
+        "Prepared_Date",
+        "Database",
+        "Concept_Group",
+        "Search_String",
+        "Primary_Window",
+        "Older_Seminal_Rule",
+        "Status",
+        "Results_Returned",
+        "Results_Screened",
+        "Added_to_Papers",
+        "Searcher",
+        "Execution_Date",
+        "Notes"
+      ],
+      "data_rows": 6,
+      "sanitized_value_columns": [
+        "Query_ID"
+      ],
+      "sanitized_values": [
+        [
+          "Query_ID"
+        ],
+        [
+          "Q-AGENT-001"
+        ],
+        [
+          "Q-FEEDBACK-001"
+        ],
+        [
+          "Q-MODEL-001"
+        ],
+        [
+          "Q-GOV-001"
+        ],
+        [
+          "Q-MED-001"
+        ],
+        [
+          "Q-SNOWBALL-001"
+        ]
+      ],
+      "schema_sha256": "120ce5ef7677418f62e4c5407d6d69d41258210d59d1b001ded73c5f0a5b19b7",
+      "values_sha256": "ff58e8e54e247733306a7d8a2e4095d7b684f48f9a4efc066b3cd78b37882c5e",
+      "validation_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "table_evidence_sha256": "6fe72b056082c672f1e681e294847c5e7fb0b5e12299c33f7d1d0623fa17154c",
+      "connector_sheet_response_sha256": "7dc48adaf846e88d8081c1cafd5f20fb50089ca0b56a8f2a9f8f4d8bd68094e7",
+      "validation_entry_count": 0
+    },
+    "Screening": {
+      "sheet_id": 1881846104,
+      "title": "Screening",
+      "grid_rows": 1000,
+      "grid_columns": 26,
+      "frozen_rows": 1,
+      "used_range": "Screening!A1:K7",
+      "headers": [
+        "Paper_ID",
+        "Title",
+        "Identity_Verified",
+        "Deduplicated",
+        "Title_Abstract_Decision",
+        "Full_Text_Decision",
+        "Exclusion_Reason",
+        "Reviewer",
+        "Review_Date",
+        "Evidence_or_Link",
+        "Notes"
+      ],
+      "data_rows": 6,
+      "sanitized_value_columns": [
+        "Paper_ID"
+      ],
+      "sanitized_values": [
+        [
+          "Paper_ID"
+        ],
+        [
+          "HAI-001"
+        ],
+        [
+          "GOV-001"
+        ],
+        [
+          "HITL-001"
+        ],
+        [
+          "MDE-001"
+        ],
+        [
+          "VEGO-BASE-001"
+        ],
+        [
+          "MDE-CAND-002"
+        ]
+      ],
+      "schema_sha256": "d1933588c559065ee0dd176dacb323a1d5fd8fe44a8df1435e7f4012aba59d80",
+      "values_sha256": "0b173fde828b596debe30126d3d82ec921aafe68efc33b34845a5927f399532b",
+      "validation_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "table_evidence_sha256": "6fe72b056082c672f1e681e294847c5e7fb0b5e12299c33f7d1d0623fa17154c",
+      "connector_sheet_response_sha256": "3755a5282535627ee70ab89c824d0eca3044a6d776a474a097beebb18e4640c6",
+      "validation_entry_count": 0
+    },
+    "Taxonomy_and_Gaps": {
+      "sheet_id": 1885469891,
+      "title": "Taxonomy_and_Gaps",
+      "grid_rows": 1000,
+      "grid_columns": 26,
+      "frozen_rows": 1,
+      "used_range": "Taxonomy_and_Gaps!A1:L9",
+      "headers": [
+        "Category_ID",
+        "Taxonomy_Category",
+        "SQ_Map",
+        "Evidence_Need",
+        "Current_Coverage_Count",
+        "Coverage_Assessment",
+        "Gap_Status",
+        "Linked_Paper_IDs",
+        "Study_Contribution_Link",
+        "Next_Search_Action",
+        "Owner",
+        "Due_Date"
+      ],
+      "data_rows": 8,
+      "sanitized_value_columns": [
+        "Category_ID"
+      ],
+      "sanitized_values": [
+        [
+          "Category_ID"
+        ],
+        [
+          "TAX-01"
+        ],
+        [
+          "TAX-02"
+        ],
+        [
+          "TAX-03"
+        ],
+        [
+          "TAX-04"
+        ],
+        [
+          "TAX-05"
+        ],
+        [
+          "TAX-06"
+        ],
+        [
+          "TAX-07"
+        ],
+        [
+          "TAX-08"
+        ]
+      ],
+      "schema_sha256": "5adb330677f3bab0b4e380d5fde7145a6caf9f268f9c9017ae718c2e2de2e5c4",
+      "values_sha256": "b8c199d6b0a61e9be346ac11f2c22b7b43cc3a412223f2bca61ab73c2fb0a641",
+      "validation_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "table_evidence_sha256": "6fe72b056082c672f1e681e294847c5e7fb0b5e12299c33f7d1d0623fa17154c",
+      "connector_sheet_response_sha256": "093a040d33ecd81c0818e98a61e3cfd1d157ac9640480a3ea8f413593fab6e41",
+      "validation_entry_count": 0
+    },
+    "Resources": {
+      "sheet_id": 2077351591,
+      "title": "Resources",
+      "grid_rows": 1000,
+      "grid_columns": 26,
+      "frozen_rows": 1,
+      "used_range": "Resources!A1:I13",
+      "headers": [
+        "Resource_ID",
+        "Name",
+        "Type",
+        "URL",
+        "Research_Evidence",
+        "Allowed_Use",
+        "License_or_Access",
+        "Repository_Source",
+        "Notes"
+      ],
+      "data_rows": 12,
+      "sanitized_value_columns": [
+        "Resource_ID"
+      ],
+      "sanitized_values": [
+        [
+          "Resource_ID"
+        ],
+        [
+          "TOOL-001"
+        ],
+        [
+          "TOOL-002"
+        ],
+        [
+          "TOOL-003"
+        ],
+        [
+          "TOOL-004"
+        ],
+        [
+          "DB-ACM"
+        ],
+        [
+          "DB-IEEE"
+        ],
+        [
+          "DB-SCOPUS"
+        ],
+        [
+          "DB-WOS"
+        ],
+        [
+          "DB-PUBMED"
+        ],
+        [
+          "DB-GS"
+        ],
+        [
+          "DATA-MIMIC"
+        ],
+        [
+          "GOV-LLM"
+        ]
+      ],
+      "schema_sha256": "4627628c29e5c7b1246e85dd03d267a2c3cec69264c6d07d8b62f919f3c3cd8a",
+      "values_sha256": "6471725537d44b16e7e4a2e7773c4b571a0d5b6fb25965d165cf567cdb5d3b92",
+      "validation_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "table_evidence_sha256": "6fe72b056082c672f1e681e294847c5e7fb0b5e12299c33f7d1d0623fa17154c",
+      "connector_sheet_response_sha256": "8c4953c8d28eda6026a0bbbc06dac32cda1f899df053ea38af3569916fcca552",
+      "validation_entry_count": 0
+    },
+    "Controlled_Lists": {
+      "sheet_id": 1140112103,
+      "title": "Controlled_Lists",
+      "grid_rows": 1000,
+      "grid_columns": 26,
+      "frozen_rows": 0,
+      "used_range": "Controlled_Lists!A1:L12",
+      "headers": [
+        "Publication_Type",
+        "Database",
+        "Domain",
+        "Study_Design",
+        "SQ_Map",
+        "Plan_Map",
+        "Quality_Rating",
+        "Transferability",
+        "Inclusion_Decision",
+        "Yes_No",
+        "Gap_Status",
+        "Search_Status"
+      ],
+      "data_rows": 11,
+      "sanitized_value_columns": [
+        "Publication_Type",
+        "Database",
+        "Domain",
+        "Study_Design",
+        "SQ_Map",
+        "Plan_Map",
+        "Quality_Rating",
+        "Transferability",
+        "Inclusion_Decision",
+        "Yes_No",
+        "Gap_Status",
+        "Search_Status"
+      ],
+      "sanitized_values": [
+        [
+          "Publication_Type",
+          "Database",
+          "Domain",
+          "Study_Design",
+          "SQ_Map",
+          "Plan_Map",
+          "Quality_Rating",
+          "Transferability",
+          "Inclusion_Decision",
+          "Yes_No",
+          "Gap_Status",
+          "Search_Status"
+        ],
+        [
+          "Journal article",
+          "ACM Digital Library",
+          "Cross-domain",
+          "Design science",
+          "SQ1",
+          "Plan A",
+          "High",
+          "High",
+          "Included",
+          "Yes",
+          "Covered",
+          "Protocol ready"
+        ],
+        [
+          "Conference paper",
+          "IEEE Xplore",
+          "Software engineering/modeling",
+          "Controlled experiment",
+          "SQ2",
+          "Plan B",
+          "Medium",
+          "Medium",
+          "Candidate",
+          "No",
+          "Partial",
+          "Executed"
+        ],
+        [
+          "Review article",
+          "Scopus",
+          "Healthcare",
+          "Case study",
+          "SQ3",
+          "Plan A; Plan B",
+          "Low",
+          "Low",
+          "Excluded",
+          "Pending",
+          "Open",
+          "Needs update"
+        ],
+        [
+          "Standard or official guidance",
+          "Web of Science",
+          "Education",
+          "State-of-the-art review",
+          "SQ1; SQ2",
+          null,
+          "Pending",
+          "Pending",
+          "Needs verification",
+          null,
+          "Blocked",
+          null
+        ],
+        [
+          "Preprint",
+          "PubMed",
+          "Human-computer interaction",
+          "Systematic review",
+          "SQ1; SQ3",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Book or chapter",
+          "Google Scholar",
+          "Governance",
+          "Design-guideline synthesis",
+          "SQ2; SQ3",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Tool documentation",
+          "Existing resource pack",
+          null,
+          "Official framework",
+          "SQ1; SQ2; SQ3",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "VEGO-AI repository",
+          null,
+          "Conference study",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "Repository thesis bibliography",
+          null,
+          "Design-and-evaluation paper",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "Candidate conference study",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "Other",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "schema_sha256": "e83911c4e74dec85cdc2047b3598032ef8b16af3669a1639fb052576e67d8b9b",
+      "values_sha256": "c39983fdd3be525b94905337634fd497ffc4c0ce90417f98aa2aa37b8fbd702b",
+      "validation_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "table_evidence_sha256": "6fe72b056082c672f1e681e294847c5e7fb0b5e12299c33f7d1d0623fa17154c",
+      "connector_sheet_response_sha256": "d576fcf3b5bb73e0ca9a6640532250a034fdedd6ab27c963342197b54d0dafd9",
+      "validation_entry_count": 0
+    }
+  },
+  "table_metadata_status": "Unavailable from connector; live append blocked",
+  "table_evidence_marker": {
+    "status": "Unavailable from connector; live append blocked",
+    "tables": []
+  },
+  "append_gate": {
+    "live_append_ready": false,
+    "reason": "Exact native table metadata is unavailable from the read connector; staging remains offline only."
+  },
+  "sanitization": {
+    "raw_connector_response_committed": false,
+    "exact_unsanitized_values_bound_by_hash": true,
+    "committed_values": "Headers plus public identity keys; full Controlled_Lists preserved; URLs outside Papers omitted"
+  }
+}

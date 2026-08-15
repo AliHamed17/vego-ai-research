@@ -1,0 +1,45 @@
+{
+  "schema_version": "Aug12ClaudeDraftHandoff-v1",
+  "recorded_at_utc": "2026-08-14T22:39:37.595412Z",
+  "handoff_checkout_head": "703baf4628c8279ee94b610f85c5c1b803aad4ea",
+  "evidence_boundary": "These files were untracked, historical, machine-derived Claude drafts at handoff. Their bytes are preserved by hash only. Their interpretations and identifiers are noncanonical and require human review.",
+  "gate_0": {
+    "claude_resume_session_id": "a359a084-e57c-4091-9913-050a219d95b6",
+    "observed_writer_process_id": 62224,
+    "writer_process_ended_before_snapshot": true,
+    "stable_window_seconds": 309,
+    "preserved_dirty_or_untracked_path_count": 24,
+    "preservation_result": "preserved_untouched",
+    "source_checkout_alias": "main substantive checkout",
+    "isolated_branch": "review/aug12-evidence-delivery",
+    "isolated_worktree_alias": "August 12 evidence-delivery review worktree"
+  },
+  "documents": [
+    {
+      "repo_relative_path": "docs/research/meetings/2026-08-12-supervisor-meeting.md",
+      "bytes": 8095,
+      "sha256": "2FD01B5545816FF13184FA71837B4886F60902AA58960CF70192D48295E57A8A",
+      "last_write_utc": "2026-08-14T20:25:40.3825573Z",
+      "git_state_at_handoff": "untracked",
+      "status": "historical_machine_derived_noncanonical"
+    },
+    {
+      "repo_relative_path": "docs/research/meetings/2026-08-12-post-meeting-plan.md",
+      "bytes": 20179,
+      "sha256": "1ED372DA96522856DA5302E24008959DAEFAF3A9573064266CACF65E3D9359BE",
+      "last_write_utc": "2026-08-14T20:16:41.9056222Z",
+      "git_state_at_handoff": "untracked",
+      "status": "historical_machine_derived_noncanonical"
+    },
+    {
+      "repo_relative_path": "docs/research/phd-proposal/literature-review-structure-and-queries-draft.md",
+      "bytes": 8904,
+      "sha256": "262F5D28AF0FE1102758E6D97942E65FC0A2C53A5C2F780594BAD0FD0916938D",
+      "last_write_utc": "2026-08-14T20:14:11.0627057Z",
+      "git_state_at_handoff": "untracked",
+      "status": "historical_machine_derived_noncanonical"
+    }
+  ],
+  "canonical_successor": "docs/research/meetings/2026-08-12-control-register.csv",
+  "id_crosswalk": "docs/research/meetings/2026-08-12-claude-id-crosswalk.csv"
+}

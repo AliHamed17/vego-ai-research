@@ -45,6 +45,19 @@ def run(cmd, timeout=120):
         return 1, str(e)
 
 
+def evidence_guard_summary(output: str, returncode: int) -> tuple[str, str]:
+    """Summarize present checks without hiding unavailable generated inputs."""
+    present = re.search(r"(\d+/\d+ present checks passed)", output)
+    skipped = re.search(r"(\d+ skipped)", output)
+    if present:
+        summary = present.group(1)
+        if skipped:
+            summary += f"; {skipped.group(1)}"
+    else:
+        summary = "PASS" if returncode == 0 else "see guard"
+    return summary, "PASS" if returncode == 0 else "FAIL"
+
+
 def git(*args):
     _, out = run(["git", *args], timeout=20)
     return out.strip()
@@ -62,7 +75,6 @@ def count_filled(path, col="expert_label"):
 
 def replace_region(text, name, body):
     pat = re.compile(rf"(<!-- AUTO:{name}:start -->).*?(<!-- AUTO:{name}:end -->)", re.DOTALL)
-    repl = rf"\1\n{body}\n\2"
     new, n = pat.subn(lambda m: m.group(1) + "\n" + body + "\n" + m.group(2), text)
     return new, n
 
@@ -169,9 +181,7 @@ def main(argv=None):
 
     # evidence guard (live)
     gcode, gout = run([sys.executable, "scripts/check_evidence_consistency.py"], timeout=120)
-    gm = re.search(r"(\d+)/(\d+) present checks passed", gout)
-    guard_str = f"{gm.group(0)}" if gm else ("PASS" if gcode == 0 else "see guard")
-    guard_state = "PASS" if gcode == 0 else "FAIL"
+    guard_str, guard_state = evidence_guard_summary(gout, gcode)
 
     # pytest (optional)
     if args.run_tests:
