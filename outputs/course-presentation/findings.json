@@ -1,0 +1,102 @@
+{
+  "streams_title": "Six streams — each answers a part, none the whole",
+  "streams_sub": "Organised thematically, the reviewed corpus separates into six bodies of work, each stopping at a different point in the lifecycle.",
+  "streams_foot": "Source counts are for the reviewed corpus only, and are approximate: a source may inform more than one stream. Each “leaves open” describes what the reviewed work does not cover — not a proven absence in the field.",
+  "streams": [
+    {
+      "key": "A",
+      "count": "~34",
+      "name": "Escalation triggering & burden",
+      "establishes": "When to hand off: reject and defer rules, risk–coverage curves, uncertainty signals — plus evidence that human review is not free.",
+      "leaves_open": "in this work the expert's answer is consumed as a training label, decided per instance, and not carried forward."
+    },
+    {
+      "key": "B",
+      "count": "7",
+      "name": "Judgment internalised in parameters",
+      "establishes": "The paradigm this question is positioned against — learning from human preferences, model editing, unlearning — with its own critique.",
+      "leaves_open": "once absorbed into weights, a judgment has no record-level identity to inspect, attribute, scope or revoke."
+    },
+    {
+      "key": "C",
+      "count": "~17",
+      "name": "Externalised records & provenance",
+      "establishes": "Building blocks for holding judgment outside the weights: provenance standards, scope declarations, rationale schemas, disagreement as signal.",
+      "leaves_open": "in the reviewed work these sit at differing granularity and do not compose; provenance carries no validity or authority semantics."
+    },
+    {
+      "key": "D",
+      "count": "~8",
+      "name": "Runtime agent memory & reuse",
+      "establishes": "How a stored ruling could be reused at runtime — retrieval augmentation, memory taxonomies, self-reflection over stored records.",
+      "leaves_open": "the reviewed operations retrieve on similarity alone, with no authorisation, scope or expiry predicate."
+    },
+    {
+      "key": "E",
+      "count": "~33",
+      "name": "Model assessment & variability",
+      "establishes": "The application domain — automated and LLM-based assessment of conceptual models, and the vocabulary of planned, designed-in variation.",
+      "leaves_open": "the assessor's reasoning is consumed once; legitimacy of a difference is largely settled at construction time, not judged in context."
+    },
+    {
+      "key": "F",
+      "count": "~43",
+      "name": "Transfer, shift & validity",
+      "establishes": "How to state a transfer claim precisely and not fool yourself — shift vocabulary, paired in/out-of-context reporting, threats to validity.",
+      "leaves_open": "formulated over fitted models and static datasets; the reviewed set offers no category for a governed human-decision artefact."
+    }
+  ],
+  "streams_notes": "Six streams, organised thematically as the course suggests.\n\nDon't read them out. Make one point: each stream is strong at one checkpoint and silent at another. A and E know when to interrupt but throw the answer away. B and C know how to hold knowledge but have no trigger. D can retrieve but has no gate. F can evaluate transfer but has no judgment artefact to evaluate.\n\nThat observation is what forced the framework on the next slide - I needed a way to see the handovers, not the topics. (~60 sec)",
+  "framework_name": "The Judgment Lifecycle Grid",
+  "framework_sub": "The unit of analysis is not a paper and not a topic — it is one expert ruling, and the five checkpoints it must pass between the moment an agent hesitates and the moment someone claims that ruling still holds elsewhere.",
+  "framework_foot": "Levels describe where the reviewed corpus reaches — they are not a claim that the field contains nothing higher. Executing the frozen protocol searches may raise any ceiling, and testing that is the next step.",
+  "ceilings": [
+    [
+      "REUSE stops at L2",
+      "Nothing in the reviewed corpus checks a per-record scope gate before a stored ruling is applied to a new case. Reuse goes by similarity."
+    ],
+    [
+      "ASK stops at L2",
+      "The corpus shows that how a question is framed changes the answer — yet its measures score whether the system asked, never how."
+    ],
+    [
+      "RECORD is empty at L4",
+      "Reconciling conflicting rulings, and revoking one already applied, are not addressed in the reviewed corpus."
+    ]
+  ],
+  "framework_notes": "This is the centre of the talk - the analysis framework the assignment asks for.\n\nThe move that made it work: stop classifying papers by topic, and instead follow ONE expert ruling through five checkpoints. Trigger, ask, record, reuse, prove. Each column is a governance question.\n\nNow read down the columns - that is aggregation, and it is where gaps become visible. No stream in the corpus reaches L4. REUSE tops out at L2: nothing I have read checks whether a stored ruling is even allowed to apply to the new case.\n\nSay it out loud: these are positions within the corpus I have read. Running the protocol searches may raise a ceiling, and that would be a real result, not a failure. (~90 sec - the most important slide)",
+  "gaps_scope": "Within the reviewed corpus —",
+  "gaps": [
+    {
+      "id": "G1",
+      "severity": "core",
+      "which_sq": "SQ1 × SQ2",
+      "statement": "escalation and the judgment it obtains stay decoupled",
+      "evidence_basis": "The corpus holds both halves and never joins them: intervention work consumes the expert's answer as a label and discards it; memory work supplies storage and retrieval with no authorisation or scope predicate."
+    },
+    {
+      "id": "G2",
+      "severity": "core",
+      "which_sq": "SQ1 → SQ3",
+      "statement": "intervention budgets are static, and coverage is not reported against reviewer load",
+      "evidence_basis": "The formal budgets reviewed price a query at a constant, while the corpus's own clinical evidence shows cost rises with volume and repetition. The two quantities are never reported together."
+    },
+    {
+      "id": "G3",
+      "severity": "core",
+      "which_sq": "SQ1 × foundation",
+      "statement": "triggers fire on content errors, not on “is this difference legitimate?”",
+      "evidence_basis": "Whether a deviation is substantial variability or an occasional error is not itself the object of escalation in the reviewed work — yet it is precisely the judgment only a domain expert can make."
+    },
+    {
+      "id": "G4",
+      "severity": "supporting",
+      "which_sq": "SQ2",
+      "statement": "expiry and revocation of a stored ruling are not addressed",
+      "evidence_basis": "No reviewed source shows that a withdrawn ruling stops influencing later outputs, leaving no way to retire judgment that a later expert overturns."
+    }
+  ],
+  "gaps_notes": "Four gaps, and the framing matters enormously: each one is a thin or empty region of the grid you just saw. Gaps come from the findings, not from the conclusion - that is the course's rule and it is also just good science.\n\nG1 is the centre and it is a JOIN gap: both literatures exist, neither connects. G2 gives it an operating point. G3 names what is actually being ruled on, and it is the one that ties directly back to \"not all differences matter\".\n\nSay the limit clearly and do not skip it: these are boundaries of the corpus I have read, not proven absences. The searches come next. (~70 sec)",
+  "chosen_gap": "G1 — the escalation–judgment loop is open.",
+  "chosen_gap_why": "The decision to ask a human, and the governance of what that human said, are developed as two separate literatures. This research closes the loop: an escalation trigger conditioned on a persistent, provenance-carrying, scope-bounded record of prior rulings — which writes back into it, so that what an expert once ruled changes which case is escalated next."
+}

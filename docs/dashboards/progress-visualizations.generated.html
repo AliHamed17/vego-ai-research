@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VEGO-AI Progress Visualizations</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5d6673;
+      --line: #d8dee8;
+      --panel: #ffffff;
+      --page: #f6f7fb;
+      --good: #2f855a;
+      --warn: #b7791f;
+      --bad: #c53030;
+      --blocked: #5a67d8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--page);
+    }
+    header, main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    header {
+      padding: 28px 0 16px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 700;
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    p, small {
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+    .card, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .card strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .panel {
+      margin: 14px 0;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 190px) 1fr 44px;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    .bar-track {
+      height: 14px;
+      background: #e8edf5;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      min-width: 2px;
+    }
+    .good { background: var(--good); }
+    .warn { background: var(--warn); }
+    .bad { background: var(--bad); }
+    .blocked { background: var(--blocked); }
+    .gate {
+      border-left: 5px solid var(--bad);
+      background: #fffafa;
+    }
+    ol {
+      padding-left: 22px;
+    }
+    li {
+      margin: 12px 0;
+    }
+    .pill {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    code {
+      background: #eef2f7;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    @media (max-width: 620px) {
+      header, main { width: min(100% - 20px, 1180px); }
+      h1 { font-size: 26px; }
+      .bar-row { grid-template-columns: 1fr; gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>VEGO-AI Progress Visualizations</h1>
+    <p>Generated 2026-08-10 19:00 +03:00 from tracked progress, dashboard, and KPI Markdown.</p>
+  </header>
+  <main>
+    <section class="grid" aria-label="Summary cards">
+      <div class="card"><strong>88%</strong><span>Milestones done or green</span></div>
+      <div class="card"><strong>37%</strong><span>KPIs green</span></div>
+      <div class="card"><strong>42%</strong><span>Active work closed</span></div>
+      <div class="card"><strong>27%</strong><span>Executive snapshot green</span></div>
+    </section>
+
+    <section class="panel">
+      <h2>KPI Status Mix</h2>
+      <div class="bar-row"><span>Done / Green</span><div class="bar-track"><div class="bar-fill good" style="width:37%"></div></div><strong>11</strong></div>
+<div class="bar-row"><span>In progress / Yellow</span><div class="bar-track"><div class="bar-fill warn" style="width:40%"></div></div><strong>12</strong></div>
+<div class="bar-row"><span>Risk / Red</span><div class="bar-track"><div class="bar-fill bad" style="width:7%"></div></div><strong>2</strong></div>
+<div class="bar-row"><span>Blocked</span><div class="bar-track"><div class="bar-fill blocked" style="width:17%"></div></div><strong>5</strong></div>
+    </section>
+
+    <section class="panel">
+      <h2>Active Work Status Mix</h2>
+      <div class="bar-row"><span>Done / Green</span><div class="bar-track"><div class="bar-fill good" style="width:42%"></div></div><strong>21</strong></div>
+<div class="bar-row"><span>In progress / Yellow</span><div class="bar-track"><div class="bar-fill warn" style="width:52%"></div></div><strong>26</strong></div>
+<div class="bar-row"><span>Risk / Red</span><div class="bar-track"><div class="bar-fill bad" style="width:0%"></div></div><strong>0</strong></div>
+<div class="bar-row"><span>Blocked</span><div class="bar-track"><div class="bar-fill blocked" style="width:4%"></div></div><strong>2</strong></div>
+    </section>
+
+    <section class="panel gate">
+      <h2>Current Evidence Gate</h2>
+      <p>Current generated verdict is blocked: 27 rows, 24 safe candidates, 0 supplied labels, 0 valid labels, 0 safe labels.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Open Active Work</h2>
+      <ol>
+        <li><strong>TASK-003</strong><span class="pill">Open</span><p>Audit data sensitivity and provenance.</p><small>Review `VEGO-AI/inputs/`, `VEGO-AI/models/`, `VEGO-AI/analysis/`, and the IRB-related PDF.</small></li>
+<li><strong>TASK-004</strong><span class="pill">In progress</span><p>Map existing paper/package results to experiments.</p><small>Continue `EXP-000-existing-packaged-results-audit` without copying controlled artifacts into Git.</small></li>
+<li><strong>TASK-005</strong><span class="pill">Blocked</span><p>Keep curated Confluence wiki current.</p><small>Grant Atlassian Rovo access to cloud `724252a1-a5b7-45a5-b6ec-27a8292197ec`, then create/update child pages and store page IDs in local config.</small></li>
+<li><strong>TASK-008</strong><span class="pill">Open</span><p>Keep progress, KPI, and results dashboards current.</p><small>Update `docs/dashboards/` whenever progress, KPI values, validated results, or Confluence tracking status changes.</small></li>
+<li><strong>TASK-009</strong><span class="pill">Open</span><p>Keep dashboard/wiki tracking health verified.</p><small>Run `.\scripts\dashboard-health.ps1 -RequireOutbox` after every Confluence outbox build.</small></li>
+<li><strong>TASK-010</strong><span class="pill">Open</span><p>Keep runtime dashboard snapshot fresh.</p><small>Run `.\scripts\build-confluence-wiki.ps1` after memory/dashboard updates; it regenerates `docs/dashboards/status-snapshot.generated.md`.</small></li>
+<li><strong>TASK-011</strong><span class="pill">Open</span><p>Keep manual Confluence sync pack fresh while live access is blocked.</p><small>Run `.\scripts\build-confluence-wiki.ps1`; it regenerates `docs/confluence/manual-sync-pack.generated.md`.</small></li>
+<li><strong>TASK-013</strong><span class="pill">In review</span><p>Harden M4B nested schema requirements.</p><small>Review and merge PR #6.</small></li>
+<li><strong>TASK-016</strong><span class="pill">Open</span><p>Complete EXP-001 expert-label evaluation.</p><small>Add held-out/cross-setting expert labels, rerun `.\scripts\build-exp001-evaluation.ps1`, and update the evaluation report with generalization-safe metrics.</small></li>
+<li><strong>TASK-017</strong><span class="pill">Open</span><p>Fill EXP-002 expert labeling package.</p><small>Human/supervisor should label at least 20 rows, preferably all 27 current rows, then rerun evaluation with leakage-aware partitions.</small></li>
+      </ol>
+    </section>
+
+    <section class="panel">
+      <h2>Refresh Command</h2>
+      <p><code>.\scripts\build-progress-visualizations.ps1</code></p>
+    </section>
+  </main>
+</body>
+</html>
