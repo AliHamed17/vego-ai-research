@@ -232,8 +232,9 @@ Entries below are `PARTIALLY_VERIFIED` or `COULD_NOT_VERIFY`. They are listed fo
 - `papers/` — PDFs or links, subject to copyright and sharing rules.
 - `notes/` — reading notes based on `docs/templates/reading-note.md`.
 - `bibliography.bib` — generated alongside this file, same source of truth. Do not hand-edit.
-- `hitl-resource-pack/` — curated human-in-the-loop / human-AI collaboration resources.
-- `per-rq-literature-map.md`, `researcher-relevance-2026-08-12.json` — companion analyses over the same corpus.
+- `hitl-resource-pack/` — a separate, smaller pack of *tools and guideline documents* (Label Studio, Argilla, NIST AI RMF), not academic papers. Not superseded by the corpus above; different purpose.
+- `per-rq-literature-map.md` — **historical**, superseded by this file as the coverage snapshot (see the notice at its top); kept for the original 2026-08-05 requirement and reasoning.
+- `researcher-relevance-2026-08-12.json` — a people-level companion analysis (82 researchers), distinct from the paper-level corpus above.
 
 Do not publish copyrighted PDFs unless you have rights to do so.
 

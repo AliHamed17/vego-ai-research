@@ -17,7 +17,10 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-REPO = Path(r"C:\Users\ahamed\vego-ai")
+# Relative to this script's own location, not a hard-coded absolute path - this
+# repo runs from multiple checkouts/worktrees on the same machine, and a fixed
+# path silently writes into whichever one happens to sit at that location.
+REPO = Path(__file__).resolve().parent.parent
 CORPUS = REPO / "literature" / "verified-research-corpus-2026-08-12.json"
 OUT = REPO / "literature" / "README.md"
 BIB_OUT = REPO / "literature" / "bibliography.bib"
@@ -222,10 +225,14 @@ def build():
     lines.append("- `notes/` \u2014 reading notes based on `docs/templates/reading-note.md`.")
     lines.append("- `bibliography.bib` \u2014 generated alongside this file, same source of truth. "
                  "Do not hand-edit.")
-    lines.append("- `hitl-resource-pack/` \u2014 curated human-in-the-loop / human-AI "
-                 "collaboration resources.")
-    lines.append("- `per-rq-literature-map.md`, `researcher-relevance-2026-08-12.json` \u2014 "
-                 "companion analyses over the same corpus.")
+    lines.append("- `hitl-resource-pack/` \u2014 a separate, smaller pack of *tools and "
+                 "guideline documents* (Label Studio, Argilla, NIST AI RMF), not academic "
+                 "papers. Not superseded by the corpus above; different purpose.")
+    lines.append("- `per-rq-literature-map.md` \u2014 **historical**, superseded by this file "
+                 "as the coverage snapshot (see the notice at its top); kept for the original "
+                 "2026-08-05 requirement and reasoning.")
+    lines.append("- `researcher-relevance-2026-08-12.json` \u2014 a people-level companion "
+                 "analysis (82 researchers), distinct from the paper-level corpus above.")
     lines.append("")
     lines.append("Do not publish copyrighted PDFs unless you have rights to do so.")
     lines.append("")
