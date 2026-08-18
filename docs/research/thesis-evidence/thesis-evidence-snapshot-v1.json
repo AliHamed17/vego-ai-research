@@ -3,7 +3,7 @@
   "generatedAt": "2026-07-25T23:30:48+00:00",
   "sourceRevision": "acb42b2071db13285a9cc5a73fb4019d5063d1b7",
   "sourceTreeHash": "4e5ceb8361b0ac72114f9358f039a6ce5efbdd8bac0f3f4410dcebc02fb4627e",
-  "canonicalSourcesDirty": true,
+  "canonicalSourcesDirty": false,
   "programSnapshot": {
     "path": "docs/research/h-layer/program-status-snapshot-v1.json",
     "sha256": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
