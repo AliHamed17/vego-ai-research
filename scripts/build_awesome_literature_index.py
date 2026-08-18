@@ -183,6 +183,14 @@ def build():
         "to the published taxonomy is made here."
     )
     lines.append("")
+    lines.append(
+        "A third, complementary taxonomy exists for chapter-writing rather than evidence "
+        "classification: `docs/research/literature-review-taxonomy.md`'s thematic areas "
+        "(human-in-the-loop AI, explainable AI, design science, \u2026), used to structure the "
+        "written Chapter 2 narrative. Use the lifecycle grid to classify what a source "
+        "establishes; use that taxonomy to decide where it goes in the chapter."
+    )
+    lines.append("")
 
     lines.append("## Datasets & Benchmarks")
     lines.append("")

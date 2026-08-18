@@ -199,6 +199,8 @@ Two taxonomies are in play, and this project uses both deliberately rather than 
 
 **Open reconciliation task:** the Judgment Lifecycle Grid's checkpoints and Zou et al.'s interaction modes describe overlapping ground from different angles and have not yet been cross-mapped. Doing so before the grid is presented as a novel contribution is one of the concrete next steps this index surfaces — not yet done, so no claim of novelty relative to the published taxonomy is made here.
 
+A third, complementary taxonomy exists for chapter-writing rather than evidence classification: `docs/research/literature-review-taxonomy.md`'s thematic areas (human-in-the-loop AI, explainable AI, design science, …), used to structure the written Chapter 2 narrative. Use the lifecycle grid to classify what a source establishes; use that taxonomy to decide where it goes in the chapter.
+
 ## Datasets & Benchmarks
 
 Named benchmarks actually introduced or used by a reviewed source — not every entry that mentions "dataset" proposes one. Compiled from the corpus, not invented.

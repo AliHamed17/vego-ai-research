@@ -2,6 +2,15 @@
 
 This taxonomy organizes the related work around the thesis spine: reusable human judgment in AI-assisted domain modeling and model assessment.
 
+> **Note (2026-08-19):** the M1-M4 / H1-H3 / S1-S7 framing below predates the 2026-08-05
+> supervisor call's pivot to the current U-RQ / SQ1-SQ2-SQ3 wording — see
+> `docs/research/phd-proposal/three-study-contract.md` for the current questions. This
+> document's *thematic* taxonomy (below) is for structuring the written Chapter 2
+> narrative; it is complementary to, not a substitute for, the *lifecycle-stage* taxonomy
+> (`TRIGGER -> ASK -> RECORD -> REUSE -> PROVE`) used for evidence/gap classification over
+> the 140-source verified corpus at `literature/README.md#taxonomy`. Use both together:
+> this one for how the chapter reads, that one for what each source actually establishes.
+
 ## Review Lens
 
 The literature review should explain how prior work supports or fails to support this VEGO-AI design move:
