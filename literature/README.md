@@ -15,6 +15,7 @@ Format inspired by [Awesome-Human-Agent-Collaboration-Interaction-Systems](https
 - [Design-Science Methodology](#design-science-methodology) (27)
 - [General](#general) (3)
 - [Taxonomy](#taxonomy)
+- [Datasets & benchmarks](#datasets--benchmarks)
 - [Needs checking](#needs-checking)
 - [Folder layout](#folder-layout)
 - [Contributing an entry](#contributing-an-entry)
@@ -198,6 +199,17 @@ Two taxonomies are in play, and this project uses both deliberately rather than 
 
 **Open reconciliation task:** the Judgment Lifecycle Grid's checkpoints and Zou et al.'s interaction modes describe overlapping ground from different angles and have not yet been cross-mapped. Doing so before the grid is presented as a novel contribution is one of the concrete next steps this index surfaces — not yet done, so no claim of novelty relative to the published taxonomy is made here.
 
+## Datasets & Benchmarks
+
+Named benchmarks actually introduced or used by a reviewed source — not every entry that mentions "dataset" proposes one. Compiled from the corpus, not invented.
+
+| Benchmark | Introduced / used by | What it covers | Relevance |
+| --- | --- | --- | --- |
+| **KnowNo** | [Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners](https://arxiv.org/abs/2307.01928) | Conformal-prediction-calibrated help requests for an LLM robot planner | SQ1 — the closest existing benchmark for a calibrated ask-for-help policy |
+| **Noisy ToolBench** | [Learning to Ask: When LLM Agents Meet Unclear Instruction](https://aclanthology.org/2025.emnlp-main.1104/) | Tool-use tasks with deliberately underspecified instructions, scored on both accuracy and interaction efficiency | SQ1 — measures whether an agent asks instead of fabricating missing arguments |
+| **WILDS** | [WILDS: A Benchmark of in-the-Wild Distribution Shifts](https://proceedings.mlr.press/v139/koh21a.html) | Real, naturally-occurring domain-generalization and subpopulation shifts across multiple application domains | SQ3 — the reference design for a leakage-safe, real-shift transfer evaluation |
+| **VEGO-AI evaluation setting (Cheers / ParkWise)** | Not All Differences Matter: Variability Exploration of Domain Models via Agentic AI | 2 domains × 2 UML languages, 178 case models, from a university modelling course | This project's own baseline setting — see `docs/research/governance/vego-ai-foundation-paper-record.md` for the verified figures |
+
 ## Needs checking
 
 Entries below are `PARTIALLY_VERIFIED` or `COULD_NOT_VERIFY`. They are listed for transparency and are **not cited** anywhere else in this project until upgraded.
@@ -219,7 +231,7 @@ Entries below are `PARTIALLY_VERIFIED` or `COULD_NOT_VERIFY`. They are listed fo
 - `verified-research-corpus-2026-08-12.json` — the source of truth. Edit this, then rerun `scripts/build_awesome_literature_index.py`; never hand-edit this README.
 - `papers/` — PDFs or links, subject to copyright and sharing rules.
 - `notes/` — reading notes based on `docs/templates/reading-note.md`.
-- `bibliography.bib` — BibTeX entries.
+- `bibliography.bib` — generated alongside this file, same source of truth. Do not hand-edit.
 - `hitl-resource-pack/` — curated human-in-the-loop / human-AI collaboration resources.
 - `per-rq-literature-map.md`, `researcher-relevance-2026-08-12.json` — companion analyses over the same corpus.
 

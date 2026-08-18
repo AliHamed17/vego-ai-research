@@ -20,6 +20,31 @@ from pathlib import Path
 REPO = Path(r"C:\Users\ahamed\vego-ai")
 CORPUS = REPO / "literature" / "verified-research-corpus-2026-08-12.json"
 OUT = REPO / "literature" / "README.md"
+BIB_OUT = REPO / "literature" / "bibliography.bib"
+
+# Curated by title match against the corpus (not every "dataset"-mentioning entry
+# names an actual benchmark), so this stays traceable to a checkable source.
+BENCHMARKS = [
+    ("KnowNo",
+     "Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners",
+     "Conformal-prediction-calibrated help requests for an LLM robot planner",
+     "SQ1 \u2014 the closest existing benchmark for a calibrated ask-for-help policy"),
+    ("Noisy ToolBench",
+     "Learning to Ask: When LLM Agents Meet Unclear Instruction",
+     "Tool-use tasks with deliberately underspecified instructions, scored on both "
+     "accuracy and interaction efficiency",
+     "SQ1 \u2014 measures whether an agent asks instead of fabricating missing arguments"),
+    ("WILDS",
+     "WILDS: A Benchmark of in-the-Wild Distribution Shifts",
+     "Real, naturally-occurring domain-generalization and subpopulation shifts across "
+     "multiple application domains",
+     "SQ3 \u2014 the reference design for a leakage-safe, real-shift transfer evaluation"),
+    ("VEGO-AI evaluation setting (Cheers / ParkWise)",
+     "Not All Differences Matter: Variability Exploration of Domain Models via Agentic AI",
+     "2 domains \u00d7 2 UML languages, 178 case models, from a university modelling course",
+     "This project's own baseline setting \u2014 see "
+     "`docs/research/governance/vego-ai-foundation-paper-record.md` for the verified figures"),
+]
 
 SECTIONS = [
     ("foundation", "Foundation", "VEGO-AI itself, and the surveys that frame the space it sits in."),
@@ -96,6 +121,7 @@ def build():
         anchor = title.lower().replace(" \u00b7 ", "-").replace(" ", "-")
         lines.append(f"- [{title}](#{anchor}) ({n})")
     lines.append("- [Taxonomy](#taxonomy)")
+    lines.append("- [Datasets & benchmarks](#datasets--benchmarks)")
     lines.append("- [Needs checking](#needs-checking)")
     lines.append("- [Folder layout](#folder-layout)")
     lines.append("- [Contributing an entry](#contributing-an-entry)")
@@ -155,6 +181,22 @@ def build():
     )
     lines.append("")
 
+    lines.append("## Datasets & Benchmarks")
+    lines.append("")
+    lines.append(
+        "Named benchmarks actually introduced or used by a reviewed source — not every "
+        "entry that mentions \"dataset\" proposes one. Compiled from the corpus, not invented."
+    )
+    lines.append("")
+    lines.append("| Benchmark | Introduced / used by | What it covers | Relevance |")
+    lines.append("| --- | --- | --- | --- |")
+    by_title = {s["title"]: s for s in sources}
+    for name, title, covers, rel in BENCHMARKS:
+        src = by_title.get(title)
+        link = link_or_plain(title, src.get("doi_or_url", "")) if src else title
+        lines.append(f"| **{name}** | {link} | {covers} | {rel} |")
+    lines.append("")
+
     lines.append("## Needs checking")
     lines.append("")
     needs = [s for s in sources if s["verification"] != "VERIFIED_ONLINE"]
@@ -178,7 +220,8 @@ def build():
                  "hand-edit this README.")
     lines.append("- `papers/` \u2014 PDFs or links, subject to copyright and sharing rules.")
     lines.append("- `notes/` \u2014 reading notes based on `docs/templates/reading-note.md`.")
-    lines.append("- `bibliography.bib` \u2014 BibTeX entries.")
+    lines.append("- `bibliography.bib` \u2014 generated alongside this file, same source of truth. "
+                 "Do not hand-edit.")
     lines.append("- `hitl-resource-pack/` \u2014 curated human-in-the-loop / human-AI "
                  "collaboration resources.")
     lines.append("- `per-rq-literature-map.md`, `researcher-relevance-2026-08-12.json` \u2014 "
@@ -206,6 +249,66 @@ def build():
 
     OUT.write_text("\n".join(lines), encoding="utf-8")
     print(f"wrote {OUT} ({len(sources)} sources, {sum(len(v) for v in by_tag.values())} tagged)")
+
+    build_bibliography(sources)
+
+
+def bib_key(s: dict, used: set) -> str:
+    first = re.sub(r"[^A-Za-z]", "", (s.get("authors", "").split(",")[0] or "Anon").split()[-1] or "Anon")
+    year = re.search(r"\d{4}", s.get("year", "") or "")
+    base = f"{first}{year.group() if year else ''}"
+    key, n = base, 1
+    while key in used:
+        n += 1
+        key = f"{base}{chr(ord('a') + n - 2)}"
+    used.add(key)
+    return key
+
+
+def bib_authors(authors: str) -> str:
+    """'First Last, First Last' -> 'Last, First and Last, First' (BibTeX's
+    expected author syntax) - the corpus stores comma-joined display names,
+    which is not itself valid BibTeX and would misparse as one long name."""
+    names = [n.strip() for n in authors.split(",") if n.strip()]
+    out = []
+    for n in names:
+        if n.lower() in ("et al.", "et al"):
+            out.append("others")
+            continue
+        parts = n.split()
+        out.append(f"{parts[-1]}, {' '.join(parts[:-1])}" if len(parts) > 1 else n)
+    return " and ".join(out)
+
+
+def bib_entry(s: dict, key: str) -> str:
+    doi_url = re.split(r"\s*[;,]\s*", s.get("doi_or_url", "").strip())[0]
+    fields = {
+        "author": bib_authors(s.get("authors", "")),
+        "title": "{" + s.get("title", "") + "}",
+        "year": re.search(r"\d{4}", s.get("year", "") or "").group()
+        if re.search(r"\d{4}", s.get("year", "") or "") else s.get("year", ""),
+        "howpublished": s.get("venue", ""),
+        "note": f"Verification: {s['verification']}",
+    }
+    if doi_url.startswith("http"):
+        fields["url"] = doi_url
+    body = ",\n".join(f"  {k} = {{{v}}}" for k, v in fields.items() if v)
+    return f"@misc{{{key},\n{body}\n}}"
+
+
+def build_bibliography(sources: list[dict]) -> None:
+    """BibTeX export of the corpus - promised by the folder-layout note in the
+    README since the corpus existed, never actually generated until now."""
+    used_keys: set = set()
+    verified = [s for s in sources if s["verification"] != "COULD_NOT_VERIFY"]
+    entries = [bib_entry(s, bib_key(s, used_keys)) for s in sorted(verified, key=year_key, reverse=True)]
+    header = (
+        "% Generated by scripts/build_awesome_literature_index.py from\n"
+        "% verified-research-corpus-2026-08-12.json - do not hand-edit.\n"
+        f"% {len(entries)} entries (COULD_NOT_VERIFY sources excluded).\n\n"
+    )
+    BIB_OUT.write_text(header + "\n\n".join(entries) + "\n", encoding="utf-8")
+    print(f"wrote {BIB_OUT} ({len(entries)} entries)")
 
 
 if __name__ == "__main__":
