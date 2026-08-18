@@ -177,7 +177,7 @@ HIGHLIGHT_SPECS: dict[str, dict[str, Any]] = {
         ],
     },
     "EXP-036": {
-        "summary": "The latest controlled scale run meets the declared unified and parity overhead limits; prior accepted-run variability remains visible separately.",
+        "summary": "The pinned summary records engineeringTargetMet=false for the latest controlled scale run: the unified P95 check fails at larger scale while the parity P95 and unified peak-memory checks pass; run-to-run p95-ratio variability remains visible separately.",
         "metrics": [
             (
                 "ARCH_P95_RATIO_TO_LEGACY",
@@ -1032,14 +1032,14 @@ def build_snapshot() -> dict[str, Any]:
             f"{len(engineering_records)} experiments expose measured engineering signals, while zero experiments contain eligible independent classification-performance evidence.",
             "Architecture progress is demonstrated through capability extension, semantic parity, deterministic replay, fail-closed safety, provenance, and reproducible run records.",
             (
-                "The latest EXP-036 accepted run meets the declared unified and parity latency-ratio limits; older accepted history retains a prior unified p95 miss, so machine-specific variability remains visible."
+                "The pinned EXP-036 summary reports engineeringTargetMet=false: the unified P95 latency-ratio check fails at larger scale even though parity P95 and unified peak-memory both pass; the ratio varies run to run on the same machine, so a single favorable observation is not treated as a pass."
             ),
             "The paper and current repository are directly comparable for architecture and versioned counts only; the paper's qualitative Phase D is not independent ground truth.",
         ],
         "recommendations": [
             "Use the per-dimension scorecard as the program baseline and never collapse protocol, safety, latency, and empirical validity into one value score.",
             "Keep EXP-007 routing configurations on a workload-versus-coverage Pareto chart; do not name a default until M-03 and adjudicated routing targets exist.",
-            "Repeat EXP-036 on a second controlled machine before treating the current p95 target pass as stable; preserve exact parity, determinism, and baseline hashes.",
+            "Repeat EXP-036 on a second controlled machine and fix the unified-P95 interval computation before claiming a target pass at scale; preserve exact parity, determinism, and baseline hashes.",
             "Approve and execute EXP-019/020 to obtain two independent reviews for all 24 safe candidates; only then populate classification metrics.",
             "Run EXP-031 after the UI is frozen, then preregister EXP-032 before making a BigUI decision-value claim.",
             "Refresh this benchmark atomically whenever an accepted run is added; rejected or stale runs must preserve the last accepted snapshot.",
@@ -1452,7 +1452,7 @@ def render_html(snapshot: dict[str, Any]) -> str:
 <section id="baseline"><h2>Baseline ladder</h2><div class="ladder">{ladder}</div><p class="explain">B0 and B1 are available for integrity and mechanism analysis. B2–B5 are evidence stages, not claims that have already been achieved.</p></section>
 <section id="matrix"><h2>All-experiment evaluation matrix</h2><div class="controls"><label>Search <input id="search" type="search" placeholder="EXP-036, parity, labels…"></label><label>Verdict <select id="verdict"><option value="">All</option>{''.join(f'<option>{esc(key)}</option>' for key in sorted(status_counts))}</select></label><strong id="visible-count">{len(records)} / {len(records)}</strong></div><div class="table-shell"><table><thead><tr><th>Experiment</th><th>Execution</th><th>Verdict</th>{''.join(f'<th>{esc(item)}</th>' for item in dimension_ids)}<th>Observations</th></tr></thead><tbody id="records">{''.join(table_rows)}</tbody></table></div><p class="explain">Every experiment receives a result: a measured verdict when an accepted run exists, a protocol or gate verdict when human/approval evidence is required, or a parked verdict for preserved historical work.</p></section>
 <section id="method"><h2>Scope, data, metric definitions, and methodology</h2><div class="grid"><article class="panel"><h3>Data integrity</h3><p>Every measured record is checked for source hash, cohort hash, denominator, explicit missingness, evidence class, and leakage constraints.</p></article><article class="panel"><h3>Comparison integrity</h3><p>Direct deltas require equivalent dataset, partition, baseline, policy, prompt, model, metric version, eligibility, leakage class, and evidence class except for the declared treatment.</p></article><article class="panel"><h3>Statistical integrity</h3><p>Safe N=0 forces null empirical fields. Positive formal improvement later requires paired unseen evidence, positive net-correction confidence bounds, exact McNemar p&lt;0.05, no macro-F1 decline, and no predefined subgroup harm.</p></article></div></section>
-<section id="limitations"><h2>Limitations and robustness</h2><div class="panel"><ul><li>Paper-versus-current counts are contextual version markers, not accuracy deltas.</li><li>Offline topology and fault fixtures do not establish live or universal behavior.</li><li>Latency is machine-specific; the latest EXP-036 run meets its ratio limits, while accepted history retains a prior miss.</li><li>Human-value and classification experiments remain unexecuted until their consent and evidence gates open.</li><li>Negative and null results remain reportable and cannot be silently retuned away.</li></ul></div></section>
+<section id="limitations"><h2>Limitations and robustness</h2><div class="panel"><ul><li>Paper-versus-current counts are contextual version markers, not accuracy deltas.</li><li>Offline topology and fault fixtures do not establish live or universal behavior.</li><li>Latency is machine-specific; the pinned EXP-036 summary reports engineeringTargetMet=false for the unified P95 check at scale, and the ratio varies run to run on the same machine.</li><li>Human-value and classification experiments remain unexecuted until their consent and evidence gates open.</li><li>Negative and null results remain reportable and cannot be silently retuned away.</li></ul></div></section>
 <section id="next"><h2>Recommended next steps</h2><div class="panel"><ol>{recommendations}</ol></div></section>
 </main>
 <footer>Generated {esc(snapshot['generatedAt'])} · projection {esc(snapshot['inputProjectionSha256'])} · <a href="VEGO-AI-Research-Hub.html#experiment-benchmarks">Open BigUI benchmark workspace</a></footer>

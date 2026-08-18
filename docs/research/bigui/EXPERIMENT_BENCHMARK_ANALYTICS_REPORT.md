@@ -14,7 +14,7 @@ The benchmark evaluated all 41 registered experiments. 26 have accepted source-b
 - 26 of 41 experiments have accepted source-backed runs; the remaining records are explicit protocols, gated studies, or parked history.
 - 26 experiments expose measured engineering signals, while zero experiments contain eligible independent classification-performance evidence.
 - Architecture progress is demonstrated through capability extension, semantic parity, deterministic replay, fail-closed safety, provenance, and reproducible run records.
-- The latest EXP-036 accepted run meets the declared unified and parity latency-ratio limits; older accepted history retains a prior unified p95 miss, so machine-specific variability remains visible.
+- The pinned EXP-036 summary reports engineeringTargetMet=false: the unified P95 latency-ratio check fails at larger scale even though parity P95 and unified peak-memory both pass; the ratio varies run to run on the same machine, so a single favorable observation is not treated as a pass.
 - The paper and current repository are directly comparable for architecture and versioned counts only; the paper's qualitative Phase D is not independent ground truth.
 
 ## Measured result highlights
@@ -119,7 +119,7 @@ Evidence class: `synthetic`. Claim boundary: Fixture safety evidence only; it is
 
 ### EXP-036 — Scale, latency, and reproducibility
 
-The latest controlled scale run meets the declared unified and parity overhead limits; prior accepted-run variability remains visible separately.
+The pinned summary records engineeringTargetMet=false for the latest controlled scale run: the unified P95 check fails at larger scale while the parity P95 and unified peak-memory checks pass; run-to-run p95-ratio variability remains visible separately.
 
 - `ARCH_P95_RATIO_TO_LEGACY` = 0.974 ratio (N=100; fixture=SYNTHETIC_1X, mode=unified)  Source: `reports/generated/bigui_architecture/summary.json` (`a9de44bc668d…`, 2026-07-26).
 - `ARCH_P95_RATIO_TO_LEGACY` = 0.947 ratio (N=100; fixture=SYNTHETIC_5X, mode=unified)  Source: `reports/generated/bigui_architecture/summary.json` (`a9de44bc668d…`, 2026-07-26).
@@ -230,7 +230,7 @@ Each experiment is assessed against its declared question, baseline, comparator,
 
 1. Use the per-dimension scorecard as the program baseline and never collapse protocol, safety, latency, and empirical validity into one value score.
 2. Keep EXP-007 routing configurations on a workload-versus-coverage Pareto chart; do not name a default until M-03 and adjudicated routing targets exist.
-3. Repeat EXP-036 on a second controlled machine before treating the current p95 target pass as stable; preserve exact parity, determinism, and baseline hashes.
+3. Repeat EXP-036 on a second controlled machine and fix the unified-P95 interval computation before claiming a target pass at scale; preserve exact parity, determinism, and baseline hashes.
 4. Approve and execute EXP-019/020 to obtain two independent reviews for all 24 safe candidates; only then populate classification metrics.
 5. Run EXP-031 after the UI is frozen, then preregister EXP-032 before making a BigUI decision-value claim.
 6. Refresh this benchmark atomically whenever an accepted run is added; rejected or stale runs must preserve the last accepted snapshot.

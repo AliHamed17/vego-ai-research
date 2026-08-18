@@ -745,7 +745,7 @@ def build_snapshot(
                 "name": "Frozen original VEGO-AI baseline",
                 "status": "Implemented",
                 "purpose": "Preserve the official Agent 4 output as the immutable comparator.",
-                "data": "179 student models aggregated into 27 Agent 4 patterns.",
+                "data": "179 scored evaluations across 4 settings (83 distinct student models), aggregated into 27 Agent 4 patterns.",
                 "policy": f"official-vego-ai-baseline at {baseline_revision}",
                 "evaluationGate": "Byte and provenance integrity checks must pass.",
                 "allowedClaim": "The original baseline is preserved and reproducibly identifiable.",

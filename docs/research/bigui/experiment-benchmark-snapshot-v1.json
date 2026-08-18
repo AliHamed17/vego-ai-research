@@ -5536,7 +5536,7 @@
     {
       "experimentId": "EXP-036",
       "title": "Scale, latency, and reproducibility",
-      "summary": "The latest controlled scale run meets the declared unified and parity overhead limits; prior accepted-run variability remains visible separately.",
+      "summary": "The pinned summary records engineeringTargetMet=false for the latest controlled scale run: the unified P95 check fails at larger scale while the parity P95 and unified peak-memory checks pass; run-to-run p95-ratio variability remains visible separately.",
       "evidenceClass": "synthetic",
       "metrics": [
         {
@@ -6091,13 +6091,13 @@
     "26 of 41 experiments have accepted source-backed runs; the remaining records are explicit protocols, gated studies, or parked history.",
     "26 experiments expose measured engineering signals, while zero experiments contain eligible independent classification-performance evidence.",
     "Architecture progress is demonstrated through capability extension, semantic parity, deterministic replay, fail-closed safety, provenance, and reproducible run records.",
-    "The latest EXP-036 accepted run meets the declared unified and parity latency-ratio limits; older accepted history retains a prior unified p95 miss, so machine-specific variability remains visible.",
+    "The pinned EXP-036 summary reports engineeringTargetMet=false: the unified P95 latency-ratio check fails at larger scale even though parity P95 and unified peak-memory both pass; the ratio varies run to run on the same machine, so a single favorable observation is not treated as a pass.",
     "The paper and current repository are directly comparable for architecture and versioned counts only; the paper's qualitative Phase D is not independent ground truth."
   ],
   "recommendations": [
     "Use the per-dimension scorecard as the program baseline and never collapse protocol, safety, latency, and empirical validity into one value score.",
     "Keep EXP-007 routing configurations on a workload-versus-coverage Pareto chart; do not name a default until M-03 and adjudicated routing targets exist.",
-    "Repeat EXP-036 on a second controlled machine before treating the current p95 target pass as stable; preserve exact parity, determinism, and baseline hashes.",
+    "Repeat EXP-036 on a second controlled machine and fix the unified-P95 interval computation before claiming a target pass at scale; preserve exact parity, determinism, and baseline hashes.",
     "Approve and execute EXP-019/020 to obtain two independent reviews for all 24 safe candidates; only then populate classification metrics.",
     "Run EXP-031 after the UI is frozen, then preregister EXP-032 before making a BigUI decision-value claim.",
     "Refresh this benchmark atomically whenever an accepted run is added; rejected or stale runs must preserve the last accepted snapshot."
