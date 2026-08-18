@@ -1,6 +1,6 @@
 # VEGO-AI E2E Progress Report
 
-Generated: 2026-08-10 19:00 +03:00.
+Generated: 2026-08-19 02:12 +03:00.
 
 This generated report connects repo memory, curated dashboards, generated experiment summaries, Confluence outbox status, and the 4-hour update loop. Regenerate it with `.\scripts\build-e2e-progress-report.ps1`.
 
@@ -13,7 +13,7 @@ This generated report connects repo memory, curated dashboards, generated experi
 | Active work done | 21 of 50 | [########------------] 42% |
 | Executive dashboard green | 6 of 22 | [#####---------------] 27% |
 | Review verdict | blocked | Next action: Collect real EXP-005 labels, save and close the CSV, then rerun the review and EXP-005 downstream gate. |
-| Git workspace | main @ 2ed820c | 4 pending status rows |
+| Git workspace | main @ 4455138 | 12 pending status rows |
 
 ## E2E Evidence Snapshot
 
@@ -64,6 +64,7 @@ flowchart LR
 
 | ID | Severity | Status | Summary | Next Step |
 | --- | --- | --- | --- | --- |
+| ISS-031 | Low | Open | This machine has two separate checkouts: the git worktree this session's shell defaults into (`.claude\worktrees\trusting-kilby-79f5d4`, an old branch missing `docs/research/phd-proposal/`, `thesis/chapters/`, and most current `issues.md`/`decisions.md` history) and the real working checkout at `C:\Users\ahamed\vego-ai` on `main`, which is where all real work happens. Two of eight parallel sub-agents in a gaps-sweep read the stale worktree and falsely concluded real files/tables "don't exist." | Always explicitly `cd` to `C:\Users\ahamed\vego-ai` before any git/file operation (this session already does); consider deleting or fast-forwarding the stale worktree; when delegating to sub-agents, pass and verify the absolute repo path rather than relying on template interpolation. |
 | ISS-030 | Low | Open | `scripts/agent-memory-finish.ps1`'s `Add-Content` calls to `session-log.md`/`revert-log.md` leave an extra trailing blank line each run, which fails CI's `git diff --check` line-ending hygiene step (caught when pushing straight to `main`; the log/archive files inherit the same issue). | Before pushing after running the finish script, check `git diff --check <base>...HEAD` and trim any new trailing blank line; ideally fix the script's here-string/Add-Content usage so it stops happening. |
 | ISS-028 | Medium | Open / fail-closed | The existing local offline ZIP contains the superseded presentation package. It is marked `STALE / INVALIDATED`, and readiness now compares the ZIP member hashes with the current PPTX, PDF, and review workbook. | Do not deliver it. Rebuild the ZIP only after the corrected package passes human rehearsal and RG-04 freeze, then refresh manifests and hashes. |
 | ISS-027 | High | Open / production portion remediated 2026-08-01 | The corrected August 5 PPTX/PDF, 21 source-note sections, 44-control appendix, review workbook, and native-render QA now exist. The prior backup is stale. Human timed and adversarial rehearsal, Ali exact-package approval, delivery, Iris/Arnon access tests, and the separately governed candidacy deck remain unproved; candidacy rules are still unverified. | Freeze the exact package after Ali review, run both dated human rehearsals, rebuild the backup, then share only with authorization and record two independent recipient access tests. |
@@ -71,7 +72,6 @@ flowchart LR
 | ISS-025 | High | Blocked | The shared MIMIC resource contains 25 observed CSVs totaling 39.65 GiB versus 26 official MIMIC-III v1.4 tables; `NOTEEVENTS`, workbook authority, checksums, environment, parameters, and input-to-output provenance are unresolved. | Keep rows untouched. After all six medical gates pass, reconcile the canonical manifest inside the approved VDI. |
 | ISS-024 | High | Open | The official candidacy deadline, reviewer count, nomination process, committee rules, and presentation requirements are unverified. | Obtain written department or Graduate Studies confirmation and rebaseline within one working day if dates differ. |
 | ISS-023 | High | Blocked | Medical readiness is 0/6 mandatory entry gates: use-case, people, authorization, ethics/privacy, environment, and protocol are all open. | Name accountable owners and collect project-specific approval evidence; default to Plan B on August 26 if any critical prerequisite remains unproved. |
-| ISS-022 | High | Open | The July 29 Hebrew ASR, English translation, and speaker attribution are machine-derived working evidence. | Complete bilingual and diarization review before direct quotation, final attribution, or external release. |
 
 ## Approved Claims
 

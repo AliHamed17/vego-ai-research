@@ -22,34 +22,6 @@ Record file changes and rollback notes here.
 - Git branch: `feature/evaluation-phase` created and active.
 - Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
 
-## 2026-07-14 12:38 +03:00 - Codex - Research Master Plan Package
-
-- Files changed:
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\README.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\MASTER_RESEARCH_PLAN.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\EXPERIMENT_ROADMAP.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\ARCHITECTURE_AND_FLOWS.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\VISUALIZATION_PLAN.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\EVALUATION_PLAN.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\ENHANCEMENT_BACKLOG.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\THESIS_STRUCTURE.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\SUPERVISOR_DECISIONS.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\RISK_AND_VALIDITY_REGISTER.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\REPRODUCIBILITY_CHECKLIST.md
-  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\TIMELINE_AND_MILESTONES.md
-- Rollback note: Remove C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan to roll back the local planning package; source tracking entries are append-only audit records.
-- Git commit: none recorded by script.
-
-## 2026-07-20 22:22 +03:00 - Codex - July 21 Supervisor Package And Repository Hardening
-
-- Files changed:
-  - ProgramStatusSnapshot v1, Iteration 14 ledger/registry/tracker/dashboard/handoff surfaces, and safe future-proposal rewrites.
-  - VEGO-AI-July1-PointByPoint-EN-HE.html plus July 21 canonical package data, Markdown records, deck source/output, and PDF builders.
-  - Visualization gallery/research hub, CI workflow, privacy check, browser smoke test, package validator, and verify-hlayer-all.ps1.
-  - Agent memory session/revert logs and archives; archive conservation was verified with zero missing or changed historical entries.
-- Rollback note: Revert the July 21 package commits to remove tracked package/governance/gallery/QA changes; delete only the dated 2026-07-21 share folder and ignored PDF/log outputs if those copies must be withdrawn. Do not alter July 15 history, raw ASR, Agent 4, protected VEGO-AI runtime paths, baseline outputs, or EXP-005 labels.
-- Git commit: none recorded by script.
-
 ## 2026-07-24 20:24 +03:00 - Codex - Thesis accuracy-evidence advancement package
 
 - Files changed:
@@ -492,3 +464,20 @@ Record file changes and rollback notes here.
   - `docs/research/phd-proposal/chapter-4-research-methodology.md` (style pass only: removed the repeated "Design problem: / Knowledge question: / Recommended artifact: / Validation model: / Dependency and fallback:" label template, cut most em-dash asides and self-referential filler, varied sentence structure per study)
 - Rollback note: wording-only change; every citation, artifact recommendation, dependency, fallback, and open-decision item is unchanged from the prior version. Re-ran the forbidden-claims grep and `check_evidence_consistency.py --check` (18/18 PASS) after the rewrite.
 - Git commit: pending push to main.
+
+## 2026-08-19 02:12 +03:00 - Claude - Fix CI packageRevision self-reference (thesis review manifest)
+
+- Files changed:
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - docs/research/bigui/baseline-comparison-results-v1.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
+  - docs/research/hardening/release-manifest-v3.json
+  - VEGO-AI-Thesis-Baseline-Progress.html
+  - VEGO-AI-Research-Hub.html
+  - VEGO-AI-Experiment-Benchmark-Report.html
+  - thesis/figures/evidence-ready/*.png
+  - thesis/figures/evidence-ready/figure-assets-v1.json
+  - thesis/output/VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.docx
+- Rollback note: All 4 commits (64b6b79, 99ff8ad, 1537b78, 4455138) are mechanical regenerate/rebind commits with no narrative or claim changes; safe to revert individually if ever needed, but reverting only one half of a regenerate+rebind pair will reintroduce the packageRevision failure.
+- Git commit: none recorded by script.
