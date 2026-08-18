@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "acb42b2071db13285a9cc5a73fb4019d5063d1b7",
-  "packageRevision": "ba65471ff6ba35b1c2f1f14a128010525637bec0",
+  "sourceRevision": "4ac2ed8c902c7f97b1ba9f1d4174638747095765",
+  "packageRevision": "4ac2ed8c902c7f97b1ba9f1d4174638747095765",
   "sourceTreeHash": "4e5ceb8361b0ac72114f9358f039a6ce5efbdd8bac0f3f4410dcebc02fb4627e",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "f03c5bd204800cac12e31e44d9eccb3d52549f5bf1ee01d58411f3cc68a2fdbd",
+    "sha256": "056f952377405fb763cab2ac14baaa26038610400c02cfad4aaae5f30977c6b0",
     "bytes": 48319,
     "tracked": true
   },
@@ -22,7 +22,7 @@
     },
     "interactiveHtml": {
       "path": "VEGO-AI-Thesis-Baseline-Progress.html",
-      "sha256": "dd9354b96afaf4470870e4157c13f3349937498b890906e97231259bd18c1d6e",
+      "sha256": "31c2343acf6f85e5af801dc49aecbfd4644bb73c5c5ad0ea197e46e05834daa0",
       "bytes": 81914,
       "tracked": true
     }
