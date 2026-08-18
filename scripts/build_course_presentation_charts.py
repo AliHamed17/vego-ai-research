@@ -297,81 +297,91 @@ def fig_published_profile():
 
 # ---------------------------------------------------------------- figure 5
 def fig_maturity_grid():
-    """The analysis framework: where each research stream stops on each checkpoint.
+    """The CL7 classification framework, as coded in structured review v9 (§12, pp. 24-26).
 
-    Levels are ordinal (L0..L4), so the ramp uses the ordinal-safe steps - nothing
-    lighter than step 250 on a light surface. "absent" is a distinct category (the
-    stream has no construct for that checkpoint at all), not a low level, so it
-    gets a neutral treatment rather than a ramp step.
+    Each analytical stream is coded against the five judgment-lifecycle checkpoints:
+      F  = sustained treatment
+      P  = partial treatment
+      A  = not substantively addressed
+      F* = internalised in model weights, not a governed judgment record
+    Coding is single-researcher synthesis over the current core corpus; inter-coder
+    reliability is not yet estimated, and that caveat travels with the figure.
     """
-    ORD = {0: "#86b6ef", 1: "#5598e7", 2: "#2a78d6", 3: "#1c5cab", 4: "#104281"}
-    ABSENT = "#efe6e6"
-
+    CODE = {
+        "F": ("#1c5cab", SURFACE, "sustained"),
+        "P": ("#9ec5f4", INK, "partial"),
+        "A": ("#efe6e6", CRITICAL, "not addressed"),
+        "F*": ("#6c8fb8", SURFACE, "in weights, not governed"),
+    }
     cols = ["TRIGGER\nwhat makes it\nstop and ask",
             "ASK\nhow the request\nis composed",
             "RECORD\nwhat survives the\nexpert's answer",
             "REUSE\nwhat licenses\napplying it again",
             "PROVE\nwhat evidence,\nobtained where"]
     rows = [
-        ("A · Escalation triggering, oversight & burden", "~34", [3, 2, 1, 0, 2]),
-        ("B · Judgment internalised in parameters (RLHF)", "7", [-1, 1, 1, 0, 1]),
-        ("C · Externalised records: provenance, rationale", "~17", [-1, 3, 3, 2, 1]),
-        ("D · Runtime agent memory & retrieval reuse", "~8", [0, -1, 2, 1, 1]),
-        ("E · Model assessment & variability engineering", "~33", [1, 2, 1, 1, 1]),
-        ("F · Transfer, shift & design-science validity", "~43", [-1, -1, -1, 2, 3]),
+        ("Selective prediction / learning to defer", ["F", "P", "A", "A", "P"]),
+        ("Human–AI interaction & mixed initiative", ["P", "F", "P", "A", "P"]),
+        ("Provenance & contestable governance", ["A", "P", "F", "P", "P"]),
+        ("Feedback learning from human input", ["A", "P", "P", "F*", "P"]),
+        ("LLM / conceptual-model assessment", ["P", "P", "P", "A", "P"]),
+        ("Evaluation & transfer under shift", ["P", "A", "P", "P", "F"]),
     ]
 
-    fig, ax = plt.subplots(figsize=(12.6, 6.4))
+    fig, ax = plt.subplots(figsize=(12.6, 6.5))
     n_r, n_c = len(rows), len(cols)
-    for i, (_, _, lv) in enumerate(rows):
-        for j, v in enumerate(lv):
+    for i, (_, codes) in enumerate(rows):
+        for j, c in enumerate(codes):
             y = n_r - 1 - i
-            face = ABSENT if v < 0 else ORD[v]
+            face, ink, _ = CODE[c]
             ax.add_patch(Rectangle((j + 0.045, y + 0.06), 0.91, 0.88,
                                    facecolor=face, edgecolor=SURFACE, lw=2.5, zorder=3))
-            txt = "absent" if v < 0 else f"L{v}"
-            ax.text(j + 0.5, y + 0.5, txt, ha="center", va="center", zorder=4,
-                    fontsize=15 if v >= 0 else 11.5,
-                    weight="bold",
-                    color=CRITICAL if v < 0 else (SURFACE if v >= 2 else INK),
-                    style="normal" if v >= 0 else "italic")
+            ax.text(j + 0.5, y + 0.5, c, ha="center", va="center", zorder=4,
+                    fontsize=16, weight="bold", color=ink)
 
-    # the empty top rung - the headline finding
-    ax.add_patch(Rectangle((0.045, n_r + 0.14), n_c - 0.09, 0.62, facecolor="#fbf3f3",
-                           edgecolor=CRITICAL, lw=1.6, ls=(0, (6, 4)), zorder=3))
-    ax.text(n_c / 2, n_r + 0.45,
-            "L4  —  not reached by any stream, on any checkpoint",
-            ha="center", va="center", fontsize=13.5, weight="bold", color=CRITICAL, zorder=4)
+    # The two weak handoffs are the finding - mark the columns they sit between.
+    for jx, label in ((1.99, "ASK → RECORD"), (2.99, "RECORD → REUSE")):
+        ax.plot([jx + 0.005, jx + 0.005], [0.02, n_r - 0.02], color=CRITICAL, lw=2.6,
+                ls=(0, (5, 3)), zorder=6)
+        ax.text(jx + 0.005, n_r + 0.30, label, ha="center", va="bottom",
+                fontsize=12, weight="bold", color=CRITICAL, zorder=6)
+    ax.text(n_c / 2, n_r + 0.80, "the two weak handoffs",
+            ha="center", va="bottom", fontsize=11.5, color=CRITICAL, style="italic")
 
     ax.set_xlim(0, n_c)
-    ax.set_ylim(0, n_r + 0.90)
+    ax.set_ylim(0, n_r + 1.10)
     ax.set_xticks([j + 0.5 for j in range(n_c)])
     ax.set_xticklabels(cols, fontsize=10.5, color=INK2, linespacing=1.5)
     ax.xaxis.set_ticks_position("top")
     ax.xaxis.set_label_position("top")
     ax.set_yticks([n_r - 1 - i + 0.5 for i in range(n_r)])
-    ax.set_yticklabels([f"{nm}    ({c})" for nm, c, _ in rows], fontsize=11, color=INK)
+    ax.set_yticklabels([nm for nm, _ in rows], fontsize=11.5, color=INK)
     ax.tick_params(length=0)
     for s in ax.spines.values():
         s.set_visible(False)
-    # Column headers sit ON TOP of the axes, so title and subtitle are placed in
-    # figure coordinates above a reserved top margin rather than with a title pad -
-    # otherwise the subtitle lands on the headers.
-    fig.subplots_adjust(top=0.74 if not BARE else 0.90, left=0.30, right=0.985, bottom=0.02)
+
+    handles = [Rectangle((0, 0), 1, 1, facecolor=CODE[k][0], edgecolor=SURFACE, lw=1.5)
+               for k in ("F", "P", "A", "F*")]
+    labels = [f"{k} — {CODE[k][2]}" for k in ("F", "P", "A", "F*")]
+    leg = ax.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, -0.015),
+                    ncol=4, frameon=False, fontsize=10.5, handlelength=1.5,
+                    columnspacing=2.4, handletextpad=0.7)
+    for t in leg.get_texts():
+        t.set_color(INK2)
+
+    fig.subplots_adjust(top=0.72 if not BARE else 0.88, left=0.285, right=0.985, bottom=0.10)
     if not BARE:
-        fig.text(0.008, 0.955, "The Judgment Lifecycle Grid — where each research stream stops",
+        fig.text(0.008, 0.965, "Judgment-lifecycle coverage across the reviewed streams",
                  fontsize=17, weight="bold", color=INK, ha="left", va="top")
-        fig.text(0.008, 0.885,
-                 "Rows: the six streams in the reviewed corpus (source counts in brackets).  "
+        fig.text(0.008, 0.898,
+                 "Rows: analytical streams in the reviewed corpus.  "
                  "Columns: the five checkpoints one expert ruling must pass.",
                  fontsize=11.5, color=INK2, ha="left", va="top")
 
-    fig.text(0.008, -0.055,
-             "Reading down a column shows the ceiling for that checkpoint. "
-             "REUSE never passes L2 — no stream applies a machine-checkable, per-record scope "
-             "gate before a stored ruling is reused.\n"
-             "“absent” means the stream has no construct for that checkpoint at all. "
-             "Positions describe the reviewed corpus only; the frozen searches are not yet executed.",
+    fig.text(0.008, -0.075,
+             "Reading down a column aggregates coverage for that checkpoint. Existing streams "
+             "each govern part of the lifecycle; none governs it end to end.\n"
+             "Single-researcher coding of the current core corpus — inter-coder reliability is "
+             "not yet estimated, and the formal searches are not yet executed.",
              fontsize=10, color=MUTED, ha="left")
     return save(fig, "05-maturity-grid.png")
 

@@ -12,7 +12,27 @@ Status: **verified against the paper PDF supplied 2026-08-11.** This document re
 | DOI | `10.1145/3822455.3830312` |
 | Experimental material | `https://github.com/ieiris/VEGO-AI/` (per the paper's own footnote) |
 | Source file | `Variability_VEGO-AI_MODELS2026_final.pdf`, 1,126,550 bytes, supplied via the shared VEGO-AI Drive folder |
-| VEGO-AI expansion | **V**ariability **E**xploration via **G**uideline **O**perationalization and **A**gentic **I**ntelligence |
+| VEGO-AI expansion | **V**ariability **E**xploration for m**O**dels via a**G**entic **AI** |
+
+**Correction logged 2026-08-18 — the acronym expansion above was previously wrong.** This
+record used to read "Variability Exploration via Guideline Operationalization and Agentic
+Intelligence." That string is the **Zoom meeting topic line** for the 2026-08-05 supervisor
+call (see [`2026-08-05-supervisor-provenance-manifest.md`](../meetings/2026-08-05-supervisor-provenance-manifest.md),
+which records it as the only content of the chat log) — a prior session mistook it for the
+framework's official name and copied it here. The paper defines the acronym itself, twice
+and identically, in the abstract and in §1: *"VEGO-AI (Variability Exploration for mOdels via
+aGentic AI)"* — the capitalisation is the authors' own mnemonic. Verified 2026-08-18 against
+`Variability_MAS4MODELS2026_Mar28_IRB2איריס.pdf`, p. 1 (abstract) and p. 2 (§1). Presenting
+the wrong expansion of the supervisors' own framework name would have been a costly error.
+
+**Version caveat on the citation fields above.** The only paper artifact currently on this
+machine is the **anonymised MAS4Models submission draft** (`..._Mar28_IRB2איריס.pdf`), whose
+page 1 still carries template placeholders — "FirstName Surname", "WOODSTOCK'18", and
+`https://doi.org/10.1145/xxx`. It therefore cannot itself substantiate the Venue and DOI rows
+above; those came from a `..._MODELS2026_final.pdf` that is no longer present on disk. Until
+that final version is re-supplied, describe the paper as **accepted / program-listed at
+MODELS 2026** and cite it by title and authors, without asserting a DOI. This matches the
+conservative framing used in the 2026-08-17 structured literature review (v9, p. 2).
 
 **Authorship note, stated plainly because it matters for how the thesis positions itself:** Ali is not an author of this paper. VEGO-AI is the supervisors' (and Maxim Bragilovski's) published framework. The doctoral work builds *on* it — which is exactly the separation Chapter 3 §3.7 already asserts ("VEGO-AI is the vehicle, not the question"). This record confirms that framing is correct rather than merely asserted.
 
