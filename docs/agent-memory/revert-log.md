@@ -485,3 +485,10 @@ Record file changes and rollback notes here.
   - `docs/agent-memory/progress.md` (Next Steps replaced again to reflect Chapter 4 and the remaining A0812 items)
 - Rollback note: pure documentation additions; no VEGO-AI source, no experiment output, no baseline changed. Deleting the two new markdown files and reverting `progress.md`'s Next Steps section restores the prior state exactly.
 - Git commit: none recorded by script; pending push to main.
+
+## 2026-08-18 23:35 +03:00 - Claude - Rewrote Chapter 4 prose (no analytical content changed)
+
+- Files edited:
+  - `docs/research/phd-proposal/chapter-4-research-methodology.md` (style pass only: removed the repeated "Design problem: / Knowledge question: / Recommended artifact: / Validation model: / Dependency and fallback:" label template, cut most em-dash asides and self-referential filler, varied sentence structure per study)
+- Rollback note: wording-only change; every citation, artifact recommendation, dependency, fallback, and open-decision item is unchanged from the prior version. Re-ran the forbidden-claims grep and `check_evidence_consistency.py --check` (18/18 PASS) after the rewrite.
+- Git commit: pending push to main.
