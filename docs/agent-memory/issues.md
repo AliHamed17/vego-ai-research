@@ -1,5 +1,5 @@
 <!--
-last_updated: 2026-08-01
+last_updated: 2026-08-19
 staleness_threshold_days: 7
 -->
 
@@ -11,6 +11,7 @@ Track project issues here. Keep active issues near the top.
 
 | ID | Date | Source | Severity | Impact | Effort | Status | Summary | Next Step |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ISS-032 | 2026-08-19 | Claude (literature index build) | Medium | Medium | Medium | Open | The Judgment Lifecycle Grid (this project's TRIGGER/ASK/RECORD/REUSE/PROVE classification framework) has not been cross-mapped against Zou et al. 2026's published interaction-mode taxonomy (supervision/cooperation/coordination/delegation) - the closest peer-reviewed framing of the same space, only added to the corpus this pass. | Reconcile the two taxonomies explicitly before the Grid is presented anywhere as a novel contribution; see `literature/README.md#taxonomy`. |
 | ISS-031 | 2026-08-11 | Claude (gaps-and-blockers audit) | Low | Medium | Low | Open | This machine has two separate checkouts: the git worktree this session's shell defaults into (`.claude\worktrees\trusting-kilby-79f5d4`, an old branch missing `docs/research/phd-proposal/`, `thesis/chapters/`, and most current `issues.md`/`decisions.md` history) and the real working checkout at `C:\Users\ahamed\vego-ai` on `main`, which is where all real work happens. Two of eight parallel sub-agents in a gaps-sweep read the stale worktree and falsely concluded real files/tables "don't exist." | Always explicitly `cd` to `C:\Users\ahamed\vego-ai` before any git/file operation (this session already does); consider deleting or fast-forwarding the stale worktree; when delegating to sub-agents, pass and verify the absolute repo path rather than relying on template interpolation. |
 | ISS-030 | 2026-08-04 | Claude (CI push) | Low | Low | Low | Open | `scripts/agent-memory-finish.ps1`'s `Add-Content` calls to `session-log.md`/`revert-log.md` leave an extra trailing blank line each run, which fails CI's `git diff --check` line-ending hygiene step (caught when pushing straight to `main`; the log/archive files inherit the same issue). | Before pushing after running the finish script, check `git diff --check <base>...HEAD` and trim any new trailing blank line; ideally fix the script's here-string/Add-Content usage so it stops happening. |
 | ISS-028 | 2026-08-01 | Codex (release integrity audit) | Medium | Medium | Rebuild after human freeze | Open / fail-closed | The existing local offline ZIP contains the superseded presentation package. It is marked `STALE / INVALIDATED`, and readiness now compares the ZIP member hashes with the current PPTX, PDF, and review workbook. | Do not deliver it. Rebuild the ZIP only after the corrected package passes human rehearsal and RG-04 freeze, then refresh manifests and hashes. |

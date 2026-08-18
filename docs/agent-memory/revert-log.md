@@ -2,6 +2,21 @@
 
 Record file changes and rollback notes here.
 
+## 2026-08-19 - Claude - Literature index reorganization + root cleanup
+
+- Files added:
+  - `scripts/build_awesome_literature_index.py` (generates `literature/README.md` from the corpus JSON)
+  - `outputs/course-presentation/speaking-script-he.md`
+- Files updated:
+  - `literature/verified-research-corpus-2026-08-12.json`: added Zou et al. 2026 (ACL Findings survey, DOI `10.18653/v1/2026.findings-acl.1811`) as a verified `foundation` entry; merged 5 exact-duplicate titles (10 rows -> 5), folding the dropped copy's distinct analytical angle into the kept entry rather than discarding it. `totalSources` 144 -> 140 net (145 after the addition, 140 after dedup).
+  - `literature/README.md`: fully regenerated in awesome-list format (never hand-edit; edit the JSON and rerun the script).
+  - `docs/agent-memory/decisions.md`, `docs/agent-memory/issues.md`: logged the format decision and the open taxonomy-reconciliation item (ISS-032).
+- Files moved (not tracked by git; both were gitignored):
+  - `lu4113vqia.tmp` -> `output/pdf/VEGO-AI-Thesis-Progress-2026-06-29.pdf` (an orphaned but genuine 18-page PDF, verified by content before moving - not deleted).
+- Files deleted (gitignored, verified stale before removal):
+  - `.~lock.VEGO-AI-Thesis-Progress.pdf#` (LibreOffice lock from a session ~7 weeks old; confirmed no live process holds it - the one live WINWORD.EXE process at the time had an unrelated file, `Chapter-4-Research-Methodology-draft`, open).
+- Rollback note: `git checkout -- literature/verified-research-corpus-2026-08-12.json literature/README.md docs/agent-memory/decisions.md docs/agent-memory/issues.md` and `rm scripts/build_awesome_literature_index.py`. The moved/deleted root files were gitignored and are not recoverable via git; the PDF now lives at its new path if still needed.
+
 ## 2026-07-27 - Codex - Evaluation Phase Branch & Supervisor Checklist
 
 - Files added:
