@@ -214,15 +214,13 @@ Track milestones, current work, and next steps here.
 
 Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor package was delivered and the August 12 meeting happened; see [`2026-08-12-supervisor-meeting.md`](../research/meetings/2026-08-12-supervisor-meeting.md) (evidence matrix `F1`-`F17`) and its bilingual companion [`2026-08-12-post-meeting-plan.md`](../research/meetings/2026-08-12-post-meeting-plan.md) for the current, live next-step list. Medical work remains blocked at 0/6 gates and EXP-005 remains 0/24 — unchanged by this call.
 
-1. **Time-critical:** send scholarship-reference details to Iris and Arnon before the stated "15th" deadline (`F16`/`A0812-07`).
-2. This week: literature review (Chapter 2) only — do not start methodology; Iris explicitly resequenced this mid-call (`F1`/`F14`/`A0812-01`).
-3. Restructure Chapter 2 away from RQ-mirrored subsections per Iris's correction; use [`literature-review-structure-and-queries-draft.md`](../research/phd-proposal/literature-review-structure-and-queries-draft.md) as the starting table of contents (`F10`/`A0812-03`).
-4. Work through the one ACL-2026 paper's GitHub taxonomy corpus, classify relevance against the RQs (not the VEGO-AI solution), and log gaps (`F12`/`A0812-04`).
-5. Confirm or re-derive the "Foundations" Google Scholar query drafted live on the call, then decide whether it becomes `QL-06` or folds into `QL-01` (`F9`/`A0812-06`) — still goes through the frozen freeze-before-run protocol, not an ad hoc search.
-6. Prepare the branch-classification slide (highly/less/not-relevant/missing) for the next meeting (`F13`/`A0812-05`).
-7. Confirm the correct email address and re-share the Drive with Arnon — closes the `A08-05` item open since August 5 (`F17`/`A0812-08`).
-8. Still open, not resolved by the August 12 call — put on the next meeting's agenda explicitly: `D-RQ-01`/`D-RQ-02` (RQ wording sign-off), `E6` (exploration vs. identification/classification), `E8` (human vs. expert judgment), the Plan A/B boundary wording, the evidence-boundary wording, and owner assignment for medical-feasibility/university-process verification.
-9. Obtain written department/Graduate Studies confirmation of the candidacy deadline, reviewer count, nomination path, committee rules, and presentation requirements (unresolved since 2026-07-30, `ISS-024`).
-10. Keep patient-row inspection, medical computation, external APIs, and pilots blocked until all six medical entry gates pass; the Clalit meeting confirmed for 2026-08-26 is the next real checkpoint on that path.
-11. Appoint two independent EXP-005 reviewers plus an adjudicator and collect the 24 generalization-safe labels without inferring or prefilling any value.
-12. Refresh dashboards, evidence checks, project health, and agent memory after each implementation tranche.
+1. **Time-critical:** fill in the real scholarship name/portal/deadline in [`scholarship-recommendation-request-template.md`](../operations/scholarship-recommendation-request-template.md) and send it to Iris and Arnon before the stated "15th" deadline (`F16`/`A0812-06`) — this assistant cannot send email itself.
+2. Literature review (Chapter 2) is being produced on a separate, parallel verification track (not this session) — do not duplicate `A0812-01`/`02`/`03` here.
+3. [`chapter-4-research-methodology.md`](../research/phd-proposal/chapter-4-research-methodology.md) is now a working draft (`A0812-04`) — Ali/supervisors need to confirm or correct the three recommended artifacts and work through the 8 open items in its own §4.7 before it can be treated as decided.
+4. Confirm the correct email address and re-share the Drive with Arnon — closes the `A08-05` item open since August 5 (`F17`/`A0812-05`); this assistant has no Drive-sharing write access.
+5. Still open, not resolved by the August 12 call — put on the next meeting's agenda explicitly: `D-RQ-01`/`D-RQ-02` (RQ wording sign-off), `E6` (exploration vs. identification/classification), `E8` (human vs. expert judgment), the Plan A/B boundary wording, the evidence-boundary wording, and owner assignment for medical-feasibility/university-process verification.
+6. Obtain written department/Graduate Studies confirmation of the candidacy deadline, reviewer count, nomination path, committee rules, and presentation requirements (unresolved since 2026-07-30, `ISS-024`).
+7. Keep patient-row inspection, medical computation, external APIs, and pilots blocked until all six medical entry gates pass; the Clalit meeting confirmed for 2026-08-26 (`A0812-07`) is the next real checkpoint on that path.
+8. Appoint two independent EXP-005 reviewers plus an adjudicator and collect the 24 generalization-safe labels without inferring or prefilling any value — also blocks Chapter 4 §4.5's rater question.
+9. Name an independent implementer/reviewer for Chapter 4's Study 2 conformance-suite gap, and two raters for Study 3 — both currently unnamed (`chapter-4-research-methodology.md` §4.7).
+10. Refresh dashboards, evidence checks, project health, and agent memory after each implementation tranche.

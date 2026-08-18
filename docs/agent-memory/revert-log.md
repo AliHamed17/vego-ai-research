@@ -474,3 +474,14 @@ Record file changes and rollback notes here.
   - `docs/agent-memory/progress.md` (Next Steps section replaced with the August-12-derived list)
 - Rollback note: all additions are new documentation files; nothing generated, code, or VEGO-AI source was touched. Deleting the four added files and reverting `progress.md`'s Next Steps section restores the prior state exactly.
 - Git commit: none recorded by script; not yet committed.
+
+## 2026-08-18 23:15 +03:00 - Claude - Chapter 4 draft and remaining Aug-12 action items
+
+- Files added:
+  - `docs/research/phd-proposal/chapter-4-research-methodology.md`
+  - `docs/operations/scholarship-recommendation-request-template.md`
+  - `outputs/chapter-4-2026-08-18/Chapter-4-Research-Methodology-draft.docx` (gitignored render, not tracked)
+- Files edited:
+  - `docs/agent-memory/progress.md` (Next Steps replaced again to reflect Chapter 4 and the remaining A0812 items)
+- Rollback note: pure documentation additions; no VEGO-AI source, no experiment output, no baseline changed. Deleting the two new markdown files and reverting `progress.md`'s Next Steps section restores the prior state exactly.
+- Git commit: none recorded by script; pending push to main.

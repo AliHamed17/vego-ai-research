@@ -288,3 +288,26 @@ Chronological prompt history for Codex and Claude.
 - Commands/checks: none run yet (pending privacy/diff-check pass before commit).
 - Status: completed (analysis and drafting); not yet committed/pushed.
 - Next steps: Ali executes `A0812-01` through `A0812-10` per `2026-08-12-post-meeting-plan.md`, starting with the time-critical scholarship-letter item. Confirm privacy/diff checks and commit before the next session.
+
+## 2026-08-18 23:15 +03:00 - Claude - Executed the 2026-08-12 call's non-literature requirements
+
+- Request: User attached 5 files from a parallel ChatGPT-driven literature-verification track (a v9 scholarly-validation receipt, SHA-256 manifest, wording-validation report in docx/pdf, and the literature evidence workbook) and asked to execute all of the 2026-08-12 call's requirements step by step, explicitly skipping the literature review since ChatGPT is handling that track.
+- Actions taken:
+  - Read the 5 attached files for context only (confirmed they are validation/receipt artifacts for a literature review being produced elsewhere, not something to duplicate)
+  - Read `three-study-contract.md` and `sections-2-and-4-thinking-notes.md` in full; found the latter's Part 3 lists 14 open questions blocking a fully-decided Chapter 4, none resolved by the 08-12 call itself
+  - Found two already-`VERIFIED_ONLINE` design-science methodology citations (Peffers et al. 2007; Wieringa 2014) in `literature/verified-research-corpus-2026-08-12.json`, usable for the methodology chapter's own framework without touching the literature-review track
+  - Wrote `docs/research/phd-proposal/chapter-4-research-methodology.md`: DSR framing, two-scenario subsection, one recommended (not decided) artifact per SQ chosen from the thinking-notes' own option analysis (SQ1 cost/coverage model, SQ2 contract+conformance suite, SQ3 transfer-eligibility procedure), an explicit evidence-boundary section, and a carry-forward of 8 still-open Part-3 items
+  - Manually regex-scanned the new chapter for forbidden-claim language (accuracy/generalization/effort/clinical) - all matches are correctly-negated exclusions, none are assertions; ran `scripts/check_evidence_consistency.py --check` (18/18 PASS, unaffected)
+  - Wrote `docs/operations/scholarship-recommendation-request-template.md` (`A0812-06`) - a fill-in-the-blanks email template, since the exact scholarship name/portal was never clearly captured by the ASR and this assistant has no email-send capability regardless
+  - Confirmed `A0812-05` (Drive re-share) and `A0812-07` (Clalit meeting attendance) remain Ali-only manual actions - no tool access to execute either
+  - Rendered the new chapter to `outputs/chapter-4-2026-08-18/Chapter-4-Research-Methodology-draft.docx`
+- Files changed:
+  - docs/research/phd-proposal/chapter-4-research-methodology.md
+  - docs/operations/scholarship-recommendation-request-template.md
+  - docs/agent-memory/progress.md, decisions.md, revert-log.md, session-log.md (this entry)
+- Commands/checks:
+  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
+  - grep for forbidden-claim phrases in the new chapter -> all correctly negated
+  - grep for trailing whitespace in new files -> none
+- Status: completed for what this assistant can execute; explicitly not "all requirements done" - A0812-05/06/07 need Ali's own action (Drive access, email send, meeting attendance), and Chapter 4's artifact choices need supervisor confirmation per its own §4.7.
+- Next steps: Ali sends the scholarship email, confirms Drive access for Arnon, and brings Chapter 4's open §4.7 items to the next supervisor call alongside the still-open Aug-5/Aug-12 wording items.
