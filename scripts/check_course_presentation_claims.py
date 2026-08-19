@@ -21,7 +21,8 @@ from pathlib import Path
 
 from pptx import Presentation
 
-DECK = (Path(r"C:\Users\ahamed\vego-ai\outputs\course-presentation")
+REPO = Path(__file__).resolve().parent.parent  # not a fixed path - repo runs from multiple worktrees
+DECK = (REPO / "outputs" / "course-presentation"
         / "VEGO-AI - IS Research Seminar - Final Presentation.pptx")
 
 # Phrases that assert an outcome this research cannot yet demonstrate.

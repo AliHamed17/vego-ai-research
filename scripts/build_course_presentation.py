@@ -31,7 +31,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Emu, Inches, Pt
 
-REPO = Path(r"C:\Users\ahamed\vego-ai")
+REPO = Path(__file__).resolve().parent.parent  # not a fixed path - see build_awesome_literature_index.py
 OUT_DIR = REPO / "outputs" / "course-presentation"
 FIG = OUT_DIR / "figures"
 OUT_DIR.mkdir(parents=True, exist_ok=True)

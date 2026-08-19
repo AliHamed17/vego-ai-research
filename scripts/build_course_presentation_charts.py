@@ -24,7 +24,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import Rectangle  # noqa: E402
 
-REPO = Path(r"C:\Users\ahamed\vego-ai")
+REPO = Path(__file__).resolve().parent.parent  # not a fixed path - see build_awesome_literature_index.py
 OUT = REPO / "outputs" / "course-presentation" / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
 
