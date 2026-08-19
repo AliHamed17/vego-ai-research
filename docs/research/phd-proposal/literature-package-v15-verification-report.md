@@ -1,0 +1,105 @@
+# Literature Package v15 ("Full Iris-Aligned Package") — Verification Report
+
+**Reviewed:** `VEGO_AI_v15_Full_Iris_Aligned_Package_2026-08-19.zip`, containing exactly 3 files: `VEGO_AI_Evidence_Workbook_v15_Iris_Aligned_2026-08-19.xlsx` (65 sheets), `Iris_Arnon_Consolidated_Requirements_Source_2026-08-15.md` (an embedded copy of Ali's own requirements-tracking file, dated before this week's Chapter 4 work), and `VEGO_AI_v15_SHA256_MANIFEST.txt`.
+
+**Method:** Full extraction of all 65 sheets to CSV, then a 9-dimension automated review with independent adversarial verification, followed by direct spot-checks I ran myself on the most consequential and surprising claims (all confirmed exactly, including a genuine regression — see below). This is the fourth report in this lineage, following the v10 docx review, the v13 docx+workbook review, and the v8 4-sheet workbook review.
+
+## Executive summary
+
+Three things dominate this review, in order of how much they should change what you do next.
+
+**First, the package is not what its name says it is.** The zip is called a "Full ... Package," but its own top sheet (`V15 START HERE`) names three companion deliverables — the actual 45-page literature review document, a "Research Control Appendix," and the one-slide ACL taxonomy classification deck — as part of "the package." None of the three exist in the delivered zip. Only the workbook itself, plus a stale copy of your own requirements file, arrived.
+
+**Second, three citation-integrity defects I confirmed fixed in the v8 workbook (just five days ago) have all come back, with no documented reason.** Raykar et al. (2010) is back as the SQ2 core anchor Aamodt & Plaza was supposed to have replaced. Fervers et al. is still dated 2006 — the exact year-mismatch v8 dropped it over — in both the "superseded" v6 anchor sheet and the current v7 one. Dellermann et al. (2019) is back as the U-RQ anchor Dhanorkar was supposed to have replaced. I verified all three directly against the raw sheet rows myself. This isn't drift from a different, unrelated document — it's the identical anchor list regressing across the same version lineage I already checked once.
+
+**Third — and this is real, credit-due progress — the ACL-2026 taxonomy classification exercise Iris asked for on 08-12, missing from every version I've reviewed until now, is genuinely attempted here.** `ACL Branch Map v15` classifies 7 taxonomy branches with an explicit "Ali's RQ-led synthesis, not a copy of the source diagram" framing — which is exactly what she asked for. It falls short in two specific, fixable ways (detailed below), but this is the first time this deliverable has existed at all across four reviews.
+
+Underneath all three, the workbook has accumulated 65 sheets across v5, v6, v7, v9, and v15 tagged content with almost no cross-linking between version generations — the top-level `READ_ME` sheet still tells a reader to start at "V7 START HERE," with zero mentions of v9 or v15 anywhere in it, even though v15 is the most recent, most-referenced content in the file.
+
+## What was done well (verified strengths)
+
+1. **The ACL taxonomy classification is genuinely Ali's own synthesis, not a copy of the source diagram.** `ACL Branch Map v15` row 2 states verbatim: *"Ali's RQ-led synthesis. It is not a copy of the source taxonomy figure and is not evidence of exhaustive literature coverage."* This directly answers Iris's instruction to build a derived-classification slide rather than reuse the source paper's own diagram.
+2. **An explicit, followed "no fabrication" rule.** `READ_ME` states: *"No source, DOI, author or venue in this workbook was written from memory. Anything that could not be confirmed online is listed on the 'Needs Checking' sheet rather than being mixed in with confirmed sources."* — and `Needs Checking` genuinely does hold exactly the 10 partial + 1 unverified rows the summary claims, separated from confirmed sources.
+3. **Honest verification-rate reporting, not a 100% claim.** *"139 unique sources after merging duplicates: 128 verified, 10 partial, 1 unverified"* — a specific, falsifiable count, not a blanket assurance.
+4. **Real, specific catches inside the verification process**, not generic diligence claims: a mis-split author surname caught and corrected ("Wood, M. M." → "McGee Wood, M."); a DOI-vs-journal-issue year discrepancy caught and flagged (2013 DOI-string year vs. the actual 2014 print issue) with a recommended resolution rather than a silent pick; an unresolved DOI (404/403/zero dblp hits) reported with the honest note that a human must confirm it before citing.
+5. **Evidence-boundary discipline is clean across every content sheet checked** — `All_Sources`, the three RQ sheets, `Claim_Traceability`, `Claim_Audit_v6`, `QA_Tests`, `Scholarly_QA_v6`, and `Search_Receipts` all consistently distinguish formally-executed QL searches (still 0/5, always marked `NOT RUN`) from AI-assisted exploratory search (always marked `EXECUTED — DISCOVERY/VERIFICATION ONLY`), and no cell anywhere overclaims EXP-005 progress or asserts an accuracy/generalization result.
+6. **Open items are disclosed, not concealed, in two independent places.** `Blockers & Actions` names a 139-vs-144 source-count conflict openly rather than picking a number quietly. `Reviewer Signoff v6` leaves all 10 sign-off gates genuinely blank (no placeholder dates, no assumed approvals) with the stated principle: *"Technical QA can pass without scholarly approval. Every human gate requires an owner, evidence, date and resolved comments."*
+7. **Where legacy sheets ARE marked superseded, it's done correctly and consistently in two places** — `Core Anchors v6` and `RQ Anchor Map` both open with "LEGACY VIEW — SUPERSEDED BY Core Anchors v7 ... Preserved for audit," matching `V7 START HERE`'s own navigation table. The pattern exists in the workbook; it just wasn't extended past the v6→v7 transition (see below).
+
+## Gaps and defects
+
+### A. Package completeness (confirmed directly against the zip's actual contents)
+
+- **Three referenced deliverables are absent.** `V15 START HERE` names, by exact filename, a "Literature review" (`VEGO_AI_Literature_Review_v15...pdf/docx`, "45-page scholarly chapter"), a "Research-control appendix" (`VEGO_AI_Research_Control_Appendix_v15...pdf/docx`), and an "ACL classification slide" (`VEGO_AI_ACL_Taxonomy_Classification_v15...pptx/pdf`, "One-slide Ali-owned taxonomy relevance classification"). None exist in the zip; the SHA256 manifest only hashes the workbook and the requirements-source markdown.
+- **The zip's own name overstates what it contains.** "Full ... Package" implies completeness; only 1 of the 4 artifacts the workbook itself lists as constituting the package is actually present.
+- **`Source Package Audit` describes a different, absent source triad entirely** — a "VEGO-AI manuscript PDF," an "Original VEGO-AI ZIP" (500 entries), and a "139-source workbook," each with its own SHA-256, none of which match any file actually in this zip or appear in the SHA256 manifest. This looks like leftover content from an earlier (v4-era) audit that was never reconciled against what v15 actually ships.
+
+### B. Version hygiene and navigation (confirmed directly: zero cross-version references found)
+
+- **`READ_ME` and `CONTROL_README` both still say, verbatim, "CURRENT V7 ENTRY POINT"** and point a reader to "V7 START HERE → RQ Dashboard v7 → RQ Article Gaps v7." I confirmed directly: neither file contains the string "v9" or "v15" anywhere. `V15 START HERE` — dated "as of 19 August 2026," the newest content in the workbook — is never mentioned as the actual current entry point in either README.
+- **The navigation chain breaks completely at v7→v9 and v9→v15.** None of the four version-labeled entry sheets (`READ_ME`, `V7 START HERE`, `V9 VERIFY README`, `V15 START HERE`) references any of the others. `V9 VERIFY README` doesn't use "start here" language at all, so even a reader who somehow found it wouldn't recognize it as a waypoint.
+- **`CONTROL_README` contradicts its own header.** It asserts v7 is current, then its own "Authoritative tab" column names six v6-era sheets (`PhD Dashboard v6`, `Review Flow v6`, `Core Anchors v6`, `Reviewer Signoff v6`, `Evidence Gate Score v6`, `Claim Audit v6`) as authoritative — including `Core Anchors v6`, which is independently marked `SUPERSEDED` elsewhere in the same package.
+- **Only 2 of roughly 21 version-suffixed legacy sheets carry a supersession banner.** `Core Anchors v6` and `RQ Anchor Map` do it correctly; the other ~19 (all of the v5-, most of the v6-, and all of the v9-suffixed sheets) present as live, current content with no signal that v15 material has superseded their function.
+- **The unsuffixed `Change Manifest.csv` is actually the v5 manifest** — the file a reader would expect to be the earliest/baseline content (since it has no version suffix, unlike its v7 and v9 siblings) is mid-chain v5 content instead.
+
+### C. Internal consistency (the same package contradicting itself)
+
+- **The embedded requirements-source markdown and the workbook's own trace sheet disagree on the same requirement.** `Iris_Arnon_Consolidated_Requirements_Source_2026-08-15.md` and `V15 Requirements Trace` both restate item 9 and A0812-04 (methodology-chapter status) with the *same* underlying status text — but the trace sheet's own "V15 implementation / evidence" column calls item 9 an "Open gate" (a phrase otherwise reserved for genuine 0/0 constraints like EXP-005 and the medical gates) while calling A0812-04, describing the identical fact, "Implemented." The markdown file's own closing line says both were updated together on 19 August for the same reason — the workbook's added column then splits them into opposite framings anyway.
+- **Three different "overall readiness" numbers for the same project state, never reconciled: 41, 51.05, and 51.05 again under a different name.** `Gap Dashboard v5` reports 41/100 ("Research-closure readiness"). `PhD Dashboard v6` and `Evidence Gate Score v6` both separately report 51.05 ("Overall weighted working-draft readiness" / "Overall doctoral working-draft readiness"). I confirmed both numbers directly in the raw cells. No sheet cross-references or explains the 10-point gap.
+- **The identical 0/24 and 0/6 facts score 5% in one dashboard and 0% in two others.** `Gap Dashboard v5` scores both the EXP-005 gap and the medical-gates gap at "Readiness % = 5"; `Evidence Gate Score v6` and `PhD Dashboard v6` score the same two facts at 0. A literal zero should not be read as 5% ready in any sheet claiming to track the same numbers.
+- **The 51.05 composite buries the three hard-blocked gates under unrelated technical-quality scores.** In `Evidence Gate Score v6`'s own weighting, the four dimensions tied to the 0/5, 0/24, 0/6 facts contribute only 2 of 100 weighted points, while two dimensions unrelated to those facts contribute nearly 20 points on their own. The sheet is captioned "diagnostic only," but a reader skimming the headline "51.05" would reasonably read "roughly half ready" — which the underlying gate facts don't support.
+- Two sheets get this right and should be the standing reference: `Executive Dashboard` and `V15 START HERE` both report the three hard-gate facts as raw counts with no composite score to obscure them.
+
+### D. Regression — three fixed citation defects are back (confirmed directly against the raw rows)
+
+I read `literature-workbook-v8-rq-only-verification-report.md` (my own report from five days ago) and cross-checked every claim against v15's actual anchor sheets myself. All three hold:
+
+- **Raykar et al. (2010) is back as the SQ2 core anchor.** v8 explicitly removed it ("Raykar et al. (2010) was replaced by Aamodt & Plaza (1994)") because it never actually appeared in the v13 docx's own bibliography despite being claimed as a core anchor. `Core_Anchors_v7.csv` row 18 (`V7-SQ2-05`) lists it again as a current SQ2 anchor. Aamodt & Plaza still exists in the workbook (in `All_Sources` and the ACL branch map as a CBR background reference) but is no longer one of the five core SQ2 anchors it replaced.
+- **Fervers et al. is still dated 2006** — the exact year that didn't match its own bibliography entry (2011) in v13, which is why v8 dropped it. It now appears dated 2006 in both `Core_Anchors_v6.csv` (row 18, a sheet explicitly marked "LEGACY VIEW — SUPERSEDED") *and* the current `Core_Anchors_v7.csv` (row 22) — meaning the defect persisted through the supposed supersession rather than being fixed in the newer sheet. `Bibliographic_Fixes_v9.csv` records a Fervers "fix," but it only addresses an author-list/diacritic issue, not the year mismatch v8 actually flagged.
+- **Dellermann et al. (2019) is back as the U-RQ core anchor.** v8 removed it in favor of Dhanorkar et al. (2026) because it was cited in the v13 docx body with no matching bibliography entry at all. `Core_Anchors_v7.csv` row 8 (`V7-URQ-05`) lists it again; Dhanorkar is still present but demoted to a "boundary resource" in `Citation_QA_v9.csv` rather than a core anchor.
+- **None of the three reversals carry a decision note anywhere in the 65 sheets.** No file states that these are deliberate reinstatements superseding v8's documented fixes, versus an accidental regression from working off an older sheet lineage while building v6/v7. Given `Core_Anchors_v6`/`v7` sit chronologically *after* the v8 4-sheet workbook this report is comparing against, the most likely explanation is that v6/v7 were built from a pre-v8 anchor list and v8's fixes were simply never carried into that separate lineage — which would mean this "regression" is really a merge/reconciliation gap between two parallel workbook lineages, not a deliberate undo. Either way, nothing in the package says so.
+
+### E. ACL taxonomy classification — real progress, two specific gaps
+
+- **The relevance scale doesn't use Iris's own words.** She asked for branches sorted into "highly relevant, less relevant, not relevant at all, and missing." `ACL Branch Map v15` instead uses `RELEVANT`, `HIGHLY RELEVANT`, `LESS RELEVANT`, and `LESS RELEVANT / BACKGROUND` — no branch is ever labeled "not relevant at all," and "background/enabling technology" (a concept the 08-12 call explicitly keeps separate from relevance) gets folded into the relevance label instead of noted separately.
+- **No statement anywhere of how many branches the real taxonomy has**, so there's no way to check whether the 7 classified branches are the complete list or a subset. The sheet's own caveat concedes coverage isn't exhaustive, but never states the denominator.
+- Both are easy, low-cost fixes given the underlying work is already done — see the action list below.
+
+### F. Fulfillment of Iris/Arnon's other specific instructions
+
+- **The organizing principle actually used is RQ-number × VEGO-AI-component, not "human involvement × agentic AI."** Iris explicitly overruled an HCI-first frame in favor of this axis on the 08-12 call. `RQ Definitions`, `Thesis & Study Map`, and `Implementation Contracts` are all structured around RQ-tag × component-ID instead — neither Arnon's rejected frame nor Iris's chosen one.
+- **`Implementation Contracts` is solution-world engineering detail sitting inside literature-support material**, the opposite of Iris's "gap lives in the problem world" instruction — full component-by-component decision logic, integration points, and implementation status for VEGO-AI's own proposed system (C1–C7), which reads as methodology-chapter content, not literature-review support.
+- **The two-scenario (software-engineering/medical) split is stated only for SQ3**, not SQ1 or SQ2, in both `RQ Definitions` and `Thesis & Study Map` — an asymmetry the 08-12 call didn't ask for.
+- **The workbook's own C1–C7 artifacts contradict `chapter-4-research-methodology.md`'s same-day (2026-08-19) artifact recommendations.** Chapter 4 explicitly rejects the bundled component architecture in favor of narrower per-study artifacts (a cost/coverage model, a judgment-record contract, a transfer-eligibility procedure). The workbook still presents the bundled C1–C7 set as "the" artifact per RQ, with no cross-reference to Chapter 4's supersession — two documents dated the same day, disagreeing about the same thing.
+- **A genuine strength alongside these gaps:** `Thesis & Study Map` does give each RQ a named artifact and method side by side, which is the structural shape Iris asked for — it just needs reconciling with Chapter 4's more recent, narrower recommendations.
+
+## Add / modify / change / delete
+
+**Add**
+
+- The three missing companion files (literature review doc, research control appendix, ACL classification slide deck) to the package, with hashes in the manifest — or relabel `V15 START HERE`'s rows for them as "not yet delivered" rather than listing them as present.
+- Explicit forward/backward pointers between `READ_ME`, `V7 START HERE`, `V9 VERIFY README`, and `V15 START HERE` so the navigation chain is traceable end to end.
+- A decision note wherever Raykar, Fervers, or Dellermann appear, either restoring v8's fixes or explicitly stating why they're back — the note doesn't need to resolve which lineage is "right," just say which one is being followed going forward.
+- A stated total branch count for the real GitHub taxonomy, so the 7-branch classification's completeness is checkable.
+- A "not relevant at all" label actually applied to whichever ACL branches qualify, using Iris's own three-word scale.
+
+**Modify**
+
+- `V15 Requirements Trace`'s "V15 implementation / evidence" column for item 9 and A0812-04 — pick one framing ("drafted, not yet supervisor-approved") and apply it to both rows describing the same fact.
+- `CONTROL_README`'s "Authoritative tab" column, to stop naming sheets (`Core Anchors v6`, etc.) that are independently marked superseded elsewhere in the same package.
+- `RQ Definitions` / `Thesis & Study Map` / `Implementation Contracts`'s organizing axis, from RQ×component toward the human-involvement×agentic-AI frame Iris specified — the RQ tag can stay as an internal cross-reference, per the pattern `literature-review-structure-and-queries-draft.md` already uses.
+
+**Change**
+
+- Reconcile the 41 / 51.05 / 51.05-differently-weighted readiness numbers into one authoritative composite (or clearly rename each to show they measure different things), and make sure no composite score can average a literal 0/N fact up to a nonzero readiness percentage.
+- Extend the "LEGACY VIEW — SUPERSEDED BY ___" banner pattern (already correctly used on `Core Anchors v6` / `RQ Anchor Map`) to the other ~19 unmarked legacy sheets.
+- Rename the zip (or add the missing files) so its name doesn't overstate its contents.
+
+**Delete / reconcile**
+
+- `Source Package Audit`'s reference triad (manuscript PDF, 500-entry ZIP, 139-source workbook) — none of it matches this package's actual contents; either reconcile it or mark it explicitly out of scope for v15.
+- Move `Implementation Contracts` out of the literature-support workbook entirely, or clearly separate it as solution-side engineering tracking distinct from the problem-world literature synthesis.
+
+## Bottom line
+
+This version does something none of the prior three did: it actually attempts the ACL taxonomy classification Iris asked for, framed correctly as Ali's own derived synthesis. That's real progress and shouldn't get lost under everything else in this report. But the package built around that progress overstates its own completeness (three named companion files are missing), contradicts itself in at least four separate places (the two requirements files, three dashboard readiness scores, a stale entry-point pointer, and same-day disagreement with Chapter 4), and — most concerning — has silently lost three citation fixes that were already verified correct five days ago, in the same anchor-list lineage, with no note explaining why. None of this requires new research to fix. It requires reconciling parallel workbook lineages that stopped talking to each other somewhere between v6 and v9, and finishing the two small, specific gaps in the ACL classification that's already 90% of the way to what Iris asked for.
