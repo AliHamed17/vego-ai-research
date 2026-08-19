@@ -497,3 +497,12 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/literature-review-v13-workbook-verification-report.md
 - Rollback note: Single new markdown file, no code/build-artifact changes; safe to revert independently if ever needed.
 - Git commit: none recorded by script.
+
+## 2026-08-20 02:10 +03:00 - Claude - Do-next-step review: fix forbidden-artifact unsafe verdict
+
+- Files changed:
+  - docs/agent-memory/issues.md
+  - docs/research/figures/fig1-vego-ai-architecture.pdf (untracked, kept on disk)
+  - outputs and presentations PDFs/ZIP (26 more files, untracked, kept on disk)
+- Rollback note: git rm --cached is non-destructive, all 27 files remain on disk and in git history; git add -f path would re-track any of them if this decision needs reversing.
+- Git commit: none recorded by script.

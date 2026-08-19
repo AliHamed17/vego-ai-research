@@ -1,6 +1,6 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-08-20 01:58 +03:00.
+Generated from repository memory on 2026-08-20 02:10 +03:00.
 
 Showing the latest 20 session entries.
 
@@ -165,3 +165,26 @@ Showing the latest 20 session entries.
   - gh run view 32242928096 --json jobs -q overall  (success)
 - Status: Verification report complete and pushed. The two source files (docx, xlsx) live only in Downloads, not in the repo -- they were not committed, only the review of them.
 - Next steps: The literature-review track (separate ChatGPT-driven session per project convention) should: (1) rebuild/rebase the workbook against v13 before either artifact is shown to supervisors -- most docx-vs-workbook mismatches trace to the workbook still being anchored to v10; (2) do the actual ACL-2026 taxonomy classification exercise and one-slide deliverable Iris asked for, which has not yet been done in any reviewed version; (3) either reconcile or drop the 84/100 vs 36/100 readiness-score contradiction before it reaches a supervisor meeting.
+
+## 2026-08-20 02:10 +03:00 - Claude - Do-next-step review: fix forbidden-artifact unsafe verdict
+
+- Request: User said 'do next step' with no new specific plan -- ran the project's own established next-step workflow per CLAUDE.md.
+- Actions taken:
+  - Ran run-codex-next-step.ps1 -RefreshWiki -RunHealth -NoOpen per CLAUDE.md Continue/Next-Step Prompts instructions.
+  - Project review returned verdict unsafe: Forbidden/generated/controlled artifacts are tracked (27 files: 5 architecture-figure PDFs plus supervisor-delivery PDF/ZIP snapshots under outputs and presentations), alongside the standing EXP-005 0 of 24 blocker.
+  - Traced all 27 files to the same historical commit 9163b2d already logged as ISS-032 root cause, confirming this was a pre-existing condition surfaced by finally re-running this specific check, not something newly broken.
+  - Asked Ali via AskUserQuestion how to handle it; he chose to untrack the files.
+  - Ran git rm --cached on all 27 files, kept on disk, now correctly covered by existing gitignore rules, no new gitignore entries needed. Committed and pushed; CI green.
+  - Re-ran run-project-review.ps1: verdict improved from unsafe to blocked, leaving only the standing expected EXP-005 gate.
+  - Logged the fix as ISS-035 resolved and cross-referenced it from ISS-032, which remains open for the distinct dashboard generated-file tracking question.
+- Files changed:
+  - docs/agent-memory/issues.md
+  - docs/research/figures/fig1-vego-ai-architecture[PDF omitted] (untracked, kept on disk)
+  - outputs and presentations PDFs/ZIP (26 more files, untracked, kept on disk)
+- Commands/checks:
+  - run-codex-next-step.ps1 -RefreshWiki -RunHealth -NoOpen (verdict unsafe)
+  - git rm --cached on 27 files
+  - run-project-review.ps1 (verdict blocked, was unsafe)
+  - gh run view (success)
+- Status: run-project-review.ps1 verdict is blocked, expected standing EXP-005 gate only, not unsafe. CI green on main.
+- Next steps: ISS-032 dashboard generated file tracking question, same root commit, remains open and undecided, separate from the 27 files resolved here. EXP-005 0 of 24 remains the standing blocker across the whole project; requires real human expert labeling, not further automation.
