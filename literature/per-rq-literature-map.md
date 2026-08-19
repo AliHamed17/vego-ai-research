@@ -1,25 +1,41 @@
 # Per-RQ Literature Map and Coverage-Gap Check
 
-Status: **working map for the 2026-08-12 supervisor meeting — inventory + gap analysis, not a completed review**
+> **⚠️ SUPERSEDED as a coverage snapshot (2026-08-19).** This document was written
+> 2026-08-10 against an 8-source resource pack. The corpus has since grown to
+> **140 individually-verified sources** — 44 RQ1, 31 RQ2, 19 RQ3, 27 methodology,
+> 16 foundation, 3 general — tracked in
+> [`verified-research-corpus-2026-08-12.json`](verified-research-corpus-2026-08-12.json)
+> and presented in [`literature/README.md`](README.md). **The verdicts below
+> ("RQ3 — zero tagged sources") are no longer true and must not be quoted or
+> presented as current.** The rest of this file is kept for its historical
+> record of what Iris asked for on 2026-08-05 (`A08-03`) and the reasoning behind
+> the original tagging approach — read `literature/README.md` for the current
+> per-question inventory and `docs/research/phd-proposal/literature-review-structure-and-queries-draft.md`
+> for the current coverage-gap-to-query mapping.
+
+Status: **historical — working map for the 2026-08-12 supervisor meeting, since superseded**
 
 Source of the requirement: 2026-08-05 supervisor call, `A08-03` — build a literature
 spreadsheet with a per-question tag (RQ1 / RQ2 / RQ3 / general), and use the pass to
 "see we're covering all the relevant literature," i.e. an explicit coverage-gap check,
 not just an inventory of what already exists.
 
-Relation to other assets: the [native Google Sheet](https://docs.google.com/spreadsheets/d/1tVAM10bxlmL7_8SbgDgN5BRfAR2f5Q4pGvQmx-Ypp4A/edit)
-remains the row-level workbook of record (one paper = one row); the
+Relation to other assets, as of the original 2026-08-10 write-up (see the superseded
+notice above for what has changed since): the [native Google Sheet](https://docs.google.com/spreadsheets/d/1tVAM10bxlmL7_8SbgDgN5BRfAR2f5Q4pGvQmx-Ypp4A/edit)
+was intended as the row-level workbook of record (one paper = one row) — **not
+reconciled against the 140-source corpus; treat as stale until Ali confirms it**; the
 [QL-01–QL-05 register](../docs/research/phd-proposal/literature-search-execution-register.md)
 remains the frozen search protocol (still `PROTOCOL READY / NOT RUN`); and
-[`hitl-resource-pack/source-manifest.csv`](hitl-resource-pack/source-manifest.csv) carries the
-`rq_tag` column at the file level. This map is the *view across all three*: what each RQ
-currently has, and — the part Iris asked for — what each RQ still visibly lacks.
+[`hitl-resource-pack/source-manifest.csv`](hitl-resource-pack/source-manifest.csv) is a
+separate, smaller pack of *tools and guideline documents* (Label Studio, Argilla, modAL,
+NIST AI RMF), not academic papers, and is not superseded by the corpus above — it serves
+a different purpose and should stay separate.
 
 RQ labels here mean the three live sub-questions (2026-08-05 wording, provisional):
 **RQ1** = SQ1 selective intervention; **RQ2** = SQ2 governed knowledge reuse;
 **RQ3** = SQ3 evaluation and transfer.
 
-## 1. Current per-RQ inventory (everything tagged so far)
+## 1. Per-RQ inventory as of 2026-08-10 (historical — see the notice above for current counts)
 
 Titles below are the exact `source-manifest.csv` strings. / הכותרות להלן הן המחרוזות המדויקות מה-CSV.
 
