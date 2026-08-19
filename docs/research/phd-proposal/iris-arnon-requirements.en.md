@@ -107,9 +107,6 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | A0812-02 | Produce a Google Scholar query per literature-review subsection. | Done, draft exists, needs Ali's review |
 | A0812-03 | Run QL-01 to QL-05 and answer whether the search has actually been exhaustive. | Open, blocks every literature-gap claim |
 | A0812-04 | Write the methodology chapter: artifact and method per subquestion, plus the two-scenario subsection. | Done as draft — see chapter-4-research-methodology.md (2026-08-18); not yet supervisor-approved, 7 open items flagged inside it |
-| A0812-05 | Re-share the Drive with arnon.sturm@gmail.com. | Open |
-| A0812-06 | Send recommendation-letter details to both supervisors; a scholarship deadline was referenced as "the 15th." | Open, time-critical |
-| A0812-07 | Attend or settle the Clalit meeting on 2026-08-26, which coincides with the Plan A/B go/no-go checkpoint. | Scheduled |
 
 ---
 
