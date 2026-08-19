@@ -2,6 +2,15 @@
 
 Record file changes and rollback notes here.
 
+## 2026-08-19 - Claude - CL7 deck rebuild, literature awesome-list reorg, PR #19/#20 CI fixes, branch backup
+
+- Files added: `literature/README.md` (regenerated), `literature/bibliography.bib`, `scripts/build_awesome_literature_index.py`, `outputs/course-presentation/speaking-script-he.md`.
+- Files updated: `scripts/build_course_presentation.py`, `scripts/build_course_presentation_charts.py`, `scripts/check_course_presentation_claims.py`, `scripts/render_deck.ps1` (all: `REPO = Path(__file__).resolve().parent.parent` fix), `outputs/course-presentation/findings.json`, `literature/verified-research-corpus-2026-08-12.json` (dedup 144->140, added Zou et al. 2026), `literature/per-rq-literature-map.md` (superseded notice), `docs/research/literature-review-taxonomy.md` (cross-links), `docs/research/governance/vego-ai-foundation-paper-record.md` (VEGO-AI acronym correction).
+- PR #19 (`Realign the seminar deck to CL7 and cap it at 20 slides`): rerun-fixed a stuck `source-security-and-documents` check via `gh run cancel` then `gh run rerun --failed`; now `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, all checks pass.
+- PR #20 (`Reorganize literature as a generated awesome-list index; add the missing Zou et al. survey`, branch `docs/literature-awesome-index-and-root-cleanup`): resynced with `origin/main` twice in disposable worktrees (`git worktree add`, later removed with `git worktree remove --force`) after main advanced past the branch each time; both times the only conflicts were append-only rows in `docs/agent-memory/decisions.md`/`issues.md`, resolved by keeping the union of both sides' rows; local CI-equivalent checks run and passed after each resync (see session-log for the full command list) before pushing.
+- Branch backup: pushed 6 local-only, unmerged branches to origin as plain backup refs (no PR opened): `feature/m4a-test-compat`, `feature/memory-advisor`, `feature/memory-informed-comparison`, `feature/results-dashboard`, `feature/visualizer-ux-refresh`, `fix/m4b-schema-hardening`.
+- Rollback note: Deck/literature changes live only on PR branches (`docs/literature-awesome-index-and-root-cleanup`) or already-merged history (via PR #19, once merged) - nothing was pushed directly to `main`. To undo the branch backups, delete the remote refs (`git push origin --delete <branch>`); this does not affect `main` or either PR.
+
 ## 2026-07-27 - Codex - Evaluation Phase Branch & Supervisor Checklist
 
 - Files added:
