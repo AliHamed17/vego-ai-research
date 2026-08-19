@@ -1,24 +1,24 @@
 {
   "schemaVersion": "ThesisReviewFigureAssets-v1",
   "sourceSnapshot": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-  "figureDataHash": "ffa91ab9b4d6938c654ae67f18a7b7b3a144d836e8aee651f4416ed63c33a18c",
+  "figureDataHash": "41f560c68f1333b75441dc1747aa73ee2756952b8b1372b74d017328014f67f8",
   "rendererHash": "b07b4616dfb5ddbace8521d21a3444a894a346554b5a9180fee0810d982f6c6f",
   "files": {
     "architecture": {
       "path": "thesis/figures/evidence-ready/human-judgment-architecture.png",
-      "sha256": "8130d8e6a899aaa95887b66a9009ad0a40a9df50a916f809e387effa59edd827"
+      "sha256": "4c2f92cdf326bb32584cfe091fd34024ff917cfd511571b81dc0ecebe31c67ac"
     },
     "evidence": {
       "path": "thesis/figures/evidence-ready/current-evidence-profile.png",
-      "sha256": "a359a4b444e0d015c86d6e34ec4b13696c7dbd0a619f74d7d65133231017a45c"
+      "sha256": "6867a43c3dcad9c6ae09b1f4dd99ebd227cd8a46b6c6ef349847340cb188e6e5"
     },
     "ladder": {
       "path": "thesis/figures/evidence-ready/b0-b5-evidence-ladder.png",
-      "sha256": "4b94bad4f3f5ef0789907a5fb2ba411ee0b6df4dbf9fe54dbc96bfbb87aa45a2"
+      "sha256": "f56949f35901694beaf76e5edbb6e22e6dfe4c0eb349d118f82f6fa9a9d6e350"
     },
     "roadmap": {
       "path": "thesis/figures/evidence-ready/exp019-027-roadmap.png",
-      "sha256": "40627ad079fad122862fbcdcdb4b3b22cf1dd11779ead6fff8695936ed9b74f4"
+      "sha256": "95c0d6bf7a99f88c9c48d1f989cd1b5845368478aeefba7629c29cbe8bfd011d"
     }
   },
   "claimBoundary": "These reviewed figures visualize mechanism and gate state only. They do not establish accuracy, generalization, reduced effort, or benchmark superiority."

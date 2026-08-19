@@ -2,28 +2,28 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "acb42b2071db13285a9cc5a73fb4019d5063d1b7",
-  "packageRevision": "8a6d191e1e21364d888c15d7ba13157882727e39",
-  "sourceTreeHash": "3eb339ee61cfb0b0a320c325f4939308c0b9464d8ef666c5382843f6064043c9",
+  "sourceRevision": "aba24508d6f7ef45512b0a390741b8485e71e0f4",
+  "packageRevision": "1537b78e33aa91ad444b9711fb925ea7d9731426",
+  "sourceTreeHash": "4e5ceb8361b0ac72114f9358f039a6ce5efbdd8bac0f3f4410dcebc02fb4627e",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
-    "bytes": 48267,
+    "sha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
+    "bytes": 48319,
     "tracked": true
   },
   "trackedOutputs": {
     "docx": {
       "path": "thesis/output/VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.docx",
-      "sha256": "912a382c5ba7a930c3ccdd2612af95d354a9cb52d1f4e0da6033a874715e8a9d",
-      "bytes": 1809595,
+      "sha256": "b4b41ef604dc11b5231c8c3e056159cb27b22390e9dae56d080b4afdfe0fe433",
+      "bytes": 1816197,
       "tracked": true
     },
     "interactiveHtml": {
       "path": "VEGO-AI-Thesis-Baseline-Progress.html",
-      "sha256": "bbea2f2278c70c1bf9a5cfdefa9ba99520056d061e6d16d57f1abdb2118db037",
-      "bytes": 81862,
+      "sha256": "d8a4b7566219bfd1cb9ea5db07a30ed71c5b2e20bac27aed4e5937bc6adced47",
+      "bytes": 81914,
       "tracked": true
     }
   },
@@ -183,7 +183,7 @@
     },
     {
       "path": "scripts/build_thesis_evidence_package.py",
-      "sha256": "30eee767cfbc81602d2341df33e6a419c9dd212be87afba3986f2d27420bbee8"
+      "sha256": "8f948e794814f8dca0417e6fa07a322bfb00506c95a7f6d3c9d3dabeb9e830a2"
     },
     {
       "path": "scripts/build_thesis_progress_visual.py",
@@ -331,7 +331,7 @@
     }
   ],
   "toolVersions": {
-    "python": "3.10.0",
+    "python": "3.13.3",
     "jsonschema": "4.26.0"
   },
   "protectedRuntimeChanged": false,

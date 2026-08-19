@@ -803,7 +803,7 @@
     }
   ],
   "generatedAt": "2026-07-26T14:16:00+03:00",
-  "normalizedSha256": "8dfa9f62a58c4cfd4c80db70b84948d3e488fd2cbaab335fb8c61915e08c3442",
+  "normalizedSha256": "02b6d1c8eb3974d545b805c5e45ab096c1306482692e8754bebba6816fd2d391",
   "paperBaseline": {
     "caseModels": 178,
     "occasional": 18,
@@ -816,7 +816,7 @@
   "sources": {
     "docs/research/bigui/architecture-fixture-results-v1.json": "7fcf650512b37dfb7063b48c5fef95d73d7b8db36a268926d6178329aef73ba5",
     "docs/research/bigui/paper-baseline-snapshot-v1.json": "78b6701caea4feee131980e2e8ae84f436451e53853ca0e779a0d161a6ad966a",
-    "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+    "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
     "experiments/accepted-runs": "8cc33fdd800964cfc729e5d4ba15dbf8400bccb23de3c9834de54fc494ffa26e",
     "experiments/current-run-index-v1.json#comparison-dependencies": "99115846282369e33d9bc312b4bdc487acdc7762438036ca887dad0373f682db"
   }

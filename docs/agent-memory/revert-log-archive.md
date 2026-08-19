@@ -1734,3 +1734,31 @@ Historical entries.
   - removed stray `.pyc` files from `scripts/` root (F7)
 - Rollback note: delete the four added files and generated outputs; revert the listed docs. Iteration 014 is an accepted reliability_only coherence snapshot - do not delete it without also reverting the promoted suite state. No VEGO-AI file touched (hash guard + git verified).
 - Commands run and results: verify-hlayer-all first run FAIL on program validator (found F8: out-of-band suite run desynced iter_013 from promoted suite); run-hlayer-iteration.ps1 -> iteration 014 promoted (suite hlayer-20260720T173308Z-d79047f5e2); verify-hlayer-all -WithOverview rerun: 9/9 PASS (protected paths, VEGO-AI clean, evidence 18/18, offline validator, program validator, conformance, pytest 94 + 53 incl. 4 new, overview).
+
+## 2026-07-14 12:38 +03:00 - Codex - Research Master Plan Package
+
+- Files changed:
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\README.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\MASTER_RESEARCH_PLAN.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\EXPERIMENT_ROADMAP.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\ARCHITECTURE_AND_FLOWS.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\VISUALIZATION_PLAN.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\EVALUATION_PLAN.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\ENHANCEMENT_BACKLOG.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\THESIS_STRUCTURE.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\SUPERVISOR_DECISIONS.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\RISK_AND_VALIDITY_REGISTER.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\REPRODUCIBILITY_CHECKLIST.md
+  - C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan\TIMELINE_AND_MILESTONES.md
+- Rollback note: Remove C:\Users\ahamed\Claude\Projects\vego-ai\artifacts\research_master_plan to roll back the local planning package; source tracking entries are append-only audit records.
+- Git commit: none recorded by script.
+
+## 2026-07-20 22:22 +03:00 - Codex - July 21 Supervisor Package And Repository Hardening
+
+- Files changed:
+  - ProgramStatusSnapshot v1, Iteration 14 ledger/registry/tracker/dashboard/handoff surfaces, and safe future-proposal rewrites.
+  - VEGO-AI-July1-PointByPoint-EN-HE.html plus July 21 canonical package data, Markdown records, deck source/output, and PDF builders.
+  - Visualization gallery/research hub, CI workflow, privacy check, browser smoke test, package validator, and verify-hlayer-all.ps1.
+  - Agent memory session/revert logs and archives; archive conservation was verified with zero missing or changed historical entries.
+- Rollback note: Revert the July 21 package commits to remove tracked package/governance/gallery/QA changes; delete only the dated 2026-07-21 share folder and ignored PDF/log outputs if those copies must be withdrawn. Do not alter July 15 history, raw ASR, Agent 4, protected VEGO-AI runtime paths, baseline outputs, or EXP-005 labels.
+- Git commit: none recorded by script.

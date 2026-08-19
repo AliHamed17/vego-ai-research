@@ -1162,7 +1162,7 @@
       }
     ],
     "generatedAt": "2026-07-26T14:16:00+03:00",
-    "normalizedSha256": "8dfa9f62a58c4cfd4c80db70b84948d3e488fd2cbaab335fb8c61915e08c3442",
+    "normalizedSha256": "02b6d1c8eb3974d545b805c5e45ab096c1306482692e8754bebba6816fd2d391",
     "paperBaseline": {
       "caseModels": 178,
       "occasional": 18,
@@ -1175,7 +1175,7 @@
     "sources": {
       "docs/research/bigui/architecture-fixture-results-v1.json": "7fcf650512b37dfb7063b48c5fef95d73d7b8db36a268926d6178329aef73ba5",
       "docs/research/bigui/paper-baseline-snapshot-v1.json": "78b6701caea4feee131980e2e8ae84f436451e53853ca0e779a0d161a6ad966a",
-      "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "experiments/accepted-runs": "8cc33fdd800964cfc729e5d4ba15dbf8400bccb23de3c9834de54fc494ffa26e",
       "experiments/current-run-index-v1.json#comparison-dependencies": "99115846282369e33d9bc312b4bdc487acdc7762438036ca887dad0373f682db"
     }
@@ -1488,7 +1488,7 @@
     "schemaVersion": "ExperimentBenchmarkSnapshot-v1",
     "generatedAt": "2026-07-26T16:00:00+03:00",
     "publicationTier": "tracked_sanitized",
-    "inputProjectionSha256": "029e242a86bc93fcb2ed289436988e061b465802a984b84cb40d80d38bfec01a",
+    "inputProjectionSha256": "7174279e5852aee68075b84a618b64a828a9b9e933a8058a7188e51c10a57656",
     "standardSha256": "1b9a814e3498ac97ac5da84e5eb15894c15583c87456491af363c3a805e3c7c5",
     "programState": {
       "registeredExperiments": 41,
@@ -7022,7 +7022,7 @@
       {
         "experimentId": "EXP-036",
         "title": "Scale, latency, and reproducibility",
-        "summary": "The latest controlled scale run meets the declared unified and parity overhead limits; prior accepted-run variability remains visible separately.",
+        "summary": "The pinned summary records engineeringTargetMet=false for the latest controlled scale run: the unified P95 check fails at larger scale while the parity P95 and unified peak-memory checks pass; run-to-run p95-ratio variability remains visible separately.",
         "evidenceClass": "synthetic",
         "metrics": [
           {
@@ -7577,13 +7577,13 @@
       "26 of 41 experiments have accepted source-backed runs; the remaining records are explicit protocols, gated studies, or parked history.",
       "26 experiments expose measured engineering signals, while zero experiments contain eligible independent classification-performance evidence.",
       "Architecture progress is demonstrated through capability extension, semantic parity, deterministic replay, fail-closed safety, provenance, and reproducible run records.",
-      "The latest EXP-036 accepted run meets the declared unified and parity latency-ratio limits; older accepted history retains a prior unified p95 miss, so machine-specific variability remains visible.",
+      "The pinned EXP-036 summary reports engineeringTargetMet=false: the unified P95 latency-ratio check fails at larger scale even though parity P95 and unified peak-memory both pass; the ratio varies run to run on the same machine, so a single favorable observation is not treated as a pass.",
       "The paper and current repository are directly comparable for architecture and versioned counts only; the paper's qualitative Phase D is not independent ground truth."
     ],
     "recommendations": [
       "Use the per-dimension scorecard as the program baseline and never collapse protocol, safety, latency, and empirical validity into one value score.",
       "Keep EXP-007 routing configurations on a workload-versus-coverage Pareto chart; do not name a default until M-03 and adjudicated routing targets exist.",
-      "Repeat EXP-036 on a second controlled machine before treating the current p95 target pass as stable; preserve exact parity, determinism, and baseline hashes.",
+      "Repeat EXP-036 on a second controlled machine and fix the unified-P95 interval computation before claiming a target pass at scale; preserve exact parity, determinism, and baseline hashes.",
       "Approve and execute EXP-019/020 to obtain two independent reviews for all 24 safe candidates; only then populate classification metrics.",
       "Run EXP-031 after the UI is frozen, then preregister EXP-032 before making a BigUI decision-value claim.",
       "Refresh this benchmark atomically whenever an accepted run is added; rejected or stale runs must preserve the last accepted snapshot."
@@ -7612,7 +7612,7 @@
       },
       {
         "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-        "sha256": "680207911fc3e9bf70eb897f4b6faff72016831326969dce1ea45dbdcea7065a",
+        "sha256": "4647cb5f95563128cd3b0fd213da3304d8bf5b3ca1065211f6fcf4d1378052f6",
         "role": "Paper, architecture, comparison, and thesis-readiness results."
       }
     ]
@@ -9803,7 +9803,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9820,7 +9820,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9837,7 +9837,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9854,7 +9854,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9871,7 +9871,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9888,7 +9888,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9905,7 +9905,7 @@
       "direction": "lower_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9922,7 +9922,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "evaluation_ready",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9939,7 +9939,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9956,7 +9956,7 @@
       "direction": "target",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9973,7 +9973,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9990,7 +9990,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10007,7 +10007,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10024,7 +10024,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10041,7 +10041,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sourceSha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -80139,7 +80139,7 @@
     {
       "id": "thesis-evidence",
       "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sha256": "0ed0b9b1b5a70eb2f54572e1f58b238731f984c1b11f23f107e88bf0b273a77c",
+      "sha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
       "role": "Mechanism counts, B0–B5 evidence ladder, and claim gates"
     },
     {
@@ -80175,7 +80175,7 @@
     {
       "id": "baseline-comparison",
       "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-      "sha256": "680207911fc3e9bf70eb897f4b6faff72016831326969dce1ea45dbdcea7065a",
+      "sha256": "4647cb5f95563128cd3b0fd213da3304d8bf5b3ca1065211f6fcf4d1378052f6",
       "role": "EXP-037–EXP-040 baseline, comparison, and thesis-readiness results"
     },
     {
@@ -80187,7 +80187,7 @@
     {
       "id": "experiment-benchmark",
       "path": "docs/research/bigui/experiment-benchmark-snapshot-v1.json",
-      "sha256": "48b4bd13813281de4a794df908efb7306e8a1b11965b7b78379ed8b083508a2d",
+      "sha256": "a93259f2ea22fd52a690beab916bda541d5cfcf08d0385419507477f2173a017",
       "role": "All-experiment evaluation records, program analytics, findings, and recommendations"
     },
     {

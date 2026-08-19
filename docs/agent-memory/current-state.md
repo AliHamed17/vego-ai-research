@@ -2,7 +2,7 @@
 
 Fast orientation for Codex and Claude. Update this whenever the project state changes.
 
-**Last Updated:** 2026-08-14 by Claude (transcribed and analyzed the 2026-08-12 Iris/Arnon supervisor call; see the August 12 checkpoint bullet in 1a below and `docs/agent-memory/session-log.md`). Earlier: 2026-08-04, merged the Iris workstream into `main` via PR #16, resolving conflicts with the already-merged evaluation-phase PR #15, plus a CI-hardening fix pass. The separate VEGO-AI H-layer evaluation-phase workstream below was last updated 2026-07-28 by Claude.
+**Last Updated:** 2026-08-19 by Claude (CI-only fix pass; no project-state facts below changed — see `docs/agent-memory/issues.md` and `docs/agent-memory/decisions.md` for the `packageRevision` self-reference root cause and the two-commit regenerate-then-rebind pattern now used to close it). Earlier: 2026-08-14, transcribed and analyzed the 2026-08-12 Iris/Arnon supervisor call; see the August 12 checkpoint bullet in 1a below and `docs/agent-memory/session-log.md`. Earlier still: 2026-08-04, merged the Iris workstream into `main` via PR #16, resolving conflicts with the already-merged evaluation-phase PR #15, plus a CI-hardening fix pass. The separate VEGO-AI H-layer evaluation-phase workstream below was last updated 2026-07-28 by Claude.
 
 Both workstreams below are now merged into `main` (PR #15, then PR #16). Sections are still grouped by original workstream for orientation, since they cover distinct parts of the repo, but there is no longer a pending merge between them; `main` is the single current state for both. Feature branch `docs/iris-july29-phd-execution` is retained (not deleted) at commit `20b04fc` for reference.
 
