@@ -23,25 +23,25 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| R-01 | One overarching research question plus exactly three subquestions. | Done — U-RQ/SQ1–SQ3 structure adopted |
-| R-02 | Map each subquestion to a concrete study, with method and expected artifacts. | Done — three-study contract exists |
-| R-03 | Structure the proposal as: introduction/motivation, literature review, research questions, methodology/artifacts, preliminary results, work plan. | Partial — Chapters 1, 2, 4 not yet written |
+| R-01 | One overarching research question plus exactly three subquestions. | Done — see chapter-3-gap-and-research-questions.md |
+| R-02 | Map each subquestion to a concrete study, with method and expected artifacts. | Done — see three-study-contract.md |
+| R-03 | Structure the proposal as: introduction/motivation, literature review, research questions, methodology/artifacts, preliminary results, work plan. | Partial — see proposal-v0.3-aug12.md; Chapters 1, 2, 4 not yet written |
 | R-04 | Demonstrate novelty, doctoral scope, literature positioning, feasibility, skills, and a realistic timeline. | Open — depends on literature review (R-03) being finished |
 | R-05 | Prepare a short review/candidacy presentation focused on orientation and progress, not a re-read of the document. | Open — no confirmed review date yet |
 | R-06 | Keep research and writing moving in parallel with candidacy/committee scheduling; don't wait on it. | Ongoing |
-| R-07 | Keep the research questions domain-neutral — software/modeling must stand on its own; medicine is conditional. | Done — reflected in current RQ wording |
-| R-08 | State plainly that current preliminary results are software/modeling only; medical work is feasibility/infrastructure, not evidence. | Done — stated in the evidence-boundary language used throughout |
-| R-09 | Do not make PhD feasibility depend solely on uncertain medical data, access, or signatures. | Ongoing constraint — Plan B exists for this reason |
-| R-10 | Present Plan A (medical, conditional) and Plan B (software/modeling, always viable) explicitly. | Done |
+| R-07 | Keep the research questions domain-neutral — software/modeling must stand on its own; medicine is conditional. | Done — see chapter-3-gap-and-research-questions.md |
+| R-08 | State plainly that current preliminary results are software/modeling only; medical work is feasibility/infrastructure, not evidence. | Done — see chapter-5-preliminary-results.md |
+| R-09 | Do not make PhD feasibility depend solely on uncertain medical data, access, or signatures. | Ongoing constraint — see three-study-contract.md; Plan B exists for this reason |
+| R-10 | Present Plan A (medical, conditional) and Plan B (software/modeling, always viable) explicitly. | Done — see three-study-contract.md |
 | R-11 | Look at medical data only enough to understand its shape and gaps — do not turn this into becoming a medical expert. | Ongoing constraint |
-| R-12 | In restricted/medical environments: data stays in the VDI, no commercial/online LLM, local models only, access non-transferable, and the proposal documents this constraint. | Ongoing constraint |
+| R-12 | In restricted/medical environments: data stays in the VDI, no commercial/online LLM, local models only, access non-transferable, and the proposal documents this constraint. | Ongoing constraint — see three-study-contract.md |
 | R-13 | Weekly short task-focused meetings: one task agreed, prior work reported, next task set. | Done — cadence running (Wed 09:00, confirmed through the 2026-08-12 call) |
-| R-14 | For the next meeting after 07-29: draft the main + 3 subquestions, define related-work scope, start/plan the literature review, build the literature Excel template, seed it with any available papers. | Done |
-| R-15 | Literature tracking as one row per paper: bibliographic metadata; method/evidence/artifact/data/results/authors' own conclusions; the researcher's own synthesis, kept separate from the author's conclusion. | Done — literature workbook built this way |
-| R-16 | Maintain the literature workbook for the whole PhD; use it to expose the gap and link the gap to the proposed contribution. | Ongoing |
-| R-17 | Create a real shared PhD Drive; treat any shared source data (e.g. MIMIC) as read-only, edit only in a separate working copy. | Done |
-| R-18 | Working targets: a more developed draft in September, aim for submission by early October (not yet a confirmed university deadline). | Ongoing — dates still provisional |
-| R-19 | Finish the Penina-course (214.4001, IS Research Seminar) deliverable and reuse relevant parts in the proposal. | Ongoing — deck in progress |
+| R-14 | For the next meeting after 07-29: draft the main + 3 subquestions, define related-work scope, start/plan the literature review, build the literature Excel template, seed it with any available papers. | Done — see literature-review-protocol.md |
+| R-15 | Literature tracking as one row per paper: bibliographic metadata; method/evidence/artifact/data/results/authors' own conclusions; the researcher's own synthesis, kept separate from the author's conclusion. | Done — see literature-review-protocol.md |
+| R-16 | Maintain the literature workbook for the whole PhD; use it to expose the gap and link the gap to the proposed contribution. | Ongoing — see literature-review-protocol.md |
+| R-17 | Create a real shared PhD Drive; treat any shared source data (e.g. MIMIC) as read-only, edit only in a separate working copy. | Done — see drive-workspace-manifest.md |
+| R-18 | Working targets: a more developed draft in September, aim for submission by early October (not yet a confirmed university deadline). | Ongoing — see 2026-07-29-doctoral-execution-plan.md; dates still provisional |
+| R-19 | Finish the Penina-course (214.4001, IS Research Seminar) deliverable and reuse relevant parts in the proposal. | Ongoing — see penina-course-outline-and-proposal-reuse-map.md |
 
 ---
 
@@ -51,32 +51,32 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | --- | --- | --- |
 | E1 | Move from stating intentions to an actual thesis proposal — time is tight. | Ongoing pressure, still live |
 | E2 | Iris's parallel tracks (info only): Soroka meeting, an undergraduate project team, a TA rebuilding the pipeline for mandatory human review, a Ma'ayanei HaYeshua contact. | Info |
-| E3 | Draft main RQ + 3 subquestions were presented for review. | Done (superseded by later wording passes) |
-| E4 | Don't conflate the proposed Agentic-AI solution with the actual research question — sharpen it. | Done — reflected in current RQ wording, but Arnon raised a related concern again on 08-12, section 3 below |
-| E5 | Drop "reused" from the main RQ headline; it belongs in a subquestion. | Done |
+| E3 | Draft main RQ + 3 subquestions were presented for review. | Done — see 2026-08-05-rq-decision-pack.md (superseded by later wording passes) |
+| E4 | Don't conflate the proposed Agentic-AI solution with the actual research question — sharpen it. | Done — see chapter-3-gap-and-research-questions.md, but Arnon raised a related concern again on 08-12, section 3 below |
+| E5 | Drop "reused" from the main RQ headline; it belongs in a subquestion. | Done — see chapter-3-gap-and-research-questions.md |
 | E6 | Narrow the main RQ explicitly to variability identification/classification rather than broad "exploration." | Still open, unresolved wording question |
-| E7 | Assembled working main-RQ text; keep "reliable," lean toward dropping "auditable"/"transferable"/"end-to-end." | Done as a working draft |
+| E7 | Assembled working main-RQ text; keep "reliable," lean toward dropping "auditable"/"transferable"/"end-to-end." | Done as a working draft — see chapter-3-gap-and-research-questions.md |
 | E8 | SQ2 wording: "expert" vs. "human" judgment — leans toward "expert." | Still open, unresolved wording question |
-| E9 | Tie SQ2 to "core reasoning"; add an evaluation-criteria clause matching SQ1/SQ3's style. | Done |
-| E10 | SQ3 wording "looks good," mild discomfort with "transparently." | Done, minor note only |
+| E9 | Tie SQ2 to "core reasoning"; add an evaluation-criteria clause matching SQ1/SQ3's style. | Done — see chapter-3-gap-and-research-questions.md |
+| E10 | SQ3 wording "looks good," mild discomfort with "transparently." | Done, minor note only — see chapter-3-gap-and-research-questions.md |
 | E11 | Explains starting from SE, not medical, because domain transfer is unproven (info only). | Info |
-| E12 | Refine SQ3: separate domain-specific uncertainty from general-capability-gap uncertainty. | Done — reflected in current SQ3 wording |
-| E13 | Confirmed chapter structure: Introduction (write last), Literature Survey, Gap and RQ (drafted), Research Methodology (design-science, per Prof. Penina's course), Preliminary Results, Plan. | Done as structure; methodology chapter itself still not written |
-| E14 | Plan must be roughly 3-month semester-aligned blocks over a 3-year horizon, not month-by-month. | Done |
-| E15 | Next-step assignments: finish Gap+RQ chapter, build per-RQ literature spreadsheet, think about but do not yet write sections 2 and 4, share the Drive, keep a Word proposal plus a separate tracking doc, Iris sends a check-in email, present live on 08-12. | Done, and superseded by the 08-12 call's new instructions |
+| E12 | Refine SQ3: separate domain-specific uncertainty from general-capability-gap uncertainty. | Done — see chapter-3-gap-and-research-questions.md |
+| E13 | Confirmed chapter structure: Introduction (write last), Literature Survey, Gap and RQ (drafted), Research Methodology (design-science, per Prof. Penina's course), Preliminary Results, Plan. | Done as structure — see proposal-v0.3-aug12.md; methodology chapter now drafted too, see chapter-4-research-methodology.md (2026-08-18) |
+| E14 | Plan must be roughly 3-month semester-aligned blocks over a 3-year horizon, not month-by-month. | Done — see chapter-6-work-plan.md |
+| E15 | Next-step assignments: finish Gap+RQ chapter, build per-RQ literature spreadsheet, think about but do not yet write sections 2 and 4, share the Drive, keep a Word proposal plus a separate tracking doc, Iris sends a check-in email, present live on 08-12. | Done — see proposal-v0.3-aug12.md, and superseded by the 08-12 call's new instructions |
 
 2a. From the 2026-08-05 call — actions (A08-01 to A08-09)
 
 | ID | Action | Status |
 | --- | --- | --- |
 | A08-01 | Verify the final RQ/SQ wording against Ali's own saved chat draft from the 08-05 call. | Still open, no saved copy has been found on this workstation |
-| A08-02 | Write the Gap+RQ chapter in full. | Done |
-| A08-03 | Build a per-RQ literature spreadsheet with an RQ1/RQ2/RQ3/general tag column. | Done |
+| A08-02 | Write the Gap+RQ chapter in full. | Done — see chapter-3-gap-and-research-questions.md |
+| A08-03 | Build a per-RQ literature spreadsheet with an RQ1/RQ2/RQ3/general tag column. | Done — see literature/per-rq-literature-map.md |
 | A08-04 | Think about, but do not yet execute, section 2 (literature survey) and section 4 (research artifact per RQ). | Superseded — the 08-12 call explicitly moved section 2 into active writing |
-| A08-05 | Share the project Drive with Iris and Arnon. | Partially done — resolved for Arnon on 08-12 (arnon.sturm@gmail.com); Iris's access not separately confirmed |
-| A08-06 | Maintain a Word proposal doc plus a separate tracking document. | Done, ongoing |
+| A08-05 | Share the project Drive with Iris and Arnon. | Partially done — see 2026-08-12-supervisor-meeting.md; resolved for Arnon on 08-12 (arnon.sturm@gmail.com); Iris's access not separately confirmed |
+| A08-06 | Maintain a Word proposal doc plus a separate tracking document. | Done, ongoing — see proposal-v0.3-aug12.md |
 | A08-07 | Iris sends a check-in email before 08-12. | Not evidenced either way in the recordings |
-| A08-08 | Present progress live at the 08-12 meeting. | Done |
+| A08-08 | Present progress live at the 08-12 meeting. | Done — see 2026-08-12-walkthrough-outline.md |
 | A08-09 | Undergraduate project team, TA pipeline rebuild, Ma'ayanei HaYeshua contact — Iris/Arnon-side, not Ali's task (info only). | Info |
 
 ---
@@ -92,7 +92,7 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | 5 | Open question, asked directly: has Google Scholar actually been searched, or only the team's own paper and LLM suggestions? | Open, this is exactly what running QL-01 to QL-05 answers |
 | 6 | Recorded disagreement, unresolved in the call: Arnon wants the review centered on HCI as a field; Iris disagrees with an HCI-as-frame approach, though HCI-venue papers that are on-topic are still in scope. | Open, no resolution recorded |
 | 7 | Hand the confirmed RQ set to an AI assistant and ask it to propose literature-review subsections based on the RQs, and a Google Scholar query per subsection. | Done, see literature-review-structure-and-queries-draft.md |
-| 8 | Each of the three subquestions must become one study, three studies leading to three eventual publications. | Done, reaffirms R-02 and the E-series |
+| 8 | Each of the three subquestions must become one study, three studies leading to three eventual publications. | Done, reaffirms R-02 and the E-series — see three-study-contract.md |
 | 9 | Per RQ, state the research artifact and the methodology producing and evaluating it (design-science framing per Prof. Penina's course), plus a subsection on the two test scenarios (SE/students, medical). | Done as draft — chapter-4-research-methodology.md written 2026-08-18, includes the two-scenario subsection; not yet supervisor-approved |
 | 10 | Scope narrowed for the week: literature only; methodology work begins the following week, and only if literature is done well. | Supersedes item 1 |
 | 11 | Medical-track status (info only): Soroka data-access framework agreed, Ma'ayanei HaYeshua leaning schizophrenia/mental-health, Clalit meeting confirmed 2026-08-26, MIMIC has no domain expert to validate correctness so it is the explicit fallback. | Info, does not change the 0 of 6 medical gate status |
@@ -104,7 +104,7 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | ID | Action | Status |
 | --- | --- | --- |
 | A0812-01 | Restructure the literature review around human involvement times agentic AI, with scenarios (SE/medical) as a separate section. | Done for the course-seminar deck; the actual proposal chapter is still to write |
-| A0812-02 | Produce a Google Scholar query per literature-review subsection. | Done, draft exists, needs Ali's review |
+| A0812-02 | Produce a Google Scholar query per literature-review subsection. | Done, draft exists, needs Ali's review — see literature-review-structure-and-queries-draft.md |
 | A0812-03 | Run QL-01 to QL-05 and answer whether the search has actually been exhaustive. | Open, blocks every literature-gap claim |
 | A0812-04 | Write the methodology chapter: artifact and method per subquestion, plus the two-scenario subsection. | Done as draft — see chapter-4-research-methodology.md (2026-08-18); not yet supervisor-approved, 7 open items flagged inside it |
 
