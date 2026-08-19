@@ -28,20 +28,13 @@ bundles used in the literature review and workbook. It remains a recommendation 
 
 ### Working umbrella research question
 
-> How can human judgment be captured, governed, and used to support agentic-AI-driven variability
-> exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
+> How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
 
 ### Working subquestions
 
-1. **SQ1 — Selective intervention:** When and how, in variability exploration scenarios, should an
-   agentic assessment system request human judgment so that important uncertainties are addressed
-   without unnecessary expert burden?
-2. **SQ2 — Governed knowledge reuse:** How should expert judgment — including the system's core
-   reasoning — be represented, validated, reconciled, and stored so it can be reused transparently
-   without unsafe generalization or loss of human authority?
-3. **SQ3 — Evaluation and transfer:** How can expert judgment be reused and transferred across
-   different guideline-operationalization contexts without unsafe generalization or loss of human
-   authority, first in software/modeling and, when governance and access permit, in healthcare?
+1. **SQ1 — Selective intervention:** When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden?
+2. **SQ2 — Governed knowledge reuse:** How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority?
+3. **SQ3 — Evaluation and transfer:** How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare?
 
 The questions are deliberately domain-neutral. Software/modeling Plan B can answer all three.
 Healthcare is an optional, gated external-validity context rather than a prerequisite for doctoral
