@@ -93,7 +93,7 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | 6 | Recorded disagreement, unresolved in the call: Arnon wants the review centered on HCI as a field; Iris disagrees with an HCI-as-frame approach, though HCI-venue papers that are on-topic are still in scope. | Open, no resolution recorded |
 | 7 | Hand the confirmed RQ set to an AI assistant and ask it to propose literature-review subsections based on the RQs, and a Google Scholar query per subsection. | Done, see literature-review-structure-and-queries-draft.md |
 | 8 | Each of the three subquestions must become one study, three studies leading to three eventual publications. | Done, reaffirms R-02 and the E-series |
-| 9 | Per RQ, state the research artifact and the methodology producing and evaluating it (design-science framing per Prof. Penina's course), plus a subsection on the two test scenarios (SE/students, medical). | Open |
+| 9 | Per RQ, state the research artifact and the methodology producing and evaluating it (design-science framing per Prof. Penina's course), plus a subsection on the two test scenarios (SE/students, medical). | Done as draft — chapter-4-research-methodology.md written 2026-08-18, includes the two-scenario subsection; not yet supervisor-approved |
 | 10 | Scope narrowed for the week: literature only; methodology work begins the following week, and only if literature is done well. | Supersedes item 1 |
 | 11 | Medical-track status (info only): Soroka data-access framework agreed, Ma'ayanei HaYeshua leaning schizophrenia/mental-health, Clalit meeting confirmed 2026-08-26, MIMIC has no domain expert to validate correctness so it is the explicit fallback. | Info, does not change the 0 of 6 medical gate status |
 | 12 | Iris's student Matan is building a related but distinct VEGO-AI variant, an unstructured user-correction interface with local-LLM testing (info only). | Info |
@@ -106,7 +106,7 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | A0812-01 | Restructure the literature review around human involvement times agentic AI, with scenarios (SE/medical) as a separate section. | Done for the course-seminar deck; the actual proposal chapter is still to write |
 | A0812-02 | Produce a Google Scholar query per literature-review subsection. | Done, draft exists, needs Ali's review |
 | A0812-03 | Run QL-01 to QL-05 and answer whether the search has actually been exhaustive. | Open, blocks every literature-gap claim |
-| A0812-04 | Write the methodology chapter: artifact and method per subquestion, plus the two-scenario subsection. | Open |
+| A0812-04 | Write the methodology chapter: artifact and method per subquestion, plus the two-scenario subsection. | Done as draft — see chapter-4-research-methodology.md (2026-08-18); not yet supervisor-approved, 7 open items flagged inside it |
 | A0812-05 | Re-share the Drive with arnon.sturm@gmail.com. | Open |
 | A0812-06 | Send recommendation-letter details to both supervisors; a scholarship deadline was referenced as "the 15th." | Open, time-critical |
 | A0812-07 | Attend or settle the Clalit meeting on 2026-08-26, which coincides with the Plan A/B go/no-go checkpoint. | Scheduled |
@@ -114,6 +114,9 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 ---
 
 4. Still open, not resolved by any call to date
+
+The first five items below now have full working wording drafted, ready for a decision, in
+[2026-08-19-decisions-packet.md](2026-08-19-decisions-packet.md) — treat that as the current source for these five, not just the list here.
 
 - D-RQ-01 and D-RQ-02: explicit supervisor sign-off on the final main-RQ and SQ1-SQ3 wording.
 - E6: "exploration" vs. "identification/classification" in the main question.
@@ -134,4 +137,4 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 
 Sources: 2026-07-29-iris-requirements-register.md, 2026-08-05-supervisor-meeting.md,
 2026-08-12-supervisor-meeting.md, 2026-08-12-anticipated-qa.md (all in docs/research/meetings/).
-Consolidated 2026-08-15.
+First consolidated 2026-08-15; item 9 and A0812-04 statuses updated 2026-08-19 after Chapter 4 was drafted.
