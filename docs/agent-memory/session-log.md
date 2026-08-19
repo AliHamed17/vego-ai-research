@@ -126,3 +126,24 @@ Chronological prompt history for Codex and Claude.
   - gh run view ID --json jobs -q .jobs[].conclusion  (all success)
 - Status: CI green on main at 4455138. No further action needed on this thread unless a future content edit invalidates the chain again.
 - Next steps: If any future edit touches a sourceFiles-listed script/chapter or a trackedOutputs file (HTML/DOCX), expect this same two-commit regenerate-then-rebind pattern to be required again: (1) regenerate and commit content, accepting a transient packageRevision --check failure in that commit alone; (2) immediately follow with a commit that reruns build_thesis_review_manifest.py --package-revision equal to commit-1's hash and commits ONLY the manifest.json diff; push both together so CI only ever evaluates the final, consistent tip.
+
+## 2026-08-19 13:36 +03:00 - Claude - Verify literature review v13 and evidence workbook v5
+
+- Request: User attached VEGO_AI_Literature_Review_v13_45_Page_Visual_Repaired_2026-08-19.docx and VEGO-AI_Literature_Workbook_Consolidated_Strict_v5_RQ_Sheets.xlsx (from the parallel ChatGPT-driven literature track) and asked for a full gap report: what was done well, what was not, what needs adding/modifying/changing/deleting.
+- Actions taken:
+  - Extracted the full docx (409 paragraphs, 31 tables, 16 sections + 2 appendices) and all 22 workbook sheets to plain text/CSV for review.
+  - Ran a 7-dimension workflow (structural defects, docx-vs-workbook consistency, evidence-boundary overclaim scan, Iris/Arnon Aug-12 instruction fulfillment, v10-report carryforward status, hostile-review-section and workbook integrity, genuine strengths) with adversarial verification per finding.
+  - Personally spot-checked the four highest-stakes claims directly against source files (all four confirmed): the docx's 84/100 readiness score contradicts the workbook Dashboard's own 36/100 NOT DOCTORAL-READY verdict for the same evidence state; a Figure 5 vs Figure 16 cross-reference bug; zero EXP-005 mentions anywhere in the docx (a clean result); and Provenance.csv confirming the workbook is still rebased to v10, not v13, which is the likely root cause of most docx-vs-workbook mismatches.
+  - Found the highest-severity requirement gap: this week's actual assignment (classify the ACL-2026 GitHub taxonomy corpus as relevant/less relevant/not relevant/missing, produce one slide) was not done -- v13 instead ran nine broader search families across ACL/ACM/AAAI/PMLR/PubMed/ScienceDirect/web, which Iris explicitly deferred to after the proposal stage.
+  - Confirmed most v10-report findings carried forward unresolved in v13: SQ2 still has two artifact hypotheses (no cross-reference to Chapter 4 anywhere in v13), ACL-116 disposition dropped without resolution, manuscript-vs-package count mismatch still flagged but less specific, and the resourcing gap (name a 2nd Study-2 implementer, 2 Study-3 raters) still unaddressed.
+  - Wrote docs/research/phd-proposal/literature-review-v13-workbook-verification-report.md covering strengths, gaps by category, an Iris/Arnon instruction-fulfillment table, a v10-carryforward table, and a consolidated add/modify/change/delete action list. Ran check_evidence_consistency.py --check (18/18 PASS) before committing.
+  - Committed (e214c45) and pushed to main; confirmed CI green independently via gh run view --json jobs.
+- Files changed:
+  - docs/research/phd-proposal/literature-review-v13-workbook-verification-report.md
+- Commands/checks:
+  - python-docx / openpyxl extraction of the two attached files to scratchpad text/CSV
+  - Workflow: 7 finder + 7 verifier agents (litreview-v13-workbook-gap-audit)
+  - python scripts/check_evidence_consistency.py --check  (18/18 PASS)
+  - gh run view 32242928096 --json jobs -q overall  (success)
+- Status: Verification report complete and pushed. The two source files (docx, xlsx) live only in Downloads, not in the repo -- they were not committed, only the review of them.
+- Next steps: The literature-review track (separate ChatGPT-driven session per project convention) should: (1) rebuild/rebase the workbook against v13 before either artifact is shown to supervisors -- most docx-vs-workbook mismatches trace to the workbook still being anchored to v10; (2) do the actual ACL-2026 taxonomy classification exercise and one-slide deliverable Iris asked for, which has not yet been done in any reviewed version; (3) either reconcile or drop the 84/100 vs 36/100 readiness-score contradiction before it reaches a supervisor meeting.

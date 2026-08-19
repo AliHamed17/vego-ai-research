@@ -1,10 +1,15 @@
 # Chapter 4 — Research Methodology
 
 > Status: working draft, written 2026-08-15 after the 2026-08-12 supervisor call moved this
-> chapter into active writing. Each sub-question gets one recommended artifact so the chapter is
-> actually reviewable, but a recommendation is not a supervisor-confirmed decision — see the open
-> items at the end, carried over from `sections-2-and-4-thinking-notes.md` and not resolved on this
-> chapter's own authority. Chapter 2 (literature review) is being produced on a separate, parallel
+> chapter into active writing; revised 2026-08-19 per `chapter-4-completion-plan-2026-08-19.md` to
+> deepen each artifact specification and resolve the one open item (Plan A placement, §4.2) that
+> did not require new supervisor authority. Each sub-question gets one recommended artifact so the
+> chapter is actually reviewable, but a recommendation is not a supervisor-confirmed decision —
+> §4.7's remaining items are packaged as `2026-08-19-chapter4-decisions-packet.md` for Iris and
+> Arnon, and are not resolved on this chapter's own authority. This revision runs ahead of Iris's
+> 2026-08-12 sequencing instruction that methodology work start only once the literature review is
+> judged done; Ali made that call explicitly, and it does not change what claims this chapter is
+> licensed to make. Chapter 2 (literature review) is being produced on a separate, parallel
 > verification track and is out of scope here; the only sources cited below are this chapter's own
 > methodological framework, not the substantive related-work literature.
 
@@ -53,10 +58,16 @@ Plan B — a second authorized software/modeling context — becomes the committ
 without an owner, evidence path, and feasible date. Nothing below assumes Plan A activates; each
 study states what it does under Plan B alone and what changes if Plan A clears its gates.
 
-Where the scenario framing itself belongs structurally is still open. Part 3, item 12 of
-`sections-2-and-4-thinking-notes.md` asks whether Plan A should sit as a conditional appendix or be
-developed in parallel with Plan B; §4.7 carries that question forward rather than settling it by
-the order these sections happen to appear in.
+Where the scenario framing itself belongs structurally is resolved as of this pass: each study
+below (§4.3-§4.5) is written Plan-B-first, describing the software-engineering-only version of the
+study as a complete, self-standing account. The medical extension for each study is then stated as
+a conditional appendix to that account — what changes if Plan A's six gates clear — rather than
+developed as a parallel, equally-weighted track. This follows directly from §4.2's own asymmetry:
+Plan B can answer every sub-question alone today, while Plan A remains gated at 0 of 6 with a
+2026-08-26 checkpoint that defaults to Plan B if any gate lacks an owner, evidence path, and
+feasible date. Writing two symmetric tracks would overstate how live Plan A currently is. This is
+an editorial decision within normal methodological judgment, not a claim about medical readiness,
+and it can be revisited without any evidence-boundary consequence if Plan A's gates clear.
 
 ## 4.3 Study 1 — Selective intervention (SQ1)
 
@@ -86,6 +97,31 @@ property of an offline replay, and `three-study-contract.md`'s own excluded-meas
 rules out reading them as expert-effort reduction. No claim of optimal dosage, accuracy
 improvement, or workload reduction follows from architecture, tests, or fixtures alone.
 
+**Model specification.** Each assessment event `e` carries a trigger score `s(e)` in `[0,1]`, a
+composite of the uncertainty, consequence, disagreement, and evidence-weakness signals the
+existing pipeline already computes per event, produced identically regardless of which dosage mode
+is active. A trigger configuration `θ` is a decision rule over `s(e)` that selects which events get
+escalated to a human reviewer. The four already-replayed modes are four such rules, not four
+architectures: `every_decision` escalates all events (no free parameter); `threshold(τ)` escalates
+events with `s(e) ≥ τ`; `first_n_then_auto(N)` escalates the top-`N` events per window ranked by
+`s(e)` and auto-resolves the rest; `silent(p)` escalates nothing for review and only samples at
+rate `p` for audit. Two output quantities follow for any `θ`: `Load(θ)`, the expected number of
+events routed to a reviewer per window (directly readable from EXP-007's per-mode routed-item
+counts), and `Coverage(θ)`, the fraction of independently uncertainty-marked events that are
+actually escalated under `θ` (readable against EXP-006's reconstructed events and EXP-008's
+unstable-but-never-reviewed candidates). The model's claim is the `Load`-`Coverage` relation as `θ`
+sweeps its parameter — a load/coverage frontier, with the four replayed modes as four sampled
+points on or near it, not four separate contributions. The properties this chapter proposes to
+inspect analytically follow directly: monotonicity (`Coverage` should not decrease as `Load`
+increases along a single-parameter sweep — a configuration that raises load without raising
+coverage is dominated and should be identifiable as such); boundary behavior (`every_decision`
+should sit at the maximal-`Load`, `Coverage = 1` corner, and `silent(p=0)` at the minimal-`Load`
+corner); and degenerate-case collapse (`first_n_then_auto(N=0)` and `threshold(τ→1)` should both
+reduce to `silent`; `threshold(τ=0)` should reduce to `every_decision`). None of this requires new
+data collection — it is a lens applied to the EXP-006/007/008 evidence that already exists, and a
+configuration that fails the monotonicity or boundary checks against that evidence would be a
+concrete falsification of the model as specified, not just a disappointing result.
+
 Study 1 is the least gate-blocked of the three — it needs no EXP-005 labels, since it evaluates the
 instrument's properties rather than assessment quality. What it still needs is the RQ/SQ wording
 sign-off (`D-RQ-01`/`D-RQ-02`) and, eventually, `QL-01`/`QL-04` execution to ground the eligibility
@@ -114,9 +150,29 @@ on EXP-009 and EXP-010, which the experiment plan labels provisional synthetic f
 `M-04` protocol approval — evidence that can't yet stand in for how real expert judgment is
 actually handled.
 
-Validation here means conformance testing: the reference implementation passes, at least one
-deliberately non-conforming variant fails for a named reason, and the specification itself gets
-reviewed for completeness and ambiguity. The existing architecture-conformance series (EXP-013
+**Contract specification.** The seven field groups already named above expand to a concrete
+minimum record: case grounding (artifact identifier, fragment/pattern identifier, guideline
+identifier and version, domain, language, task type, evidence locator into the source artifact,
+and the observed deviation); the system's reasoning exactly as the expert saw it at judgment time
+(the system's claim, its confidence, and the decision trace actually surfaced to the reviewer, not
+one reconstructed afterward); the expert's rationale (verdict, structured or free-text
+justification, any counter-evidence cited, the expert's own stated uncertainty); scope (the
+claim-specific boundary this judgment is authorized to speak to, stated narrowly enough that it
+does not silently cover cases it was never evaluated against); authority (reviewer identity and
+role, authorization level, and whether the judgment may bind later automated decisions or is
+advisory-only); provenance (who or what created, modified, or superseded the record, with
+timestamps and a pointer to any prior version); and a lifecycle state drawn from a fixed set —
+`Draft`, `Active`, `Contested`, `Superseded`, `Expired`, `Revoked` — each with the condition that
+triggers it and, for `Revoked`, a required reason. The conformance suite that tests any
+implementation against this contract has three parts: a reconstructability test, where a second
+reviewer blind to the original judgment must be able to state, from the record alone, what claim
+was judged, why, and under what scope; a discrimination test, where at least one deliberately
+non-conforming variant (for example, one that omits the scope field or never transitions out of
+`Draft`) must fail the suite for the specific, named reason it violates; and a completeness review
+of the specification itself by the independent implementer named in §4.7, checking for fields that
+prove ambiguous or missing against a real case. Validation here means conformance testing: the
+reference implementation passes, at least one deliberately non-conforming variant fails for a
+named reason, and the specification itself gets reviewed for completeness and ambiguity. The existing architecture-conformance series (EXP-013
 through EXP-018 — schema, lineage, explicit-gap, determinism, isolation, non-application checks) is
 offline fixture evidence of the same shape this artifact would generalize, reported at that scope
 only; it grants no runtime authority claim.
@@ -148,7 +204,26 @@ of those ten items are outputs of running the study rather than artifacts design
 because the package's evidential half can't be produced at all while EXP-005 sits at 0 of 24 —
 calling it "the artifact" at proposal stage would risk implying an evaluation already exists.
 
-Validation targets the procedure's reliability, not assessment accuracy. Two trained raters apply
+**Procedure specification.** The procedure takes two inputs — a source judgment record in the
+§4.4 contract, with its scope field, and a target-context descriptor stating the candidate case's
+domain, task type, guideline family and version, institution or population, and time elapsed since
+the source judgment — and runs three checks in a fixed order. A relevance check first asks whether
+the target context matches the source record's scope on every dimension that scope names as
+defining; any mismatch on a defining dimension routes straight to `Blocked`, reason "out of
+scope," without evaluating the remaining checks. An applicability check then measures distance on
+the non-defining dimensions (institution, population, elapsed time, guideline-version delta); a
+distance within the stated tolerance on every dimension yields `Eligible`, a distance beyond
+tolerance on one or more dimensions but within a named adaptation's reach yields `Eligible with
+adaptation`, naming that adaptation (for example, "requires local-reviewer re-confirmation" or
+"requires a guideline-version delta review"), and a distance beyond any defined adaptation yields
+`Blocked`, reason "context distance exceeds adaptation capacity." An authorization check runs
+independently of the first two: if the requesting context lacks the authorization level the source
+record's authority field requires, the verdict is `Blocked`, reason "insufficient authorization,"
+regardless of how relevant or applicable the judgment otherwise is. Every verdict — `Eligible`,
+`Eligible with adaptation`, or `Blocked` — carries the specific reason and the specific dimension
+that drove it, which is what makes rater agreement checkable at two levels: whether two raters
+reach the same verdict, and whether they cite the same driving dimension for it. Validation targets
+the procedure's reliability, not assessment accuracy. Two trained raters apply
 it independently to the same set of existing judgment records and context descriptors, and the
 study reports inter-rater agreement, undecidable cases, and the spread of blocking reasons. It is
 one of the few Study 3 paths that needs no expert gold labels at all — it still needs two raters,
@@ -180,28 +255,42 @@ observability, or conformance, never quality, accuracy, or effort.
 ## 4.7 Open decisions carried forward, not resolved by this draft
 
 Recommending an artifact for each sub-question makes this chapter reviewable, but a recommendation
-is not a decision. The following are inherited from `sections-2-and-4-thinking-notes.md` Part 3
-and were not resolved by the 2026-08-12 call:
+is not a decision. `chapter-4-completion-plan-2026-08-19.md` sorts the items below by what kind of
+resolution each one actually needs; the disposition noted per item reflects that pass, not a claim
+that the underlying question is settled.
 
 - Artifact granularity and abstraction level: confirm or correct the three recommendations above
   (§4.3 cost/coverage model, §4.4 contract-plus-conformance-suite, §4.5 eligibility procedure) —
-  Part 3 items 6 and 7.
+  Part 3 items 6 and 7. **Still a supervisor decision** — packaged as Item 1 in
+  `2026-08-19-chapter4-decisions-packet.md`.
 - The SQ2/SQ3 boundary: `reuse_scope` lives on the judgment record in Study 2, while the
   domain-specific-versus-transferable classification is the analytic core of Study 3 — confirm
-  these do not ship the same artifact twice (Part 3 item 8).
+  these do not ship the same artifact twice (Part 3 item 8). **Still a supervisor decision** —
+  packaged as Item 2 in the same packet.
 - Instrument-reliability admissibility ahead of EXP-005, for both Study 2's conformance evidence
-  and Study 3's rater-agreement evidence (Part 3 item 9).
+  and Study 3's rater-agreement evidence (Part 3 item 9). **Still a supervisor decision** —
+  packaged as Item 3 in the same packet.
 - Whether the offline replay series (EXP-006/007/008) may appear as preliminary results in this
-  chapter, and with exactly what wording for EXP-007 (Part 3 item 10).
+  chapter, and with exactly what wording for EXP-007 (Part 3 item 10). **Already has a working
+  answer in practice**: `chapter-5-preliminary-results.md` reports all three under exactly this
+  framing. What remains is supervisor confirmation that the existing wording is acceptable, noted
+  as a housekeeping item in the decisions packet rather than reopened from scratch.
 - Whether EXP-009/EXP-010 appear at all before `M-04` protocol approval is recorded (Part 3 item
-  11).
+  11). **Still a supervisor decision** — packaged as Item 4 in the same packet.
 - Plan A's presence in this chapter: conditional appendix, or developed in parallel with Plan B
-  (Part 3 item 12, referenced in §4.2 above).
+  (Part 3 item 12, referenced in §4.2 above). **Resolved in this pass** — §4.2 now states
+  Plan-B-first with Plan A as a conditional appendix per study, as an editorial decision that does
+  not require new supervisor authority and can be revisited if Plan A's gates clear.
 - Naming the people this chapter currently leaves as gaps: an independent implementer or reviewer
-  for Study 2 (§4.4), and two raters for Study 3 (§4.5) — Part 3 item 13.
+  for Study 2 (§4.4), and two raters for Study 3 (§4.5) — Part 3 item 13. **A real-world action,
+  not something this chapter can resolve by writing** — see
+  `docs/operations/study-resourcing-request-template.md`.
 - When the instruction to move from thinking to writing formally lifts for this chapter, and who
   owns the first supervisor-facing revision against which of the options above (Part 3 item 14).
+  **Superseded** — Ali chose to proceed with this completion pass on 2026-08-19 ahead of the
+  literature-review gate closing, per `chapter-4-completion-plan-2026-08-19.md`.
 
-Until these are worked through and logged in the decision/change record, none of these three
-studies' claims — and none of this chapter's own text — should be read as approved. Chapter 3
-already holds itself to the same rule for its research-question wording.
+Until the four still-open supervisor decisions above are worked through and logged in the
+decision/change record, none of these three studies' claims — and none of this chapter's own text
+— should be read as approved. Chapter 3 already holds itself to the same rule for its
+research-question wording.
