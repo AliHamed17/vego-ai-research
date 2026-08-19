@@ -1,0 +1,168 @@
+%% ACL-2026 Human-Agent Taxonomy → VEGO-AI Relevance Map v16
+%% Author-generated synthesis; source taxonomy and VEGO-AI-derived extensions are explicitly separated.
+flowchart LR
+
+    ROOT["Governed Human Judgment in<br/>Agentic-AI Variability Exploration<br/><b>VEGO-AI thesis literature map</b>"]
+
+    SRC["<b>ACL SOURCE TAXONOMY</b><br/>Zou et al. 2026<br/>5 paper-level core aspects<br/>4 repository taxonomy branches"]
+    DER["<b>VEGO-AI DERIVED EXTENSIONS</b><br/>Ali's RQ-led synthesis<br/>not source-taxonomy branches"]
+
+    ROOT --> SRC
+    ROOT --> DER
+
+    %% ------------------------------------------------------------------
+    %% ACL SOURCE: ENVIRONMENT & PROFILING
+    %% ------------------------------------------------------------------
+    SRC --> ENV["Environment & Profiling<br/><b>HIGHLY RELEVANT</b><br/>ACL-PAPER"]
+    ENV --> ENVSET["Environment<br/>setting"]
+    ENV --> ENVH["Human profile<br/>roles · goals · competence"]
+    ENV --> ENVA["Agent profile<br/>roles · capabilities · memory"]
+    ENVSET --> ENVMAP["SQ3 context descriptors:<br/>domain · task · guideline/version · institution · population · time<br/><i>Context description ≠ transfer validity</i>"]
+    ENVH --> ENVHMAP["SQ1/SQ2:<br/>claim-specific reviewer routing · expertise · authority · burden<br/><i>Human ≠ expert ≠ authorized expert</i>"]
+    ENVA --> ENVAMAP["U-RQ/SQ1:<br/>capability boundaries · uncertainty · escalation<br/><i>Capability profile ≠ demonstrated reliability</i>"]
+
+    %% ------------------------------------------------------------------
+    %% ACL SOURCE: HUMAN FEEDBACK
+    %% ------------------------------------------------------------------
+    SRC --> HF["Human Feedback<br/><b>HIGHLY RELEVANT</b><br/>ACL-PAPER + ACL-REPO"]
+    HF --> HFT["Feedback Type"]
+    HFT --> HFE["Evaluative<br/><b>HIGHLY RELEVANT</b>"]
+    HFT --> HFC["Corrective<br/><b>HIGHLY RELEVANT</b>"]
+    HFT --> HFG["Guidance<br/><b>HIGHLY RELEVANT</b>"]
+    HFT --> HFI["Implicit<br/><b>LESS RELEVANT</b>"]
+    HFE --> HFEM["Verdict/rating<br/>fast but weak reconstruction<br/><i>label alone is insufficient</i>"]
+    HFC --> HFCM["Evidence · premise · rule · classification correction<br/>Kulesza et al. 2015"]
+    HFG --> HFGM["Rationale · alternatives · counterexamples · clarification<br/>Amershi et al. 2019"]
+    HFI --> HFIM["Observed behavior/reliance signal<br/><i>ambiguous; not authoritative without validation</i>"]
+
+    HF --> HFGRA["Feedback Granularity"]
+    HFGRA --> HFHOL["Holistic / coarse<br/><b>LESS RELEVANT</b>"]
+    HFGRA --> HFSEG["Segment-level / fine<br/><b>HIGHLY RELEVANT</b>"]
+    HFHOL --> HFHOLM["Overall assessment<br/>obscures failed fragment/premise"]
+    HFSEG --> HFSEGM["VEGO-AI decision unit:<br/>guideline · fragment · pattern · claim<br/><i>precision may increase expert burden</i>"]
+
+    HF --> HFP["Feedback Phase"]
+    HFP --> HFINI["Initial setup<br/><b>HIGHLY RELEVANT</b>"]
+    HFP --> HFDUR["During task<br/><b>HIGHLY RELEVANT</b>"]
+    HFP --> HFPOST["Post-task<br/><b>HIGHLY RELEVANT</b>"]
+    HFINI --> HFINIM["Template/guideline validation<br/>role + policy configuration"]
+    HFDUR --> HFDURM["Selective live intervention<br/>Horvitz 1999 · Mozannar & Sontag 2020"]
+    HFPOST --> HFPOSTM["Audit · adjudication · memory validation · outcome trace<br/><i>protect evaluation from contamination</i>"]
+
+    %% ------------------------------------------------------------------
+    %% ACL SOURCE: INTERACTION TYPE
+    %% ------------------------------------------------------------------
+    SRC --> INT["Interaction Type<br/>ACL-PAPER + ACL-REPO"]
+    INT --> COL["Collaboration<br/><b>HIGHLY RELEVANT</b>"]
+    COL --> SUP["Supervision<br/><b>HIGHLY RELEVANT</b>"]
+    COL --> DEL["Delegation<br/><b>LESS RELEVANT</b>"]
+    COL --> COORD["Coordination<br/><b>HIGHLY RELEVANT</b>"]
+    COL --> COOP["Cooperation<br/><b>HIGHLY RELEVANT</b>"]
+    SUP --> SUPM["Monitoring · thresholds · intervention<br/>Dhanorkar et al. 2026<br/><i>human-in-loop is not a quality guarantee</i>"]
+    DEL --> DELM["Task assignment only<br/><i>no unrestricted delegation of final authority</i>"]
+    COORD --> COORDM["Route language/domain/policy claims<br/>preserve workflow and evidence state"]
+    COOP --> COOPM["Complementary evidence interpretation + correction<br/>Dellermann et al. 2019 · Bansal et al. 2021<br/><i>complementarity remains empirical</i>"]
+
+    INT --> COMP["Competition<br/><b>NOT RELEVANT AT ALL</b>"]
+    INT --> COOPET["Coopetition<br/><b>NOT RELEVANT AT ALL</b>"]
+    COMP --> COMPM["Outside current RQs:<br/>no human-versus-agent opposing-goal relation"]
+    COOPET --> COOPETM["Outside current RQs:<br/>no mixed cooperative/competitive objective"]
+
+    %% ------------------------------------------------------------------
+    %% ACL SOURCE: ORCHESTRATION
+    %% ------------------------------------------------------------------
+    SRC --> ORCH["Orchestration Paradigm<br/><b>LESS RELEVANT</b><br/>ACL-PAPER + ACL-REPO"]
+    ORCH --> TS["Task Strategy"]
+    TS --> SEQ["One by one / sequential"]
+    TS --> PAR["Simultaneous / parallel"]
+    SEQ --> SEQM["Staged agent review → escalation → adjudication"]
+    PAR --> PARM["Parallel independent review candidate<br/><i>independence must be enforced</i>"]
+    ORCH --> TEMP["Temporal Synchronization"]
+    TEMP --> SYNC["Synchronous"]
+    TEMP --> ASYNC["Asynchronous"]
+    SYNC --> SYNCM["Immediate high-consequence review<br/><i>higher interruption cost</i>"]
+    ASYNC --> ASYNCM["Queue · batch · sample · post-task audit<br/><i>may miss time-sensitive harm</i>"]
+
+    %% ------------------------------------------------------------------
+    %% ACL SOURCE: COMMUNICATION
+    %% ------------------------------------------------------------------
+    SRC --> COMM["Communication<br/><b>LESS RELEVANT</b><br/>ACL-PAPER + ACL-REPO"]
+    COMM --> STR["Structure"]
+    STR --> CENT["Centralized"]
+    STR --> DECENT["Decentralized"]
+    STR --> HIER["Hierarchical"]
+    CENT --> CENTM["Orchestrator-mediated evidence/review flow<br/><i>authority bottleneck risk</i>"]
+    DECENT --> DECENTM["Independent agents/reviewers<br/><i>conflict + provenance requirements</i>"]
+    HIER --> HIERM["Escalation/adjudication tiers<br/><i>hierarchy ≠ legitimate authority</i>"]
+    COMM --> MODE["Mode"]
+    MODE --> CONV["Conversation"]
+    MODE --> OBS["Observation"]
+    MODE --> POOL["Message Pool"]
+    CONV --> CONVM["Clarification + rationale capture<br/><i>do not store unbounded transcripts</i>"]
+    OBS --> OBSM["Implicit workflow/reliance signal<br/><i>ambiguous evidence</i>"]
+    POOL --> POOLM["Shared evidence + dissent<br/><i>requires lineage and access control</i>"]
+
+    %% ------------------------------------------------------------------
+    %% VEGO-AI DERIVED EXTENSIONS — EXPLICITLY NOT ACL BRANCHES
+    %% ------------------------------------------------------------------
+    DER --> D1["Selective intervention under bounded attention<br/><b>MISSING FROM ACL TAXONOMY</b><br/>SQ1"]
+    D1 --> D1DIM["uncertainty · consequence · disagreement · novelty<br/>evidence weakness · value/reuse value · queue/burden"]
+    D1DIM --> D1ART["<b>Study 1 artifact</b><br/>attention-budget cost/coverage model<br/><i>not an orchestration architecture</i>"]
+    D1ART --> D1SRC["Prior streams:<br/>mixed initiative · active learning · learning to defer<br/>selective prediction · value of information · reliance"]
+
+    DER --> D2["Reasoning-rich judgment representation<br/><b>MISSING FROM ACL TAXONOMY</b><br/>SQ2"]
+    D2 --> D2DIM["identity · evidence locator · surfaced decision trace<br/>verdict · rationale · counterevidence · uncertainty · scope"]
+    D2DIM --> D2ART["<b>Study 2 artifact</b><br/>normative judgment-record contract<br/>+ executable conformance suite"]
+    D2ART --> D2SRC["Prior streams:<br/>explanatory debugging · expert elicitation · PROV-DM<br/>knowledge representation · disagreement · CBR<br/><i>Raykar/Aamodt anchor choice remains open</i>"]
+
+    DER --> D3["Claim-specific governance and contestability<br/><b>MISSING FROM ACL TAXONOMY</b><br/>SQ2"]
+    D3 --> D3DIM["competence + authority · validation · dissent · adjudication<br/>versioning · expiry · supersession · revocation · outcome trace"]
+    D3DIM --> D3ART["Part of Study 2 contract/conformance suite<br/><i>not a separate bundled C1–C7 contribution</i>"]
+    D3ART --> D3SRC["Prior streams:<br/>PROV-DM · contestable AI · meaningful human control<br/>documentation · authorization"]
+
+    DER --> D4["Scope-aware reuse<br/><b>MISSING FROM ACL TAXONOMY</b><br/>SQ2 → SQ3 boundary"]
+    D4 --> D4PIPE["retrieve → applicability → permission → advisory use<br/>re-reason locally → outcome/override/incident trace"]
+    D4PIPE --> D4RULE["<b>Precise rule</b><br/>similarity-based retrieval alone does not establish<br/>applicability · authorization · validity · benefit"]
+    D4RULE --> D4SRC["Prior streams:<br/>RAG · agent memory · Case-Based Reasoning<br/>provenance · access control · contestability"]
+
+    DER --> D5["Transfer eligibility + leakage-safe evaluation<br/><b>MISSING FROM ACL TAXONOMY</b><br/>SQ3"]
+    D5 --> D5DIM["domain · task · guideline/version · population · institution · time<br/>eligible · eligible with adaptation · blocked"]
+    D5DIM --> D5ART["<b>Study 3 artifact</b><br/>transfer-eligibility decision procedure<br/>+ target-context descriptor"]
+    D5ART --> D5SRC["Prior streams:<br/>domain adaptation · WILDS · uncertainty under shift<br/>transportability · Fervers 2006 · GRADE-ADOLOPMENT<br/><i>Fervers 2006 retained as valid distinct source</i>"]
+
+    DER --> D6["Variability exploration + guideline operationalization<br/><b>MISSING FROM ACL TAXONOMY</b><br/>target problem substrate"]
+    D6 --> D6DIM["language validity · domain validity · task scope<br/>alternative equivalence · recurrence vs validity · guideline leakage"]
+    D6DIM --> D6SRC["Prior streams:<br/>software/process variability · model assessment<br/>LLM-assisted modeling · guideline formalization/adaptation<br/><i>substantial/occasional terminology remains provisional</i>"]
+
+    %% ------------------------------------------------------------------
+    %% OPEN GATES / CAPTION
+    %% ------------------------------------------------------------------
+    ROOT --> GATES["<b>OPEN GATES — UNCHANGED</b><br/>QL-01–QL-05: 0/5 · ACL full disposition: incomplete<br/>EXP-005: 0/24 · Medical entry: 0/6<br/>RQ wording + scholarly inclusion: pending"]
+    ROOT --> CAP["Author-generated RQ-led synthesis based on Zou et al. 2026,<br/>the controlled VEGO-AI literature review, and current Chapter 4 methodology.<br/><b>Not copied · not exhaustive · not approved · not empirical validation.</b>"]
+
+    %% ------------------------------------------------------------------
+    %% STYLES
+    %% ------------------------------------------------------------------
+    classDef root fill:#ffffff,stroke:#111827,stroke-width:3px,color:#111827,font-weight:bold;
+    classDef source fill:#f4edff,stroke:#6d28d9,stroke-width:2px,color:#2e1065;
+    classDef sourceSub fill:#fbf8ff,stroke:#8b5cf6,stroke-width:1.5px,color:#2e1065;
+    classDef sourceMap fill:#ffffff,stroke:#6b7280,stroke-width:1px,color:#111827;
+    classDef notrel fill:#fde8e8,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d;
+    classDef less fill:#fff7e8,stroke:#c2410c,stroke-width:1.5px,color:#7c2d12;
+    classDef derived fill:#e6f7f3,stroke:#047857,stroke-width:2px,color:#064e3b;
+    classDef derivedSub fill:#f1fbf8,stroke:#10b981,stroke-width:1.5px,color:#064e3b;
+    classDef artifact fill:#e8f1ff,stroke:#1d4ed8,stroke-width:2px,color:#1e3a8a,font-weight:bold;
+    classDef boundary fill:#f3f4f6,stroke:#374151,stroke-width:1.5px,color:#111827;
+    classDef gate fill:#fff1f2,stroke:#be123c,stroke-width:2px,color:#881337;
+
+    class ROOT root;
+    class SRC,ENV,HF,INT,COL,ORCH,COMM source;
+    class ENVSET,ENVH,ENVA,HFT,HFE,HFC,HFG,HFI,HFGRA,HFHOL,HFSEG,HFP,HFINI,HFDUR,HFPOST,SUP,DEL,COORD,COOP,TS,SEQ,PAR,TEMP,SYNC,ASYNC,STR,CENT,DECENT,HIER,MODE,CONV,OBS,POOL sourceSub;
+    class COMP,COOPET,COMPM,COOPETM notrel;
+    class ORCH,COMM,DEL,HFI,HFHOL less;
+    class ENVMAP,ENVHMAP,ENVAMAP,HFEM,HFCM,HFGM,HFIM,HFHOLM,HFSEGM,HFINIM,HFDURM,HFPOSTM,SUPM,DELM,COORDM,COOPM,SEQM,PARM,SYNCM,ASYNCM,CENTM,DECENTM,HIERM,CONVM,OBSM,POOLM sourceMap;
+    class DER,D1,D2,D3,D4,D5,D6 derived;
+    class D1DIM,D1SRC,D2DIM,D2SRC,D3DIM,D3SRC,D4PIPE,D4RULE,D4SRC,D5DIM,D5SRC,D6DIM,D6SRC derivedSub;
+    class D1ART,D2ART,D3ART,D5ART artifact;
+    class CAP boundary;
+    class GATES gate;
