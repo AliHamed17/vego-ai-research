@@ -1,296 +1,609 @@
 # Chapter 4 — Research Methodology
 
-> Status: working draft, written 2026-08-15 after the 2026-08-12 supervisor call moved this
-> chapter into active writing; revised 2026-08-19 per `chapter-4-completion-plan-2026-08-19.md` to
-> deepen each artifact specification and resolve the one open item (Plan A placement, §4.2) that
-> did not require new supervisor authority. Each sub-question gets one recommended artifact so the
-> chapter is actually reviewable, but a recommendation is not a supervisor-confirmed decision —
-> §4.7's remaining items are packaged as `2026-08-19-chapter4-decisions-packet.md` for Iris and
-> Arnon, and are not resolved on this chapter's own authority. This revision runs ahead of Iris's
-> 2026-08-12 sequencing instruction that methodology work start only once the literature review is
-> judged done; Ali made that call explicitly, and it does not change what claims this chapter is
-> licensed to make. Chapter 2 (literature review) is being produced on a separate, parallel
-> verification track and is out of scope here; the only sources cited below are this chapter's own
-> methodological framework, not the substantive related-work literature.
+> **Status:** Internal working draft prepared by Ali on 2026-08-15 and revised on 2026-08-19.
+> It was prepared in advance of the literature-review sequencing gate to reduce later drafting
+> risk. It was not initiated, approved, or signed off by the 2026-08-12 supervisor meeting. All
+> research-question wording, artifact choices, study boundaries, and evidence-admissibility rules
+> remain recommendations pending Iris Reinhartz-Berger and Arnon Sturm's review. The controlling
+> reconciliation rule for this revision is `artifact-layer-contract.md`: each study has one primary
+> research artifact, a supporting implementation bundle, and a separate evaluation package.
 
 ---
 
 ## 4.1 Methodological stance
 
-This programme follows design science research. The object of study is an artifact — a governed
-mechanism for capturing and reusing human judgment inside an agentic assessment pipeline — not a
-phenomenon to observe from the outside. The umbrella question and each sub-question in Chapter 3
-are already phrased as design problems paired with a knowledge question, which is the split
-Wieringa's engineering cycle is built around.
+This research programme follows design science research. Its object of study is a governed
+mechanism for introducing, recording, controlling, and reusing human judgment inside an agentic
+assessment pipeline. The programme therefore combines two linked questions for each study:
 
-Two references anchor the chapter, and they do different work. Peffers, Tuunanen, Rothenberger and
-Chatterjee (2007), *A Design Science Research Methodology for Information Systems Research*, JMIS
-24(3), pp. 45-77 (DOI 10.2753/MIS0742-1222240302), gives the six-activity process — problem
-identification and motivation, definition of objectives, design and development, demonstration,
-evaluation, communication — and licenses treating each sub-question as its own DSRM iteration
-rather than one pass repeated three times. Wieringa (2014), *Design Science Methodology for
-Information Systems and Software Engineering*, Springer (DOI 10.1007/978-3-662-43839-8), gives the
-vocabulary the rest of this chapter actually uses: the engineering cycle (problem investigation,
-treatment design, treatment validation, treatment implementation, implementation evaluation)
-nested inside the design cycle, the separation between a design problem and a knowledge question,
-and the artifact-in-context framing every transfer claim in Study 3 depends on. Wieringa fits the
-day-to-day writing better because it speaks this thesis's own language — UML domain models, a
-MODELS-published foundation artifact, a software-engineering audience — while Peffers gives the
-six-activity skeleton a committee will recognize on sight.
+1. **Design problem:** what artifact should be constructed to address the identified problem?
+2. **Knowledge question:** under what conditions does the artifact satisfy its stated requirements,
+   and what effect, if any, does its use have in the intended context?
 
-Each sub-question below gets the same treatment: what needs to be designed, what needs to be
-known, and what artifact and evaluation would answer both. Chapter 3 separates the gap from the
-questions; this chapter separates the questions from how they get answered.
+Peffers, Tuunanen, Rothenberger and Chatterjee's design science research methodology supplies the
+six-activity process: problem identification and motivation, definition of objectives, design and
+development, demonstration, evaluation, and communication. Wieringa's design-science methodology
+supplies the engineering-cycle vocabulary used below: problem investigation, treatment design,
+treatment validation, treatment implementation, and implementation evaluation, nested within an
+iterative design cycle. The two frameworks are complementary. Peffers gives a recognizable
+proposal-level process; Wieringa gives the artifact-in-context distinction required to separate an
+internally coherent instrument from an empirically useful treatment.
 
-## 4.2 Two evaluation contexts
+The methodological baseline is the group's MODELS 2026 accepted/program-listed foundation paper,
+*Not All Differences Matter: Variability Exploration of Domain Models via Agentic AI*, together
+with its corresponding implementation snapshot. The supplied manuscript is a template/anonymized
+working copy rather than a final proceedings version, so this chapter does not assert a final DOI,
+final pagination, or completed publication status.
 
-Per the 2026-08-12 call, every study is tested in two guideline-operationalization scenarios: a
-software-engineering context (student UML domain models assessed against modeling guidelines, the
-setting of the group's own MODELS 2026 foundation work) and a medical context (clinical records
-assessed against care guidelines). The two are not symmetric at proposal stage.
+### 4.1.1 Three evidence levels
 
-The software-engineering context is the baseline. The VEGO-AI pipeline already runs on it, the
-27-pattern offline evidence and the EXP-006 through EXP-008 replay series already exist, and the
-24 EXP-005 candidate rows come from it. Every sub-question can be answered here alone. The medical
-context is a conditional extension, gated by the six Plan A entry gates (`G1`-`G6`) recorded in
-`three-study-contract.md`, currently at 0 of 6. A 2026-08-26 internal checkpoint follows; after it,
-Plan B — a second authorized software/modeling context — becomes the committed path for any gate
-without an owner, evidence path, and feasible date. Nothing below assumes Plan A activates; each
-study states what it does under Plan B alone and what changes if Plan A clears its gates.
+Every study separates three levels of evidence:
 
-Where the scenario framing itself belongs structurally is resolved as of this pass: each study
-below (§4.3-§4.5) is written Plan-B-first, describing the software-engineering-only version of the
-study as a complete, self-standing account. The medical extension for each study is then stated as
-a conditional appendix to that account — what changes if Plan A's six gates clear — rather than
-developed as a parallel, equally-weighted track. This follows directly from §4.2's own asymmetry:
-Plan B can answer every sub-question alone today, while Plan A remains gated at 0 of 6 with a
-2026-08-26 checkpoint that defaults to Plan B if any gate lacks an owner, evidence path, and
-feasible date. Writing two symmetric tracks would overstate how live Plan A currently is. This is
-an editorial decision within normal methodological judgment, not a claim about medical readiness,
-and it can be revisited without any evidence-boundary consequence if Plan A's gates clear.
+| Evidence level | What it can establish | What it cannot establish by itself |
+| --- | --- | --- |
+| **Artifact/mechanism evidence** | The artifact exists, is inspectable, and behaves according to a stated mechanism on controlled inputs | Accuracy improvement, generalization, burden reduction, or safe transfer |
+| **Instrument/conformance evidence** | A specification is internally consistent, independently applicable, reconstructable, and capable of rejecting named violations | That using the instrument improves outcomes or that its decisions are substantively correct |
+| **Outcome/effect evidence** | Comparative performance, burden, safety, and boundary conditions under a frozen empirical protocol | Unbounded generalization beyond the studied population, context, and governance conditions |
 
-## 4.3 Study 1 — Selective intervention (SQ1)
+This distinction is binding throughout the chapter. Instrument evidence may be produced before an
+outcome study only if it is reported explicitly as instrument evidence. It does not bypass the
+EXP-005 quality gate.
 
-Study 1 needs a policy that decides when an agentic assessment system should route an uncertain or
-important deviation to a human, under a bounded review budget, instead of reviewing everything or
-nothing. The open empirical question is how much a given policy trades reviewer load against
-coverage of the deviations that actually matter.
+## 4.2 Evaluation contexts and sequencing
 
-The recommended artifact is not the six-component reference architecture that
-`three-study-contract.md`'s Study 1 row currently names — it is a smaller attention-budget
-cost/coverage model: an analytical relation between a trigger configuration and (i) expected
-reviewer load and (ii) coverage of uncertainty-marked events. `sections-2-and-4-thinking-notes.md`
-(option A2) sets out why: an architecture reads as an engineering deliverable unless one
-generalizable claim sits on top of it, and bundling six components together (listener catalog,
-eligibility criteria, dosage policy, routing contract, timeout rules, burden budget) obscures which
-one that claim actually is. Under the cost/coverage framing, those same components become
-instantiations inside the model's parameter space rather than the contribution itself — the four
-dosage modes already replayed offline (`every_decision`, `threshold`, `first_n_then_auto`,
-`silent`) are four points in that space, not the artifact.
+Each study is designed for guideline-operationalization scenarios in two possible settings:
 
-Validating the model means inspecting its properties analytically — monotonicity, boundary
-behavior, degenerate cases — against the offline replay evidence that already exists: EXP-006's
-event reconstruction, EXP-007's per-mode load-versus-coverage counts, EXP-008's
-unstable-but-never-reviewed trigger candidates. All of it is reported as observability and
-mechanism evidence, never as an effort-reduction result. EXP-007's routed-item counts describe a
-property of an offline replay, and `three-study-contract.md`'s own excluded-measures row already
-rules out reading them as expert-effort reduction. No claim of optimal dosage, accuracy
-improvement, or workload reduction follows from architecture, tests, or fixtures alone.
+- **Plan B — software/modeling baseline and guaranteed completion path.** Student UML domain
+  models are assessed against modeling-language and domain guidelines. A second authorized
+  software/modeling context supplies the replication or transfer setting.
+- **Plan A — conditional medical extension.** Clinical records may be assessed against care
+  guidelines only after the relevant access, ethics, privacy, local-expert, data, infrastructure,
+  and protocol gates pass.
 
-**Model specification.** Each assessment event `e` carries a trigger score `s(e)` in `[0,1]`, a
-composite of the uncertainty, consequence, disagreement, and evidence-weakness signals the
-existing pipeline already computes per event, produced identically regardless of which dosage mode
-is active. A trigger configuration `θ` is a decision rule over `s(e)` that selects which events get
-escalated to a human reviewer. The four already-replayed modes are four such rules, not four
-architectures: `every_decision` escalates all events (no free parameter); `threshold(τ)` escalates
-events with `s(e) ≥ τ`; `first_n_then_auto(N)` escalates the top-`N` events per window ranked by
-`s(e)` and auto-resolves the rest; `silent(p)` escalates nothing for review and only samples at
-rate `p` for audit. Two output quantities follow for any `θ`: `Load(θ)`, the expected number of
-events routed to a reviewer per window (directly readable from EXP-007's per-mode routed-item
-counts), and `Coverage(θ)`, the fraction of independently uncertainty-marked events that are
-actually escalated under `θ` (readable against EXP-006's reconstructed events and EXP-008's
-unstable-but-never-reviewed candidates). The model's claim is the `Load`-`Coverage` relation as `θ`
-sweeps its parameter — a load/coverage frontier, with the four replayed modes as four sampled
-points on or near it, not four separate contributions. The properties this chapter proposes to
-inspect analytically follow directly: monotonicity (`Coverage` should not decrease as `Load`
-increases along a single-parameter sweep — a configuration that raises load without raising
-coverage is dominated and should be identifiable as such); boundary behavior (`every_decision`
-should sit at the maximal-`Load`, `Coverage = 1` corner, and `silent(p=0)` at the minimal-`Load`
-corner); and degenerate-case collapse (`first_n_then_auto(N=0)` and `threshold(τ→1)` should both
-reduce to `silent`; `threshold(τ=0)` should reduce to `every_decision`). None of this requires new
-data collection — it is a lens applied to the EXP-006/007/008 evidence that already exists, and a
-configuration that fails the monotonicity or boundary checks against that evidence would be a
-concrete falsification of the model as specified, not just a disappointing result.
+The two paths are not symmetric at proposal stage. Plan B is complete and sufficient for every
+research question. Plan A is a conditional external-validity extension and is not required for the
+doctoral programme to remain scientifically coherent.
 
-Study 1 is the least gate-blocked of the three — it needs no EXP-005 labels, since it evaluates the
-instrument's properties rather than assessment quality. What it still needs is the RQ/SQ wording
-sign-off (`D-RQ-01`/`D-RQ-02`) and, eventually, `QL-01`/`QL-04` execution to ground the eligibility
-and dosage requirements in prior work, though neither blocks building the model itself. If dosage
-effects can't be measured empirically in time, the existing fallback in `three-study-contract.md`
-holds: report the inspectable model, the analytical burden relation, and the preregistered
-empirical test, with effectiveness claims left out.
+The current software/modeling evidence also has a version-bound count discrepancy that must remain
+visible. The foundation manuscript reports **26 variability patterns**: 8 substantial and 18
+occasional. The supplied implementation snapshot contains **27 pattern files**: 9 substantial and
+18 occasional. The additional substantial pattern is localized to the ParkWise use-case setting,
+but the exact export/version explanation is unresolved. This chapter therefore refers to the
+*manuscript's 26 reported patterns and the snapshot's 27 pattern files* rather than treating either
+count as independently reproduced.
 
-## 4.4 Study 2 — Governed knowledge reuse (SQ2)
+The medical entry gates `G1`–`G6` remain 0/6. The 2026-08-26 checkpoint is an internal project-control
+date, not a university deadline and not a claim of supervisor approval. Until a recorded decision
+changes that state, each study is written Plan-B-first. A medical instantiation appears only as a
+conditional extension after the software/modeling design is complete.
 
-Study 2 needs a record format and a validation/authority regime for captured expert judgment, one
-that lets it be reused across cases without unsafe generalization or loss of human authority. The
-knowledge question is whether an independent implementation of that record format actually
-conforms to it, including on cases built specifically to break it.
+## 4.3 Layered artifact architecture
 
-The recommended artifact is a normative judgment-record contract — a system-independent
-specification of what a reusable judgment record must carry (case grounding, the system's own
-reasoning as the expert actually saw it, the expert's rationale, scope, authority, provenance
-chain, validity and expiry) — paired with an executable conformance suite that any implementation
-can be run against. VEGO-AI becomes reference implementation one; the contribution is the contract
-and the test that decides conformance, not a description of VEGO-AI's own schemas.
-`sections-2-and-4-thinking-notes.md` (option B2) argues for this over the bundled nine-component
-lifecycle that the contract's Study 2 row currently names, because an "everything" artifact invites
-reviewers to dispute its boundary, and because the H-Verify/convergence half of that bundle rests
-on EXP-009 and EXP-010, which the experiment plan labels provisional synthetic fixtures gated on
-`M-04` protocol approval — evidence that can't yet stand in for how real expert judgment is
-actually handled.
+Earlier proposal artifacts used *research artifact* to mean both a narrow scientific contribution
+and the full engineering/evaluation package. This chapter resolves that conflict with three layers.
 
-**Contract specification.** The seven field groups already named above expand to a concrete
-minimum record: case grounding (artifact identifier, fragment/pattern identifier, guideline
-identifier and version, domain, language, task type, evidence locator into the source artifact,
-and the observed deviation); the system's reasoning exactly as the expert saw it at judgment time
-(the system's claim, its confidence, and the decision trace actually surfaced to the reviewer, not
-one reconstructed afterward); the expert's rationale (verdict, structured or free-text
-justification, any counter-evidence cited, the expert's own stated uncertainty); scope (the
-claim-specific boundary this judgment is authorized to speak to, stated narrowly enough that it
-does not silently cover cases it was never evaluated against); authority (reviewer identity and
-role, authorization level, and whether the judgment may bind later automated decisions or is
-advisory-only); provenance (who or what created, modified, or superseded the record, with
-timestamps and a pointer to any prior version); and a lifecycle state drawn from a fixed set —
-`Draft`, `Active`, `Contested`, `Superseded`, `Expired`, `Revoked` — each with the condition that
-triggers it and, for `Revoked`, a required reason. The conformance suite that tests any
-implementation against this contract has three parts: a reconstructability test, where a second
-reviewer blind to the original judgment must be able to state, from the record alone, what claim
-was judged, why, and under what scope; a discrimination test, where at least one deliberately
-non-conforming variant (for example, one that omits the scope field or never transitions out of
-`Draft`) must fail the suite for the specific, named reason it violates; and a completeness review
-of the specification itself by the independent implementer named in §4.7, checking for fields that
-prove ambiguous or missing against a real case. Validation here means conformance testing: the
-reference implementation passes, at least one deliberately non-conforming variant fails for a
-named reason, and the specification itself gets reviewed for completeness and ambiguity. The existing architecture-conformance series (EXP-013
-through EXP-018 — schema, lineage, explicit-gap, determinism, isolation, non-application checks) is
-offline fixture evidence of the same shape this artifact would generalize, reported at that scope
-only; it grants no runtime authority claim.
+| Layer | Role |
+| --- | --- |
+| **Primary research artifact** | The smallest system-independent artifact carrying the study's generalizable design claim |
+| **Supporting implementation bundle** | The VEGO-AI components, schemas, policies, receipts, and interfaces needed to instantiate the primary artifact |
+| **Evaluation package** | The comparators, independent evidence, outcomes, leakage controls, analysis, and failure criteria needed to answer the knowledge question |
 
-This artifact needs no EXP-005 labels and can be built now, which is its main advantage over the
-bundled alternative. What it lacks is a person: demonstrating implementation-independence needs a
-second, independent implementer or reviewer to run the conformance suite against a variant they
-build themselves, and nobody is named for that role anywhere in the tracked record. That gap
-carries into §4.7 rather than getting assumed away. Without an independent implementer before
-submission, the fallback is to report contract and conformance-suite validation against the
-reference implementation only, state the implementation-independence gap outright, and make no
-claim that governed reuse improves outcomes or generalizes safely.
+The canonical mapping is:
 
-## 4.5 Study 3 — Evaluation and transfer (SQ3)
+| Study | Primary research artifact | Supporting implementation bundle | Evaluation package |
+| --- | --- | --- | --- |
+| **Study 1 / SQ1** | Attention-budget review-policy model | Event catalog, proposed multi-signal scoring, Human Review Orchestrator, routing modes, queue/timeout rules, burden budget, trigger and routing receipts | Analytical validation followed by held-out policy comparison with expert-time and important-case outcomes |
+| **Study 2 / SQ2** | Normative governed-judgment contract | Judgment Object, Contestable Store, reconciliation, lifecycle, authority, provenance, visibility, revocation, retrieval/use history, and receipts | Conformance/reconstructability first, then comparator-based usability and governance-effect evaluation |
+| **Study 3 / SQ3** | Transfer-eligibility decision procedure and target-context descriptor | Retrieval Advisor, authorization pre-filter, applicability engine, permission filter, context schema, transfer classifier, advisory-use and outcome receipts | Rater reliability first, then frozen-store held-out target evaluation against a matched no-reuse arm |
+| **Integrated U-RQ** | End-to-end governed human-judgment lifecycle and operational definition of reliable co-reasoning | Integrated Study 1–3 bundles | Human-only, AI-only, ordinary non-governed HITL, and governed VEGO-AI comparison |
 
-Study 3 needs a procedure that decides, given a judgment record and a described target context,
-whether that judgment is eligible for reuse, eligible with a stated adaptation, or blocked, with a
-reason recorded either way. The knowledge question is whether independent raters apply that
-procedure reliably, and what the resulting spread of verdicts says about which parts of governed
-judgment travel across contexts and which stay domain-specific.
+This layering preserves the literature review's broader architecture without presenting a six- or
+ten-component bundle as one indivisible scientific contribution. The primary artifact defines the
+claim boundary; the supporting bundle makes it executable; the evaluation package determines
+whether the claim survives empirical testing.
 
-The recommended artifact is a transfer-eligibility decision procedure paired with a target-context
-descriptor schema. `sections-2-and-4-thinking-notes.md` (option C2) sharpens what would otherwise
-be a taxonomy question into a decidable instrument, pulling forward the "domain contract" that
-`three-study-contract.md`'s Plan B row already treats as mandatory readiness evidence and making it
-the designed artifact rather than an output of running the study. This is preferred over the
-bundled ten-item evaluation-and-transfer package the contract currently names, because at least six
-of those ten items are outputs of running the study rather than artifacts designed by it, and
-because the package's evidential half can't be produced at all while EXP-005 sits at 0 of 24 —
-calling it "the artifact" at proposal stage would risk implying an evaluation already exists.
+## 4.4 Study 1 — Selective intervention under bounded attention (SQ1)
 
-**Procedure specification.** The procedure takes two inputs — a source judgment record in the
-§4.4 contract, with its scope field, and a target-context descriptor stating the candidate case's
-domain, task type, guideline family and version, institution or population, and time elapsed since
-the source judgment — and runs three checks in a fixed order. A relevance check first asks whether
-the target context matches the source record's scope on every dimension that scope names as
-defining; any mismatch on a defining dimension routes straight to `Blocked`, reason "out of
-scope," without evaluating the remaining checks. An applicability check then measures distance on
-the non-defining dimensions (institution, population, elapsed time, guideline-version delta); a
-distance within the stated tolerance on every dimension yields `Eligible`, a distance beyond
-tolerance on one or more dimensions but within a named adaptation's reach yields `Eligible with
-adaptation`, naming that adaptation (for example, "requires local-reviewer re-confirmation" or
-"requires a guideline-version delta review"), and a distance beyond any defined adaptation yields
-`Blocked`, reason "context distance exceeds adaptation capacity." An authorization check runs
-independently of the first two: if the requesting context lacks the authorization level the source
-record's authority field requires, the verdict is `Blocked`, reason "insufficient authorization,"
-regardless of how relevant or applicable the judgment otherwise is. Every verdict — `Eligible`,
-`Eligible with adaptation`, or `Blocked` — carries the specific reason and the specific dimension
-that drove it, which is what makes rater agreement checkable at two levels: whether two raters
-reach the same verdict, and whether they cite the same driving dimension for it. Validation targets
-the procedure's reliability, not assessment accuracy. Two trained raters apply
-it independently to the same set of existing judgment records and context descriptors, and the
-study reports inter-rater agreement, undecidable cases, and the spread of blocking reasons. It is
-one of the few Study 3 paths that needs no expert gold labels at all — it still needs two raters,
-so it is gold-label-free rather than label-free, and that distinction should stay attached wherever
-the result is reported. Agreement on applying the procedure is evidence about the instrument, not
-evidence that its verdicts are correct, and the two should not be conflated.
+### 4.4.1 Design problem and artifact
 
-Whether instrument-reliability evidence like this is admissible as a Study 3 result ahead of the
-EXP-005 gate, or whether every Study 3 evaluation has to wait for at least 20 generalization-safe
-adjudicated labels, is Part 3 item 9 of `sections-2-and-4-thinking-notes.md`. This chapter does not
-resolve it; it is a ruling the programme needs from Iris and Arnon, carried forward in §4.7. Two
-raters also are not named yet, the same resourcing gap Study 2 has for its independent implementer.
-If EXP-005 stays at 0 of 24 and no raters are secured, the existing fallback in
-`three-study-contract.md` applies: report the exact block and accept readiness-only evidence. Any
-healthcare instantiation of Study 3 stays blocked independently at 0 of 6 medical entry gates
-regardless of the raters question.
+Study 1 asks when an agentic assessment system should request human judgment and how the request
+should be delivered under bounded expert attention. Asking on every case is not scalable and can
+create interruption, delay, and review fatigue. Asking only when a model reports low confidence is
+also insufficient because high-confidence decisions may have high consequences, weak evidence, or
+cross-agent disagreement.
 
-## 4.6 Evidence boundary for this chapter
+The **primary research artifact** is an attention-budget review-policy model. It relates a trigger
+configuration to four distinct outputs:
 
-None of the methods above claim more than they can support. Nothing here asserts accuracy
-improvement, generalization, effort reduction, or clinical performance. The same three gates bound
-what any of these studies can report today: EXP-005 holds 0 of 24 required generalization-safe
-expert labels, medical entry gates `G1`-`G6` stand at 0 of 6, and the frozen literature searches
-`QL-01`-`QL-05` are protocol-ready but not executed. The offline replay series (EXP-006, EXP-007,
-EXP-008) and the architecture-conformance series (EXP-013 through EXP-018) are real, already-run
-evidence, but each is reported only at the scope its own experiment plan assigns it — mechanism,
-observability, or conformance, never quality, accuracy, or effort.
+1. number of items sent to review;
+2. estimated or observed cost of those reviews;
+3. coverage of offline uncertainty/instability candidates; and
+4. later, coverage of independently established important cases.
 
-## 4.7 Open decisions carried forward, not resolved by this draft
+The **supporting implementation bundle** is the selective-intervention architecture already
+anticipated elsewhere in the project: event/listener catalog, eligibility and priority signals,
+Human Review Orchestrator, routing modes, queue and timeout rules, claim-specific reviewer routing,
+burden budget, and reproducible trigger/routing receipts.
 
-Recommending an artifact for each sub-question makes this chapter reviewable, but a recommendation
-is not a decision. `chapter-4-completion-plan-2026-08-19.md` sorts the items below by what kind of
-resolution each one actually needs; the disposition noted per item reflects that pass, not a claim
-that the underlying question is settled.
+### 4.4.2 Proposed trigger representation
 
-- Artifact granularity and abstraction level: confirm or correct the three recommendations above
-  (§4.3 cost/coverage model, §4.4 contract-plus-conformance-suite, §4.5 eligibility procedure) —
-  Part 3 items 6 and 7. **Still a supervisor decision** — packaged as Item 1 in
-  `2026-08-19-chapter4-decisions-packet.md`.
-- The SQ2/SQ3 boundary: `reuse_scope` lives on the judgment record in Study 2, while the
-  domain-specific-versus-transferable classification is the analytic core of Study 3 — confirm
-  these do not ship the same artifact twice (Part 3 item 8). **Still a supervisor decision** —
-  packaged as Item 2 in the same packet.
-- Instrument-reliability admissibility ahead of EXP-005, for both Study 2's conformance evidence
-  and Study 3's rater-agreement evidence (Part 3 item 9). **Still a supervisor decision** —
-  packaged as Item 3 in the same packet.
-- Whether the offline replay series (EXP-006/007/008) may appear as preliminary results in this
-  chapter, and with exactly what wording for EXP-007 (Part 3 item 10). **Already has a working
-  answer in practice**: `chapter-5-preliminary-results.md` reports all three under exactly this
-  framing. What remains is supervisor confirmation that the existing wording is acceptable, noted
-  as a housekeeping item in the decisions packet rather than reopened from scratch.
-- Whether EXP-009/EXP-010 appear at all before `M-04` protocol approval is recorded (Part 3 item
-  11). **Still a supervisor decision** — packaged as Item 4 in the same packet.
-- Plan A's presence in this chapter: conditional appendix, or developed in parallel with Plan B
-  (Part 3 item 12, referenced in §4.2 above). **Resolved in this pass** — §4.2 now states
-  Plan-B-first with Plan A as a conditional appendix per study, as an editorial decision that does
-  not require new supervisor authority and can be revisited if Plan A's gates clear.
-- Naming the people this chapter currently leaves as gaps: an independent implementer or reviewer
-  for Study 2 (§4.4), and two raters for Study 3 (§4.5) — Part 3 item 13. **A real-world action,
-  not something this chapter can resolve by writing** — see
-  `docs/operations/study-resourcing-request-template.md`.
-- When the instruction to move from thinking to writing formally lifts for this chapter, and who
-  owns the first supervisor-facing revision against which of the options above (Part 3 item 14).
-  **Superseded** — Ali chose to proceed with this completion pass on 2026-08-19 ahead of the
-  literature-review gate closing, per `chapter-4-completion-plan-2026-08-19.md`.
+For an assessment event `e`, let `x(e)` be a proposed feature vector containing only signals that
+can be produced reproducibly and attached to the event receipt. Candidate features include:
 
-Until the four still-open supervisor decisions above are worked through and logged in the
-decision/change record, none of these three studies' claims — and none of this chapter's own text
-— should be read as approved. Chapter 3 already holds itself to the same rule for its
-research-question wording.
+- calibrated or semantic uncertainty;
+- cross-agent or cross-run disagreement;
+- novelty or guideline-coverage weakness;
+- consequence or policy importance;
+- evidence completeness/quality;
+- expected reuse value;
+- queue state, reviewer availability, and estimated review cost.
+
+The foundation paper and current pipeline do not establish that this complete vector already
+exists per event. It is therefore a **proposed study representation**, to be implemented from
+available signals and augmented only through versioned, testable features. No feature is described
+as computed by the existing pipeline unless a repository receipt demonstrates it.
+
+A policy configuration `θ` maps `x(e)` and the current attention state to a binary review decision
+`Iθ(e) ∈ {0,1}`, an intervention mode, and a reviewer route. Four existing replay modes are useful
+reference points, but they are not the complete artifact:
+
+- `every_decision`: route every eligible event;
+- `threshold(τ)`: route events satisfying a versioned score threshold;
+- `top_n_then_auto(N)`: route the top `N` ranked events per declared window. The existing
+  experiment name `first_n_then_auto` is retained in experiment citations, but the analytical
+  model uses `top_n_then_auto` because the proposed rule is score-ranked rather than arrival-order;
+- `silent`: route no item to a reviewer;
+- `audit_sample(p)`: sample at rate `p` for a separate audit process.
+
+`audit_sample(p)` is kept separate from `silent` because an audit that requires a person creates
+human workload even when it does not interrupt the live decision.
+
+### 4.4.3 Output quantities
+
+Let `Ew` be the events in a defined evaluation window.
+
+**Review count**
+
+```text
+ReviewCount(θ) = Σe∈Ew Iθ(e)
+```
+
+**Review cost**
+
+```text
+ReviewCost(θ) = Σe∈Ew Iθ(e) · ce
+```
+
+where `ce` is either observed review time/cost or a preregistered proxy. Until real review-time data
+exist, routed-event count and estimated cost must be reported separately; neither may be called
+expert-effort reduction.
+
+**Candidate coverage**
+
+```text
+CandidateCoverage(θ) = (Σe∈Ew ze · Iθ(e)) / (Σe∈Ew ze)
+```
+
+where `ze = 1` marks an offline instability, uncertainty, or replay-defined candidate. EXP-006,
+EXP-007, and EXP-008 can support this measure at mechanism/observability scope.
+
+**Important-case coverage**
+
+```text
+ImportantCaseCoverage(θ) = (Σe∈Ew we · ye · Iθ(e)) / (Σe∈Ew we · ye)
+```
+
+where `ye` is an independent, adjudicated indication that the event required qualified review and
+`we` is a preregistered consequence weight. This measure cannot be computed as an outcome claim
+while the required independent labels are absent.
+
+The analytical target is a multi-objective frontier over review count, review cost, candidate
+coverage, and—when gated evidence exists—important-case coverage and selective risk. A policy is
+not preferred merely because it routes fewer cases.
+
+### 4.4.4 Phase A — artifact and mechanism validation
+
+Phase A examines whether the model and implementation are coherent before any effectiveness claim.
+It includes:
+
+- schema and receipt completeness;
+- deterministic reconstruction of each trigger decision;
+- boundary tests for zero-review and all-review configurations;
+- degenerate-case tests such as `top_n_then_auto(N=0)`;
+- threshold behavior using a threshold strictly above the maximum observed score for a zero-review
+  boundary, rather than assuming `τ → 1` is silent when a score can equal 1;
+- monotonicity only within a nested policy family, such as increasing `N` or decreasing a fixed
+  threshold. Monotonicity is not assumed across unrelated modes;
+- detection of dominated configurations;
+- explicit separation of live-review load from audit load.
+
+EXP-006–EXP-008 may be used here as already-run event, replay, and candidate evidence. They remain
+mechanism and observability evidence. EXP-007's routed-item counts are not human-effort results and
+do not select a default policy.
+
+### 4.4.5 Phase B — research-question effect evaluation
+
+Phase B answers the knowledge question using held-out cases and independent outcome evidence.
+Comparators are:
+
+- never ask;
+- always ask;
+- random review at a matched budget;
+- uncertainty-only review;
+- fixed threshold;
+- the proposed multi-signal attention-budget policy.
+
+The unit of analysis is a case, fragment, guideline mapping, or pattern decision assigned under a
+frozen policy. Primary outcomes are important-case capture or joint correctness at a stated expert
+attention budget, with selective risk reported for autonomous decisions. Secondary outcomes include
+review yield, expert minutes, interruption count, queue delay, abandonment, reviewer-role balance,
+override behavior, and reusable-judgment yield.
+
+The policy is falsified or narrowed if it does not improve the preregistered objective over a
+simpler baseline, misses high-consequence cases above the allowed threshold, produces unacceptable
+burden or queue delay, or appears beneficial only after post-hoc threshold tuning.
+
+### 4.4.6 Contexts, dependencies, and fallback
+
+Plan B supplies the complete software/modeling evaluation. A medical workflow may later stress-test
+the trigger ontology only after local experts and governance permit it; no clinical effect claim
+follows from transferring the policy structure.
+
+Study 1 can produce Phase A evidence without EXP-005. Phase B quality claims require independent
+labels, frozen policies, and an analysis plan. If those data are unavailable, the defensible output
+is the inspectable model, supporting implementation, analytical/replay results, explicit unresolved
+properties, and a preregistered empirical protocol—not a claim of burden or accuracy improvement.
+
+## 4.5 Study 2 — Governed judgment representation and lifecycle (SQ2)
+
+### 4.5.1 Design problem and artifact
+
+Study 2 asks how expert judgment, including the inspectable reasoning presented by the system, can
+be represented, validated, reconciled, stored, contested, and governed for later use. A final label
+alone is insufficient because it does not preserve what claim was judged, which evidence and rule
+were inspected, what authority the reviewer had, where the judgment applies, or why it later became
+invalid.
+
+The **primary research artifact** is a normative governed-judgment contract with executable
+conformance requirements. VEGO-AI is one reference implementation; the contract is intended to be
+system-independent.
+
+The **supporting implementation bundle** includes the Governed Judgment Object, Contestable
+Judgment Store, validation and reconciliation services, lifecycle enforcement, claim-specific
+authority and visibility controls, provenance, expiry/revocation, retrieval/use history, and
+machine-readable receipts.
+
+### 4.5.2 Minimum contract
+
+The contract classifies fields as mandatory core, mandatory when a condition applies, or extension
+fields. The minimum groups are:
+
+| Group | Required content |
+| --- | --- |
+| **Stable identity and case grounding** | Judgment ID; artifact, case, fragment/pattern, guideline and version; domain, modeling language, task, source version, observed deviation, and evidence locator |
+| **Inspectable system decision trace** | Claim, confidence/calibration state, cited evidence, rule/guideline applied, alternatives considered, uncertainty source, and decisive inference exactly as displayed to the reviewer |
+| **Human judgment** | Verdict, structured or free-text rationale, reasoning-level correction, counter-evidence, counterexamples, exclusions, and reviewer uncertainty |
+| **Scope and transfer semantics** | Claim type; allowed contexts; hard exclusions; exact-match dimensions; adaptable dimensions and tolerances; ranking-only dimensions; known counterexamples; maximum transfer level |
+| **Authority, visibility, and privacy** | Reviewer identity or protected participant code, role, competence basis, authorization level, advisory/binding policy, visibility class, consent/permission state, privacy classification, and access restrictions |
+| **Validation and disagreement** | Validation tier, second-review requirement, conflict type, competing judgments, adjudication policy/version, adjudicator where applicable, and unresolved state |
+| **Provenance and versioning** | Creator, modifiers, timestamps, source/model/prompt/policy versions, prior-version link, supersession pointer, and derivation chain |
+| **Lifecycle** | Effective date, review date, expiry, revocation reason, replacement pointer, and enforceable lifecycle state |
+| **Retrieval, use, and outcome history** | Retrieval queries/receipts, permission decisions, actual advisory use, influence on the current decision, human override, downstream outcome, incident, and later revocation impact |
+
+The phrase *system reasoning* does not authorize storage of hidden chain-of-thought. The contract
+stores the shortest sufficient **inspectable decision trace** that lets an authorized reviewer
+identify the claim, evidence, rule, alternatives, uncertainty, and correction. It excludes opaque
+private reasoning, unnecessary personal data, and unbounded transcripts.
+
+### 4.5.3 Orthogonal status dimensions
+
+A single flat state such as `Contested` cannot safely represent the record. The contract uses
+orthogonal dimensions:
+
+- `lifecycle_status`: `Draft`, `Active`, `Superseded`, `Expired`, `Revoked`;
+- `validation_status`: `Unreviewed`, `Reviewed`, `Adjudicated`;
+- `contestation_status`: `Uncontested`, `Contested`, `Resolved`.
+
+For example, an active judgment can be contested without becoming invisible, while a superseded
+judgment remains historically auditable. Every transition has a permitted predecessor, actor,
+reason, timestamp, and receipt.
+
+### 4.5.4 Authority and advisory-use default
+
+The default contract rule is:
+
+```text
+advisory_only = true
+```
+
+A judgment may not silently bind a later automated decision. Binding effect requires a separate,
+versioned policy authorization specifying the claim type, context, authority, effective period,
+rollback rule, and outcome-monitoring obligation. Every authorized binding use produces a policy
+receipt. This preserves the literature review's principle that retrieval is evidence access, not
+permission or truth.
+
+### 4.5.5 Phase A — specification and conformance validation
+
+The executable conformance suite includes positive, negative, and boundary fixtures for every
+invariant. At minimum it tests:
+
+- valid record construction and deterministic serialization;
+- blind reconstructability by a reviewer who did not participate in the original judgment;
+- missing or ambiguous scope;
+- invalid or insufficient authority;
+- broken provenance or unresolved evidence locator;
+- illegal lifecycle transition;
+- a revoked or expired record remaining retrievable as active advice;
+- missing privacy or visibility control;
+- incompatible schema/policy version;
+- supersession without a replacement pointer;
+- dissent erased during adjudication;
+- binding use without a separate policy authorization;
+- a target-context use written into the source record without a versioned SQ2 transition.
+
+A deliberately broken implementation must fail with a predictable, named reason code. One broken
+variant is not sufficient for the complete claim; coverage is measured against the declared
+invariants and fixture matrix.
+
+The existing EXP-013–EXP-018 series can be cited only as reference-implementation conformance
+precedent for the properties it directly tests. It does not establish that an independent
+implementation conforms or that governed records improve outcomes.
+
+### 4.5.6 Phase B — representation and governance effect evaluation
+
+Phase B compares:
+
+- label-only capture;
+- unstructured comment capture;
+- the governed-judgment contract and supporting lifecycle.
+
+Units of analysis are review episodes and subsequent authorized audit/reuse tasks. Primary outcomes
+include reconstruction accuracy, correction quality, contestability, audit completeness, and
+scope/authority error. Secondary outcomes include completion time, reviewer workload, missing-field
+rate, unresolved disagreement, privacy/visibility violations, revocation effectiveness, and user
+comprehension.
+
+The artifact is falsified or narrowed if reviewers cannot reconstruct or use the record reliably,
+if the governed representation produces no benefit over a simpler record at comparable burden, if
+scope/authority violations persist, or if governance cost exceeds the preregistered benefit.
+
+### 4.5.7 Independence, ethics, and fallback
+
+Implementation-independence requires a person who did not design the contract to implement or run
+a variant against the specification. A critical reviewer alone can support design review but cannot
+substitute for an independent implementation claim. The role is not yet assigned.
+
+Before recruiting a participant or collecting study data, the project must obtain the applicable
+institutional ethics/IRB determination and data-access approval. Participant names must not be
+stored in a public repository without permission; coded identifiers should be used in research
+data where appropriate.
+
+If no independent implementer or human-effect evaluation is available, the fallback is to report
+the contract, reference implementation, fixture coverage, and implementation-independence gap. No
+safe-reuse or improved-outcome claim follows.
+
+## 4.6 Study 3 — Transfer eligibility and target-context evaluation (SQ3)
+
+### 4.6.1 Design problem and artifact
+
+Study 3 asks whether a governed source judgment is eligible to inform a decision in a described
+target context, with what adaptation, under what authority, and with what observed target effect.
+Semantic similarity alone is insufficient because a seemingly similar case may differ in domain,
+task, guideline version, institution, population, representation, risk, or permission.
+
+The **primary research artifact** is a transfer-eligibility decision procedure paired with a
+target-context descriptor.
+
+The **supporting implementation bundle** includes the Scope-Aware Retrieval Advisor, visibility and
+authorization pre-filter, applicability engine, permission filter, transfer-distance classifier,
+context schema, advisory evidence presentation, and retrieval/permission/use/outcome receipts.
+
+### 4.6.2 Inputs
+
+The procedure takes:
+
+1. a source judgment conforming to the Study 2 contract; and
+2. a target-context descriptor containing at least:
+   - domain and task;
+   - modeling language or representation type;
+   - artifact and fragment/pattern type;
+   - guideline family and exact version;
+   - institution, population, and jurisdiction;
+   - source and target model/prompt/policy versions;
+   - risk/consequence class;
+   - required reviewer/organizational authority;
+   - data-access, visibility, privacy, and consent class;
+   - evidence provenance and completeness;
+   - elapsed time since the source judgment;
+   - known exclusions and counterexamples.
+
+The source scope distinguishes four classes of dimensions:
+
+- **hard exclusions:** a mismatch prohibits use;
+- **exact-match dimensions:** a mismatch blocks the current eligibility path unless the source
+  judgment is revised through Study 2;
+- **adaptable dimensions:** a mismatch may be addressed by a named, predefined adaptation;
+- **ranking-only dimensions:** influence retrieval priority but never grant permission.
+
+### 4.6.3 Decision order
+
+The procedure runs in a fixed order:
+
+1. **Visibility and authorization pre-filter.** Before restricted evidence is exposed, confirm that
+   the requester and environment may access the record and that no revocation, expiry, or policy
+   prohibition applies.
+2. **Relevance.** Determine whether the record addresses the same claim type and whether the target
+   provides the required evidence signature.
+3. **Applicability.** Compare exact-match and adaptable dimensions; calculate and record every
+   mismatch rather than reducing the decision to one similarity score.
+4. **Adaptation selection.** Apply only a named, versioned adaptation, such as local-reviewer
+   reconfirmation or guideline-version delta review.
+5. **Eligibility verdict and reason code.** Produce one of the states below.
+6. **Advisory presentation and local re-reasoning.** The current agent/reviewer evaluates current
+   evidence; the prior judgment does not replace the current case analysis.
+7. **Outcome logging.** Record influence, override, target outcome, burden, incident, and any later
+   revocation consequence.
+
+### 4.6.4 Decision states
+
+| State | Definition |
+| --- | --- |
+| `Eligible` | All required authorization, visibility, exact-match, and tolerance conditions pass; the judgment may be presented as advisory evidence |
+| `EligibleWithAdaptation` | No hard prohibition applies, but one or more adaptable dimensions require a named adaptation before advisory use |
+| `Blocked` | An explicit hard exclusion, authorization/visibility failure, revocation/expiry rule, exact-match failure, or distance beyond defined adaptation capacity applies |
+| `Undetermined` | Required evidence, tolerance, authority, or policy is missing or conflicting; the item must be escalated for independent review rather than treated as permanently prohibited |
+
+Every state carries the driving dimension, reason code, policy version, evidence completeness, and
+required next action. `Undetermined` prevents missing evidence from being misreported as either safe
+eligibility or a permanent block.
+
+### 4.6.5 Phase A — procedure reliability
+
+Two trained raters independently apply the frozen procedure to the same source-target pairs.
+Before data collection, the protocol fixes:
+
+- source-target pair selection and sample size rationale;
+- rater eligibility and independence;
+- training and calibration examples that are not part of the scored set;
+- blind, randomized case order;
+- primary agreement statistic: Cohen's `κ` for the nominal verdict when two raters are used;
+- agreement on the driving reason/dimension as a separate outcome;
+- confidence interval method;
+- treatment of missing and `Undetermined` cases;
+- the rule that adjudication occurs only after independent ratings are frozen.
+
+Agreement establishes that the procedure can be applied consistently. It does not establish that
+its verdicts are substantively correct, beneficial, or safe.
+
+### 4.6.6 Phase B — transfer effect evaluation
+
+The source store, retrieval policy, permission policy, guideline versions, thresholds, and source
+judgments are frozen before target scoring. Held-out target cases are compared under:
+
+- a matched no-reuse control using the same current evidence; and
+- the scope-filtered advisory-reuse condition.
+
+Independent target labels are created blind to the reused judgment and system recommendation.
+Primary outcomes are target benefit and unsafe-transfer rate. Secondary outcomes include scope
+violations, calibration under shift, expert burden, override behavior, benefit by transfer level,
+blocked/undetermined reasons, and revocation responsiveness.
+
+The procedure is falsified or narrowed if there is no target benefit, if unsafe-transfer or scope
+violations exceed the predefined threshold, if the effect disappears under blinding/frozen-store
+controls, if permission failures occur, or if benefit is explained only by additional human time.
+
+### 4.6.7 Contexts, dependencies, and fallback
+
+Plan B tests transfer across an authorized second software/modeling context, institution, dataset,
+diagram family, reviewer panel, or time period. Plan A may test a medical context only after every
+applicable entry and downstream control passes. No software/modeling result licenses a clinical
+performance or deployment claim.
+
+Study 3 requires the Study 2 source contract, an authorized target context, two independent raters
+for Phase A, and independent target evidence for Phase B. If these are unavailable, the study may
+report readiness, procedure design, and the exact block only.
+
+## 4.7 Integrated evaluation of the umbrella research question
+
+Completing the three studies independently does not by itself establish reliable human-AI
+co-reasoning. The umbrella question requires an end-to-end integration test.
+
+### 4.7.1 Unit, intervention, and comparators
+
+The unit of analysis is a complete governed assessment episode:
+
+```text
+detect → triage → request → capture → validate/reconcile → store → retrieve/filter
+→ apply as advice → monitor → expire/supersede/revoke
+```
+
+The intervention is the integrated governed VEGO-AI lifecycle under frozen policies. It is compared
+with:
+
+1. **AI-only:** the agentic assessment pipeline without human judgment;
+2. **human-only:** authorized human assessment without VEGO-AI advice;
+3. **ordinary non-governed HITL:** human correction or approval without the full selective,
+   provenance, scope, lifecycle, and outcome controls;
+4. **governed VEGO-AI:** the integrated Study 1–3 lifecycle.
+
+### 4.7.2 Outcomes
+
+The primary outcome is complementary team performance at a controlled attention budget. It must be
+operationalized for the chosen task before data collection, not inferred from the presence of a
+human or from system accuracy alone.
+
+Secondary outcome families are:
+
+- correctness/selective risk and calibration;
+- expert time, interruptions, queue delay, and review yield;
+- authority and visibility compliance;
+- reconstruction, traceability, and audit completeness;
+- contestation, adjudication, supersession, and revocation effectiveness;
+- overreliance, underuse, and override quality;
+- propagation errors, scope violations, and unsafe reuse;
+- performance by reviewer role, case type, and transfer distance.
+
+### 4.7.3 Success and failure interpretation
+
+The integrated hypothesis is supported only if governed VEGO-AI improves the preregistered joint
+objective over the relevant baselines while satisfying burden, authority, contestability,
+traceability, and propagation-safety thresholds.
+
+It is rejected or narrowed if:
+
+- any load-bearing study artifact fails its own validity requirement;
+- the integrated system introduces new propagation or authority errors;
+- apparent gain is explained only by additional human time;
+- ordinary non-governed HITL performs equivalently with lower cost;
+- calibration or selective risk deteriorates;
+- benefit depends on leakage, post-hoc tuning, or unblinded labels;
+- the result fails to replicate in the authorized Plan B context.
+
+A valid negative result may establish where judgment should not be requested, stored, or reused.
+
+## 4.8 Evidence boundary and current state
+
+Nothing in this chapter asserts accuracy improvement, generalization, effort reduction, safe
+transfer, or clinical performance. Current hard gates are:
+
+| Gate | Current state | Consequence |
+| --- | ---: | --- |
+| EXP-005 generalization-safe expert labels | **0/24** | No positive quality/generalization/effect claim |
+| Medical entry gates `G1`–`G6` | **0/6** | No medical empirical or deployment claim |
+| Formal literature searches `QL-01`–`QL-05` | **0/5** | No exhaustive-search or absence-of-prior-work claim |
+
+EXP-006–EXP-008 provide already-run event, replay, and instability-candidate evidence. EXP-013–EXP-018
+provide already-run reference-implementation conformance evidence. Each remains bounded to the
+scope of its own protocol. EXP-009 and EXP-010 remain excluded from proposal evidence until `M-04`
+protocol approval is recorded, unless Iris and Arnon explicitly decide otherwise.
+
+## 4.9 Open decisions and real-world dependencies
+
+The chapter is now internally specified, but it is not supervisor-approved. The four decisions in
+`2026-08-19-chapter4-decisions-packet.md` remain open:
+
+1. confirm or correct the three-layer artifact model;
+2. confirm or correct the SQ2/SQ3 ownership boundary;
+3. decide whether instrument evidence may be reported before EXP-005, under the stated restriction;
+4. decide whether EXP-009/EXP-010 remain completely outside the proposal until `M-04`.
+
+A separate housekeeping confirmation is requested for the exact Chapter 5 wording used for
+EXP-006/007/008.
+
+The following are real-world dependencies, not drafting gaps:
+
+- an independent Study 2 implementer;
+- two independent Study 3 raters;
+- applicable ethics/IRB and data-access determinations before participant recruitment or study-data
+  collection;
+- the independent EXP-005 labels and adjudication process;
+- an authorized Plan B target context;
+- any Plan A partner, expert, governance, infrastructure, and approval evidence.
+
+The recruitment controls and separate draft messages are in
+`docs/operations/study-resourcing-request-template.md`. No person is considered committed until the
+agreement is recorded through the approved project process. Until the decisions and dependencies
+are resolved, the defensible status is:
+
+> **Chapter 4 internal methodology review draft — artifact specifications defined; supervisor
+> decisions, cross-artifact propagation, human resourcing, and outcome evidence pending.**

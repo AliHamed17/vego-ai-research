@@ -1,88 +1,97 @@
-# Chapter 4 completion plan — 2026-08-19
+# Chapter 4 Completion and Reconciliation Plan — 2026-08-19
 
-Prepared for: Ali, for use with Iris Reinhartz-Berger and Arnon Sturm.
-Status: working plan; nothing here overrides Iris's own 2026-08-12 sequencing instruction
-(literature review only this week, methodology work starts the week after and only if the
-literature review is judged done). Ali has chosen to proceed with this plan now regardless, so
-this document exists to make that choice as low-risk as possible: it separates what can honestly
-be finished today from what genuinely needs a supervisor decision or a real person, so no part of
-Chapter 4 gets presented as more settled than it is.
+Prepared for: Ali, for later use with Iris Reinhartz-Berger and Arnon Sturm.
 
-## Why a "completion plan" instead of just finishing the chapter
+Status: **internal project-control plan.** It does not override the 2026-08-12 sequencing
+instruction that the literature review is the priority and that methodology becomes
+supervisor-facing only after the literature review is judged sufficiently complete. The purpose of
+this early drafting pass is to reduce later reconciliation risk, not to represent Chapter 4 as
+approved or complete.
 
-Chapter 4 (`chapter-4-research-methodology.md`, drafted 2026-08-18) already recommends one artifact
-per sub-question and lists 7 open items in its own §4.7. Those 7 items are not uniform in kind:
+## Why this plan exists
 
-- Some are genuine supervisor decisions (artifact granularity, the SQ2/SQ3 boundary, evidence
-  admissibility ahead of `EXP-005`, whether `EXP-009`/`EXP-010` may appear before `M-04`). No
-  amount of further writing closes these — they need Iris and Arnon's answer, the same way the
-  five items in `2026-08-19-decisions-packet.md` do.
-- One is a real-world resourcing action (naming a second Study 2 implementer and two Study 3
-  raters). Writing cannot manufacture real people; fabricating placeholder names would violate
-  this project's own evidence-boundary discipline.
-- The rest are structural/editorial calls within normal methodological judgment that do not
-  require new supervisor authority to make, and can be closed today.
+The earlier Chapter 4 draft mixed eight different open decision/dependency groups:
 
-Treating all 7 the same way — either leaving them all open, or writing past all of them as if
-already resolved — would be worse than sorting them. This plan sorts them.
+1. artifact granularity;
+2. SQ2/SQ3 ownership boundary;
+3. instrument-evidence admissibility before EXP-005;
+4. wording for EXP-006/007/008 preliminary evidence;
+5. EXP-009/EXP-010 before `M-04`;
+6. Plan A placement;
+7. Study 2/3 human resourcing; and
+8. the sequencing/status of the methodology draft.
 
-## Item-by-item disposition
+These items cannot be closed in the same way. Some require supervisor decisions, one is an
+editorial structure choice, one requires real people and ethics/data controls, one already has a
+working wording precedent in Chapter 5, and one concerns document status rather than scientific
+content.
 
-| §4.7 item | Kind | Disposition today | Where it lands |
+## Disposition
+
+| Open group | Kind | Current disposition | Controlling location |
 | --- | --- | --- | --- |
-| Artifact granularity/abstraction level (items 6-7) | Supervisor decision | Packaged for a Confirm/Correct/Defer answer | `2026-08-19-chapter4-decisions-packet.md`, Item 1 |
-| SQ2/SQ3 boundary (item 8) | Supervisor decision | Packaged | Same packet, Item 2 |
-| Instrument-reliability admissibility ahead of `EXP-005` (item 9) | Supervisor decision | Packaged | Same packet, Item 3 |
-| EXP-006/007/008 as preliminary results, exact wording (item 10) | Already has a working answer in practice | Documented as precedent, not re-opened | See "Item 10 already has a working answer" below |
-| `EXP-009`/`EXP-010` before `M-04` (item 11) | Supervisor decision | Packaged | Same packet, Item 4 |
-| Plan A placement: appendix vs. parallel (item 12) | Editorial/structural | Resolved now | Chapter 4 §4.2, edited today |
-| Naming the Study 2 implementer and two Study 3 raters (item 13) | Real-world resourcing action | Cannot be resolved by writing; drafted a request Ali can actually send | `docs/operations/study-resourcing-request-template.md` |
-| When sequencing formally lifts (item 14) | Ali's own call, already made | Superseded — Ali chose to proceed now | This document |
+| Artifact granularity | Supervisor decision | Reframed as a three-layer model: primary artifact, supporting implementation bundle, evaluation package | `artifact-layer-contract.md`; decisions packet Item 1 |
+| SQ2/SQ3 boundary | Supervisor decision | Study 2 defines/governs source scope; Study 3 applies it to a target context and evaluates outcome | Decisions packet Item 2 |
+| Instrument evidence before EXP-005 | Supervisor decision | Recommended as admissible only when labeled instrument evidence, never as quality/generalization/safety evidence | Decisions packet Item 3 |
+| EXP-006/007/008 wording | Housekeeping confirmation | Exact Chapter 5 wording reproduced for confirmation | Decisions packet housekeeping section |
+| EXP-009/EXP-010 before `M-04` | Supervisor decision | Recommended exclusion from proposal evidence until `M-04` | Decisions packet Item 4 |
+| Plan A placement | Editorial structure | Plan B first; Plan A conditional after gates | Chapter 4 §4.2 |
+| Study 2 implementer and Study 3 raters | Real-world resourcing and governance | Separate role definitions and draft messages; ethics/data determination required before recruitment | `docs/operations/study-resourcing-request-template.md` |
+| Sequencing/status | Document control | Chapter 4 labeled internal early draft; not attributed to supervisor initiation or approval | Chapter 4 status block and this plan |
 
-## Item 10 already has a working answer
+## Work completed in this reconciliation pass
 
-Chapter 5 (`chapter-5-preliminary-results.md`, written 2026-08-19) already reports EXP-006, EXP-007,
-and EXP-008 as preliminary results, using exactly the framing item 10 asked about: mechanism and
-observability evidence, never effort reduction, with EXP-007's per-mode routed-item counts
-explicitly excluded from any effort-reduction reading. That is a real precedent, not a new
-argument — Chapter 4 §4.3 already states the same rule prospectively. The remaining gap is narrow:
-Chapter 5 exists and follows the rule, but nobody has told Iris and Arnon it exists or asked them
-to confirm the wording is acceptable. That confirmation is folded into the decisions packet as a
-housekeeping note rather than a full new item, since the substantive question is already answered
-by precedent.
+1. Created `artifact-layer-contract.md` to reconcile narrow research artifacts with the broader
+   system and evaluation bundles.
+2. Created `canonical-version-manifest.md` to identify the current working lineages and prevent
+   version-number, approval-state, hard-gate, and release-hash drift.
+3. Rewrote Chapter 4 with:
+   - corrected draft status;
+   - accepted/program-listed foundation-paper wording;
+   - explicit 26-manuscript-pattern versus 27-snapshot-file discrepancy;
+   - layered artifacts;
+   - two evidence phases per study;
+   - corrected Study 1 cost/coverage definitions and policy boundaries;
+   - expanded Study 2 contract, status dimensions, advisory-use default, and conformance matrix;
+   - expanded Study 3 context schema, authorization-first procedure, fourth `Undetermined` state,
+     reliability protocol, and frozen-store target evaluation;
+   - a separate integrated U-RQ evaluation.
+4. Reconciled `three-study-contract.md` to the same artifact and evidence model.
+5. Rebuilt the Chapter 4 decisions packet with recommended answers, decision/date/approver/rationale
+   fields, affected-file lists, and the exact Chapter 5 wording requiring confirmation.
+6. Replaced the combined resourcing note with separate Study 2 and Study 3 outreach drafts and
+   pre-recruitment ethics/data/confidentiality controls.
+7. Updated the proposal README to make the reconciled methodology controls visible from the entry
+   page.
 
-## What "build it" means for today's execution pass
+## What remains open
 
-Beyond closing the 7 items, "build and do it" also means making each of the three recommended
-artifacts more concrete — moving from "a cost/coverage model" to the actual functional form, field
-list, or decision states a reviewer could evaluate — without crossing into claiming the artifact is
-built, validated, or evidenced beyond what already exists. Today's pass:
+The drafting pass does not close:
 
-1. Resolves Plan A placement in Chapter 4 §4.2 (item 12).
-2. Adds a fully specified functional form for Study 1's attention-budget cost/coverage model in
-   §4.3 — the exact inputs, the two output quantities, and how the four already-replayed dosage
-   modes map onto it as parameter points, so the model is something a reader could actually
-   compute against the existing EXP-006/007/008 evidence.
-3. Adds the exact field list and validity states for Study 2's judgment-record contract in §4.4,
-   and the exact pass/fail structure of its conformance suite, so "conformance testing" in that
-   section stops being an abstract phrase and becomes a specification someone could implement
-   against.
-4. Adds the exact decision states and required inputs for Study 3's transfer-eligibility procedure
-   in §4.5, so "eligible / eligible with adaptation / blocked" has a defined basis rather than
-   being three unspecified labels.
-5. Every addition keeps the chapter's existing hedge language (`recommended`, `proposed`,
-   `research hypothesis, not a validated contribution`) attached, and does not add any claim not
-   already licensed by `three-study-contract.md`'s excluded-measures rows or Chapter 4 §4.6's
-   evidence boundary.
-6. Packages items 6-9 and 11 as `2026-08-19-chapter4-decisions-packet.md`.
-7. Drafts `docs/operations/study-resourcing-request-template.md` for item 13.
-8. Updates Chapter 4's own §4.7 to show the new disposition per item, so the chapter does not read
-   as if all 7 items are still uniformly open once this pass lands.
+- Iris and Arnon's four decisions in the Chapter 4 packet;
+- exact RQ wording approval;
+- human resourcing;
+- ethics/IRB and data-access determinations;
+- EXP-005 labels;
+- an authorized Plan B target context;
+- Plan A medical gates;
+- formal QL-01–QL-05 execution;
+- synchronization of the binary literature-review and workbook deliverables in the next rendered
+  release.
 
-## What remains genuinely open after this pass
+## Release rule
 
-Items 1, 2, 3, and 4 of the new Chapter 4 decisions packet, and the resourcing request in item 13,
-still require Iris, Arnon, or Ali's own outreach respectively. This plan does not and cannot close
-those — it only makes sure each is asked in a form that can actually be answered quickly, the same
-discipline the existing `2026-08-19-decisions-packet.md` already applies to `D-RQ-01`/`D-RQ-02`,
-`E6`, `E8`, and the Plan A/B and evidence-boundary wording.
+The next supervisor-facing methodology package may be labeled current only when:
+
+1. the literature-review and workbook tables use the same layered artifact model;
+2. the canonical version manifest identifies every delivered artifact and its actual state;
+3. the four decisions are either answered or visibly pending;
+4. the PDF/DOCX/workbook version labels, metadata, page numbering, hard-gate counts, and approval
+   language agree;
+5. every named companion deliverable is present; and
+6. release SHA-256 hashes are generated after the final render.
+
+Until then, the defensible status is:
+
+> **Chapter 4 internal methodology review draft — artifact specifications defined; supervisor
+> decisions, binary-artifact propagation, human resourcing, and outcome evidence pending.**

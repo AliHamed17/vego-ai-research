@@ -66,7 +66,7 @@ Together these six passes are conformance evidence for the specific properties a
 judgment-record contract would need — schema validity, determinism, non-destructive handling of
 uncertainty, and provenance discipline — on the existing reference implementation only. They are
 not evidence that an independently built implementation would conform, which is exactly the
-implementation-independence gap Chapter 4 §4.4 already names as unresolved.
+implementation-independence gap Chapter 4 §4.5 already names as unresolved.
 
 ## 5.4 Medical context
 
@@ -87,4 +87,5 @@ not an effort-reduction result — the experiment's own guardrails forbid that r
 chapter follows them. The gate that would license a quality claim, EXP-005, stands at 0 of 24
 generalization-safe expert labels, unchanged by anything in this chapter. Study 3 (SQ3) has no
 entry here because it evaluates transfer and reuse, which by design waits on Study 1 and Study 2
-artifacts that are still recommendations rather than supervisor-confirmed designs, per Chapter 4.
+artifacts that remain working recommendations rather than supervisor-confirmed designs, per
+Chapter 4.
