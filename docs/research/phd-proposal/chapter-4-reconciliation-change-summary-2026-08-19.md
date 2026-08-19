@@ -1,7 +1,7 @@
 # Chapter 4 Reconciliation — One-Page Change Summary
 
-Date: 2026-08-19  
-Prepared for: Iris Reinhartz-Berger and Arnon Sturm  
+Date: 2026-08-19
+Prepared for: Iris Reinhartz-Berger and Arnon Sturm
 Status: **summary of proposed revisions; not a record of approval**
 
 ## Why Chapter 4 was revised
