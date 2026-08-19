@@ -1,6 +1,6 @@
 # VEGO-AI E2E Progress Report
 
-Generated: 2026-08-20 01:58 +03:00.
+Generated: 2026-08-20 02:10 +03:00.
 
 This generated report connects repo memory, curated dashboards, generated experiment summaries, Confluence outbox status, and the 4-hour update loop. Regenerate it with `.\scripts\build-e2e-progress-report.ps1`.
 
@@ -12,8 +12,8 @@ This generated report connects repo memory, curated dashboards, generated experi
 | KPIs green | 11 of 30 | [#######-------------] 37% |
 | Active work done | 21 of 50 | [########------------] 42% |
 | Executive dashboard green | 6 of 22 | [#####---------------] 27% |
-| Review verdict | unsafe | Next action: Stop and resolve protected-path or forbidden-artifact issues before continuing. |
-| Git workspace | main @ 828b8bf | 8 pending status rows |
+| Review verdict | blocked | Next action: Collect real EXP-005 labels, save and close the CSV, then rerun the review and EXP-005 downstream gate. |
+| Git workspace | main @ edf0135 | 11 pending status rows |
 
 ## E2E Evidence Snapshot
 
