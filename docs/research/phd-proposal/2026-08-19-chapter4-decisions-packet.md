@@ -1,7 +1,7 @@
 # Chapter 4 Decisions Packet — Four Items Blocking Methodology Sign-Off
 
-Prepared for: Iris Reinhartz-Berger and Arnon Sturm  
-Prepared by: Ali  
+Prepared for: Iris Reinhartz-Berger and Arnon Sturm
+Prepared by: Ali
 Status: **decision request. Nothing in this file is approved until a dated response is recorded.**
 
 ## How to use this packet
