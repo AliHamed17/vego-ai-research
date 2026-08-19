@@ -42,8 +42,7 @@ current manifest and layered contract.
 
 ### Provisional umbrella research question
 
-> How can human judgment be captured, governed, and used to support agentic-AI-driven variability
-> exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
+> How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
 
 This wording was refined from the 2026-07-30 baseline during the 2026-08-05 supervisor working call.
 The underlying record is machine-derived, and `D-RQ-01`/`D-RQ-02` remain pending. Do not present the
