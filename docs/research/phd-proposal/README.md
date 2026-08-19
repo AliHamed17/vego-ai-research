@@ -14,6 +14,17 @@ This directory turns the requirements from the 29 July 2026 supervisor call into
 6. [`iris-requirements-closure-audit.md`](./iris-requirements-closure-audit.md) — point-by-point `R/A/Q` readiness audit with call times, evidence, presentation checks, and remaining gates.
 7. [`../meetings/2026-08-05-supervisor-presentation-checklist.md`](../meetings/2026-08-05-supervisor-presentation-checklist.md) — 12-checkpoint video-call outline, full requirement coverage, decision worksheet, preflight, and closeout.
 8. [`iris-alignment-experiment-register.md`](./iris-alignment-experiment-register.md) — separate non-production assurance series for traceability, presentation readiness, claim boundaries, and weekly propagation.
+9. [`acl-2026-taxonomy-vego-ai-relevance-map-v16.md`](./acl-2026-taxonomy-vego-ai-relevance-map-v16.md) — strict source-versus-derived relevance map for the Zou et al. (ACL 2026) taxonomy, linked to the editable [Mermaid](../../visualizations/vego-ai-acl-taxonomy-map-v16.mmd) and thesis-ready [SVG](../../visualizations/vego-ai-acl-taxonomy-map-v16.svg). This is an author-generated classification for review, not an exhaustive search result or supervisor-approved taxonomy.
+
+## Current literature-taxonomy artifact
+
+The v16 ACL relevance map explicitly separates:
+
+- **five paper-level core aspects** in Zou et al. (Environment & Profiling, Human Feedback, Interaction Type, Orchestration Paradigm, Communication);
+- **four companion-repository taxonomy navigation branches** (Human Feedback, Interaction, Orchestration, Communication);
+- **six VEGO-AI-derived dimensions** marked `MISSING FROM ACL TAXONOMY`, rather than presenting them as copied source branches.
+
+It applies Iris's exact scale — `HIGHLY RELEVANT`, `LESS RELEVANT`, `NOT RELEVANT AT ALL`, and `MISSING FROM ACL TAXONOMY` — and keeps the current gates unchanged: formal QL searches are not complete, the ACL corpus disposition is incomplete, EXP-005 remains at 0/24 generalization-safe labels, medical entry remains 0/6, and the RQs remain provisional.
 
 ## Canonical working research architecture
 
@@ -23,13 +34,13 @@ _Provisional — this wording was refined live during the 2026-08-05 supervisor 
 
 How can human judgment be captured, governed, and used to support agentic-AI-driven variability exploration in guideline operationalization scenarios, enabling reliable human–AI co-reasoning?
 
-| ID | Canonical working subquestion | Study |
+| ID | Canonical working subquestion | Current recommended study artifact |
 | --- | --- | --- |
-| SQ1 — Selective intervention | When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden? | Study 1 — intervention architecture |
-| SQ2 — Governed knowledge reuse | How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority? | Study 2 — judgment lifecycle |
-| SQ3 — Evaluation and transfer | How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare? | Study 3 — evaluation and transfer |
+| SQ1 — Selective intervention | When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden? | Study 1 — attention-budget cost/coverage model |
+| SQ2 — Governed knowledge reuse | How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority? | Study 2 — normative judgment-record contract + executable conformance suite |
+| SQ3 — Evaluation and transfer | How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare? | Study 3 — transfer-eligibility decision procedure + target-context descriptor |
 
-This is the working wording pending sign-off, not a supervisor-approved wording. Alternate phrasings are wording options for the same four conceptual slots; they are not additional research questions.
+This is the working wording pending sign-off, not a supervisor-approved wording. The artifact names are the current Chapter 4 recommendations, not approved contribution claims. Alternate phrasings are wording options for the same four conceptual slots; they are not additional research questions.
 
 ## Plan A and Plan B
 
