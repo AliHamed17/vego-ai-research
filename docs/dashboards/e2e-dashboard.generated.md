@@ -1,6 +1,6 @@
 # VEGO-AI E2E Progress Report
 
-Generated: 2026-08-19 02:12 +03:00.
+Generated: 2026-08-20 01:58 +03:00.
 
 This generated report connects repo memory, curated dashboards, generated experiment summaries, Confluence outbox status, and the 4-hour update loop. Regenerate it with `.\scripts\build-e2e-progress-report.ps1`.
 
@@ -12,8 +12,8 @@ This generated report connects repo memory, curated dashboards, generated experi
 | KPIs green | 11 of 30 | [#######-------------] 37% |
 | Active work done | 21 of 50 | [########------------] 42% |
 | Executive dashboard green | 6 of 22 | [#####---------------] 27% |
-| Review verdict | blocked | Next action: Collect real EXP-005 labels, save and close the CSV, then rerun the review and EXP-005 downstream gate. |
-| Git workspace | main @ 4455138 | 12 pending status rows |
+| Review verdict | unsafe | Next action: Stop and resolve protected-path or forbidden-artifact issues before continuing. |
+| Git workspace | main @ 828b8bf | 8 pending status rows |
 
 ## E2E Evidence Snapshot
 
@@ -64,14 +64,14 @@ flowchart LR
 
 | ID | Severity | Status | Summary | Next Step |
 | --- | --- | --- | --- | --- |
+| ISS-034 | High | Open | This week's actual assignment from Iris (classify the ACL-2026 GitHub taxonomy corpus as relevant/less relevant/not relevant/missing, produce one slide) is not done in literature-review-v13. v13 instead ran nine broader search families across ACL/ACM/AAAI/PMLR/PubMed/ScienceDirect/web -- the broader search Iris explicitly deferred to after the proposal stage. | Do the narrow taxonomy classification exercise and the one slide before broadening the search further; see `docs/research/phd-proposal/literature-review-v13-workbook-verification-report.md` section D. |
+| ISS-033 | High | Open | Literature-review-v13.docx states "Current readiness score: 84/100"; the companion evidence workbook's own `Dashboard.csv` independently computes `Overall literature readiness: 36`, `Release Decision: NOT DOCTORAL-READY`, for the same evidence state. Root cause: the workbook's `Provenance.csv` still names v10, not v13, as the current authoritative review -- the two artifacts are unreconciled. | Rebuild/rebase the workbook against v13 before either artifact is shown to Iris/Arnon; reconcile or drop the 84/100 figure. See `docs/research/phd-proposal/literature-review-v13-workbook-verification-report.md` sections A and C. |
 | ISS-031 | Low | Open | This machine has two separate checkouts: the git worktree this session's shell defaults into (`.claude\worktrees\trusting-kilby-79f5d4`, an old branch missing `docs/research/phd-proposal/`, `thesis/chapters/`, and most current `issues.md`/`decisions.md` history) and the real working checkout at `C:\Users\ahamed\vego-ai` on `main`, which is where all real work happens. Two of eight parallel sub-agents in a gaps-sweep read the stale worktree and falsely concluded real files/tables "don't exist." | Always explicitly `cd` to `C:\Users\ahamed\vego-ai` before any git/file operation (this session already does); consider deleting or fast-forwarding the stale worktree; when delegating to sub-agents, pass and verify the absolute repo path rather than relying on template interpolation. |
 | ISS-030 | Low | Open | `scripts/agent-memory-finish.ps1`'s `Add-Content` calls to `session-log.md`/`revert-log.md` leave an extra trailing blank line each run, which fails CI's `git diff --check` line-ending hygiene step (caught when pushing straight to `main`; the log/archive files inherit the same issue). | Before pushing after running the finish script, check `git diff --check <base>...HEAD` and trim any new trailing blank line; ideally fix the script's here-string/Add-Content usage so it stops happening. |
 | ISS-028 | Medium | Open / fail-closed | The existing local offline ZIP contains the superseded presentation package. It is marked `STALE / INVALIDATED`, and readiness now compares the ZIP member hashes with the current PPTX, PDF, and review workbook. | Do not deliver it. Rebuild the ZIP only after the corrected package passes human rehearsal and RG-04 freeze, then refresh manifests and hashes. |
 | ISS-027 | High | Open / production portion remediated 2026-08-01 | The corrected August 5 PPTX/PDF, 21 source-note sections, 44-control appendix, review workbook, and native-render QA now exist. The prior backup is stale. Human timed and adversarial rehearsal, Ali exact-package approval, delivery, Iris/Arnon access tests, and the separately governed candidacy deck remain unproved; candidacy rules are still unverified. | Freeze the exact package after Ali review, run both dated human rehearsals, rebuild the backup, then share only with authorization and record two independent recipient access tests. |
 | ISS-026 | Medium | Open | The private Ali-owned PhD Drive and native literature Sheet exist but have not been shared, sent, or recipient-access-tested. | Ali reviews the exact package and explicitly authorizes sharing; then verify each intended recipient's access. |
 | ISS-025 | High | Blocked | The shared MIMIC resource contains 25 observed CSVs totaling 39.65 GiB versus 26 official MIMIC-III v1.4 tables; `NOTEEVENTS`, workbook authority, checksums, environment, parameters, and input-to-output provenance are unresolved. | Keep rows untouched. After all six medical gates pass, reconcile the canonical manifest inside the approved VDI. |
-| ISS-024 | High | Open | The official candidacy deadline, reviewer count, nomination process, committee rules, and presentation requirements are unverified. | Obtain written department or Graduate Studies confirmation and rebaseline within one working day if dates differ. |
-| ISS-023 | High | Blocked | Medical readiness is 0/6 mandatory entry gates: use-case, people, authorization, ethics/privacy, environment, and protocol are all open. | Name accountable owners and collect project-specific approval evidence; default to Plan B on August 26 if any critical prerequisite remains unproved. |
 
 ## Approved Claims
 
