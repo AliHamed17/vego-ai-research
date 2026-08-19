@@ -93,7 +93,7 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | 6 | Recorded disagreement, unresolved in the call: Arnon wants the review centered on HCI as a field; Iris disagrees with an HCI-as-frame approach, though HCI-venue papers that are on-topic are still in scope. | Open, no resolution recorded |
 | 7 | Hand the confirmed RQ set to an AI assistant and ask it to propose literature-review subsections based on the RQs, and a Google Scholar query per subsection. | Done, see literature-review-structure-and-queries-draft.md |
 | 8 | Each of the three subquestions must become one study, three studies leading to three eventual publications. | Done, reaffirms R-02 and the E-series — see three-study-contract.md |
-| 9 | Per RQ, state the research artifact and the methodology producing and evaluating it (design-science framing per Prof. Penina's course), plus a subsection on the two test scenarios (SE/students, medical). | Done as draft — chapter-4-research-methodology.md written 2026-08-18, includes the two-scenario subsection; not yet supervisor-approved |
+| 9 | Per RQ, state the research artifact and the methodology producing and evaluating it (design-science framing per Prof. Penina's course), plus a subsection on the two test scenarios (SE/students, medical). | Done as draft — chapter-4-research-methodology.md written 2026-08-18, revised 2026-08-19 with fully specified artifacts; not yet supervisor-approved, see chapter-4-completion-plan-2026-08-19.md |
 | 10 | Scope narrowed for the week: literature only; methodology work begins the following week, and only if literature is done well. | Supersedes item 1 |
 | 11 | Medical-track status (info only): Soroka data-access framework agreed, Ma'ayanei HaYeshua leaning schizophrenia/mental-health, Clalit meeting confirmed 2026-08-26, MIMIC has no domain expert to validate correctness so it is the explicit fallback. | Info, does not change the 0 of 6 medical gate status |
 | 12 | Iris's student Matan is building a related but distinct VEGO-AI variant, an unstructured user-correction interface with local-LLM testing (info only). | Info |
@@ -106,7 +106,7 @@ not a one-time task. Info = supervisor-side context, not an action for Ali.
 | A0812-01 | Restructure the literature review around human involvement times agentic AI, with scenarios (SE/medical) as a separate section. | Done for the course-seminar deck; the actual proposal chapter is still to write |
 | A0812-02 | Produce a Google Scholar query per literature-review subsection. | Done, draft exists, needs Ali's review — see literature-review-structure-and-queries-draft.md |
 | A0812-03 | Run QL-01 to QL-05 and answer whether the search has actually been exhaustive. | Open, blocks every literature-gap claim |
-| A0812-04 | Write the methodology chapter: artifact and method per subquestion, plus the two-scenario subsection. | Done as draft — see chapter-4-research-methodology.md (2026-08-18); not yet supervisor-approved, 7 open items flagged inside it |
+| A0812-04 | Write the methodology chapter: artifact and method per subquestion, plus the two-scenario subsection. | Done as draft — see chapter-4-research-methodology.md (2026-08-18, revised 2026-08-19); not yet supervisor-approved — 4 of the original 7 open items are now packaged as decisions in 2026-08-19-chapter4-decisions-packet.md, 1 resolved editorially, 1 turned into a resourcing request, 1 already answered by Chapter 5 |
 
 ---
 
