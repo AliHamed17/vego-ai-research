@@ -21,7 +21,8 @@ from pathlib import Path
 
 from pptx import Presentation
 
-DECK = (Path(r"C:\Users\ahamed\vego-ai\outputs\course-presentation")
+REPO = Path(__file__).resolve().parent.parent  # not a fixed path - repo runs from multiple worktrees
+DECK = (REPO / "outputs" / "course-presentation"
         / "VEGO-AI - IS Research Seminar - Final Presentation.pptx")
 
 # Phrases that assert an outcome this research cannot yet demonstrate.
@@ -40,7 +41,12 @@ FORBIDDEN = [
 ABSENCE = [
     r"\bno one\b", r"\bnobody\b", r"\bnever been\b", r"\bfirst to\b",
     r"does not exist", r"has not been (done|studied|addressed)",
-    r"\bno (study|work|research|paper|source)\b",
+    # Allow up to two intervening modifiers - "no prior study", "no existing
+    # published work" - which an earlier, tighter pattern let through. Found by
+    # the canary self-test below, not by eye.
+    r"\bno\s+(?:\w+\s+){0,2}"
+    r"(?:stud(?:y|ies)|work|research|paper|source|approach|method|system|framework|"
+    r"literature|evidence)\b",
 ]
 SCOPE_MARKERS = [
     "reviewed corpus", "reviewed work", "reviewed set", "in this work",
@@ -70,38 +76,74 @@ def slide_texts(prs):
         yield i, "\n".join(chunks), notes
 
 
+def scan(pairs):
+    """Run both checks over (slide_index, scope, text) triples."""
+    problems, warnings = [], []
+    for idx, scope, text in pairs:
+        if not text:
+            continue
+        low = text.lower()
+        for pat, label in FORBIDDEN:
+            for m in re.finditer(pat, low):
+                seg = text[max(0, m.start() - 110): m.end() + 110].replace("\n", " ")
+                segl = seg.lower()
+                neg = re.search(
+                    r"\bno\b|\bnot\b|cannot|never|without|require|excluded|unsafe|"
+                    r"\bnor\b|forbidden|do not",
+                    segl)
+                question = "?" in seg and re.search(r"how can|what |which ", segl)
+                (warnings if (neg or question) else problems).append(
+                    (idx, scope, label, seg.strip()))
+        for pat in ABSENCE:
+            for m in re.finditer(pat, low):
+                seg = text[max(0, m.start() - 200): m.end() + 200].replace("\n", " ")
+                segl = seg.lower()
+                if any(k in segl for k in SCOPE_MARKERS):
+                    continue
+                if any(k in segl for k in DISCLAIMER_MARKERS):
+                    warnings.append((idx, scope, "absence inside a disclaimer", seg.strip()))
+                    continue
+                problems.append((idx, scope, "UNSCOPED absence claim", seg.strip()))
+    return problems, warnings
+
+
+# Canaries: planted violations the guard MUST catch. If a refactor ever makes the
+# patterns too permissive, this fails loudly instead of the deck passing silently.
+CANARIES = [
+    "Our approach improves the accuracy of variability classification.",
+    "No prior study has addressed governed judgment reuse.",
+    "The layer reduces expert workload across settings.",
+    "Results demonstrate clinical performance in the target hospital.",
+]
+
+
+def self_test() -> bool:
+    ok = True
+    for i, sentence in enumerate(CANARIES, 1):
+        probs, _ = scan([(0, "canary", sentence)])
+        if not probs:
+            print(f"  !! canary {i} NOT caught: {sentence!r}")
+            ok = False
+    print(f"  self-test: {len(CANARIES)}/{len(CANARIES)} planted violations caught"
+          if ok else "  self-test FAILED")
+    return ok
+
+
 def main():
     prs = Presentation(DECK)
     problems, warnings = [], []
 
+    print("guard self-test (planted violations must be detected):")
+    if not self_test():
+        print("\n!! the guard itself is broken - fix the patterns before trusting a PASS")
+        return 2
+    print()
+
+    pairs = []
     for idx, body, notes in slide_texts(prs):
-        for scope, text in (("slide", body), ("notes", notes)):
-            if not text:
-                continue
-            low = text.lower()
-            for pat, label in FORBIDDEN:
-                for m in re.finditer(pat, low):
-                    seg = text[max(0, m.start() - 110): m.end() + 110].replace("\n", " ")
-                    segl = seg.lower()
-                    # A negated/excluded mention, or one inside a research question,
-                    # is the point being made rather than a violation of it.
-                    neg = re.search(
-                        r"\bno\b|\bnot\b|cannot|never|without|require|excluded|unsafe|"
-                        r"\bnor\b|forbidden|do not",
-                        segl)
-                    question = "?" in seg and re.search(r"how can|what |which ", segl)
-                    (warnings if (neg or question) else problems).append(
-                        (idx, scope, label, seg.strip()))
-            for pat in ABSENCE:
-                for m in re.finditer(pat, low):
-                    seg = text[max(0, m.start() - 200): m.end() + 200].replace("\n", " ")
-                    segl = seg.lower()
-                    if any(k in segl for k in SCOPE_MARKERS):
-                        continue
-                    if any(k in segl for k in DISCLAIMER_MARKERS):
-                        warnings.append((idx, scope, "absence inside a disclaimer", seg.strip()))
-                        continue
-                    problems.append((idx, scope, "UNSCOPED absence claim", seg.strip()))
+        pairs.append((idx, "slide", body))
+        pairs.append((idx, "notes", notes))
+    problems, warnings = scan(pairs)
 
     print(f"deck: {DECK.name}")
     print(f"slides: {len(prs.slides.__iter__.__self__._sldIdLst)}\n")

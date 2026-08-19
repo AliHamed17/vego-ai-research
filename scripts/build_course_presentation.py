@@ -31,7 +31,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Emu, Inches, Pt
 
-REPO = Path(r"C:\Users\ahamed\vego-ai")
+REPO = Path(__file__).resolve().parent.parent  # not a fixed path - see build_awesome_literature_index.py
 OUT_DIR = REPO / "outputs" / "course-presentation"
 FIG = OUT_DIR / "figures"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -242,408 +242,455 @@ F = json.loads((OUT_DIR / "findings.json").read_text(encoding="utf-8"))
 
 U_RQ = ("How can human judgment be captured, governed, and used to support "
         "agentic-AI-driven variability exploration in guideline operationalization "
-        "scenarios, enabling reliable human\u2013AI co-reasoning?")
+        "scenarios, enabling reliable human–AI co-reasoning?")
 
 SQS = [
-    ("SQ1", "Selective intervention",
+    ("SQ1", "When to ask",
      "When and how should an agentic assessment system request human judgment, so that "
      "important uncertainties are addressed without unnecessary expert burden?",
-     "Study 1 \u00b7 intervention architecture"),
-    ("SQ2", "Governed knowledge reuse",
-     "How should expert judgment be represented, validated, reconciled and stored so it can be "
-     "reused transparently, without unsafe generalization or loss of human authority?",
-     "Study 2 \u00b7 judgment lifecycle"),
-    ("SQ3", "Evaluation and transfer",
-     "How can reused judgment be evaluated and transferred across guideline-operationalization "
-     "contexts \u2014 what generalizes, and what must adapt?",
-     "Study 3 \u00b7 evaluation & transfer"),
+     "Study 1 · selective intervention"),
+    ("SQ2", "What to capture and govern",
+     "How should expert judgment — including the system's own reasoning — be represented, "
+     "validated, reconciled and stored so it can be reused transparently, without unsafe "
+     "generalization or loss of human authority?",
+     "Study 2 · judgment lifecycle"),
+    ("SQ3", "When to reuse and transfer",
+     "How can expert judgment be reused and transferred across guideline-operationalization "
+     "contexts — what generalizes, and what must adapt?",
+     "Study 3 · transfer and evaluation"),
 ]
 
 
 def build():
     prs = new_deck()
 
-    # ============================================================ 1 TITLE
+    # ======================================================= 1 TITLE
     s = slide(prs, dark=True)
-    card(s, Inches(0), Inches(0), W, Inches(0.06), fill=NAVY)
-    _, tf = tb(s, M, Inches(1.02), CONTENT_W, Inches(0.3))
-    para(tf, "IS RESEARCH SEMINAR  \u00b7  214.4001  \u00b7  FINAL PRESENTATION",
+    _, tf = tb(s, M, Inches(0.98), CONTENT_W, Inches(0.3))
+    para(tf, "IS RESEARCH SEMINAR  ·  214.4001  ·  FINAL PRESENTATION",
          size=12, bold=True, color=ACCENT_L, first=True)
 
-    _, tf = tb(s, M, Inches(1.52), Inches(11.4), Inches(1.5))
-    para(tf, "Not all differences matter.", size=42, bold=True, color=WHITE,
+    _, tf = tb(s, M, Inches(1.46), Inches(11.4), Inches(1.5))
+    para(tf, "Not all differences matter.", size=41, bold=True, color=WHITE,
          font=H_FONT, first=True, line=1.06)
-    para(tf, "So who decides which ones do?", size=42, bold=True, color=ACCENT_L,
+    para(tf, "So who decides which ones do?", size=41, bold=True, color=ACCENT_L,
          font=H_FONT, line=1.06)
 
-    _, tf = tb(s, M, Inches(3.16), Inches(10.9), Inches(0.5))
-    para(tf, "Human judgment in agentic-AI assessment of domain models \u2014 "
-             "a literature review guided by a question",
-         size=16.5, color=RGBColor(0xC8, 0xD6, 0xE6), first=True, line=1.2)
+    _, tf = tb(s, M, Inches(3.06), Inches(11.2), Inches(0.5))
+    para(tf, "Governed human judgment in agentic-AI variability exploration — "
+             "a structured exploratory literature review",
+         size=16, color=RGBColor(0xC8, 0xD6, 0xE6), first=True, line=1.2)
 
-    c = card(s, M, Inches(3.95), Inches(11.4), Inches(1.42), fill=NAVY_SOFT)
-    _, tf = tb(s, M + Inches(0.34), Inches(4.14), Inches(10.75), Inches(1.05))
+    card(s, M, Inches(3.78), Inches(11.4), Inches(1.40), fill=NAVY_SOFT)
+    _, tf = tb(s, M + Inches(0.34), Inches(3.96), Inches(10.75), Inches(1.05))
     para(tf, "RESEARCH QUESTION", size=10.5, bold=True, color=ACCENT_L, first=True,
          space_after=5)
-    para(tf, U_RQ, size=14.5, color=WHITE, italic=True, line=1.22)
+    para(tf, U_RQ, size=14, color=WHITE, italic=True, line=1.22)
 
-    _, tf = tb(s, M, Inches(5.72), Inches(11.4), Inches(1.1))
+    _, tf = tb(s, M, Inches(5.44), Inches(11.4), Inches(1.2))
     rich(tf, [("Ali Hamed", {"bold": True, "size": 15, "color": WHITE})], first=True,
          space_after=4)
-    para(tf, "Supervisors: Prof. Iris Reinhartz-Berger (University of Haifa)  \u00b7  "
-             "Prof. Arnon Sturm (Ben-Gurion University)",
-         size=12.5, color=RGBColor(0xA9, 0xBC, 0xD0))
-    para(tf, "Research-question wording is provisional, pending supervisor sign-off.",
-         size=11, color=RGBColor(0x7E, 0x94, 0xAC), italic=True, space_before=5)
+    para(tf, "M.Sc. Information Systems · University of Haifa", size=12.5,
+         color=RGBColor(0xA9, 0xBC, 0xD0))
+    para(tf, "Supervisors: Prof. Iris Reinhartz-Berger · Prof. Arnon Sturm",
+         size=12.5, color=RGBColor(0xA9, 0xBC, 0xD0), space_before=2)
+    para(tf, "Doctoral working draft · research-question wording provisional, "
+             "not supervisor-approved · no empirical or medical claim.",
+         size=10.5, color=RGBColor(0x7E, 0x94, 0xAC), italic=True, space_before=6)
     notes(s, """
-Open on the tension, not the tooling. Iris's own MODELS'26 paper is called "Not All
-Differences Matter" - the class saw it in week 5. My question starts one step later:
-once an agent has found a difference, WHO decides whether it is a legitimate
-alternative or an error, and how does that decision stop being thrown away?
+Open with the boundary, not a boast. This is a controlled literature review and a research
+agenda - not an empirical result.
 
-Say plainly: this is a literature review guided by a question. The wording of the
-question is still provisional.  (~50 sec)
+Then the tension: Iris's own MODELS paper is called "Not All Differences Matter" - the class
+saw her present it in week 5. My question starts one step later. Once an agent has found a
+difference, WHO decides whether it is a legitimate alternative or an error, and how does that
+decision stop being thrown away?  (~35 sec)
 """)
 
-    # ============================================================ 2 MOTIVATION
+    # ======================================================= 2 MOTIVATION
     s = slide(prs)
-    y = heading(s, "An AI can find every difference \u2014 not which ones matter",
-                eyebrow="Motivation \u00b7 the problem",
-                sub="A deviation from a reference guideline is ambiguous by nature, "
-                    "and the ambiguity is where expertise is expensive.")
+    y = heading(s, "An AI can find every difference — not which ones matter",
+                eyebrow="Motivation · the problem",
+                sub="The same structural deviation can be three different things, and only "
+                    "situated judgment separates them.")
     cw, gap = Inches(3.72), Inches(0.28)
     items = [
         ("A", "A legitimate alternative", GOOD,
-         "A different model can express the same domain meaning. Penalising it teaches the "
-         "wrong lesson."),
+         "A different representation can be valid under the same language semantics and "
+         "domain meaning. Penalising it teaches the wrong lesson."),
         ("B", "A genuine error", CRIT,
-         "The model violates the domain, or encodes a misconception that should be corrected."),
-        ("C", "A defect in the guideline", ORANGE,
-         "The reference itself is wrong or incomplete \u2014 the deviation is evidence "
-         "against the norm."),
+         "A misconception, omission, syntax violation or domain mistake that should be "
+         "corrected."),
+        ("C", "A defective guideline", ORANGE,
+         "The reference itself may be incomplete, underspecified or mismatched to the "
+         "case — the deviation is evidence against the norm."),
     ]
     for i, (letter, title, col, body) in enumerate(items):
         x = M + i * (cw + gap)
-        card(s, x, y, cw, Inches(2.72), fill=SOFT, line_col=LINE)
-        badge(s, x + Inches(0.30), y + Inches(0.32), Inches(0.50), letter, fill=col)
-        _, tf = tb(s, x + Inches(0.30), y + Inches(1.02), cw - Inches(0.60), Inches(1.5))
-        para(tf, title, size=17, bold=True, color=NAVY, font=H_FONT, first=True,
+        card(s, x, y, cw, Inches(2.62), fill=SOFT, line_col=LINE)
+        badge(s, x + Inches(0.30), y + Inches(0.30), Inches(0.50), letter, fill=col)
+        _, tf = tb(s, x + Inches(0.30), y + Inches(1.00), cw - Inches(0.60), Inches(1.5))
+        para(tf, title, size=16.5, bold=True, color=NAVY, font=H_FONT, first=True,
              space_after=8)
-        para(tf, body, size=13.5, color=MUTED, line=1.26)
+        para(tf, body, size=13, color=MUTED, line=1.26)
 
-    yb = y + Inches(3.06)
-    card(s, M, yb, CONTENT_W, Inches(1.06), fill=NAVY)
-    _, tf = tb(s, M + Inches(0.34), yb + Inches(0.2), CONTENT_W - Inches(0.68), Inches(0.72))
-    para(tf, "Telling A, B and C apart is an interpretive act, not a classification.",
-         size=17, bold=True, color=WHITE, font=H_FONT, first=True, space_after=5)
-    para(tf, "It is exactly where automated assessment is least reliable \u2014 and where "
-             "expert attention is scarcest.",
-         size=13.5, color=ACCENT_L)
+    yb = y + Inches(2.94)
+    card(s, M, yb, CONTENT_W, Inches(1.00), fill=NAVY)
+    _, tf = tb(s, M + Inches(0.34), yb + Inches(0.18), CONTENT_W - Inches(0.68), Inches(0.70))
+    para(tf, "“Human-in-the-loop” is not one problem. It is four design problems:",
+         size=16.5, bold=True, color=WHITE, font=H_FONT, first=True, space_after=5)
+    para(tf, "when to ask  ·  what to capture  ·  how to govern  ·  when to reuse",
+         size=14, color=ACCENT_L)
     notes(s, """
-Ground the problem before any technology. The same structural difference can be three
-completely different things, and only situated judgment separates them.
+Ground the problem before any technology. The same difference can be a valid alternative, a
+real error, or evidence that the guideline itself is wrong.
 
-Note the asymmetry: the AI is cheap and tireless; the expert who can resolve A/B/C is
-neither. That asymmetry is the whole thesis.  (~55 sec)
+Then the reframing that drives the whole review: human oversight is not a slogan or an
+approval button. It decomposes into four testable design problems. Those four become my
+sub-questions.  (~50 sec)
 """)
 
-    # ============================================================ 3 PUBLISHED EVIDENCE
+    # ======================================================= 3 PUBLISHED EVIDENCE
     s = slide(prs)
-    y = heading(s, "The published framework names its own need for a human",
-                eyebrow="Motivation \u00b7 evidence from the problem world",
-                sub="VEGO-AI (Reinhartz-Berger, Bragilovski & Sturm, MODELS \u201926) assesses "
-                    "domain models with four coordinated LLM agents. It works \u2014 unevenly.")
-    fit_picture(s, FIG / "04-published-profile-bare.png", M, y - Inches(0.04),
-                Inches(8.30), Inches(4.34))
+    y = heading(s, "The framework names its own need for a human",
+                eyebrow="Motivation · evidence from the problem world",
+                sub="VEGO-AI assesses domain models with four coordinated LLM agents. "
+                    "It works — unevenly, and it says so.")
+    fit_picture(s, FIG / "04-published-profile-bare.png", M, y - Inches(0.02),
+                Inches(8.30), Inches(4.20))
     x2 = M + Inches(8.52)
     cw2 = CONTENT_W - Inches(8.52)
-    card(s, x2, y - Inches(0.04), cw2, Inches(4.34), fill=SOFT, line_col=LINE)
-    _, tf = tb(s, x2 + Inches(0.26), y + Inches(0.20), cw2 - Inches(0.52), Inches(3.9))
-    para(tf, "\u03c1 = 0.22", size=34, bold=True, color=CRIT, font=H_FONT, first=True)
-    para(tf, "Spearman correlation between the Model Inspector's compliance scores and "
-             "the human grader (p = 0.007).",
-         size=12.5, color=MUTED, line=1.22, space_before=3, space_after=13)
+    card(s, x2, y - Inches(0.02), cw2, Inches(4.20), fill=SOFT, line_col=LINE)
+    _, tf = tb(s, x2 + Inches(0.26), y + Inches(0.20), cw2 - Inches(0.52), Inches(3.8))
+    para(tf, "ρ = 0.22", size=32, bold=True, color=CRIT, font=H_FONT, first=True)
+    para(tf, "Reported correlation between Model-Inspector compliance scores and the "
+             "human grader.",
+         size=12, color=MUTED, line=1.22, space_before=3, space_after=12)
     para(tf, "The paper's own future work:", size=12, bold=True, color=NAVY, space_after=5)
-    para(tf, "\u201cincorporate human-in-the-loop oversight at key pipeline stages \u2014 "
-             "guideline validation, compliance review, and variability classification\u201d",
-         size=12.5, color=NAVY, italic=True, line=1.24, space_after=12)
-    para(tf, "The need for human judgment is not my assumption. It is a published, "
-             "peer-reviewed finding \u2014 and it names the three stages.",
-         size=12.5, bold=True, color=INK, line=1.24)
-    footnote(s, "Reference values reported by the paper for its own education-domain "
-                "evaluation \u2014 engineering context, not a performance claim for this research.")
+    para(tf, "“incorporating human-in-the-loop oversight at key pipeline stages "
+             "(guideline validation, compliance review, and variability classification) "
+             "would strengthen reliability”",
+         size=12, color=NAVY, italic=True, line=1.24, space_after=11)
+    para(tf, "The need for human judgment is not my assumption. It is the framework's own "
+             "stated next step — and it names the three stages.",
+         size=12, bold=True, color=INK, line=1.24)
+    footnote(s, "Figures as reported by the paper for its own education-domain evaluation "
+                "(two domains, one institution, one LLM, two modelling languages) — "
+                "reported findings, not independently reproduced here.")
     notes(s, """
-This is the strongest motivation slide because none of it is mine. The framework's own
-authors report that uncovered-fragment auditing sits at 0.55 in both use-case settings and
-say it "may require human involvement". Agreement with the human grader is rho = 0.22 -
-weak.
+This is the strongest motivation slide because almost none of it is mine.
 
-And their future-work section names exactly the three pipeline stages where oversight is
-needed. That is my SQ1 in someone else's peer-reviewed paper.
+The framework's own authors report that uncovered-fragment auditing sits at 0.55 in both
+use-case settings, and that agreement with the human grader is weak. Then their future-work
+section names exactly the three pipeline stages where oversight is needed - which is my SQ1,
+in someone else's peer-reviewed paper.
 
-Be precise: these are THEIR numbers in THEIR setting. I am not claiming anything about my
-own performance.  (~65 sec)
+Be precise: these are THEIR numbers, in THEIR setting, reported not reproduced. I claim
+nothing about my own performance.  (~55 sec)
 """)
 
-    # ============================================================ 4 OBSERVABILITY
+    # ======================================================= 4 MEASURED EVIDENCE
     s = slide(prs)
-    y = heading(s, "I measured the same gap inside the system",
-                eyebrow="Motivation \u00b7 evidence from my own experiments",
+    y = heading(s, "The same gap is measurable inside the pipeline",
+                eyebrow="Motivation · evidence from my own instrumentation",
                 sub="Replaying the assessment pipeline as an event stream shows how little "
-                    "of its reasoning was ever reviewable.")
-    fit_picture(s, FIG / "02-observability-gap-bare.png", M, y, Inches(7.85), Inches(3.95))
-    x2 = M + Inches(8.10)
-    cw2 = CONTENT_W - Inches(8.10)
+                    "of its reasoning was ever reviewable — and that asking more often "
+                    "does not fix it.")
+    fit_picture(s, FIG / "02-observability-gap-bare.png", M, y, Inches(7.80), Inches(3.60))
+    x2 = M + Inches(8.05)
+    cw2 = CONTENT_W - Inches(8.05)
     for i, (big, lbl, col) in enumerate([
-        ("44\u00d7", "more lifecycle events occurred than the legacy queue could ever show", ACCENT),
-        ("1.35", "guideline instability rate \u2014 references were repeatedly rewritten", ORANGE),
-        ("33", "reference guidelines per setting revised with no human ever seeing them", CRIT),
+        ("44×", "more lifecycle events occurred than the legacy review queue could show",
+         ACCENT),
+        ("33", "reference guidelines per setting revised with no human ever seeing them",
+         ORANGE),
+        ("0.80+", "share of events a human must see to reach 80% high-severity coverage",
+         CRIT),
     ]):
-        cy = y + i * Inches(1.36)
-        card(s, x2, cy, cw2, Inches(1.20), fill=SOFT, line_col=LINE)
-        _, tf = tb(s, x2 + Inches(0.24), cy + Inches(0.16), cw2 - Inches(0.48), Inches(0.92))
-        para(tf, big, size=27, bold=True, color=col, font=H_FONT, first=True, space_after=2)
-        para(tf, lbl, size=11.5, color=MUTED, line=1.18)
-    footnote(s, "EXP-006 and EXP-008 \u00b7 observability evidence only. These are heterogeneous "
-                "lifecycle observations, not quality outcomes, and they support no claim about "
-                "assessment accuracy.")
+        cy = y + i * Inches(1.26)
+        card(s, x2, cy, cw2, Inches(1.10), fill=SOFT, line_col=LINE)
+        _, tf = tb(s, x2 + Inches(0.24), cy + Inches(0.14), cw2 - Inches(0.48), Inches(0.86))
+        para(tf, big, size=25, bold=True, color=col, font=H_FONT, first=True, space_after=2)
+        para(tf, lbl, size=11, color=MUTED, line=1.16)
+    footnote(s, "EXP-006/007/008 · mechanism and observability evidence only. These are "
+                "heterogeneous lifecycle observations and routing trade-offs, not quality "
+                "outcomes — they support no claim about assessment accuracy.")
     notes(s, """
 The published evaluation looks at outputs. I instrumented the process.
 
-Replaying four settings produced 481 lifecycle events; the review queue a human actually
-had could surface 11. Thirty-three reference guidelines per setting were revised without
-any human ever seeing them - the guidelines the whole assessment is measured against.
+Four settings produced 481 lifecycle events; the review queue a human actually had could
+surface 11. Thirty-three reference guidelines per setting were revised without any human
+review - and those guidelines are what every assessment is measured against.
 
-Careful framing: this says the process was largely invisible. It does NOT say the
-assessments were wrong. I have no expert labels yet.  (~60 sec)
+Then the third number, which is the real research problem: to catch 80% of high-severity
+events you must route roughly 80% of them to a person. That defeats the automation. So "add
+a human in the loop" is not yet an answer - WHICH cases, WHEN, and at what dose is open.
+
+Careful: this says the process was invisible and the trade-off is real. It does NOT say the
+assessments were wrong. I have no expert labels yet.  (~55 sec)
 """)
 
-    # ============================================================ 5 DOSAGE
+    # ======================================================= 5 BASELINE
     s = slide(prs)
-    y = heading(s, "\u2026 and simply asking the human more often does not solve it",
-                eyebrow="Motivation \u00b7 why this needs research, not engineering",
-                sub="Replaying five routing policies over those events maps the trade-off "
-                    "between expert burden and how much of the risk gets seen.")
-    fit_picture(s, FIG / "01-dosage-tradeoff-bare.png", M, y - Inches(0.06),
-                Inches(8.25), Inches(4.16))
-    x2 = M + Inches(8.48)
-    cw2 = CONTENT_W - Inches(8.48)
-    card(s, x2, y - Inches(0.06), cw2, Inches(4.16), fill=NAVY)
-    _, tf = tb(s, x2 + Inches(0.26), y + Inches(0.18), cw2 - Inches(0.52), Inches(3.7))
-    para(tf, "The dosage question", size=18, bold=True, color=WHITE, font=H_FONT,
-         first=True, space_after=10)
-    para(tf, "Review everything and automation is pointless. Review by a confidence "
-             "threshold and you inherit the model's own miscalibration.",
-         size=13, color=ACCENT_L, line=1.26, space_after=12)
-    para(tf, "No policy reached 80% coverage of high-severity events while keeping "
-             "expert burden under half.",
-         size=13.5, bold=True, color=WHITE, line=1.26, space_after=12)
-    para(tf, "That is SQ1, stated as a measurement rather than an opinion \u2014 and it is "
-             "why \u201cadd a human in the loop\u201d is not yet an answer.",
-         size=13, color=ACCENT_L, line=1.26)
-    footnote(s, "EXP-007 \u00b7 design/mechanism evidence for coverage-versus-burden trade-offs "
-                "only. No effort-reduction or accuracy claim is made or implied.")
+    y = heading(s, "Where judgment would enter the pipeline",
+                eyebrow="Research context · the VEGO-AI baseline",
+                sub="Four coordinated agents. The review asks what a governed human-judgment "
+                    "layer around them would have to do.")
+    agents = [
+        ("Language Advisor", "language template · metamodel semantics",
+         "language-rule ambiguity"),
+        ("Domain Advisor", "reference guidelines · valid alternatives",
+         "guideline mapping, scope"),
+        ("Model Inspector", "case assessment · uncovered fragments",
+         "disputed compliance"),
+        ("Variability Explorer", "recurring patterns · population view",
+         "pattern interpretation"),
+    ]
+    # Fill the band between heading and footnote instead of fixed heights, so a
+    # wrapped heading never leaves a dead strip at the bottom.
+    avail5 = (H - Inches(0.72)) - y
+    h_agent = avail5 * 0.34
+    h_need = avail5 * 0.18
+    h_bot = avail5 - h_agent - h_need - Inches(0.44)
+    aw = (CONTENT_W - Inches(0.24) * 3) / 4
+    for i, (name, does, needs) in enumerate(agents):
+        x = M + i * (aw + Inches(0.24))
+        card(s, x, y, aw, h_agent, fill=NAVY)
+        _, tf = tb(s, x + Inches(0.20), y + Inches(0.18), aw - Inches(0.40),
+                   h_agent - Inches(0.36), anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, name, size=15, bold=True, color=WHITE, font=H_FONT, first=True,
+             space_after=8, line=1.08)
+        para(tf, does, size=11, color=ACCENT_L, line=1.24)
+        cy2 = y + h_agent + Inches(0.16)
+        card(s, x, cy2, aw, h_need, fill=RGBColor(0xFD, 0xF0, 0xF0),
+             line_col=RGBColor(0xF0, 0xC8, 0xC8))
+        _, tf = tb(s, x + Inches(0.18), cy2 + Inches(0.06), aw - Inches(0.36),
+                   h_need - Inches(0.12), anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, needs, size=11, bold=True, color=CRIT, first=True, line=1.14)
+
+    yb = y + h_agent + h_need + Inches(0.44)
+    lw = (CONTENT_W - Inches(0.24)) / 2
+    card(s, M, yb, lw, h_bot, fill=SOFT, line_col=LINE)
+    _, tf = tb(s, M + Inches(0.26), yb + Inches(0.18), lw - Inches(0.52), h_bot - Inches(0.36))
+    para(tf, "Reported as working", size=13, bold=True, color=GOOD, font=H_FONT,
+         first=True, space_after=6)
+    para(tf, "Modular separation of language and domain concerns; reasonably stable "
+             "templates and guidelines in the reported settings.",
+         size=11.5, color=MUTED, line=1.2)
+    card(s, M + lw + Inches(0.24), yb, lw, h_bot, fill=RGBColor(0xFD, 0xF0, 0xF0),
+         line_col=RGBColor(0xF0, 0xC8, 0xC8))
+    _, tf = tb(s, M + lw + Inches(0.50), yb + Inches(0.18), lw - Inches(0.52),
+               h_bot - Inches(0.36))
+    para(tf, "Not established", size=13, bold=True, color=CRIT, font=H_FONT, first=True,
+         space_after=6)
+    para(tf, "No general correctness across institutions, LLMs or domains; no validated "
+             "reusable human-judgment mechanism; no healthcare readiness.",
+         size=11.5, color=MUTED, line=1.2)
     notes(s, """
-This is the slide that turns a design intuition into a research question.
+Brief research context, not a product demo. Four agents, each producing something a human
+might need to rule on - the red boxes are the insertion points.
 
-Five routing policies, replayed. To catch all high-severity events you must send 75-93%
-of them to a person - which defeats the automation. Hold burden under 50% and coverage
-falls to 0.54-0.73. The target region in the corner is empty.
-
-So "put a human in the loop" is not an answer; WHICH cases, WHEN, and at what dose is an
-open problem. Hence SQ1.  (~60 sec)
+Then the honest split at the bottom. What the manuscript reports as working, and what is
+simply not established. I am building on their foundation, not claiming their results as
+mine - and I am not an author of that paper.  (~50 sec)
 """)
 
-    # ============================================================ 6 RESEARCH QUESTION
+    # ======================================================= 6 RESEARCH QUESTION
     s = slide(prs, dark=True)
     y = heading(s, "The research question", eyebrow="What I am asking", dark=True)
-    c = card(s, M, y + Inches(0.06), CONTENT_W, Inches(1.52), fill=NAVY_SOFT)
-    _, tf = tb(s, M + Inches(0.4), y + Inches(0.30), CONTENT_W - Inches(0.8), Inches(1.1))
-    para(tf, U_RQ, size=20, color=WHITE, font=H_FONT, italic=True, first=True, line=1.24)
+    card(s, M, y + Inches(0.10), CONTENT_W, Inches(1.46), fill=NAVY_SOFT)
+    _, tf = tb(s, M + Inches(0.4), y + Inches(0.34), CONTENT_W - Inches(0.8), Inches(1.05))
+    para(tf, U_RQ, size=19.5, color=WHITE, font=H_FONT, italic=True, first=True, line=1.24)
 
     y2 = y + Inches(1.86)
     cw3, gap3 = Inches(3.86), Inches(0.24)
     commitments = [
         ("It names the task, not the solution",
-         "The object of study is variability exploration in guideline operationalization \u2014 "
+         "The object of study is variability exploration in guideline operationalization — "
          "not a particular agent architecture."),
-        ("Reuse is deliberately not in the headline",
+        ("It is narrower than “human–AI collaboration”",
+         "Intervention and reuse must attach to a real decision unit: a guideline mapping, "
+         "a fragment classification, a pattern."),
+        ("Reuse is not assumed in the headline",
          "Whether captured judgment may be reused is a governed, testable concern for the "
-         "sub-questions \u2014 not an assumption."),
-        ("\u201cReliable\u201d is the retained quality target",
-         "Earlier drafts also carried auditable, transferable and end-to-end; those are "
-         "sub-question or artifact properties."),
+         "sub-questions — not a premise."),
     ]
     for i, (t, b) in enumerate(commitments):
         x = M + i * (cw3 + gap3)
-        card(s, x, y2, cw3, Inches(1.92), fill=NAVY_SOFT)
-        _, tf = tb(s, x + Inches(0.26), y2 + Inches(0.24), cw3 - Inches(0.52), Inches(1.5))
-        para(tf, t, size=14.5, bold=True, color=ACCENT_L, font=H_FONT, first=True,
+        card(s, x, y2, cw3, Inches(1.86), fill=NAVY_SOFT)
+        _, tf = tb(s, x + Inches(0.26), y2 + Inches(0.22), cw3 - Inches(0.52), Inches(1.44))
+        para(tf, t, size=14, bold=True, color=ACCENT_L, font=H_FONT, first=True,
              space_after=7, line=1.14)
-        para(tf, b, size=12.5, color=RGBColor(0xBF, 0xCE, 0xDE), line=1.24)
-    footnote(s, "Wording refined with both supervisors and still provisional \u2014 two points "
-                "remain open: \u201cexploration\u201d versus \u201cidentification and "
-                "classification\u201d, and \u201chuman\u201d versus \u201cexpert\u201d judgment.",
+        para(tf, b, size=12, color=RGBColor(0xBF, 0xCE, 0xDE), line=1.24)
+    footnote(s, "Drafting baseline, not supervisor-approved wording. D-RQ-01/D-RQ-02 remain "
+                "open, along with “exploration” versus “identification and "
+                "classification” and “human” versus “expert” judgment.",
              dark=True)
     notes(s, """
-Read the question once, slowly.
+Read the question once, slowly. Then the three decisions behind its wording, because this
+course cares about how a question is built.
 
-Then the three design decisions behind its wording, because the course cares about how a
-question is built. It names the task not the solution; it keeps "reuse" out of the
-headline so that reuse stays something I test rather than assume; and it keeps "reliable"
-as the single quality target.
+It names the task not the solution. It is deliberately narrower than "human-AI collaboration"
+- it has to attach to a real decision unit. And it keeps reuse OUT of the headline, so reuse
+stays something I test rather than assume.
 
-Be honest that the wording is still provisional - two specific words are unresolved.
-(~65 sec)
+Be honest that the wording is still provisional; two specific words are unresolved.  (~45 sec)
 """)
 
-    # ============================================================ 7 SUB-QUESTIONS
+    # ======================================================= 7 SUB-QUESTIONS
     s = slide(prs)
-    y = heading(s, "Three derived questions \u2014 which become three studies",
+    y = heading(s, "Three derived questions — which become three studies",
                 eyebrow="Derived set of questions",
-                sub="Each sub-question owns one stage of the lifecycle: when to ask, "
-                    "what to keep, and where it may travel.")
-    ch = Inches(1.34)
+                sub="Each sub-question owns one stage: when to ask, what to keep and govern, "
+                    "and where a ruling may travel.")
+    ch = Inches(1.32)
     for i, (key, title, body, study) in enumerate(SQS):
-        cy = y + i * (ch + Inches(0.20))
+        cy = y + i * (ch + Inches(0.18))
         card(s, M, cy, CONTENT_W, ch, fill=SOFT, line_col=LINE)
-        badge(s, M + Inches(0.30), cy + Inches(0.30), Inches(0.62), key, size=14)
-        _, tf = tb(s, M + Inches(1.14), cy + Inches(0.20), Inches(7.55), Inches(1.0))
-        para(tf, title, size=17, bold=True, color=NAVY, font=H_FONT, first=True, space_after=5)
-        para(tf, body, size=12.5, color=MUTED, line=1.22)
-        card(s, M + Inches(8.92), cy + Inches(0.26), Inches(3.02), Inches(0.82),
+        badge(s, M + Inches(0.30), cy + Inches(0.28), Inches(0.60), key, size=14)
+        _, tf = tb(s, M + Inches(1.12), cy + Inches(0.18), Inches(7.5), Inches(1.0))
+        para(tf, title, size=16, bold=True, color=NAVY, font=H_FONT, first=True, space_after=5)
+        para(tf, body, size=12, color=MUTED, line=1.22)
+        card(s, M + Inches(8.86), cy + Inches(0.24), Inches(3.08), Inches(0.84),
              fill=ACCENT_L)
-        _, tf = tb(s, M + Inches(9.06), cy + Inches(0.40), Inches(2.76), Inches(0.6),
+        _, tf = tb(s, M + Inches(9.00), cy + Inches(0.38), Inches(2.80), Inches(0.58),
                    anchor=MSO_ANCHOR.MIDDLE)
         para(tf, study, size=12.5, bold=True, color=NAVY, first=True, line=1.16)
-    footnote(s, "The questions are deliberately domain-neutral. Software/modelling and "
-                "healthcare are instantiation contexts for evaluation \u2014 they are not "
-                "part of the questions themselves.")
+    footnote(s, "Separating the studies prevents one small label set from being treated as "
+                "evidence for intervention policy, representation validity and transfer at "
+                "once. The umbrella question is answered only after they integrate.")
     notes(s, """
-Three sub-questions, and each one has to become a study with its own artifact and its own
-method - that is the structure my supervisors asked for, and it maps onto the design-science
-framing from this course.
+Three sub-questions, and each has to become a study with its own artifact, comparator and
+falsification criterion - that is the structure my supervisors asked for, and it maps onto
+the design-science framing from this course.
 
-SQ1 when to ask. SQ2 what to keep and under what governance. SQ3 how to evaluate it and
-what transfers.
+The footnote matters: separating them is a methodological safeguard. Otherwise the same
+twenty-odd expert labels get reused as evidence for everything, which would be indefensible.
 
-Stress the last line: the questions are domain-neutral. Software engineering and medicine
-are where I will test them, not what they are about.  (~55 sec)
+Say it plainly: the questions are domain-neutral. Software engineering and medicine are where
+I would test them, not what they are about.  (~55 sec)
 """)
 
-    # ============================================================ 8 METHOD
+    # ======================================================= 8 METHOD
     s = slide(prs)
-    y = heading(s, "How the review is being done",
+    y = heading(s, "How the review was done",
                 eyebrow="Method",
-                sub="A structured, exploratory review: protocol first, then searching, "
-                    "screening, extraction and synthesis \u2014 recorded so it can be repeated.")
-    body_h = (H - Inches(0.70)) - y
-    left_w = Inches(7.15)
-    card(s, M, y, left_w, body_h, fill=SOFT, line_col=LINE)
-    _, tf = tb(s, M + Inches(0.30), y + Inches(0.24), left_w - Inches(0.60), Inches(3.5))
+                sub="A structured exploratory review with systematic controls — organised "
+                    "by concepts, not by paper summaries.")
+    left_w = Inches(7.05)
+    card(s, M, y, left_w, Inches(3.86), fill=SOFT, line_col=LINE)
+    _, tf = tb(s, M + Inches(0.30), y + Inches(0.22), left_w - Inches(0.60), Inches(3.45))
     para(tf, "Relevant research areas", size=15, bold=True, color=NAVY, font=H_FONT,
          first=True, space_after=8)
     for t, d in [
-        ("Human involvement in agentic AI \u2014 the core",
-         "any work placing human judgment inside a multi-step, tool-using AI process, "
-         "whatever the domain"),
-        ("Guideline-operationalization scenarios",
-         "assessment against an evolving reference: modelling guidelines, clinical guidelines"),
-        ("Knowledge capture, memory and reuse",
-         "how a human decision is represented, stored, retrieved and governed"),
-        ("Evaluation and validity",
-         "how human\u2013AI assessment pipelines are evaluated, and what threatens the result"),
+        ("Human involvement in agentic AI — the core",
+         "mixed initiative, levels of agency, oversight, control"),
+        ("Selective intervention",
+         "learning to defer, abstention, uncertainty, value of information, burden"),
+        ("Judgment capture and governance",
+         "reasoning capture, provenance, disagreement, authority, expiry, revocation"),
+        ("Memory, reuse and transfer",
+         "scope-aware retrieval, domain and guideline adaptation, leakage-safe evaluation"),
     ]:
         rich(tf, [(f"{t}  ", {"bold": True, "size": 12.5, "color": INK}),
                   (d, {"size": 12.5, "color": MUTED})], space_after=7, line=1.2)
-    para(tf, "Deliberately excluded from the review body: enabling technologies "
-             "(model architectures, local-inference tooling). They are engineering means, "
-             "not the problem this review must justify.",
-         size=11.5, color=MUTED, italic=True, space_before=6, line=1.2)
+    para(tf, "Deliberately outside the review body: enabling technologies (model "
+             "architectures, local-inference tooling). They are engineering means — the "
+             "review must justify the problem, not describe the solution.",
+         size=11.5, color=MUTED, italic=True, space_before=5, line=1.2)
 
     rx = M + left_w + Inches(0.26)
     rw = CONTENT_W - left_w - Inches(0.26)
-    rh_card = (body_h - Inches(0.20)) / 2
-    card(s, rx, y, rw, rh_card, fill=WHITE, line_col=LINE)
-    _, tf = tb(s, rx + Inches(0.26), y + Inches(0.20), rw - Inches(0.52), rh_card - Inches(0.36))
-    para(tf, "Sources", size=15, bold=True, color=NAVY, font=H_FONT, first=True, space_after=7)
-    para(tf, "Scopus \u00b7 ACM Digital Library \u00b7 IEEE Xplore \u00b7 SpringerLink",
-         size=12.5, color=INK, line=1.2, space_after=4)
-    para(tf, "Google Scholar and dblp for discovery, snowballing and verification.",
-         size=12, color=MUTED, line=1.2)
-
-    ry2 = y + rh_card + Inches(0.20)
-    card(s, rx, ry2, rw, rh_card, fill=WHITE, line_col=LINE)
-    _, tf = tb(s, rx + Inches(0.26), ry2 + Inches(0.20), rw - Inches(0.52), rh_card - Inches(0.36))
-    para(tf, "Screening", size=15, bold=True, color=NAVY, font=H_FONT, first=True, space_after=7)
+    card(s, rx, y, rw, Inches(1.82), fill=WHITE, line_col=LINE)
+    _, tf = tb(s, rx + Inches(0.26), y + Inches(0.18), rw - Inches(0.52), Inches(1.5))
+    para(tf, "Screening", size=14.5, bold=True, color=NAVY, font=H_FONT, first=True,
+         space_after=7)
     rich(tf, [("Include  ", {"bold": True, "size": 12, "color": GOOD}),
-              ("an explicit method, framework, artifact, empirical study or model.",
+              ("methods, frameworks, artifacts, empirical studies.",
                {"size": 12, "color": MUTED})], line=1.2, space_after=5)
     rich(tf, [("Exclude  ", {"bold": True, "size": 12, "color": CRIT}),
-              ("passing mentions of \u201chuman in the loop\u201d, product pieces, duplicates.",
-               {"size": 12, "color": MUTED})], line=1.2, space_after=5)
-    para(tf, "Every query, decision and exclusion reason is recorded.",
-         size=11.5, color=MUTED, italic=True, line=1.2)
+              ("duplicates, passing mentions, off-topic enabling tech, unverifiable sources.",
+               {"size": 12, "color": MUTED})], line=1.2)
+
+    card(s, rx, y + Inches(2.04), rw, Inches(1.82), fill=RGBColor(0xF3, 0xF8, 0xF3),
+         line_col=RGBColor(0xCC, 0xE4, 0xCC))
+    _, tf = tb(s, rx + Inches(0.26), y + Inches(2.22), rw - Inches(0.52), Inches(1.5))
+    para(tf, "GenAI disclosure", size=14.5, bold=True, color=GOOD, font=H_FONT, first=True,
+         space_after=7)
+    para(tf, "Used for organisation, synthesis drafting, diagrams and consistency checks. "
+             "Not used to approve inclusion, invent citations, or create expert labels.",
+         size=12, color=MUTED, line=1.2)
     notes(s, """
 The course asks for the search process to be explicit, so this is the honest version.
 
 Four research areas. The first is the centre of gravity, and that was a deliberate
-supervisory decision: the review is organised around human involvement in agentic AI
-generally, NOT around our specific application. The literature has to justify the problem,
-not describe my solution.
+supervisory decision: organise the review around human involvement in agentic AI generally,
+NOT around our specific application. The literature has to justify the problem, not describe
+my solution.
 
-Note what I exclude: enabling technology. Interesting, but it belongs in the methodology
-chapter, not in the review that establishes the gap.  (~65 sec)
+Note what I exclude - enabling technology. Interesting, but it belongs in the methodology
+chapter, not in the review that establishes the gap.
+
+The GenAI box is a course requirement and I would rather show it than be asked.  (~55 sec)
 """)
 
-    # ============================================================ 9 CORPUS
+    # ======================================================= 9 SEARCH STRATEGY
     s = slide(prs)
-    y = heading(s, "What the search has produced so far",
-                eyebrow="Method \u00b7 current state",
-                sub="Each source was checked against an independent record before use \u2014 "
-                    "132 of 144 confirmed, 11 partial, 1 quarantined.")
-    fit_picture(s, FIG / "03-corpus-composition-bare.png", M, y, Inches(8.15), Inches(4.10))
-    x2 = M + Inches(8.40)
-    cw2 = CONTENT_W - Inches(8.40)
-    card(s, x2, y, cw2, Inches(1.96), fill=SOFT, line_col=LINE)
-    _, tf = tb(s, x2 + Inches(0.24), y + Inches(0.20), cw2 - Inches(0.48), Inches(1.6))
-    para(tf, "Why verification came first", size=14, bold=True, color=NAVY, font=H_FONT,
-         first=True, space_after=7)
-    para(tf, "Generative tools invent plausible references. Every entry was checked against "
-             "a publisher page, DOI, dblp or arXiv record; 1 that could not be confirmed is "
-             "quarantined, not cited.",
-         size=12, color=MUTED, line=1.22)
+    y = heading(s, "Search strategy — and what has actually been executed",
+                eyebrow="Method · sources, queries and status",
+                sub="The query families are locked. Presenting them is not the same as "
+                    "claiming the formal searches have been run.")
+    avail9 = (H - Inches(0.72)) - y
+    fit_picture(s, FIG / "03-corpus-composition-bare.png", M, y, Inches(7.30), avail9)
+    x2 = M + Inches(7.55)
+    cw2 = CONTENT_W - Inches(7.55)
+    h_q = avail9 * 0.56
+    h_stat = avail9 - h_q - Inches(0.20)
+    card(s, x2, y, cw2, h_q, fill=SOFT, line_col=LINE)
+    _, tf = tb(s, x2 + Inches(0.24), y + Inches(0.20), cw2 - Inches(0.48), h_q - Inches(0.40))
+    para(tf, "Locked query family — SQ1", size=13, bold=True, color=NAVY, font=H_FONT,
+         first=True, space_after=6)
+    para(tf, "(learning to defer OR algorithmic triage OR abstention OR selective "
+             "prediction) AND (human OR expert) AND (cost OR burden OR timing OR "
+             "uncertainty OR disagreement)",
+         size=11, color=MUTED, line=1.24, space_after=8)
+    para(tf, "Sources: Scopus · ACM DL · IEEE Xplore · SpringerLink · "
+             "Web of Science.  Scholar and dblp for discovery, snowballing and verification.",
+         size=11, color=MUTED, line=1.24)
 
-    card(s, x2, y + Inches(2.16), cw2, Inches(1.94), fill=RGBColor(0xFD, 0xF0, 0xF0),
+    card(s, x2, y + h_q + Inches(0.20), cw2, h_stat, fill=RGBColor(0xFD, 0xF0, 0xF0),
          line_col=RGBColor(0xF0, 0xC8, 0xC8))
-    _, tf = tb(s, x2 + Inches(0.24), y + Inches(2.36), cw2 - Inches(0.48), Inches(1.58))
-    para(tf, "What this is not", size=14, bold=True, color=CRIT, font=H_FONT, first=True,
-         space_after=7)
-    para(tf, "The five frozen protocol queries have not yet been executed. This is what has "
-             "been found and read \u2014 it is not evidence that nothing else exists.",
-         size=12, color=MUTED, line=1.22)
+    _, tf = tb(s, x2 + Inches(0.24), y + h_q + Inches(0.36), cw2 - Inches(0.48),
+               h_stat - Inches(0.36))
+    para(tf, "Execution status", size=13, bold=True, color=CRIT, font=H_FONT, first=True,
+         space_after=6)
+    rich(tf, [("QL-01–QL-05:  ", {"size": 12, "color": MUTED}),
+              ("0 of 5 executed", {"bold": True, "size": 12, "color": CRIT})],
+         line=1.22, space_after=4)
+    para(tf, "20 RQ-anchor mappings verified (5 per question); evidence maturity 14 full-text "
+             "+ 6 record-level. This is what has been found and read — not evidence that "
+             "nothing else exists.",
+         size=11, color=MUTED, line=1.22)
     notes(s, """
-144 sources, tagged to the question they serve.
+This is the CL7 search-strategy requirement, answered without pretending.
 
-Two things I want to be explicit about. First, verification: this corpus was built with
-AI assistance, and the single biggest risk there is fabricated citations - so every entry
-was checked against an independent record, and the one that could not be confirmed sits in
-quarantine rather than in the review.
+The query families are locked and registered - I can show you the exact strings. The sources
+are named. But the formal database searches have NOT been executed: zero of five.
 
-Second, and more important scientifically: the frozen protocol searches have NOT been run
-yet. So I can say what I have read. I cannot yet say what does not exist. Every gap on the
-next slides is stated within that limit.  (~65 sec)
+So what IS the evidence base? Twenty anchor mappings, five per research question, each
+bibliographically verified; fourteen at full text, six at record level.
+
+That means I can say what I have read. I cannot say what does not exist. Every gap on the
+next slides is stated inside that limit - and I will say so again when I get there.  (~50 sec)
 """)
 
-    # ============================================================ 10 STREAMS
+    # ======================================================= 10 STREAMS
     s = slide(prs)
-    y = heading(s, F["streams_title"], eyebrow="Initial findings \u00b7 research streams",
+    y = heading(s, F["streams_title"], eyebrow="Findings · research streams",
                 sub=F["streams_sub"])
     rows = F["streams"]
     cols, gapx, gapy = 3, Inches(0.22), Inches(0.18)
     cw4 = (CONTENT_W - gapx * (cols - 1)) / cols
-    # Fill the space between the heading and the footnote rather than assuming a
-    # fixed card height - the heading grows when a title or subtitle wraps.
     avail = (H - Inches(0.78)) - y
     chh = (avail - gapy) / 2
     for i, r in enumerate(rows):
@@ -654,7 +701,7 @@ next slides is stated within that limit.  (~65 sec)
         _, tf = tb(s, cx + Inches(0.68), cy + Inches(0.18), cw4 - Inches(0.92), Inches(0.40),
                    anchor=MSO_ANCHOR.MIDDLE)
         rich(tf, [(r["name"], {"bold": True, "size": 12.5, "color": NAVY, "font": H_FONT}),
-                  ("   " + r["count"], {"bold": True, "size": 11.5, "color": ACCENT})],
+                  ("   " + r["count"], {"bold": True, "size": 11, "color": ACCENT})],
              first=True, line=1.06)
         _, tf = tb(s, cx + Inches(0.22), cy + Inches(0.66), cw4 - Inches(0.44), Inches(1.5))
         para(tf, r["establishes"], size=10, color=MUTED, line=1.16, first=True,
@@ -664,9 +711,9 @@ next slides is stated within that limit.  (~65 sec)
     footnote(s, F["streams_foot"])
     notes(s, F["streams_notes"])
 
-    # ============================================================ 11 FRAMEWORK
+    # ======================================================= 11 FRAMEWORK
     s = slide(prs)
-    y = heading(s, F["framework_name"], eyebrow="Initial findings \u00b7 analysis framework",
+    y = heading(s, F["framework_name"], eyebrow="Findings · classification framework",
                 sub=F["framework_sub"])
     avail_h = (H - Inches(0.86)) - y
     fig_w = Inches(8.45)
@@ -674,9 +721,7 @@ next slides is stated within that limit.  (~65 sec)
     px = M + fig_w + Inches(0.22)
     pw = CONTENT_W - fig_w - Inches(0.22)
     _, tf = tb(s, px, y, pw, Inches(0.28))
-    para(tf, "THREE CEILINGS", size=11, bold=True, color=CRIT, first=True)
-    # Divide whatever height is left between the three cards, so a longer heading
-    # never pushes their text past the card edge.
+    para(tf, "WHAT THE COLUMNS REVEAL", size=11, bold=True, color=CRIT, first=True)
     top = y + Inches(0.36)
     gap_c = Inches(0.16)
     ch = ((H - Inches(0.86)) - top - gap_c * 2) / 3
@@ -689,281 +734,399 @@ next slides is stated within that limit.  (~65 sec)
     footnote(s, F["framework_foot"])
     notes(s, F["framework_notes"])
 
-    # ============================================================ 12 GAPS
+    # ======================================================= 12 GAPS
     s = slide(prs)
     y = heading(s, "What the framework makes visible",
-                eyebrow="Initial findings \u00b7 identified gaps",
-                sub="Each gap below is a thin or empty region of the matrix \u2014 stated as a "
-                    "boundary of the reviewed corpus, not as a proven absence.")
+                eyebrow="Findings · identified gaps",
+                sub="Each gap is a thin or empty region of the matrix, paired with the "
+                    "artifact hypothesised to close it.")
     _, tf = tb(s, M, y, CONTENT_W, Inches(0.30))
     para(tf, F["gaps_scope"], size=13, bold=True, color=CRIT, font=H_FONT, first=True)
-    y += Inches(0.38)
-    gaps = F["gaps"][:4]
-    gh = Inches(0.94)
+    y += Inches(0.40)
+    gaps = F["gaps"]
+    gh = (H - Inches(0.86) - y - Inches(0.10) * (len(gaps) - 1)) / len(gaps)
     for i, g in enumerate(gaps):
-        gy = y + i * (gh + Inches(0.16))
+        gy = y + i * (gh + Inches(0.10))
         core = g["severity"] == "core"
-        card(s, M, gy, CONTENT_W, gh, fill=SOFT if not core else ACCENT_L,
-             line_col=LINE if not core else ACCENT)
-        badge(s, M + Inches(0.26), gy + Inches(0.22), Inches(0.50), g["id"],
-              fill=ACCENT if core else MUTED, size=12)
-        _, tf = tb(s, M + Inches(0.96), gy + Inches(0.15), Inches(8.6), Inches(0.68))
-        para(tf, g["statement"], size=14, bold=True, color=NAVY, font=H_FONT, first=True,
-             space_after=3, line=1.14)
-        para(tf, g["evidence_basis"], size=11.5, color=MUTED, line=1.16)
-        _, tf = tb(s, M + Inches(9.72), gy + Inches(0.28), Inches(2.3), Inches(0.42),
+        card(s, M, gy, CONTENT_W, gh, fill=ACCENT_L if core else SOFT,
+             line_col=ACCENT if core else LINE)
+        badge(s, M + Inches(0.24), gy + Inches(0.14), Inches(0.40), g["id"],
+              fill=ACCENT if core else MUTED, size=11)
+        _, tf = tb(s, M + Inches(0.82), gy + Inches(0.10), Inches(3.30), gh - Inches(0.20),
                    anchor=MSO_ANCHOR.MIDDLE)
-        para(tf, g["which_sq"], size=12, bold=True, color=ACCENT if core else MUTED,
-             first=True, align=PP_ALIGN.RIGHT)
-    footnote(s, "Gaps emerge from the findings, and are stated within the reviewed corpus. "
-                "Executing the frozen protocol searches is the next step, and may confirm, "
-                "narrow or remove any of them.")
+        para(tf, g["statement"], size=12.5, bold=True, color=NAVY, font=H_FONT, first=True,
+             line=1.12)
+        _, tf = tb(s, M + Inches(4.24), gy + Inches(0.10), Inches(4.55), gh - Inches(0.20),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, g["evidence_basis"], size=9.5, color=MUTED, first=True, line=1.14)
+        _, tf = tb(s, M + Inches(8.95), gy + Inches(0.10), Inches(3.05), gh - Inches(0.20),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, g["which_sq"], size=10, bold=True, color=ACCENT if core else MUTED,
+             first=True, line=1.14)
+    footnote(s, "C1–C6 are design and research-contribution hypotheses. They may be called "
+                "implemented only when the artifact exists and passes tests, and empirically "
+                "beneficial only after independent evaluation.")
     notes(s, F["gaps_notes"])
 
-    # ============================================================ 13 DIRECTION
-    s = slide(prs)
-    y = heading(s, "The gap this research takes on",
-                eyebrow="Conclusion \u00b7 direction and contribution",
-                sub=None)
-    card(s, M, y, CONTENT_W, Inches(1.66), fill=NAVY)
-    _, tf = tb(s, M + Inches(0.34), y + Inches(0.22), CONTENT_W - Inches(0.68), Inches(1.28))
-    para(tf, F["chosen_gap"], size=17, bold=True, color=WHITE, font=H_FONT, first=True,
-         line=1.2, space_after=6)
-    para(tf, F["chosen_gap_why"], size=12.5, color=ACCENT_L, line=1.22)
+    # ======================================================= 13 DIRECTION
+    s = slide(prs, dark=True)
+    y = heading(s, "The gap is integration — and here is what would falsify it",
+                eyebrow="Conclusion · direction and hard gates", dark=True)
+    card(s, M, y, CONTENT_W, Inches(1.50), fill=NAVY_SOFT)
+    _, tf = tb(s, M + Inches(0.32), y + Inches(0.18), CONTENT_W - Inches(0.64), Inches(1.18))
+    para(tf, F["chosen_gap"], size=15.5, bold=True, color=WHITE, font=H_FONT, first=True,
+         line=1.16, space_after=5)
+    para(tf, F["chosen_gap_why"], size=11, color=ACCENT_L, line=1.20)
 
-    y2 = y + Inches(1.90)
-    cw5, gap5 = Inches(3.86), Inches(0.24)
-    blocks = [
-        ("Environment", "Expert review is scarce; the meaning of a deviation is contextual; "
-                        "and reference guidelines drift without human review.", MUTED),
-        ("Artifact", "A selective-intervention policy plus a governed, provenance-preserving "
-                     "judgment lifecycle around agentic assessment.", ACCENT),
-        ("Evaluation", "Assessment quality, consistency, traceability, expert effort \u2014 "
-                       "then what transfers to a second guideline context.", ORANGE),
+    y2 = y + Inches(1.70)
+    steps = [
+        ("1", "Finalize RQ terminology", "supervisor decision log; D-RQ-01/02"),
+        ("2", "Execute the locked searches", "QL-01–QL-05, currently 0 of 5"),
+        ("3", "Collect independent expert labels", "EXP-005 at 0/24; ≥20 targeted"),
+        ("4", "Evaluate SQ1 and SQ2 first", "burden, traceability, same-domain reuse"),
+        ("5", "Then transfer, frozen-store", "matched control + blind target labels"),
+        ("6", "Medical only after gates", "readiness 0/6; Plan B stays software"),
     ]
-    for i, (t, b, col) in enumerate(blocks):
-        x = M + i * (cw5 + gap5)
-        card(s, x, y2, cw5, Inches(1.80), fill=SOFT, line_col=LINE)
-        _, tf = tb(s, x + Inches(0.26), y2 + Inches(0.24), cw5 - Inches(0.52), Inches(1.36))
-        para(tf, t.upper(), size=11, bold=True, color=col, first=True, space_after=6)
-        para(tf, b, size=12.5, color=MUTED, line=1.24)
+    sw = (CONTENT_W - Inches(0.22) * 2) / 3
+    sh_ = Inches(1.06)
+    for i, (n, t, b) in enumerate(steps):
+        x = M + (i % 3) * (sw + Inches(0.22))
+        cy = y2 + (i // 3) * (sh_ + Inches(0.18))
+        card(s, x, cy, sw, sh_, fill=NAVY_SOFT)
+        badge(s, x + Inches(0.20), cy + Inches(0.18), Inches(0.36), n, fill=ACCENT, size=11)
+        _, tf = tb(s, x + Inches(0.66), cy + Inches(0.14), sw - Inches(0.86), Inches(0.80))
+        para(tf, t, size=12.5, bold=True, color=WHITE, font=H_FONT, first=True,
+             space_after=3, line=1.1)
+        para(tf, b, size=10.5, color=RGBColor(0xBF, 0xCE, 0xDE), line=1.16)
 
-    y3 = y2 + Inches(2.04)
-    card(s, M, y3, CONTENT_W, Inches(1.02), fill=RGBColor(0xFD, 0xF0, 0xF0),
-         line_col=RGBColor(0xF0, 0xC8, 0xC8))
-    _, tf = tb(s, M + Inches(0.34), y3 + Inches(0.18), CONTENT_W - Inches(0.68), Inches(0.72))
-    para(tf, "What I cannot claim yet", size=13, bold=True, color=CRIT, first=True,
-         space_after=4)
-    para(tf, "No accuracy improvement, no reduction in expert effort, no safe generalization "
-             "and no clinical performance. Those require independent expert labels "
-             "(currently 0 of 24) and the executed searches \u2014 both are next, not done.",
-         size=12.5, color=MUTED, line=1.2)
+    yb = y2 + 2 * (sh_ + Inches(0.18)) + Inches(0.06)
+    _, tf = tb(s, M, yb, CONTENT_W, Inches(0.62))
+    para(tf, "Human judgment should be requested selectively, captured with its reasoning, "
+             "governed as a contestable lifecycle object, reused only as scoped advice, and "
+             "evaluated across a frozen leakage boundary.",
+         size=12.5, bold=True, color=ACCENT_L, first=True, line=1.22)
+    para(tf, "Thank you — questions welcome.", size=13, bold=True, color=WHITE,
+         space_before=8)
     notes(s, """
 Pull it together. The gap I take is the connected one - not "when to ask", not "what to
-store", but the fact that these are studied separately and the handover between them is
+store", but the fact that these are studied separately and the handovers between them are
 where the open questions live.
 
-Then the design-science shape this course gave me: environment, artifact, evaluation.
+Then the gates, in order, because a research agenda without gates is a wish list. Note that
+three of the six are hard blockers I do not control: the wording decision, the labels, and
+medical governance.
 
-End on the boundary slide deliberately. Being explicit about what I cannot yet claim is
-what makes the rest of it credible - and it defines exactly what the evaluation has to
-deliver.  (~60 sec)
+Close on the design thesis sentence. That is the one sentence I want them to remember.
+(~55 sec)
 """)
 
-    # ============================================================ 14 CLOSE
-    s = slide(prs, dark=True)
-    _, tf = tb(s, M, Inches(1.30), Inches(11.5), Inches(1.2))
-    para(tf, "Where this goes next", size=32, bold=True, color=WHITE, font=H_FONT, first=True)
-    steps = [
-        ("1", "Execute the frozen searches", "Run the protocol queries per subsection, "
-         "screen, and let the evidence confirm or correct these gaps."),
-        ("2", "Populate the extraction matrix", "One row per included work, so the framework "
-         "is filled by evidence rather than by expectation."),
-        ("3", "Turn each question into a study", "Artifact and method per sub-question \u2014 "
-         "the design-science structure this course sets out."),
-    ]
-    for i, (num, t, b) in enumerate(steps):
-        cy = Inches(2.62) + i * Inches(1.26)
-        badge(s, M, cy, Inches(0.52), num, fill=ACCENT)
-        _, tf = tb(s, M + Inches(0.86), cy - Inches(0.02), Inches(11.0), Inches(1.0))
-        para(tf, t, size=17, bold=True, color=WHITE, font=H_FONT, first=True, space_after=4)
-        para(tf, b, size=13, color=RGBColor(0xBF, 0xCE, 0xDE), line=1.2)
-    _, tf = tb(s, M, Inches(6.52), Inches(11.5), Inches(0.5))
-    para(tf, "Thank you \u2014 questions welcome.", size=15, bold=True, color=ACCENT_L,
-         first=True)
-    notes(s, """
-Three next steps, in order. Run the searches. Fill the matrix. Turn each question into a
-study with an artifact and a method.
-
-Close by naming the honest state: I have a verified corpus, a framework, and candidate
-gaps. What I do not yet have is the executed protocol - and that is the immediate next
-piece of work.  (~40 sec)
-""")
-
-    # ============================================================ BACKUP
+    # ======================================================= BACKUP 1
     s = slide(prs)
-    y = heading(s, "This work as design science",
-                eyebrow="Backup · Hevner's three cycles",
-                sub="Design science requires bidirectional grounding in a real environment "
-                    "and a knowledge base, connected by an iterating design cycle (CL1–CL2).")
-    body_h = (H - Inches(0.70)) - y
-    cw6, gap6 = Inches(3.72), Inches(0.24)
-    cycles = [
-        ("RELEVANCE CYCLE", ACCENT,
-         "Environment",
-         "Expert review is scarce and scarce attention must be spent well; deviation "
-         "meaning is contextual; reference guidelines drift unseen (EXP-006/008)."),
-        ("DESIGN CYCLE", ORANGE,
-         "Build → evaluate → iterate",
-         "An escalation trigger conditioned on a persistent, scope-bounded judgment "
-         "record (G1) — built and evaluated per sub-question, per the study contract."),
-        ("RIGOR CYCLE", GOOD,
-         "Knowledge base",
-         "144 verified sources organised into six streams and the Judgment Lifecycle "
-         "Grid — itself a candidate addition back to the knowledge base."),
-    ]
-    for i, (label, col, t, b) in enumerate(cycles):
-        x = M + i * (cw6 + gap6)
-        card(s, x, y, cw6, body_h, fill=SOFT, line_col=LINE)
-        _, tf = tb(s, x + Inches(0.26), y + Inches(0.22), cw6 - Inches(0.52), body_h - Inches(0.4))
-        para(tf, label, size=10.5, bold=True, color=col, first=True, space_after=10)
-        para(tf, t, size=15, bold=True, color=NAVY, font=H_FONT, space_after=8, line=1.15)
-        para(tf, b, size=12, color=MUTED, line=1.28)
-    footnote(s, "Hevner & March (2003); Hevner et al. (2004), as presented in CL1–CL2.")
+    y = heading(s, "Exact provisional wording and construct boundaries",
+                eyebrow="Backup · terminology",
+                sub="Preserved verbatim so the wording can be challenged precisely.")
+    lw = (CONTENT_W - Inches(0.26)) / 2
+    card(s, M, y, lw, Inches(3.94), fill=SOFT, line_col=LINE)
+    _, tf = tb(s, M + Inches(0.26), y + Inches(0.20), lw - Inches(0.52), Inches(3.55))
+    para(tf, "Provisional questions", size=14.5, bold=True, color=NAVY, font=H_FONT,
+         first=True, space_after=8)
+    rich(tf, [("U-RQ  ", {"bold": True, "size": 11.5, "color": ACCENT}),
+              (U_RQ, {"size": 11, "color": MUTED})], line=1.18, space_after=7)
+    for key, _t, body, _s in SQS:
+        rich(tf, [(f"{key}  ", {"bold": True, "size": 11.5, "color": ACCENT}),
+                  (body, {"size": 11, "color": MUTED})], line=1.18, space_after=7)
+
+    rx = M + lw + Inches(0.26)
+    card(s, rx, y, lw, Inches(3.94), fill=WHITE, line_col=LINE)
+    _, tf = tb(s, rx + Inches(0.26), y + Inches(0.20), lw - Inches(0.52), Inches(3.55))
+    para(tf, "Construct boundaries", size=14.5, bold=True, color=NAVY, font=H_FONT,
+         first=True, space_after=8)
+    for t, d in [
+        ("Human judgment", "a context-bound assessment, correction, rationale or policy "
+                           "decision by an authorized person — not a label."),
+        ("Expert judgment", "authority tied to domain, language, pedagogical or governance "
+                            "competence; partial and contestable."),
+        ("Substantial variability", "a contextually justified alternative consistent with "
+                                    "language semantics and domain logic."),
+        ("Occasional variability", "an error, misconception or non-compliance — the term "
+                                   "does not mean rare, which is a construct-validity problem "
+                                   "flagged as G6."),
+        ("Reusable judgment", "a governed record retrievable under explicit scope, authority, "
+                              "version and validation conditions."),
+    ]:
+        rich(tf, [(f"{t}  ", {"bold": True, "size": 11.5, "color": INK}),
+                  (d, {"size": 11, "color": MUTED})], line=1.18, space_after=7)
     notes(s, """
-Backup slide for "how is this design science". Relevance cycle: the environment problem,
-evidenced by my own measured mechanism gaps, not just asserted. Design cycle: the artifact
-under construction, evaluated per the three-study contract. Rigor cycle: the verified
-144-source knowledge base, with the Judgment Lifecycle Grid itself as a candidate
-contribution back to that base - satisfying Guideline 4 (research contributions).
+Use if asked for exact wording, or if someone challenges the substantial/occasional
+terminology - which is a fair challenge, and it is why G6 exists.
 """)
 
+    # ======================================================= BACKUP 2
     s = slide(prs)
-    y = heading(s, "Design-science guidelines checklist",
-                eyebrow="Backup · Hevner et al. (2004), CL2",
-                sub="How the seven guidelines map onto this research, stated plainly rather "
-                    "than assumed.")
+    y = heading(s, "Evidence levels and permitted claim language",
+                eyebrow="Backup · claim discipline",
+                sub="Every statement in the review is bounded by the maturity of the evidence "
+                    "behind it.")
     rows = [
-        ("1", "Design as an artifact",
-         "An escalation-trigger policy and a governed judgment lifecycle — a method "
-         "and a model, in Hevner's terms."),
-        ("2", "Problem relevance",
-         "Motivated by the published framework's own reported need for human judgment "
-         "(ρ = 0.22) and by measured mechanism gaps in this project (EXP-006–008)."),
-        ("3", "Design evaluation",
-         "Per-study measures already specified (SQ1–SQ3); accuracy/effort/generalization "
-         "claims explicitly excluded until independently evidenced."),
-        ("4", "Research contributions",
-         "The Judgment Lifecycle Grid is a candidate contribution to the knowledge base, "
-         "not only an analysis tool for this review."),
-        ("5", "Research rigor",
-         "144 sources, each independently verified against a publisher record, DOI, "
-         "dblp or arXiv — zero fabricated citations."),
-        ("6", "Design as a search process",
-         "Six candidate gaps narrowed to one by evidence; the frozen protocol searches "
-         "are the next iteration, not a one-shot search."),
-        ("7", "Communication of research",
-         "This seminar presentation for a technical audience; three planned "
-         "publications per the study contract for the research community."),
+        ("FT-A", "Official or author-hosted full text reviewed for method, finding and "
+                 "limitation.  Current count: 14.",
+         "May support bounded detailed claims with a locator.", GOOD),
+        ("FT-B", "Substantial authoritative excerpt or repository record reviewed; full "
+                 "article not fully inspected.  Current count: 6.",
+         "May support only the directly visible claim.", ACCENT),
+        ("ID-S", "Bibliographic identity verified — title, venue, DOI or authoritative "
+                 "record checked.",
+         "Discovery and candidate relevance only.", MUTED),
+        ("AB-S", "Title or abstract screened without sufficient full-text evidence.",
+         "Search-space description only — never gap proof.", MUTED),
+        ("Synthesis", "Reasoning that integrates sources or proposes a mechanism.",
+         "Must be labelled synthesis, implication or research hypothesis.", CRIT),
     ]
-    rh = (H - Inches(0.86) - y) / len(rows)
-    for i, (num, t, b) in enumerate(rows):
+    rh = (H - Inches(0.80) - y) / len(rows)
+    for i, (lvl, defn, use, col) in enumerate(rows):
         ry = y + i * rh
-        badge(s, M, ry + Inches(0.04), Inches(0.34), num, size=11.5)
-        _, tf = tb(s, M + Inches(0.52), ry, Inches(3.0), rh, anchor=MSO_ANCHOR.MIDDLE)
-        para(tf, t, size=12.5, bold=True, color=NAVY, font=H_FONT, first=True, line=1.1)
-        _, tf = tb(s, M + Inches(3.70), ry, CONTENT_W - Inches(3.70), rh,
+        card(s, M, ry, CONTENT_W, rh - Inches(0.10), fill=SOFT, line_col=LINE)
+        _, tf = tb(s, M + Inches(0.26), ry + Inches(0.06), Inches(1.35), rh - Inches(0.22),
                    anchor=MSO_ANCHOR.MIDDLE)
-        para(tf, b, size=11.5, color=MUTED, first=True, line=1.2)
+        para(tf, lvl, size=13.5, bold=True, color=col, font=H_FONT, first=True)
+        _, tf = tb(s, M + Inches(1.75), ry + Inches(0.06), Inches(5.6), rh - Inches(0.22),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, defn, size=11, color=MUTED, first=True, line=1.16)
+        _, tf = tb(s, M + Inches(7.55), ry + Inches(0.06), Inches(4.45), rh - Inches(0.22),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, use, size=11, bold=True, color=INK, first=True, line=1.16)
     notes(s, """
-Use only if asked to justify this as design science against the specific Hevner
-guidelines. Each row names the real artifact behind it - nothing here is generic.
+This is the slide that answers "how do you know you are not overclaiming". Each claim in the
+review is tagged to the maturity of its evidence, and the permitted wording follows from
+that tag rather than from how confident I feel.
 """)
 
+    # ======================================================= BACKUP 3
     s = slide(prs)
-    y = heading(s, "Use of generative AI in preparing this work",
-                eyebrow="Backup \u00b7 required disclosure",
-                sub="Declared per the course requirement that the work state whether and how "
-                    "GenAI was used, and for what.")
-    left = Inches(6.0)
-    card(s, M, y, left, Inches(3.7), fill=SOFT, line_col=LINE)
-    _, tf = tb(s, M + Inches(0.28), y + Inches(0.22), left - Inches(0.56), Inches(3.3))
-    para(tf, "Used for", size=15, bold=True, color=GOOD, font=H_FONT, first=True, space_after=8)
-    for t in ["Brainstorming and refining the wording of the research questions.",
-              "Discovering candidate literature and drafting search-query families.",
-              "Screening support: summarising abstracts to triage relevance.",
-              "Extracting structured fields from sources into the review workbook.",
-              "Drafting and rephrasing slide text, and generating the figures from "
-              "measured result files."]:
-        para(tf, "\u2022  " + t, size=12.5, color=MUTED, line=1.22, space_after=6)
+    y = heading(s, "SQ1 — selective intervention is a resource-allocation problem",
+                eyebrow="Backup · provisional answer",
+                sub="Uncertainty alone is insufficient. Priority must also weigh consequence, "
+                    "novelty, disagreement, reuse value and burden.")
+    lw = (CONTENT_W - Inches(0.26)) / 2
+    card(s, M, y, lw, Inches(3.80), fill=SOFT, line_col=LINE)
+    _, tf = tb(s, M + Inches(0.28), y + Inches(0.22), lw - Inches(0.56), Inches(3.4))
+    para(tf, "Trigger signals", size=14.5, bold=True, color=NAVY, font=H_FONT, first=True,
+         space_after=9)
+    for t in ["Calibrated uncertainty", "Cross-agent disagreement",
+              "Novelty or coverage gap", "Consequence and policy importance",
+              "Weak underlying evidence", "Expected value of information",
+              "Reviewer burden and queue state"]:
+        para(tf, "•  " + t, size=12, color=MUTED, line=1.2, space_after=6)
 
-    rx = M + left + Inches(0.28)
-    rw = CONTENT_W - left - Inches(0.28)
-    card(s, rx, y, rw, Inches(3.7), fill=RGBColor(0xFD, 0xF0, 0xF0),
+    rx = M + lw + Inches(0.26)
+    card(s, rx, y, lw, Inches(3.80), fill=WHITE, line_col=LINE)
+    _, tf = tb(s, rx + Inches(0.28), y + Inches(0.22), lw - Inches(0.56), Inches(3.4))
+    para(tf, "Intervention modes", size=14.5, bold=True, color=NAVY, font=H_FONT, first=True,
+         space_after=9)
+    for t, d in [("Proceed and log", "low impact, familiar"),
+                 ("Focused review", "uncertain but bounded"),
+                 ("Queue or batch review", "important, not urgent"),
+                 ("Interrupt or stop", "high consequence")]:
+        rich(tf, [(f"{t}  ", {"bold": True, "size": 12, "color": INK}),
+                  (d, {"size": 12, "color": MUTED})], line=1.2, space_after=8)
+    para(tf, "Provisional answer: request judgment when the expected value of expert "
+             "information exceeds review burden and interruption risk — targeting the "
+             "smallest decision unit.",
+         size=11.5, color=NAVY, italic=True, line=1.22, space_before=6)
+    notes(s, """
+Use if asked why a confidence threshold is not enough. The point is bounded expert attention:
+a policy, not a threshold - and the priority score is a design hypothesis, not an estimated
+model.
+""")
+
+    # ======================================================= BACKUP 4
+    s = slide(prs)
+    y = heading(s, "SQ2 — a reusable judgment is not a naked label",
+                eyebrow="Backup · the governed judgment object",
+                sub="The minimum reusable unit carries its grounding, its reasoning, its "
+                    "authority and its lifecycle.")
+    fields = [
+        ("Case grounding", "artifact · fragment · guideline version · evidence locator"),
+        ("Decision trace", "system claim · confidence · concise reasoning · correction"),
+        ("Governance", "authority · scope · visibility · dissent · permission"),
+        ("Lifecycle", "validated · expired · superseded · revoked · active"),
+        ("Reuse signals", "semantic signature · counterexamples · thresholds"),
+        ("Outcome trace", "retrieval · influence · override · downstream effect"),
+    ]
+    cw6 = (CONTENT_W - Inches(0.22) * 2) / 3
+    for i, (t, d) in enumerate(fields):
+        x = M + (i % 3) * (cw6 + Inches(0.22))
+        cy = y + (i // 3) * (Inches(1.30) + Inches(0.20))
+        card(s, x, cy, cw6, Inches(1.30), fill=SOFT, line_col=LINE)
+        badge(s, x + Inches(0.22), cy + Inches(0.20), Inches(0.38), str(i + 1), size=11)
+        _, tf = tb(s, x + Inches(0.22), cy + Inches(0.70), cw6 - Inches(0.44), Inches(0.5))
+        para(tf, t, size=13, bold=True, color=NAVY, font=H_FONT, first=True, space_after=3)
+        para(tf, d, size=10.5, color=MUTED, line=1.16)
+    yb = y + 2 * Inches(1.50) + Inches(0.10)
+    card(s, M, yb, CONTENT_W, Inches(0.92), fill=NAVY)
+    _, tf = tb(s, M + Inches(0.30), yb + Inches(0.16), CONTENT_W - Inches(0.60), Inches(0.62))
+    para(tf, "Reasoning-capture rule", size=12.5, bold=True, color=ACCENT_L, first=True,
+         space_after=4)
+    para(tf, "Store the shortest sufficient decision trace — claim, evidence, rule, "
+             "uncertainty and correction. Not hidden chain-of-thought, and not unnecessary "
+             "personal data.",
+         size=12, color=WHITE, line=1.2)
+    notes(s, """
+Use if asked what "capturing judgment" actually means. The acceptance test is
+reconstruction: could an authorized reviewer who was not present rebuild why this ruling was
+made? The reasoning-capture rule at the bottom is the privacy and proportionality boundary.
+""")
+
+    # ======================================================= BACKUP 5
+    s = slide(prs)
+    y = heading(s, "SQ3 — retrieval is not permission",
+                eyebrow="Backup · transfer ladder and leakage controls",
+                sub="Reuse is advisory and scope-filtered; evidence requirements rise with "
+                    "transfer distance.")
+    ladder = [
+        ("L0", "same-case retry", "default relevance high", GOOD),
+        ("L1", "same task and domain", "advisory after scope checks", GOOD),
+        ("L2", "new task, same domain", "independent labels + holdout", ORANGE),
+        ("L3", "adjacent domain", "preregistered restricted experiment", ORANGE),
+        ("L4", "cross-domain / healthcare", "no default permission; ethics + authorization", CRIT),
+    ]
+    lh = Inches(0.66)
+    for i, (lvl, what, need, col) in enumerate(ladder):
+        cy = y + i * (lh + Inches(0.10))
+        card(s, M, cy, Inches(7.9), lh, fill=SOFT, line_col=LINE)
+        badge(s, M + Inches(0.18), cy + Inches(0.11), Inches(0.44), lvl, fill=col, size=11)
+        _, tf = tb(s, M + Inches(0.82), cy + Inches(0.06), Inches(2.9), lh - Inches(0.12),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, what, size=12.5, bold=True, color=NAVY, font=H_FONT, first=True)
+        _, tf = tb(s, M + Inches(3.85), cy + Inches(0.06), Inches(3.9), lh - Inches(0.12),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, need, size=11.5, color=MUTED, first=True, line=1.14)
+
+    rx = M + Inches(8.12)
+    rw = CONTENT_W - Inches(8.12)
+    card(s, rx, y, rw, Inches(3.70), fill=RGBColor(0xFD, 0xF0, 0xF0),
          line_col=RGBColor(0xF0, 0xC8, 0xC8))
-    _, tf = tb(s, rx + Inches(0.28), y + Inches(0.22), rw - Inches(0.56), Inches(3.3))
-    para(tf, "Not used for", size=15, bold=True, color=CRIT, font=H_FONT, first=True,
+    _, tf = tb(s, rx + Inches(0.26), y + Inches(0.20), rw - Inches(0.52), Inches(3.3))
+    para(tf, "Leakage-safe evaluation", size=14, bold=True, color=CRIT, font=H_FONT,
+         first=True, space_after=9)
+    for t in ["Frozen source store and retrieval policy",
+              "Matched no-reuse control",
+              "Independent blind target labels, set before source judgments",
+              "Store updated only after scoring",
+              "Predeclared thresholds"]:
+        para(tf, "•  " + t, size=11.5, color=MUTED, line=1.2, space_after=7)
+    notes(s, """
+Use for the transfer question. The one line to land: similarity retrieves, permission
+governs. And updating the store from target labels before evaluation would break the
+frozen-store design and void any transfer evidence - which is why it matters.
+""")
+
+    # ======================================================= BACKUP 6
+    s = slide(prs)
+    y = heading(s, "Three studies, each independently falsifiable",
+                eyebrow="Backup · research contract",
+                sub="Separate units of analysis prevent one small label set from carrying "
+                    "every claim.")
+    studies = [
+        ("Study 1 / SQ1", "Selective Human Review Orchestrator",
+         "Held-out cases, policy baselines, burden logging",
+         "Falsified by: no gain over a simpler baseline, or unacceptable burden"),
+        ("Study 2 / SQ2", "Governed Judgment Object + Contestable Store",
+         "Label-only comparator, reconstruction and lifecycle tests",
+         "Falsified by: reviewers cannot use the object, or governance cost outweighs benefit"),
+        ("Study 3 / SQ3", "Scope-Aware Retrieval Advisor + transfer classifier",
+         "Frozen store, blind labels, matched no-reuse control",
+         "Falsified by: no target benefit, or effect vanishes under blinding"),
+        ("Integrated / U-RQ", "End-to-end governed lifecycle",
+         "Human-only, AI-only and non-governed baselines",
+         "Falsified by: any load-bearing study fails, or gain is only extra human effort"),
+    ]
+    sh2 = (H - Inches(0.80) - y) / len(studies)
+    for i, (name, artifact, design, falsify) in enumerate(studies):
+        cy = y + i * sh2
+        card(s, M, cy, CONTENT_W, sh2 - Inches(0.12), fill=SOFT, line_col=LINE)
+        _, tf = tb(s, M + Inches(0.24), cy + Inches(0.08), Inches(2.05), sh2 - Inches(0.28),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, name, size=12, bold=True, color=ACCENT, font=H_FONT, first=True, line=1.12)
+        _, tf = tb(s, M + Inches(2.42), cy + Inches(0.08), Inches(3.5), sh2 - Inches(0.28),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, artifact, size=11, bold=True, color=NAVY, first=True, line=1.14)
+        _, tf = tb(s, M + Inches(6.05), cy + Inches(0.08), Inches(3.0), sh2 - Inches(0.28),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, design, size=10.5, color=MUTED, first=True, line=1.14)
+        _, tf = tb(s, M + Inches(9.20), cy + Inches(0.08), Inches(2.85), sh2 - Inches(0.28),
+                   anchor=MSO_ANCHOR.MIDDLE)
+        para(tf, falsify, size=10, color=CRIT, first=True, line=1.14)
+    notes(s, """
+Use if asked "how would you know you are wrong". Every study has a stated falsification
+condition, written before the data exists. Note also that EXP-005 alone cannot satisfy all
+three - each has its own estimand.
+""")
+
+    # ======================================================= BACKUP 7
+    s = slide(prs)
+    y = heading(s, "Design science, GenAI use, and the evidence boundary",
+                eyebrow="Backup · method and honesty controls",
+                sub="How this sits in the course's design-science frame, and exactly what is "
+                    "not being claimed.")
+    cw7 = (CONTENT_W - Inches(0.22) * 2) / 3
+    card(s, M, y, cw7, Inches(3.86), fill=SOFT, line_col=LINE)
+    _, tf = tb(s, M + Inches(0.24), y + Inches(0.20), cw7 - Inches(0.48), Inches(3.5))
+    para(tf, "Design science", size=14, bold=True, color=ACCENT, font=H_FONT, first=True,
+         space_after=9)
+    for t, d in [("Relevance", "expert review is scarce; deviation meaning is contextual; "
+                               "guidelines drift unseen"),
+                 ("Design", "selective-intervention policy + governed judgment lifecycle, "
+                            "built and evaluated per sub-question"),
+                 ("Rigor", "structured review with evidence levels; the lifecycle framework "
+                           "is itself a candidate contribution back")]:
+        rich(tf, [(f"{t}  ", {"bold": True, "size": 11.5, "color": INK}),
+                  (d, {"size": 11, "color": MUTED})], line=1.18, space_after=8)
+
+    x2 = M + cw7 + Inches(0.22)
+    card(s, x2, y, cw7, Inches(3.86), fill=RGBColor(0xF3, 0xF8, 0xF3),
+         line_col=RGBColor(0xCC, 0xE4, 0xCC))
+    _, tf = tb(s, x2 + Inches(0.24), y + Inches(0.20), cw7 - Inches(0.48), Inches(3.5))
+    para(tf, "GenAI — used for", size=14, bold=True, color=GOOD, font=H_FONT, first=True,
          space_after=8)
-    for t in ["Generating citations. Every reference was verified against a publisher page, "
-              "DOI, dblp or arXiv record; unverifiable entries are quarantined.",
-              "Deciding the research questions or the message of the review.",
-              "Designing the analysis framework \u2014 that is the conceptual work.",
-              "Determining gaps. A model reports what exists, not what is missing; gaps come "
-              "from the framework and remain provisional until the searches run."]:
-        para(tf, "\u2022  " + t, size=12.5, color=MUTED, line=1.22, space_after=6)
-    notes(s, """
-Backup slide, but I am happy to show it. The course was explicit about both the disclosure
-requirement and the specific danger - that models invent citations and cannot tell you what
-is absent.
+    for t in ["Literature organisation", "Synthesis drafting", "Diagram production",
+              "Consistency checks", "Document layout"]:
+        para(tf, "•  " + t, size=11.5, color=MUTED, line=1.18, space_after=5)
+    para(tf, "Not used for", size=13, bold=True, color=CRIT, space_before=8, space_after=6)
+    for t in ["Approving inclusion decisions", "Inventing citations",
+              "Creating expert labels", "Claiming supervisor approval"]:
+        para(tf, "•  " + t, size=11.5, color=MUTED, line=1.18, space_after=5)
 
-So: assistance with discovery, screening, extraction and drafting. Not with deciding the
-message, designing the framework, or asserting gaps. And every citation independently
-verified.
-""")
-
-    s = slide(prs)
-    y = heading(s, "Evidence boundary held throughout",
-                eyebrow="Backup \u00b7 what is and is not claimed",
-                sub="Separating what the current work can demonstrate from what still "
-                    "requires independent evidence.")
-    lw = (CONTENT_W - Inches(0.28)) / 2
-    card(s, M, y, lw, Inches(3.5), fill=SOFT, line_col=LINE)
-    _, tf = tb(s, M + Inches(0.28), y + Inches(0.22), lw - Inches(0.56), Inches(3.1))
-    para(tf, "Can be stated (mechanism / observability)", size=14.5, bold=True, color=GOOD,
-         font=H_FONT, first=True, space_after=9)
-    for t in ["481 lifecycle events reconstructed against a legacy queue of 11.",
-              "Guideline instability measured at 1.35; 33 guidelines per setting never reviewed.",
-              "Coverage-versus-burden frontier mapped across five routing policies.",
-              "The protected baseline is unchanged \u2014 0 of 27 classifications altered."]:
-        para(tf, "\u2022  " + t, size=12.5, color=MUTED, line=1.22, space_after=7)
-
-    rx = M + lw + Inches(0.28)
-    card(s, rx, y, lw, Inches(3.5), fill=RGBColor(0xFD, 0xF0, 0xF0),
+    x3 = x2 + cw7 + Inches(0.22)
+    card(s, x3, y, cw7, Inches(3.86), fill=RGBColor(0xFD, 0xF0, 0xF0),
          line_col=RGBColor(0xF0, 0xC8, 0xC8))
-    _, tf = tb(s, rx + Inches(0.28), y + Inches(0.22), lw - Inches(0.56), Inches(3.1))
-    para(tf, "Not claimed \u2014 requires evidence that does not exist yet", size=14.5,
-         bold=True, color=CRIT, font=H_FONT, first=True, space_after=9)
-    for t in ["No claim of improved assessment accuracy \u2014 0 of 24 generalization-safe "
-              "expert labels are validated.",
-              "No claim of reduced expert workload.",
-              "No claim of safe generalization or transfer across contexts.",
-              "No claim of any kind about clinical performance.",
-              "No claim that the literature holds no prior solution \u2014 the protocol "
+    _, tf = tb(s, x3 + Inches(0.24), y + Inches(0.20), cw7 - Inches(0.48), Inches(3.5))
+    para(tf, "Not claimed", size=14, bold=True, color=CRIT, font=H_FONT, first=True,
+         space_after=9)
+    for t in ["No improvement in assessment accuracy — expert labels stand at 0 of 24.",
+              "No reduction in expert workload.",
+              "No safe generalization or transfer.",
+              "Nothing about clinical performance — medical readiness 0 of 6.",
+              "No claim that the literature holds no prior solution — the formal "
               "searches are not yet executed."]:
-        para(tf, "\u2022  " + t, size=12.5, color=MUTED, line=1.22, space_after=7)
+        para(tf, "•  " + t, size=11, color=MUTED, line=1.18, space_after=7)
     notes(s, """
-This is the slide I would use if someone asks "so does it work?".
+The slide I would use if someone asks "so does it work?" or "how much of this did AI write?".
 
-The honest answer: I can show the mechanism and the observability, and I can show the
-trade-off. I cannot show quality, effort or transfer, because that needs independent expert
-labels and I have none validated yet.
+Honest answer to the first: I can show mechanism and observability and the trade-off. I
+cannot show quality, effort or transfer, because that needs independent expert labels and I
+have none validated.
 
-Stating that boundary is not weakness - it is what makes the eventual evaluation meaningful.
+Honest answer to the second: AI helped organise, draft and draw. It did not decide what to
+include, invent a citation, or create a label. Stating that boundary is what makes the rest
+credible.
 """)
 
     prs.save(DECK)
+    n = len(prs.slides._sldIdLst)
     print(f"saved: {DECK}")
-    print(f"slides: {len(prs.slides.__iter__.__self__._sldIdLst)}")
+    print(f"slides: {n}  (13 presented + 7 backup)")
+    assert n <= 20, f"deck exceeds the 20-slide limit: {n}"
     return DECK
 
 
