@@ -2,6 +2,15 @@
 
 Chronological prompt history for Codex and Claude.
 
+## 2026-08-20 - ChatGPT - Direct repair of external Literature Workbook v11 to audited v12
+
+- Request: Ali asked to fix the external Downloads workbook `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx` directly against `docs/research/phd-proposal/literature-review-v16-workbook-v11-verification-report.md`, preserve its hand-maintained four-sheet structure and formatting, repair G6/maturity/arithmetic/source/ranking defects, and update project memory.
+- Actions taken: Confirmed no workbook generator exists in the repository; imported and edited the actual `.xlsx` directly with `artifact_tool`. Added G6 to `RQ` and `RQ2` as a construct-risk/open-decision row; re-derived FT-A/FT-B labels from accessible full sources (Bansal retained FT-A; Kulesza, Aamodt & Plaza in both sheets, NIST SP 800-162, and Schünemann set FT-A); replaced the PDF-unresolved Raykar core anchor with Aroyo & Welty and recorded the anchor revision; corrected EXP-008 from `1.35` to `33/26 = 1.269 (~1.27)`; corrected RES-2/RES-3 citations to `chapter-4-research-methodology.md` and the 2026-08-18 decisions entry; replaced pseudo-numeric priority scores with transparent editorial-priority labels; narrowed ACL disposition and global-score wording; preserved current provisional RQs and separate v15 candidate wording.
+- Repository changes: Corrected the inherited EXP-008 arithmetic in `docs/research/phd-proposal/chapter-5-preliminary-results.md`; added `docs/research/phd-proposal/literature-review-v16-workbook-v11-follow-up-v12.md`; updated ISS-036 as workbook-side remediated and ISS-038 as unchanged/open in `docs/agent-memory/issues.md`.
+- Validation: Re-imported the exported workbook; four sheets preserved; five anchors per RQ; no formula errors; G6 found in RQ and RQ2; Aamodt maturity consistent across RQ2/RQ3; EXP-008 arithmetic independently recomputed; corrected resourcing sources reopened and checked; all four sheets rendered and visually inspected; shifted merged rows repaired after first render.
+- Result: External output `/mnt/data/VEGO-AI_Literature_Workbook_RQ_Only_Organized_v12_Audit_Fixed.xlsx`, SHA-256 `0f5d9c2b328485477ae114e2a585ceb9c74984c9072a3e8aa468cd96e20d598d`. Workbook-side audit findings are repaired. PDF v16 was deliberately not modified; PDF scorecard, bibliography, and remaining cross-artifact consistency require the paired PDF pass. Formal searches remain 0/5, EXP-005 0/24, medical gates 0/6, and PR #20 remains open.
+- Rollback: The workbook is external and the v11 input is preserved unchanged. Revert repository commits affecting `chapter-5-preliminary-results.md`, the follow-up report, `issues.md`, and this memory entry to undo repo-side documentation; delete the v12 external output to withdraw the workbook repair.
+
 ## 2026-08-20 - Claude - Strict 70-agent audit of Literature Review v16 + Workbook v11; bilingual requirements-landing-page prompt
 
 - Request: User supplied two new Downloads files (`VEGO_AI_Literature_Review_v16_GitHub_Synchronized_45_Page_2026-08-19.pdf`, `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx`) and asked for a validated, verified, "strict review and score" using literature-review-methods expertise. Separately asked for a bilingual (Hebrew/English) Claude prompt to design and build a requirements landing page.
@@ -61,7 +70,7 @@ Chronological prompt history for Codex and Claude.
 
 ## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
 
-- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason \u2014 full report of gaps and what's already done, per the requirements.
+- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason — full report of gaps and what's already done, per the requirements.
 - Actions taken:
   - Ran an 8-way parallel sweep (Workflow) across every gap-tracking source: the 44-control master traceability register, the IRIS-EXP validator (structure/readiness/closure modes), EXP-005 evaluation gate, medical-readiness scorecard, issues.md/decisions.md, literature/thesis scope, Confluence sync, and the external-fact/candidacy register
   - Discovered a real bug: a template-variable substitution issue caused every sub-agent's prompt to literally contain 'repo undefined'; 6 of 8 agents self-corrected to the real main checkout, 2 (medical-readiness, issues-and-decisions) instead read a second, stale git worktree on this machine and falsely concluded real files/tables don't exist -- discarded those 2 sweeps and rebuilt those sections from my own direct reads
