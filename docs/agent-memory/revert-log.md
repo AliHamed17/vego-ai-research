@@ -2,6 +2,13 @@
 
 Record file changes and rollback notes here.
 
+## 2026-08-20 - ChatGPT - Direct repair of external Literature Workbook v11 to v12
+
+- External file added: `/mnt/data/VEGO-AI_Literature_Workbook_RQ_Only_Organized_v12_Audit_Fixed.xlsx` plus SHA-256 and local verification report; original v11 workbook preserved unchanged.
+- Repository files updated: `docs/research/phd-proposal/chapter-5-preliminary-results.md` (EXP-008 33/26 arithmetic corrected to 1.269/~1.27), `docs/research/phd-proposal/literature-review-v16-workbook-v11-follow-up-v12.md` (workbook-side repair verification), `docs/agent-memory/issues.md` (ISS-036 workbook-side remediated; ISS-038 unchanged/open), `docs/agent-memory/session-log.md`, and this revert log.
+- Workbook changes: added G6 to RQ and RQ2 as a construct-risk/open-decision row; re-derived shared FT-A/FT-B labels; replaced the unresolved Raykar anchor with Aroyo & Welty; corrected EXP-008 arithmetic; corrected RES-2/RES-3 citations; relabeled pseudo priority scores as editorial priorities; narrowed ACL disposition and readiness language; preserved four sheets, formulas, current provisional RQs, and separate v15 candidate wording.
+- Rollback note: delete the v12 external workbook, checksum, and local verification report to withdraw the spreadsheet output. Revert the repository commits touching Chapter 5, the follow-up report, issues, session log, and this entry to restore the previous tracked documentation. The paired Literature Review v16 PDF was not changed by this task and has a separate repair path.
+
 ## 2026-08-19 - Claude - CL7 deck rebuild, literature awesome-list reorg, PR #19/#20 CI fixes, branch backup
 
 - Files added: `literature/README.md` (regenerated), `literature/bibliography.bib`, `scripts/build_awesome_literature_index.py`, `outputs/course-presentation/speaking-script-he.md`.
@@ -75,7 +82,7 @@ Record file changes and rollback notes here.
   - tests and protected-change authorization
   - docs/research/h-layer/program-status-snapshot-v1.json
   - thesis evidence HTML, DOCX, manifests, and appendix
-- Rollback note: Revert the final focused commits in reverse order; baseline Agent 4 outputs were never modified.
+- Rollback note: Revert commits after f704239 in reverse order; baseline Agent 4 outputs were never modified.
 - Git commit: none recorded by script.
 
 ## 2026-07-25 22:53 +03:00 - Codex - Close exact-head unified runtime review gaps
