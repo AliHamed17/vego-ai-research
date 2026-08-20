@@ -42,10 +42,11 @@ instruction not to select or silently tune a default, and not as a recommended o
 
 EXP-008 mines the same stream for triggers that were unstable (guideline definitions later
 revised) but never reviewed at the time — 33 such candidates against 26 final guideline
-definitions, an instability rate of 1.35. A capture-share sweep shows a capped review budget of 30
-transactions surfaces 90.9% of them; every threshold tested at 1 or above surfaces all 33. This
-bounds how large an early-trigger review queue would need to be to catch this class of case in
-this corpus; it is not a claim that catching them improves downstream assessment quality.
+definitions, an instability rate of 33/26 = 1.269 (approximately 1.27). A capture-share sweep shows
+a capped review budget of 30 transactions surfaces 90.9% of them; every threshold tested at 1 or
+above surfaces all 33. This bounds how large an early-trigger review queue would need to be to catch
+this class of case in this corpus; it is not a claim that catching them improves downstream
+assessment quality.
 
 ## 5.3 Governed-lifecycle conformance evidence (Study 2 / SQ2)
 
