@@ -10432,7 +10432,7 @@
       "direction": "target",
       "confidenceInterval": null,
       "sourcePath": "docs/research/hardening/security-posture-snapshot-v1.json",
-      "sourceSha256": "f71691db188c83df1886096ff6f9db7fb4f05e95371361c40dfc5247202c9015",
+      "sourceSha256": "927c5c5c6b57d559a4bdf3120ef463d741cc1118560eff0599ec28e2899f2bf8",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-26",
       "cohortHash": null,
@@ -80157,7 +80157,7 @@
     {
       "id": "security-posture",
       "path": "docs/research/hardening/security-posture-snapshot-v1.json",
-      "sha256": "f71691db188c83df1886096ff6f9db7fb4f05e95371361c40dfc5247202c9015",
+      "sha256": "927c5c5c6b57d559a4bdf3120ef463d741cc1118560eff0599ec28e2899f2bf8",
       "role": "Reproducible security and privacy status"
     },
     {
