@@ -87,6 +87,13 @@ docs/video1638342429.mp4
 docs/audio1638342429.m4a
 docs/video1638342429.transcript.he.*
 docs/video1638342429.transcript.en.*
+
+# Private meeting-evidence packages: source media, raw ASR, translated
+# transcripts, screen captures, and exact URL ledgers never belong in Git.
+private-evidence/
+docs/research/meetings/private/
+docs/research/meetings/*-raw-transcript.*
+docs/research/meetings/*-screen-evidence.*
 docs/chat1638342429.txt
 docs/recording1638342429.conf
 
