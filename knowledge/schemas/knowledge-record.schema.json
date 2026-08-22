@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["record_id", "project", "classification", "source_kind", "source_ref", "sha256", "summary", "review_state"],
+  "properties": {
+    "classification": {"enum": ["public", "internal", "restricted", "secret"]},
+    "sha256": {"pattern": "^[a-f0-9]{64}$"}
+  }
+}
