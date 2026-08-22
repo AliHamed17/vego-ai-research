@@ -1,0 +1,11 @@
+{
+  "classification": "internal",
+  "project": "vego-ai",
+  "publish_target": "local",
+  "record_id": "K-416a0639dbf0",
+  "review_state": "pending_human_review",
+  "sha256": "416a0639dbf0d696493132f6f8246c199c3ed6906a35584e699891f27dc5d1a7",
+  "source_kind": "governance_document",
+  "source_ref": "file:milestone-workflow-rules.md",
+  "summary": "# Milestone Workflow Rules (Claude \u2194 Codex \u2194 ChatGPT) Standing rules for VEGO-AI human\u2013AI co-reasoning milestone work. Set after M1/M2/M3 landed on `main` without reviewable PRs because automation fast-forwarded `main`. ## Roles - **Claude** \u2014 primary feature/milestone implementation agent. - **Codex** \u2014 infrastructure, review, documentation, and gap-filling agent. - **ChatGPT** \u2014 research orchestrator and architecture reviewer (approves merges to `main`). ## Branch / PR discipline - Milestone C"
+}
