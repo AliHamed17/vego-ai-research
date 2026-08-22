@@ -135,3 +135,9 @@ desktop.ini
 knowledge/inbox/
 knowledge/index/
 knowledge/config/local.*
+
+# Obsidian Secondary Brain vaults must never be tracked, even if a user tries
+# to place one beneath a checkout (the initializer rejects that placement too).
+private_archive/
+vault.sqlite
+Obsidian Notes/
