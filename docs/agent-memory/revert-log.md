@@ -38,104 +38,6 @@ Record file changes and rollback notes here.
 - Git branch: `feature/evaluation-phase` created and active.
 - Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
 
-## 2026-07-24 20:24 +03:00 - Codex - Thesis accuracy-evidence advancement package
-
-- Files changed:
-  - docs/research/thesis-evidence/**
-  - experiments/EXP-019-* through EXP-027-*
-  - thesis/chapters/**
-  - thesis/output/VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-24.docx
-  - VEGO-AI-Thesis-Baseline-Progress.html
-  - scripts/build_thesis_*
-  - schemas/*.schema.json
-- Rollback note: All changes are documentation, experiment planning, validation, or shareable artifacts. Revert this change set; no protected runtime path, Agent 4 behavior, baseline output, or expert label was modified.
-- Git commit: none recorded by script.
-
-## 2026-07-24 22:28 +03:00 - Codex - Thesis evidence release finalization
-
-- Files changed:
-  - schemas/** and schema examples
-  - scripts/build_thesis_*.py, validators, tests, and CI workflow
-  - experiments/EXP-019-* through EXP-027-* and thesis chapters
-  - VEGO-AI-Thesis-Baseline-Progress.html and thesis/output/*.docx
-  - docs/research/thesis-evidence/**, research hub, gallery, and visualization catalog
-  - docs/agent-memory/**, docs/PROGRESS_TRACKER.md, and .gitignore
-- Rollback note: Revert the focused branch commits or the final squash commit to remove the thesis evidence package. Local ignored PDF, page renders, delivery manifest, and share copies may be deleted separately. No protected runtime, Agent 4, baseline output, or expert-label file was changed.
-- Git commit: none recorded by script.
-
-## 2026-07-25 16:08 +03:00 - Codex - Unified runtime, security hardening, and thesis release
-
-- Files changed:
-  - src/vego_hlayer/**
-  - VEGO-AI/framework human-review M1-M4B-1 files only
-  - scripts/** hardening, validation, manifest, and document tooling
-  - docs/research/** and docs/agent-memory/**
-  - thesis/**, VEGO-AI-Thesis-Baseline-Progress.html, .github/workflows/**
-- Rollback note: Revert the focused commits from the feature branch; legacy remains the default and baseline artifacts are unchanged.
-- Git commit: none recorded by script.
-
-## 2026-07-25 22:17 +03:00 - Codex - Unified runtime final review and release hardening
-
-- Files changed:
-  - VEGO-AI/framework/llm_client.py
-  - src/vego_hlayer/adapters.py
-  - tests and protected-change authorization
-  - docs/research/h-layer/program-status-snapshot-v1.json
-  - thesis evidence HTML, DOCX, manifests, and appendix
-- Rollback note: Revert commits after f704239 in reverse order; baseline Agent 4 outputs were never modified.
-- Git commit: none recorded by script.
-
-## 2026-07-25 22:53 +03:00 - Codex - Close exact-head unified runtime review gaps
-
-- Files changed:
-  - VEGO-AI/framework/hlayer_architecture.py and focused regression test
-  - src/vego_hlayer/runtime.py and offline parity regression
-  - scripts/security_audit.py and history regression
-  - configs/protected-change-authorization-v1.json
-  - thesis evidence HTML, figures, DOCX, and manifests
-  - docs/agent-memory current state, progress, issues, session and revert logs
-- Rollback note: Revert commits after f704239 in reverse order; tracked package and runtime hardening roll back together. Local ignored PDF, page renders, and share copies may be removed separately. Agent 4 and baseline outputs were never changed.
-- Git commit: none recorded by script.
-
-## 2026-07-25 23:17 +03:00 - Codex - Close final PR review gaps and republish verified thesis package
-
-- Files changed:
-  - src/vego_hlayer/io_safety.py
-  - src/vego_hlayer/adapters.py
-  - scripts/security_audit.py
-  - scripts/tests/test_security_audit.py
-  - tests/hlayer_offline/test_io_safety.py
-  - tests/hlayer_offline/test_unified_runtime.py
-  - docs/research/thesis-evidence/*
-  - docs/research/hardening/release-manifest-v3.json
-  - VEGO-AI-Thesis-Baseline-Progress.html
-  - thesis/output/VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.docx
-- Rollback note: Revert commits 0c2fcbb, e301ef0, and 7a65266 to remove this final review wave and its regenerated package metadata; ignored PDF and share copies can be deleted independently.
-- Git commit: none recorded by script.
-
-## 2026-07-25 23:35 +03:00 - Codex - Bind external authorization trust and transactional CLI publication
-
-- Files changed:
-  - .github/workflows/supervisor-package.yml
-  - scripts/check_hlayer_change_authorization.py
-  - scripts/run_hlayer_architecture.py
-  - scripts/tests/test_change_authorization.py
-  - scripts/tests/test_hlayer_architecture_cli.py
-  - docs/research/thesis-evidence/*
-  - docs/research/hardening/release-manifest-v3.json
-  - VEGO-AI-Thesis-Baseline-Progress.html
-  - thesis/output/VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.docx
-- Rollback note: Revert commits 78c7442, bc9522f, and 951c68d; unset local Git config vego.hlayerAuthorizationSha256 and repository variable H_LAYER_AUTHORIZATION_SHA256 if abandoning this authorization trust mechanism.
-- Git commit: none recorded by script.
-
-## 2026-07-25 23:50 +03:00 - Codex - Repair clone-safe authorization integration tests
-
-- Files changed:
-  - scripts/tests/test_hlayer_hardening.py
-  - docs/research/hardening/release-manifest-v3.json
-- Rollback note: Revert commits 4b46b2e and d9f0c44 to remove the clone-safe test fixture and its release hash refresh.
-- Git commit: none recorded by script.
-
 ## 2026-07-26 00:31 +03:00 - Codex - Exact-head security review and release verification
 
 - Files changed:
@@ -512,4 +414,24 @@ Record file changes and rollback notes here.
   - docs/research/figures/fig1-vego-ai-architecture.pdf (untracked, kept on disk)
   - outputs and presentations PDFs/ZIP (26 more files, untracked, kept on disk)
 - Rollback note: git rm --cached is non-destructive, all 27 files remain on disk and in git history; git add -f path would re-track any of them if this decision needs reversing.
+- Git commit: none recorded by script.
+
+## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
+
+- Files changed:
+  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
+  - uv.lock
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/hardening/security-posture-snapshot-v1.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/bigui/artifact-snapshot-v1.json
+  - docs/research/bigui/baseline-comparison-results-v1.json
+  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
+  - docs/research/bigui/EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - experiments/current-run-index-v1.json
+  - experiments/accepted-runs/EXP-033-EXP-033-9b351820bea6.json through EXP-040 variants
+  - VEGO-AI-Research-Hub.html
+  - VEGO-AI-Experiment-Benchmark-Report.html
+- Rollback note: git revert e44a308, 41810e0, 2e725f9, 36a36c4 in reverse order if any of these commits need to be undone; each is independently revertable.
 - Git commit: none recorded by script.

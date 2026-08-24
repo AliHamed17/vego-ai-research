@@ -1,6 +1,6 @@
 # VEGO-AI Wiki Home
 
-Generated from repository memory on 2026-08-20 02:10 +03:00.
+Generated from repository memory on 2026-08-24 16:34 +03:00.
 
 This Confluence wiki is a curated external view. The Git repository and docs/agent-memory/ remain the source of truth.
 

@@ -1,8 +1,25 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-08-20 02:10 +03:00.
+Generated from repository memory on 2026-08-24 16:34 +03:00.
 
 Showing the latest 20 session entries.
+
+## 2026-08-20 - ChatGPT - Direct repair of external Literature Workbook v11 to audited v12
+
+- Request: Ali asked to fix the external Downloads workbook `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx` directly against `docs/research/phd-proposal/literature-review-v16-workbook-v11-verification-report.md`, preserve its hand-maintained four-sheet structure and formatting, repair G6/maturity/arithmetic/source/ranking defects, and update project memory.
+- Actions taken: Confirmed no workbook generator exists in the repository; imported and edited the actual `.xlsx` directly with `artifact_tool`. Added G6 to `RQ` and `RQ2` as a construct-risk/open-decision row; re-derived FT-A/FT-B labels from accessible full sources (Bansal retained FT-A; Kulesza, Aamodt & Plaza in both sheets, NIST SP 800-162, and Schünemann set FT-A); replaced the PDF-unresolved Raykar core anchor with Aroyo & Welty and recorded the anchor revision; corrected EXP-008 from `1.35` to `33/26 = 1.269 (~1.27)`; corrected RES-2/RES-3 citations to `chapter-4-research-methodology.md` and the 2026-08-18 decisions entry; replaced pseudo-numeric priority scores with transparent editorial-priority labels; narrowed ACL disposition and global-score wording; preserved current provisional RQs and separate v15 candidate wording.
+- Repository changes: Corrected the inherited EXP-008 arithmetic in `docs/research/phd-proposal/chapter-5-preliminary-results.md`; added `docs/research/phd-proposal/literature-review-v16-workbook-v11-follow-up-v12.md`; updated ISS-036 as workbook-side remediated and ISS-038 as unchanged/open in `docs/agent-memory/issues.md`.
+- Validation: Re-imported the exported workbook; four sheets preserved; five anchors per RQ; no formula errors; G6 found in RQ and RQ2; Aamodt maturity consistent across RQ2/RQ3; EXP-008 arithmetic independently recomputed; corrected resourcing sources reopened and checked; all four sheets rendered and visually inspected; shifted merged rows repaired after first render.
+- Result: External output `/mnt/data/VEGO-AI_Literature_Workbook_RQ_Only_Organized_v12_Audit_Fixed.xlsx`, SHA-256 `0f5d9c2b328485477ae114e2a585ceb9c74984c9072a3e8aa468cd96e20d598d`. Workbook-side audit findings are repaired. PDF v16 was deliberately not modified; PDF scorecard, bibliography, and remaining cross-artifact consistency require the paired PDF pass. Formal searches remain 0/5, EXP-005 0/24, medical gates 0/6, and PR #20 remains open.
+- Rollback: The workbook is external and the v11 input is preserved unchanged. Revert repository commits affecting `chapter-5-preliminary-results.md`, the follow-up report, `issues.md`, and this memory entry to undo repo-side documentation; delete the v12 external output to withdraw the workbook repair.
+
+## 2026-08-20 - Claude - Strict 70-agent audit of Literature Review v16 + Workbook v11; bilingual requirements-landing-page prompt
+
+- Request: User supplied two new Downloads files (`VEGO_AI_Literature_Review_v16_GitHub_Synchronized_45_Page_2026-08-19[PDF omitted]`, `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx`) and asked for a validated, verified, "strict review and score" using literature-review-methods expertise. Separately asked for a bilingual (Hebrew/English) Claude prompt to design and build a requirements landing page.
+- Actions taken: Extracted the 45-page PDF to text via pymupdf and the 4-sheet workbook to CSV (no poppler/pdftoppm on this machine, so the Read tool's page-render path didn't work; used `pymupdf`/`openpyxl` directly instead). Ran a 70-agent Workflow: 7 independent expert-lens reviews (methodology, citation integrity, cross-artifact consistency, workbook internal integrity, ground-truth alignment against this repo's real files, claim-boundary compliance, academic writing quality) each pipelined into a single-skeptic adversarial verification per finding (23 of 59 raised findings rejected), then 3 independent judges scored the release against its own 7-criterion rubric, reconciled by a synthesis agent. Wrote the full report to `docs/research/phd-proposal/literature-review-v16-workbook-v11-verification-report.md`. Separately wrote a bilingual (mirrored EN/HE) strict build-prompt to `docs/agent-memory/claude-requirements-landing-page-prompt.md`, grounded in the real structure of `iris-arnon-requirements.en.md`/`.he.md` and the existing `build_thesis_progress_visual.py`/`docs/dashboards/` conventions; not yet executed.
+- Result: Reconciled score 32/100 (judges: 28, 32, 34) vs. the document's self-reported 76/100 -- rejected as inflated and internally uncomputable. 4 critical + 17 high + 10 medium + 5 low findings confirmed, including 6 named citations (3 anchoring the central novelty argument) missing from the document's own bibliography, a 106/116 headline count contradicted by the document's own Appendix A ("Not final"), 6 inverted FT-A/FT-B labels and a missing gap G6 between the PDF and its paired workbook, and an undisclosed RQ-wording substitution (a demoted v15 candidate shown as current). Logged as ISS-036/037/038. Also found and logged (ISS-038) that PR #20 (the literature awesome-list rebuild from earlier the same night) is fully green/mergeable but was never merged -- `main`'s `literature/README.md` is still the old stub, which is why this audit's own ground-truth check against it came up empty.
+- Commands run: `pymupdf`/`fitz` text extraction, `openpyxl` CSV dump, `Workflow` (70 agents, ~6.0M subagent tokens, 1135 tool uses, run wf_96cc5736-6cc), `git commit`/`pull`/`push` (multiple rounds, syncing against a very active concurrent-session main throughout).
+- Next steps: Decide whether to merge PR #20 (ISS-038). Decide whether/how to act on the v16/v11 findings before any supervisor sees them (ISS-036/037). Decide whether to execute the requirements-landing-page prompt now or hand it to a fresh session.
 
 ## 2026-08-19 - Claude - CL7 seminar deck rebuild, literature awesome-list reorg, PR CI fixes, branch backup
 
@@ -20,42 +37,9 @@ Showing the latest 20 session entries.
 - Result: PR #19 green and mergeable. PR #20 conflict-free and CI running (Python-matrix jobs passed; `Source, security, browser, and documents` job was still queued/pending after ~4 min at last check - this project's shared Actions runners see multi-hour queue delays under concurrent-session load; not yet confirmed green). 6 branches backed up to origin. Not actioned (needs the user's own choice, not mine to pick): missing LICENSE on the now-public repo, no PR/issue templates, PR #14 (BigUI eval, 93 files, CONFLICTING) and PR #17 (Aug-12 evidence delivery, draft, 69 files, CONFLICTING) left untouched given their scale and that I didn't open them. `security-weekly.yml`'s single 2026-08-10 failure (vs. 2 surrounding successes) not yet investigated.
 - Next steps: Confirm PR #20's `Source, security, browser, and documents` job resolves green; decide with the user whether to open PRs from any of the 6 newly-backed-up branches or leave them as pure backups; optionally investigate the one `security-weekly.yml` failure; reconcile the Judgment Lifecycle Grid against Zou et al.'s taxonomy (ISS-032, still open).
 
-## 2026-08-10 18:59 +03:00 - Claude - Aug-5 call: master plan, Chapter-3 draft, literature map, repairs, full verification
-
-- Request: User: build a comprehensive plan of all Iris/Arnon requirements from the Aug-5 call, implement it step by step, verify everything, and produce bilingual reports; push all to main.
-- Actions taken:
-  - Pulled b605937 (parallel session's Aug-5 meeting record + RQ/SQ live-wording migration); found it broke 3 IRIS-EXP structure gates (EXP-01 audited-distribution counts, EXP-03 literal wording match, EXP-07 provenance revision) and multiple derived-artifact hash chains; repaired all of it
-  - Delivered the bilingual master plan (docs/research/meetings/2026-08-05-master-plan.md): complete E1-E15/A08-01..09 inventory with per-item state, P0-P7 work breakdown, 2-day timeline, risks
-  - Wrote the full Chapter-3 Gap & RQ proposal draft (docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md) around every recorded correction (E4/E8/E9/E12/E13); wordings match CANONICAL_QUESTIONS_LIVE verbatim
-  - Built the per-RQ literature map (literature/per-rq-literature-map.md): inventory + coverage-gap verdict (RQ1 thin, RQ2 tool-heavy, RQ3 empty) with realistic closing routes; updated the weekly tracker; wrote the Aug-12 walkthrough script
-  - Ran a 5-lane adversarial verification workflow over all deliverables vs the canonical record: 24 findings, all fixed (impossible timeline, EXP-005 denominator standardized to '0 supplied / 27 blind / 24 safe / >=20 gate', attribution softening per no-diarization rule, novelty-claim hedging, closing-query corrections, broken link, provenance dirty-tree escape-phrase trap)
-  - Cascade-regenerated all derived artifacts b605937 had left stale (thesis evidence snapshot/baseline, comparison results, experiment benchmark, BigUI catalog/hub, progress visual, review manifest, hardening manifests) in dependency order with correct source/package revision rebinds
-  - Wrote the bilingual final work report (docs/research/meetings/2026-08-10-work-report.md) including the six Ali-only actions before Aug 12
-- Files changed:
-  - docs/research/meetings/2026-08-05-master-plan.md
-  - docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md
-  - literature/per-rq-literature-map.md
-  - docs/research/meetings/2026-08-12-walkthrough-outline.md
-  - docs/research/meetings/2026-08-05-tracking.md
-  - docs/research/meetings/2026-08-10-work-report.md
-  - docs/research/phd-proposal/master-traceability-register.md
-  - docs/research/phd-proposal/three-study-contract.md
-  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
-  - docs/research/meetings/2026-08-05-supervisor-source-manifest.json
-  - docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json
-  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
-  - docs/research/bigui/experiment-catalog-snapshot-v1.json
-  - docs/research/hardening/release-manifest-v3.json
-- Commands/checks:
-  - uv run python scripts/validate_iris_requirements_closure.py --all --mode structure -> 10/10 PASS (including with dirty tree, after the escape-phrase hardening)
-  - uv run python -m pytest VEGO-AI/tests scripts/tests tests/hlayer_offline -> full suite green after cascade regeneration
-  - All CI --check scripts (hardening, catalog, benchmark, comparison, bigui, thesis evidence/review/progress, evidence consistency, privacy, ratchet) -> PASS
-- Status: completed
-- Next steps: Push to main and verify CI. Ali-only before Aug 12: verify final RQ wording vs saved chat (P0), share Drive (P3), replicate rq_tag column into Google Sheet, paste Chapter-3 draft into Word, check inbox for Iris's email (P6), one walkthrough dry run.
-
 ## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
 
-- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason \u2014 full report of gaps and what's already done, per the requirements.
+- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason — full report of gaps and what's already done, per the requirements.
 - Actions taken:
   - Ran an 8-way parallel sweep (Workflow) across every gap-tracking source: the 44-control master traceability register, the IRIS-EXP validator (structure/readiness/closure modes), EXP-005 evaluation gate, medical-readiness scorecard, issues.md/decisions.md, literature/thesis scope, Confluence sync, and the external-fact/candidacy register
   - Discovered a real bug: a template-variable substitution issue caused every sub-agent's prompt to literally contain 'repo undefined'; 6 of 8 agents self-corrected to the real main checkout, 2 (medical-readiness, issues-and-decisions) instead read a second, stale git worktree on this machine and falsely concluded real files/tables don't exist -- discarded those 2 sweeps and rebuilt those sections from my own direct reads
@@ -188,3 +172,37 @@ Showing the latest 20 session entries.
   - gh run view (success)
 - Status: run-project-review.ps1 verdict is blocked, expected standing EXP-005 gate only, not unsafe. CI green on main.
 - Next steps: ISS-032 dashboard generated file tracking question, same root commit, remains open and undecided, separate from the 27 files resolved here. EXP-005 0 of 24 remains the standing blocker across the whole project; requires real human expert labeling, not further automation.
+
+## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
+
+- Request: Strict scored review of 2026-08-23 doctoral proposal PDF as reviewer and orchestrator; also fix broken main CI.
+- Actions taken:
+  - Delivered strict scored review (75/100) of the 2026-08-23 consolidated doctoral proposal PDF via a 7-dimension Workflow plus manual recovery of two wrongly auto-dropped findings, cross-referenced against v13/v8/v15 verification reports.
+  - Sent doctoral-proposal-2026-08-23-strict-review.md to user via SendUserFile.
+  - Diagnosed a pre-existing broken main: pip-audit flagged pip 26.1.2 (PYSEC-2026-3721) pinned via pip_api in uv.lock; bumped to 26.2.1 with uv lock --upgrade-package pip --native-tls.
+  - Discovered the lock hash bump cascaded through build_hardening_manifests, build_bigui_run_store, build_experiment_benchmark, build_bigui_catalog, build_bigui, build_thesis_evidence_package, build_thesis_progress_visual, build_thesis_review_manifest.
+  - Regenerated the full chain iteratively to a verified fixed point: 3 stable passes with identical experiment-catalog-snapshot-v1.json SHA256, 103 accepted bundles, 932 observations, 0 safe labels unchanged.
+  - Verified all 18 CI check gates individually with real exit codes plus full 190-test pytest suite before each commit.
+  - Confirmed CI green on main (all jobs incl. merge-gate) via gh run view --json jobs, not just the watch notification.
+- Files changed:
+  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
+  - uv.lock
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/hardening/security-posture-snapshot-v1.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/bigui/artifact-snapshot-v1.json
+  - docs/research/bigui/baseline-comparison-results-v1.json
+  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
+  - docs/research/bigui/EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - experiments/current-run-index-v1.json
+  - experiments/accepted-runs/EXP-033-EXP-033-9b351820bea6.json through EXP-040 variants
+  - VEGO-AI-Research-Hub.html
+  - VEGO-AI-Experiment-Benchmark-Report.html
+- Commands/checks:
+  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
+  - uv lock --upgrade-package pip --native-tls -> pip 26.1.2 to 26.2.1
+  - uv run python -m pytest scripts/tests -q -> 190 passed 7 subtests passed
+  - gh run view 32732249579 --json jobs -> all jobs success incl merge-gate
+- Status: Completed
+- Next steps: None outstanding for this task; a concurrent session's v16 proposal and workbook v12 work (ISS-036 to 038) is separate and not yet reconciled.

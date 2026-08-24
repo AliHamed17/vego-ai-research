@@ -35,39 +35,6 @@ Chronological prompt history for Codex and Claude.
 - Result: PR #19 green and mergeable. PR #20 conflict-free and CI running (Python-matrix jobs passed; `Source, security, browser, and documents` job was still queued/pending after ~4 min at last check - this project's shared Actions runners see multi-hour queue delays under concurrent-session load; not yet confirmed green). 6 branches backed up to origin. Not actioned (needs the user's own choice, not mine to pick): missing LICENSE on the now-public repo, no PR/issue templates, PR #14 (BigUI eval, 93 files, CONFLICTING) and PR #17 (Aug-12 evidence delivery, draft, 69 files, CONFLICTING) left untouched given their scale and that I didn't open them. `security-weekly.yml`'s single 2026-08-10 failure (vs. 2 surrounding successes) not yet investigated.
 - Next steps: Confirm PR #20's `Source, security, browser, and documents` job resolves green; decide with the user whether to open PRs from any of the 6 newly-backed-up branches or leave them as pure backups; optionally investigate the one `security-weekly.yml` failure; reconcile the Judgment Lifecycle Grid against Zou et al.'s taxonomy (ISS-032, still open).
 
-## 2026-08-10 18:59 +03:00 - Claude - Aug-5 call: master plan, Chapter-3 draft, literature map, repairs, full verification
-
-- Request: User: build a comprehensive plan of all Iris/Arnon requirements from the Aug-5 call, implement it step by step, verify everything, and produce bilingual reports; push all to main.
-- Actions taken:
-  - Pulled b605937 (parallel session's Aug-5 meeting record + RQ/SQ live-wording migration); found it broke 3 IRIS-EXP structure gates (EXP-01 audited-distribution counts, EXP-03 literal wording match, EXP-07 provenance revision) and multiple derived-artifact hash chains; repaired all of it
-  - Delivered the bilingual master plan (docs/research/meetings/2026-08-05-master-plan.md): complete E1-E15/A08-01..09 inventory with per-item state, P0-P7 work breakdown, 2-day timeline, risks
-  - Wrote the full Chapter-3 Gap & RQ proposal draft (docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md) around every recorded correction (E4/E8/E9/E12/E13); wordings match CANONICAL_QUESTIONS_LIVE verbatim
-  - Built the per-RQ literature map (literature/per-rq-literature-map.md): inventory + coverage-gap verdict (RQ1 thin, RQ2 tool-heavy, RQ3 empty) with realistic closing routes; updated the weekly tracker; wrote the Aug-12 walkthrough script
-  - Ran a 5-lane adversarial verification workflow over all deliverables vs the canonical record: 24 findings, all fixed (impossible timeline, EXP-005 denominator standardized to '0 supplied / 27 blind / 24 safe / >=20 gate', attribution softening per no-diarization rule, novelty-claim hedging, closing-query corrections, broken link, provenance dirty-tree escape-phrase trap)
-  - Cascade-regenerated all derived artifacts b605937 had left stale (thesis evidence snapshot/baseline, comparison results, experiment benchmark, BigUI catalog/hub, progress visual, review manifest, hardening manifests) in dependency order with correct source/package revision rebinds
-  - Wrote the bilingual final work report (docs/research/meetings/2026-08-10-work-report.md) including the six Ali-only actions before Aug 12
-- Files changed:
-  - docs/research/meetings/2026-08-05-master-plan.md
-  - docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md
-  - literature/per-rq-literature-map.md
-  - docs/research/meetings/2026-08-12-walkthrough-outline.md
-  - docs/research/meetings/2026-08-05-tracking.md
-  - docs/research/meetings/2026-08-10-work-report.md
-  - docs/research/phd-proposal/master-traceability-register.md
-  - docs/research/phd-proposal/three-study-contract.md
-  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
-  - docs/research/meetings/2026-08-05-supervisor-source-manifest.json
-  - docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json
-  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
-  - docs/research/bigui/experiment-catalog-snapshot-v1.json
-  - docs/research/hardening/release-manifest-v3.json
-- Commands/checks:
-  - uv run python scripts/validate_iris_requirements_closure.py --all --mode structure -> 10/10 PASS (including with dirty tree, after the escape-phrase hardening)
-  - uv run python -m pytest VEGO-AI/tests scripts/tests tests/hlayer_offline -> full suite green after cascade regeneration
-  - All CI --check scripts (hardening, catalog, benchmark, comparison, bigui, thesis evidence/review/progress, evidence consistency, privacy, ratchet) -> PASS
-- Status: completed
-- Next steps: Push to main and verify CI. Ali-only before Aug 12: verify final RQ wording vs saved chat (P0), share Drive (P3), replicate rq_tag column into Google Sheet, paste Chapter-3 draft into Word, check inbox for Iris's email (P6), one walkthrough dry run.
-
 ## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
 
 - Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason — full report of gaps and what's already done, per the requirements.
@@ -203,3 +170,37 @@ Chronological prompt history for Codex and Claude.
   - gh run view (success)
 - Status: run-project-review.ps1 verdict is blocked, expected standing EXP-005 gate only, not unsafe. CI green on main.
 - Next steps: ISS-032 dashboard generated file tracking question, same root commit, remains open and undecided, separate from the 27 files resolved here. EXP-005 0 of 24 remains the standing blocker across the whole project; requires real human expert labeling, not further automation.
+
+## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
+
+- Request: Strict scored review of 2026-08-23 doctoral proposal PDF as reviewer and orchestrator; also fix broken main CI.
+- Actions taken:
+  - Delivered strict scored review (75/100) of the 2026-08-23 consolidated doctoral proposal PDF via a 7-dimension Workflow plus manual recovery of two wrongly auto-dropped findings, cross-referenced against v13/v8/v15 verification reports.
+  - Sent doctoral-proposal-2026-08-23-strict-review.md to user via SendUserFile.
+  - Diagnosed a pre-existing broken main: pip-audit flagged pip 26.1.2 (PYSEC-2026-3721) pinned via pip_api in uv.lock; bumped to 26.2.1 with uv lock --upgrade-package pip --native-tls.
+  - Discovered the lock hash bump cascaded through build_hardening_manifests, build_bigui_run_store, build_experiment_benchmark, build_bigui_catalog, build_bigui, build_thesis_evidence_package, build_thesis_progress_visual, build_thesis_review_manifest.
+  - Regenerated the full chain iteratively to a verified fixed point: 3 stable passes with identical experiment-catalog-snapshot-v1.json SHA256, 103 accepted bundles, 932 observations, 0 safe labels unchanged.
+  - Verified all 18 CI check gates individually with real exit codes plus full 190-test pytest suite before each commit.
+  - Confirmed CI green on main (all jobs incl. merge-gate) via gh run view --json jobs, not just the watch notification.
+- Files changed:
+  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
+  - uv.lock
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/hardening/security-posture-snapshot-v1.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/bigui/artifact-snapshot-v1.json
+  - docs/research/bigui/baseline-comparison-results-v1.json
+  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
+  - docs/research/bigui/EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - experiments/current-run-index-v1.json
+  - experiments/accepted-runs/EXP-033-EXP-033-9b351820bea6.json through EXP-040 variants
+  - VEGO-AI-Research-Hub.html
+  - VEGO-AI-Experiment-Benchmark-Report.html
+- Commands/checks:
+  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
+  - uv lock --upgrade-package pip --native-tls -> pip 26.1.2 to 26.2.1
+  - uv run python -m pytest scripts/tests -q -> 190 passed 7 subtests passed
+  - gh run view 32732249579 --json jobs -> all jobs success incl merge-gate
+- Status: Completed
+- Next steps: None outstanding for this task; a concurrent session's v16 proposal and workbook v12 work (ISS-036 to 038) is separate and not yet reconciled.

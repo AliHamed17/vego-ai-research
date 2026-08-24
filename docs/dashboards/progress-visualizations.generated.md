@@ -1,6 +1,6 @@
 # Progress Visualizations
 
-Generated: 2026-08-20 02:10 +03:00.
+Generated: 2026-08-24 16:34 +03:00.
 
 This generated dashboard summarizes docs/agent-memory/progress.md, docs/dashboards/progress-dashboard.md, and docs/dashboards/kpi-register.md. Regenerate it with .\scripts\build-progress-visualizations.ps1.
 
@@ -8,7 +8,7 @@ This generated dashboard summarizes docs/agent-memory/progress.md, docs/dashboar
 
 | Signal | Value | Visual |
 | --- | --- | --- |
-| Milestone completion | 74 of 84 done/green | [##################--] 88% |
+| Milestone completion | 74 of 85 done/green | [#################---] 87% |
 | KPI green rate | 11 of 30 green | [#######-------------] 37% |
 | Active work closed | 21 of 50 done | [########------------] 42% |
 | Executive snapshot green | 6 of 22 green | [#####---------------] 27% |

@@ -4911,3 +4911,36 @@ Historical entries.
   - gh run view <id> --json conclusion -> success (both the feature branch's final push and main's resulting merge commit)
 - Status: completed
 - Next steps: Deliver the 14-file supervisor package list to the user (already gathered with current hashes/sizes). Remaining pending items are unchanged: human rehearsal, EXP-005 real labels, supervisor RQ decisions, delivery/access tests -- none of these are blocked by anything fixed in this session.
+
+## 2026-08-10 18:59 +03:00 - Claude - Aug-5 call: master plan, Chapter-3 draft, literature map, repairs, full verification
+
+- Request: User: build a comprehensive plan of all Iris/Arnon requirements from the Aug-5 call, implement it step by step, verify everything, and produce bilingual reports; push all to main.
+- Actions taken:
+  - Pulled b605937 (parallel session's Aug-5 meeting record + RQ/SQ live-wording migration); found it broke 3 IRIS-EXP structure gates (EXP-01 audited-distribution counts, EXP-03 literal wording match, EXP-07 provenance revision) and multiple derived-artifact hash chains; repaired all of it
+  - Delivered the bilingual master plan (docs/research/meetings/2026-08-05-master-plan.md): complete E1-E15/A08-01..09 inventory with per-item state, P0-P7 work breakdown, 2-day timeline, risks
+  - Wrote the full Chapter-3 Gap & RQ proposal draft (docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md) around every recorded correction (E4/E8/E9/E12/E13); wordings match CANONICAL_QUESTIONS_LIVE verbatim
+  - Built the per-RQ literature map (literature/per-rq-literature-map.md): inventory + coverage-gap verdict (RQ1 thin, RQ2 tool-heavy, RQ3 empty) with realistic closing routes; updated the weekly tracker; wrote the Aug-12 walkthrough script
+  - Ran a 5-lane adversarial verification workflow over all deliverables vs the canonical record: 24 findings, all fixed (impossible timeline, EXP-005 denominator standardized to '0 supplied / 27 blind / 24 safe / >=20 gate', attribution softening per no-diarization rule, novelty-claim hedging, closing-query corrections, broken link, provenance dirty-tree escape-phrase trap)
+  - Cascade-regenerated all derived artifacts b605937 had left stale (thesis evidence snapshot/baseline, comparison results, experiment benchmark, BigUI catalog/hub, progress visual, review manifest, hardening manifests) in dependency order with correct source/package revision rebinds
+  - Wrote the bilingual final work report (docs/research/meetings/2026-08-10-work-report.md) including the six Ali-only actions before Aug 12
+- Files changed:
+  - docs/research/meetings/2026-08-05-master-plan.md
+  - docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md
+  - literature/per-rq-literature-map.md
+  - docs/research/meetings/2026-08-12-walkthrough-outline.md
+  - docs/research/meetings/2026-08-05-tracking.md
+  - docs/research/meetings/2026-08-10-work-report.md
+  - docs/research/phd-proposal/master-traceability-register.md
+  - docs/research/phd-proposal/three-study-contract.md
+  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
+  - docs/research/meetings/2026-08-05-supervisor-source-manifest.json
+  - docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - uv run python scripts/validate_iris_requirements_closure.py --all --mode structure -> 10/10 PASS (including with dirty tree, after the escape-phrase hardening)
+  - uv run python -m pytest VEGO-AI/tests scripts/tests tests/hlayer_offline -> full suite green after cascade regeneration
+  - All CI --check scripts (hardening, catalog, benchmark, comparison, bigui, thesis evidence/review/progress, evidence consistency, privacy, ratchet) -> PASS
+- Status: completed
+- Next steps: Push to main and verify CI. Ali-only before Aug 12: verify final RQ wording vs saved chat (P0), share Drive (P3), replicate rq_tag column into Google Sheet, paste Chapter-3 draft into Word, check inbox for Iris's email (P6), one walkthrough dry run.
