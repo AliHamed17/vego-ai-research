@@ -498,8 +498,8 @@
           },
           {
             "deltas": {
-              "maxP95RatioToLegacy": 1.11319,
-              "meanP95RatioToLegacy": 1.011181
+              "maxP95RatioToLegacy": 1.07872,
+              "meanP95RatioToLegacy": 1.055509
             },
             "directlyComparable": true,
             "family": "runtime_mode",
@@ -509,8 +509,8 @@
           },
           {
             "deltas": {
-              "maxP95RatioToLegacy": 1.07407,
-              "meanP95RatioToLegacy": 1.01125
+              "maxP95RatioToLegacy": 1.213016,
+              "meanP95RatioToLegacy": 1.077296
             },
             "directlyComparable": true,
             "family": "runtime_mode",
@@ -803,7 +803,7 @@
     }
   ],
   "generatedAt": "2026-07-26T14:16:00+03:00",
-  "normalizedSha256": "02b6d1c8eb3974d545b805c5e45ab096c1306482692e8754bebba6816fd2d391",
+  "normalizedSha256": "7966172fa7ade2895db8b5b6babb24db956ae61a5ea2bc3c153df208fd802e15",
   "paperBaseline": {
     "caseModels": 178,
     "occasional": 18,
@@ -817,7 +817,7 @@
     "docs/research/bigui/architecture-fixture-results-v1.json": "7fcf650512b37dfb7063b48c5fef95d73d7b8db36a268926d6178329aef73ba5",
     "docs/research/bigui/paper-baseline-snapshot-v1.json": "78b6701caea4feee131980e2e8ae84f436451e53853ca0e779a0d161a6ad966a",
     "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
-    "experiments/accepted-runs": "8cc33fdd800964cfc729e5d4ba15dbf8400bccb23de3c9834de54fc494ffa26e",
-    "experiments/current-run-index-v1.json#comparison-dependencies": "99115846282369e33d9bc312b4bdc487acdc7762438036ca887dad0373f682db"
+    "experiments/accepted-runs": "a5e256650ceb63933fcf70abdc6105dc83e80abe179e2e2e2dbe3bc598299f96",
+    "experiments/current-run-index-v1.json#comparison-dependencies": "23968d95c255f890bad6269c9962cfa9c41215b3722c62417f91e3f153d1b588"
   }
 }

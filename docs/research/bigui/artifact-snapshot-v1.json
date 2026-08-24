@@ -383,7 +383,7 @@
         "track": "Architecture validation",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 4,
+        "accepted_runs": 5,
         "claim_boundary": "Mechanism-equivalence evidence only; zero semantic differences does not establish accuracy.",
         "next_action": "Run three repetitions over available controlled M1–M4B-1 artifacts."
       },
@@ -394,7 +394,7 @@
         "track": "Architecture validation",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 4,
+        "accepted_runs": 5,
         "claim_boundary": "The result is a Pareto comparison and cannot approve a production topology.",
         "next_action": "Run the deterministic topology simulator and report trade-offs without ranking a winner."
       },
@@ -405,7 +405,7 @@
         "track": "Safety validation",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 4,
+        "accepted_runs": 5,
         "claim_boundary": "Fixture safety evidence only; it is not a guarantee against every future fault.",
         "next_action": "Execute deterministic negative fixtures and preserve the legacy result on every mismatch."
       },
@@ -416,7 +416,7 @@
         "track": "Operational evaluation",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 4,
+        "accepted_runs": 5,
         "claim_boundary": "Operational overhead only; synthetic scale fixtures cannot support classification or effort claims.",
         "next_action": "Benchmark current, 5×, and 10× fixtures with environment and cohort hashes."
       },
@@ -427,7 +427,7 @@
         "track": "Paper and baseline alignment",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 9,
+        "accepted_runs": 11,
         "claim_boundary": "The comparison reconciles versions and capabilities; it cannot prove higher classification accuracy than the paper.",
         "next_action": "Keep the paper and repository baselines visibly separate and refresh only when either reviewed source changes."
       },
@@ -438,7 +438,7 @@
         "track": "Architecture evidence",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 9,
+        "accepted_runs": 11,
         "claim_boundary": "Capability and reliability extension may be demonstrated; classification accuracy and human effort remain unmeasured.",
         "next_action": "Use the scorecard as the thesis progress baseline and keep null empirical cells visible."
       },
@@ -449,7 +449,7 @@
         "track": "Metric comparison integrity",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 9,
+        "accepted_runs": 11,
         "claim_boundary": "Better is metric-specific; every positive delta must show its denominator, trade-off, evidence class, and guardrail.",
         "next_action": "Reject incompatible pairs and expose valid routing, topology, and runtime deltas in BigUI."
       },
@@ -460,7 +460,7 @@
         "track": "Thesis alignment",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 9,
+        "accepted_runs": 11,
         "claim_boundary": "Readiness and traceability do not substitute for the missing independent observations.",
         "next_action": "Use this audit to keep the thesis, catalog, and BigUI claim boundaries synchronized."
       }

@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "AcceptedExperimentRunBundle-v1",
+  "publicationTier": "tracked_sanitized",
+  "envelope": {
+    "schemaVersion": "ExperimentRunEnvelope-v2",
+    "experimentId": "EXP-038",
+    "runId": "EXP-038-4647cb5f9556",
+    "attemptId": "attempt-001",
+    "executionStatus": "succeeded",
+    "startedAt": "2026-07-26T14:16:00+03:00",
+    "completedAt": "2026-07-26T14:16:00+03:00",
+    "durationMilliseconds": null,
+    "manifestSchema": "SanitizedAggregateSource",
+    "manifestPath": "docs/research/bigui/baseline-comparison-results-v1.json",
+    "manifestSha256": "4647cb5f95563128cd3b0fd213da3304d8bf5b3ca1065211f6fcf4d1378052f6",
+    "acceptanceStatus": "accepted",
+    "acceptedAt": "2026-07-26T14:16:00+03:00",
+    "evidenceClass": "offline",
+    "sourceRevision": "ace3baaf1d49225e7b8f763cb896caefeb4d3117",
+    "inputHashes": {
+      "baselineCohort": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f"
+    },
+    "outputHashes": {
+      "summary": "4647cb5f95563128cd3b0fd213da3304d8bf5b3ca1065211f6fcf4d1378052f6"
+    },
+    "metricObservationIds": [
+      "OBS-METRIC-ARCHITECTURE_SCORECARD_DEMONSTRATED_DIMENSIONS-c4a7fd184b49",
+      "OBS-METRIC-ARCHITECTURE_SCORECARD_UNMEASURED_DIMENSIONS-34e25967321d"
+    ],
+    "metricDefinitionHashes": {
+      "ARCHITECTURE_SCORECARD_DEMONSTRATED_DIMENSIONS": "07e5c9e02a6458d688e688414e63f9758fd6b13fa76d2a39523196daac9baf38",
+      "ARCHITECTURE_SCORECARD_UNMEASURED_DIMENSIONS": "8665789c1540d86b43848653bd94b89ad1b47c43fbd0d1ded3e456fe0c3d0ad4"
+    },
+    "comparisonContext": {
+      "datasetHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
+      "partitionHash": "not_applicable",
+      "baselineRevision": "2eeccb1cbb2d01faa3e8ceb43466a52e0fee23cf",
+      "policyVersion": "m4b1-v1",
+      "promptVersion": "historical-frozen",
+      "modelIdentifier": "gpt-4o-historical-alias",
+      "metricSchemaVersion": "2.0",
+      "labelEligibility": "generalization_safe",
+      "leakageClass": "none",
+      "evidenceClass": "offline",
+      "architectureMode": "multi-mode",
+      "topology": "not_applicable",
+      "interfaceVersion": "BigUI-v3",
+      "pairedCohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f"
+    },
+    "artifactRefs": [
+      "docs/research/bigui/baseline-comparison-results-v1.json"
+    ],
+    "logRef": null,
+    "evaluation": {
+      "schemaVersion": "ExperimentEvaluation-v1",
+      "experimentId": "EXP-038",
+      "runId": "EXP-038-4647cb5f9556",
+      "executionValid": true,
+      "deterministic": true,
+      "engineeringTargetMet": null,
+      "evidenceAdmissible": true,
+      "resultVerdict": "CONFORMANCE_PASS",
+      "criteria": [
+        {
+          "id": "EXECUTION_VALID",
+          "passed": true,
+          "detail": "The comparison experiment completed with schema-valid output."
+        },
+        {
+          "id": "EVIDENCE_BOUNDARY_PRESERVED",
+          "passed": true,
+          "detail": "Unsupported accuracy and effort deltas remain suppressed."
+        }
+      ],
+      "claimBoundary": "Capability and reliability extension is demonstrated on the accepted cohorts; classification and effort value remain null."
+    }
+  },
+  "metricDefinitions": [
+    {
+      "schemaVersion": "MetricDefinition-v1",
+      "metricId": "ARCHITECTURE_SCORECARD_DEMONSTRATED_DIMENSIONS",
+      "title": "Architecture Scorecard Demonstrated Dimensions",
+      "description": "Architecture Scorecard Demonstrated Dimensions",
+      "formula": "architecture scorecard demonstrated dimensions",
+      "unit": "dimensions",
+      "direction": "neutral",
+      "grain": "baseline comparison experiment",
+      "requiredEvidenceClass": "offline",
+      "nullable": false,
+      "nullRule": "Observed from the accepted experiment run.",
+      "dimensions": [],
+      "target": null
+    },
+    {
+      "schemaVersion": "MetricDefinition-v1",
+      "metricId": "ARCHITECTURE_SCORECARD_UNMEASURED_DIMENSIONS",
+      "title": "Architecture Scorecard Unmeasured Dimensions",
+      "description": "Architecture Scorecard Unmeasured Dimensions",
+      "formula": "architecture scorecard unmeasured dimensions",
+      "unit": "dimensions",
+      "direction": "neutral",
+      "grain": "baseline comparison experiment",
+      "requiredEvidenceClass": "offline",
+      "nullable": false,
+      "nullRule": "Observed from the accepted experiment run.",
+      "dimensions": [],
+      "target": null
+    }
+  ],
+  "metricObservations": [
+    {
+      "schemaVersion": "MetricObservation-v2",
+      "observationId": "OBS-METRIC-ARCHITECTURE_SCORECARD_DEMONSTRATED_DIMENSIONS-c4a7fd184b49",
+      "experimentId": "EXP-038",
+      "runId": "EXP-038-4647cb5f9556",
+      "metricId": "ARCHITECTURE_SCORECARD_DEMONSTRATED_DIMENSIONS",
+      "metricDefinitionSha256": "07e5c9e02a6458d688e688414e63f9758fd6b13fa76d2a39523196daac9baf38",
+      "baselineId": "B0/B1",
+      "comparatorId": "B1-EVIDENCE-SCORECARD",
+      "value": 4,
+      "numerator": 4,
+      "denominator": 6,
+      "missingCount": 0,
+      "unit": "dimensions",
+      "direction": "neutral",
+      "estimand": "Architecture Scorecard Demonstrated Dimensions",
+      "grain": "baseline comparison experiment",
+      "dimensions": {},
+      "exclusions": [],
+      "analysisMethod": "deterministic source reconciliation",
+      "confidenceInterval": null,
+      "sourcePath": "docs/research/bigui/baseline-comparison-results-v1.json",
+      "sourceSha256": "4647cb5f95563128cd3b0fd213da3304d8bf5b3ca1065211f6fcf4d1378052f6",
+      "evidenceClass": "offline",
+      "observationDate": "2026-07-26",
+      "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
+      "metricSchemaVersion": "2.0",
+      "claimBoundary": "Dimensions remain separate; no arbitrary weighted global improvement score is calculated."
+    },
+    {
+      "schemaVersion": "MetricObservation-v2",
+      "observationId": "OBS-METRIC-ARCHITECTURE_SCORECARD_UNMEASURED_DIMENSIONS-34e25967321d",
+      "experimentId": "EXP-038",
+      "runId": "EXP-038-4647cb5f9556",
+      "metricId": "ARCHITECTURE_SCORECARD_UNMEASURED_DIMENSIONS",
+      "metricDefinitionSha256": "8665789c1540d86b43848653bd94b89ad1b47c43fbd0d1ded3e456fe0c3d0ad4",
+      "baselineId": "B0/B1",
+      "comparatorId": "B1-EVIDENCE-SCORECARD",
+      "value": 2,
+      "numerator": 2,
+      "denominator": 6,
+      "missingCount": 0,
+      "unit": "dimensions",
+      "direction": "neutral",
+      "estimand": "Architecture Scorecard Unmeasured Dimensions",
+      "grain": "baseline comparison experiment",
+      "dimensions": {},
+      "exclusions": [],
+      "analysisMethod": "deterministic source reconciliation",
+      "confidenceInterval": null,
+      "sourcePath": "docs/research/bigui/baseline-comparison-results-v1.json",
+      "sourceSha256": "4647cb5f95563128cd3b0fd213da3304d8bf5b3ca1065211f6fcf4d1378052f6",
+      "evidenceClass": "offline",
+      "observationDate": "2026-07-26",
+      "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
+      "metricSchemaVersion": "2.0",
+      "claimBoundary": "Classification and effort remain visibly unmeasured."
+    }
+  ],
+  "acceptance": {
+    "schemaVersion": "RunAcceptanceRecord-v1",
+    "experimentId": "EXP-038",
+    "runId": "EXP-038-4647cb5f9556",
+    "status": "accepted",
+    "evaluatorVersion": "bigui-run-store-v1",
+    "evaluatedAt": "2026-07-26T14:16:00+03:00",
+    "criteriaOutcomes": [
+      {
+        "id": "EXECUTION_VALID",
+        "passed": true,
+        "detail": "The comparison experiment completed with schema-valid output."
+      },
+      {
+        "id": "EVIDENCE_BOUNDARY_PRESERVED",
+        "passed": true,
+        "detail": "Unsupported accuracy and effort deltas remain suppressed."
+      }
+    ],
+    "rationale": "The privacy-safe aggregate run is accepted for its stated evidence class.",
+    "approverClass": "deterministic_validator"
+  }
+}
