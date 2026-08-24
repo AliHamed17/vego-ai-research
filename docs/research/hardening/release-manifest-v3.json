@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "5ef205b73b12e119b9e05713e80881d199cad7016bb22c736eb15e1a6a235c54",
+  "packageTreeSha256": "b8470e5913d3a81346c3e79a6513e6e2e5d3bd75e915b01624e3da7b43b6f66c",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -205,7 +205,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "b6d4ab1073c0d72c6e864bcad4da34211cac59292f187be3c60b05280bbd14ff",
+  "sourceTreeSha256": "565ac882674aefd0be74d6578dae81f1135f7acfcbb805fea679ad8c6043dfb3",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -220,6 +220,6 @@
     "docs/research/hardening/baseline-lock-manifest-v2.json": "3ed664b6de6b8d943e36493bbb8e31d863e8a3dea041cfda82c7be5e218d695f",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
     "docs/research/hardening/sbom.cdx.json": "28dca632ac7473ad86ae4796ac14eaafc453bb4e530ce596a8f3db0f938cfc5c",
-    "docs/research/hardening/security-posture-snapshot-v1.json": "f71691db188c83df1886096ff6f9db7fb4f05e95371361c40dfc5247202c9015"
+    "docs/research/hardening/security-posture-snapshot-v1.json": "927c5c5c6b57d559a4bdf3120ef463d741cc1118560eff0599ec28e2899f2bf8"
   }
 }
