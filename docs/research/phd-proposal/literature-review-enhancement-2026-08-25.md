@@ -311,3 +311,109 @@ Option B is recommended for the next revision, because it preserves the section 
 already-strong evidence-boundary discipline while closing the four gaps the reference exposes.
 Option A is the larger rewrite and is better timed after the QL-01-QL-05 searches have actually
 been run, since that is what makes a reference-style §4.1 possible.
+
+## Item 8 — The ACL-2026 taxonomy classification exercise (the deliverable missing four times)
+
+This is the exercise Iris assigned on 2026-08-12, and the item absent from v13, workbook v8,
+package v15 and the 2026-08-23 proposal. Per Item 7 it is not a side slide: in the reference
+proposal's structure a taxonomy is **what a literature review produces**, so this is the review's
+artifact.
+
+Source of truth: Zou et al., "LLM-Based Human-Agent Collaboration and Interaction Systems: A
+Survey," Findings of ACL 2026, pp. 36335-36364 (arXiv 2505.00753) - reference [10] in the
+proposal. Branch and dimension names below were read from the survey PDF and its companion
+repository `HenryPengZou/Awesome-Human-Agent-Collaboration-Interaction-Systems`, not from memory.
+
+**Method note, and it matters.** Each branch was classified by one agent, then attacked by an
+independent adversarial reviewer. The reviewers overturned part of **all four** first-pass
+classifications, in every case by checking Ali's own implementation rather than reasoning
+abstractly. The corrected verdicts below are the ones to use. The most important reversal: the
+first pass claimed Corrective feedback was "deliberately excluded" from VEGO-AI. That is falsified
+by `VEGO-AI/schemas/human_feedback.schema.json`, whose `guideline_update.action` enum is
+`[none, add_alternative, edit_description, restrict_scope, reject_guideline, new_guideline]` - six
+corrective actions, already implemented. Publishing the first pass would have contradicted his own
+schema in front of the supervisor who assigned the exercise.
+
+### 8.0 A citation correction this exercise exposed
+
+**Section 2.1 (p.6) currently states** that the survey "organizes human-agent systems around human
+feedback, interaction, orchestration, communication, **environment, and profiling** [10]" - six
+categories. That is wrong on two counts. The survey's Section 3 opening reads: *"In this section,
+we examine LLM-HAS through **five core aspects**: environment & profiling, human feedback,
+interaction type, orchestration paradigm, and communication."* So (a) "environment & profiling" is
+**one** conjoined component (Section 3.1), not two, and (b) the five core components are not the
+classification taxonomy, which has **four** top-level branches (Sections 3.2-3.5) and deliberately
+excludes environment & profiling because 3.1 is scene-setting rather than a classification axis.
+
+Replace with:
+
+> A broad survey of LLM-based human-agent systems describes five core components - environment and
+> profiling, human feedback, interaction type, orchestration paradigm, and communication - of which
+> the latter four form the top-level branches of its classification taxonomy [10].
+
+### 8.1 Branch-level disposition
+
+| Branch | Disposition | Owns | Why |
+| --- | --- | --- | --- |
+| **Human Feedback** (3.2) | **Relevant** - for SQ1 positioning and vocabulary | SQ1 | The only branch whose axes describe the human input itself rather than agent topology. Supplies the coordinate system for *when* a judgment is requested and *how coarse* it is. **Not** a design source for SQ2 or SQ3: it has no axis for validation, reconciliation, storage or reuse |
+| **Interaction** (3.3) | **Less relevant** - premise, not variable | SQ1 (premise only); SQ2 for the authority clause | Locates the work as a move from Delegation toward governed Supervision, the unstated premise of SQ1 and of "without loss of human authority". But a four-value vocabulary about locus of control encodes nothing about representation, validation, reconciliation or storage. Not SQ3 at all |
+| **Orchestration** (3.4) | **Less relevant** - positioning only | none | Both dimensions are pinned constants for this design (One-by-One, Asynchronous) and cannot discriminate between any two options he is choosing between. Useful for describing the system, useless as a design variable |
+| **Communication** (3.5) | **Relevant** - but only one of its two dimensions | SQ2 (primary), SQ3 (dependent) | Communication Mode is where the contribution actually sits: the governed judgment record is a persistent shared artifact that later runs read. Communication Structure is inter-agent topology, fixed by the baseline |
+
+### 8.2 Dimension-level disposition
+
+| Dimension | Disposition | Notes that matter |
+| --- | --- | --- |
+| **Feedback Type** | **Relevant** | Evaluative (the verdict) and Guidance-as-critique (the rationale) are the two-part shape of every record. Corrective is in scope too — the `guideline_update` enum implements six corrective actions. Only *Implicit* is genuinely excluded, on governance grounds: an inferred preference cannot be attributed or held to account. Honest caveat: the survey's dominant Guidance value (63.9% of its corpus) means humans steering mid-run, whereas VEGO-AI's guidance is retrospective critique of a finished claim — the word is inherited, not the mechanism, and the chapter should say so |
+| **Feedback Subtype** | **Relevant** (raised from less-relevant on challenge) | Three values map to fields already collected: Binary Assessment approximates his label, though his is *ternary* with an explicit abstain value the vocabulary cannot express; Critique maps to `expert_rationale`; Refinement maps to `guideline_update.proposed_text`. Scalar Rating mis-fits — the survey means scoring agent-output quality, his means reviewer certainty, which is an SQ1 trigger signal rather than a quality judgment. Preference Ranking is inapplicable: his instrument is absolute classification against a guideline, not pairwise comparison |
+| **Feedback Granularity** | **Relevant — SQ1 only** | Per-pattern review is a deliberate Segment-level commitment, priced honestly at N judgements per run, with Holistic named as the rejected cheap alternative that yields nothing reusable. Do not claim this axis carries SQ3's transfer distinction — in his own design that is carried by implemented fields (`reuse_scope.applies_to_future_models`, `reuse_scope.limitations`), not by granularity |
+| **Feedback Phase** | **Relevant** | Literally SQ1's "when". Current state is Post Task, whose own survey caveat ("no impact on completed task") states the present limitation exactly. During Task is the target and must be stated as a hypothesis, not an achieved position. Initial Setup is in scope, not out: `selective_intervention_policy.py` carries `guideline_update_proposed` as a trigger, i.e. rubric-level judgment requests |
+| **Interaction Types** | **Not relevant** | Constant at Collaboration. Competition and Coopetition presuppose misaligned payoffs that do not exist between a reviewer and an assessment pipeline. Internal Domain-Advisor / Model-Inspector disagreement is correctly *not* human-agent Competition |
+| **Interaction Variant** | **Less relevant — premise only** | Handle with care: the survey defines Supervision as *human-initiated* ("one party, usually a human operator, oversees, monitors, and guides the actions of an LLM-based agent"). SQ1 asks the opposite — when should the system request judgment. The taxonomy therefore has no value for system-initiated escalation, and that absence is itself a finding (8.3 item 7) rather than a slot he occupies |
+| **Orchestration Strategy** | **Not relevant** | Pinned to One-by-One. Simultaneous is ruled out by an SQ2 attribution requirement — a judgment must be attributable to one identified reviewer — so the value is derived from the RQ rather than chosen |
+| **Orchestration Synchronization** | **Not relevant** (demoted on challenge) | Pinned to Asynchronous, with no synchronous arm designed, planned or evaluated, so it discriminates nothing. The first pass also claimed it touches SQ3 because "the judgment's first real use is on a later case"; that is temporal deferral inside one context, not cross-context reuse. Clause deleted |
+| **Communication Structure** | **Less relevant** | Inter-agent topology, fixed by the baseline. Retains a narrow role: describing the system, plus one threat-to-validity sentence about centralized-store failure |
+| **Communication Mode** | **Relevant** | The contribution sits here. State plainly that the judgment store is a *reinterpretation* of Message Pool, not an instantiation: the survey's Message Pool is a blackboard among concurrent agents inside one episode, whereas his is a persistent, versioned, human-authored record consumed across episodes. Claiming instantiation is the first thing a reviewer would attack |
+
+### 8.3 MISSING — what the RQs need that the taxonomy cannot express
+
+This is the most valuable column of the exercise, because it is where the doctoral contribution
+lives. Eleven concepts were identified; each was tested against the nearest existing dimension and
+kept only where that dimension genuinely cannot carry it.
+
+| # | Missing concept | Needed by | Nearest dimension, and why it falls short |
+| --- | --- | --- | --- |
+| 1 | Reuse of a stored judgment in a later, different episode, plus the reuse mode (inert / advisory / behaviour-changing) with non-destructive write semantics | U-RQ, SQ3 | Feedback Phase "Post Task" is closest but the arrow points the wrong way: it means feedback given after this task, not feedback from a prior task consumed as input to this one. Every Human Feedback dimension is indexed to the episode that produced the feedback |
+| 2 | Claim-level validity scope — the prospective applicability envelope, including explicit *negative* scope | SQ2, SQ3 | Feedback Granularity is routinely mistaken for this. It partitions the *current* output; scope is prospective and concerns *future* applicability. The two are orthogonal |
+| 3 | Diagnostic attribution — does an intervention reveal a domain-specific quirk or a transferable capability gap in the pipeline? | SQ3, which names this distinction explicitly | None. Every feedback dimension describes what the human did to the output; none describes what the intervention reveals about the *system* |
+| 4 | Temporal validity — expiry, supersession, revocation, and lapse when the interpreted guideline is revised | SQ2, SQ3 | Feedback Phase is the dimension people assume covers this and does not: its values locate an act inside one episode and say nothing about how long the resulting judgment stays authoritative |
+| 5 | Claim-scoped authority and competence, with a tier separating case-level decisions from rubric-level changes | SQ1, SQ2, SQ3 | Partially adjacent: Feedback Subtype "Human Control" expresses that a human took control of an action; Interaction Variant "Supervision" expresses a standing role. Neither expresses entitlement or competence to decide *this claim* |
+| 6 | Version-exact provenance binding to the artifact state judged, with staleness detection and a first-class non-applying outcome | SQ2, SQ3 | None for binding. No branch refers to the identity or version of the artifact under discussion; feedback is assumed to attach to "the output" implicitly and immediately |
+| 7 | The elicitation trigger as a versioned, reason-coded policy object, including agent-side uncertainty and abstention signals | SQ1 — its entire object of study | Feedback Phase says *when, conditional on it happening*; Interaction Variant says a human *may* intervene. Neither has any value space for the decision procedure that determines whether a human is asked at all |
+| 8 | Attention-budget accounting — a bounded budget per run, an allocation rule across competing claims, per-question expected value | SQ1's "without unnecessary expert burden" | None. The taxonomy has no cost dimension of any kind. Orchestration governs ordering and coupling, not rationing a scarce reviewer |
+| 9 | Preserved dissent — two conflicting judgments both retained, reuse blocked pending adjudication, minority position kept as a caveat | SQ2's "validated, reconciled" | The taxonomy models feedback as a signal consumed and resolved within the episode: rankings aggregate, critique informs, refinement replaces, and nothing persists as a retained conflict state |
+| 10 | Reuse-leakage control — provenance disjointness between the judgment store and the cases reuse is evaluated on | SQ3 and the U-RQ evaluation boundary | None. State this one *fairly*: the taxonomy is a design-configuration taxonomy, so evaluation hygiene is arguably outside its remit — then argue that for cumulative-memory systems the configuration itself creates the contamination risk |
+| 11 | Judgment target layer — verdict vs the agent's stated reasoning vs evidence selection vs the guideline itself, and the recognition that the *rationale*, not the verdict, is what transfers | SQ2 ("including the system's core reasoning"), SQ3 | Granularity gives extent and Subtype gives form; nothing gives the target *layer*. A rationale is not a smaller span of the output, it is a different object |
+
+How to phrase the resulting claim, conservatively: six of the eleven (items 2, 4, 5, 6, 9, 11) are
+precisely the fields the governed-judgment contract in SQ2 already enumerates, and three (1, 3, 10)
+are what SQ3 adds. That is the gap argument — the taxonomy comprehensively describes *how human
+feedback arrives and how agents are wired*, and has no vocabulary for *what happens to a judgment
+after it is given*. Say exactly that and no more: it is a coverage claim about one survey's
+taxonomy, not evidence that the proposed contract works.
+
+### 8.4 The one slide Iris asked for
+
+Title: **Where the ACL-2026 human-agent taxonomy meets this research — and where it stops**
+
+Left column, "Covered by the taxonomy": Human Feedback — phase, granularity, type/subtype
+(SQ1's when and how coarse). Communication Mode — a shared persistent artifact (SQ2's store).
+Interaction Variant — Delegation to Supervision, the premise.
+
+Right column, "Not in the taxonomy": what happens to a judgment *after* it is given — validity
+scope, expiry and supersession, claim-scoped authority, version-exact provenance, preserved
+dissent, target layer (verdict vs rationale), cross-episode reuse and its mode, diagnostic
+attribution (local quirk vs capability gap), attention-budget accounting, leakage control.
+
+Footer, one line: *Four taxonomy branches; two describe agent wiring that the VEGO-AI baseline
+fixes. The doctoral contribution lives in the right-hand column.*
