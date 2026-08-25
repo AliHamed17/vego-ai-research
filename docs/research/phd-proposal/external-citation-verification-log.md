@@ -75,3 +75,68 @@ resolve, `gh api`, `WebSearch`, `WebFetch`) so a reader can judge how strong the
 a bare web search summary is weaker evidence than a direct DOI resolve or an official program-page
 fetch. Never mark something confirmed here without the actual fetch/search having happened in that
 session.
+
+## Reference [1] — the VEGO-AI foundation manuscript, verified against the source (2026-08-25)
+
+The foundation manuscript was supplied directly by Ali on 2026-08-25 as
+`Variability_MAS4MODELS2026_Mar28_IRB2<...>.pdf` (10 pages, anonymized MODELS 2026 submission
+version; author block carries placeholder "FirstName Surname" entries as expected for double-blind
+review). Title confirmed exactly: "Not All Differences Matter: Variability Exploration of Domain
+Models via Agentic AI". This is the one reference in the proposal that had never been externally
+verifiable, because it is unpublished and its circulated DOI 404s. It is now verified against the
+primary source itself, which is stronger evidence than any index could give.
+
+All four agent names used throughout the doctoral proposal are confirmed present in the manuscript:
+Language Advisor (13 mentions), Domain Advisor (18), Model Inspector (16), Variability Explorer (10).
+
+### The 178 / 26 counts are correct, which half-resolves a long-standing open item
+
+The manuscript's Table 1 (Evaluation Settings) gives case models per setting:
+
+| Code | Domain | Language | Case models |
+| --- | --- | --- | --- |
+| ch-ucd | Cheers | UCD | 46 |
+| ch-cd | Cheers | CD | 47 |
+| pw-ucd | ParkWise | UCD | 44 |
+| pw-cd | ParkWise | CD | 41 |
+
+46 + 47 + 44 + 41 = **178**. The number "178" is never printed as a single figure in the manuscript;
+it is the sum of Table 1, which is why earlier reviews could not confirm it by text search. A search
+for the literal strings "178" and "165" returns zero hits in the manuscript.
+
+On patterns, the manuscript states verbatim: "The Variability Explorer yielded **26** variability
+patterns across the four settings... **Eight** of the 26 patterns were classified as substantial
+variability, all of which were flagged for guidelines update, and **18** as occasional variability."
+8 + 18 = 26.
+
+**Consequence for the open count discrepancy.** The proposal's §4.1 figures (178 case models; 26
+patterns, eight substantial and eighteen occasional) are correct against the source. The competing
+"165 case models and 27 patterns" attributed to the companion evidence package is therefore the side
+that requires explanation — it is either counting a filtered subset, a different snapshot, or is
+wrong. The reconciliation task is no longer "which figure is right" but "what is the evidence
+package counting". This does not close the item, because the implementation snapshot still has not
+been supplied, but it removes the manuscript from suspicion.
+
+### Phase C expert-review figures are also correct
+
+The manuscript reports: "A sample of **16** Model Inspector outcomes (**4 per setting**) was reviewed
+by **two experts**"; compliance-vector averages "consistently high across all four settings
+(0.80-0.96)"; uncovered-audit averages "lower and more variable (0.55-0.88)". Table 3 gives ch-ucd
+0.80/0.55, ch-cd 0.96/0.81, pw-ucd 0.83/0.55, pw-cd 0.92/0.88 — so both use-case-diagram settings do
+score 0.55 on uncovered audits, exactly as the proposal states. The proposal discloses the 16-outcome
+sample and the four-per-setting split, and its Figure 9 caption correctly notes that no dispersion is
+reported in the source.
+
+One detail the proposal omits: the manuscript says the review was performed by **two** experts. The
+proposal says only "expert review". Two raters with no reported inter-rater statistic is a real
+limitation of the source and is worth one clause, particularly since the doctoral work proposes to
+strengthen exactly this kind of judgment evidence.
+
+### The doctorate's motivating premise is supported by the source
+
+The proposal asserts the baseline "is weakest on open-world interpretation of uncovered fragments".
+This is borne out: uncovered-fragment audits (0.55-0.88) score lower and more variably than
+compliance vectors (0.80-0.96), and the manuscript itself attributes this to "the greater
+interpretive effort required". The manuscript's own declared scope limits are "two domains from a
+single institution, one LLM, and two modeling languages", which is consistent with how the proposal
+characterizes the baseline's boundaries.
