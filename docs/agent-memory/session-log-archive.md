@@ -4944,3 +4944,22 @@ Historical entries.
   - All CI --check scripts (hardening, catalog, benchmark, comparison, bigui, thesis evidence/review/progress, evidence consistency, privacy, ratchet) -> PASS
 - Status: completed
 - Next steps: Push to main and verify CI. Ali-only before Aug 12: verify final RQ wording vs saved chat (P0), share Drive (P3), replicate rq_tag column into Google Sheet, paste Chapter-3 draft into Word, check inbox for Iris's email (P6), one walkthrough dry run.
+
+## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
+
+- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason — full report of gaps and what's already done, per the requirements.
+- Actions taken:
+  - Ran an 8-way parallel sweep (Workflow) across every gap-tracking source: the 44-control master traceability register, the IRIS-EXP validator (structure/readiness/closure modes), EXP-005 evaluation gate, medical-readiness scorecard, issues.md/decisions.md, literature/thesis scope, Confluence sync, and the external-fact/candidacy register
+  - Discovered a real bug: a template-variable substitution issue caused every sub-agent's prompt to literally contain 'repo undefined'; 6 of 8 agents self-corrected to the real main checkout, 2 (medical-readiness, issues-and-decisions) instead read a second, stale git worktree on this machine and falsely concluded real files/tables don't exist -- discarded those 2 sweeps and rebuilt those sections from my own direct reads
+  - Collapsed 126 raw tracked items into 11 root-blocker actions (RQ-wording decisions, EXP-005 labeling, transcript human review, Drive sharing, live rehearsal, first weekly cycle, literature searches, university candidacy confirmation, medical 6-gate clearance, Clalit meeting, Confluence Rovo grant) plus data-accuracy/process-debt/deferred-by-design/connectivity sections
+  - Ran an adversarial verification workflow against the raw sweep + primary sources; found and fixed 2 genuine omissions (R-03, R-19) and 1 imprecise paraphrase (D3 status wording)
+  - Logged ISS-031 (the stale-worktree risk) as a new tracked issue
+  - Synced the finished report into the Obsidian vault and Google Drive alongside the Aug-12 package
+- Files changed:
+  - docs/research/meetings/2026-08-11-full-gaps-and-blockers-report.md
+  - docs/agent-memory/issues.md
+- Commands/checks:
+  - uv run python scripts/validate_iris_requirements_closure.py --all --mode structure/readiness/closure -> structure 10/10 PASS (CI-enforced bar); readiness/closure correctly PENDING/FAIL on human evidence not yet produced (by design)
+  - 8-agent + 2-agent verification workflows via Workflow tool
+- Status: completed
+- Next steps: Ali executes the 11 root-blocker actions in the report, roughly in the stated order. No further agent action needed until Ali reports movement on one of them.

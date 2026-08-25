@@ -1860,3 +1860,122 @@ Historical entries.
   - docs/research/hardening/release-manifest-v3.json
 - Rollback note: Revert commits 4b46b2e and d9f0c44 to remove the clone-safe test fixture and its release hash refresh.
 - Git commit: none recorded by script.
+
+## 2026-07-26 00:31 +03:00 - Codex - Exact-head security review and release verification
+
+- Files changed:
+  - scripts/security_audit.py
+  - scripts/check_hlayer_change_authorization.py
+  - src/vego_hlayer/adapters.py
+  - scripts/tests/
+  - docs/research/h-layer/
+  - docs/research/hardening/
+  - docs/research/thesis-evidence/
+  - thesis/
+  - VEGO-AI-Thesis-Baseline-Progress.html
+- Rollback note: Revert commits 14ec374 through d7646f2 in reverse order to remove this final review-fix cycle; local ignored PDF, QA pages, and dated share folders can be removed separately. Agent 4 outputs and expert labels were not changed.
+- Git commit: none recorded by script.
+
+## 2026-07-26 01:00 +03:00 - Codex - Close final validation and provenance review findings
+
+- Files changed:
+  - src/vego_hlayer/adapters.py
+  - scripts/run_hlayer_architecture.py
+  - scripts/check_hlayer_change_authorization.py
+  - scripts/tests/test_hlayer_architecture_cli.py
+  - scripts/tests/test_change_authorization.py
+  - docs/research/h-layer/
+  - docs/research/hardening/
+  - docs/research/thesis-evidence/
+  - thesis/
+  - VEGO-AI-Thesis-Baseline-Progress.html
+- Rollback note: Revert commits a6c2b42 through 9995804 in reverse order to remove this final review-fix and republishing cycle; ignored PDF, QA, and dated share folders can be removed independently. Agent 4 outputs and expert labels were not changed.
+- Git commit: none recorded by script.
+
+## 2026-07-26 01:13 +03:00 - Codex - Address exact-head envelope and archive review findings
+
+- Files changed:
+  - src/vego_hlayer/adapters.py
+  - scripts/security_audit.py
+  - scripts/tests/test_hlayer_architecture_cli.py
+  - scripts/tests/test_security_audit.py
+  - docs/research/h-layer/
+  - docs/research/hardening/
+  - docs/research/thesis-evidence/
+  - thesis/
+  - VEGO-AI-Thesis-Baseline-Progress.html
+- Rollback note: Revert commits 1ff9f72 through eb15a13 in reverse order to remove the empty-envelope and disguised-archive review cycle; ignored PDF, QA, and share folders can be removed separately.
+- Git commit: none recorded by script.
+
+## 2026-07-26 13:30 +03:00 - Codex - Execute experiments and publish results-first BigUI
+
+- Files changed:
+  - VEGO-AI-Research-Hub.html
+  - experiments/accepted-runs/
+  - docs/research/bigui/
+  - scripts/build_bigui_run_store.py
+  - scripts/run_bigui_architecture_experiments.py
+  - .github/workflows/supervisor-package.yml
+- Rollback note: Revert the BigUI experiment-platform commits on agent/bigui-experiment-platform; Agent 4 and baseline outputs were not changed.
+- Git commit: none recorded by script.
+
+## 2026-07-26 14:55 +03:00 - Codex - Add paper-aligned experiment comparison evidence
+
+- Files changed:
+  - scripts/run_bigui_comparison_experiments.py
+  - docs/research/bigui/paper-baseline-snapshot-v1.json
+  - docs/research/bigui/baseline-comparison-results-v1.json
+  - VEGO-AI-Research-Hub.html
+- Rollback note: Revert the four focused commits from this task; Agent 4 and baseline outputs were not modified.
+- Git commit: none recorded by script.
+
+## 2026-07-26 17:14 +03:00 - Codex - Evaluate all experiments and publish benchmark BigUI
+
+- Files changed:
+  - schemas/experiment-evaluation-standard-v1.schema.json
+  - schemas/experiment-benchmark-snapshot-v1.schema.json
+  - schemas/current-run-index-v1.schema.json
+  - experiments/current-run-index-v1.json
+  - experiments/accepted-runs/
+  - docs/research/bigui/
+  - VEGO-AI-Research-Hub.html
+  - VEGO-AI-Experiment-Benchmark-Report.html
+  - scripts/build_experiment_benchmark.py
+  - scripts/build_bigui_run_store.py
+  - scripts/run_bigui_comparison_experiments.py
+  - scripts/build_bigui.py
+- Rollback note: Revert the focused BigUI benchmark commits; accepted run bundles are append-only and the frozen Agent 4 baseline remains unchanged.
+- Git commit: none recorded by script.
+
+## 2026-07-26 18:36 +03:00 - Codex - Independent expert evidence evaluation pipeline
+
+- Files changed:
+  - schemas/independent-evidence-package-v1.schema.json
+  - schemas/independent-review-return-v1.schema.json
+  - schemas/independent-evidence-delivery-v1.schema.json
+  - scripts/build_independent_evidence_package.py
+  - scripts/validate_independent_evidence_returns.py
+  - scripts/freeze_independent_gold_labels.py
+  - scripts/evaluate_independent_ground_truth.py
+  - scripts/publish_independent_evidence_package.py
+  - scripts/build_bigui.py
+  - VEGO-AI-Research-Hub.html
+  - docs/research/independent-evidence/README.md
+  - docs/research/independent-evidence/MEASUREMENT_CONTRACT.md
+  - docs/research/independent-evidence/SUPERVISOR_DECISIONS_REQUIRED.md
+- Rollback note: Revert the five independent-evidence commits; no protected runtime or baseline artifact was modified.
+- Git commit: none recorded by script.
+
+## 2026-07-26 20:45 +03:00 - Codex - Advance independent evidence study to calibration
+
+- Files changed:
+  - docs/research/independent-evidence/decision-register.json
+  - docs/research/independent-evidence/PARTICIPANT_INFORMATION_AND_CONSENT.md
+  - schemas/independent-calibration-return-v1.schema.json
+  - schemas/independent-evidence-decision-register-v1.schema.json
+  - scripts/validate_independent_calibration_returns.py
+  - scripts/freeze_independent_calibration.py
+  - scripts/publish_independent_evidence_package.py
+  - VEGO-AI-Research-Hub.html
+- Rollback note: Revert the calibration-phase commits; the baseline, Agent 4, private mapping, expert-label count, and evaluation results were not changed.
+- Git commit: none recorded by script.

@@ -35,25 +35,6 @@ Chronological prompt history for Codex and Claude.
 - Result: PR #19 green and mergeable. PR #20 conflict-free and CI running (Python-matrix jobs passed; `Source, security, browser, and documents` job was still queued/pending after ~4 min at last check - this project's shared Actions runners see multi-hour queue delays under concurrent-session load; not yet confirmed green). 6 branches backed up to origin. Not actioned (needs the user's own choice, not mine to pick): missing LICENSE on the now-public repo, no PR/issue templates, PR #14 (BigUI eval, 93 files, CONFLICTING) and PR #17 (Aug-12 evidence delivery, draft, 69 files, CONFLICTING) left untouched given their scale and that I didn't open them. `security-weekly.yml`'s single 2026-08-10 failure (vs. 2 surrounding successes) not yet investigated.
 - Next steps: Confirm PR #20's `Source, security, browser, and documents` job resolves green; decide with the user whether to open PRs from any of the 6 newly-backed-up branches or leave them as pure backups; optionally investigate the one `security-weekly.yml` failure; reconcile the Judgment Lifecycle Grid against Zou et al.'s taxonomy (ISS-032, still open).
 
-## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
-
-- Request: User: find me all the gaps we already had, everything missed, everything blocked, and everything we could not do for some reason — full report of gaps and what's already done, per the requirements.
-- Actions taken:
-  - Ran an 8-way parallel sweep (Workflow) across every gap-tracking source: the 44-control master traceability register, the IRIS-EXP validator (structure/readiness/closure modes), EXP-005 evaluation gate, medical-readiness scorecard, issues.md/decisions.md, literature/thesis scope, Confluence sync, and the external-fact/candidacy register
-  - Discovered a real bug: a template-variable substitution issue caused every sub-agent's prompt to literally contain 'repo undefined'; 6 of 8 agents self-corrected to the real main checkout, 2 (medical-readiness, issues-and-decisions) instead read a second, stale git worktree on this machine and falsely concluded real files/tables don't exist -- discarded those 2 sweeps and rebuilt those sections from my own direct reads
-  - Collapsed 126 raw tracked items into 11 root-blocker actions (RQ-wording decisions, EXP-005 labeling, transcript human review, Drive sharing, live rehearsal, first weekly cycle, literature searches, university candidacy confirmation, medical 6-gate clearance, Clalit meeting, Confluence Rovo grant) plus data-accuracy/process-debt/deferred-by-design/connectivity sections
-  - Ran an adversarial verification workflow against the raw sweep + primary sources; found and fixed 2 genuine omissions (R-03, R-19) and 1 imprecise paraphrase (D3 status wording)
-  - Logged ISS-031 (the stale-worktree risk) as a new tracked issue
-  - Synced the finished report into the Obsidian vault and Google Drive alongside the Aug-12 package
-- Files changed:
-  - docs/research/meetings/2026-08-11-full-gaps-and-blockers-report.md
-  - docs/agent-memory/issues.md
-- Commands/checks:
-  - uv run python scripts/validate_iris_requirements_closure.py --all --mode structure/readiness/closure -> structure 10/10 PASS (CI-enforced bar); readiness/closure correctly PENDING/FAIL on human evidence not yet produced (by design)
-  - 8-agent + 2-agent verification workflows via Workflow tool
-- Status: completed
-- Next steps: Ali executes the 11 root-blocker actions in the report, roughly in the stated order. No further agent action needed until Ali reports movement on one of them.
-
 ## 2026-08-14 23:06 +03:00 - Claude - Transcribed and analyzed the 2026-08-12 Iris/Arnon supervisor call
 
 - Request: User attached the 2026-08-12 Zoom recording folder (Iris Reinhartz-Berger's Personal Meeting Room) and asked for a full second-by-second transcript, a bilingual (EN+HE) summary, every instruction/requirement from the call, and a comprehensive verified plan for the next week, cross-checked against what was already covered.
@@ -204,3 +185,24 @@ Chronological prompt history for Codex and Claude.
   - gh run view 32732249579 --json jobs -> all jobs success incl merge-gate
 - Status: Completed
 - Next steps: None outstanding for this task; a concurrent session's v16 proposal and workbook v12 work (ISS-036 to 038) is separate and not yet reconciled.
+
+## 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
+
+- Request: Attached the same proposal PDF alongside the delivered strict review; verified the review against the actual document.
+- Actions taken:
+  - Re-verified every falsifiable claim in the 2026-08-23 strict proposal review against the same PDF (sha256 a4c9739..., confirmed 21 pages; the harness reported 24, which is harness metadata not the document).
+  - WITHDREW my own reference [45] finding: DBLP canonical form is 'Khaled E. Ahmed', so 'K. E. Ahmed' is correct as written. Earlier sources (arXiv/ORCID/GitHub) render the name without the middle initial, which misled the original check.
+  - CORRECTED the 'Chapter 2 duplicates Chapter 4' claim as unsupported (only 14 shared 5-grams, nearly all page boilerplate); the 'move it to Chapter 4' recommendation rested on a false premise and was replaced.
+  - STRENGTHENED the solution-world finding: Chapter 2 names the author's own Studies five times and issues design orders in two Research implication lines (p.8 Study 2 must test, p.9 Study 3 must treat).
+  - Widened the bibliography check from 13 refs to all 57 via a 12-agent adversarially-adjudicated workflow: 54 exact, 0 unverifiable, 3 real defects, 0 overturned.
+  - Newly found [35] GLIF3 cites the wrong journal entirely (JAMIA 11(4) 375-385 -> Journal of Biomedical Informatics 37(3) 147-161); independent proof the cited locus cannot exist since JAMIA 11(4) spans pp. 235-338.
+  - New finding B2: Chapter 2 requires a review policy to combine eight named signals; Chapter 4 never enumerates them and three (novelty, evidence quality, reviewer competence) appear nowhere in the methodology chapter.
+  - Score adjusted 75 to 73; delivered corrected review to Ali and pushed as 118570b.
+- Files changed:
+  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
+- Commands/checks:
+  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
+  - pypdf page/footer check -> 21 pages, all footers Page N of 21
+  - Workflow verify-proposal-bibliography -> 57 refs, 54 exact, 3 defects, 0 overturned
+- Status: Completed
+- Next steps: Ali to apply the three verified citation fixes ([35] venue, [20] and [27] titles) and leave [45] unchanged.
