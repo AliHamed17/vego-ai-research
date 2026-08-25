@@ -137,14 +137,19 @@ GLOBAL STANDARDS — apply to all eleven figures without exception.
 PER-FIGURE BRIEF. Redraw all eleven. The four marked PRIORITY carry the most argumentative weight
 and should receive the most effort.
 
-Figure 1 (p.5) — "Four readings of the same observed model difference". PRIORITY. This is the
-  document's opening argument and the reader's first contact with the visual language, so it must be
-  the most carefully made image in the proposal. Show ONE concrete model fragment once, then four
-  labelled readings of it: valid alternative, modeling-language error, ambiguity in the description,
-  domain misconception. A 2x2 quadrant or a one-to-four fan both work; the fan makes the shared
-  origin clearer. Make the point visible without the caption: the artifact is identical in all four,
-  only the interpretation differs. Use the real motivating example from §1.7 (the Shift Supervisor
-  actor) rather than an abstract placeholder, so Figures 1 and the §1.7 example reinforce each other.
+Figure 1 (p.5) — "Six readings of one observed model difference". PRIORITY. CORRECTED 2026-08-26:
+  the earlier "four readings" brief was wrong; §1.7's Shift Supervisor example gives six readings
+  verbatim, not four, so use six. This is the document's opening argument and the reader's first
+  contact with the visual language, so it must be the most carefully made image in the proposal.
+  Show ONE concrete model fragment once, then six labelled readings of it, verbatim from §1.7:
+  defensible abstraction of an unnamed role; modeling-language error; domain misconception about
+  authorization; genuine ambiguity in the task description; gap in the guideline; legitimate
+  local/pedagogical decision by the instructor. A one-to-six fan (radial or a vertical stack of six)
+  works better than a quadrant here, since six does not tile evenly. Make the point visible without
+  the caption: the artifact is identical in all six, only the interpretation differs, and none is
+  privileged — keep every arrow the same weight. Use the real motivating example from §1.7 (the Shift
+  Supervisor actor) rather than an abstract placeholder, so Figure 1 and the §1.7 text reinforce each
+  other; the reader meets the same concrete case again nine pages later.
 
 Figure 2 (p.6) — "The four-agent VEGO-AI baseline". Dataflow pipeline: Language Advisor, Domain
   Advisor, Model Inspector, Variability Explorer, with the artifacts passed between them (language

@@ -59,11 +59,14 @@ component for the Gantt (Figure 10) since it needs true calendar-date positionin
 
 THE 12 ITEMS TO IMPLEMENT
 
-1. "Four readings of the same observed model difference" — one model fragment (the "Shift
-   Supervisor" actor example, an actor mentioned in a domain description who is not named by the
-   original text) shown once, fanning out to four labelled readings: valid alternative,
-   modeling-language error, ambiguity in the description, domain misconception. Fan/radial layout,
-   shared origin node visually obvious.
+1. "Six readings of one observed model difference" — CORRECTED 2026-08-26: the earlier "four
+   readings" spec was wrong; section 1.7's Shift Supervisor example gives six readings verbatim, not
+   four. One model fragment (the Shift Supervisor actor, mentioned in a domain description but not
+   named by the original text) shown once, fanning out to six labelled readings: defensible
+   abstraction of an unnamed role; modeling-language error; domain misconception about authorization;
+   genuine ambiguity in the task description; gap in the guideline; legitimate local/pedagogical
+   decision by the instructor. Fan/radial layout, shared origin node visually obvious, all six arrows
+   the same weight since the point is that none is privileged over the others.
 
 2. "The four-agent VEGO-AI baseline" — pipeline: Language Advisor -> Domain Advisor -> Model
    Inspector -> Variability Explorer, left to right. Edge labels: language template, reference
