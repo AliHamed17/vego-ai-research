@@ -1,0 +1,22 @@
+{
+  "license": {
+    "bytes": 4424,
+    "file": "OFL.txt",
+    "sha256": "58402F82A7C332A700294988FE7554FBB0A63A8D27CCC1EE3BBC640311990A00",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/OFL.txt"
+  },
+  "source": "Google Fonts ofl/carlito",
+  "version": 1,
+  "fonts": {
+    "Carlito-Regular.ttf": {
+      "bytes": 628032,
+      "sha256": "F6418F708BAEDE9789DAEF5D458C0F53D2A888AF9820E8062934E504FEDC6595",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/Carlito-Regular.ttf"
+    },
+    "Carlito-Bold.ttf": {
+      "bytes": 682468,
+      "sha256": "BB5D20F79B82599EC72983597437373A80F2D2085FA91FC144FD74E876A594DB",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/Carlito-Bold.ttf"
+    }
+  }
+}

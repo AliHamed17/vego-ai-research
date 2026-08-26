@@ -16,6 +16,8 @@
 uv.lock text eol=lf
 docs/research/meetings/2026-07-29-iris-zoom-*.csv text eol=lf
 docs/research/meetings/2026-07-29-iris-supervisor-bilingual-transcript.he-en.md whitespace=-trailing-space
+# Preserve the exact upstream OFL receipt, including its licensed trailing space.
+docs/research/phd-proposal/figures/vendor/fonts/OFL.txt whitespace=-trailing-space
 
 *.pdf binary
 *.docx binary

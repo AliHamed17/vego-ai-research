@@ -18,33 +18,6 @@ Record file changes and rollback notes here.
 - Branch backup: pushed 6 local-only, unmerged branches to origin as plain backup refs (no PR opened): `feature/m4a-test-compat`, `feature/memory-advisor`, `feature/memory-informed-comparison`, `feature/results-dashboard`, `feature/visualizer-ux-refresh`, `fix/m4b-schema-hardening`.
 - Rollback note: Deck/literature changes live only on PR branches (`docs/literature-awesome-index-and-root-cleanup`) or already-merged history (via PR #19, once merged) - nothing was pushed directly to `main`. To undo the branch backups, delete the remote refs (`git push origin --delete <branch>`); this does not affect `main` or either PR.
 
-## 2026-07-27 - Codex - Evaluation Phase Branch & Supervisor Checklist
-
-- Files added:
-  - `docs/research/evaluation-run-guide.md`
-  - `docs/research/supervisor-label-approval-checklist.md`
-- Files updated:
-  - `docs/research/supervisor-label-approval-pack.md` (appended sign-off checklist reference section 8)
-- Git branch: `feature/evaluation-phase` created and active.
-- Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
-
-## 2026-07-27 - Codex - Evaluation Phase Branch & Supervisor Checklist
-
-- Files added:
-  - `docs/research/evaluation-run-guide.md`
-  - `docs/research/supervisor-label-approval-checklist.md`
-- Files updated:
-  - `docs/research/supervisor-label-approval-pack.md` (appended sign-off checklist reference section 8)
-- Git branch: `feature/evaluation-phase` created and active.
-- Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
-
-## 2026-07-27 09:39 +03:00 - Codex - Evaluation Phase Implementation Plan & Supervisor Sign-off Checklist
-
-- Files changed:
-  - docs/research/evaluation-run-guide.md,docs/research/supervisor-label-approval-checklist.md,docs/research/supervisor-label-approval-pack.md
-- Rollback note: Delete docs/research/evaluation-run-guide.md and docs/research/supervisor-label-approval-checklist.md, revert docs/research/supervisor-label-approval-pack.md, and checkout main.
-- Git commit: none recorded by script.
-
 ## 2026-07-28 14:02 +03:00 - Claude - Evaluation phase: component verdicts, advisory analyst, Iris matrix, full-eval runner
 
 - Files changed:
@@ -64,7 +37,6 @@ Record file changes and rollback notes here.
   - docs/agent-memory/decisions.md
 - Rollback note: Revert commits aeddc13, 886c5fb, d59a3df, fa48953 plus the memory-finish commit; the trusted-SHA git config and repo variable stay at 54d2f919 (cacfab7 record).
 - Git commit: none recorded by script.
-
 ## 2026-07-28 15:46 +03:00 - Claude - Adversarial review fixes, honest-evidence rewrite, and main merge for the evaluation phase
 
 - Files changed:
@@ -322,4 +294,14 @@ Record file changes and rollback notes here.
 - Files changed:
   - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
 - Rollback note: git revert 118570b restores the pre-verification version of the review.
+- Git commit: none recorded by script.
+
+## 2026-08-26 01:15 +03:00 - Codex - Specify doctoral proposal visual system
+
+- Files changed:
+  - docs/superpowers/specs/2026-08-26-proposal-visual-system-design.md
+  - docs/agent-memory/session-log.md
+  - docs/agent-memory/revert-log.md
+  - docs/agent-memory/compiled-memory.md
+- Rollback note: Revert the design-specification commit and the associated memory-only commit.
 - Git commit: none recorded by script.

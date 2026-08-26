@@ -47,6 +47,7 @@ jobs:
           uv run python -m pytest VEGO-AI/tests -q -p no:cacheprovider
           uv run python -m pytest scripts/tests -q -p no:cacheprovider
           uv run python -m pytest tests/hlayer_offline -q -p no:cacheprovider
+          uv run python -m pytest tests/proposal_visuals -q -p no:cacheprovider
 
   source-security-and-documents:
     name: Source, security, browser, and documents

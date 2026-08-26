@@ -1,0 +1,215 @@
+{
+  "figures": {
+    "fig-01": {
+      "title": "Six readings of one observed model difference",
+      "caption": "Figure 1. Six readings of one observed model difference.",
+      "provenance": "Author-generated synthesis of the variability and automated-assessment literature reviewed in §1.1. The fragment is the motivating example developed in §1.7.",
+      "alt_text": "One observed Shift Supervisor model difference branches equally to six interpretations, showing that the artifact alone is not a verdict.",
+      "locators": ["PDF p. 5, Figure 1", "PDF pp. 9-10, §1.7"],
+      "items": {
+        "readings": [
+          "The actor may be a defensible abstraction of a role the description implies without naming.",
+          "It may be a modeling-language error, if the student has used an actor where the notation calls for a role or a boundary element.",
+          "It may be a domain misconception about who authorizes what.",
+          "It may reflect genuine ambiguity in the task description.",
+          "It may expose a gap in the guideline, which should have admitted this representation and does not.",
+          "Or it may be a legitimate local decision that the instructor permits for a pedagogical reason specific to this course."
+        ]
+      }
+    },
+    "fig-02": {
+      "title": "The four-agent VEGO-AI baseline",
+      "caption": "Figure 2. The four-agent VEGO-AI baseline, redrawn from the supplied foundation manuscript [1].",
+      "provenance": "Source note: baseline agents and artifacts are redrawn from the supplied foundation manuscript [1]; the dashed attachment is proposed, not reported.",
+      "alt_text": "The Language Advisor, Domain Advisor, Model Inspector, and Variability Explorer exchange structured artifacts, with a separate proposed doctoral attachment band.",
+      "locators": ["PDF p. 6, Figure 2", "PDF p. 6, §1.2"],
+      "items": {
+        "agents": ["Language Advisor", "Domain Advisor", "Model Inspector", "Variability Explorer"],
+        "artifacts": ["language template", "reference guidelines", "compliance vector + uncovered audit", "variability patterns"]
+      }
+    },
+    "fig-03": {
+      "title": "Established research streams and residual gap mapping",
+      "caption": "Figure 3. Established research streams, the opening none of them closes, and the mapping from gaps to questions.",
+      "provenance": "Author-generated synthesis of §§1.1-1.6. Panel b states, for each gap, the single element a study could refute.",
+      "alt_text": "Five research streams converge on three gaps, mapped to SQ1, SQ2, SQ3, and an integrated umbrella research question.",
+      "locators": ["PDF p. 11, Figure 3", "PDF p. 11, Table 1"],
+      "items": {
+        "streams": ["mixed-initiative design", "deferral & active learning", "explanatory debugging & provenance", "case-based reasoning & transfer", "guideline operationalization"],
+        "gaps": ["Reviewer competence and authority as routing inputs", "Retained dissent, and lifecycle state that can lapse", "Local quirk versus transferable capability gap"]
+      }
+    },
+    "fig-04": {
+      "title": "Programme spine",
+      "caption": "Figure 4. The programme spine: each sub-question to its artifact, its evaluation, and its planned output.",
+      "provenance": "Author-generated research design. The mapping remains working material until confirmed by the supervisors.",
+      "alt_text": "Four aligned rows map SQ1-SQ3 to their specified artifacts, evaluations, and papers; a fourth row compares AI-only, human-only, ordinary non-governed HITL, and governed VEGO-AI under matched cases, evidence, and attention.",
+      "locators": ["PDF p. 15, Figure 4", "PDF p. 15, §3.1"],
+      "items": {
+        "subquestions": ["SQ1 Selective intervention", "SQ2 Governed judgment", "SQ3 Controlled reuse"],
+        "columns": ["Sub-question", "Primary artifact", "Evaluation", "Planned output"],
+        "spine_rows": [
+          {"row": "SQ1", "cells": ["SQ1 Selective intervention", "Attention-budget review-policy model", "Matched-budget policy study", "Paper 1"]},
+          {"row": "SQ2", "cells": ["SQ2 Governed judgment", "Governed-judgment contract", "Conformance and comparator study", "Paper 2"]},
+          {"row": "SQ3", "cells": ["SQ3 Controlled reuse", "Reuse and capability-gap procedure", "Reliability and frozen-target study", "Paper 3"]},
+          {"row": "Integrated", "cells": ["Integrated evaluation of the umbrella question", "Four-arm comparison", "Comparator arms", "Matched cases, evidence and attention"]}
+        ],
+        "integrated_arms": ["AI-only", "human-only", "ordinary non-governed HITL", "governed VEGO-AI"],
+        "integrated_boundary": "Consumes all three studies; not answered by completing them."
+      }
+    },
+    "fig-05": {
+      "title": "The Study 1 review policy",
+      "caption": "Figure 5. The Study 1 review policy: eight declared signals, a matched attention budget, six routing actions.",
+      "provenance": "Author-generated design synthesis derived from the requirements identified in §1.4. Shaded signals are contributed by this design rather than drawn from the reviewed literature.",
+      "alt_text": "Eight named policy signals feed a review policy constrained by a matched attention budget and route to six possible actions, while hard rules bypass the policy.",
+      "locators": ["PDF p. 17, Figure 5", "PDF p. 17, §3.3"],
+      "items": {
+        "signals": ["claim-level uncertainty", "consequence of an unreviewed error", "evidence quality", "reviewer competence for the specific claim", "current queue conditions", "novelty relative to the judgment store", "cross-agent disagreement", "expected future reuse value"],
+        "actions": ["immediate qualified review", "queue", "batch review", "audit sample", "autonomous action with logging", "blocked action"],
+        "constraint": "attention budget B",
+        "hard_rules": ["missing authorization", "prohibited transfer", "other high-consequence conditions"]
+      }
+    },
+    "fig-06": {
+      "title": "The Study 2 governed-judgment record and lifecycle",
+      "caption": "Figure 6. The Study 2 governed-judgment record, and its lifecycle as a state machine.",
+      "provenance": "Author-generated design synthesis derived from the requirements identified in §1.5. Canonical lifecycle labels resolve the Figure 6 source discrepancy.",
+      "alt_text": "A governed-judgment record groups claim information, expert judgment, scope, authority, validation, and lifecycle data next to a six-state auditable lifecycle.",
+      "locators": ["PDF p. 18, Figure 6", "PDF p. 18, §3.4"],
+      "items": {
+        "record_groups": ["Case grounding", "Inspectable trace", "Expert judgment", "Scope and authority", "Validation and dissent", "Lifecycle and outcome"],
+        "states": ["Created", "Validated", "Contested", "Superseded", "Expired", "Revoked"],
+        "transitions": ["activation", "challenge", "replacement", "lapse", "revocation"]
+      }
+    },
+    "fig-07": {
+      "title": "The Study 3 reuse procedure and capability-gap guard",
+      "caption": "Figure 7. The Study 3 reuse procedure: five gates, three outcomes, and the guard on a capability-gap claim.",
+      "provenance": "Author-generated design synthesis derived from the requirements identified in §1.6.",
+      "alt_text": "Five sequential reuse gates precede a four-status reuse decision whose exact routing rule is not specified. Reuse permitted is shown separately from the four statuses, while local quirk and a four-check capability-gap candidate form an independent diagnostic layer.",
+      "locators": ["PDF p. 19, Figure 7", "PDF p. 19, §3.5"],
+      "items": {
+        "gates": ["Similarity found", "Applicable here", "Requester authorized", "Still valid", "Does reuse actually help?"],
+        "statuses": ["Eligible", "Eligible with adaptation", "Blocked", "Undetermined"],
+        "outcomes": ["reuse permitted", "local quirk", "capability-gap candidate"],
+        "and_checks": ["one failure signature is predeclared", "it reproduces in at least two contexts differing above cohort", "an independent reviewer confirms it", "a local guideline, task, version, data or reviewer cause is ruled out"]
+      }
+    },
+    "fig-08": {
+      "title": "Expert-review scores reported in the VEGO-AI foundation manuscript",
+      "caption": "Figure 8. Expert-review scores reported in the VEGO-AI foundation manuscript.",
+      "provenance": "Transcribed from the supplied manuscript [1]. Two experts reviewed a sample of 16 outcomes, four per setting; the source reports no dispersion and no inter-rater statistic, and none is inferred here.",
+      "alt_text": "Grouped scores on a zero-to-one axis compare compliance vectors with uncovered-fragment audits for Cheers and ParkWise under UCD and CD settings.",
+      "locators": ["PDF p. 22, Figure 8", "PDF p. 22, §4.1"],
+      "items": {
+        "values": {
+          "ch-ucd": {"compliance_vectors": 0.8, "uncovered_fragment_audits": 0.55},
+          "ch-cd": {"compliance_vectors": 0.96, "uncovered_fragment_audits": 0.81},
+          "pw-ucd": {"compliance_vectors": 0.83, "uncovered_fragment_audits": 0.55},
+          "pw-cd": {"compliance_vectors": 0.92, "uncovered_fragment_audits": 0.88}
+        },
+        "y_domain": [0.0, 1.0],
+        "sample": "16 outcomes; four per setting; two experts; no dispersion or inter-rater statistic reported",
+        "series_labels": ["Compliance vectors", "Uncovered-fragment audits"],
+        "sample_disclosure": "n=16; four per setting; two experts; no dispersion or inter-rater statistic reported",
+        "evidence_boundary": "Reported foundation-manuscript baseline evidence only; not a doctoral result.",
+        "evidence_scope": "reported-baseline-only",
+        "axis": {
+          "label": "Reported score (0-1)",
+          "ticks": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+        }
+      }
+    },
+    "fig-09": {
+      "title": "The three-year plan, anchored to October 2027 - October 2030",
+      "caption": "Figure 9. The three-year plan, anchored to October 2027 - October 2030.",
+      "provenance": "Author-generated plan. The preparatory year is shown outside the three-year count. The medical extension is conditional, off the critical path, and gated; none of its six entry gates is satisfied.",
+      "alt_text": "A semester-aligned three-year plan from October 2027 to October 2030 includes three studies, papers, integrated evaluation, defence, and a conditional medical go or no-go in September 2029.",
+      "locators": ["PDF p. 23, Figure 9", "PDF p. 24, Table 8"],
+      "items": {
+        "preparatory_period": "Oct 2026 - Oct 2027",
+        "main_period": "Oct 2027 - Oct 2030",
+        "preparatory_outside_count": true,
+        "preparatory_label": "Preparatory - outside the three-year count",
+        "counted_plan_label": "Counted three-year plan",
+        "year_labels": ["Year 1", "Year 2", "Year 3"],
+        "workstreams": ["Literature review", "Study 1", "Study 2", "Study 3", "Integrated evaluation", "Publications"],
+        "semesters": [
+          {"semester": "Semester 1", "period": "Oct 2027 - Mar 2028", "activity": "Execute the five registered query families with screening and record the per-query audit; confirm research questions and artifact boundaries; freeze the Study 1 protocol including its primary estimand and selective-risk ceiling; complete independent labels for the software and modeling baseline.", "output": "Executed review with screening and inclusion counts; taxonomy first version; preregistered Study 1 protocol; labeled baseline."},
+          {"semester": "Semester 2", "period": "Apr 2028 - Sep 2028", "activity": "Implement and evaluate Study 1; analyse burden and important-case capture; prepare the first paper.", "output": "Study 1 artifact, evaluation package, and Paper 1 submission."},
+          {"semester": "Semester 3", "period": "Oct 2028 - Mar 2029", "activity": "Freeze the Study 2 contract; build conformance fixtures; recruit an independent implementer and reviewers; run instrument validation.", "output": "Governed-judgment contract, conformance suite, and reference implementation."},
+          {"semester": "Semester 4", "period": "Apr 2029 - Sep 2029", "activity": "Run the Study 2 comparator study; complete analysis and Paper 2; prepare the frozen source store for Study 3.", "output": "Study 2 empirical report, Paper 2 submission, and governed source corpus."},
+          {"semester": "Semester 5", "period": "Oct 2029 - Mar 2030", "activity": "Run the Study 3 reliability and target-context evaluation. Any medical work proceeds only if the go/no-go decision at the end of Semester 4, September 2029, was affirmative and all six entry gates are approved.", "output": "Study 3 artifact, target evaluation, and Paper 3 submission."},
+          {"semester": "Semester 6", "period": "Apr 2030 - Sep 2030", "activity": "Run the integrated evaluation; synthesize findings and boundary conditions; complete the thesis and defence preparation.", "output": "Integrated thesis contribution, dissertation, and review package."}
+        ],
+        "activity_bars": [
+          {"lane": "Literature review", "start_semester": 1, "end_semester": 1, "label": "Review"},
+          {"lane": "Study 1", "start_semester": 1, "end_semester": 2, "label": "Protocol -> eval."},
+          {"lane": "Study 2", "start_semester": 3, "end_semester": 4, "label": "Contract -> study"},
+          {"lane": "Study 3", "start_semester": 5, "end_semester": 5, "label": "Target"},
+          {"lane": "Integrated evaluation", "start_semester": 6, "end_semester": 6, "label": "Thesis"}
+        ],
+        "milestones": ["Paper 1", "Paper 2", "Paper 3", "defence", "go / no-go - Sep 2029"],
+        "milestone_schedule": [
+          {"label": "Paper 1", "semester": 2},
+          {"label": "Paper 2", "semester": 4},
+          {"label": "Paper 3", "semester": 5},
+          {"label": "defence", "semester": 6}
+        ],
+        "conditional_medical_option": {
+          "label": "Conditional medical extension",
+          "critical_path": false,
+          "go_no_go": "go / no-go - Sep 2029"
+        },
+        "readiness_gates": {
+          "exp005": "0/24",
+          "medical": "0/6",
+          "note": "EXP-005 remains 0/24; medical readiness remains 0/6. This plan makes no readiness claim."
+        }
+      }
+    },
+    "fig-10": {
+      "title": "Where the ACL-2026 human-agent taxonomy meets this research, and where it stops",
+      "caption": "Figure 10. Where the ACL-2026 human-agent taxonomy meets this research, and where it stops.",
+      "provenance": "Author-generated. The same content is delivered as a standalone slide, VEGO_AI_ACL_Taxonomy_Slide_20260825.pptx.",
+      "alt_text": "Four existing taxonomy branches are contrasted with eleven proposal-derived concepts the taxonomy cannot express, with a notice limiting the claim to this taxonomy's coverage.",
+      "locators": ["PDF p. 28, Figure 10", "PDF p. 29, Table 11"],
+      "items": {
+        "taxonomy_branches": ["Human Feedback", "Communication Mode", "Interaction Variant", "Orchestration"],
+        "missing_concepts": [
+          "Reuse of a stored judgment in a later, different episode, and the reuse mode - inert, advisory, or behavior-changing",
+          "Claim-level validity scope: the prospective applicability envelope, including explicit negative scope",
+          "Diagnostic attribution: whether an intervention reveals a domain-specific quirk or a transferable capability gap",
+          "Temporal validity: expiry, supersession, revocation, and lapse when the interpreted guideline is revised",
+          "Claim-scoped authority and competence, separating case-level decisions from rubric-level changes",
+          "Version-exact provenance binding to the artifact state judged, with staleness detection",
+          "The elicitation trigger as a versioned, reason-coded policy object",
+          "Attention-budget accounting: a bounded budget per run and an allocation rule across claims",
+          "Preserved dissent: two conflicting judgments both retained, reuse blocked pending adjudication",
+          "Reuse-leakage control: provenance disjointness between the judgment store and the evaluation cases",
+          "Judgment target layer: verdict, the agent's stated reasoning, evidence selection, or the guideline"
+        ],
+        "claim_scope": "This states what the taxonomy cannot express - not that those concepts are necessary or that the proposed mechanisms work."
+      }
+    },
+    "fig-11": {
+      "title": "Corpus screening and research-question coverage",
+      "caption": "Figure 11. Corpus screening and research-question coverage for the ACL-2026 survey corpus.",
+      "provenance": "Derived from Tables 12 and 13. Screening was single-rater and title-level; findings are corpus-scoped rather than field-scoped.",
+      "alt_text": "A stacked bar totals ninety screened papers by three dispositions and a separate panel shows U-RQ and SQ2 partly covered, SQ1 covered, and SQ3 not covered.",
+      "locators": ["PDF p. 30, Table 12", "PDF p. 30, Table 13", "PDF p. 30, §A.4"],
+      "items": {
+        "paper_disposition": {"Relevant": 22, "Less relevant": 63, "Not relevant": 5},
+        "paper_total": 90,
+        "paper_disposition_heading": "Paper-level disposition: 90 screened papers",
+        "rq_coverage": {"U-RQ": "Partly", "SQ1": "Yes", "SQ2": "Partly", "SQ3": "No"},
+        "missing_level": "research-question",
+        "rq_coverage_heading": "Research-question-level coverage - not paper-level disposition",
+        "missing_coverage_note": "research-question-level missing coverage; not paper-level disposition",
+        "screening_limit": "single-rater and title-level; corpus-scoped rather than field-scoped",
+        "standalone_status": "Standalone candidate only - not integrated into the proposal."
+      }
+    }
+  }
+}

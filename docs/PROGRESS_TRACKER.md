@@ -130,19 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
-- 2026-08-03 22:16 +03:00 - Claude - Independent audit of the Iris closure package + fix pass (36/36 tests, all 10 IRIS-EXP structure checks PASS)
-- 2026-08-01 18:13 +03:00 - Codex - Implement Iris next-step execution controls
-- 2026-08-01 13:47 +03:00 - Codex - Iris closure reachability and receipt hardening
-- 2026-08-01 13:27 +03:00 - Codex - Enhanced Iris Zoom-to-submission closure tranche
-- 2026-07-30 16:21 +03:00 - Codex - Iris requirements assurance and presentation controls
-- 2026-07-30 15:10 +03:00 - Codex - Implement July 29 doctoral requirements-closure program
-- 2026-07-28 19:14 +03:00 - Claude - Enhanced supervisor deck for 29 July, with a fact-check that corrected two published figures
-- 2026-07-27 09:39 +03:00 - Codex - Evaluation Phase Implementation Plan & Supervisor Sign-off Checklist
-- 2026-07-26 20:45 +03:00 - Codex - Advance independent evidence study to calibration
-- 2026-07-26 18:36 +03:00 - Codex - Independent expert evidence evaluation pipeline
-- 2026-07-26 17:14 +03:00 - Codex - Evaluate all experiments and publish benchmark BigUI
-- 2026-07-26 14:55 +03:00 - Codex - Add paper-aligned experiment comparison evidence
-- 2026-07-26 13:30 +03:00 - Codex - Execute experiments and publish results-first BigUI
+- 2026-08-26 01:15 +03:00 - Codex - Specify doctoral proposal visual system
+- 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
+- 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
+- 2026-08-20 02:10 +03:00 - Claude - Do-next-step review: fix forbidden-artifact unsafe verdict
+- 2026-08-19 13:36 +03:00 - Claude - Verify literature review v13 and evidence workbook v5
+- 2026-08-19 02:12 +03:00 - Claude - Fix CI packageRevision self-reference (thesis review manifest)
 <!-- AUTO:activity:end -->
 
 ---

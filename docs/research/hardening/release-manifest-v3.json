@@ -18,12 +18,12 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "d8ceb38c5026fda56e956afd2cd4ddfcf42d03f8285504640326c2a266279c58",
+  "packageTreeSha256": "ea0ba21d47ded51bc4afbbe7c626b9c8723ddf763b2dffb69e59db0935a98242",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
     "path": "docs/research/hardening/sbom.cdx.json",
-    "sha256": "28dca632ac7473ad86ae4796ac14eaafc453bb4e530ce596a8f3db0f938cfc5c"
+    "sha256": "3c3e8ca7b73dfcd245f7824efb64b532ca6851cd3ec75f3216855a040d0a03ad"
   },
   "schemaVersion": "ReleaseManifest-v3",
   "sourceChecks": {
@@ -205,7 +205,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "565ac882674aefd0be74d6578dae81f1135f7acfcbb805fea679ad8c6043dfb3",
+  "sourceTreeSha256": "9569f62cc608ed67e091ab62f3aa8120df5d1787047a607443be0663cc3c75dc",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -214,12 +214,12 @@
     "ruff": "0.15.16"
   },
   "trackedArtifacts": {
-    "VEGO-AI-Research-Hub.html": "3596edbca46191a64059b2f84addfec28ed4e0986d43a61f6e9d2e2c98197bd2",
-    "VEGO-AI-Thesis-Baseline-Progress.html": "d8a4b7566219bfd1cb9ea5db07a30ed71c5b2e20bac27aed4e5937bc6adced47",
+    "VEGO-AI-Research-Hub.html": "55943ce676d4e35bad691d2a7b4ab4f688065ecde267146a16a0e2990692d9f8",
+    "VEGO-AI-Thesis-Baseline-Progress.html": "8776298661ccd63af56b5c1839d12e83bb426f9768386e2ea1cd8b0de666c666",
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
     "docs/research/hardening/baseline-lock-manifest-v2.json": "3ed664b6de6b8d943e36493bbb8e31d863e8a3dea041cfda82c7be5e218d695f",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
-    "docs/research/hardening/sbom.cdx.json": "28dca632ac7473ad86ae4796ac14eaafc453bb4e530ce596a8f3db0f938cfc5c",
-    "docs/research/hardening/security-posture-snapshot-v1.json": "927c5c5c6b57d559a4bdf3120ef463d741cc1118560eff0599ec28e2899f2bf8"
+    "docs/research/hardening/sbom.cdx.json": "3c3e8ca7b73dfcd245f7824efb64b532ca6851cd3ec75f3216855a040d0a03ad",
+    "docs/research/hardening/security-posture-snapshot-v1.json": "485580a76901b057aca5654ab751cf6fbf2c154e1b72595a600b37a00595fe72"
   }
 }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": "ThesisEvidenceSnapshot-v1",
   "generatedAt": "2026-07-25T23:30:48+00:00",
-  "sourceRevision": "aba24508d6f7ef45512b0a390741b8485e71e0f4",
-  "sourceTreeHash": "4e5ceb8361b0ac72114f9358f039a6ce5efbdd8bac0f3f4410dcebc02fb4627e",
+  "sourceRevision": "c786d94ff2930dd83d907d1c6072c9c9265edae3",
+  "sourceTreeHash": "7c3c0fb4e5626ed397d26974e7e92d5db425da1064d0a9172b5461166f0e0e2e",
   "canonicalSourcesDirty": false,
   "programSnapshot": {
     "path": "docs/research/h-layer/program-status-snapshot-v1.json",
@@ -1183,7 +1183,7 @@
     }
   ],
   "sourceHashes": {
-    "requirements-thesis.txt": "932113e0252394d22f3e35fc5ac2d97cf605c12561fe3fb03b80dcb8d51bc3c7",
+    "requirements-thesis.txt": "6df2007ec46ea05863ab9aba1769c86a384b8b13a897d7414fdad78872b2619c",
     "scripts/build_thesis_evidence_package.py": "8f948e794814f8dca0417e6fa07a322bfb00506c95a7f6d3c9d3dabeb9e830a2",
     "scripts/validate_thesis_evidence_package.py": "18201ede6bd007b07801aa4ded555a3ec33f13e9c55c24a2c80350e1c716c21f",
     "scripts/validate_research_records.py": "f1357b89b36365ce5d9a23d69ae4d69f52cef3de935d309c2c9d057af1e1a2cd",

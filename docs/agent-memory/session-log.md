@@ -206,3 +206,22 @@ Chronological prompt history for Codex and Claude.
   - Workflow verify-proposal-bibliography -> 57 refs, 54 exact, 3 defects, 0 overturned
 - Status: Completed
 - Next steps: Ali to apply the three verified citation fixes ([35] venue, [20] and [27] titles) and leave [45] unchanged.
+
+## 2026-08-26 01:15 +03:00 - Codex - Specify doctoral proposal visual system
+
+- Request: Audit the attached proposal and create the approved visual-system design before implementation.
+- Actions taken:
+  - Verified revision (4) is byte-identical to revision (3) and contains ten vector figures.
+  - Rendered and inspected all figure pages; recorded clipping and label/status discrepancies.
+  - Created and committed the architectural design specification in an isolated worktree.
+- Files changed:
+  - docs/superpowers/specs/2026-08-26-proposal-visual-system-design.md
+  - docs/agent-memory/session-log.md
+  - docs/agent-memory/revert-log.md
+  - docs/agent-memory/compiled-memory.md
+- Commands/checks:
+  - uv sync --frozen --all-groups
+  - uv run pytest -q: 46 passed
+  - git diff --check
+- Status: awaiting Ali review of written specification
+- Next steps: Ali reviews and approves the committed specification; then create the executable implementation plan.

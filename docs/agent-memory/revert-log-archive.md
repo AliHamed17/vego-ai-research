@@ -48,7 +48,6 @@ Historical entries.
   - docs/agent-memory/revert-log.md
 - Rollback note: Remove the two scripts, automation.md, and compiled-memory.md; then revert AGENTS.md, CLAUDE.md, and docs/agent-memory files to their previous memory workflow state.
 - Git commit: none recorded by script.
-
 ## 2026-06-11 15:17 +03:00 - Codex - PhD Research Architecture
 
 - Files changed:
@@ -1978,4 +1977,31 @@ Historical entries.
   - scripts/publish_independent_evidence_package.py
   - VEGO-AI-Research-Hub.html
 - Rollback note: Revert the calibration-phase commits; the baseline, Agent 4, private mapping, expert-label count, and evaluation results were not changed.
+- Git commit: none recorded by script.
+
+## 2026-07-27 - Codex - Evaluation Phase Branch & Supervisor Checklist
+
+- Files added:
+  - `docs/research/evaluation-run-guide.md`
+  - `docs/research/supervisor-label-approval-checklist.md`
+- Files updated:
+  - `docs/research/supervisor-label-approval-pack.md` (appended sign-off checklist reference section 8)
+- Git branch: `feature/evaluation-phase` created and active.
+- Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
+
+## 2026-07-27 - Codex - Evaluation Phase Branch & Supervisor Checklist
+
+- Files added:
+  - `docs/research/evaluation-run-guide.md`
+  - `docs/research/supervisor-label-approval-checklist.md`
+- Files updated:
+  - `docs/research/supervisor-label-approval-pack.md` (appended sign-off checklist reference section 8)
+- Git branch: `feature/evaluation-phase` created and active.
+- Rollback note: Delete `docs/research/evaluation-run-guide.md` and `docs/research/supervisor-label-approval-checklist.md`, revert `docs/research/supervisor-label-approval-pack.md`, and switch back to `main` branch (`git checkout main`).
+
+## 2026-07-27 09:39 +03:00 - Codex - Evaluation Phase Implementation Plan & Supervisor Sign-off Checklist
+
+- Files changed:
+  - docs/research/evaluation-run-guide.md,docs/research/supervisor-label-approval-checklist.md,docs/research/supervisor-label-approval-pack.md
+- Rollback note: Delete docs/research/evaluation-run-guide.md and docs/research/supervisor-label-approval-checklist.md, revert docs/research/supervisor-label-approval-pack.md, and checkout main.
 - Git commit: none recorded by script.
