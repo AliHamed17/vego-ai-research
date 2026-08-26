@@ -1,0 +1,93 @@
+{
+  "font_sources": [
+    {
+      "bytes": 1535878,
+      "family": "Caladea",
+      "license": "Apache-2.0",
+      "sha256": "2737242DBEB1E7FC728A9E3EF5509AF3513666A826F4D40205C2E5CE3A7768EA",
+      "url": "https://deb.debian.org/debian/pool/main/f/fonts-crosextra-caladea/fonts-crosextra-caladea_20200211.orig.tar.gz"
+    },
+    {
+      "family": "Carlito",
+      "license": "SIL-OFL-1.1",
+      "source": "LibreOffice 24.2.7.2 MSI payload"
+    }
+  ],
+  "fonts": [
+    {
+      "relative_path": "share/fonts/truetype/Caladea-Bold.ttf",
+      "sha256": "AE3CB2DCBC925809DD29D2A44E9802211CAB66BE541BACBFC9C08C74B27C3742"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Caladea-BoldItalic.ttf",
+      "sha256": "CCABAA7B7E2FDF253D2B1A5FA699DD8A3DF8D835A9EB285AD82631A677EB76C0"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Caladea-Italic.ttf",
+      "sha256": "4359A8E24F748B6447B1FF6D7A174FEBE70961D29F8BB8634B56DACD740A3DEB"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Caladea-Regular.ttf",
+      "sha256": "F1E899278B7B4491ABA5B6A8253C4B04C050CC59B21865BE5C37559A775153CD"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Carlito-Bold.ttf",
+      "sha256": "0F62AB34AD5D079A0A28FAC01BCF7C7A724A4DB4D6CB99CAB9CABFF382FBB80F"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Carlito-BoldItalic.ttf",
+      "sha256": "380764B6898D7B73CEAE6384B2958B196D2A0428962EF3ADF138D27947228666"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Carlito-Italic.ttf",
+      "sha256": "718A0663864D37A4868220A19B9668A5FE10A46197F6DF367B4C2C30C04C026C"
+    },
+    {
+      "relative_path": "share/fonts/truetype/Carlito-Regular.ttf",
+      "sha256": "B4FF23BA370CC95A3C349336B73F9C28514A1371210F89832EFC85C4B1EA7131"
+    }
+  ],
+  "profile": {
+    "replacement_enabled": true,
+    "substitutions": [
+      {
+        "always": true,
+        "replace": "Calibri",
+        "with": "Carlito"
+      },
+      {
+        "always": true,
+        "replace": "Cambria",
+        "with": "Caladea"
+      }
+    ]
+  },
+  "renderer": {
+    "archive": {
+      "bytes": 365019136,
+      "sha256": "CD7CC555CCAFCF42D571662FDC29C37C68B49D32D3F8F5B2A113E782145D59E6",
+      "url": "https://downloadarchive.documentfoundation.org/libreoffice/old/24.2.7.2/win/x86_64/LibreOffice_24.2.7.2_Win_x86-64.msi"
+    },
+    "build_id": "ee3885777aa7032db5a9b65deec9457448a91162",
+    "engine_contract": {
+      "algorithm": "sha256-path-size-content-v1",
+      "file_count": 695,
+      "scope": [
+        "program/* (top-level files only)",
+        "program/services/** (all files)",
+        "share/registry/** (all files)",
+        "share/fonts/truetype/** (all files)"
+      ],
+      "total_bytes": 513933334,
+      "tree_sha256": "48767A72AF829695A407B94A9829F5FC0B6779B4B01E585C0F1BB3A105F2EAD5"
+    },
+    "executable_sha256": "D17799D6F148C5D3D0CD9B1C12D5E1457280E63FD2C1F2AA434568C7EBD6A27C",
+    "license": "MPL-2.0 / LGPL-3.0-or-later",
+    "name": "LibreOffice",
+    "pdf_export_filter": "writer_pdf_Export",
+    "relative_executable": "program/soffice.com",
+    "version": "24.2.7.2",
+    "version_output": "LibreOffice 24.2.7.2 ee3885777aa7032db5a9b65deec9457448a91162"
+  },
+  "schema_version": 1
+}

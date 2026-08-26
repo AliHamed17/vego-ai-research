@@ -313,6 +313,14 @@ def test_push_workflow_uses_the_pre_push_revision() -> None:
     assert 'BASE="${PR_BASE_SHA:-${PUSH_BEFORE_SHA:-HEAD^}}"' in workflow
 
 
+def test_python_matrix_runs_proposal_visual_tests() -> None:
+    workflow = WORKFLOW.read_text(encoding="utf-8")
+    assert (
+        "uv run python -m pytest tests/proposal_visuals -q -p no:cacheprovider"
+        in workflow
+    )
+
+
 def test_verify_source_bootstraps_authorization_from_external_trust() -> None:
     script = VERIFY_SOURCE.read_text(encoding="utf-8")
     assert "[string]$TrustedAuthorizationSha256" in script

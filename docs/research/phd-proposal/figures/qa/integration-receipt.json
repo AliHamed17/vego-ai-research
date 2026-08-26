@@ -1,0 +1,441 @@
+{
+  "checks": {
+    "figures": {
+      "alt_text_count": 10,
+      "captions": [
+        "Figure 1. Six readings of one observed model difference.",
+        "Figure 2. The four-agent VEGO-AI baseline, redrawn from the supplied foundation manuscript [1].",
+        "Figure 3. Established research streams, the opening none of them closes, and the mapping from gaps to questions.",
+        "Figure 4. The programme spine: each sub-question to its artifact, its evaluation, and its planned output.",
+        "Figure 5. The Study 1 review policy: eight declared signals, a matched attention budget, six routing actions.",
+        "Figure 6. The Study 2 governed-judgment record, and its lifecycle as a state machine.",
+        "Figure 7. The Study 3 reuse procedure: five gates, three outcomes, and the guard on a capability-gap claim.",
+        "Figure 8. Expert-review scores reported in the VEGO-AI foundation manuscript.",
+        "Figure 9. The three-year plan, anchored to October 2027 \u2013 October 2030.",
+        "Figure 10. Where the ACL-2026 human\u2013agent taxonomy meets this research, and where it stops."
+      ],
+      "count": 10,
+      "embedded_semantic_svg_hashes": [
+        "BE491DEB9186F1C9987D3EBCF478F919B62406A2070C77D4CAD7113962A72A8E",
+        "F5C5FC07E53D37D6C5B96BAC3E36E401FB0222ADC1E54B8F6B5F5A1019018A89",
+        "0826626BDB02FAB65FE31905CDB7114338DD5F0BC8C0B21A79982CAB0F8A1ACC",
+        "D0B5EDB17E49904A4A40F7FE4D8058E830EEDB3D1D0BA1AA833116BB59140314",
+        "41B0740B89F0EBD83A797A78E846D0AE6D329A59CE2206F83464988BA2A6DB33",
+        "7DABB0283A31C188C6367AED9B0225CB686733A140F8CD792E73CE3859CE10BF",
+        "9435ABE3BE0C073FCF69A33779ACCC650E2DE82D35095E0880CE93C7FD7BC948",
+        "753E1E5EB082F9568641DF5DECCEEFB04EBB1246469420529400864ADD1E1F68",
+        "06A0556ABF2522925B041D4276C3ED8C342C932B3147EC8E7868252B4C1004F7",
+        "8AA27FE383E36176D2AB805A0AF4A149044CFF4466AF9B1440FFD1B4CD63B159"
+      ],
+      "embedded_svg_hashes": [
+        "8B9E3A88C45B7C6EC0B0C674C38AE4DE5E2DA936D1ED140FC3331FA42851F88E",
+        "7E2EDA13F80708C1318CA688B1808A7AF8B7F19F5700B56325EFCD32A8B2DAB4",
+        "BB437273531DA375418352F2DE28B0F331C7835C22F939C877772675B8495AB7",
+        "77E4E4211E5D21AFE81C07CA869510334AAE982FADE578F2CAA734924965F84A",
+        "46CAFF599DDC29BDA022DE8EFFD0CE893FE4B1D1E2BE742C04281C9BC63EE14D",
+        "3EC43C04426456E51FB4A2E66B7E3A2BE075E7509B6255B23FECF5D4B6CB4545",
+        "8F211223AB4BE9F30CE1EDEA53C003BD59E578A5E3F2025233608A0E8CE09B21",
+        "513F82A51CE130244EDE97FB84017E46CFBE3C111315E290214F0614A40D71C3",
+        "31BD66CB5634803FED954FB5297A9AA98BF2C2A70E65BF96646BDBEC76BAE320",
+        "F966A8CEE0BC01CD130B913C397A2E712BA59445611D8BAC71B69B337776410E"
+      ],
+      "normalization_contract": {
+        "active_content": 0,
+        "external_references": 0,
+        "geometry": "polygon/polyline to M/L/Z paths",
+        "hatch_encoding": "explicit bounded vector lines with zero pattern/image resources",
+        "metadata": "title/desc/font-style/role/data attributes removed",
+        "overflow": "hidden added to root only",
+        "raster_content": 0,
+        "root_size": "planned pt lengths to unitless 4/3 Word rewrite",
+        "root_size_tolerance_svg_units": "0.005"
+      },
+      "order": [
+        "fig-01",
+        "fig-02",
+        "fig-03",
+        "fig-04",
+        "fig-05",
+        "fig-06",
+        "fig-07",
+        "fig-08",
+        "fig-09",
+        "fig-10"
+      ],
+      "passed": true,
+      "planned_semantic_svg_hashes": [
+        "BE491DEB9186F1C9987D3EBCF478F919B62406A2070C77D4CAD7113962A72A8E",
+        "F5C5FC07E53D37D6C5B96BAC3E36E401FB0222ADC1E54B8F6B5F5A1019018A89",
+        "0826626BDB02FAB65FE31905CDB7114338DD5F0BC8C0B21A79982CAB0F8A1ACC",
+        "D0B5EDB17E49904A4A40F7FE4D8058E830EEDB3D1D0BA1AA833116BB59140314",
+        "41B0740B89F0EBD83A797A78E846D0AE6D329A59CE2206F83464988BA2A6DB33",
+        "7DABB0283A31C188C6367AED9B0225CB686733A140F8CD792E73CE3859CE10BF",
+        "9435ABE3BE0C073FCF69A33779ACCC650E2DE82D35095E0880CE93C7FD7BC948",
+        "753E1E5EB082F9568641DF5DECCEEFB04EBB1246469420529400864ADD1E1F68",
+        "06A0556ABF2522925B041D4276C3ED8C342C932B3147EC8E7868252B4C1004F7",
+        "8AA27FE383E36176D2AB805A0AF4A149044CFF4466AF9B1440FFD1B4CD63B159"
+      ],
+      "planned_svg_hashes": [
+        "EFE0FF7299D64440080A77DB933739103E8054192F21D78EA1CD684A410B8279",
+        "2188EC1633BFD2AFB1D493CA996FEB406FF966B1E04BF98BA3237D83CD6BD9A7",
+        "513BA87699CB2497742635ED36B7905EF2E333E08B7F80BCD8F9D985B03398CC",
+        "C7ADDA00ACC09FA487EF895C0F5CF03C63CE459BECB87CF0CFC201844507C70C",
+        "7627E895E0B9AF7EC3212EB4952CC1C5087A2D6897756AC420C490691F30797A",
+        "B6580034A109C610F60A103496A1F57A54DD84A5A927F60939705FEC1D10925A",
+        "7F4EF761D3A82FF14FBAE9FEB4840BC0502703CBE20385AD6ACD3BBFD2B5D05B",
+        "AA303F37F43F6E8DD72D49ED1764685CCB42CF0A445C5005571BC2D92DDC316D",
+        "5D33C387CDF3F8FC53D195617E7B9C16704B3A3DD5DB24EA8484C3BC344CF220",
+        "9F092EFC53576B49E3384FA119E92D80D087FCDDBBD2A76B8A45C1A47A151542"
+      ],
+      "planned_widths_emu": [
+        4716000,
+        4716000,
+        4716000,
+        4716000,
+        4716000,
+        4716000,
+        4716000,
+        4104000,
+        4716000,
+        4716000
+      ],
+      "semantic_schema": "vego-ai-word-svg-semantic-v2",
+      "svg_hashes": [
+        "EFE0FF7299D64440080A77DB933739103E8054192F21D78EA1CD684A410B8279",
+        "2188EC1633BFD2AFB1D493CA996FEB406FF966B1E04BF98BA3237D83CD6BD9A7",
+        "513BA87699CB2497742635ED36B7905EF2E333E08B7F80BCD8F9D985B03398CC",
+        "C7ADDA00ACC09FA487EF895C0F5CF03C63CE459BECB87CF0CFC201844507C70C",
+        "7627E895E0B9AF7EC3212EB4952CC1C5087A2D6897756AC420C490691F30797A",
+        "B6580034A109C610F60A103496A1F57A54DD84A5A927F60939705FEC1D10925A",
+        "7F4EF761D3A82FF14FBAE9FEB4840BC0502703CBE20385AD6ACD3BBFD2B5D05B",
+        "AA303F37F43F6E8DD72D49ED1764685CCB42CF0A445C5005571BC2D92DDC316D",
+        "5D33C387CDF3F8FC53D195617E7B9C16704B3A3DD5DB24EA8484C3BC344CF220",
+        "9F092EFC53576B49E3384FA119E92D80D087FCDDBBD2A76B8A45C1A47A151542"
+      ],
+      "width_deltas_emu": [
+        -490,
+        -490,
+        -490,
+        -490,
+        -490,
+        -490,
+        -490,
+        -630,
+        -490,
+        -490
+      ],
+      "width_tolerance_emu": 1270,
+      "widths_emu": [
+        4715510,
+        4715510,
+        4715510,
+        4715510,
+        4715510,
+        4715510,
+        4715510,
+        4103370,
+        4715510,
+        4715510
+      ],
+      "word_normalized_svg_count": 10
+    },
+    "pdf": {
+      "authoritative_for_release": true,
+      "page_count": 31,
+      "passed": true,
+      "raster_image_xobjects": 0
+    },
+    "references": {
+      "dangling_markers": [],
+      "passed": true
+    },
+    "renderer": {
+      "font_sources": [
+        {
+          "bytes": 1535878,
+          "family": "Caladea",
+          "license": "Apache-2.0",
+          "sha256": "2737242DBEB1E7FC728A9E3EF5509AF3513666A826F4D40205C2E5CE3A7768EA",
+          "url": "https://deb.debian.org/debian/pool/main/f/fonts-crosextra-caladea/fonts-crosextra-caladea_20200211.orig.tar.gz"
+        },
+        {
+          "family": "Carlito",
+          "license": "SIL-OFL-1.1",
+          "source": "LibreOffice 24.2.7.2 MSI payload"
+        }
+      ],
+      "fonts": {
+        "count": 8,
+        "sha256": {
+          "Caladea-Bold.ttf": "AE3CB2DCBC925809DD29D2A44E9802211CAB66BE541BACBFC9C08C74B27C3742",
+          "Caladea-BoldItalic.ttf": "CCABAA7B7E2FDF253D2B1A5FA699DD8A3DF8D835A9EB285AD82631A677EB76C0",
+          "Caladea-Italic.ttf": "4359A8E24F748B6447B1FF6D7A174FEBE70961D29F8BB8634B56DACD740A3DEB",
+          "Caladea-Regular.ttf": "F1E899278B7B4491ABA5B6A8253C4B04C050CC59B21865BE5C37559A775153CD",
+          "Carlito-Bold.ttf": "0F62AB34AD5D079A0A28FAC01BCF7C7A724A4DB4D6CB99CAB9CABFF382FBB80F",
+          "Carlito-BoldItalic.ttf": "380764B6898D7B73CEAE6384B2958B196D2A0428962EF3ADF138D27947228666",
+          "Carlito-Italic.ttf": "718A0663864D37A4868220A19B9668A5FE10A46197F6DF367B4C2C30C04C026C",
+          "Carlito-Regular.ttf": "B4FF23BA370CC95A3C349336B73F9C28514A1371210F89832EFC85C4B1EA7131"
+        }
+      },
+      "passed": true,
+      "profile": {
+        "isolated": true,
+        "replacement_enabled": true,
+        "substitutions": [
+          {
+            "always": true,
+            "replace": "Calibri",
+            "with": "Carlito"
+          },
+          {
+            "always": true,
+            "replace": "Cambria",
+            "with": "Caladea"
+          }
+        ]
+      },
+      "renderer": {
+        "archive": {
+          "bytes": 365019136,
+          "sha256": "CD7CC555CCAFCF42D571662FDC29C37C68B49D32D3F8F5B2A113E782145D59E6",
+          "url": "https://downloadarchive.documentfoundation.org/libreoffice/old/24.2.7.2/win/x86_64/LibreOffice_24.2.7.2_Win_x86-64.msi"
+        },
+        "build_id": "ee3885777aa7032db5a9b65deec9457448a91162",
+        "engine_contract": {
+          "algorithm": "sha256-path-size-content-v1",
+          "file_count": 695,
+          "scope": [
+            "program/* (top-level files only)",
+            "program/services/** (all files)",
+            "share/registry/** (all files)",
+            "share/fonts/truetype/** (all files)"
+          ],
+          "total_bytes": 513933334,
+          "tree_sha256": "48767A72AF829695A407B94A9829F5FC0B6779B4B01E585C0F1BB3A105F2EAD5"
+        },
+        "executable_sha256": "D17799D6F148C5D3D0CD9B1C12D5E1457280E63FD2C1F2AA434568C7EBD6A27C",
+        "manifest_sha256": "C716AB498923F4A4E683F497FBFB8A5C2C1715678F64376E1A5DFBF286BE8459",
+        "name": "LibreOffice",
+        "pdf_export_filter": "writer_pdf_Export",
+        "version": "24.2.7.2",
+        "workspace_local": true
+      },
+      "word_pagination": {
+        "authoritative_for_release": false,
+        "baseline_pages": 33,
+        "delta_pages": 0,
+        "integrated_pages": 33,
+        "passed": true,
+        "policy": "baseline-aware-sanity"
+      }
+    },
+    "scholarly_text_parity": {
+      "authorized_change": "Figure 1 caption count: Four to Six",
+      "derived_body_text_sha256": "B34A920D5451093B63C26035D3B195CC40F846075987362AB982CD84A3F3D0F3",
+      "paragraph_count": 663,
+      "passed": true
+    },
+    "static_toc": {
+      "actual_page_matches": 39,
+      "entries": [
+        {
+          "page": 2,
+          "title": "Abstract"
+        },
+        {
+          "page": 4,
+          "title": "1. Introduction and Motivation"
+        },
+        {
+          "page": 4,
+          "title": "1.1 Domain modeling, variability, and model assessment"
+        },
+        {
+          "page": 5,
+          "title": "1.2 Agentic AI for modeling and assessment"
+        },
+        {
+          "page": 6,
+          "title": "1.3 Human involvement in agentic AI"
+        },
+        {
+          "page": 7,
+          "title": "1.3.1 Coverage of an existing human\u2013agent taxonomy"
+        },
+        {
+          "page": 7,
+          "title": "1.4 Selective human intervention"
+        },
+        {
+          "page": 8,
+          "title": "1.5 Capturing and governing expert judgment"
+        },
+        {
+          "page": 9,
+          "title": "1.6 Reusing judgment across contexts"
+        },
+        {
+          "page": 9,
+          "title": "1.7 A motivating example"
+        },
+        {
+          "page": 10,
+          "title": "1.8 Synthesis and residual research gaps"
+        },
+        {
+          "page": 12,
+          "title": "2. Research Objectives, Questions, and Expected Contributions"
+        },
+        {
+          "page": 12,
+          "title": "2.1 Research objectives"
+        },
+        {
+          "page": 12,
+          "title": "2.2 Research questions"
+        },
+        {
+          "page": 13,
+          "title": "2.3 Scenario instantiation"
+        },
+        {
+          "page": 13,
+          "title": "2.4 Expected contributions"
+        },
+        {
+          "page": 14,
+          "title": "2.5 Testable propositions"
+        },
+        {
+          "page": 14,
+          "title": "3. Research Methodology and Expected Artifacts"
+        },
+        {
+          "page": 14,
+          "title": "3.1 Design-science programme"
+        },
+        {
+          "page": 15,
+          "title": "3.2 The literature review as a research activity"
+        },
+        {
+          "page": 16,
+          "title": "3.3 Study 1 \u2014 selective intervention"
+        },
+        {
+          "page": 17,
+          "title": "3.4 Study 2 \u2014 governed judgment"
+        },
+        {
+          "page": 18,
+          "title": "3.5 Study 3 \u2014 controlled reuse and capability-gap classification"
+        },
+        {
+          "page": 20,
+          "title": "3.6 Integrated evaluation"
+        },
+        {
+          "page": 21,
+          "title": "3.7 Ethics, privacy, and leakage controls"
+        },
+        {
+          "page": 21,
+          "title": "4. Progress and Preliminary Results"
+        },
+        {
+          "page": 21,
+          "title": "4.1 Reported baseline evidence from the foundation manuscript"
+        },
+        {
+          "page": 22,
+          "title": "4.2 Literature-review progress"
+        },
+        {
+          "page": 22,
+          "title": "4.3 Current doctoral-project evidence and open gates"
+        },
+        {
+          "page": 23,
+          "title": "5. Research Work Plan"
+        },
+        {
+          "page": 24,
+          "title": "6. Challenges, Pitfalls, and Threats to Validity"
+        },
+        {
+          "page": 25,
+          "title": "6.1 Threats to validity"
+        },
+        {
+          "page": 25,
+          "title": "7. References"
+        },
+        {
+          "page": 27,
+          "title": "Appendix A. Classification of the ACL-2026 human\u2013agent taxonomy"
+        },
+        {
+          "page": 28,
+          "title": "A.1 Branch-level disposition"
+        },
+        {
+          "page": 28,
+          "title": "A.2 Dimension-level disposition"
+        },
+        {
+          "page": 29,
+          "title": "A.3 Concepts the taxonomy cannot express"
+        },
+        {
+          "page": 29,
+          "title": "A.4 Screening the survey corpus"
+        },
+        {
+          "page": 30,
+          "title": "Appendix B. Scholarly status note"
+        }
+      ],
+      "kind": "static-visible-list",
+      "native_toc_fields": 0,
+      "passed": true,
+      "row_count": 39
+    },
+    "table_caption_parity": {
+      "captions": [
+        "Table 1. The three residual gaps, each reduced to one load-bearing element and its refutation condition.",
+        "Table 2. The umbrella research question and its three sub-questions.",
+        "Table 3. Expected contributions and the artifacts that carry them.",
+        "Table 4. Testable propositions with explicit rejection conditions.",
+        "Table 5. Outcome measures for the three studies. Each study declares one primary outcome; gates are pass conditions, and constraints bound what a primary result may be traded against.",
+        "Table 6. Outcome families for the integrated evaluation.",
+        "Table 7. Current evidence sources and the interpretation each permits.",
+        "Table 8. Semester-aligned activities and expected outputs, anchored to October 2027 \u2013 October 2030. Submission and defence by October 2030.",
+        "Table 9. Principal risks, their consequences, and the associated decision rules.",
+        "Table 10. Branch-level disposition of the four classification branches. Section numbers in the first column refer to the survey [20], not to this document.",
+        "Table 11. The eleven concepts the taxonomy cannot express, and the question each is required by. For each concept, the nearest existing dimension and why it falls short are recorded in the companion file VEGO_AI_Appendix_A2_Dimension_Disposition_20260825.md.",
+        "Table 12. Screening of the ninety-paper survey corpus. Counts are for unique papers, not branch rows.",
+        "Table 13. Corpus-level coverage per research question. Missing is applied at question level, since it cannot apply to a paper.",
+        "Table 14. Open decisions and evidence boundaries as of the revision date."
+      ],
+      "count": 14,
+      "passed": true
+    }
+  },
+  "inputs": {
+    "content_manifest_sha256": "F3896F6B2DD31245292033634A1AEF01366C64AB3EF634466A8472BB26E697AC",
+    "qa_receipt_sha256": "F24F4B3C0AB7D4D234F84726F0A8132A590B612C75A004786F182F0E778AB364"
+  },
+  "outputs": {
+    "docx": {
+      "sha256": "F14114F3BF3B0470799AF04B605C659B93EBA9C35C464E6F6A58E4365C0488E7"
+    },
+    "pdf": {
+      "sha256": "6A98BBC0E7094074AB4CDB26882D1E16EEEFFF3E5165D05D9AFFB6C93AFBF6DF"
+    }
+  },
+  "passed": true,
+  "source": {
+    "sha256": "D73C840BD606695DAE50EE2E9304403D0ECB0518BCD43F05FE68B1DE166063DA"
+  },
+  "status": "pass"
+}

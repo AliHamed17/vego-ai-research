@@ -1,0 +1,1698 @@
+{
+  "artifacts": {
+    "qa/generated/contact-sheets/deuteranopia.png": "020376449444832B38A2DC61CA2EB29E396710CDC07E42314B6E04A1D7A854D4",
+    "qa/generated/contact-sheets/greyscale.png": "96C3FE0A2E60537AD002CCA760A57D2A547E08078274EBC0AB56FB6C0EC09FE8",
+    "qa/generated/contact-sheets/normal.png": "CD3799FDF89FA0CB637E9F0D3316CA36D868DC55B0D7D2D365439CF71E99B627",
+    "qa/generated/contact-sheets/protanopia.png": "928DBDB8926B1DD53B30B8216E9C05E24E5927263B55D8B91EAF4B8EA73B40FB",
+    "qa/generated/proof-pdf/fig-01.pdf": "651FC43A5330E122591545E46EE25F914453057CA27BD41895D41F5B8C4DA4AA",
+    "qa/generated/proof-pdf/fig-02.pdf": "1E376BB3017A7FF74216DE7FC6D3651811AF6DFDC45668FE9B3CB36BA4C6B3C7",
+    "qa/generated/proof-pdf/fig-03.pdf": "46FC6609BA282521C7247F2D6B2940A39ACB06EC79FF3A8AE16CCEA3D9D87FC1",
+    "qa/generated/proof-pdf/fig-04.pdf": "6F0C0470FEF7126237A7940F9328693B562FAF8FFB87F65401135CCFEB21C64B",
+    "qa/generated/proof-pdf/fig-05.pdf": "C755012452D66680A6B624DD9911C740A2D32EA2007B0952D83E37E9FF936762",
+    "qa/generated/proof-pdf/fig-06.pdf": "8DB3C76C22D4FDB4F4CAE765B310B3AE8D3532D6F62F21C8F5951FB517D6255D",
+    "qa/generated/proof-pdf/fig-07.pdf": "14F7482F91830A886D8417C387807A01E78050A43795D9098D5BE4F658C8E4A5",
+    "qa/generated/proof-pdf/fig-08.pdf": "56807D6CD565FC09627B6325F4ECD4E8B3BC0ADA2CD3206AA70EF0F2B044EF83",
+    "qa/generated/proof-pdf/fig-09.pdf": "67E830B087354D78DA9A037CB18CD050600BEB830E2C22A4D34C0F10AA28E66E",
+    "qa/generated/proof-pdf/fig-10.pdf": "41529A122D7CD8F23D135226729CBB65E3CACBD5F4891D003F8EC23DC782E8A5",
+    "qa/generated/proof-pdf/fig-11.pdf": "8B51F916C3DD2B3152B6F18B9D980FE25A37BAE8C8042706CC4EB06C688596A1",
+    "qa/generated/proofs/144/deuteranopia/fig-01.png": "68D7746DF197C9EB366C89F8EB43F320F29242D4892389F528521E6552BD4CAD",
+    "qa/generated/proofs/144/deuteranopia/fig-02.png": "9F455C4BB28987434E883281EF9AB2A58A2A55DC6A90ACEDAB35448E0A610445",
+    "qa/generated/proofs/144/deuteranopia/fig-03.png": "A6720EF36A2A8ECAB1A993DAE841D4B6C8878B41F376E90F58BD450EC5F8F00E",
+    "qa/generated/proofs/144/deuteranopia/fig-04.png": "869A678D2361C0939D040F7F5823C8D6C5CABD981750B0557747D9A5008D8CFE",
+    "qa/generated/proofs/144/deuteranopia/fig-05.png": "8EBB516467F8A6AF75D84C00D8F78BAAAFED5F2F2A34D12B4E76456E5581A07A",
+    "qa/generated/proofs/144/deuteranopia/fig-06.png": "47359E5C55C9191762373B31886D0CD1BD6A7D0B8638C790C865D52A270DEDD6",
+    "qa/generated/proofs/144/deuteranopia/fig-07.png": "206C3E0CBF00C01A07F2A065DE3F0FA9015DABE599DD2C72D5C894F46DCA4BE4",
+    "qa/generated/proofs/144/deuteranopia/fig-08.png": "1327AF1801139597C4423CDB5BFF15E2D6C9C2C71E1BDEAA2924F356D7EC8BE4",
+    "qa/generated/proofs/144/deuteranopia/fig-09.png": "EF463323CF337384AF8B2CA0E27C76DB74B7EEA892D6F6A01749C10C4840D216",
+    "qa/generated/proofs/144/deuteranopia/fig-10.png": "A3A3656D36F5D3BDF850941374A2FF798625B5792006B3A9A85BD7A9CC18E819",
+    "qa/generated/proofs/144/deuteranopia/fig-11.png": "3328EF762CC39FA0250778C2803F9D0671B9B2EE0345C8034C4ED8E708FDB360",
+    "qa/generated/proofs/144/greyscale/fig-01.png": "E38989E69F269FE72B443817B1316AFFDD46F223D309E595ACCD1C8F0CCD9831",
+    "qa/generated/proofs/144/greyscale/fig-02.png": "1CBC2D8B18CB4D8AC98667A0102C16B680E711C0089CF338006110D6DE4A48B3",
+    "qa/generated/proofs/144/greyscale/fig-03.png": "7F01D7934287BA6F2467B5FFD6052F21A6F49F7FBBFE98CE522879EE34AE37F7",
+    "qa/generated/proofs/144/greyscale/fig-04.png": "7B8F69DF7F310C40F6C5C97316C2B48957D416D7A24C8B0D35597B9AE6463144",
+    "qa/generated/proofs/144/greyscale/fig-05.png": "6F53AF74E0F2E7644F2D264706C2EEE59CF5353D5D2D94E488E3D1F33963EA57",
+    "qa/generated/proofs/144/greyscale/fig-06.png": "8F3E5F0709C0D7AEAC61BE1E41D9C3AD3B894A4ED4E96E0C94E4AE0BC94A30D9",
+    "qa/generated/proofs/144/greyscale/fig-07.png": "9EE3E40BE611A0A459C78BFAB6FD37EE3174580A2676913717C80A4817917350",
+    "qa/generated/proofs/144/greyscale/fig-08.png": "5C17718FA7CFF9C5064143D4F8BFCC2BEE063D25C8D5CDD6EC803DB0A2C829C5",
+    "qa/generated/proofs/144/greyscale/fig-09.png": "6FCD68F51C55DDEBDFC96F5C69BD56FB4A2E6C240A2F743BB10E879BA1849F7C",
+    "qa/generated/proofs/144/greyscale/fig-10.png": "292613ECAF147348B4EB63F73B3D460CEE026FFF55E4B5EB206A26D94723C3E2",
+    "qa/generated/proofs/144/greyscale/fig-11.png": "7C241BB5E98FFB0498E45B4D154786B6418AF7FFF9D4BB1B0C7C6639886B8D68",
+    "qa/generated/proofs/144/normal/fig-01.png": "0D1C11455E7ABF281867FCD11EC02D098623FE8E3627ACAA153AE4B417A4F57C",
+    "qa/generated/proofs/144/normal/fig-02.png": "0A79B9ACB11D8113A1DED00CCB7CF5DAE4747CF8F2E966EE5DC7450E906E9255",
+    "qa/generated/proofs/144/normal/fig-03.png": "CA2684DB4AA5616CB689E8774BC8D8013A23D708741136EDBCF8FD4B2A8E853D",
+    "qa/generated/proofs/144/normal/fig-04.png": "940AA12FC807513D71F78AAF8DCC267B7CB755A2CE4C1B27633AABC3FE1B5E71",
+    "qa/generated/proofs/144/normal/fig-05.png": "ACA0DD6E75A27F7BF16055CC34AB704D598EF51741CEF8ED54D05734AA0FE41C",
+    "qa/generated/proofs/144/normal/fig-06.png": "D4DCEC499DB638BAF3620CDEBADC0EC811A7BED87179DC5D62CADF25E2EE1088",
+    "qa/generated/proofs/144/normal/fig-07.png": "BE9FB5D975545C751DBCAA4E5F9D647A2C0DD5A88EEF8BDD2597E1F5C5966552",
+    "qa/generated/proofs/144/normal/fig-08.png": "F55CBACF2248DF6FE2FAC00D3C81889A0C7577933C34011B5BE7366837B90EC5",
+    "qa/generated/proofs/144/normal/fig-09.png": "CCBBC54126B9FAB5D8C6D0D5E69C4F3929C7CEDEA3675BDFB557C3E1EB74DAA6",
+    "qa/generated/proofs/144/normal/fig-10.png": "DC529C5465C57F14E6AE695F91EE4FD9B93BAC3601B23D9DF8B2267232513342",
+    "qa/generated/proofs/144/normal/fig-11.png": "682B1D0E180A062B5C7217700D8C7E096EEBD8E66F7E5C8C9414D5628483F34F",
+    "qa/generated/proofs/144/protanopia/fig-01.png": "F078223496347D09403E012B5312B22E6DDE56E1270CC4CDC6FB11F1B86920F1",
+    "qa/generated/proofs/144/protanopia/fig-02.png": "BC99A51BEC7F66487ECFF5EF5F2318E299EAAD595A47E29E3445032B8EB83537",
+    "qa/generated/proofs/144/protanopia/fig-03.png": "AF6318FF1982C745540FF70200DB96A3902A347F4D405EC5EBE6D6995FAC56A9",
+    "qa/generated/proofs/144/protanopia/fig-04.png": "FC430752BE209D75DA95C89BFB02A8AD377B11BE4FF2C342B643972B5F689ABB",
+    "qa/generated/proofs/144/protanopia/fig-05.png": "2A7BDD30E5F1C6A4DC696F74E48EAA0352DFD53FBA308DDFF6339E17C8A8AEE8",
+    "qa/generated/proofs/144/protanopia/fig-06.png": "83580BDD7CB6DE278F9CD5ABC05D45447357A8595E1964CF9EB418A286EBAD85",
+    "qa/generated/proofs/144/protanopia/fig-07.png": "D54E810ABF28D020FE6EEBE41B5AF7C449E5F30A40ECFA1782A66558DD7F7F2F",
+    "qa/generated/proofs/144/protanopia/fig-08.png": "4E346854B231E01EE1F4F584FE5B29CBDE993A003DE3808B84D094E7F5563016",
+    "qa/generated/proofs/144/protanopia/fig-09.png": "49FC63340341F3BCBCB4AA7DBC0F11A8F6DBB5126DAD31BB9728C2C3ED3727D7",
+    "qa/generated/proofs/144/protanopia/fig-10.png": "20AC7DE5E812A37C50CD7C7036B40619CC46BF29AA44E3F35FB66BA594DBD933",
+    "qa/generated/proofs/144/protanopia/fig-11.png": "FE3595B2276E5CA2F880819ACAFDB7C107AC9A444E091428E92123CD771DEE05",
+    "qa/generated/proofs/576/deuteranopia/fig-01.png": "0079D78DAB07438BC86643B21977E5EEADF4DB8F84D461E2C37DF190B96230CB",
+    "qa/generated/proofs/576/deuteranopia/fig-02.png": "4460D840E936D1C53A97FBE2FB03ABB96BF4FA6A03816511913687B538AC6025",
+    "qa/generated/proofs/576/deuteranopia/fig-03.png": "2105C2D7ABD9C6FE940E57FCFFFC438C15255E6E99070BB629805D12FDE049B8",
+    "qa/generated/proofs/576/deuteranopia/fig-04.png": "2A16249D36F17405D3F1CEE354374AD62D1B44DF841B4671CD14F7FB0B55CCE9",
+    "qa/generated/proofs/576/deuteranopia/fig-05.png": "286AA922AC84902DB98D49E0E3510CB8ECEC28B788BA4CA0FDF9D4B9C07EDEC3",
+    "qa/generated/proofs/576/deuteranopia/fig-06.png": "E79B1CD0B1797D511C545FEC803CFF271479418C6866EFB112823F2D8FF95DAA",
+    "qa/generated/proofs/576/deuteranopia/fig-07.png": "DB86F19E504A8504CB1F471785BF4B0B596C7BA33AF04FF936BC63EB72653E94",
+    "qa/generated/proofs/576/deuteranopia/fig-08.png": "AFB9FA29DE6D3C9E6E8C918E9E0C7D0DA906CF386333D89CBA3D4E449762A4A2",
+    "qa/generated/proofs/576/deuteranopia/fig-09.png": "67360C1B949B4493A024A7F9171A5FF04DA827D6DAA1DE2E0FA14BE10935E800",
+    "qa/generated/proofs/576/deuteranopia/fig-10.png": "E06BFF1C95F90F010D4BB080E5A1DB07DE74F5C2909E5CD34F3D5D8CD592F47D",
+    "qa/generated/proofs/576/deuteranopia/fig-11.png": "2B1CC410A8D2307DCEDB3B58E35794ECF0B281049EAE8881603775BCCB24E590",
+    "qa/generated/proofs/576/greyscale/fig-01.png": "C475EA24CB900C53192E040B5D427CCFD3DF8B6A6C9BE73F4736F5D6500EBDFE",
+    "qa/generated/proofs/576/greyscale/fig-02.png": "09461CB7971DA97DADADE362EAE36F60DEF49C964E54E3833231BCD19B90E4C4",
+    "qa/generated/proofs/576/greyscale/fig-03.png": "121EDFFB081C44EAAA0A5CC37B8F3B0D5B1D525E110A1ED5880C944DDD0954D4",
+    "qa/generated/proofs/576/greyscale/fig-04.png": "49E1A1249E2844E4B1F422B89DC29C03AF73D281B8FC555DD51075EAA7FA1169",
+    "qa/generated/proofs/576/greyscale/fig-05.png": "1A3B8F7A475B0E40EDCD2FC3700E7F6D6AE6B429417DDE43DFE40C5A2747A564",
+    "qa/generated/proofs/576/greyscale/fig-06.png": "C5AF880F4439A443E24CDAB4882C7DF73BAE885A4B13C2C02230E312E1E6518A",
+    "qa/generated/proofs/576/greyscale/fig-07.png": "6C4B61B229ECB6EE24C441510B78937884E18C137B42CB0D318A6AFAEC33E86F",
+    "qa/generated/proofs/576/greyscale/fig-08.png": "EC82CE76F9A022511CB12EAA208C23516714D9122F8FA8E80B55129FA3496F80",
+    "qa/generated/proofs/576/greyscale/fig-09.png": "372B39C10999125D4CDC8E246B7FCB546D65248434A6A896761BCA52A38D91B0",
+    "qa/generated/proofs/576/greyscale/fig-10.png": "400A54D1C10E5E47E867D9E227065DD5512C5D6DA2F1A3DE60AC17C30DA26CE6",
+    "qa/generated/proofs/576/greyscale/fig-11.png": "C593C0A46C3CDDB60AE86D4CBA354F8953B58C184E172CD5293D1B54B2C92695",
+    "qa/generated/proofs/576/normal/fig-01.png": "9CF0A834637235EBCC0ECFE8EB68ED3FB30EAA7F62A21F2EB89C4F176E419DA3",
+    "qa/generated/proofs/576/normal/fig-02.png": "9520A00497C99F2882B5E378495EA38C4F8908964240A927D19B430B1229406A",
+    "qa/generated/proofs/576/normal/fig-03.png": "81EAC5F134239F40316075833A832ABCBEFE71F8E9C23F14E05CB95A4FD9F1E2",
+    "qa/generated/proofs/576/normal/fig-04.png": "6E74036C705C3B9D6FEC969873DAC42E64B06600ABF8CE81D928E372FA5C7666",
+    "qa/generated/proofs/576/normal/fig-05.png": "A84C74AD538F6CA1716CF525AFECFE7C37BD0F53F356AC1549D99766109C686B",
+    "qa/generated/proofs/576/normal/fig-06.png": "EC1E16FC71E1F04ECA7EDECCC36AFAC9502157A457D2A1830A4E91618F56B855",
+    "qa/generated/proofs/576/normal/fig-07.png": "73D6AB1ED7C1F588E8E951FB3E29BC04805F7D3375C672B7B31BEF9E47A4F7BB",
+    "qa/generated/proofs/576/normal/fig-08.png": "D3FC3AC1B723B16FBD47557AB2325C37C47C96FFC847333E887B6ACFCE1980CD",
+    "qa/generated/proofs/576/normal/fig-09.png": "84272B5AC2BB7D3E369D3193DDFA570D2574F3D9018BA9416EB01246DA9C56B9",
+    "qa/generated/proofs/576/normal/fig-10.png": "00A93FCA3B0B9D054EA5B0065E5DCB454C336CE777FBF7D697157D163284A6F4",
+    "qa/generated/proofs/576/normal/fig-11.png": "C94DD61F4A3619922C2E35D94DE41B05A688F61FD75AEECA265DC2A6FEAEA4F2",
+    "qa/generated/proofs/576/protanopia/fig-01.png": "DAAC3EE3307B9E733A4707A3550622C64A4B7183E000630BBF7BB4BF8C61698A",
+    "qa/generated/proofs/576/protanopia/fig-02.png": "F2C4CF14173B750A34220CBADBB38DBD7D6519B6B7367F52B45F3E41F93CA366",
+    "qa/generated/proofs/576/protanopia/fig-03.png": "73FE2AA12CB0E33A5604124766257B9852231F7061C70539CCFC3A6B0D941060",
+    "qa/generated/proofs/576/protanopia/fig-04.png": "77A40A53A05828CD4E33B351705B7BC4E1DFEE5830618DB70927FC82DD785912",
+    "qa/generated/proofs/576/protanopia/fig-05.png": "7328C2F2F23FF18260F35D1EB17182CB43CD5814CA2E2E0A5886107E065AF51F",
+    "qa/generated/proofs/576/protanopia/fig-06.png": "8E2D026C33CD8EC6EC41937F04EC7A6961BDA9598856D2425C7D29539FCD9777",
+    "qa/generated/proofs/576/protanopia/fig-07.png": "476AB9DA5C22F84629015B445492EA548404EF8C073FBFECB43A56FF5448DB3C",
+    "qa/generated/proofs/576/protanopia/fig-08.png": "E697C56944AE420ADE749E1E4F686CFDAB85AF6342C2A4D193AE0E6D20D34E1E",
+    "qa/generated/proofs/576/protanopia/fig-09.png": "A5FB1E64E1D6FB32FF57C8803F450BF8E269F32BD118C9084B7DFA2F7D2F3059",
+    "qa/generated/proofs/576/protanopia/fig-10.png": "2A40F044DBD2F2061B71117EB4FF08E1361D97A6CB3BFD07F4FCD0B22D9107A0",
+    "qa/generated/proofs/576/protanopia/fig-11.png": "290DA5BED8EE957097EDB218065D243A0FA4A927076AD9295ADDA9CAF88DF532",
+    "rendered/pdf/fig-01.pdf": "AC6F939D2B3ED7279834081582ECF655F09F264E7F5FD35AA56A6832B1D9AF77",
+    "rendered/pdf/fig-02.pdf": "F9594B95FAC7BED5F357BCFC33CF24E866712D028FA97A4CDE085BFB318BC3D5",
+    "rendered/pdf/fig-03.pdf": "5B4C4607936D1D5EC81798365043522D1514B82FA429B2AC2E56405CF155E4E8",
+    "rendered/pdf/fig-04.pdf": "8BF02F2DF41894F012DCBC55CBEA23137CFE053263E2DBA5BE18F6637D0E0DC5",
+    "rendered/pdf/fig-05.pdf": "446CCFC53972EBDBFFD7CED4AB73F790FD385DB34AD5FF665C0D665BC4D2A98A",
+    "rendered/pdf/fig-06.pdf": "C3A9FB2A8B1EC5C7B1BD161849FB1261E157B13737E572695918E7C388348E15",
+    "rendered/pdf/fig-07.pdf": "F31FA01200645677AFFEF83590CB39CC7FD243B36C109A7955F1B6C4A9ADE6B6",
+    "rendered/pdf/fig-08.pdf": "84C1789B313C7C4DD88363490CDC583E76982485EAEE7DE4B3C398C92C8FDF09",
+    "rendered/pdf/fig-09.pdf": "D65C23DB3AEC2E5B9B71204A384D760494B219E5D9FB553F3612DC5ACF05E281",
+    "rendered/pdf/fig-10.pdf": "75716005D961AFBA4856F23A854D2DDEA22FA597244AB370BBF9852B1FF34017",
+    "rendered/pdf/fig-11.pdf": "7FF00AC5E12BFC95C50EA77283C3C398094A2431C1531A3C6E99E0DF8A11ADA4",
+    "rendered/svg/fig-01.svg": "EFE0FF7299D64440080A77DB933739103E8054192F21D78EA1CD684A410B8279",
+    "rendered/svg/fig-02.svg": "2188EC1633BFD2AFB1D493CA996FEB406FF966B1E04BF98BA3237D83CD6BD9A7",
+    "rendered/svg/fig-03.svg": "513BA87699CB2497742635ED36B7905EF2E333E08B7F80BCD8F9D985B03398CC",
+    "rendered/svg/fig-04.svg": "C7ADDA00ACC09FA487EF895C0F5CF03C63CE459BECB87CF0CFC201844507C70C",
+    "rendered/svg/fig-05.svg": "7627E895E0B9AF7EC3212EB4952CC1C5087A2D6897756AC420C490691F30797A",
+    "rendered/svg/fig-06.svg": "B6580034A109C610F60A103496A1F57A54DD84A5A927F60939705FEC1D10925A",
+    "rendered/svg/fig-07.svg": "7F4EF761D3A82FF14FBAE9FEB4840BC0502703CBE20385AD6ACD3BBFD2B5D05B",
+    "rendered/svg/fig-08.svg": "AA303F37F43F6E8DD72D49ED1764685CCB42CF0A445C5005571BC2D92DDC316D",
+    "rendered/svg/fig-09.svg": "5D33C387CDF3F8FC53D195617E7B9C16704B3A3DD5DB24EA8484C3BC344CF220",
+    "rendered/svg/fig-10.svg": "9F092EFC53576B49E3384FA119E92D80D087FCDDBBD2A76B8A45C1A47A151542",
+    "rendered/svg/fig-11.svg": "D33BE576C7F1453DE973825B50856924A0F04A4122E5A5F86F80536F75A48DAF"
+  },
+  "checks": {
+    "FINAL_SIZE_FONT": {
+      "detail": "all declared-width labels meet the 7 pt floor and 8 pt ordinary-label gate",
+      "failed_effective_minimum_pt": {},
+      "failed_effective_ordinary_minimum_pt": {},
+      "minimum_pt": 7.0,
+      "ordinary_target_pt": 8.0,
+      "status": "pass"
+    },
+    "build_inputs": {
+      "files": {
+        "content_manifest": {
+          "bytes": 17944,
+          "path": "docs/research/phd-proposal/figures/content.json",
+          "sha256": "F3896F6B2DD31245292033634A1AEF01366C64AB3EF634466A8472BB26E697AC"
+        },
+        "figure_module:fig-01": {
+          "bytes": 8900,
+          "path": "docs/research/phd-proposal/figures/sources/fig_01_six_readings.py",
+          "sha256": "9528FF37319B1CE5DE26A61A0361BF5F3CE812F8998CF790E0CAC4B4F84209EB"
+        },
+        "figure_module:fig-02": {
+          "bytes": 4518,
+          "path": "docs/research/phd-proposal/figures/sources/fig_02_vego_baseline.py",
+          "sha256": "913ABB7B9AE775ACE75FA50D7B295990334028C094E3E36C02A51D1777C087C9"
+        },
+        "figure_module:fig-03": {
+          "bytes": 6683,
+          "path": "docs/research/phd-proposal/figures/sources/fig_03_gap_mapping.py",
+          "sha256": "136F46446007733571D9264C3D9531BB9D9E1B3FA9AF54C2A20565426AECCB0E"
+        },
+        "figure_module:fig-04": {
+          "bytes": 5818,
+          "path": "docs/research/phd-proposal/figures/sources/fig_04_programme_spine.py",
+          "sha256": "8D461C778532CC08F74D4618B725A7B9E0958E9EA94D3409F767B05202959C15"
+        },
+        "figure_module:fig-05": {
+          "bytes": 9988,
+          "path": "docs/research/phd-proposal/figures/sources/fig_05_review_policy.py",
+          "sha256": "8BC8BE99322CF8DA737A2BD7D0E7ABC210473B174D96DEFBADCEEA85BA38598C"
+        },
+        "figure_module:fig-06": {
+          "bytes": 7275,
+          "path": "docs/research/phd-proposal/figures/sources/fig_06_judgment_lifecycle.py",
+          "sha256": "6AC5ACA1EA03E6BEEC58B6B69CD2BDD4F0FD2F88CF384C853524B9B0BA06932B"
+        },
+        "figure_module:fig-07": {
+          "bytes": 17114,
+          "path": "docs/research/phd-proposal/figures/sources/fig_07_reuse_procedure.py",
+          "sha256": "3BE24399C883F93CF9FAFBEA9752A15E6EA513C50545479BBC77674F4A7BCCE7"
+        },
+        "figure_module:fig-08": {
+          "bytes": 5006,
+          "path": "docs/research/phd-proposal/figures/sources/fig_08_expert_scores.py",
+          "sha256": "6173D379BF1548AFF3CDD3AE99B4FDB2EBC28ED1D82D7862784D423769D48336"
+        },
+        "figure_module:fig-09": {
+          "bytes": 19552,
+          "path": "docs/research/phd-proposal/figures/sources/fig_09_three_year_plan.py",
+          "sha256": "4B021EFB6D654057AA420443ED2A5249C7B3C8DA5E1DBFA9A25A807A79CEDADC"
+        },
+        "figure_module:fig-10": {
+          "bytes": 7978,
+          "path": "docs/research/phd-proposal/figures/sources/fig_10_taxonomy_boundary.py",
+          "sha256": "F389812C183EEBA7393CD973296EB6D40EB181157F3261ED621F62AF680BCDE6"
+        },
+        "figure_module:fig-11": {
+          "bytes": 8007,
+          "path": "docs/research/phd-proposal/figures/sources/fig_11_corpus_screening.py",
+          "sha256": "8EF7226B349D514DD4119B0B433659CB9A693C40EDD0EBD4ED66CFBC7431FEEA"
+        },
+        "font_manifest": {
+          "bytes": 783,
+          "path": "docs/research/phd-proposal/figures/vendor/fonts/manifest.json",
+          "sha256": "A62508296BCB7D788449A8397FAD3B8715DC2F0D0552AFBDE58358DBEDE30EF4"
+        },
+        "module:content": {
+          "bytes": 7308,
+          "path": "src/proposal_visuals/content.py",
+          "sha256": "F2107FEE29E7A5FF07B6343FC87B4264F3412A029D7237BFB2B29CFD758FD10E"
+        },
+        "module:fonts": {
+          "bytes": 4404,
+          "path": "src/proposal_visuals/fonts.py",
+          "sha256": "A49E9C4C89BCD00A5AE633297641ACDF8C181050E17F5E682D85A05AC0DE4CAA"
+        },
+        "module:model": {
+          "bytes": 14292,
+          "path": "src/proposal_visuals/model.py",
+          "sha256": "1DE775136C4BCDCE7116565637D4AA592E2B60046866CBA20D0E4538FB40328F"
+        },
+        "module:pdf_backend": {
+          "bytes": 8271,
+          "path": "src/proposal_visuals/pdf_backend.py",
+          "sha256": "7F61CB290F3CDC957503F960F01D8308C78A35D8199C9B0284BAB4A60D30E3B2"
+        },
+        "module:qa": {
+          "bytes": 39375,
+          "path": "src/proposal_visuals/qa.py",
+          "sha256": "640E72BA40BBFE396225C756DD882E258B92C6177810ED75B3572248DD8BDBB1"
+        },
+        "module:svg_backend": {
+          "bytes": 8869,
+          "path": "src/proposal_visuals/svg_backend.py",
+          "sha256": "4E9280AFED86B53AD8A795BC95DD96005824BB0BD8DF7E2CA8BC9F351E43B174"
+        },
+        "module:tokens": {
+          "bytes": 2587,
+          "path": "src/proposal_visuals/tokens.py",
+          "sha256": "1D3E6479932EFCF50737652D712459034DA77F1D40303B5D43CA978545550E12"
+        },
+        "project:pyproject": {
+          "bytes": 1131,
+          "path": "pyproject.toml",
+          "sha256": "39CD7684AD68B5C8B8907B3A61B8D8178C263D0539A75EACAE8C6E8EC40ECF76"
+        },
+        "project:uv_lock": {
+          "bytes": 334188,
+          "path": "uv.lock",
+          "sha256": "EE3CF594D151DEEB37568E5367A29F3A4DFCFF7C968A9A95A9322E312A489621"
+        },
+        "script:build_proposal_visuals": {
+          "bytes": 2104,
+          "path": "scripts/build_proposal_visuals.py",
+          "sha256": "821E9AE2712A38E477ECFBCA452808C5ACE1D42A76867AA9BD1016C7871805DC"
+        },
+        "source_provenance": {
+          "bytes": 370,
+          "path": "docs/research/phd-proposal/figures/source-provenance.json",
+          "sha256": "D632848EA8E2F55737E6CF5FEEADE5E1CC626BDD35AC6367B52E68DF7E236714"
+        }
+      },
+      "status": "pass"
+    },
+    "manual_visual_review": {
+      "detail": "human review recorded",
+      "status": "pass"
+    },
+    "palette_contrast": {
+      "minimum_ratio": 5.425395752048129,
+      "ratios": {
+        "conditional/background": 5.425395752048129,
+        "existing/background": 12.193981303907735,
+        "human_judgment/background": 5.762142199553533,
+        "ink/background": 16.268480224545662,
+        "ink/neutral_fill": 14.764654926153016
+      },
+      "status": "pass"
+    },
+    "poppler": {
+      "status": "pass",
+      "tool": "pdftoppm",
+      "version": "pdftoppm version 25.07.0\nCopyright 2005-2025 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC"
+    },
+    "proof_rasterisation": {
+      "colour_matrices": {
+        "deuteranopia": [
+          0.367322,
+          0.860646,
+          -0.227968,
+          0.0,
+          0.280085,
+          0.672501,
+          0.047413,
+          0.0,
+          -0.01182,
+          0.04294,
+          0.968881,
+          0.0
+        ],
+        "protanopia": [
+          0.152286,
+          1.052583,
+          -0.204868,
+          0.0,
+          0.114503,
+          0.786281,
+          0.099216,
+          0.0,
+          -0.003882,
+          -0.048116,
+          1.051998,
+          0.0
+        ]
+      },
+      "colour_modes": [
+        "normal",
+        "greyscale",
+        "protanopia",
+        "deuteranopia"
+      ],
+      "dpi": [
+        144,
+        576
+      ],
+      "status": "pass"
+    },
+    "runtime_versions": {
+      "build_runtime": "uv",
+      "pillow": "12.3.0",
+      "pypdf": "6.15.0",
+      "python": "3.11.14",
+      "python_implementation": "CPython",
+      "reportlab": "4.4.9",
+      "status": "pass",
+      "uv": "uv 0.10.6 (a91bcf268 2026-02-24)"
+    },
+    "source_provenance": {
+      "filename": "VEGO_AI_Doctoral_Proposal_Revised_20260825 (4).pdf",
+      "page_count": 31,
+      "sha256": "ADB663A4B8B0FFD3F09F2CEFEF43D690B5540FC36D4947FF60DCC624072846C9",
+      "status": "pass"
+    },
+    "vendored_fonts": {
+      "family": "Carlito",
+      "license_file": "OFL.txt",
+      "license_receipt": {
+        "bytes": 4424,
+        "sha256": "58402F82A7C332A700294988FE7554FBB0A63A8D27CCC1EE3BBC640311990A00",
+        "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/OFL.txt"
+      },
+      "status": "pass",
+      "verified": true,
+      "verified_files": {
+        "Carlito-Bold.ttf": {
+          "bytes": 682468,
+          "sha256": "BB5D20F79B82599EC72983597437373A80F2D2085FA91FC144FD74E876A594DB",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/Carlito-Bold.ttf"
+        },
+        "Carlito-Regular.ttf": {
+          "bytes": 628032,
+          "sha256": "F6418F708BAEDE9789DAEF5D458C0F53D2A888AF9820E8062934E504FEDC6595",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/Carlito-Regular.ttf"
+        },
+        "OFL.txt": {
+          "bytes": 4424,
+          "sha256": "58402F82A7C332A700294988FE7554FBB0A63A8D27CCC1EE3BBC640311990A00",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/carlito/OFL.txt"
+        }
+      }
+    }
+  },
+  "figures": {
+    "fig-01": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 243.69094488188975,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.3868110236220472
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.039960629921259,
+        "effective_ordinary_minimum_pt": 8.045669291338582,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 1,
+        "native_minimum_pt": 18.2,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 27,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "dotted",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 8,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "decision",
+          "figure-metadata",
+          "flow",
+          "human_judgment",
+          "label",
+          "process",
+          "provenance",
+          "reading-branch",
+          "store",
+          "visual-language-legend"
+        ],
+        "shape_types": [
+          "Cylinder",
+          "Diamond",
+          "Parallelogram",
+          "Polyline",
+          "Rect",
+          "RoundedRect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 539,
+        "element_count": 130,
+        "embedded_font": true,
+        "max_depth": 4,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "BE491DEB9186F1C9987D3EBCF478F919B62406A2070C77D4CAD7113962A72A8E",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 12.193981303907735,
+        "ratios": {
+          "text-13": 16.268480224545662,
+          "text-14": 16.268480224545662,
+          "text-18": 16.268480224545662,
+          "text-19": 16.268480224545662,
+          "text-2": 16.268480224545662,
+          "text-23": 16.268480224545662,
+          "text-24": 16.268480224545662,
+          "text-28": 16.268480224545662,
+          "text-29": 16.268480224545662,
+          "text-33": 16.268480224545662,
+          "text-34": 16.268480224545662,
+          "text-35": 16.268480224545662,
+          "text-36": 16.268480224545662,
+          "text-39": 16.268480224545662,
+          "text-4": 12.193981303907735,
+          "text-41": 16.268480224545662,
+          "text-43": 16.268480224545662,
+          "text-45": 16.268480224545662,
+          "text-47": 16.268480224545662,
+          "text-49": 16.268480224545662,
+          "text-51": 16.268480224545662,
+          "text-53": 16.268480224545662,
+          "text-55": 16.268480224545662,
+          "text-57": 16.268480224545662,
+          "text-59": 16.268480224545662,
+          "text-60": 16.268480224545662,
+          "text-8": 16.268480224545662,
+          "text-9": 16.268480224545662
+        }
+      }
+    },
+    "fig-02": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 189.79527559055117,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.41259842519685036
+      },
+      "font_size": {
+        "effective_minimum_pt": 8.251968503937007,
+        "effective_ordinary_minimum_pt": 8.251968503937007,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 1,
+        "native_minimum_pt": 20,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 12,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 6,
+        "passed": true,
+        "semantic_roles": [
+          "baseline-agent",
+          "doctoral-attachment",
+          "flow",
+          "label",
+          "process",
+          "provenance",
+          "refinement-loop"
+        ],
+        "shape_types": [
+          "Polyline",
+          "RoundedRect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 224,
+        "element_count": 52,
+        "embedded_font": true,
+        "max_depth": 4,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "F5C5FC07E53D37D6C5B96BAC3E36E401FB0222ADC1E54B8F6B5F5A1019018A89",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 12.193981303907735,
+        "ratios": {
+          "text-1": 16.268480224545662,
+          "text-10": 12.193981303907735,
+          "text-13": 12.193981303907735,
+          "text-14": 16.268480224545662,
+          "text-15": 16.268480224545662,
+          "text-16": 16.268480224545662,
+          "text-17": 16.268480224545662,
+          "text-23": 16.268480224545662,
+          "text-26": 16.268480224545662,
+          "text-27": 16.268480224545662,
+          "text-28": 16.268480224545662,
+          "text-4": 12.193981303907735,
+          "text-7": 12.193981303907735
+        }
+      }
+    },
+    "fig-03": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 278.503937007874,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.4641732283464567
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.426771653543307,
+        "effective_ordinary_minimum_pt": 8.355118110236221,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 2,
+        "native_minimum_pt": 16,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 14,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "dotted",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 13,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "established-stream",
+          "flow",
+          "gap-to-sq",
+          "label",
+          "process",
+          "provenance",
+          "residual-gap",
+          "sq-reference",
+          "umbrella-reference"
+        ],
+        "shape_types": [
+          "Polyline",
+          "Rect",
+          "RoundedRect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 392,
+        "element_count": 92,
+        "embedded_font": true,
+        "max_depth": 4,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "0826626BDB02FAB65FE31905CDB7114338DD5F0BC8C0B21A79982CAB0F8A1ACC",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 16.268480224545662,
+        "ratios": {
+          "text-1": 16.268480224545662,
+          "text-12": 16.268480224545662,
+          "text-16": 16.268480224545662,
+          "text-20": 16.268480224545662,
+          "text-24": 16.268480224545662,
+          "text-26": 16.268480224545662,
+          "text-29": 16.268480224545662,
+          "text-31": 16.268480224545662,
+          "text-34": 16.268480224545662,
+          "text-36": 16.268480224545662,
+          "text-39": 16.268480224545662,
+          "text-4": 16.268480224545662,
+          "text-42": 16.268480224545662,
+          "text-49": 16.268480224545662,
+          "text-50": 16.268480224545662,
+          "text-8": 16.268480224545662
+        }
+      }
+    },
+    "fig-04": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 199.2076771653543,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.3868110236220472
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.039960629921259,
+        "effective_ordinary_minimum_pt": 8.123031496062993,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 2,
+        "native_minimum_pt": 18.2,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 25,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 8,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "consumption-arrow",
+          "flow",
+          "label",
+          "programme-spine",
+          "provenance",
+          "spine-row"
+        ],
+        "shape_types": [
+          "Polyline",
+          "Rect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 498,
+        "element_count": 107,
+        "embedded_font": true,
+        "max_depth": 5,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "D0B5EDB17E49904A4A40F7FE4D8058E830EEDB3D1D0BA1AA833116BB59140314",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 16.268480224545662,
+        "ratios": {
+          "text-1": 16.268480224545662,
+          "text-13": 16.268480224545662,
+          "text-15": 16.268480224545662,
+          "text-17": 16.268480224545662,
+          "text-19": 16.268480224545662,
+          "text-22": 16.268480224545662,
+          "text-24": 16.268480224545662,
+          "text-26": 16.268480224545662,
+          "text-28": 16.268480224545662,
+          "text-3": 16.268480224545662,
+          "text-31": 16.268480224545662,
+          "text-33": 16.268480224545662,
+          "text-35": 16.268480224545662,
+          "text-37": 16.268480224545662,
+          "text-43": 16.268480224545662,
+          "text-44": 16.268480224545662,
+          "text-45": 16.268480224545662,
+          "text-46": 16.268480224545662,
+          "text-47": 16.268480224545662,
+          "text-48": 16.268480224545662,
+          "text-49": 16.268480224545662,
+          "text-5": 16.268480224545662,
+          "text-50": 16.268480224545662,
+          "text-57": 16.268480224545662,
+          "text-58": 16.268480224545662,
+          "text-7": 16.268480224545662,
+          "text-9": 16.268480224545662
+        }
+      }
+    },
+    "fig-05": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 256.09557426011406,
+        "final_width_pt": 371.3385826771654,
+        "orientation": "portrait",
+        "scale": 0.32011946782514256
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.042628292153136,
+        "effective_ordinary_minimum_pt": 8.002986695628564,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 5,
+        "native_minimum_pt": 22,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 24,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "dotted",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 20,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "budget-constraint",
+          "decision",
+          "flow",
+          "hard-rule",
+          "hard-rule-bus",
+          "label",
+          "policy-signal",
+          "process",
+          "provenance",
+          "routing-action",
+          "shared-bus",
+          "supporting-note"
+        ],
+        "shape_types": [
+          "Diamond",
+          "Polyline",
+          "Rect",
+          "RoundedRect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 732,
+        "element_count": 154,
+        "embedded_font": true,
+        "max_depth": 4,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "41B0740B89F0EBD83A797A78E846D0AE6D329A59CE2206F83464988BA2A6DB33",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 16.268480224545662,
+        "ratios": {
+          "text-1": 16.268480224545662,
+          "text-12": 16.268480224545662,
+          "text-16": 16.268480224545662,
+          "text-2": 16.268480224545662,
+          "text-20": 16.268480224545662,
+          "text-24": 16.268480224545662,
+          "text-28": 16.268480224545662,
+          "text-3": 16.268480224545662,
+          "text-32": 16.268480224545662,
+          "text-36": 16.268480224545662,
+          "text-4": 16.268480224545662,
+          "text-43": 16.268480224545662,
+          "text-44": 16.268480224545662,
+          "text-46": 16.268480224545662,
+          "text-47": 16.268480224545662,
+          "text-48": 16.268480224545662,
+          "text-5": 16.268480224545662,
+          "text-52": 16.268480224545662,
+          "text-56": 16.268480224545662,
+          "text-60": 16.268480224545662,
+          "text-64": 16.268480224545662,
+          "text-68": 16.268480224545662,
+          "text-72": 16.268480224545662,
+          "text-73": 16.268480224545662,
+          "text-76": 16.268480224545662,
+          "text-8": 16.268480224545662,
+          "text-80": 16.268480224545662,
+          "text-84": 16.268480224545662,
+          "text-89": 16.268480224545662
+        }
+      }
+    },
+    "fig-06": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 229.1689538807649,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.35365579302587175
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.073115860517435,
+        "effective_ordinary_minimum_pt": 8.13408323959505,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 3,
+        "native_minimum_pt": 20,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 20,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 18,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "flow",
+          "judgment-lifecycle",
+          "label",
+          "lifecycle-state",
+          "process",
+          "provenance",
+          "record-field-group",
+          "state-transition",
+          "supporting-note"
+        ],
+        "shape_types": [
+          "Polyline",
+          "Rect",
+          "RoundedRect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 449,
+        "element_count": 96,
+        "embedded_font": true,
+        "max_depth": 4,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "7DABB0283A31C188C6367AED9B0225CB686733A140F8CD792E73CE3859CE10BF",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 16.268480224545662,
+        "ratios": {
+          "text-1": 16.268480224545662,
+          "text-12": 16.268480224545662,
+          "text-15": 16.268480224545662,
+          "text-18": 16.268480224545662,
+          "text-2": 16.268480224545662,
+          "text-21": 16.268480224545662,
+          "text-22": 16.268480224545662,
+          "text-25": 16.268480224545662,
+          "text-28": 16.268480224545662,
+          "text-3": 16.268480224545662,
+          "text-31": 16.268480224545662,
+          "text-34": 16.268480224545662,
+          "text-37": 16.268480224545662,
+          "text-40": 16.268480224545662,
+          "text-43": 16.268480224545662,
+          "text-46": 16.268480224545662,
+          "text-49": 16.268480224545662,
+          "text-52": 16.268480224545662,
+          "text-55": 16.268480224545662,
+          "text-57": 16.268480224545662,
+          "text-58": 16.268480224545662,
+          "text-6": 16.268480224545662,
+          "text-9": 16.268480224545662
+        }
+      }
+    },
+    "fig-07": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 285.29671595928556,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.3019012867294027
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.245630881505665,
+        "effective_ordinary_minimum_pt": 8.151334741693873,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 7,
+        "native_minimum_pt": 24,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 26,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 33,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "capability-gap-check",
+          "decision",
+          "diagnosis",
+          "diagnosis-guard-path",
+          "diagnostic-layer",
+          "failure-boundary",
+          "failure-boundary-path",
+          "flow",
+          "formal-status",
+          "gate-failure-path",
+          "label",
+          "passed-path",
+          "provenance",
+          "reuse-gate",
+          "reuse-permission",
+          "reuse-procedure",
+          "shared-bus",
+          "status-decision",
+          "supporting-note"
+        ],
+        "shape_types": [
+          "Diamond",
+          "Polyline",
+          "Rect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 762,
+        "element_count": 169,
+        "embedded_font": true,
+        "max_depth": 6,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "9435ABE3BE0C073FCF69A33779ACCC650E2DE82D35095E0880CE93C7FD7BC948",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 16.268480224545662,
+        "ratios": {
+          "text-1": 16.268480224545662,
+          "text-10": 16.268480224545662,
+          "text-101": 16.268480224545662,
+          "text-13": 16.268480224545662,
+          "text-18": 16.268480224545662,
+          "text-2": 16.268480224545662,
+          "text-21": 16.268480224545662,
+          "text-26": 16.268480224545662,
+          "text-29": 16.268480224545662,
+          "text-34": 16.268480224545662,
+          "text-37": 16.268480224545662,
+          "text-46": 16.268480224545662,
+          "text-48": 16.268480224545662,
+          "text-49": 16.268480224545662,
+          "text-5": 16.268480224545662,
+          "text-52": 16.268480224545662,
+          "text-55": 16.268480224545662,
+          "text-58": 16.268480224545662,
+          "text-61": 16.268480224545662,
+          "text-62": 16.268480224545662,
+          "text-65": 16.268480224545662,
+          "text-66": 16.268480224545662,
+          "text-68": 16.268480224545662,
+          "text-69": 16.268480224545662,
+          "text-72": 16.268480224545662,
+          "text-76": 16.268480224545662,
+          "text-80": 16.268480224545662,
+          "text-84": 16.268480224545662,
+          "text-89": 16.268480224545662,
+          "text-92": 16.268480224545662,
+          "text-93": 16.268480224545662,
+          "text-98": 16.268480224545662,
+          "text-99": 16.268480224545662
+        }
+      }
+    },
+    "fig-08": {
+      "a4_proof": {
+        "declared_width_emu": 4104000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 126.32211882605584,
+        "final_width_pt": 323.1496062992126,
+        "orientation": "portrait",
+        "scale": 0.29377236936292056
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.050536864710093,
+        "effective_ordinary_minimum_pt": 8.225626342161776,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 3,
+        "native_minimum_pt": 24,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 22,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "solid"
+        ],
+        "hatches": [
+          "diagonal"
+        ],
+        "metadata_groups": 10,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "figure-root",
+          "label",
+          "provenance",
+          "score-axis",
+          "score-bar",
+          "supporting-note"
+        ],
+        "shape_types": [
+          "Rect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 2255,
+        "element_count": 382,
+        "embedded_font": true,
+        "max_depth": 5,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "753E1E5EB082F9568641DF5DECCEEFB04EBB1246469420529400864ADD1E1F68",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 16.268480224545662,
+        "ratios": {
+          "text-11": 16.268480224545662,
+          "text-13": 16.268480224545662,
+          "text-15": 16.268480224545662,
+          "text-19": 16.268480224545662,
+          "text-2": 16.268480224545662,
+          "text-22": 16.268480224545662,
+          "text-25": 16.268480224545662,
+          "text-26": 16.268480224545662,
+          "text-29": 16.268480224545662,
+          "text-3": 16.268480224545662,
+          "text-32": 16.268480224545662,
+          "text-33": 16.268480224545662,
+          "text-36": 16.268480224545662,
+          "text-39": 16.268480224545662,
+          "text-40": 16.268480224545662,
+          "text-43": 16.268480224545662,
+          "text-46": 16.268480224545662,
+          "text-48": 16.268480224545662,
+          "text-5": 16.268480224545662,
+          "text-50": 16.268480224545662,
+          "text-51": 16.268480224545662,
+          "text-52": 16.268480224545662,
+          "text-53": 16.268480224545662,
+          "text-7": 16.268480224545662,
+          "text-9": 16.268480224545662
+        }
+      }
+    },
+    "fig-09": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 233.01496062992126,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.23208661417322834
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.1946850393700785,
+        "effective_ordinary_minimum_pt": 8.123031496062993,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 10,
+        "native_minimum_pt": 31,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 41,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 37,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "conditional-medical-option",
+          "decision",
+          "dependency",
+          "figure-root",
+          "flow",
+          "label",
+          "milestone",
+          "milestone-label",
+          "preparatory-band",
+          "process",
+          "provenance",
+          "schedule-bar",
+          "semester-band",
+          "semester-date",
+          "supporting-note",
+          "table8-output",
+          "workstream-label",
+          "workstream-lane",
+          "year-band"
+        ],
+        "shape_types": [
+          "Diamond",
+          "Polyline",
+          "Rect",
+          "RoundedRect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 1280,
+        "element_count": 244,
+        "embedded_font": true,
+        "max_depth": 5,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "06A0556ABF2522925B041D4276C3ED8C342C932B3147EC8E7868252B4C1004F7",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 5.762142199553533,
+        "ratios": {
+          "text-101": 5.762142199553533,
+          "text-104": 5.762142199553533,
+          "text-107": 5.762142199553533,
+          "text-11": 16.268480224545662,
+          "text-110": 5.762142199553533,
+          "text-119": 16.268480224545662,
+          "text-122": 16.268480224545662,
+          "text-125": 16.268480224545662,
+          "text-128": 16.268480224545662,
+          "text-131": 16.268480224545662,
+          "text-134": 16.268480224545662,
+          "text-136": 16.268480224545662,
+          "text-138": 16.268480224545662,
+          "text-14": 16.268480224545662,
+          "text-141": 14.764654926153016,
+          "text-142": 14.764654926153016,
+          "text-145": 16.268480224545662,
+          "text-146": 16.268480224545662,
+          "text-149": 14.764654926153016,
+          "text-150": 14.764654926153016,
+          "text-153": 16.268480224545662,
+          "text-154": 16.268480224545662,
+          "text-157": 14.764654926153016,
+          "text-158": 14.764654926153016,
+          "text-161": 16.268480224545662,
+          "text-162": 16.268480224545662,
+          "text-163": 16.268480224545662,
+          "text-17": 16.268480224545662,
+          "text-2": 16.268480224545662,
+          "text-20": 16.268480224545662,
+          "text-21": 16.268480224545662,
+          "text-24": 14.764654926153016,
+          "text-25": 14.764654926153016,
+          "text-28": 16.268480224545662,
+          "text-29": 16.268480224545662,
+          "text-32": 14.764654926153016,
+          "text-33": 14.764654926153016,
+          "text-36": 16.268480224545662,
+          "text-37": 16.268480224545662,
+          "text-40": 14.764654926153016,
+          "text-41": 14.764654926153016,
+          "text-44": 16.268480224545662,
+          "text-5": 16.268480224545662,
+          "text-53": 16.268480224545662,
+          "text-6": 16.268480224545662,
+          "text-62": 16.268480224545662,
+          "text-71": 16.268480224545662,
+          "text-8": 12.193981303907735,
+          "text-80": 16.268480224545662,
+          "text-89": 16.268480224545662,
+          "text-98": 5.762142199553533
+        }
+      }
+    },
+    "fig-10": {
+      "a4_proof": {
+        "declared_width_emu": 4716000,
+        "declared_width_source": "DOCX inline width",
+        "final_height_pt": 228.99212598425194,
+        "final_width_pt": 371.33858267716533,
+        "orientation": "portrait",
+        "scale": 0.17682789651293587
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.073115860517435,
+        "effective_ordinary_minimum_pt": 8.13408323959505,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 3,
+        "native_minimum_pt": 40,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 34,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "solid"
+        ],
+        "hatches": [],
+        "metadata_groups": 18,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "concept-column",
+          "figure-root",
+          "label",
+          "missing-concept",
+          "provenance",
+          "taxonomy-branch",
+          "taxonomy-column"
+        ],
+        "shape_types": [
+          "Rect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 589,
+        "element_count": 130,
+        "embedded_font": true,
+        "max_depth": 5,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "8AA27FE383E36176D2AB805A0AF4A149044CFF4466AF9B1440FFD1B4CD63B159",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 12.193981303907735,
+        "ratios": {
+          "text-12": 12.193981303907735,
+          "text-13": 12.193981303907735,
+          "text-16": 12.193981303907735,
+          "text-17": 12.193981303907735,
+          "text-2": 16.268480224545662,
+          "text-20": 12.193981303907735,
+          "text-21": 12.193981303907735,
+          "text-24": 12.193981303907735,
+          "text-25": 12.193981303907735,
+          "text-26": 16.268480224545662,
+          "text-27": 16.268480224545662,
+          "text-3": 16.268480224545662,
+          "text-30": 16.268480224545662,
+          "text-31": 16.268480224545662,
+          "text-34": 14.764654926153016,
+          "text-35": 14.764654926153016,
+          "text-38": 16.268480224545662,
+          "text-39": 16.268480224545662,
+          "text-42": 14.764654926153016,
+          "text-43": 14.764654926153016,
+          "text-46": 16.268480224545662,
+          "text-47": 16.268480224545662,
+          "text-50": 14.764654926153016,
+          "text-51": 14.764654926153016,
+          "text-54": 16.268480224545662,
+          "text-55": 16.268480224545662,
+          "text-58": 14.764654926153016,
+          "text-59": 14.764654926153016,
+          "text-62": 16.268480224545662,
+          "text-63": 16.268480224545662,
+          "text-66": 14.764654926153016,
+          "text-67": 14.764654926153016,
+          "text-70": 16.268480224545662,
+          "text-71": 16.268480224545662,
+          "text-73": 16.268480224545662,
+          "text-8": 16.268480224545662,
+          "text-9": 16.268480224545662
+        }
+      }
+    },
+    "fig-11": {
+      "a4_proof": {
+        "declared_width_emu": 6642100,
+        "declared_width_source": "standalone A4 proof width",
+        "final_height_pt": 283.2916666666667,
+        "final_width_pt": 523.0,
+        "orientation": "portrait",
+        "scale": 0.43583333333333335
+      },
+      "font_size": {
+        "effective_minimum_pt": 7.409166666666667,
+        "effective_ordinary_minimum_pt": 8.280833333333334,
+        "exception_roles": [
+          "boundary-note",
+          "provenance",
+          "supporting-note"
+        ],
+        "exception_text_count": 4,
+        "native_minimum_pt": 17,
+        "ordinary_target_pt": 8.0,
+        "ordinary_target_status": "pass",
+        "ordinary_text_count": 19,
+        "status": "pass"
+      },
+      "pdf_vector": {
+        "external_actions": [],
+        "font_names": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular",
+          "/Helvetica"
+        ],
+        "image_xobjects": 0,
+        "no_external_references": true,
+        "page_count": 1,
+        "passed": true,
+        "unembedded_used_fonts": [],
+        "used_fonts": [
+          "/AAAAAA+Carlito-Bold",
+          "/AAAAAA+Carlito-Regular"
+        ]
+      },
+      "semantic_non_colour_redundancy": {
+        "dash_styles": [
+          "dashed",
+          "dotted",
+          "solid"
+        ],
+        "hatches": [
+          "diagonal"
+        ],
+        "metadata_groups": 8,
+        "passed": true,
+        "semantic_roles": [
+          "artifact",
+          "boundary-note",
+          "figure-root",
+          "label",
+          "label-background",
+          "paper-disposition",
+          "provenance",
+          "rq-coverage",
+          "status-texture",
+          "supporting-note"
+        ],
+        "shape_types": [
+          "Rect"
+        ]
+      },
+      "status": "pass",
+      "svg_vector": {
+        "attribute_count": 1250,
+        "element_count": 220,
+        "embedded_font": true,
+        "max_depth": 5,
+        "no_external_references": true,
+        "no_patterns": true,
+        "no_raster_images": true,
+        "parseable": true,
+        "passed": true,
+        "resource_violations": [],
+        "semantic_sha256": "9EEC8F780937EFEBE66964006CD955D6AD0B38017ABE0CC99BB2D25DCFC1BD33",
+        "strict_semantics": true,
+        "strict_semantics_error": null,
+        "structure_within_limits": true
+      },
+      "text_contrast": {
+        "lowest_ratio": 11.066794417373867,
+        "ratios": {
+          "text-10": 11.066794417373867,
+          "text-13": 12.193981303907735,
+          "text-14": 16.268480224545662,
+          "text-15": 16.268480224545662,
+          "text-18": 12.193981303907735,
+          "text-19": 12.193981303907735,
+          "text-2": 16.268480224545662,
+          "text-21": 12.193981303907735,
+          "text-24": 12.193981303907735,
+          "text-25": 12.193981303907735,
+          "text-26": 12.193981303907735,
+          "text-29": 12.193981303907735,
+          "text-3": 16.268480224545662,
+          "text-30": 12.193981303907735,
+          "text-32": 12.193981303907735,
+          "text-35": 11.066794417373867,
+          "text-36": 11.066794417373867,
+          "text-37": 11.066794417373867,
+          "text-38": 16.268480224545662,
+          "text-39": 16.268480224545662,
+          "text-41": 16.268480224545662,
+          "text-42": 16.268480224545662,
+          "text-6": 12.193981303907735
+        }
+      }
+    }
+  },
+  "passed": true,
+  "source": {
+    "filename": "VEGO_AI_Doctoral_Proposal_Revised_20260825 (4).pdf",
+    "page_count": 31,
+    "sha256": "ADB663A4B8B0FFD3F09F2CEFEF43D690B5540FC36D4947FF60DCC624072846C9"
+  }
+}

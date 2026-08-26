@@ -7,6 +7,8 @@ dependencies = [
     "chardet==7.4.3",
     "jsonschema==4.26.0",
     "openai==1.109.1",
+    "pypdf==6.15.0",
+    "reportlab==4.4.9",
     "tomli==2.2.1; python_version < '3.11'",
 ]
 
@@ -17,8 +19,8 @@ dev = [
     "ruff==0.15.16",
 ]
 thesis = [
+    "lxml==6.1.1",
     "Pillow==12.3.0",
-    "pypdf==6.15.0",
     "python-docx==1.2.0",
 ]
 
@@ -50,4 +52,3 @@ ignore = ["E501"]
 "VEGO-AI/tests/**/*.py" = ["S101"]
 "scripts/tests/**/*.py" = ["S101"]
 "tests/**/*.py" = ["S101"]
-

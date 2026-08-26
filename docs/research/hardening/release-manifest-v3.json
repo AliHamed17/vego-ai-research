@@ -18,12 +18,12 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "d8ceb38c5026fda56e956afd2cd4ddfcf42d03f8285504640326c2a266279c58",
+  "packageTreeSha256": "e6a656f9cd1b3882f2c3373d142724d3947e6b59d72e3da9121139a7a38629e7",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
     "path": "docs/research/hardening/sbom.cdx.json",
-    "sha256": "28dca632ac7473ad86ae4796ac14eaafc453bb4e530ce596a8f3db0f938cfc5c"
+    "sha256": "3c3e8ca7b73dfcd245f7824efb64b532ca6851cd3ec75f3216855a040d0a03ad"
   },
   "schemaVersion": "ReleaseManifest-v3",
   "sourceChecks": {
@@ -205,7 +205,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "565ac882674aefd0be74d6578dae81f1135f7acfcbb805fea679ad8c6043dfb3",
+  "sourceTreeSha256": "5edffa09ead069468e5759f345764b833662fb013ef545f73a939e227c194f57",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -219,7 +219,7 @@
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
     "docs/research/hardening/baseline-lock-manifest-v2.json": "3ed664b6de6b8d943e36493bbb8e31d863e8a3dea041cfda82c7be5e218d695f",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
-    "docs/research/hardening/sbom.cdx.json": "28dca632ac7473ad86ae4796ac14eaafc453bb4e530ce596a8f3db0f938cfc5c",
-    "docs/research/hardening/security-posture-snapshot-v1.json": "927c5c5c6b57d559a4bdf3120ef463d741cc1118560eff0599ec28e2899f2bf8"
+    "docs/research/hardening/sbom.cdx.json": "3c3e8ca7b73dfcd245f7824efb64b532ca6851cd3ec75f3216855a040d0a03ad",
+    "docs/research/hardening/security-posture-snapshot-v1.json": "3048e380f4ccd09c2e8335296ada7152cd20488c391be25d8d52c06e3a05e83f"
   }
 }

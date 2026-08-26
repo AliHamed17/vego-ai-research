@@ -1,4 +1,6 @@
 chardet==7.4.3
 jsonschema==4.26.0
 openai==1.109.1
+pypdf==6.15.0
+reportlab==4.4.9
 tomli==2.2.1; python_version < '3.11'
