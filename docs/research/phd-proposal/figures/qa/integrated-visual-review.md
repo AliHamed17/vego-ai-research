@@ -4,7 +4,7 @@ Status: **PASS — Ready for Ali review**
 
 Review date: 2026-08-26 (Asia/Jerusalem)
 
-Integrated implementation commit reviewed: `a21d50eac7729357acd8ceafd34cac9163ec53cc`
+Sanitized integration commit reviewed: `9deb458befa56f71c4aadb97de5f94b3075bd487`
 
 ## Reviewed release artifacts
 
