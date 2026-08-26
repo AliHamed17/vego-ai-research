@@ -2,7 +2,7 @@
 
 Generated deterministically from Git-tracked shareable files.
 
-Totals: **8** Mermaid · **26** SVG · **10** HTML.
+Totals: **8** Mermaid · **37** SVG · **10** HTML.
 
 <details><summary>All diagram/graph files</summary>
 
@@ -20,6 +20,17 @@ Totals: **8** Mermaid · **26** SVG · **10** HTML.
 - `docs/research/figures/fig4-evidence-ladder.svg`
 - `docs/research/figures/fig5-three-year-plan.svg`
 - `docs/research/meetings/2026-07-21-supervisor-explainer.base.html`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-01.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-02.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-03.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-04.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-05.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-06.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-07.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-08.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-09.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-10.svg`
+- `docs/research/phd-proposal/figures/rendered/svg/fig-11.svg`
 - `thesis/figures/fig-4-1-baseline-pipeline.mmd`
 - `thesis/figures/fig-5-1-co-reasoning-artifact.mmd`
 - `thesis/figures/fig-5-2-running-example.mmd`
