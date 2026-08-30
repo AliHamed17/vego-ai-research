@@ -1,17 +1,26 @@
-# Experiment Materials for the paper: Not All Differences Matter: Variability Exploration of Domain Models via Agentic AI
+# VEGO-AI Research Workspace
 
 ## Structure
 
 Six folders:
 
 ```
-├── analysis/       # Analyzed results by the experts, for Phases B to D
-├── eval/           # Evaluation scripts and configuration of the evaluator; Read the Evaluator Readme for execution.
-├── eval_output/    # Evaluation results, organized by experimental condition (ucd_ch, ucd_pw, cd_ch, cd_pw)
-├── framework/      # Source code for the multi-agent pipeline (orchestrator and agents); Read the Readme for execution
-├── inputs/         # Domain descriptions, language bases, and scoring schema (ch, pw)
-└── models/         # Case models, organized by experimental condition (CD_Ch, CD_PW, UCD_Ch, UCD_PW)
+├── analysis/     # Result synthesis and reporting helpers
+├── eval/         # Evaluation scripts and configuration
+├── framework/    # Multi-agent pipeline source code
+├── inputs/      # Domain descriptions, language bases, scoring schema
+├── models/      # Case models by experimental condition
+└── reports/     # Generated summaries and dashboards
 ```
+
+## Main areas
+
+- `framework/` runs the agent pipeline.
+- `eval/` scores outputs and produces evaluation artifacts.
+- `analysis/` builds dashboards and result summaries.
+- `inputs/` stores the fixed research inputs.
+- `models/` stores case models grouped by condition.
+- `reports/` stores generated, reviewable outputs.
 
 ## Human-AI Co-Reasoning Extension
 

@@ -1,17 +1,20 @@
 # Architecture
 
-This folder explains how the research workspace is organized and why.
+How the research workspace is organized, why, and what each section does.
 
-Read in this order:
+## Read in this order
 
-1. `project-map.md`
-2. `framework-diagram.md` (H-layer framework view - July 2026 supervisor redirect)
-3. `evaluation-diagram.md` (parked evaluation track - kept separate from the framework by directive)
-4. `workspace-diagram.md`
-5. `progress-update-diagram.md`
-6. `../research/phd-thesis-optimization-plan.md`
-7. `research-lifecycle.md`
-8. `reproducibility-contract.md`
-9. `source-package-manifest.md`
+1. **`project-map.md`** — overall folder structure and purpose
+2. **`framework-diagram.md`** — H-layer framework view (July 2026 supervisor redirect)
+3. **`evaluation-diagram.md`** — parked evaluation track (separate by directive)
+4. **`workspace-diagram.md`** — visual workspace layout
+5. **`progress-update-diagram.md`** — how progress tracking works
+6. **`research-lifecycle.md`** — end-to-end research flow
+7. **`reproducibility-contract.md`** — what we commit to for reproducibility
+8. **`source-package-manifest.md`** — what files are included/excluded
 
-Operational architecture pages live in `../operations/`, including the progress update flow in `../operations/progress-update-architecture.md`.
+## Operational guides
+
+- `../operations/progress-update-architecture.md` — detailed progress tracking flow
+- `../operations/alignment-control.md` — claim-boundary checkpoint before thesis claims
+- `../operations/project-review-architecture.md` — how to run a project review cycle

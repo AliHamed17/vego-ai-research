@@ -1,51 +1,50 @@
 # Agent Memory
 
-This folder is the shared project memory for Codex and Claude.
+Shared project state, history, and decisions for Codex and Claude.
 
-## Files
+## Core status (start here)
 
-- `automation.md`: scripts and workflow for automatic prompt start/end memory handling.
-- `claude-bootstrap-prompt.md`: paste-ready startup prompt for a fresh Claude session.
-- `claude-m4b-handoff-prompt.md`: historical Claude prompt for the completed M4B-1 implementation path.
-- `codex-nextstep-handoff-prompt.md`: verified handoff for iteration 010, the six-experiment replay suite, the EXP-005 gate, the isolated demo, and proposal-only next steps.
-- `compiled-memory.md`: generated combined memory context from all memory files.
-- `current-state.md`: latest known project state and short orientation.
-- `shared-state-report.md`: high-level Claude/Codex research and governance state report.
-- `resource-memory.md`: compact shared index of reusable research/tool resources, including the HITL resource pack.
-- `progress.md`: milestones, current tasks, next steps, and completion status.
-- `session-log.md`: chronological history of prompts and progress.
-- `issues.md`: open, blocked, and resolved issues.
-- `decisions.md`: durable project decisions and why they were made.
-- `revert-log.md`: changed files and rollback notes.
-- `revert-log-archive.md`: older rollback entries moved by the finish workflow; preserve it with the active log.
-- `../dashboards/`: progress, KPI, and results dashboard sources used for Confluence tracking.
-- `../confluence/wiki-sync.md`: curated Confluence wiki sync workflow.
+- `current-state.md` — latest project state and quick orientation
+- `compiled-memory.md` — generated combined memory (read this at session start)
+- `shared-state-report.md` — high-level research and governance state
+- `progress.md` — milestones, active tasks, and completion status
 
-## Workflow
+## History & decisions
 
-1. At the start of a prompt, run `.\scripts\agent-memory-start.ps1`.
-2. Read `compiled-memory.md`.
-3. Do the requested work.
-4. Before the final response, run `.\scripts\agent-memory-finish.ps1` with the prompt summary.
-5. Update current state, progress, issues, and decisions manually when the work changes them.
-6. Update `resource-memory.md` when durable shared research/tool resources are added, deprecated, or promoted into regular workflow.
-7. Update `docs/dashboards/` when progress, KPI values, or validated results change.
-8. Run `.\scripts\build-confluence-wiki.ps1` to refresh the ignored dashboard runtime snapshot, wiki outbox, and manual Confluence sync pack, then update live Confluence if local target IDs are configured.
-9. Run `.\scripts\dashboard-health.ps1 -RequireOutbox` after building the wiki outbox.
-10. If Git is initialized later, include commit hashes in the session and revert logs.
+- `session-log.md` — chronological prompt history
+- `issues.md` — open, blocked, and resolved issues
+- `decisions.md` — durable project decisions and rationale
+- `revert-log.md` — changed files and rollback notes
+- `revert-log-archive.md` — older rollback entries (preserve with active log)
 
-## Prompt Checklist
+## Handoff & setup
 
-Use this checklist for every meaningful prompt:
+- `claude-bootstrap-prompt.md` — paste-ready startup for a fresh Claude session
+- `codex-nextstep-handoff-prompt.md` — verified handoff for Codex next-step cycles
+- `claude-m4b-handoff-prompt.md` — historical: completed M4B-1 implementation
+- `automation.md` — scripts and workflow for automatic memory handling
 
-- What did the user ask for?
-- What context did memory provide?
-- What changed?
-- What commands/tests were run?
-- What issues or decisions were discovered?
-- What is the next best step?
-- How can this be reverted?
+## Resources
 
-## Revert Note
+- `resource-memory.md` — compact shared index of reusable research/tool resources
+- `../dashboards/` — progress, KPI, and results dashboards for Confluence
+- `../confluence/wiki-sync.md` — Confluence wiki sync workflow
 
-This folder was not a Git repository when memory tracking was created. Markdown logs help document rollback steps, but real file-level revert support needs Git or another version-control system. Before initializing Git, decide whether large archives such as `*.zip` should be committed or ignored.
+## Maintenance workflow
+
+**At session start:**
+1. Run `.\scripts\refresh-tracking.ps1 -Pull` (recompile memory from source files)
+2. Read `compiled-memory.md` for full context
+3. Check `current-state.md` for latest status
+
+**During work:** Update `current-state.md`, `progress.md`, or `issues.md` if state changes.
+
+**At session end:**
+1. Run `.\scripts\agent-memory-finish.ps1` with a concise summary
+2. Run `.\scripts\refresh-tracking.ps1 -Viz` (update trackers and visualizations)
+3. Optional: Update `docs/dashboards/` if progress, KPI, or validated results changed
+
+**For Confluence sync:**
+- Run `.\scripts\build-confluence-wiki.ps1` to build wiki outbox
+- Run `.\scripts\dashboard-health.ps1 -RequireOutbox` to verify
+- Update live Confluence if local target IDs are configured in `docs/confluence/wiki-sync-config.local.json`

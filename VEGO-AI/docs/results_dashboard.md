@@ -1,4 +1,4 @@
-# VEGO-AI Results Dashboard
+# Results Dashboard
 
 The results dashboard is a local, offline reporting layer for VEGO-AI research
 outputs. It summarizes existing JSON and JSONL artifacts into static HTML plus a
@@ -9,8 +9,8 @@ rerunning agents or changing AI behavior.
 
 - Compare the four standard VEGO-AI settings: `ucd_ch`, `cd_ch`, `ucd_pw`,
   and `cd_pw`.
-- Summarize Agent C model-performance scores, Agent D variability patterns, and
-  the human judgment layers from M1-M4A.
+- Summarize Agent C scores, Agent D variability patterns, and human judgment
+  layers from M1-M4A.
 - Provide a reproducible, shareable view of current evidence while keeping
   controlled research artifacts out of Git.
 - Verify the M4A boundary: memory advice is advisory-only and
