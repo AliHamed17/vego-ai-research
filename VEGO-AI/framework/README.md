@@ -1,4 +1,4 @@
-# Variability 2.0 — Framework 
+# Framework
 
 ## Directory layout
 
@@ -35,8 +35,16 @@ parent/
         └── Cheers-ClassDiagram/
 ```
 
-`framework` owns all shared code. `eval` imports from it via
-`sys.path` — no installation or copying required.
+`framework` owns all shared code. `eval` imports from it via `sys.path` — no
+installation or copying required.
+
+## Key modules
+
+- `orchestrator.py` coordinates the pipeline.
+- `llm_client.py` handles model calls and JSON parsing.
+- `state.py` and `qa_registry.py` hold shared pipeline state.
+- `agent1_language_advisor.py` through `agent4_variability_explorer.py`
+  implement the agent stages.
 
 ---
 
