@@ -5,45 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VEGO-AI Progress Visualizations</title>
   <style>
-    :root {
-      --ink: #17202a;
-      --muted: #5d6673;
-      --line: #d8dee8;
-      --panel: #ffffff;
-      --page: #f6f7fb;
-      --good: #2f855a;
-      --warn: #b7791f;
-      --bad: #c53030;
-      --blocked: #5a67d8;
+    :root, .viz-root {
+      color-scheme: light;
+      --surface-1: #fcfcfb;
+      --page-plane: #f9f9f7;
+      --text-primary: #0b0b0b;
+      --text-secondary: #52514e;
+      --text-muted: #898781;
+      --gridline: #e1e0d9;
+      --baseline: #c3c2b7;
+      --border: rgba(11,11,11,0.10);
+      --status-good: #0ca30c;
+      --status-warning: #fab219;
+      --status-blocked: #4a3aa7;
+      --status-critical: #d03b3b;
+      --status-planned: #2a78d6;
+      --on-dark-fill: #ffffff;
+      --on-light-fill: #17202a;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:where(:not([data-theme="light"])), .viz-root {
+        color-scheme: dark;
+        --surface-1: #1a1a19;
+        --page-plane: #0d0d0d;
+        --text-primary: #ffffff;
+        --text-secondary: #c3c2b7;
+        --text-muted: #898781;
+        --gridline: #2c2c2a;
+        --baseline: #383835;
+        --border: rgba(255,255,255,0.10);
+        --status-good: #0ca30c;
+        --status-warning: #fab219;
+        --status-blocked: #9085e9;
+        --status-critical: #d03b3b;
+        --status-planned: #3987e5;
+      }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: var(--ink);
-      background: var(--page);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--text-primary);
+      background: var(--page-plane);
     }
     header, main {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
     }
-    header {
-      padding: 28px 0 16px;
-    }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-      line-height: 1.15;
-      font-weight: 700;
-    }
-    h2 {
-      margin: 0 0 14px;
-      font-size: 18px;
-      line-height: 1.25;
-    }
-    p, small {
-      color: var(--muted);
-    }
+    header { padding: 28px 0 16px; }
+    h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; font-weight: 700; }
+    h2 { margin: 0 0 14px; font-size: 18px; line-height: 1.25; }
+    h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+    p, small { color: var(--text-secondary); }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -51,8 +64,8 @@
       margin: 14px 0;
     }
     .card, .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
+      background: var(--surface-1);
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 16px;
     }
@@ -61,90 +74,129 @@
       font-size: 28px;
       line-height: 1;
       margin-bottom: 8px;
+      font-variant-numeric: proportional-nums;
     }
-    .panel {
-      margin: 14px 0;
-    }
-    .bar-row {
+    .panel { margin: 14px 0; }
+    .viz-grid {
       display: grid;
-      grid-template-columns: minmax(130px, 190px) 1fr 44px;
-      align-items: center;
-      gap: 10px;
-      margin: 10px 0;
-      font-size: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      align-items: start;
+      gap: 16px;
     }
-    .bar-track {
-      height: 14px;
-      background: #e8edf5;
-      border-radius: 7px;
+    .stacked-bar {
+      display: flex;
+      gap: 2px;
+      height: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--gridline);
+      margin-bottom: 10px;
+    }
+    .seg {
+      flex-shrink: 0;
+      flex-grow: 1;
+      flex-basis: 0%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
       overflow: hidden;
     }
-    .bar-fill {
-      height: 100%;
-      min-width: 2px;
+    .seg-good { background: var(--status-good); color: var(--on-dark-fill); }
+    .seg-warning { background: var(--status-warning); color: var(--on-light-fill); }
+    .seg-blocked { background: var(--status-blocked); color: var(--on-dark-fill); }
+    .seg-critical { background: var(--status-critical); color: var(--on-dark-fill); }
+    .seg-planned { background: var(--status-planned); color: var(--on-dark-fill); }
+    .seg-other { background: var(--text-muted); color: var(--on-light-fill); }
+    .seg-label { padding: 0 4px; }
+    .legend-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
     }
-    .good { background: var(--good); }
-    .warn { background: var(--warn); }
-    .bad { background: var(--bad); }
-    .blocked { background: var(--blocked); }
-    .gate {
-      border-left: 5px solid var(--bad);
-      background: #fffafa;
+    .legend-list li { display: flex; align-items: center; gap: 6px; }
+    .legend-list strong { color: var(--text-primary); font-weight: 600; }
+    .legend-list .muted { color: var(--text-muted); font-size: 12px; }
+    .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
     }
-    ol {
-      padding-left: 22px;
-    }
-    li {
-      margin: 12px 0;
-    }
+    .swatch-good { background: var(--status-good); }
+    .swatch-warning { background: var(--status-warning); }
+    .swatch-blocked { background: var(--status-blocked); }
+    .swatch-critical { background: var(--status-critical); }
+    .swatch-planned { background: var(--status-planned); }
+    .swatch-other { background: var(--text-muted); }
+    .gate { border-left: 5px solid var(--status-critical); }
+    ol { padding-left: 22px; }
+    li { margin: 12px 0; }
     .pill {
       display: inline-block;
       margin-left: 8px;
       padding: 2px 8px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: 999px;
-      color: var(--muted);
+      color: var(--text-secondary);
       font-size: 12px;
     }
     code {
-      background: #eef2f7;
+      background: var(--gridline);
       padding: 2px 5px;
       border-radius: 4px;
     }
     @media (max-width: 620px) {
       header, main { width: min(100% - 20px, 1180px); }
       h1 { font-size: 26px; }
-      .bar-row { grid-template-columns: 1fr; gap: 5px; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>VEGO-AI Progress Visualizations</h1>
-    <p>Generated 2026-08-24 16:34 +03:00 from tracked progress, dashboard, and KPI Markdown.</p>
+    <p>Generated 2026-08-31 13:15 +03:00 from tracked progress, dashboard, and KPI Markdown.</p>
   </header>
   <main>
     <section class="grid" aria-label="Summary cards">
       <div class="card"><strong>87%</strong><span>Milestones done or green</span></div>
       <div class="card"><strong>37%</strong><span>KPIs green</span></div>
-      <div class="card"><strong>42%</strong><span>Active work closed</span></div>
+      <div class="card"><strong>44%</strong><span>Active work closed</span></div>
       <div class="card"><strong>27%</strong><span>Executive snapshot green</span></div>
     </section>
 
     <section class="panel">
-      <h2>KPI Status Mix</h2>
-      <div class="bar-row"><span>Done / Green</span><div class="bar-track"><div class="bar-fill good" style="width:37%"></div></div><strong>11</strong></div>
-<div class="bar-row"><span>In progress / Yellow</span><div class="bar-track"><div class="bar-fill warn" style="width:40%"></div></div><strong>12</strong></div>
-<div class="bar-row"><span>Risk / Red</span><div class="bar-track"><div class="bar-fill bad" style="width:7%"></div></div><strong>2</strong></div>
-<div class="bar-row"><span>Blocked</span><div class="bar-track"><div class="bar-fill blocked" style="width:17%"></div></div><strong>5</strong></div>
-    </section>
-
-    <section class="panel">
-      <h2>Active Work Status Mix</h2>
-      <div class="bar-row"><span>Done / Green</span><div class="bar-track"><div class="bar-fill good" style="width:42%"></div></div><strong>21</strong></div>
-<div class="bar-row"><span>In progress / Yellow</span><div class="bar-track"><div class="bar-fill warn" style="width:52%"></div></div><strong>26</strong></div>
-<div class="bar-row"><span>Risk / Red</span><div class="bar-track"><div class="bar-fill bad" style="width:0%"></div></div><strong>0</strong></div>
-<div class="bar-row"><span>Blocked</span><div class="bar-track"><div class="bar-fill blocked" style="width:4%"></div></div><strong>2</strong></div>
+      <h2>Status Mix</h2>
+      <div class="viz-grid">
+        <div class="viz-block">
+  <h3>KPI Status Mix</h3>
+  <div class="stacked-bar" role="img" aria-label="KPI Status Mix status mix"><div class="seg seg-good" style="flex-basis:37%" title="Done/Green: 11 of 30 (37%)"><span class="seg-label">37%</span></div><div class="seg seg-warning" style="flex-basis:40%" title="In progress/Yellow: 12 of 30 (40%)"><span class="seg-label">40%</span></div><div class="seg seg-critical" style="flex-basis:7%" title="Risk/Red: 2 of 30 (7%)"></div><div class="seg seg-blocked" style="flex-basis:17%" title="Blocked: 5 of 30 (17%)"><span class="seg-label">17%</span></div></div>
+  <ul class="legend-list"><li><span class="swatch swatch-good"></span>Done/Green <strong>11</strong><span class="muted">(37%)</span></li><li><span class="swatch swatch-warning"></span>In progress/Yellow <strong>12</strong><span class="muted">(40%)</span></li><li><span class="swatch swatch-critical"></span>Risk/Red <strong>2</strong><span class="muted">(7%)</span></li><li><span class="swatch swatch-blocked"></span>Blocked <strong>5</strong><span class="muted">(17%)</span></li></ul>
+</div>
+        <div class="viz-block">
+  <h3>Active Work Status Mix</h3>
+  <div class="stacked-bar" role="img" aria-label="Active Work Status Mix status mix"><div class="seg seg-good" style="flex-basis:44%" title="Done/Green: 22 of 50 (44%)"><span class="seg-label">44%</span></div><div class="seg seg-warning" style="flex-basis:50%" title="In progress/Yellow: 25 of 50 (50%)"><span class="seg-label">50%</span></div><div class="seg seg-blocked" style="flex-basis:4%" title="Blocked: 2 of 50 (4%)"></div><div class="seg seg-other" style="flex-basis:2%" title="Other: 1 of 50 (2%)"></div></div>
+  <ul class="legend-list"><li><span class="swatch swatch-good"></span>Done/Green <strong>22</strong><span class="muted">(44%)</span></li><li><span class="swatch swatch-warning"></span>In progress/Yellow <strong>25</strong><span class="muted">(50%)</span></li><li><span class="swatch swatch-blocked"></span>Blocked <strong>2</strong><span class="muted">(4%)</span></li><li><span class="swatch swatch-other"></span>Other <strong>1</strong><span class="muted">(2%)</span></li></ul>
+</div>
+        <div class="viz-block">
+  <h3>Milestone Status Mix</h3>
+  <div class="stacked-bar" role="img" aria-label="Milestone Status Mix status mix"><div class="seg seg-good" style="flex-basis:87%" title="Done/Green: 74 of 85 (87%)"><span class="seg-label">87%</span></div><div class="seg seg-warning" style="flex-basis:5%" title="In progress/Yellow: 4 of 85 (5%)"></div><div class="seg seg-other" style="flex-basis:8%" title="Other: 7 of 85 (8%)"></div></div>
+  <ul class="legend-list"><li><span class="swatch swatch-good"></span>Done/Green <strong>74</strong><span class="muted">(87%)</span></li><li><span class="swatch swatch-warning"></span>In progress/Yellow <strong>4</strong><span class="muted">(5%)</span></li><li><span class="swatch swatch-other"></span>Other <strong>7</strong><span class="muted">(8%)</span></li></ul>
+</div>
+        <div class="viz-block">
+  <h3>Executive Snapshot Mix</h3>
+  <div class="stacked-bar" role="img" aria-label="Executive Snapshot Mix status mix"><div class="seg seg-good" style="flex-basis:27%" title="Done/Green: 6 of 22 (27%)"><span class="seg-label">27%</span></div><div class="seg seg-warning" style="flex-basis:18%" title="In progress/Yellow: 4 of 22 (18%)"><span class="seg-label">18%</span></div><div class="seg seg-critical" style="flex-basis:5%" title="Risk/Red: 1 of 22 (5%)"></div><div class="seg seg-blocked" style="flex-basis:14%" title="Blocked: 3 of 22 (14%)"><span class="seg-label">14%</span></div><div class="seg seg-other" style="flex-basis:36%" title="Other: 8 of 22 (36%)"><span class="seg-label">36%</span></div></div>
+  <ul class="legend-list"><li><span class="swatch swatch-good"></span>Done/Green <strong>6</strong><span class="muted">(27%)</span></li><li><span class="swatch swatch-warning"></span>In progress/Yellow <strong>4</strong><span class="muted">(18%)</span></li><li><span class="swatch swatch-critical"></span>Risk/Red <strong>1</strong><span class="muted">(5%)</span></li><li><span class="swatch swatch-blocked"></span>Blocked <strong>3</strong><span class="muted">(14%)</span></li><li><span class="swatch swatch-other"></span>Other <strong>8</strong><span class="muted">(36%)</span></li></ul>
+</div>
+      </div>
     </section>
 
     <section class="panel gate">
@@ -162,9 +214,9 @@
 <li><strong>TASK-009</strong><span class="pill">Open</span><p>Keep dashboard/wiki tracking health verified.</p><small>Run `.\scripts\dashboard-health.ps1 -RequireOutbox` after every Confluence outbox build.</small></li>
 <li><strong>TASK-010</strong><span class="pill">Open</span><p>Keep runtime dashboard snapshot fresh.</p><small>Run `.\scripts\build-confluence-wiki.ps1` after memory/dashboard updates; it regenerates `docs/dashboards/status-snapshot.generated.md`.</small></li>
 <li><strong>TASK-011</strong><span class="pill">Open</span><p>Keep manual Confluence sync pack fresh while live access is blocked.</p><small>Run `.\scripts\build-confluence-wiki.ps1`; it regenerates `docs/confluence/manual-sync-pack.generated.md`.</small></li>
-<li><strong>TASK-013</strong><span class="pill">In review</span><p>Harden M4B nested schema requirements.</p><small>Review and merge PR #6.</small></li>
 <li><strong>TASK-016</strong><span class="pill">Open</span><p>Complete EXP-001 expert-label evaluation.</p><small>Add held-out/cross-setting expert labels, rerun `.\scripts\build-exp001-evaluation.ps1`, and update the evaluation report with generalization-safe metrics.</small></li>
 <li><strong>TASK-017</strong><span class="pill">Open</span><p>Fill EXP-002 expert labeling package.</p><small>Human/supervisor should label at least 20 rows, preferably all 27 current rows, then rerun evaluation with leakage-aware partitions.</small></li>
+<li><strong>TASK-019</strong><span class="pill">Open</span><p>Collect EXP-003 independent expert labels.</p><small>Fill the blind/full EXP-003 sheets with at least 20 generalization-safe labels before any accuracy-improvement claim or M4B-1 policy refinement.</small></li>
       </ol>
     </section>
 

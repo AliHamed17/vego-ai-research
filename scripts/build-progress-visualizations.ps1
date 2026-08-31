@@ -270,17 +270,56 @@ function ConvertTo-HtmlText {
     return [System.Net.WebUtility]::HtmlEncode($value)
 }
 
-function New-HtmlBar {
+function Get-BucketColorRole {
+    param([string]$Bucket)
+
+    switch ($Bucket) {
+        "Done/Green" { return "good" }
+        "In progress/Yellow" { return "warning" }
+        "Risk/Red" { return "critical" }
+        "Blocked" { return "blocked" }
+        "Planned" { return "planned" }
+        default { return "other" }
+    }
+}
+
+function New-StackedBar {
     param(
-        [string]$Name,
-        [int]$Value,
-        [int]$Total,
-        [string]$ClassName
+        [Parameter(Mandatory = $true)][string]$Title,
+        [Parameter(Mandatory = $true)]$Counts,
+        [Parameter(Mandatory = $true)][int]$Total
     )
 
-    $percent = Get-Percent -Part $Value -Total $Total
-    $safeLabel = ConvertTo-HtmlText $Name
-    return "<div class=""bar-row""><span>$safeLabel</span><div class=""bar-track""><div class=""bar-fill $ClassName"" style=""width:$percent%""></div></div><strong>$Value</strong></div>"
+    $segments = New-Object System.Collections.Generic.List[string]
+    $legendItems = New-Object System.Collections.Generic.List[string]
+
+    foreach ($bucket in $Counts.Keys) {
+        $count = [int]$Counts[$bucket]
+        if ($count -le 0) { continue }
+        $percent = Get-Percent -Part $count -Total $Total
+        $role = Get-BucketColorRole -Bucket $bucket
+        $safeLabel = ConvertTo-HtmlText $bucket
+        $titleAttr = ConvertTo-HtmlText "$bucket`: $count of $Total ($percent%)"
+        $inline = if ($percent -ge 12) { "<span class=""seg-label"">$percent%</span>" } else { "" }
+        $segments.Add("<div class=""seg seg-$role"" style=""flex-basis:$percent%"" title=""$titleAttr"">$inline</div>")
+        $legendItems.Add("<li><span class=""swatch swatch-$role""></span>$safeLabel <strong>$count</strong><span class=""muted"">($percent%)</span></li>")
+    }
+
+    if ($segments.Count -eq 0) {
+        $segments.Add("<div class=""seg seg-other"" style=""flex-basis:100%"" title=""No rows found"">No rows found</div>")
+    }
+
+    $safeTitle = ConvertTo-HtmlText $Title
+    $segmentsHtml = $segments -join ""
+    $legendHtml = if ($legendItems.Count -gt 0) { "<ul class=""legend-list"">" + ($legendItems -join "") + "</ul>" } else { "" }
+
+    return @"
+<div class="viz-block">
+  <h3>$safeTitle</h3>
+  <div class="stacked-bar" role="img" aria-label="$safeTitle status mix">$segmentsHtml</div>
+  $legendHtml
+</div>
+"@
 }
 
 $progressMarkdown = Read-TextOrEmpty "docs/agent-memory/progress.md"
@@ -340,6 +379,18 @@ foreach ($line in (New-MermaidPie -Title "Active work status mix" -Counts $activ
     $markdownLines.Add($line)
 }
 $markdownLines.Add("")
+$markdownLines.Add("## Milestone Status Mix")
+$markdownLines.Add("")
+foreach ($line in (New-MermaidPie -Title "Milestone status mix" -Counts $milestoneCounts)) {
+    $markdownLines.Add($line)
+}
+$markdownLines.Add("")
+$markdownLines.Add("## Executive Snapshot Mix")
+$markdownLines.Add("")
+foreach ($line in (New-MermaidPie -Title "Executive snapshot mix" -Counts $executiveCounts)) {
+    $markdownLines.Add($line)
+}
+$markdownLines.Add("")
 $markdownLines.Add("## Milestone Timeline")
 $markdownLines.Add("")
 foreach ($line in (New-MilestoneFlow -Rows $flowRows)) {
@@ -386,19 +437,10 @@ $markdownLines.Add('Open docs/dashboards/progress-visualizations.generated.html 
 New-Item -ItemType Directory -Path (Split-Path -Parent $markdownFullPath) -Force | Out-Null
 Set-Content -LiteralPath $markdownFullPath -Value ($markdownLines -join "`r`n") -Encoding UTF8
 
-$kpiBars = @(
-    New-HtmlBar -Name "Done / Green" -Value ([int]$kpiCounts["Done/Green"]) -Total $kpiTotal -ClassName "good"
-    New-HtmlBar -Name "In progress / Yellow" -Value ([int]$kpiCounts["In progress/Yellow"]) -Total $kpiTotal -ClassName "warn"
-    New-HtmlBar -Name "Risk / Red" -Value ([int]$kpiCounts["Risk/Red"]) -Total $kpiTotal -ClassName "bad"
-    New-HtmlBar -Name "Blocked" -Value ([int]$kpiCounts["Blocked"]) -Total $kpiTotal -ClassName "blocked"
-) -join "`n"
-
-$activeBars = @(
-    New-HtmlBar -Name "Done / Green" -Value ([int]$activeCounts["Done/Green"]) -Total $activeTotal -ClassName "good"
-    New-HtmlBar -Name "In progress / Yellow" -Value ([int]$activeCounts["In progress/Yellow"]) -Total $activeTotal -ClassName "warn"
-    New-HtmlBar -Name "Risk / Red" -Value ([int]$activeCounts["Risk/Red"]) -Total $activeTotal -ClassName "bad"
-    New-HtmlBar -Name "Blocked" -Value ([int]$activeCounts["Blocked"]) -Total $activeTotal -ClassName "blocked"
-) -join "`n"
+$kpiStackedBar = New-StackedBar -Title "KPI Status Mix" -Counts $kpiCounts -Total $kpiTotal
+$activeStackedBar = New-StackedBar -Title "Active Work Status Mix" -Counts $activeCounts -Total $activeTotal
+$milestoneStackedBar = New-StackedBar -Title "Milestone Status Mix" -Counts $milestoneCounts -Total $milestoneTotal
+$executiveStackedBar = New-StackedBar -Title "Executive Snapshot Mix" -Counts $executiveCounts -Total $executiveTotal
 
 $activeItemsHtml = if ($attentionRows.Count -eq 0) {
     "<li>No open active work rows found.</li>"
@@ -422,45 +464,58 @@ $html = @"
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VEGO-AI Progress Visualizations</title>
   <style>
-    :root {
-      --ink: #17202a;
-      --muted: #5d6673;
-      --line: #d8dee8;
-      --panel: #ffffff;
-      --page: #f6f7fb;
-      --good: #2f855a;
-      --warn: #b7791f;
-      --bad: #c53030;
-      --blocked: #5a67d8;
+    :root, .viz-root {
+      color-scheme: light;
+      --surface-1: #fcfcfb;
+      --page-plane: #f9f9f7;
+      --text-primary: #0b0b0b;
+      --text-secondary: #52514e;
+      --text-muted: #898781;
+      --gridline: #e1e0d9;
+      --baseline: #c3c2b7;
+      --border: rgba(11,11,11,0.10);
+      --status-good: #0ca30c;
+      --status-warning: #fab219;
+      --status-blocked: #4a3aa7;
+      --status-critical: #d03b3b;
+      --status-planned: #2a78d6;
+      --on-dark-fill: #ffffff;
+      --on-light-fill: #17202a;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:where(:not([data-theme="light"])), .viz-root {
+        color-scheme: dark;
+        --surface-1: #1a1a19;
+        --page-plane: #0d0d0d;
+        --text-primary: #ffffff;
+        --text-secondary: #c3c2b7;
+        --text-muted: #898781;
+        --gridline: #2c2c2a;
+        --baseline: #383835;
+        --border: rgba(255,255,255,0.10);
+        --status-good: #0ca30c;
+        --status-warning: #fab219;
+        --status-blocked: #9085e9;
+        --status-critical: #d03b3b;
+        --status-planned: #3987e5;
+      }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: var(--ink);
-      background: var(--page);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--text-primary);
+      background: var(--page-plane);
     }
     header, main {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
     }
-    header {
-      padding: 28px 0 16px;
-    }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-      line-height: 1.15;
-      font-weight: 700;
-    }
-    h2 {
-      margin: 0 0 14px;
-      font-size: 18px;
-      line-height: 1.25;
-    }
-    p, small {
-      color: var(--muted);
-    }
+    header { padding: 28px 0 16px; }
+    h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; font-weight: 700; }
+    h2 { margin: 0 0 14px; font-size: 18px; line-height: 1.25; }
+    h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+    p, small { color: var(--text-secondary); }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -468,8 +523,8 @@ $html = @"
       margin: 14px 0;
     }
     .card, .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
+      background: var(--surface-1);
+      border: 1px solid var(--border);
       border-radius: 8px;
       padding: 16px;
     }
@@ -478,60 +533,89 @@ $html = @"
       font-size: 28px;
       line-height: 1;
       margin-bottom: 8px;
+      font-variant-numeric: proportional-nums;
     }
-    .panel {
-      margin: 14px 0;
-    }
-    .bar-row {
+    .panel { margin: 14px 0; }
+    .viz-grid {
       display: grid;
-      grid-template-columns: minmax(130px, 190px) 1fr 44px;
-      align-items: center;
-      gap: 10px;
-      margin: 10px 0;
-      font-size: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      align-items: start;
+      gap: 16px;
     }
-    .bar-track {
-      height: 14px;
-      background: #e8edf5;
-      border-radius: 7px;
+    .stacked-bar {
+      display: flex;
+      gap: 2px;
+      height: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--gridline);
+      margin-bottom: 10px;
+    }
+    .seg {
+      flex-shrink: 0;
+      flex-grow: 1;
+      flex-basis: 0%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
       overflow: hidden;
     }
-    .bar-fill {
-      height: 100%;
-      min-width: 2px;
+    .seg-good { background: var(--status-good); color: var(--on-dark-fill); }
+    .seg-warning { background: var(--status-warning); color: var(--on-light-fill); }
+    .seg-blocked { background: var(--status-blocked); color: var(--on-dark-fill); }
+    .seg-critical { background: var(--status-critical); color: var(--on-dark-fill); }
+    .seg-planned { background: var(--status-planned); color: var(--on-dark-fill); }
+    .seg-other { background: var(--text-muted); color: var(--on-light-fill); }
+    .seg-label { padding: 0 4px; }
+    .legend-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
     }
-    .good { background: var(--good); }
-    .warn { background: var(--warn); }
-    .bad { background: var(--bad); }
-    .blocked { background: var(--blocked); }
-    .gate {
-      border-left: 5px solid var(--bad);
-      background: #fffafa;
+    .legend-list li { display: flex; align-items: center; gap: 6px; }
+    .legend-list strong { color: var(--text-primary); font-weight: 600; }
+    .legend-list .muted { color: var(--text-muted); font-size: 12px; }
+    .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
     }
-    ol {
-      padding-left: 22px;
-    }
-    li {
-      margin: 12px 0;
-    }
+    .swatch-good { background: var(--status-good); }
+    .swatch-warning { background: var(--status-warning); }
+    .swatch-blocked { background: var(--status-blocked); }
+    .swatch-critical { background: var(--status-critical); }
+    .swatch-planned { background: var(--status-planned); }
+    .swatch-other { background: var(--text-muted); }
+    .gate { border-left: 5px solid var(--status-critical); }
+    ol { padding-left: 22px; }
+    li { margin: 12px 0; }
     .pill {
       display: inline-block;
       margin-left: 8px;
       padding: 2px 8px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: 999px;
-      color: var(--muted);
+      color: var(--text-secondary);
       font-size: 12px;
     }
     code {
-      background: #eef2f7;
+      background: var(--gridline);
       padding: 2px 5px;
       border-radius: 4px;
     }
     @media (max-width: 620px) {
       header, main { width: min(100% - 20px, 1180px); }
       h1 { font-size: 26px; }
-      .bar-row { grid-template-columns: 1fr; gap: 5px; }
     }
   </style>
 </head>
@@ -549,13 +633,13 @@ $html = @"
     </section>
 
     <section class="panel">
-      <h2>KPI Status Mix</h2>
-      $kpiBars
-    </section>
-
-    <section class="panel">
-      <h2>Active Work Status Mix</h2>
-      $activeBars
+      <h2>Status Mix</h2>
+      <div class="viz-grid">
+        $kpiStackedBar
+        $activeStackedBar
+        $milestoneStackedBar
+        $executiveStackedBar
+      </div>
     </section>
 
     <section class="panel gate">
