@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "ReuseDecisionRecord-v1",
+  "recordId": "RDR-SE101-2026B-S0207-ACTOR-01",
+  "emittedAt": "2026-08-28T09:12:30+03:00",
+  "procedure": {
+    "procedureId": "C3-REUSE-PROC",
+    "procedureVersion": "0.1",
+    "procedureSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "gateCount": 5,
+    "gateOrderFrozen": true,
+    "status": "Proposal — not approved",
+    "supervisorConfirmation": {
+      "required": true,
+      "outcome": "Not recorded",
+      "recordId": null
+    }
+  },
+  "contextDistanceSchema": {
+    "schemaId": "CDS-C3-v1",
+    "version": "0.1",
+    "sha256": "01343fefc9380b27e58210a534454f4f05bbbd9225293edb5f77187864cf3c72",
+    "frozenAt": "2026-08-24T09:00:00+03:00",
+    "frozenBeforeOutcomeEvaluation": true,
+    "dimensions": [
+      {
+        "dimensionId": "same_case",
+        "rank": 0,
+        "label": "The same case, the same submission, the same reviewing occasion",
+        "tolerance": "within_tolerance",
+        "proposalDerivation": "Proposal section 1.7 (p.9): the ruling plainly governs the case it was made about. Rank 0 is the only distance at which reuse needs no argument."
+      },
+      {
+        "dimensionId": "submission",
+        "rank": 1,
+        "label": "Another submission in the same course offering and the same cohort",
+        "tolerance": "within_tolerance",
+        "proposalDerivation": "Proposal p.9, first step of the sequence: 'another submission in the same course?' The description, rubric, language and authority are all unchanged, so the ruling travels intact."
+      },
+      {
+        "dimensionId": "cohort",
+        "rank": 2,
+        "label": "A later cohort, including one working from a revised domain description",
+        "tolerance": "adaptation_required",
+        "proposalDerivation": "Proposal p.9, second step: 'a later cohort working from a revised description?' The revision travels with the cohort: this ladder has no separate dimension for a description revision, so a changed guidelineVersion is carried by this dimension and must be argued at the context-fit gate."
+      },
+      {
+        "dimensionId": "modeling_language",
+        "rank": 3,
+        "label": "A different modeling language, in which the actor construct carries different semantics",
+        "tolerance": "adaptation_required",
+        "proposalDerivation": "Proposal p.9, third step: 'a different modeling language, where the actor construct carries different semantics?' The claim survives only if the construct the ruling was about has a counterpart with comparable semantics."
+      },
+      {
+        "dimensionId": "institution",
+        "rank": 4,
+        "label": "Another institution, with its own rubric and its own assessment authority",
+        "tolerance": "beyond_tolerance",
+        "proposalDerivation": "Proposal p.9, fourth step: 'another institution with its own rubric?' The authority that issued the ruling does not extend to the receiving institution, so reuse is refused rather than adapted."
+      },
+      {
+        "dimensionId": "scenario_family",
+        "rank": 5,
+        "label": "A clinical setting, where a comparable ruling carries patient-safety consequence and a different authority",
+        "tolerance": "beyond_tolerance",
+        "proposalDerivation": "Proposal p.9, final step: '...or a clinical setting, where a comparable ruling carries patient-safety consequence and a different authority.' Proposal section 1.6 gates any such transfer behind six entry conditions that currently stand at 0 of 6 passed."
+      }
+    ],
+    "capabilityGapThreshold": {
+      "mustExceedDimensionId": "cohort",
+      "minRankStrictlyAbove": 2,
+      "minDistinctContexts": 2
+    },
+    "confirmationStatus": "design_proposal_pending_supervisor_confirmation"
+  },
+  "sourceJudgmentRef": {
+    "judgmentId": "GJR-SE101-2025A-S0142-ACTOR-01",
+    "judgmentVersion": "1.0",
+    "judgmentSha256": "3333333333333333333333333333333333333333333333333333333333333333",
+    "contractId": "GovernedJudgmentRecord-v1",
+    "contractVersion": "1.0",
+    "lifecycleStateAtUse": "active",
+    "lifecycleReadAt": "2026-08-28T09:12:02+03:00"
+  },
+  "sourceContext": {
+    "descriptorSchemaVersion": "TargetContextDescriptor-v1",
+    "descriptorId": "TCD-SE101-2025A-S0142-ACTOR-01",
+    "role": "source",
+    "caseRef": "SE101-2025A/submission/S-0142/fragment/actor-shift-supervisor",
+    "dimensionValues": {
+      "same_case": "SE101-2025A-S0142-actor-shift-supervisor",
+      "submission": "S-0142",
+      "cohort": "2025A",
+      "modeling_language": "UML use case diagram (UML 2.5.1)",
+      "institution": "INST-A/SE-101",
+      "scenario_family": "A_software_engineering_and_student_modeling"
+    },
+    "guidelineFamily": "SE-101 domain-modeling assignment brief and assessment rubric",
+    "guidelineVersion": "SE101-DESC-v3.1",
+    "taskType": "instructor review of a flagged actor in a student use-case model",
+    "population": "SE-101 undergraduate cohort, semester 2025A",
+    "elapsedDaysSinceSourceJudgment": 0,
+    "capturedAt": "2025-11-18T14:20:00+02:00",
+    "descriptorSha256": "5bf2925ac21b2315684af0e994eedac80dce9d46bcab1bcd9263fa13a27e11e9",
+    "frozen": true
+  },
+  "targetContext": {
+    "descriptorSchemaVersion": "TargetContextDescriptor-v1",
+    "descriptorId": "TCD-SE101-2026B-S0207-ACTOR-01",
+    "role": "target",
+    "caseRef": "SE101-2026B/submission/S-0207/fragment/actor-shift-supervisor",
+    "dimensionValues": {
+      "same_case": "SE101-2026B-S0207-actor-shift-supervisor",
+      "submission": "S-0207",
+      "cohort": "2026B",
+      "modeling_language": "UML use case diagram (UML 2.5.1)",
+      "institution": "INST-A/SE-101",
+      "scenario_family": "A_software_engineering_and_student_modeling"
+    },
+    "guidelineFamily": "SE-101 domain-modeling assignment brief and assessment rubric",
+    "guidelineVersion": "SE101-DESC-v4.0",
+    "taskType": "instructor review of a flagged actor in a student use-case model",
+    "population": "SE-101 undergraduate cohort, semester 2026B",
+    "elapsedDaysSinceSourceJudgment": 283,
+    "capturedAt": "2026-08-28T08:05:00+03:00",
+    "descriptorSha256": "521725cc600f78f81b6e27bd82007e140cff1ac396757655d9e284695a6b2929",
+    "frozen": true
+  },
+  "contextDistance": {
+    "comparisons": [
+      {
+        "dimensionId": "same_case",
+        "rank": 0,
+        "sourceValue": "SE101-2025A-S0142-actor-shift-supervisor",
+        "targetValue": "SE101-2026B-S0207-actor-shift-supervisor",
+        "differs": true,
+        "toleranceApplied": "within_tolerance",
+        "withinTolerance": true
+      },
+      {
+        "dimensionId": "submission",
+        "rank": 1,
+        "sourceValue": "S-0142",
+        "targetValue": "S-0207",
+        "differs": true,
+        "toleranceApplied": "within_tolerance",
+        "withinTolerance": true
+      },
+      {
+        "dimensionId": "cohort",
+        "rank": 2,
+        "sourceValue": "2025A",
+        "targetValue": "2026B",
+        "differs": true,
+        "toleranceApplied": "adaptation_required",
+        "withinTolerance": false
+      },
+      {
+        "dimensionId": "modeling_language",
+        "rank": 3,
+        "sourceValue": "UML use case diagram (UML 2.5.1)",
+        "targetValue": "UML use case diagram (UML 2.5.1)",
+        "differs": false,
+        "toleranceApplied": "within_tolerance",
+        "withinTolerance": true
+      },
+      {
+        "dimensionId": "institution",
+        "rank": 4,
+        "sourceValue": "INST-A/SE-101",
+        "targetValue": "INST-A/SE-101",
+        "differs": false,
+        "toleranceApplied": "within_tolerance",
+        "withinTolerance": true
+      },
+      {
+        "dimensionId": "scenario_family",
+        "rank": 5,
+        "sourceValue": "A_software_engineering_and_student_modeling",
+        "targetValue": "A_software_engineering_and_student_modeling",
+        "differs": false,
+        "toleranceApplied": "within_tolerance",
+        "withinTolerance": true
+      }
+    ],
+    "maxDifferingDimensionId": "cohort",
+    "maxDifferingRank": 2,
+    "exceedsCohort": false,
+    "computedFromSchemaSha256": "01343fefc9380b27e58210a534454f4f05bbbd9225293edb5f77187864cf3c72"
+  },
+  "restrictedEvidenceExposed": true,
+  "gateEvaluations": [
+    {
+      "gateOrder": 1,
+      "gateId": "g1_visibility_authorization",
+      "result": "pass",
+      "ruleId": "R-G1-VISIBILITY-AUTHORIZATION",
+      "ruleVersion": "0.1",
+      "contextDimensionId": "institution",
+      "reason": "Evaluated first, before any content of the source judgment was read. The requester is course staff of record for SE-101 at INST-A, the same institution that issued the ruling, and the source judgment's visibility scope names course staff of that offering as entitled readers. Entitlement was checked against the requester identity, not inferred from similarity of the two cases.",
+      "evidenceRefs": [
+        {
+          "refId": "EC-2026B-S0207-ENTITLEMENT",
+          "path": "examples/c3-shift-supervisor/entitlement-check-2026B-S0207.json",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "evaluatedAt": "2026-08-28T09:12:04+03:00"
+    },
+    {
+      "gateOrder": 2,
+      "gateId": "g2_claim_relevance",
+      "result": "pass",
+      "ruleId": "R-G2-CLAIM-RELEVANCE",
+      "ruleVersion": "0.1",
+      "contextDimensionId": "scenario_family",
+      "reason": "The prior ruling answers the question 'is an added actor that abstracts a supervisory role not named in the domain text a defensible abstraction rather than a modeling-language error?'. The contested fragment in the current case raises that same question about the same construct in the same scenario family (A_software_engineering_and_student_modeling). Relevance is asserted about the claim, not about textual resemblance of the two diagrams.",
+      "evidenceRefs": [
+        {
+          "refId": "CLAIM-MAP-ACTOR-UNNAMED-ROLE",
+          "path": "examples/c3-shift-supervisor/claim-relevance-map-actor-unnamed-role.json",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "evaluatedAt": "2026-08-28T09:12:09+03:00"
+    },
+    {
+      "gateOrder": 3,
+      "gateId": "g3_context_fit",
+      "result": "pass_with_adaptation",
+      "ruleId": "R-G3-CONTEXT-FIT",
+      "ruleVersion": "0.1",
+      "contextDimensionId": "cohort",
+      "reason": "Context fit is partial and this gate is the one that makes it so. The highest differing ladder dimension is cohort (rank 2, declared tolerance adaptation_required): source 2025A, target 2026B. The cohort change carries a revision of the domain description, from SE101-DESC-v3.1 to SE101-DESC-v4.0, and v4.0 adds a paragraph naming a 'Duty Roster Coordinator'. The prior ruling rested on the premise that no supervisory role was named in the description; that premise no longer holds unchanged in the target context. The ruling is therefore relevant but not directly transplantable, and it may travel only with the named adaptation ADPT-SE101-2026B-S0207-ACTOR-01. Institution, modeling language and scenario family are unchanged, so no higher-ranked dimension is engaged.",
+      "evidenceRefs": [
+        {
+          "refId": "DESC-DIFF-SE101-V3_1-TO-V4_0",
+          "path": "examples/c3-shift-supervisor/se101-description-diff-v3.1-to-v4.0.json",
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        {
+          "refId": "CTX-DISTANCE-2026B-S0207",
+          "path": "examples/c3-shift-supervisor/context-distance-2026B-S0207.json",
+          "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "evaluatedAt": "2026-08-28T09:12:14+03:00"
+    },
+    {
+      "gateOrder": 4,
+      "gateId": "g4_current_case_evidence",
+      "result": "pass",
+      "ruleId": "R-G4-CURRENT-CASE-EVIDENCE",
+      "ruleVersion": "0.1",
+      "contextDimensionId": "submission",
+      "reason": "Submission S-0207 carries evidence sufficient to decide the current case on its own terms: the model fragment with the added actor and its two mediated relations, the relevant paragraphs of SE101-DESC-v4.0, and the rubric criterion on actor justification. The gate passes because the reviewer can reach a conclusion from that evidence without the prior ruling; it would fail if the only ground for a conclusion were the prior ruling itself.",
+      "evidenceRefs": [
+        {
+          "refId": "MODEL-FRAGMENT-S0207-ACTOR-SHIFT-SUPERVISOR",
+          "path": "examples/c3-shift-supervisor/model-fragment-S0207-actor-shift-supervisor.json",
+          "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        },
+        {
+          "refId": "SE101-DESC-V4_0-EXCERPT-SUPERVISORY-ROLE",
+          "path": "examples/c3-shift-supervisor/se101-description-v4.0-excerpt.json",
+          "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+        },
+        {
+          "refId": "RUBRIC-CRITERION-ACTOR-JUSTIFICATION-V4_0",
+          "path": "examples/c3-shift-supervisor/rubric-criterion-actor-justification-v4.0.json",
+          "sha256": "6666666666666666666666666666666666666666666666666666666666666666"
+        }
+      ],
+      "evaluatedAt": "2026-08-28T09:12:19+03:00"
+    },
+    {
+      "gateOrder": 5,
+      "gateId": "g5_adaptation_risk",
+      "result": "pass",
+      "ruleId": "R-G5-ADAPTATION-RISK",
+      "ruleVersion": "0.1",
+      "contextDimensionId": "cohort",
+      "reason": "The adaptation required by gate 3 is bounded and checkable inside the target context: the same rubric, the same modeling language, the same assessing authority. Its failure mode is a visible over-credit on one rubric criterion for one submission, which the reviewer of record can correct before the assessment is finalised, and which cannot alter the baseline pipeline because the prior ruling is advisory throughout. Residual risk is recorded as moderate rather than low because the reviewer may not notice that the description was revised between the two cohorts, which is the specific risk the adaptation exists to surface.",
+      "evidenceRefs": [
+        {
+          "refId": "ADAPTATION-RISK-WORKSHEET-2026B-S0207",
+          "path": "examples/c3-shift-supervisor/adaptation-risk-worksheet-2026B-S0207.json",
+          "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ],
+      "evaluatedAt": "2026-08-28T09:12:24+03:00"
+    }
+  ],
+  "decision": {
+    "outcome": "reuse_eligible_with_adaptation",
+    "outcomeLabel": "Eligible with adaptation",
+    "gateId": "g3_context_fit",
+    "ruleId": "R-G3-CONTEXT-FIT",
+    "ruleVersion": "0.1",
+    "contextDimensionId": "cohort",
+    "statement": "Eligible with adaptation. The outcome was produced by rule R-G3-CONTEXT-FIT v0.1 at gate g3_context_fit, and the context dimension responsible is cohort (frozen ladder rank 2, tolerance adaptation_required): the target cohort 2026B works from revised domain description SE101-DESC-v4.0, which names a supervisory role that SE101-DESC-v3.1 left unnamed, and the prior ruling rested on that role being unnamed. The 2025A ruling may therefore be surfaced to the reviewer of S-0207 as attributed advice under adaptation ADPT-SE101-2026B-S0207-ACTOR-01, and may not be applied as a settled label. Had the highest differing dimension been modeling_language, institution or scenario_family, this rule would have returned a different result on the same evidence."
+  },
+  "effect": "prior_judgment_surfaced_as_attributed_advice",
+  "priorJudgmentPresentation": {
+    "presentedAs": "attributed_advice",
+    "presentedAsSettledLabel": false,
+    "attributionShown": true,
+    "currentCaseEvidenceRefs": [
+      {
+        "refId": "MODEL-FRAGMENT-S0207-ACTOR-SHIFT-SUPERVISOR",
+        "path": "examples/c3-shift-supervisor/model-fragment-S0207-actor-shift-supervisor.json",
+        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "refId": "SE101-DESC-V4_0-EXCERPT-SUPERVISORY-ROLE",
+        "path": "examples/c3-shift-supervisor/se101-description-v4.0-excerpt.json",
+        "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      {
+        "refId": "RUBRIC-CRITERION-ACTOR-JUSTIFICATION-V4_0",
+        "path": "examples/c3-shift-supervisor/rubric-criterion-actor-justification-v4.0.json",
+        "sha256": "6666666666666666666666666666666666666666666666666666666666666666"
+      }
+    ],
+    "currentCaseReasonedIndependently": true
+  },
+  "adaptation": {
+    "adaptationId": "ADPT-SE101-2026B-S0207-ACTOR-01",
+    "description": "The reviewer is asked first, and before the prior ruling is shown, to determine against SE101-DESC-v4.0 whether the added actor corresponds to the newly named Duty Roster Coordinator role or to a supervisory role that v4.0 still leaves unnamed. The 2025A ruling is then surfaced only for the second reading, carrying the visible qualifier that it was made under SE101-DESC-v3.1, in which no supervisory role was named at all.",
+    "triggeringDimensionId": "cohort",
+    "residualRisk": "moderate",
+    "verificationRequirement": "The reviewer must record which of the two readings applies and cite the paragraph of SE101-DESC-v4.0 relied on, before the assessment of S-0207 is finalised. If the first reading is recorded, the prior ruling is withdrawn from the current case and a fresh judgment is required; the withdrawal is itself recorded, so a later audit can see that the advice was offered and set aside."
+  },
+  "capabilityGapAssertion": {
+    "assertionId": "CGA-ACTOR-UNNAMED-ROLE-01",
+    "status": "candidate",
+    "failureSignature": {
+      "signatureId": "FS-ACTOR-UNNAMED-ROLE-01",
+      "description": "The assessment pipeline classifies an added actor that abstracts a role not named in the domain text as a modeling-language error, rather than surfacing it as an ambiguous fragment for review. Predeclared with the ladder freeze, before any replication was sought, so that a later match cannot be fitted to whatever was observed.",
+      "predeclaredAt": "2026-08-24T09:00:00+03:00",
+      "predeclarationRef": {
+        "refId": "CGA-PREDECLARATION-ACTOR-UNNAMED-ROLE",
+        "path": "examples/c3-shift-supervisor/capability-gap-predeclaration-actor-unnamed-role.json",
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      "predeclarationSha256": "7777777777777777777777777777777777777777777777777777777777777777"
+    },
+    "replications": [],
+    "distinctFrozenContextsConfirmed": false,
+    "alternativeCausesRuledOut": {
+      "localGuideline": {
+        "status": "not_assessed",
+        "method": "Planned: compare the fragment's treatment under SE101-DESC-v3.1 and v4.0 and under at least one rubric from outside INST-A, to separate a pipeline behaviour from a local guideline artefact. Not performed.",
+        "evidenceRef": null
+      },
+      "taskDesign": {
+        "status": "not_assessed",
+        "method": "Planned: re-present the same domain content under a task prompt that does not enumerate candidate actors. Not performed.",
+        "evidenceRef": null
+      },
+      "modelOrSystemVersion": {
+        "status": "not_assessed",
+        "method": "Planned: hold the case fixed and vary the pinned model and pipeline revision recorded in the model-execution manifest. Not performed.",
+        "evidenceRef": null
+      },
+      "data": {
+        "status": "not_assessed",
+        "method": "Planned: check whether the flagged submissions share a source or template that would explain the behaviour without any capability claim. Not performed.",
+        "evidenceRef": null
+      },
+      "reviewerPopulation": {
+        "status": "not_assessed",
+        "method": "Planned: seek the same reading from reviewers outside the SE-101 staff of record. Not performed.",
+        "evidenceRef": null
+      }
+    }
+  },
+  "outcomeReceipt": {
+    "receiptId": "RDR-RCPT-SE101-2026B-S0207-ACTOR-01",
+    "issuedAt": "2026-08-28T09:12:31+03:00",
+    "issuanceTrigger": "every_reuse_decision_evaluation",
+    "consumerId": "reviewer-interface/se101-assessment-console",
+    "consumerType": "reviewer_interface",
+    "useSiteRef": "SE101-2026B/submission/S-0207/fragment/actor-shift-supervisor",
+    "recordedOutcome": "reuse_eligible_with_adaptation",
+    "recordedDimensionId": "cohort",
+    "decisionRecordSha256": "3379efd5a1c9c7441882e532a05b4eff4bf094779a568a22846aca56df6e5d0a",
+    "canonicalizationMethod": "RFC 8785 JSON Canonicalization Scheme (JCS) over the UTF-8 form of the object, SHA-256 of the result. decisionRecordSha256 is taken over this record with the outcomeReceipt member removed; receiptSha256 is taken over outcomeReceipt with receiptSha256 removed; each descriptorSha256 is taken over its context descriptor with descriptorSha256 removed.",
+    "receiptSha256": "2f22a73fdb1bcd73b79c33a8e257ce602a7da0356a5f5f154ad0b13e32859d2a",
+    "contentContract": {
+      "contractId": "GovernedJudgmentRecord-v1",
+      "contractVersion": "1.0",
+      "contentOwnedBy": "C2 governed-judgment contract (SQ2)"
+    },
+    "linkedFromSourceJudgment": true
+  },
+  "evidenceStatus": {
+    "runtimeEffect": "none",
+    "empiricalOutcomeClaim": "none",
+    "admissibleAsStudyResult": false,
+    "boundaryNote": "Design artifact. Procedure C3-REUSE-PROC stands at version 0.1 with status 'Proposal - not approved' and no supervisor confirmation recorded, and the context-distance ladder CDS-C3-v1 is a design proposal pending supervisor confirmation, so nothing in this record is admissible as a study result. The record reports no observed outcome of any kind: no replication is listed, no accuracy, agreement or effort quantity appears, and the capability-gap assertion stands at 'candidate'."
+  },
+  "claimBoundary": "Illustrative worked example, not an executed evaluation. It instantiates the proposal's own motivating example (section 1.7, p.9): an instructor ruled that an unnamed extra actor, a 'Shift Supervisor', in a 2025A student domain model was a defensible abstraction, and the proposal then asks how far that ruling may travel. This record takes the second step of that sequence, a later cohort working from a revised description, and shows where the answer stops being 'yes' and becomes 'yes, but adapted'. No empirical result, accuracy figure, agreement statistic or outcome claim is asserted here, and none may be read out of it. The people, submissions, course identifiers and rubric versions are fictitious. Digests: descriptorSha256 for both contexts, contextDistanceSchema.sha256, contextDistance.computedFromSchemaSha256, outcomeReceipt.decisionRecordSha256 and outcomeReceipt.receiptSha256 are computed over content carried in this record under the declared canonicalization and are therefore genuinely checkable. The remaining digests - procedure.procedureSha256, sourceJudgmentRef.judgmentSha256, every artifactRef.sha256, and the capability-gap predeclaration digest - are repeated-nibble placeholders following the convention of schemas/examples/policy-frozen.valid.json, because they name documents that do not exist in this repository. The 'examples/c3-shift-supervisor/' paths are likewise illustrative: no file exists at any of them, and they show what the procedure would cite rather than what it has cited. The capability-gap block is deliberately shown unclaimed. The threshold requires replication across at least two distinct frozen contexts of which at least one differs above cohort, plus independent confirmation and five alternative causes ruled out. This use supplies none of that: zero replications are recorded, and the maximum context distance available from this use is rank 2 (cohort), which does not exceed the cohort threshold, so this evaluation could not have contributed to such a claim even if a failure had been observed."
+}

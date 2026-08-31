@@ -1,0 +1,628 @@
+{
+  "schemaVersion": "ReviewPolicySignalContract-v1",
+  "recordType": "routing_decision",
+  "recordId": "RPSC-EXAMPLE-COURSE-A-SHIFT-SUPERVISOR-001",
+  "createdAt": "2026-05-04T11:20:00Z",
+  "hostBinding": {
+    "contractIsSystemIndependent": true,
+    "hostSystemId": null,
+    "hostSystemVersion": null,
+    "adapterRef": null
+  },
+  "vocabularyBinding": {
+    "claimTypeVocabulary": {
+      "vocabularyId": "modeling-claim-types",
+      "vocabularyVersion": "1.2.0",
+      "vocabularySha256": "754c029d44da53fe832b8cb4f5398a5a271d8f8c30dec478359026d39e9ae033"
+    },
+    "reviewerRoleVocabulary": {
+      "vocabularyId": "course-review-roles",
+      "vocabularyVersion": "1.0.0",
+      "vocabularySha256": "a91d1053b6f1c8d85092d40a7a4c3b56ffaa074ff727a4b725b45573b4680ad5"
+    },
+    "consequenceScaleVocabulary": {
+      "vocabularyId": "course-assessment-consequence-scale",
+      "vocabularyVersion": "1.0.0",
+      "vocabularySha256": "cbc73327a1b2f84a36d5afa08a6bb579fb9e6159a45741d930a9472b87645de8"
+    },
+    "fixedByThisContract": [
+      "routing_action_set",
+      "signal_identifier_set",
+      "authority_ladder",
+      "comparator_arm_family_set"
+    ]
+  },
+  "policyArm": {
+    "armId": "ARM-PROPOSED-POLICY",
+    "family": "proposed_policy",
+    "armLabel": "Proposed policy (competence and authority selected jointly)",
+    "policyVersion": "rpsc-policy-1.0.0",
+    "equivalentPriorWorkFormulation": "none_declared",
+    "isReferenceArm": true,
+    "armDescription": "Illustrative arm configuration. Reviewer selection reads two separately evidenced inputs: an assessed competence over this contested fragment and an asserted mandate over this contested fragment. Neither is derived from the other, and they are held on different value spaces so they cannot be summed into a single standing score."
+  },
+  "attentionBudget": {
+    "budgetId": "BUD-COURSE-A-2026-WK15",
+    "unit": "expert_minutes",
+    "amount": 180,
+    "period": "per_week",
+    "periodStart": "2026-04-06T00:00:00Z",
+    "periodEnd": "2026-04-13T00:00:00Z",
+    "reviewerPoolId": "POOL-COURSE-A-REVIEW-STAFF",
+    "reviewerPoolSize": 3,
+    "allocationRule": "rank_and_cap",
+    "exhaustionRule": "downgrade_to_batch_review",
+    "enforcement": "enforced_hard_cap",
+    "matchedAcrossArms": true,
+    "matchedArmIds": [
+      "ARM-NEVER-ASK",
+      "ARM-ALWAYS-ASK",
+      "ARM-RANDOM-MATCHED",
+      "ARM-UNCERTAINTY-ONLY",
+      "ARM-FIXED-THRESHOLD",
+      "ARM-PROPOSED-POLICY"
+    ],
+    "auditLoadCountedAgainstBudget": false,
+    "separateAuditLoadAccounting": true
+  },
+  "declaredSignalSet": [
+    "claim_uncertainty",
+    "unreviewed_error_consequence",
+    "evidence_quality",
+    "reviewer_competence_for_claim",
+    "current_queue_conditions",
+    "novelty_vs_judgment_store",
+    "cross_agent_disagreement",
+    "expected_future_reuse_value"
+  ],
+  "combinationRule": {
+    "method": "weighted_sum_with_hard_rules",
+    "weights": [
+      {
+        "signalId": "claim_uncertainty",
+        "weight": 0.26,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "unreviewed_error_consequence",
+        "weight": 0.22,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "evidence_quality",
+        "weight": -0.16,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "reviewer_competence_for_claim",
+        "weight": 0.12,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "current_queue_conditions",
+        "weight": -0.14,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "novelty_vs_judgment_store",
+        "weight": 0.14,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "cross_agent_disagreement",
+        "weight": 0.12,
+        "weightVersion": "weights-1.0.0"
+      },
+      {
+        "signalId": "expected_future_reuse_value",
+        "weight": 0.1,
+        "weightVersion": "weights-1.0.0"
+      }
+    ],
+    "thresholds": [
+      {
+        "thresholdId": "THR-000-uncertainty-override",
+        "appliesTo": "signal",
+        "signalId": "claim_uncertainty",
+        "operator": ">=",
+        "value": 0.95,
+        "resultingAction": "immediate_qualified_review"
+      },
+      {
+        "thresholdId": "THR-010-immediate",
+        "appliesTo": "combined_score",
+        "signalId": null,
+        "operator": ">=",
+        "value": 0.6,
+        "resultingAction": "immediate_qualified_review"
+      },
+      {
+        "thresholdId": "THR-020-queue",
+        "appliesTo": "combined_score",
+        "signalId": null,
+        "operator": ">=",
+        "value": 0.35,
+        "resultingAction": "queue"
+      },
+      {
+        "thresholdId": "THR-030-batch",
+        "appliesTo": "combined_score",
+        "signalId": null,
+        "operator": ">=",
+        "value": 0.15,
+        "resultingAction": "batch_review"
+      },
+      {
+        "thresholdId": "THR-040-audit",
+        "appliesTo": "combined_score",
+        "signalId": null,
+        "operator": "<",
+        "value": 0.15,
+        "resultingAction": "audit_sample"
+      }
+    ],
+    "nestedThresholdOrder": [
+      "THR-000-uncertainty-override",
+      "THR-010-immediate",
+      "THR-020-queue",
+      "THR-030-batch",
+      "THR-040-audit"
+    ],
+    "combinedScore": 0.6328,
+    "scoreScale": {
+      "min": -0.3,
+      "max": 0.96
+    },
+    "tieBreak": "deterministic_by_event_hash",
+    "randomSelectionProbability": null,
+    "randomSeed": null,
+    "deterministic": true
+  },
+  "reviewerStandingModel": {
+    "competenceAuthorityCoupling": "independently_valued",
+    "competenceAssessmentScope": "contested_fragment",
+    "authorityAssertionScope": "contested_fragment",
+    "selectionFunction": "competence_and_authority_jointly",
+    "selectionFunctionVersion": "selection-1.2.0",
+    "authorityIsRoutingHardRule": true,
+    "unassessedCompetenceDefault": "force_undetermined"
+  },
+  "evaluationContext": {
+    "mode": "offline_counterfactual_replay",
+    "armsCompared": [
+      "ARM-NEVER-ASK",
+      "ARM-ALWAYS-ASK",
+      "ARM-RANDOM-MATCHED",
+      "ARM-UNCERTAINTY-ONLY",
+      "ARM-FIXED-THRESHOLD",
+      "ARM-PROPOSED-POLICY"
+    ],
+    "reviewerExposureGuard": "not_applicable_offline_replay",
+    "reviewerSeenFragmentUnderAnotherArm": false,
+    "counterbalanceGroup": null
+  },
+  "preregistration": {
+    "preregistrationId": "PREREG-P1-C1-EXAMPLE-001",
+    "primaryEstimand": "Important-case capture at a fixed expert-attention budget, subject to a preregistered ceiling on selective risk.",
+    "selectiveRiskCeiling": 0.05,
+    "selectiveRiskDenominatorRule": "unescalated_only",
+    "importantCaseLabelInstrumentRef": null,
+    "estimandFrozen": true,
+    "frozenBeforeOutcomeEvaluation": true,
+    "protocolSha256": "7c0c1b90a1dc077f8501abba164acd413ae39c19ce64ba4b924f7d154036d81b",
+    "deviations": []
+  },
+  "eventIdentity": {
+    "eventId": "EVT-COURSE-A-2026-0412-0007",
+    "eventIdentityHash": "2fc9c2869943c3661fe82fa2a1b21cce4d7203b0da78dd6dc9e355f4c4f5db7b",
+    "eventIdentityVersion": "event-identity-1.1.0",
+    "stableAcrossReplay": true,
+    "sourceLogSha256": "59c7342db4a3c5dc9e54424f75fb523206e8a4fb2b3f6263afeb8a75ff974d46",
+    "eventObservedAt": "2026-04-12T09:41:00Z",
+    "replayIndex": 137
+  },
+  "contestedFragment": {
+    "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+    "routingUnit": "contested_fragment",
+    "caseId": "SUB-0142",
+    "artifactRef": "course-a/submissions/SUB-0142/domain-model@rev-3",
+    "fragmentLocator": "#/elements/actor-shift-supervisor",
+    "claimRef": "CLM-SUB-0142-0007",
+    "claimType": "uncovered_model_fragment",
+    "alternativeReadingRefs": [
+      "READ-defensible-abstraction-of-an-unnamed-role",
+      "READ-modeling-language-error-actor-vs-role-or-boundary-element",
+      "READ-domain-misconception-who-authorizes-what",
+      "READ-genuine-ambiguity-in-the-task-description",
+      "READ-gap-in-the-guideline",
+      "READ-legitimate-local-pedagogical-decision-by-the-instructor"
+    ],
+    "producingComponentId": "vego-ai-model-inspector"
+  },
+  "currentReviewState": {
+    "queueDepth": 7,
+    "oldestQueuedAgeMinutes": 96,
+    "inFlightReviews": 2,
+    "availableReviewerCount": 3,
+    "budgetUnitsConsumedInPeriod": 104,
+    "budgetUnitsRemainingInPeriod": 76,
+    "interruptionsInPeriod": 5,
+    "reviewStateVersion": "review-state-1.2.0"
+  },
+  "signalObservations": [
+    {
+      "signalId": "claim_uncertainty",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "35aec55b74a76fae789fb80d7b3f5b19860e1cb1fe21a76d5cf064bf6b467e23",
+      "signalProvenance": "literature_derived",
+      "literatureLabel": "uncertainty",
+      "valueType": "probability",
+      "value": 0.82,
+      "normalizedValue": 0.82,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "force_escalation",
+      "usedByPolicy": true,
+      "computedBy": "vego-ai-model-inspector",
+      "observedAt": "2026-04-12T09:41:12Z"
+    },
+    {
+      "signalId": "unreviewed_error_consequence",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "493b4b6dc0c0b5f8d63377fe673f22fd2d35855616f1cd75a4f7dc92c05f122f",
+      "signalProvenance": "literature_derived",
+      "literatureLabel": "consequence",
+      "valueType": "ordinal",
+      "value": "grade_affecting_single_submission",
+      "normalizedValue": 0.55,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "treat_as_maximum",
+      "usedByPolicy": true,
+      "computedBy": "course-consequence-scorer",
+      "observedAt": "2026-04-12T09:41:12Z"
+    },
+    {
+      "signalId": "evidence_quality",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "7e26a247eca65da0cd4ddfb76959eea511eefb6d76228215be73e361d50d628e",
+      "signalProvenance": "literature_derived",
+      "literatureLabel": "evidence_quality",
+      "valueType": "unit_interval",
+      "value": 0.34,
+      "normalizedValue": 0.34,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "force_undetermined",
+      "usedByPolicy": true,
+      "computedBy": "vego-ai-domain-advisor",
+      "observedAt": "2026-04-12T09:41:12Z"
+    },
+    {
+      "signalId": "reviewer_competence_for_claim",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "1e1b282aa1a3d68da411ae9b5d28efa56e6696d72543f3e8eb6bd18646efe688",
+      "signalProvenance": "literature_derived",
+      "literatureLabel": "reviewer_fit",
+      "valueType": "unit_interval",
+      "value": 0.91,
+      "normalizedValue": 0.91,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "force_undetermined",
+      "usedByPolicy": true,
+      "computedBy": "competence-assessment-service",
+      "observedAt": "2026-04-12T09:41:12Z",
+      "derivedFromReviewerCandidateIds": [
+        "RC-LANG",
+        "RC-DOMAIN",
+        "RC-RUBRIC"
+      ]
+    },
+    {
+      "signalId": "current_queue_conditions",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "6fce03785375cac1841186239d84b9bd2288613e2a97775a74cd0172a0c61de4",
+      "signalProvenance": "literature_derived",
+      "literatureLabel": "burden",
+      "valueType": "count",
+      "value": 7,
+      "normalizedValue": 0.29,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "treat_as_zero",
+      "usedByPolicy": true,
+      "computedBy": "review-queue-monitor",
+      "observedAt": "2026-04-12T09:41:12Z"
+    },
+    {
+      "signalId": "novelty_vs_judgment_store",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "743d70e9868cdc50f4366ecc944ccb5b2b8831db66e733b15aed9d0630318781",
+      "signalProvenance": "contributed_by_design",
+      "literatureLabel": null,
+      "valueType": "unit_interval",
+      "value": 0.88,
+      "normalizedValue": 0.88,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "exclude_from_score",
+      "usedByPolicy": true,
+      "computedBy": "judgment-store-indexer",
+      "observedAt": "2026-04-12T09:41:12Z"
+    },
+    {
+      "signalId": "cross_agent_disagreement",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "3682bc9c4bec6f14cf09ee4a5a7f746c5f6747fa81be37799f85a393c238c2b1",
+      "signalProvenance": "contributed_by_design",
+      "literatureLabel": null,
+      "valueType": "unit_interval",
+      "value": 0.71,
+      "normalizedValue": 0.71,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "exclude_from_score",
+      "usedByPolicy": true,
+      "computedBy": "vego-ai-agent-arbiter",
+      "observedAt": "2026-04-12T09:41:12Z"
+    },
+    {
+      "signalId": "expected_future_reuse_value",
+      "signalVersion": "1.0.0",
+      "signalDefinitionSha256": "6a91b9b3f6db2ce38d804d312711eb1512131f66c756ebef80be3bf4e0a0a65e",
+      "signalProvenance": "contributed_by_design",
+      "literatureLabel": null,
+      "valueType": "unit_interval",
+      "value": 0.76,
+      "normalizedValue": 0.76,
+      "missing": false,
+      "missingReason": null,
+      "missingValuePolicy": "exclude_from_score",
+      "usedByPolicy": true,
+      "computedBy": "judgment-store-indexer",
+      "observedAt": "2026-04-12T09:41:12Z"
+    }
+  ],
+  "reviewerCandidates": [
+    {
+      "candidateId": "RC-LANG",
+      "reviewerId": "reviewer-pseudonym-7f31",
+      "reviewerRoleLabel": "modeling_language_specialist",
+      "available": true,
+      "assessedCompetence": {
+        "competenceId": "CMP-RC-LANG-0142",
+        "assessmentScope": "contested_fragment",
+        "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+        "valueScale": "unit_interval",
+        "value": 0.91,
+        "assessmentBasis": "prior_adjudicated_agreement",
+        "assessmentEvidenceRefs": [
+          "adjudication-set/uml-actor-vs-role-boundary-2025",
+          "adjudication-set/course-a-notation-appeals-2025"
+        ],
+        "assessedBy": "assessor-panel-modeling-language",
+        "assessedAt": "2026-03-02T00:00:00Z",
+        "validUntil": "2027-03-02T00:00:00Z",
+        "signalVersion": "competence-assessment-1.3.0",
+        "definitionSha256": "776f40e135faed18d20506423af7210b30bf1a1de44fd73c4c481b0ba63e0c76",
+        "derivedFromAuthority": false
+      },
+      "assertedAuthority": {
+        "authorityId": "AUT-RC-LANG-0142",
+        "authorityScope": "contested_fragment",
+        "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+        "value": "advisory",
+        "mandateSource": "role_assignment",
+        "mandateInstrumentRef": "course-a/staff-roles/2026-spring#language-specialist",
+        "grantedBy": "department-of-information-systems",
+        "status": "active",
+        "effectiveFrom": "2026-02-15T00:00:00Z",
+        "effectiveUntil": "2026-07-31T00:00:00Z",
+        "definitionSha256": "e63de65fc01cef6b472ad5d1a6fd570f894d5f890bffc40a8de292068c3648bc",
+        "derivedFromCompetence": false
+      },
+      "burdenState": {
+        "currentQueuedItems": 3,
+        "unitsConsumedInPeriod": 46,
+        "interruptionsInPeriod": 2,
+        "availabilityWindowRef": "course-a/availability/language-specialist-wk15"
+      },
+      "excludedReason": "Illustrative: highest assessed competence on the notation reading (actor used where the notation calls for a role or boundary element), but an advisory mandate only. Cannot settle a fragment whose live readings include a gap in the guideline, so this candidate is not selectable as the deciding reviewer."
+    },
+    {
+      "candidateId": "RC-DOMAIN",
+      "reviewerId": "reviewer-pseudonym-b204",
+      "reviewerRoleLabel": "domain_expert",
+      "available": true,
+      "assessedCompetence": {
+        "competenceId": "CMP-RC-DOMAIN-0142",
+        "assessmentScope": "contested_fragment",
+        "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+        "valueScale": "unit_interval",
+        "value": 0.63,
+        "assessmentBasis": "calibration_task",
+        "assessmentEvidenceRefs": [
+          "calibration/shop-floor-authorization-scenarios-2026"
+        ],
+        "assessedBy": "assessor-panel-domain",
+        "assessedAt": "2026-03-09T00:00:00Z",
+        "validUntil": "2027-03-09T00:00:00Z",
+        "signalVersion": "competence-assessment-1.3.0",
+        "definitionSha256": "776f40e135faed18d20506423af7210b30bf1a1de44fd73c4c481b0ba63e0c76",
+        "derivedFromAuthority": false
+      },
+      "assertedAuthority": {
+        "authorityId": "AUT-RC-DOMAIN-0142",
+        "authorityScope": "contested_fragment",
+        "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+        "value": "decides_with_review",
+        "mandateSource": "delegation",
+        "mandateInstrumentRef": "course-a/delegations/2026-spring#domain-expert-submission-rulings",
+        "grantedBy": "course-a-instructor",
+        "status": "active",
+        "effectiveFrom": "2026-02-15T00:00:00Z",
+        "effectiveUntil": "2026-07-31T00:00:00Z",
+        "definitionSha256": "e63de65fc01cef6b472ad5d1a6fd570f894d5f890bffc40a8de292068c3648bc",
+        "derivedFromCompetence": false
+      },
+      "burdenState": {
+        "currentQueuedItems": 2,
+        "unitsConsumedInPeriod": 22,
+        "interruptionsInPeriod": 1,
+        "availabilityWindowRef": "course-a/availability/domain-expert-wk15"
+      },
+      "excludedReason": "Illustrative: mandate decides_with_review covers rulings on a single submission but does not extend to amending the reference guideline, which the guideline-gap reading of this fragment would require."
+    },
+    {
+      "candidateId": "RC-RUBRIC",
+      "reviewerId": "reviewer-pseudonym-c95a",
+      "reviewerRoleLabel": "course_instructor_rubric_owner",
+      "available": true,
+      "assessedCompetence": {
+        "competenceId": "CMP-RC-RUBRIC-0142",
+        "assessmentScope": "contested_fragment",
+        "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+        "valueScale": "unit_interval",
+        "value": 0.48,
+        "assessmentBasis": "prior_adjudicated_agreement",
+        "assessmentEvidenceRefs": [
+          "adjudication-set/course-a-notation-appeals-2025"
+        ],
+        "assessedBy": "assessor-panel-modeling-language",
+        "assessedAt": "2026-03-02T00:00:00Z",
+        "validUntil": "2027-03-02T00:00:00Z",
+        "signalVersion": "competence-assessment-1.3.0",
+        "definitionSha256": "776f40e135faed18d20506423af7210b30bf1a1de44fd73c4c481b0ba63e0c76",
+        "derivedFromAuthority": false
+      },
+      "assertedAuthority": {
+        "authorityId": "AUT-RC-RUBRIC-0142",
+        "authorityScope": "contested_fragment",
+        "fragmentId": "FRG-COURSE-A-SUB-0142-SHIFT-SUPERVISOR",
+        "value": "decides_and_may_amend_guideline",
+        "mandateSource": "rubric_ownership",
+        "mandateInstrumentRef": "course-a/rubric/2026-spring#ownership-clause",
+        "grantedBy": "department-of-information-systems",
+        "status": "active",
+        "effectiveFrom": "2026-02-01T00:00:00Z",
+        "effectiveUntil": null,
+        "definitionSha256": "e63de65fc01cef6b472ad5d1a6fd570f894d5f890bffc40a8de292068c3648bc",
+        "derivedFromCompetence": false
+      },
+      "burdenState": {
+        "currentQueuedItems": 2,
+        "unitsConsumedInPeriod": 36,
+        "interruptionsInPeriod": 2,
+        "availabilityWindowRef": "course-a/availability/instructor-wk15"
+      },
+      "excludedReason": null
+    }
+  ],
+  "hardRuleEvaluations": [
+    {
+      "ruleId": "missing_authorization",
+      "ruleVersion": "1.4.0",
+      "ruleDefinitionSha256": "ffe4c6d6a68831e0c2014c6c82e87edf060deb5b5b06da9fc3fab52103b46417",
+      "evaluationOrder": 0,
+      "evaluatedBefore": "signal_combination",
+      "fired": false,
+      "forcedAction": null,
+      "overridableBySignals": false,
+      "ruleRationaleRef": "Illustrative: evaluated and did not fire because candidate RC-RUBRIC holds an active mandate at decides_and_may_amend_guideline over this fragment. The rule's silence records that authorization was checked before the signals were combined, not that it was skipped."
+    },
+    {
+      "ruleId": "privacy_restricted_evidence",
+      "ruleVersion": "1.1.0",
+      "ruleDefinitionSha256": "87681a546991293e86c8eb87cc80c6e6b2e1a3458f6f355657c5af7431f65c3d",
+      "evaluationOrder": 1,
+      "evaluatedBefore": "signal_combination",
+      "fired": false,
+      "forcedAction": null,
+      "overridableBySignals": false,
+      "ruleRationaleRef": "Illustrative: did not fire. The peer-submission comparison was withheld from the trace by the privacy class rather than by this rule, so the exposure decision is recorded in evidenceExposure.withheldElementIds."
+    },
+    {
+      "ruleId": "consequence_ceiling_exceeded",
+      "ruleVersion": "1.0.0",
+      "ruleDefinitionSha256": "1a92e852b4acb36f36df6989b581050d1a84056820848c1b9bd5266d58a8f3a1",
+      "evaluationOrder": 2,
+      "evaluatedBefore": "after_signal_combination",
+      "fired": false,
+      "forcedAction": null,
+      "overridableBySignals": false,
+      "ruleRationaleRef": "Illustrative: did not fire. The declared consequence for this fragment is grade_affecting_single_submission, below the ceiling registered for this course setting."
+    }
+  ],
+  "evidenceExposure": {
+    "exposureGranted": true,
+    "exposureGatedByAuthorization": true,
+    "decisionTraceRef": "GJR-COURSE-A-2026-0412-0007",
+    "decisionTraceContractRef": "GovernedJudgmentRecord-v1",
+    "withheldElementIds": [
+      "trace-element-peer-submission-comparison",
+      "trace-element-submitter-identity"
+    ],
+    "privacyClassRef": "privacy-class/student-coursework-restricted"
+  },
+  "routingDecision": {
+    "action": "immediate_qualified_review",
+    "selectedReviewerCandidateId": "RC-RUBRIC",
+    "selectionBasis": "competence_and_authority_jointly",
+    "firedRuleIds": [],
+    "decisiveThresholdId": "THR-010-immediate",
+    "combinedScoreAtDecision": 0.6328,
+    "budgetUnitsCharged": 15,
+    "loadClass": "live_review",
+    "deferredDueToBudgetExhaustion": false,
+    "actionRationaleRefs": [
+      "THR-010-immediate",
+      "claim_uncertainty",
+      "novelty_vs_judgment_store",
+      "cross_agent_disagreement",
+      "missing_authorization",
+      "AUT-RC-RUBRIC-0142",
+      "CMP-RC-LANG-0142"
+    ]
+  },
+  "attentionAccounting": {
+    "budgetId": "BUD-COURSE-A-2026-WK15",
+    "unitsChargedLiveReview": 15,
+    "unitsChargedAudit": 0,
+    "cumulativeLiveReviewUnitsInPeriod": 119,
+    "cumulativeAuditUnitsInPeriod": 34,
+    "budgetRemainingAtDecision": 61,
+    "budgetExhaustedAtDecision": false
+  },
+  "selectiveRiskAccounting": {
+    "receivedLiveHumanReview": true,
+    "inSelectiveRiskDenominator": false,
+    "importantCaseLabel": "not_yet_labeled",
+    "importantCaseLabelSource": "not_yet_established",
+    "importantCaseLabelIndependentOfPolicy": false,
+    "importantCaseLabelRecordRef": null,
+    "unreviewedOutcome": "not_yet_evaluated",
+    "unreviewedOutcomeSource": "not_yet_evaluated",
+    "countsTowardImportantCaseCapture": false,
+    "exclusionReason": "Excluded from both denominators. No independent important-case label instrument and no outcome instrument exist for this illustrative fragment, so neither important-case capture nor selective risk is computable from this instance."
+  },
+  "receipt": {
+    "receiptId": "RCPT-RPSC-EXAMPLE-COURSE-A-0007",
+    "receiptSha256": "6922f9d2236a5d572d85c0a9a62d822a4b552cec4df5484260f5dfb2f7984559",
+    "receiptInputsSha256": "dfeb749e8daa033caa90e534808c146a0bc3ef67dda3a82855978571a0fc42dd",
+    "deterministic": true,
+    "receiptSchemaRef": "review-policy-signal-contract-v1.schema.json#/properties/receipt"
+  },
+  "provenance": {
+    "policyId": "review-policy-c1",
+    "policyVersion": "rpsc-policy-1.0.0",
+    "signalRegistrySha256": "b2439142bae9429aed141ea4143b03c9377cc0e2e62839dd3ef36846940afe97",
+    "frozenEventLogSha256": "59c7342db4a3c5dc9e54424f75fb523206e8a4fb2b3f6263afeb8a75ff974d46",
+    "codeCommitSha": null,
+    "producedBy": "hand-authored schema example (schemas/examples)",
+    "producedAt": "2026-05-04T11:20:00Z"
+  },
+  "evidenceClass": "design",
+  "outcomeClaimAsserted": false,
+  "claimBoundary": "Design artifact only. This instance is a hand-authored worked example of the C1 review-policy contract, built on the motivating example of proposal section 1.7 (p.9): the Model Inspector reports an added actor 'Shift Supervisor', not named in the domain text, mediating two relations that other submissions attach directly to the operator, and six readings of that one fragment remain live. It exists to show how claim-specific assessed competence and claim-specific asserted authority are carried as two separately evidenced inputs: here the modeling-language specialist holds the highest assessed competence (0.91) on the notation reading and an advisory mandate only, while the instructor who owns the rubric holds the lowest assessed competence (0.48) and the only mandate that reaches the guideline-gap reading, so the joint selection function routes to the instructor. Every identifier, score, weight, threshold, budget figure, and reviewer attribute is illustrative and invented for documentation; every SHA-256 is the hash of a documented placeholder string prefixed 'review-policy-signal-contract-v1/example/placeholder/' and refers to no real frozen document, log, or registry. No important-case capture, selective-risk, burden, interruption-cost, or accuracy value has been measured, and the two label fields are deliberately left at not_yet_established and not_yet_evaluated. importantCaseLabelIndependentOfPolicy is recorded as false because no label exists over which independence could be asserted, not because a label was derived from a routing decision. Validation of this file against ReviewPolicySignalContract-v1 is evidence about the schema, not evidence about any outcome."
+}
