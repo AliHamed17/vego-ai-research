@@ -3,13 +3,13 @@
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
   "sourceRevision": "aba24508d6f7ef45512b0a390741b8485e71e0f4",
-  "packageRevision": "2e725f97b179e5712fb4678a48c82874562ec463",
-  "sourceTreeHash": "4e5ceb8361b0ac72114f9358f039a6ce5efbdd8bac0f3f4410dcebc02fb4627e",
+  "packageRevision": "786b67941d8b4cee214f1b0d8d5efa47a4c51fd0",
+  "sourceTreeHash": "f1198fa2cfda92cfcdf4fff0ff3f0e7f15fe083d92ff3baa77bee864a630be80",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "1f186462651bdf770a1c819705f2e558d2ae2c8f6be6af8db185e4f54a6a9c08",
+    "sha256": "a1fb8d206d2bc124aaca3a17a0d5628cf4e3302a355d63dc7d9dd6c200a25da8",
     "bytes": 48319,
     "tracked": true
   },
@@ -33,12 +33,12 @@
       "filename": "VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.pdf",
       "tracked": false,
       "availableInClone": false,
-      "sha256": "181279212f4c4d140a158a3766b533b6de1dad4a6f17eea67626f838460bed97",
-      "bytes": 1401639
+      "sha256": null,
+      "bytes": null
     },
     "renderVerification": {
       "status": "NOT_RECORDED",
-      "pdfPageCount": 91,
+      "pdfPageCount": null,
       "renderedPageCount": null,
       "sheetCount": null,
       "qaReportSha256": null
@@ -211,7 +211,7 @@
     },
     {
       "path": "scripts/validate_research_records.py",
-      "sha256": "f1357b89b36365ce5d9a23d69ae4d69f52cef3de935d309c2c9d057af1e1a2cd"
+      "sha256": "2457800947d5dfa8b539f62f84c1266e5cd0bb3500d8f630977c2d3b1874fb88"
     },
     {
       "path": "scripts/validate_thesis_content.py",
@@ -331,7 +331,7 @@
     }
   ],
   "toolVersions": {
-    "python": "3.10.0",
+    "python": "3.11.14",
     "jsonschema": "4.26.0"
   },
   "protectedRuntimeChanged": false,
