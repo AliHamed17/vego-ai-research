@@ -2,6 +2,13 @@
 
 Record file changes and rollback notes here.
 
+## 2026-08-31 - Claude - C1-C3 contract artifacts and alignment audit (PR #31, merged to main)
+
+- Files added: `schemas/review-policy-signal-contract-v1.schema.json`, `schemas/governed-judgment-record-v1.schema.json`, `schemas/reuse-decision-record-v1.schema.json`, their three `schemas/examples/*.valid.json` counterparts, and `docs/research/phd-proposal/architecture-alignment-audit-2026-08-31.md`.
+- Files updated: `scripts/validate_research_records.py` (registered the three schemas in `SCHEMAS`; added `_review_policy_signal_contract_errors` and `_reuse_decision_record_errors` implementing the cross-field invariants), `docs/agent-memory/issues.md` (ISS-043..ISS-048).
+- Regenerated as a source-hash cascade, in dependency order, across several commits: `docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json` and `THESIS_EVIDENCE_BASELINE.md`, `THESIS_REVIEW_PACKAGE_MANIFEST.json`, `docs/research/bigui/{experiment-catalog-snapshot,baseline-comparison-results,experiment-benchmark-snapshot,artifact-manifest,artifact-snapshot}-v1.json`, `EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md`, `docs/research/hardening/release-manifest-v3.json`, `VEGO-AI-Research-Hub.html`, `VEGO-AI-Experiment-Benchmark-Report.html`, `VEGO-AI-Thesis-Baseline-Progress.html`. The cascade diff was inspected: hash rebinding only, no measured value changed, EXP-005 remains 0 of 24.
+- Rollback note: `git revert` the merge commit for PR #31 (`fa86e4d`). The three schemas and their examples are additive and unreferenced by any runtime path, so reverting them is safe; the `validate_research_records.py` revert will re-trigger the same source-hash cascade in reverse, so afterwards regenerate in this order - `build_thesis_evidence_package.py --source-revision <commit>`, `build_thesis_review_manifest.py` then `--package-revision`, `run_bigui_comparison_experiments.py --refresh`, `build_experiment_benchmark.py --refresh`, `build_bigui_catalog.py`, `build_bigui.py`, `build_thesis_progress_visual.py`, `build_hardening_manifests.py`. Nothing under the protected `VEGO-AI/framework/` tree was touched.
+
 ## 2026-08-31 - Claude - Architecture tracking-freshness alignment (PR #30, merged to main)
 
 - Files updated: `scripts/build-progress-tracker.py` (stamp text now states H-layer-only scope and points to `current-state.md`), `docs/PROGRESS_TRACKER.md` (regenerated with `--run-tests`), `docs/agent-memory/issues.md` (added ISS-042), `docs/architecture/README.md` (added `thesis-and-progress-architecture.md` to the reading order), `docs/architecture/framework-diagram.md` (added an SQ1/SQ2/SQ3 terminology cross-reference note; no diagram content removed or rewritten).
