@@ -2,6 +2,14 @@
 
 Chronological prompt history for Codex and Claude.
 
+## 2026-08-31 - Claude - Architecture tracking-freshness alignment (PR #30)
+
+- Request: User asked to "work on the architecture, enhance it" - a terse follow-on to the dashboard-enhancement request, same session, same standing push/PR/merge authorization.
+- Actions taken: Read all of `docs/architecture/` (README, project-map, framework-diagram, evaluation-diagram, workspace-diagram, progress-update-diagram, thesis-and-progress-architecture, reproducibility-contract, research-lifecycle, source-package-manifest). Found `docs/PROGRESS_TRACKER.md`'s `AUTO:stamp` reading "As of 2026-07-26" - initially suspected broken automation, but traced it precisely: `scripts/build-progress-tracker.py` runs fine instantly when invoked directly (confirmed via both `uv run python` and bare `python`, in both bash and pwsh - ruling out a PATH/interpreter theory), and the stamp's date is deliberately sourced from `docs/research/h-layer/program-status-snapshot-v1.json`'s own `generatedAt` field, not wall-clock time (by design, for determinism). That snapshot file has no dedicated regenerator script (only consumers) and only one version exists (`v1`), with no decision record saying whether it's an intentionally-frozen snapshot of the paused H-layer track or an accidentally-stalled feed - correctly declined to guess which. Fixed the stamp wording to state its H-layer-only scope explicitly and point to `current-state.md` (itself confirmed fresh, 2026-08-24) for overall project status, logged the open question as ISS-042, added the un-indexed `thesis-and-progress-architecture.md` to the README reading order, and cross-referenced `framework-diagram.md`'s July H1/H2/H3 framing against the current SQ1/SQ2/SQ3 framing in `three-study-contract.md` (an unreconciled-terminology gap this session's earlier literature-review audit had already found from the other direction).
+- Result: Opened and merged PR #30 (`docs/architecture-tracking-alignment`) - all checks including `merge-gate` passed on the first CI run.
+- Commands run: `uv run python scripts/build-progress-tracker.py --run-tests` / `--check`, `uv run python scripts/check_evidence_consistency.py --check`, `python -c "import ast; ast.parse(...)"`, `gh pr create/checks/view`, `gh api repos/.../pulls/30/merge`, `git worktree add/remove`.
+- Next steps: ISS-042 needs an actual decision (freeze-and-document `program-status-snapshot-v1.json` as historical, or specify a `v2` regeneration trigger) - not something an agent should decide unilaterally. PR #20 (literature awesome-list rebuild, flagged since ISS-038) is still open, green, and unmerged as of this entry.
+
 ## 2026-08-31 - Claude - Dashboard visualization enhancement (PR #29)
 
 - Request: User asked for a "full enhancement" of the VEGO-AI dashboard, aligned and accurate, with better visualizations, and explicit authorization to push/PR/merge without pausing for confirmation.

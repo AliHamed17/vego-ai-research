@@ -2,6 +2,11 @@
 
 Record file changes and rollback notes here.
 
+## 2026-08-31 - Claude - Architecture tracking-freshness alignment (PR #30, merged to main)
+
+- Files updated: `scripts/build-progress-tracker.py` (stamp text now states H-layer-only scope and points to `current-state.md`), `docs/PROGRESS_TRACKER.md` (regenerated with `--run-tests`), `docs/agent-memory/issues.md` (added ISS-042), `docs/architecture/README.md` (added `thesis-and-progress-architecture.md` to the reading order), `docs/architecture/framework-diagram.md` (added an SQ1/SQ2/SQ3 terminology cross-reference note; no diagram content removed or rewritten).
+- Rollback note: `git revert` the merge commit for PR #30 (`679aebc`) restores the prior stamp wording and un-indexed README; also remove the ISS-042 row from `issues.md` if reverting, since it references the wording this revert would undo.
+
 ## 2026-08-31 - Claude - Dashboard visualization enhancement (PR #29, merged to main)
 
 - Files updated: `scripts/build-progress-visualizations.ps1` (new `New-StackedBar`/`Get-BucketColorRole` functions replacing `New-HtmlBar`; full CSS rewrite to dataviz-skill tokens with light/dark support; added Milestone/Executive mermaid pies to the Markdown output), `docs/dashboards/progress-visualizations.generated.html` and `.generated.md` (regenerated), `docs/agent-memory/progress.md` (TASK-013 status Done, PR #6 merged), `docs/dashboards/kpi-register.md` (same PR #6 staleness fix), `docs/research/hardening/release-manifest-v3.json` (regenerated to include the above files' new hashes).
