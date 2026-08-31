@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "aba24508d6f7ef45512b0a390741b8485e71e0f4",
-  "packageRevision": "96452c27b11cab83dd1df76af168abb169e6022c",
+  "sourceRevision": "f71135ac8bed7fcce852865380c0de96335e8819",
+  "packageRevision": "a9ef10e2c735e78026cdcb9274c8ddec061b63f0",
   "sourceTreeHash": "f1198fa2cfda92cfcdf4fff0ff3f0e7f15fe083d92ff3baa77bee864a630be80",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "a1fb8d206d2bc124aaca3a17a0d5628cf4e3302a355d63dc7d9dd6c200a25da8",
+    "sha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
     "bytes": 48319,
     "tracked": true
   },
