@@ -50,6 +50,12 @@ SCHEMAS = {
     "BigUIStudyRecord-v1": ROOT / "schemas/bigui-study-record-v1.schema.json",
     "ExperimentCatalogSnapshot-v1": ROOT
     / "schemas/experiment-catalog-snapshot-v1.schema.json",
+    "ReviewPolicySignalContract-v1": ROOT
+    / "schemas/review-policy-signal-contract-v1.schema.json",
+    "GovernedJudgmentRecord-v1": ROOT
+    / "schemas/governed-judgment-record-v1.schema.json",
+    "ReuseDecisionRecord-v1": ROOT
+    / "schemas/reuse-decision-record-v1.schema.json",
 }
 
 _ALL_SCHEMA_DOCUMENTS = [
@@ -204,6 +210,97 @@ def semantic_errors(record: dict[str, Any]) -> list[str]:
                         f"{experiment['id']} references unknown metrics: "
                         + ", ".join(missing_metrics)
                     )
+    elif version == "ReviewPolicySignalContract-v1":
+        errors.extend(_review_policy_signal_contract_errors(record))
+    elif version == "ReuseDecisionRecord-v1":
+        errors.extend(_reuse_decision_record_errors(record))
+    return errors
+
+
+def _review_policy_signal_contract_errors(record: dict[str, Any]) -> list[str]:
+    """Cross-field invariants the schema declares but JSON Schema cannot express."""
+    errors: list[str] = []
+    declared = record.get("declaredSignalSet") or []
+
+    weights = (record.get("combinationRule") or {}).get("weights") or []
+    weighted_ids = [weight.get("signalId") for weight in weights]
+    for signal_id in sorted(set(weighted_ids) - set(declared)):
+        errors.append(
+            f"combinationRule.weights references undeclared signalId {signal_id!r}"
+        )
+    duplicate_weights = sorted(
+        {sid for sid in weighted_ids if weighted_ids.count(sid) > 1 and sid is not None}
+    )
+    for signal_id in duplicate_weights:
+        errors.append(f"combinationRule.weights has duplicate signalId {signal_id!r}")
+
+    observations = record.get("signalObservations") or []
+    observed_ids = [obs.get("signalId") for obs in observations]
+    for signal_id in sorted(set(declared) - set(observed_ids)):
+        errors.append(f"declared signal {signal_id!r} has no signalObservations entry")
+    duplicate_observed = sorted(
+        {sid for sid in observed_ids if observed_ids.count(sid) > 1 and sid is not None}
+    )
+    for signal_id in duplicate_observed:
+        errors.append(f"signalObservations has duplicate signalId {signal_id!r}")
+
+    fragment_id = (record.get("contestedFragment") or {}).get("fragmentId")
+    candidates = record.get("reviewerCandidates") or []
+    for candidate in candidates:
+        candidate_id = candidate.get("candidateId")
+        for field in ("assessedCompetence", "assertedAuthority"):
+            scoped = (candidate.get(field) or {}).get("fragmentId")
+            if scoped is not None and scoped != fragment_id:
+                errors.append(
+                    f"reviewerCandidates[{candidate_id}].{field}.fragmentId "
+                    f"{scoped!r} does not match contestedFragment.fragmentId "
+                    f"{fragment_id!r}"
+                )
+
+    routing = record.get("routingDecision") or {}
+    selected = routing.get("selectedReviewerCandidateId")
+    known_candidates = {candidate.get("candidateId") for candidate in candidates}
+    if selected is not None and selected not in known_candidates:
+        errors.append(
+            f"routingDecision.selectedReviewerCandidateId {selected!r} "
+            "does not match any reviewerCandidates entry"
+        )
+
+    budget_id = (record.get("attentionBudget") or {}).get("budgetId")
+    charged_id = (record.get("attentionAccounting") or {}).get("budgetId")
+    if budget_id is not None and charged_id is not None and budget_id != charged_id:
+        errors.append(
+            f"attentionAccounting.budgetId {charged_id!r} does not match "
+            f"attentionBudget.budgetId {budget_id!r}"
+        )
+
+    arm_version = (record.get("policyArm") or {}).get("policyVersion")
+    prov_version = (record.get("provenance") or {}).get("policyVersion")
+    if arm_version is not None and prov_version is not None and arm_version != prov_version:
+        errors.append(
+            f"provenance.policyVersion {prov_version!r} does not match "
+            f"policyArm.policyVersion {arm_version!r}"
+        )
+    return errors
+
+
+def _reuse_decision_record_errors(record: dict[str, Any]) -> list[str]:
+    """Keep an outcome receipt from contradicting the decision it receipts."""
+    errors: list[str] = []
+    decision = record.get("decision") or {}
+    receipt = record.get("outcomeReceipt") or {}
+    pairs = (
+        ("recordedOutcome", "outcome"),
+        ("recordedDimensionId", "contextDimensionId"),
+    )
+    for receipt_field, decision_field in pairs:
+        recorded = receipt.get(receipt_field)
+        decided = decision.get(decision_field)
+        if recorded is not None and decided is not None and recorded != decided:
+            errors.append(
+                f"outcomeReceipt.{receipt_field} {recorded!r} does not match "
+                f"decision.{decision_field} {decided!r}"
+            )
     return errors
 
 

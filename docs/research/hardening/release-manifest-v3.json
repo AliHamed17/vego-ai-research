@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "d8ceb38c5026fda56e956afd2cd4ddfcf42d03f8285504640326c2a266279c58",
+  "packageTreeSha256": "7e78c744a91a430f90f452eaa47cce77e351987aebb70b8140746f46c0399f96",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -91,10 +91,13 @@
     "schemas/examples/experiment-run-envelope.valid.json",
     "schemas/examples/gold-label-adjudicated.valid.json",
     "schemas/examples/gold-label-raw.valid.json",
+    "schemas/examples/governed-judgment-record.valid.json",
     "schemas/examples/metric-observation.valid.json",
     "schemas/examples/model-execution.valid.json",
     "schemas/examples/policy-baseline-mutation.invalid.json",
     "schemas/examples/policy-frozen.valid.json",
+    "schemas/examples/reuse-decision-record.valid.json",
+    "schemas/examples/review-policy-signal-contract.valid.json",
     "schemas/experiment-benchmark-snapshot-v1.schema.json",
     "schemas/experiment-catalog-snapshot-v1.schema.json",
     "schemas/experiment-definition-v2.schema.json",
@@ -103,6 +106,7 @@
     "schemas/experiment-run-envelope-v1.schema.json",
     "schemas/experiment-run-envelope-v2.schema.json",
     "schemas/gold-label-record-v2.schema.json",
+    "schemas/governed-judgment-record-v1.schema.json",
     "schemas/hlayer-iteration-manifest-v1.schema.json",
     "schemas/hlayer-runtime-config-v1.schema.json",
     "schemas/independent-calibration-return-v1.schema.json",
@@ -119,6 +123,8 @@
     "schemas/paper-baseline-snapshot-v1.schema.json",
     "schemas/policy-candidate-record-v1.schema.json",
     "schemas/release-manifest-v3.schema.json",
+    "schemas/reuse-decision-record-v1.schema.json",
+    "schemas/review-policy-signal-contract-v1.schema.json",
     "schemas/run-acceptance-record-v1.schema.json",
     "schemas/run-log-event-v1.schema.json",
     "schemas/security-posture-snapshot-v1.schema.json",
@@ -205,7 +211,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "73387a864e03c2579a1c56a12f14bc422bba7dd8b776fac261a4508902570d9c",
+  "sourceTreeSha256": "f6b0fb754f0c0569bf722075f4ae39652e0bf960016fda8c8f1d5537fc10dcc8",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -214,8 +220,8 @@
     "ruff": "0.15.16"
   },
   "trackedArtifacts": {
-    "VEGO-AI-Research-Hub.html": "3596edbca46191a64059b2f84addfec28ed4e0986d43a61f6e9d2e2c98197bd2",
-    "VEGO-AI-Thesis-Baseline-Progress.html": "d8a4b7566219bfd1cb9ea5db07a30ed71c5b2e20bac27aed4e5937bc6adced47",
+    "VEGO-AI-Research-Hub.html": "e6382977d2c361d944ed27ff2034d511d693df472fe28ab778fc5f9cb7826483",
+    "VEGO-AI-Thesis-Baseline-Progress.html": "9dd22095425f322b52872c145bfd1e1f083afc02efb9d0a8065bfcf5f5df847e",
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
     "docs/research/hardening/baseline-lock-manifest-v2.json": "3ed664b6de6b8d943e36493bbb8e31d863e8a3dea041cfda82c7be5e218d695f",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",

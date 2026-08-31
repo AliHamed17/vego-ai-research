@@ -1,0 +1,2132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/reuse-decision-record-v1.schema.json",
+  "title": "ReuseDecisionRecord v1",
+  "description": "C3 primary scientific artifact. One record per evaluation of the cross-context reuse and capability-gap decision procedure. Encodes the five ordered gates of proposal section 3.5 (p.18), the four reuse-eligibility outcomes, the frozen context-distance ladder of Figure 13, the requirement that every output names the rule and the context dimension that produced it, the per-use outcome receipt, and the replication guard on a transferable-capability-gap claim. System-independent: it refers to a governed-judgment record by identifier and hash and does not restate C2-owned record content.",
+  "type": "object",
+  "$comment": "Obligations this schema cannot express and that a companion validator must enforce: (1) decision.contextDimensionId must equal the contextDimensionId of the gateEvaluations entry named by decision.gateId; (2) capabilityGapAssertion.replications must be pairwise distinct on contextSha256; (3) contextDistance entries must be derivable from sourceContext.dimensionValues and targetContext.dimensionValues; (4) contextDistanceSchema.sha256 must match the frozen ladder document on disk; (5) outcomeReceipt.decisionRecordSha256 must match the canonicalized record with outcomeReceipt removed.",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordId",
+    "emittedAt",
+    "procedure",
+    "contextDistanceSchema",
+    "sourceJudgmentRef",
+    "sourceContext",
+    "targetContext",
+    "contextDistance",
+    "restrictedEvidenceExposed",
+    "gateEvaluations",
+    "decision",
+    "effect",
+    "priorJudgmentPresentation",
+    "outcomeReceipt",
+    "evidenceStatus",
+    "claimBoundary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ReuseDecisionRecord-v1"
+    },
+    "recordId": {
+      "type": "string",
+      "pattern": "^RDR-[A-Za-z0-9_-]+$"
+    },
+    "emittedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "procedure": {
+      "$ref": "#/$defs/procedureBinding"
+    },
+    "contextDistanceSchema": {
+      "$ref": "#/$defs/contextDistanceSchema"
+    },
+    "sourceJudgmentRef": {
+      "$ref": "#/$defs/sourceJudgmentRef"
+    },
+    "sourceContext": {
+      "$ref": "#/$defs/contextDescriptor"
+    },
+    "targetContext": {
+      "$ref": "#/$defs/contextDescriptor"
+    },
+    "contextDistance": {
+      "$ref": "#/$defs/contextDistance"
+    },
+    "restrictedEvidenceExposed": {
+      "type": "boolean"
+    },
+    "gateEvaluations": {
+      "$ref": "#/$defs/gateEvaluations"
+    },
+    "decision": {
+      "$ref": "#/$defs/decision"
+    },
+    "effect": {
+      "enum": [
+        "prior_judgment_surfaced_as_attributed_advice",
+        "prior_judgment_withheld",
+        "no_effect_pending_review"
+      ]
+    },
+    "priorJudgmentPresentation": {
+      "$ref": "#/$defs/priorJudgmentPresentation"
+    },
+    "adaptation": {
+      "$ref": "#/$defs/adaptation"
+    },
+    "independentReview": {
+      "$ref": "#/$defs/independentReview"
+    },
+    "capabilityGapAssertion": {
+      "$ref": "#/$defs/capabilityGapAssertion"
+    },
+    "outcomeReceipt": {
+      "$ref": "#/$defs/outcomeReceipt"
+    },
+    "evidenceStatus": {
+      "$ref": "#/$defs/evidenceStatus"
+    },
+    "claimBoundary": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "G1 fails or is undetermined: no restricted evidence may have been exposed, and no later gate runs. Proposal p.18: the procedure evaluates visibility and authorization before exposing restricted evidence.",
+      "if": {
+        "required": [
+          "gateEvaluations"
+        ],
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "enum": [
+                      "fail",
+                      "undetermined"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "restrictedEvidenceExposed"
+        ],
+        "properties": {
+          "restrictedEvidenceExposed": {
+            "const": false
+          },
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Short-circuit after G2.",
+      "if": {
+        "required": [
+          "gateEvaluations"
+        ],
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "enum": [
+                      "fail",
+                      "undetermined"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              true,
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Short-circuit after G3.",
+      "if": {
+        "required": [
+          "gateEvaluations"
+        ],
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              true,
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "enum": [
+                      "fail",
+                      "undetermined"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              true,
+              true,
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Short-circuit after G4.",
+      "if": {
+        "required": [
+          "gateEvaluations"
+        ],
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              true,
+              true,
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "enum": [
+                      "fail",
+                      "undetermined"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "gateEvaluations": {
+            "prefixItems": [
+              true,
+              true,
+              true,
+              true,
+              {
+                "properties": {
+                  "result": {
+                    "const": "not_evaluated"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Outcome Eligible: all five gates pass without adaptation; no adaptation object; no independent-review routing.",
+      "if": {
+        "required": [
+          "decision"
+        ],
+        "properties": {
+          "decision": {
+            "required": [
+              "outcome"
+            ],
+            "properties": {
+              "outcome": {
+                "const": "reuse_eligible"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcomeLabel": {
+                "const": "Eligible"
+              }
+            }
+          },
+          "effect": {
+            "const": "prior_judgment_surfaced_as_attributed_advice"
+          },
+          "gateEvaluations": {
+            "prefixItems": [
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "adaptation"
+              ]
+            },
+            {
+              "required": [
+                "independentReview"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "Outcome Eligible with adaptation: no gate fails or is undetermined, at least one gate returns pass_with_adaptation, and the named adaptation is recorded.",
+      "if": {
+        "required": [
+          "decision"
+        ],
+        "properties": {
+          "decision": {
+            "required": [
+              "outcome"
+            ],
+            "properties": {
+              "outcome": {
+                "const": "reuse_eligible_with_adaptation"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "adaptation"
+        ],
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcomeLabel": {
+                "const": "Eligible with adaptation"
+              }
+            }
+          },
+          "effect": {
+            "const": "prior_judgment_surfaced_as_attributed_advice"
+          },
+          "gateEvaluations": {
+            "minContains": 1,
+            "contains": {
+              "required": [
+                "result"
+              ],
+              "properties": {
+                "result": {
+                  "const": "pass_with_adaptation"
+                }
+              }
+            },
+            "prefixItems": [
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "enum": [
+                      "pass",
+                      "pass_with_adaptation"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "const": "pass"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "result": {
+                    "enum": [
+                      "pass",
+                      "pass_with_adaptation"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Outcome Blocked: exactly one gate carries the failure, the prior judgment is withheld, and no adaptation is recorded.",
+      "if": {
+        "required": [
+          "decision"
+        ],
+        "properties": {
+          "decision": {
+            "required": [
+              "outcome"
+            ],
+            "properties": {
+              "outcome": {
+                "const": "reuse_blocked"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcomeLabel": {
+                "const": "Blocked"
+              }
+            }
+          },
+          "effect": {
+            "const": "prior_judgment_withheld"
+          },
+          "gateEvaluations": {
+            "minContains": 1,
+            "maxContains": 1,
+            "contains": {
+              "required": [
+                "result"
+              ],
+              "properties": {
+                "result": {
+                  "const": "fail"
+                }
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "adaptation"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "Outcome Undetermined: distinct from both allow and block. Exactly one gate is undetermined, the record has no reuse effect, and it must route to independent review. Proposal p.18: missing or conflicting evidence is treated neither as safe reuse nor as permanent prohibition.",
+      "if": {
+        "required": [
+          "decision"
+        ],
+        "properties": {
+          "decision": {
+            "required": [
+              "outcome"
+            ],
+            "properties": {
+              "outcome": {
+                "const": "reuse_undetermined"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "independentReview"
+        ],
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcomeLabel": {
+                "const": "Undetermined"
+              }
+            }
+          },
+          "effect": {
+            "const": "no_effect_pending_review"
+          },
+          "gateEvaluations": {
+            "minContains": 1,
+            "maxContains": 1,
+            "contains": {
+              "required": [
+                "result"
+              ],
+              "properties": {
+                "result": {
+                  "const": "undetermined"
+                }
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "adaptation"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "Read-side currency gate. A source judgment that is not active at the moment of use may not yield an eligible outcome. Lifecycle state is owned by the C2 contract; C3 owns only this read.",
+      "if": {
+        "required": [
+          "sourceJudgmentRef"
+        ],
+        "properties": {
+          "sourceJudgmentRef": {
+            "required": [
+              "lifecycleStateAtUse"
+            ],
+            "properties": {
+              "lifecycleStateAtUse": {
+                "enum": [
+                  "expired",
+                  "superseded",
+                  "revoked",
+                  "dissent_retained"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcome": {
+                "enum": [
+                  "reuse_blocked",
+                  "reuse_undetermined"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Unknown lifecycle state is missing evidence, which is Undetermined rather than either allow or block.",
+      "if": {
+        "required": [
+          "sourceJudgmentRef"
+        ],
+        "properties": {
+          "sourceJudgmentRef": {
+            "required": [
+              "lifecycleStateAtUse"
+            ],
+            "properties": {
+              "lifecycleStateAtUse": {
+                "const": "unknown"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcome": {
+                "const": "reuse_undetermined"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "exceedsCohort is the frozen above-cohort threshold, not a free judgment: it is true exactly when the highest differing dimension outranks cohort (rank 2).",
+      "if": {
+        "required": [
+          "contextDistance"
+        ],
+        "properties": {
+          "contextDistance": {
+            "required": [
+              "exceedsCohort"
+            ],
+            "properties": {
+              "exceedsCohort": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "contextDistance": {
+            "properties": {
+              "maxDifferingRank": {
+                "minimum": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "contextDistance"
+        ],
+        "properties": {
+          "contextDistance": {
+            "required": [
+              "exceedsCohort"
+            ],
+            "properties": {
+              "exceedsCohort": {
+                "const": false
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "contextDistance": {
+            "properties": {
+              "maxDifferingRank": {
+                "maximum": 2
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Replication guard. A declared transferable capability gap requires a predeclared failure signature, at least two distinct frozen replication contexts of which at least one differs above cohort, independent confirmation, and all five alternative causes ruled out. Proposal p.18.",
+      "if": {
+        "required": [
+          "capabilityGapAssertion"
+        ],
+        "properties": {
+          "capabilityGapAssertion": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "declared_transferable_capability_gap"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "capabilityGapAssertion": {
+            "required": [
+              "failureSignature",
+              "replications",
+              "distinctFrozenContextsConfirmed",
+              "independentConfirmation",
+              "alternativeCausesRuledOut"
+            ],
+            "properties": {
+              "distinctFrozenContextsConfirmed": {
+                "const": true
+              },
+              "replications": {
+                "minItems": 2,
+                "minContains": 1,
+                "contains": {
+                  "required": [
+                    "distanceFromSourceRank"
+                  ],
+                  "properties": {
+                    "distanceFromSourceRank": {
+                      "minimum": 3
+                    }
+                  }
+                }
+              },
+              "independentConfirmation": {
+                "required": [
+                  "confirmed"
+                ],
+                "properties": {
+                  "confirmed": {
+                    "const": true
+                  }
+                }
+              },
+              "alternativeCausesRuledOut": {
+                "properties": {
+                  "localGuideline": {
+                    "properties": {
+                      "status": {
+                        "const": "ruled_out"
+                      }
+                    }
+                  },
+                  "taskDesign": {
+                    "properties": {
+                      "status": {
+                        "const": "ruled_out"
+                      }
+                    }
+                  },
+                  "modelOrSystemVersion": {
+                    "properties": {
+                      "status": {
+                        "const": "ruled_out"
+                      }
+                    }
+                  },
+                  "data": {
+                    "properties": {
+                      "status": {
+                        "const": "ruled_out"
+                      }
+                    }
+                  },
+                  "reviewerPopulation": {
+                    "properties": {
+                      "status": {
+                        "const": "ruled_out"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "An unapproved procedure version cannot produce an admissible study result.",
+      "if": {
+        "required": [
+          "procedure"
+        ],
+        "properties": {
+          "procedure": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "Proposal — not approved"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidenceStatus": {
+            "properties": {
+              "admissibleAsStudyResult": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "contextDimensionId": {
+      "enum": [
+        "same_case",
+        "submission",
+        "cohort",
+        "modeling_language",
+        "institution",
+        "scenario_family"
+      ]
+    },
+    "nullableContextDimensionId": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "refId",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "refId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "procedureBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "procedureId",
+        "procedureVersion",
+        "procedureSha256",
+        "gateCount",
+        "gateOrderFrozen",
+        "status",
+        "supervisorConfirmation"
+      ],
+      "properties": {
+        "procedureId": {
+          "const": "C3-REUSE-PROC"
+        },
+        "procedureVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "procedureSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "gateCount": {
+          "const": 5
+        },
+        "gateOrderFrozen": {
+          "const": true
+        },
+        "status": {
+          "enum": [
+            "Proposal — not approved",
+            "Frozen with the protocol",
+            "Superseded",
+            "Withdrawn"
+          ]
+        },
+        "supervisorConfirmation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "outcome",
+            "recordId"
+          ],
+          "properties": {
+            "required": {
+              "const": true
+            },
+            "outcome": {
+              "enum": [
+                "Not recorded",
+                "Accepted",
+                "Accepted with changes",
+                "Rejected",
+                "Deferred"
+              ]
+            },
+            "recordId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "frozenDimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimensionId",
+        "rank",
+        "label",
+        "tolerance",
+        "proposalDerivation"
+      ],
+      "properties": {
+        "dimensionId": {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tolerance": {
+          "enum": [
+            "within_tolerance",
+            "adaptation_required",
+            "beyond_tolerance"
+          ]
+        },
+        "proposalDerivation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "contextDistanceSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaId",
+        "version",
+        "sha256",
+        "frozenAt",
+        "frozenBeforeOutcomeEvaluation",
+        "dimensions",
+        "capabilityGapThreshold",
+        "confirmationStatus"
+      ],
+      "properties": {
+        "schemaId": {
+          "const": "CDS-C3-v1"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "frozenAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "frozenBeforeOutcomeEvaluation": {
+          "const": true
+        },
+        "dimensions": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": false,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/frozenDimension",
+              "properties": {
+                "dimensionId": {
+                  "const": "same_case"
+                },
+                "rank": {
+                  "const": 0
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/frozenDimension",
+              "properties": {
+                "dimensionId": {
+                  "const": "submission"
+                },
+                "rank": {
+                  "const": 1
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/frozenDimension",
+              "properties": {
+                "dimensionId": {
+                  "const": "cohort"
+                },
+                "rank": {
+                  "const": 2
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/frozenDimension",
+              "properties": {
+                "dimensionId": {
+                  "const": "modeling_language"
+                },
+                "rank": {
+                  "const": 3
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/frozenDimension",
+              "properties": {
+                "dimensionId": {
+                  "const": "institution"
+                },
+                "rank": {
+                  "const": 4
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/frozenDimension",
+              "properties": {
+                "dimensionId": {
+                  "const": "scenario_family"
+                },
+                "rank": {
+                  "const": 5
+                }
+              }
+            }
+          ]
+        },
+        "capabilityGapThreshold": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mustExceedDimensionId",
+            "minRankStrictlyAbove",
+            "minDistinctContexts"
+          ],
+          "properties": {
+            "mustExceedDimensionId": {
+              "const": "cohort"
+            },
+            "minRankStrictlyAbove": {
+              "const": 2
+            },
+            "minDistinctContexts": {
+              "const": 2
+            }
+          }
+        },
+        "confirmationStatus": {
+          "enum": [
+            "design_proposal_pending_supervisor_confirmation",
+            "supervisor_confirmed"
+          ]
+        }
+      }
+    },
+    "contextDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "descriptorSchemaVersion",
+        "descriptorId",
+        "role",
+        "caseRef",
+        "dimensionValues",
+        "guidelineFamily",
+        "guidelineVersion",
+        "taskType",
+        "capturedAt",
+        "descriptorSha256",
+        "frozen"
+      ],
+      "properties": {
+        "descriptorSchemaVersion": {
+          "const": "TargetContextDescriptor-v1"
+        },
+        "descriptorId": {
+          "type": "string",
+          "pattern": "^TCD-[A-Za-z0-9_-]+$"
+        },
+        "role": {
+          "enum": [
+            "source",
+            "target"
+          ]
+        },
+        "caseRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dimensionValues": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "same_case",
+            "submission",
+            "cohort",
+            "modeling_language",
+            "institution",
+            "scenario_family"
+          ],
+          "properties": {
+            "same_case": {
+              "type": "string",
+              "minLength": 1
+            },
+            "submission": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cohort": {
+              "type": "string",
+              "minLength": 1
+            },
+            "modeling_language": {
+              "type": "string",
+              "minLength": 1
+            },
+            "institution": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scenario_family": {
+              "enum": [
+                "A_software_engineering_and_student_modeling",
+                "B_medical_guideline_operationalization"
+              ]
+            }
+          }
+        },
+        "guidelineFamily": {
+          "type": "string",
+          "minLength": 1
+        },
+        "guidelineVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "taskType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "elapsedDaysSinceSourceJudgment": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "descriptorSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "frozen": {
+          "type": "boolean"
+        }
+      }
+    },
+    "dimensionComparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimensionId",
+        "rank",
+        "sourceValue",
+        "targetValue",
+        "differs",
+        "toleranceApplied",
+        "withinTolerance"
+      ],
+      "properties": {
+        "dimensionId": {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "sourceValue": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targetValue": {
+          "type": "string",
+          "minLength": 1
+        },
+        "differs": {
+          "type": "boolean"
+        },
+        "toleranceApplied": {
+          "enum": [
+            "within_tolerance",
+            "adaptation_required",
+            "beyond_tolerance"
+          ]
+        },
+        "withinTolerance": {
+          "type": "boolean"
+        }
+      }
+    },
+    "contextDistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "comparisons",
+        "maxDifferingDimensionId",
+        "maxDifferingRank",
+        "exceedsCohort",
+        "computedFromSchemaSha256"
+      ],
+      "properties": {
+        "comparisons": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/dimensionComparison"
+          }
+        },
+        "maxDifferingDimensionId": {
+          "$ref": "#/$defs/nullableContextDimensionId"
+        },
+        "maxDifferingRank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "exceedsCohort": {
+          "type": "boolean"
+        },
+        "computedFromSchemaSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "sourceJudgmentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "judgmentId",
+        "judgmentVersion",
+        "judgmentSha256",
+        "contractId",
+        "contractVersion",
+        "lifecycleStateAtUse",
+        "lifecycleReadAt"
+      ],
+      "properties": {
+        "judgmentId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "judgmentVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "judgmentSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contractId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contractVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lifecycleStateAtUse": {
+          "enum": [
+            "active",
+            "expired",
+            "superseded",
+            "revoked",
+            "dissent_retained",
+            "unknown"
+          ]
+        },
+        "lifecycleReadAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "gateEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gateOrder",
+        "gateId",
+        "result",
+        "ruleId",
+        "ruleVersion",
+        "contextDimensionId",
+        "reason",
+        "evidenceRefs",
+        "evaluatedAt"
+      ],
+      "properties": {
+        "gateOrder": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "gateId": {
+          "enum": [
+            "g1_visibility_authorization",
+            "g2_claim_relevance",
+            "g3_context_fit",
+            "g4_current_case_evidence",
+            "g5_adaptation_risk"
+          ]
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "pass_with_adaptation",
+            "fail",
+            "undetermined",
+            "not_evaluated"
+          ]
+        },
+        "ruleId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contextDimensionId": {
+          "$ref": "#/$defs/nullableContextDimensionId"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifactRef"
+          }
+        },
+        "evaluatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "Any gate that changes the outcome must name the context dimension that produced it.",
+          "if": {
+            "required": [
+              "result"
+            ],
+            "properties": {
+              "result": {
+                "enum": [
+                  "fail",
+                  "undetermined",
+                  "pass_with_adaptation"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "contextDimensionId": {
+                "$ref": "#/$defs/contextDimensionId"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "A gate that never ran carries no timestamp and no evidence.",
+          "if": {
+            "required": [
+              "result"
+            ],
+            "properties": {
+              "result": {
+                "const": "not_evaluated"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evaluatedAt": {
+                "type": "null"
+              },
+              "evidenceRefs": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "gateEvaluations": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": false,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/gateEvaluation",
+          "properties": {
+            "gateOrder": {
+              "const": 1
+            },
+            "gateId": {
+              "const": "g1_visibility_authorization"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "fail",
+                "undetermined"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/gateEvaluation",
+          "properties": {
+            "gateOrder": {
+              "const": 2
+            },
+            "gateId": {
+              "const": "g2_claim_relevance"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "fail",
+                "undetermined",
+                "not_evaluated"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/gateEvaluation",
+          "properties": {
+            "gateOrder": {
+              "const": 3
+            },
+            "gateId": {
+              "const": "g3_context_fit"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "pass_with_adaptation",
+                "fail",
+                "undetermined",
+                "not_evaluated"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/gateEvaluation",
+          "properties": {
+            "gateOrder": {
+              "const": 4
+            },
+            "gateId": {
+              "const": "g4_current_case_evidence"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "fail",
+                "undetermined",
+                "not_evaluated"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/gateEvaluation",
+          "properties": {
+            "gateOrder": {
+              "const": 5
+            },
+            "gateId": {
+              "const": "g5_adaptation_risk"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "pass_with_adaptation",
+                "fail",
+                "undetermined",
+                "not_evaluated"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome",
+        "outcomeLabel",
+        "gateId",
+        "ruleId",
+        "ruleVersion",
+        "contextDimensionId",
+        "statement"
+      ],
+      "properties": {
+        "outcome": {
+          "enum": [
+            "reuse_eligible",
+            "reuse_eligible_with_adaptation",
+            "reuse_blocked",
+            "reuse_undetermined"
+          ]
+        },
+        "outcomeLabel": {
+          "enum": [
+            "Eligible",
+            "Eligible with adaptation",
+            "Blocked",
+            "Undetermined"
+          ]
+        },
+        "gateId": {
+          "enum": [
+            "g1_visibility_authorization",
+            "g2_claim_relevance",
+            "g3_context_fit",
+            "g4_current_case_evidence",
+            "g5_adaptation_risk"
+          ]
+        },
+        "ruleId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contextDimensionId": {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "priorJudgmentPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "presentedAs",
+        "presentedAsSettledLabel",
+        "attributionShown",
+        "currentCaseEvidenceRefs",
+        "currentCaseReasonedIndependently"
+      ],
+      "properties": {
+        "presentedAs": {
+          "const": "attributed_advice"
+        },
+        "presentedAsSettledLabel": {
+          "const": false
+        },
+        "attributionShown": {
+          "type": "boolean"
+        },
+        "currentCaseEvidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifactRef"
+          }
+        },
+        "currentCaseReasonedIndependently": {
+          "type": "boolean"
+        }
+      }
+    },
+    "adaptation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adaptationId",
+        "description",
+        "triggeringDimensionId",
+        "residualRisk",
+        "verificationRequirement"
+      ],
+      "properties": {
+        "adaptationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "triggeringDimensionId": {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        "residualRisk": {
+          "enum": [
+            "low",
+            "moderate",
+            "high",
+            "unassessed"
+          ]
+        },
+        "verificationRequirement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "independentReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "routed",
+        "routedTo",
+        "reviewRequestId",
+        "routedAt",
+        "reviewStatus",
+        "treatedAsSafeReuse",
+        "treatedAsPermanentProhibition",
+        "cause"
+      ],
+      "properties": {
+        "routed": {
+          "const": true
+        },
+        "routedTo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewRequestId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "routedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reviewStatus": {
+          "enum": [
+            "routed",
+            "in_review",
+            "adjudicated",
+            "withdrawn"
+          ]
+        },
+        "treatedAsSafeReuse": {
+          "const": false
+        },
+        "treatedAsPermanentProhibition": {
+          "const": false
+        },
+        "cause": {
+          "enum": [
+            "missing_evidence",
+            "conflicting_evidence",
+            "unknown_lifecycle_state",
+            "retained_dissent",
+            "rule_not_applicable"
+          ]
+        }
+      }
+    },
+    "outcomeReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "issuedAt",
+        "issuanceTrigger",
+        "consumerId",
+        "consumerType",
+        "useSiteRef",
+        "recordedOutcome",
+        "recordedDimensionId",
+        "decisionRecordSha256",
+        "canonicalizationMethod",
+        "receiptSha256",
+        "contentContract",
+        "linkedFromSourceJudgment"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "pattern": "^RDR-RCPT-[A-Za-z0-9_-]+$"
+        },
+        "issuedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "issuanceTrigger": {
+          "const": "every_reuse_decision_evaluation"
+        },
+        "consumerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consumerType": {
+          "enum": [
+            "agent",
+            "reviewer_interface",
+            "offline_evaluation",
+            "external_system"
+          ]
+        },
+        "useSiteRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recordedOutcome": {
+          "enum": [
+            "reuse_eligible",
+            "reuse_eligible_with_adaptation",
+            "reuse_blocked",
+            "reuse_undetermined"
+          ]
+        },
+        "recordedDimensionId": {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        "decisionRecordSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "canonicalizationMethod": {
+          "type": "string",
+          "minLength": 1
+        },
+        "receiptSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contentContract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contractId",
+            "contractVersion",
+            "contentOwnedBy"
+          ],
+          "properties": {
+            "contractId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "contractVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "contentOwnedBy": {
+              "const": "C2 governed-judgment contract (SQ2)"
+            }
+          }
+        },
+        "linkedFromSourceJudgment": {
+          "type": "boolean"
+        }
+      }
+    },
+    "causeRuling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "method",
+        "evidenceRef"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ruled_out",
+            "not_ruled_out",
+            "not_assessed"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRef": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/artifactRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "replication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "replicationId",
+        "contextDescriptorId",
+        "contextSha256",
+        "contextFrozenAt",
+        "signatureMatched",
+        "distanceFromSourceDimensionId",
+        "distanceFromSourceRank",
+        "observationRef"
+      ],
+      "properties": {
+        "replicationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contextDescriptorId": {
+          "type": "string",
+          "pattern": "^TCD-[A-Za-z0-9_-]+$"
+        },
+        "contextSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contextFrozenAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "signatureMatched": {
+          "type": "boolean"
+        },
+        "distanceFromSourceDimensionId": {
+          "$ref": "#/$defs/contextDimensionId"
+        },
+        "distanceFromSourceRank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "observationRef": {
+          "$ref": "#/$defs/artifactRef"
+        }
+      }
+    },
+    "capabilityGapAssertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertionId",
+        "status",
+        "failureSignature"
+      ],
+      "properties": {
+        "assertionId": {
+          "type": "string",
+          "pattern": "^CGA-[A-Za-z0-9_-]+$"
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "declared_transferable_capability_gap",
+            "remains_local",
+            "undetermined"
+          ]
+        },
+        "failureSignature": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "signatureId",
+            "description",
+            "predeclaredAt",
+            "predeclarationRef",
+            "predeclarationSha256"
+          ],
+          "properties": {
+            "signatureId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "predeclaredAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "predeclarationRef": {
+              "$ref": "#/$defs/artifactRef"
+            },
+            "predeclarationSha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "replications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/replication"
+          }
+        },
+        "distinctFrozenContextsConfirmed": {
+          "type": "boolean"
+        },
+        "independentConfirmation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "confirmed",
+            "confirmerRole",
+            "confirmerId",
+            "independenceStatement",
+            "confirmedAt",
+            "recordId"
+          ],
+          "properties": {
+            "confirmed": {
+              "type": "boolean"
+            },
+            "confirmerRole": {
+              "type": "string",
+              "minLength": 1
+            },
+            "confirmerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "independenceStatement": {
+              "type": "string",
+              "minLength": 1
+            },
+            "confirmedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "recordId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "alternativeCausesRuledOut": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "localGuideline",
+            "taskDesign",
+            "modelOrSystemVersion",
+            "data",
+            "reviewerPopulation"
+          ],
+          "properties": {
+            "localGuideline": {
+              "$ref": "#/$defs/causeRuling"
+            },
+            "taskDesign": {
+              "$ref": "#/$defs/causeRuling"
+            },
+            "modelOrSystemVersion": {
+              "$ref": "#/$defs/causeRuling"
+            },
+            "data": {
+              "$ref": "#/$defs/causeRuling"
+            },
+            "reviewerPopulation": {
+              "$ref": "#/$defs/causeRuling"
+            }
+          }
+        }
+      }
+    },
+    "evidenceStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtimeEffect",
+        "empiricalOutcomeClaim",
+        "admissibleAsStudyResult",
+        "boundaryNote"
+      ],
+      "properties": {
+        "runtimeEffect": {
+          "const": "none"
+        },
+        "empiricalOutcomeClaim": {
+          "const": "none"
+        },
+        "admissibleAsStudyResult": {
+          "type": "boolean"
+        },
+        "boundaryNote": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

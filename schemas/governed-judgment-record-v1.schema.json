@@ -1,0 +1,3874 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/governed-judgment-record-v1.schema.json",
+  "title": "GovernedJudgmentRecord-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordId",
+    "contractStatus",
+    "conformanceProfile",
+    "ablation",
+    "createdAt",
+    "caseGrounding",
+    "verdict",
+    "claimBoundary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "GovernedJudgmentRecord-v1"
+    },
+    "recordId": {
+      "type": "string",
+      "pattern": "^GJR-[A-Za-z0-9_-]+$"
+    },
+    "contractStatus": {
+      "enum": [
+        "Draft — not approved",
+        "Frozen for protocol"
+      ]
+    },
+    "conformanceProfile": {
+      "enum": [
+        "label_only",
+        "unstructured_comment",
+        "structured_provenance",
+        "full_governed"
+      ]
+    },
+    "ablation": {
+      "$ref": "#/$defs/ablation"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "immutable": {
+      "const": true
+    },
+    "caseGrounding": {
+      "$ref": "#/$defs/caseGrounding"
+    },
+    "decisionTrace": {
+      "$ref": "#/$defs/decisionTrace"
+    },
+    "verdict": {
+      "$ref": "#/$defs/verdict"
+    },
+    "rationale": {
+      "$ref": "#/$defs/rationale"
+    },
+    "uncertainty": {
+      "$ref": "#/$defs/uncertainty"
+    },
+    "counterevidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/counterevidenceEntry"
+      },
+      "uniqueItems": true
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "competence": {
+      "$ref": "#/$defs/competence"
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    },
+    "privacy": {
+      "$ref": "#/$defs/privacy"
+    },
+    "visibility": {
+      "$ref": "#/$defs/visibility"
+    },
+    "validation": {
+      "$ref": "#/$defs/validation"
+    },
+    "disagreement": {
+      "$ref": "#/$defs/disagreement"
+    },
+    "retainedDissent": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dissentEntry"
+      },
+      "uniqueItems": true
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/lifecycle"
+    },
+    "receipts": {
+      "$ref": "#/$defs/receipts"
+    },
+    "bindings": {
+      "$ref": "#/$defs/bindings"
+    },
+    "claimBoundary": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "CHK-01 Full governed record: every §3.4 content group must be present.",
+      "if": {
+        "properties": {
+          "conformanceProfile": {
+            "const": "full_governed"
+          },
+          "ablation": {
+            "properties": {
+              "mode": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          }
+        },
+        "required": [
+          "conformanceProfile",
+          "ablation"
+        ]
+      },
+      "then": {
+        "required": [
+          "caseGrounding",
+          "decisionTrace",
+          "verdict",
+          "rationale",
+          "uncertainty",
+          "counterevidence",
+          "scope",
+          "competence",
+          "authority",
+          "privacy",
+          "visibility",
+          "validation",
+          "disagreement",
+          "retainedDissent",
+          "provenance",
+          "lifecycle",
+          "receipts",
+          "bindings",
+          "immutable"
+        ]
+      }
+    },
+    {
+      "$comment": "CHK-02 Field-removal ablation is defined only over the full governed record.",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "mode": {
+                "const": "field_removal"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "properties": {
+          "conformanceProfile": {
+            "const": "full_governed"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-03 Ablated component must be absent: rationale.",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "withheldComponents": {
+                "contains": {
+                  "const": "rationale"
+                }
+              }
+            },
+            "required": [
+              "withheldComponents"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "rationale"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-04 Ablated component must be absent: scope (and with it, exclusions).",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "withheldComponents": {
+                "contains": {
+                  "const": "scope"
+                }
+              }
+            },
+            "required": [
+              "withheldComponents"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "scope"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-05 Ablated component must be absent: authority.",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "withheldComponents": {
+                "contains": {
+                  "const": "authority"
+                }
+              }
+            },
+            "required": [
+              "withheldComponents"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "authority"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-06 Ablated component must be absent: retainedDissent.",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "withheldComponents": {
+                "contains": {
+                  "const": "retainedDissent"
+                }
+              }
+            },
+            "required": [
+              "withheldComponents"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "retainedDissent"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-07 Ablated component must be absent: provenance.",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "withheldComponents": {
+                "contains": {
+                  "const": "provenance"
+                }
+              }
+            },
+            "required": [
+              "withheldComponents"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "provenance"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-08 Ablated component must be absent: lifecycle (lifecycle status).",
+      "if": {
+        "properties": {
+          "ablation": {
+            "properties": {
+              "withheldComponents": {
+                "contains": {
+                  "const": "lifecycle"
+                }
+              }
+            },
+            "required": [
+              "withheldComponents"
+            ]
+          }
+        },
+        "required": [
+          "ablation"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "lifecycle"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-09 Between-condition arm label_only is a deliberate degradation.",
+      "if": {
+        "properties": {
+          "conformanceProfile": {
+            "const": "label_only"
+          }
+        },
+        "required": [
+          "conformanceProfile"
+        ]
+      },
+      "then": {
+        "required": [
+          "caseGrounding",
+          "verdict"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "decisionTrace"
+              ]
+            },
+            {
+              "required": [
+                "rationale"
+              ]
+            },
+            {
+              "required": [
+                "scope"
+              ]
+            },
+            {
+              "required": [
+                "competence"
+              ]
+            },
+            {
+              "required": [
+                "authority"
+              ]
+            },
+            {
+              "required": [
+                "retainedDissent"
+              ]
+            },
+            {
+              "required": [
+                "provenance"
+              ]
+            },
+            {
+              "required": [
+                "lifecycle"
+              ]
+            },
+            {
+              "required": [
+                "receipts"
+              ]
+            },
+            {
+              "required": [
+                "bindings"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-10 Between-condition arm unstructured_comment adds free text only.",
+      "if": {
+        "properties": {
+          "conformanceProfile": {
+            "const": "unstructured_comment"
+          }
+        },
+        "required": [
+          "conformanceProfile"
+        ]
+      },
+      "then": {
+        "required": [
+          "caseGrounding",
+          "verdict",
+          "rationale"
+        ],
+        "properties": {
+          "rationale": {
+            "not": {
+              "required": [
+                "structure"
+              ]
+            }
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "decisionTrace"
+              ]
+            },
+            {
+              "required": [
+                "scope"
+              ]
+            },
+            {
+              "required": [
+                "competence"
+              ]
+            },
+            {
+              "required": [
+                "authority"
+              ]
+            },
+            {
+              "required": [
+                "retainedDissent"
+              ]
+            },
+            {
+              "required": [
+                "lifecycle"
+              ]
+            },
+            {
+              "required": [
+                "receipts"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-11 Between-condition arm structured_provenance carries structure and lineage but no governance layer.",
+      "if": {
+        "properties": {
+          "conformanceProfile": {
+            "const": "structured_provenance"
+          }
+        },
+        "required": [
+          "conformanceProfile"
+        ]
+      },
+      "then": {
+        "required": [
+          "caseGrounding",
+          "decisionTrace",
+          "verdict",
+          "rationale",
+          "uncertainty",
+          "provenance",
+          "bindings"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "scope"
+              ]
+            },
+            {
+              "required": [
+                "competence"
+              ]
+            },
+            {
+              "required": [
+                "authority"
+              ]
+            },
+            {
+              "required": [
+                "retainedDissent"
+              ]
+            },
+            {
+              "required": [
+                "receipts"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "CHK-12 Only lifecycle state active may leave the record-side reuse gate open.",
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "draft",
+                  "contested",
+                  "retained_dissent",
+                  "superseded",
+                  "expired",
+                  "revoked"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "lifecycle"
+        ]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "reuseGate": {
+                "properties": {
+                  "decision": {
+                    "const": "blocked"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-13 State active implies the record-side reuse gate is open. C3's read-side gates apply on top and are not decided here.",
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "const": "active"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "lifecycle"
+        ]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "reuseGate": {
+                "properties": {
+                  "decision": {
+                    "const": "permitted"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-14 Retained dissent that is qualified and not yet adjudicated forces state retained_dissent.",
+      "if": {
+        "properties": {
+          "retainedDissent": {
+            "contains": {
+              "properties": {
+                "qualified": {
+                  "const": true
+                },
+                "adjudication": {
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "not_started",
+                        "pending",
+                        "in_progress",
+                        "deadlocked"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              },
+              "required": [
+                "qualified",
+                "adjudication"
+              ]
+            }
+          }
+        },
+        "required": [
+          "retainedDissent",
+          "lifecycle"
+        ]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "const": "retained_dissent"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-15 Revocation requires a recorded reason and a revoking authority.",
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "const": "revoked"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "lifecycle"
+        ]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": {
+            "required": [
+              "revocation"
+            ],
+            "properties": {
+              "revocation": {
+                "required": [
+                  "revoked",
+                  "revokedAt",
+                  "revokedByAuthorityRef",
+                  "reason",
+                  "reasonCode"
+                ],
+                "properties": {
+                  "revoked": {
+                    "const": true
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-16 Supersession requires a named successor record.",
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "const": "superseded"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "lifecycle"
+        ]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": {
+            "required": [
+              "supersession"
+            ],
+            "properties": {
+              "supersession": {
+                "required": [
+                  "supersededByRecordId",
+                  "supersededAt",
+                  "successorScopeRelation"
+                ],
+                "properties": {
+                  "supersededByRecordId": {
+                    "type": "string",
+                    "pattern": "^GJR-[A-Za-z0-9_-]+$"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-17 Expiry requires a recorded expiry timestamp and the condition that fired.",
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "const": "expired"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "lifecycle"
+        ]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": {
+            "required": [
+              "expiry"
+            ],
+            "properties": {
+              "expiry": {
+                "required": [
+                  "policy",
+                  "expiredAt",
+                  "firedConditionId"
+                ],
+                "properties": {
+                  "expiredAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "firedConditionId": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "CHK-18 State active requires a claim-specific competence assessment and a claim-scoped authority. Suspended under a declared field-removal ablation, so that a struck component is not reported as non-conformance.",
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": {
+              "state": {
+                "const": "active"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "ablation": {
+            "properties": {
+              "mode": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          }
+        },
+        "required": [
+          "lifecycle",
+          "ablation"
+        ]
+      },
+      "then": {
+        "required": [
+          "scope",
+          "competence",
+          "authority",
+          "privacy",
+          "visibility",
+          "bindings"
+        ],
+        "properties": {
+          "competence": {
+            "properties": {
+              "claimSpecific": {
+                "const": true
+              }
+            }
+          },
+          "authority": {
+            "properties": {
+              "claimScoped": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ablation": {
+      "$comment": "Field-removal hooks for §3.4 Phase B. withheldComponents names top-level properties an ablation harness deletes.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "withheldComponents",
+        "strikeMethod"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "none",
+            "field_removal"
+          ]
+        },
+        "profileId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^GJR-ABL-[0-9]{2}$"
+        },
+        "withheldComponents": {
+          "type": "array",
+          "maxItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "rationale",
+              "scope",
+              "authority",
+              "retainedDissent",
+              "provenance",
+              "lifecycle"
+            ]
+          }
+        },
+        "strikeMethod": {
+          "const": "delete_top_level_property"
+        },
+        "harnessId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "harnessVersion": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "harnessNote": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "withheldComponents": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "field_removal"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "profileId",
+              "harnessId",
+              "harnessVersion"
+            ],
+            "properties": {
+              "withheldComponents": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "caseGrounding": {
+      "$comment": "§3.4 'case and evidence grounding'.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "caseId",
+        "claimId",
+        "fragmentRef",
+        "artifactRef",
+        "guidelineRef",
+        "contextFacets",
+        "observedDeviation",
+        "evidence",
+        "groundingIntegrity"
+      ],
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claimId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fragmentRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "locator",
+            "locatorType"
+          ],
+          "properties": {
+            "locator": {
+              "type": "string",
+              "minLength": 1
+            },
+            "locatorType": {
+              "enum": [
+                "element_id",
+                "line_range",
+                "offset_range",
+                "xpath",
+                "page_ref",
+                "uri",
+                "pattern_signature"
+              ]
+            }
+          }
+        },
+        "artifactRef": {
+          "$ref": "#/$defs/versionedRef"
+        },
+        "guidelineRef": {
+          "$ref": "#/$defs/versionedRef"
+        },
+        "contextFacets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contextDimensionSchemaId",
+            "contextDimensionSchemaVersion",
+            "values"
+          ],
+          "properties": {
+            "contextDimensionSchemaId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "contextDimensionSchemaVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "contextDimensionSchemaSha256": {
+              "$ref": "#/$defs/nullableSha256"
+            },
+            "values": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "observedDeviation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "evidenceId",
+              "evidenceType",
+              "locator",
+              "locatorType",
+              "contentSha256",
+              "presentedToReviewer",
+              "privacyClass",
+              "retrievability"
+            ],
+            "properties": {
+              "evidenceId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidenceType": {
+                "enum": [
+                  "source_artifact_excerpt",
+                  "guideline_text",
+                  "domain_description",
+                  "task_description",
+                  "prior_judgment",
+                  "peer_submission",
+                  "system_output",
+                  "external_reference"
+                ]
+              },
+              "locator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "locatorType": {
+                "enum": [
+                  "element_id",
+                  "line_range",
+                  "offset_range",
+                  "xpath",
+                  "page_ref",
+                  "uri",
+                  "pattern_signature"
+                ]
+              },
+              "contentSha256": {
+                "$ref": "#/$defs/sha256"
+              },
+              "presentedToReviewer": {
+                "type": "boolean"
+              },
+              "privacyClass": {
+                "enum": [
+                  "public",
+                  "internal",
+                  "restricted",
+                  "sensitive_personal",
+                  "special_category"
+                ]
+              },
+              "retrievability": {
+                "enum": [
+                  "embedded",
+                  "referenced_stable",
+                  "referenced_volatile",
+                  "not_retrievable"
+                ]
+              },
+              "excerpt": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "groundingIntegrity": {
+          "enum": [
+            "reconstructable",
+            "degraded",
+            "lost"
+          ]
+        }
+      }
+    },
+    "versionedRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "decisionTrace": {
+      "$comment": "§3.4 p.17 and §2.2 p.12. Six named slots, surfaced to the reviewer at judgment time. Explicitly NOT hidden chain-of-thought.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "traceSemantics",
+        "capturedAt",
+        "reconstructedAfterTheFact",
+        "slots",
+        "systemClaimConfidence"
+      ],
+      "properties": {
+        "traceSemantics": {
+          "const": "surfaced_inspectable_reasoning_not_hidden_chain_of_thought"
+        },
+        "capturedAt": {
+          "const": "at_judgment_time"
+        },
+        "reconstructedAfterTheFact": {
+          "const": false
+        },
+        "systemClaimConfidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "slots": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "claim",
+            "evidence",
+            "appliedRuleOrGuideline",
+            "alternativesConsidered",
+            "sourceOfUncertainty",
+            "decisiveInference"
+          ],
+          "properties": {
+            "claim": {
+              "$ref": "#/$defs/traceSlot"
+            },
+            "evidence": {
+              "$ref": "#/$defs/traceSlot"
+            },
+            "appliedRuleOrGuideline": {
+              "$ref": "#/$defs/traceSlot"
+            },
+            "alternativesConsidered": {
+              "$ref": "#/$defs/traceSlot"
+            },
+            "sourceOfUncertainty": {
+              "$ref": "#/$defs/traceSlot"
+            },
+            "decisiveInference": {
+              "$ref": "#/$defs/traceSlot"
+            }
+          }
+        }
+      }
+    },
+    "traceSlot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slotId",
+        "content",
+        "presentedToReviewer"
+      ],
+      "properties": {
+        "slotId": {
+          "type": "string",
+          "pattern": "^DT-(CLAIM|EVID|RULE|ALT|UNC|INF)-[A-Za-z0-9_-]+$"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1
+        },
+        "presentedToReviewer": {
+          "type": "boolean"
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "bindingIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "verdict": {
+      "$comment": "System-independent via declared vocabulary indirection: no verdict term is hard-coded in the contract.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vocabularyId",
+        "vocabularyVersion",
+        "vocabularySha256",
+        "value",
+        "dispositionClass"
+      ],
+      "properties": {
+        "vocabularyId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vocabularyVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vocabularySha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valueLabel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dispositionClass": {
+          "enum": [
+            "affirms_system_claim",
+            "corrects_system_claim",
+            "declines_to_decide",
+            "no_finding"
+          ]
+        }
+      }
+    },
+    "rationale": {
+      "$comment": "Structured so a field-removal ablation can strike it whole, and so each assertion links to a decision-trace slot.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "freeText"
+      ],
+      "properties": {
+        "freeText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "structure": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "assertionId",
+              "assertion",
+              "rationaleRole",
+              "traceSlotRef"
+            ],
+            "properties": {
+              "assertionId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "assertion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rationaleRole": {
+                "enum": [
+                  "grounds_verdict",
+                  "rejects_alternative",
+                  "qualifies_scope",
+                  "records_exclusion",
+                  "answers_counterevidence",
+                  "states_uncertainty"
+                ]
+              },
+              "traceSlotRef": {
+                "type": "string",
+                "pattern": "^DT-(CLAIM|EVID|RULE|ALT|UNC|INF)-[A-Za-z0-9_-]+$"
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selfRating",
+        "sources"
+      ],
+      "properties": {
+        "selfRating": {
+          "enum": [
+            "Low",
+            "Medium",
+            "High"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sourceId",
+              "sourceClass",
+              "statement"
+            ],
+            "properties": {
+              "sourceId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceClass": {
+                "enum": [
+                  "ambiguous_task_description",
+                  "guideline_gap",
+                  "notation_semantics",
+                  "domain_knowledge_limit",
+                  "evidence_insufficient",
+                  "conflicting_qualified_opinion",
+                  "system_version_dependence",
+                  "reviewer_self_reported_limit",
+                  "local_permitted_decision",
+                  "other"
+                ]
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "traceSlotRef": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^DT-(CLAIM|EVID|RULE|ALT|UNC|INF)-[A-Za-z0-9_-]+$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "counterevidenceEntry": {
+      "$comment": "Evidence that cut against the reviewer's own conclusion.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "counterevidenceId",
+        "statement",
+        "weighedAs",
+        "effectOnVerdict"
+      ],
+      "properties": {
+        "counterevidenceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weighedAs": {
+          "enum": [
+            "considered_and_outweighed",
+            "considered_and_unresolved",
+            "acknowledged_not_evaluated"
+          ]
+        },
+        "effectOnVerdict": {
+          "enum": [
+            "none",
+            "narrowed_scope",
+            "lowered_confidence",
+            "added_exclusion",
+            "changed_verdict"
+          ]
+        },
+        "answeredByAssertionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "$comment": "§3.4 'scope and exclusions'. Scope is a decidable conjunction over declared context dimensions; exclusions are the negative half.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ladderLevel",
+        "predicate",
+        "exclusions",
+        "decidable",
+        "statedNarrowly"
+      ],
+      "properties": {
+        "ladderLevel": {
+          "enum": [
+            "case_specific",
+            "pattern_specific",
+            "domain_specific",
+            "general"
+          ]
+        },
+        "predicate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "combinator",
+            "terms"
+          ],
+          "properties": {
+            "combinator": {
+              "const": "all_of"
+            },
+            "terms": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/scopeTerm"
+              }
+            }
+          }
+        },
+        "exclusions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "exclusionId",
+              "term",
+              "basis",
+              "statement"
+            ],
+            "properties": {
+              "exclusionId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "term": {
+                "$ref": "#/$defs/scopeTerm"
+              },
+              "basis": {
+                "enum": [
+                  "evaluated_and_failed",
+                  "not_evaluated",
+                  "authority_withheld",
+                  "safety",
+                  "privacy",
+                  "guideline_conflict"
+                ]
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "hard": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "decidable": {
+          "const": true
+        },
+        "statedNarrowly": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "scopeTerm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimensionId",
+        "operator",
+        "values"
+      ],
+      "properties": {
+        "dimensionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operator": {
+          "enum": [
+            "equals",
+            "in",
+            "subsumed_by",
+            "not_in",
+            "any"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "competence": {
+      "$comment": "§1.8 p.10-11. Claim-specific assessed competence, recorded separately from authority. An aggregate profile may be referenced but cannot satisfy claimSpecific.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessmentId",
+        "assessedForClaimId",
+        "claimSpecific",
+        "assessmentMethod",
+        "level",
+        "assessedAt",
+        "distinctFromAuthority"
+      ],
+      "properties": {
+        "assessmentId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assessedForClaimId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claimSpecific": {
+          "type": "boolean"
+        },
+        "assessmentMethod": {
+          "enum": [
+            "declared_credential",
+            "prior_adjudicated_agreement",
+            "calibration_task",
+            "peer_attestation",
+            "self_declared",
+            "not_assessed"
+          ]
+        },
+        "assessmentBasisRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "assessmentBasisSha256": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "level": {
+          "enum": [
+            "not_assessed",
+            "below_threshold",
+            "adequate",
+            "high"
+          ]
+        },
+        "assessedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "assessorRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aggregateProfileRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aggregateProfileIsNotSubstitute": {
+          "const": true
+        },
+        "distinctFromAuthority": {
+          "const": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "claimSpecific": {
+                "const": true
+              }
+            },
+            "required": [
+              "claimSpecific"
+            ]
+          },
+          "then": {
+            "required": [
+              "assessmentBasisRef",
+              "aggregateProfileIsNotSubstitute"
+            ],
+            "properties": {
+              "assessmentBasisRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "assessmentMethod": {
+                "enum": [
+                  "declared_credential",
+                  "prior_adjudicated_agreement",
+                  "calibration_task",
+                  "peer_attestation"
+                ]
+              },
+              "level": {
+                "enum": [
+                  "below_threshold",
+                  "adequate",
+                  "high"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "authority": {
+      "$comment": "§1.8 p.10-11 and §3.4 p.17. Claim-scoped mandate to settle this contested fragment, recorded separately from competence.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorityId",
+        "holderRef",
+        "roleRef",
+        "claimScoped",
+        "mandate",
+        "authorityBasis",
+        "bindingPower",
+        "grantedAt",
+        "validUntil",
+        "distinctFromCompetence"
+      ],
+      "properties": {
+        "authorityId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "holderRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roleRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claimScoped": {
+          "type": "boolean"
+        },
+        "mandate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "claimId",
+            "fragmentRef",
+            "terms"
+          ],
+          "properties": {
+            "claimId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "fragmentRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "terms": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/scopeTerm"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "authorityBasis": {
+          "enum": [
+            "institutional_role",
+            "guideline_ownership",
+            "course_ownership",
+            "clinical_privilege",
+            "delegated",
+            "none_recorded"
+          ]
+        },
+        "bindingPower": {
+          "enum": [
+            "advisory_only",
+            "binds_automated_decisions",
+            "binds_with_countersignature"
+          ]
+        },
+        "grantedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validUntil": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "grantRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grantSha256": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "verifiedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "enum": [
+            "registry_lookup",
+            "countersignature",
+            "administrator_attestation",
+            "not_verified"
+          ]
+        },
+        "distinctFromCompetence": {
+          "const": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "bindingPower": {
+                "const": "binds_automated_decisions"
+              }
+            },
+            "required": [
+              "bindingPower"
+            ]
+          },
+          "then": {
+            "required": [
+              "grantRef",
+              "verifiedAt"
+            ],
+            "properties": {
+              "claimScoped": {
+                "const": true
+              },
+              "authorityBasis": {
+                "not": {
+                  "const": "none_recorded"
+                }
+              },
+              "verificationMethod": {
+                "not": {
+                  "const": "not_verified"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "handlingConstraints",
+        "dataSubjectPresent",
+        "retentionUntil"
+      ],
+      "properties": {
+        "classification": {
+          "enum": [
+            "public",
+            "internal",
+            "restricted",
+            "sensitive_personal",
+            "special_category"
+          ]
+        },
+        "handlingConstraints": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "no_public_repository",
+              "no_hosted_llm_service",
+              "approved_environment_only",
+              "pseudonymize_before_export",
+              "no_export",
+              "retention_limited"
+            ]
+          }
+        },
+        "dataSubjectPresent": {
+          "type": "boolean"
+        },
+        "retentionUntil": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "legalBasisRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "redactionProfileId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "enum": [
+                  "sensitive_personal",
+                  "special_category"
+                ]
+              }
+            },
+            "required": [
+              "classification"
+            ]
+          },
+          "then": {
+            "required": [
+              "legalBasisRef",
+              "redactionProfileId"
+            ],
+            "properties": {
+              "handlingConstraints": {
+                "minItems": 1,
+                "contains": {
+                  "const": "approved_environment_only"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visibility": {
+      "$comment": "SQ2 specifies what visibility contains; SQ3 decides when it is evaluated. Default is deny.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "defaultDecision",
+        "viewerPredicate",
+        "evidenceVisibility"
+      ],
+      "properties": {
+        "defaultDecision": {
+          "const": "deny"
+        },
+        "viewerPredicate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "allowedRoles",
+            "requiresPurpose",
+            "allowedPurposes"
+          ],
+          "properties": {
+            "allowedRoles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "allowedHolderRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "requiresPurpose": {
+              "type": "boolean"
+            },
+            "allowedPurposes": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "review",
+                  "adjudication",
+                  "audit",
+                  "reuse_evaluation",
+                  "research_analysis",
+                  "teaching"
+                ]
+              }
+            }
+          }
+        },
+        "evidenceVisibility": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "evidenceId",
+              "decision"
+            ],
+            "properties": {
+              "evidenceId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "decision": {
+                "enum": [
+                  "visible",
+                  "redacted",
+                  "withheld"
+                ]
+              },
+              "redactionProfileId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "$comment": "Validation evidence is retained on the record rather than discarded at ingest.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validationStatus",
+        "checks"
+      ],
+      "properties": {
+        "validationStatus": {
+          "enum": [
+            "not_validated",
+            "validated",
+            "failed_validation"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "checkId",
+              "checkType",
+              "validatorId",
+              "validatorVersion",
+              "result",
+              "performedAt"
+            ],
+            "properties": {
+              "checkId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "checkType": {
+                "enum": [
+                  "schema_conformance",
+                  "rule_check",
+                  "semantic_check",
+                  "human_review",
+                  "reconstructability_review",
+                  "discrimination_test"
+                ]
+              },
+              "validatorId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "validatorVersion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "validatorSha256": {
+                "$ref": "#/$defs/nullableSha256"
+              },
+              "result": {
+                "enum": [
+                  "pass",
+                  "fail",
+                  "warn",
+                  "not_run"
+                ]
+              },
+              "reasonCode": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "performedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "evidenceRef": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "validationStatus": {
+                "const": "validated"
+              }
+            },
+            "required": [
+              "validationStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "checks": {
+                "minItems": 1,
+                "contains": {
+                  "properties": {
+                    "checkType": {
+                      "const": "schema_conformance"
+                    },
+                    "result": {
+                      "const": "pass"
+                    }
+                  },
+                  "required": [
+                    "checkType",
+                    "result"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "disagreement": {
+      "$comment": "Detection and adjudication apparatus. The dissenting judgments themselves live in retainedDissent.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "detection",
+        "adjudication"
+      ],
+      "properties": {
+        "detection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "keyFields",
+            "detectorId",
+            "detectorVersion"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "none",
+                "typed_verdict_mismatch_on_same_claim",
+                "scope_overlap_conflict",
+                "rule_based_guideline_conflict",
+                "human_report"
+              ]
+            },
+            "keyFields": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "caseGrounding.claimId",
+                  "caseGrounding.fragmentRef",
+                  "verdict.value",
+                  "verdict.dispositionClass",
+                  "scope.predicate"
+                ]
+              }
+            },
+            "detectorId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "detectorVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "detectedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            }
+          }
+        },
+        "adjudication": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "status"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "status": {
+              "enum": [
+                "not_required",
+                "not_started",
+                "pending",
+                "in_progress",
+                "adjudicated",
+                "deadlocked"
+              ]
+            },
+            "adjudicatorAuthorityRef": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "adjudicatedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "outcome": {
+              "enum": [
+                "not_applicable",
+                "this_record_upheld",
+                "dissent_upheld",
+                "synthesis_supersedes_both",
+                "deadlocked"
+              ]
+            },
+            "outcomeRecordId": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^GJR-[A-Za-z0-9_-]+$"
+            },
+            "rationale": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "dissentEntry": {
+      "$comment": "§3.4 p.17: conflicting qualified judgments are kept, not averaged. Entries are append-only and are annotated by adjudication, never deleted.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dissentId",
+        "dissentingRecordId",
+        "qualified",
+        "conflictOn",
+        "registeredAt",
+        "registeredByRef",
+        "retentionPolicy",
+        "withdrawn",
+        "blocksReuse",
+        "adjudication"
+      ],
+      "properties": {
+        "dissentId": {
+          "type": "string",
+          "pattern": "^GJD-[A-Za-z0-9_-]+$"
+        },
+        "dissentingRecordId": {
+          "type": "string",
+          "pattern": "^GJR-[A-Za-z0-9_-]+$"
+        },
+        "qualified": {
+          "type": "boolean"
+        },
+        "dissentingCompetenceRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dissentingAuthorityRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "conflictOn": {
+          "enum": [
+            "verdict",
+            "scope",
+            "rationale_basis",
+            "authority",
+            "evidence_reading",
+            "uncertainty_source"
+          ]
+        },
+        "statement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "registeredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "registeredByRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retentionPolicy": {
+          "const": "retained_not_averaged"
+        },
+        "withdrawn": {
+          "const": false
+        },
+        "blocksReuse": {
+          "type": "boolean"
+        },
+        "adjudication": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "not_started",
+                "pending",
+                "in_progress",
+                "adjudicated",
+                "deadlocked"
+              ]
+            },
+            "outcome": {
+              "enum": [
+                "not_applicable",
+                "this_record_upheld",
+                "dissent_upheld",
+                "synthesis_supersedes_both",
+                "deadlocked"
+              ]
+            },
+            "adjudicatedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "adjudicatorAuthorityRef": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "dissentPreservedAfterAdjudication": {
+              "const": true
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "qualified": {
+                "const": true
+              }
+            },
+            "required": [
+              "qualified"
+            ]
+          },
+          "then": {
+            "required": [
+              "dissentingCompetenceRef",
+              "dissentingAuthorityRef"
+            ],
+            "properties": {
+              "blocksReuse": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "adjudication": {
+                "properties": {
+                  "status": {
+                    "const": "adjudicated"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            },
+            "required": [
+              "adjudication"
+            ]
+          },
+          "then": {
+            "properties": {
+              "adjudication": {
+                "required": [
+                  "outcome",
+                  "adjudicatedAt",
+                  "adjudicatorAuthorityRef",
+                  "dissentPreservedAfterAdjudication"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "$comment": "§3.4 'provenance and version history'. Records are immutable; an amendment is a new record linked by lineage.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agents",
+        "versionHistory",
+        "revision",
+        "recordSha256Basis"
+      ],
+      "properties": {
+        "agents": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "agentId",
+              "agentType",
+              "activity",
+              "actedAt"
+            ],
+            "properties": {
+              "agentId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "agentType": {
+                "enum": [
+                  "human",
+                  "system_component",
+                  "automated_rule"
+                ]
+              },
+              "activity": {
+                "enum": [
+                  "created",
+                  "modified",
+                  "validated",
+                  "adjudicated",
+                  "superseded",
+                  "revoked",
+                  "expired_by",
+                  "revalidated"
+                ]
+              },
+              "actedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "actorAuthorityRef": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "derivedFrom": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sourceRecordId",
+              "derivationType"
+            ],
+            "properties": {
+              "sourceRecordId": {
+                "type": "string",
+                "pattern": "^GJR-[A-Za-z0-9_-]+$"
+              },
+              "derivationType": {
+                "enum": [
+                  "amendment",
+                  "synthesis",
+                  "split",
+                  "import"
+                ]
+              }
+            }
+          }
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "versionHistory": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "revision",
+              "recordId",
+              "recordSha256",
+              "createdAt",
+              "changeReason"
+            ],
+            "properties": {
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "recordId": {
+                "type": "string",
+                "pattern": "^GJR-[A-Za-z0-9_-]+$"
+              },
+              "recordSha256": {
+                "$ref": "#/$defs/sha256"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "changeReason": {
+                "enum": [
+                  "initial",
+                  "scope_correction",
+                  "rationale_correction",
+                  "evidence_correction",
+                  "authority_correction",
+                  "adjudication_outcome",
+                  "revalidation",
+                  "other"
+                ]
+              },
+              "changeSummary": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "recordSha256Basis": {
+          "const": "canonical_json_sorted_keys_lf"
+        },
+        "repositoryRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commitSha": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "lifecycle": {
+      "$comment": "§3.4 Figure 12. Enumerated states, enumerated legal transitions, and a derived record-side reuse gate.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stateMachineId",
+        "stateMachineVersion",
+        "state",
+        "stateEnteredAt",
+        "reuseGate",
+        "transitions",
+        "expiry"
+      ],
+      "properties": {
+        "stateMachineId": {
+          "const": "GJR-LIFECYCLE"
+        },
+        "stateMachineVersion": {
+          "const": "1.0.0"
+        },
+        "state": {
+          "enum": [
+            "draft",
+            "active",
+            "contested",
+            "retained_dissent",
+            "superseded",
+            "expired",
+            "revoked"
+          ]
+        },
+        "stateEnteredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reuseGate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "decision",
+            "derivedFrom",
+            "blockingReasons"
+          ],
+          "properties": {
+            "decision": {
+              "enum": [
+                "permitted",
+                "blocked"
+              ]
+            },
+            "derivedFrom": {
+              "const": "lifecycle.state"
+            },
+            "blockingReasons": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "not_yet_published",
+                  "challenge_open",
+                  "retained_dissent_pending_adjudication",
+                  "superseded",
+                  "expired",
+                  "revoked"
+                ]
+              }
+            },
+            "readSideGatesOwnedBy": {
+              "const": "SQ3"
+            }
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/transitionRecord"
+          }
+        },
+        "expiry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "policy",
+            "conditions"
+          ],
+          "properties": {
+            "policy": {
+              "enum": [
+                "none_declared",
+                "fixed_date",
+                "condition_based",
+                "review_interval"
+              ]
+            },
+            "validUntil": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "reviewIntervalDays": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "conditions": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "conditionId",
+                  "conditionType",
+                  "watchedRef"
+                ],
+                "properties": {
+                  "conditionId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "conditionType": {
+                    "enum": [
+                      "domain_description_change",
+                      "guideline_change",
+                      "system_model_change",
+                      "task_change",
+                      "population_change",
+                      "governing_policy_change",
+                      "elapsed_time"
+                    ]
+                  },
+                  "watchedRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "watchedSha256": {
+                    "$ref": "#/$defs/nullableSha256"
+                  }
+                }
+              }
+            },
+            "expiredAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "firedConditionId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "detectedBy": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "policy": {
+                    "const": "condition_based"
+                  }
+                },
+                "required": [
+                  "policy"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "conditions": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "policy": {
+                    "const": "fixed_date"
+                  }
+                },
+                "required": [
+                  "policy"
+                ]
+              },
+              "then": {
+                "required": [
+                  "validUntil"
+                ],
+                "properties": {
+                  "validUntil": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "supersession": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "supersededByRecordId",
+            "supersededAt",
+            "successorScopeRelation"
+          ],
+          "properties": {
+            "supersededByRecordId": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^GJR-[A-Za-z0-9_-]+$"
+            },
+            "supersededAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "supersessionReason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "successorScopeRelation": {
+              "enum": [
+                "narrower",
+                "wider",
+                "disjoint",
+                "equivalent",
+                "not_applicable"
+              ]
+            }
+          }
+        },
+        "revocation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "revoked",
+            "effect",
+            "propagationRequired"
+          ],
+          "properties": {
+            "revoked": {
+              "type": "boolean"
+            },
+            "revokedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "revokedByAuthorityRef": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reasonCode": {
+              "enum": [
+                "not_applicable",
+                "erroneous",
+                "scope_error",
+                "authority_invalid",
+                "privacy_violation",
+                "policy_change",
+                "requested_by_data_subject",
+                "other"
+              ]
+            },
+            "effect": {
+              "const": "must_not_influence_any_later_decision"
+            },
+            "propagationRequired": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "transitionRecord": {
+      "$comment": "Both accepted transitions and rejected attempts are recorded, so predictable rejection is inspectable.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attemptId",
+        "transitionId",
+        "from",
+        "to",
+        "attemptedAt",
+        "actorRef",
+        "accepted",
+        "guardEvaluations",
+        "rejectionCode"
+      ],
+      "properties": {
+        "attemptId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transitionId": {
+          "enum": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08",
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16",
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "TXX"
+          ]
+        },
+        "from": {
+          "enum": [
+            "draft",
+            "active",
+            "contested",
+            "retained_dissent",
+            "superseded",
+            "expired",
+            "revoked"
+          ]
+        },
+        "to": {
+          "enum": [
+            "draft",
+            "active",
+            "contested",
+            "retained_dissent",
+            "superseded",
+            "expired",
+            "revoked"
+          ]
+        },
+        "attemptedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actorRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actorAuthorityRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "guardEvaluations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "guardId",
+              "result"
+            ],
+            "properties": {
+              "guardId": {
+                "enum": [
+                  "G-SCOPE",
+                  "G-EXCL",
+                  "G-AUTH",
+                  "G-COMP",
+                  "G-TRACE",
+                  "G-PROV",
+                  "G-PRIV",
+                  "G-VIS",
+                  "G-VOCAB",
+                  "G-BIND",
+                  "G-VALID",
+                  "G-DISSENT-QUALIFIED",
+                  "G-DISSENT-RETAINED",
+                  "G-ADJ-AUTHORITY",
+                  "G-SUCCESSOR",
+                  "G-EXPIRY-CONDITION",
+                  "G-REVOKE-REASON",
+                  "G-REVOKE-AUTHORITY",
+                  "G-REVALIDATE"
+                ]
+              },
+              "result": {
+                "enum": [
+                  "pass",
+                  "fail",
+                  "not_applicable"
+                ]
+              },
+              "rejectionCode": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^GJR-E-[0-9]{3}$"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "rejectionCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^GJR-E-[0-9]{3}$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "accepted": {
+                "const": false
+              }
+            },
+            "required": [
+              "accepted"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rejectionCode": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "accepted": {
+                "const": true
+              }
+            },
+            "required": [
+              "accepted"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rejectionCode": {
+                "type": "null"
+              },
+              "transitionId": {
+                "not": {
+                  "const": "TXX"
+                }
+              }
+            }
+          }
+        },
+        {
+          "$comment": "Legal transition table. TXX is reserved for a rejected attempt at a pair that is not in the table.",
+          "oneOf": [
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T01"
+                },
+                "from": {
+                  "const": "draft"
+                },
+                "to": {
+                  "const": "active"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T02"
+                },
+                "from": {
+                  "const": "draft"
+                },
+                "to": {
+                  "const": "revoked"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T03"
+                },
+                "from": {
+                  "const": "active"
+                },
+                "to": {
+                  "const": "contested"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T04"
+                },
+                "from": {
+                  "const": "active"
+                },
+                "to": {
+                  "const": "retained_dissent"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T05"
+                },
+                "from": {
+                  "const": "active"
+                },
+                "to": {
+                  "const": "superseded"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T06"
+                },
+                "from": {
+                  "const": "active"
+                },
+                "to": {
+                  "const": "expired"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T07"
+                },
+                "from": {
+                  "const": "active"
+                },
+                "to": {
+                  "const": "revoked"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T08"
+                },
+                "from": {
+                  "const": "contested"
+                },
+                "to": {
+                  "const": "active"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T09"
+                },
+                "from": {
+                  "const": "contested"
+                },
+                "to": {
+                  "const": "retained_dissent"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T10"
+                },
+                "from": {
+                  "const": "contested"
+                },
+                "to": {
+                  "const": "superseded"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T11"
+                },
+                "from": {
+                  "const": "contested"
+                },
+                "to": {
+                  "const": "expired"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T12"
+                },
+                "from": {
+                  "const": "contested"
+                },
+                "to": {
+                  "const": "revoked"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T13"
+                },
+                "from": {
+                  "const": "retained_dissent"
+                },
+                "to": {
+                  "const": "active"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T14"
+                },
+                "from": {
+                  "const": "retained_dissent"
+                },
+                "to": {
+                  "const": "superseded"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T15"
+                },
+                "from": {
+                  "const": "retained_dissent"
+                },
+                "to": {
+                  "const": "revoked"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T16"
+                },
+                "from": {
+                  "const": "retained_dissent"
+                },
+                "to": {
+                  "const": "expired"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T17"
+                },
+                "from": {
+                  "const": "expired"
+                },
+                "to": {
+                  "const": "active"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T18"
+                },
+                "from": {
+                  "const": "expired"
+                },
+                "to": {
+                  "const": "superseded"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T19"
+                },
+                "from": {
+                  "const": "expired"
+                },
+                "to": {
+                  "const": "revoked"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "T20"
+                },
+                "from": {
+                  "const": "superseded"
+                },
+                "to": {
+                  "const": "revoked"
+                }
+              }
+            },
+            {
+              "properties": {
+                "transitionId": {
+                  "const": "TXX"
+                },
+                "accepted": {
+                  "const": false
+                }
+              },
+              "required": [
+                "accepted"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "receipts": {
+      "$comment": "§3.4 'later retrieval, use, and outcome receipts'. Append-only side log; the arrays are the snapshot projection.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "appendOnly",
+        "logRef",
+        "retrieval",
+        "use",
+        "outcome"
+      ],
+      "properties": {
+        "appendOnly": {
+          "const": true
+        },
+        "logRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "logSha256": {
+          "$ref": "#/$defs/nullableSha256"
+        },
+        "retrieval": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/retrievalReceipt"
+          }
+        },
+        "use": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/useReceipt"
+          }
+        },
+        "outcome": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/outcomeReceipt"
+          }
+        }
+      }
+    },
+    "retrievalReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "recordId",
+        "retrievedAt",
+        "consumerId",
+        "consumerType",
+        "purpose",
+        "viewerRef",
+        "visibilityDecision",
+        "lifecycleStateAtRetrieval",
+        "recordSha256AtRetrieval"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "pattern": "^RCPT-RET-[A-Za-z0-9_-]+$"
+        },
+        "recordId": {
+          "type": "string",
+          "pattern": "^GJR-[A-Za-z0-9_-]+$"
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "consumerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consumerType": {
+          "enum": [
+            "human_reviewer",
+            "system_component",
+            "evaluation_harness"
+          ]
+        },
+        "purpose": {
+          "enum": [
+            "review",
+            "adjudication",
+            "audit",
+            "reuse_evaluation",
+            "research_analysis",
+            "teaching"
+          ]
+        },
+        "viewerRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visibilityDecision": {
+          "enum": [
+            "granted",
+            "denied",
+            "redacted"
+          ]
+        },
+        "lifecycleStateAtRetrieval": {
+          "enum": [
+            "draft",
+            "active",
+            "contested",
+            "retained_dissent",
+            "superseded",
+            "expired",
+            "revoked",
+            "unknown"
+          ]
+        },
+        "recordSha256AtRetrieval": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "useReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "retrievalReceiptId",
+        "usedAt",
+        "consumerId",
+        "targetCaseRef",
+        "useMode",
+        "rulesApplied",
+        "contextDimensionRef"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "pattern": "^RCPT-USE-[A-Za-z0-9_-]+$"
+        },
+        "retrievalReceiptId": {
+          "type": "string",
+          "pattern": "^RCPT-RET-[A-Za-z0-9_-]+$"
+        },
+        "usedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "consumerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targetCaseRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "useMode": {
+          "enum": [
+            "attributed_advice",
+            "evidence_only",
+            "binding_decision",
+            "not_used"
+          ]
+        },
+        "rulesApplied": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "contextDimensionRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reuseProcedureRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reuseProcedureOwnedBy": {
+          "const": "SQ3"
+        }
+      }
+    },
+    "outcomeReceipt": {
+      "$comment": "Instrumentation hook only. Presence of a field is not a measurement and carries no outcome claim.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "useReceiptId",
+        "observedAt",
+        "observerId",
+        "observationMethod",
+        "outcomeClass",
+        "scopeViolationObserved",
+        "reliedOnNonActiveState",
+        "unsafeInfluenceFlag"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "pattern": "^RCPT-OUT-[A-Za-z0-9_-]+$"
+        },
+        "useReceiptId": {
+          "type": "string",
+          "pattern": "^RCPT-USE-[A-Za-z0-9_-]+$"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "observerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observationMethod": {
+          "enum": [
+            "human_review",
+            "automated_check",
+            "downstream_correction_log",
+            "not_observed"
+          ]
+        },
+        "outcomeClass": {
+          "enum": [
+            "accepted_by_reviewer",
+            "rejected_by_reviewer",
+            "corrected",
+            "no_effect",
+            "escalated",
+            "not_observed"
+          ]
+        },
+        "scopeViolationObserved": {
+          "type": "boolean"
+        },
+        "violatedTermId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reliedOnNonActiveState": {
+          "type": "boolean"
+        },
+        "stateReliedOn": {
+          "enum": [
+            "not_applicable",
+            "draft",
+            "contested",
+            "retained_dissent",
+            "superseded",
+            "expired",
+            "revoked"
+          ]
+        },
+        "unsafeInfluenceFlag": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "bindings": {
+      "$comment": "§3.4 p.17: bound to the exact system and artifact versions, so a later reader can determine what was actually inspected.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindingCompleteness",
+        "systemBindings",
+        "artifactBindings"
+      ],
+      "properties": {
+        "bindingCompleteness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unbound"
+          ]
+        },
+        "systemBindings": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "bindingId",
+              "componentId",
+              "componentVersion",
+              "componentSha256"
+            ],
+            "properties": {
+              "bindingId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "componentId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "componentVersion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "componentSha256": {
+                "$ref": "#/$defs/nullableSha256"
+              },
+              "componentRole": {
+                "enum": [
+                  "assessment_pipeline",
+                  "elicitation_interface",
+                  "judgment_store",
+                  "retrieval",
+                  "policy",
+                  "model",
+                  "other"
+                ]
+              }
+            }
+          }
+        },
+        "artifactBindings": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "bindingId",
+              "artifactRole",
+              "ref",
+              "presentedToReviewer"
+            ],
+            "properties": {
+              "bindingId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "artifactRole": {
+                "enum": [
+                  "source_artifact",
+                  "guideline",
+                  "rubric",
+                  "domain_description",
+                  "task_description",
+                  "prompt",
+                  "model",
+                  "evidence_excerpt",
+                  "schema",
+                  "verdict_vocabulary",
+                  "context_dimension_schema"
+                ]
+              },
+              "ref": {
+                "$ref": "#/$defs/versionedRef"
+              },
+              "presentedToReviewer": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "bindingCompleteness": {
+                "const": "complete"
+              }
+            },
+            "required": [
+              "bindingCompleteness"
+            ]
+          },
+          "then": {
+            "properties": {
+              "systemBindings": {
+                "items": {
+                  "properties": {
+                    "componentSha256": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "artifactBindings": {
+                "contains": {
+                  "properties": {
+                    "artifactRole": {
+                      "const": "verdict_vocabulary"
+                    }
+                  },
+                  "required": [
+                    "artifactRole"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
