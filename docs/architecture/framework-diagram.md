@@ -11,6 +11,15 @@ E15 is evaluation-only. Skill definitions: `docs/research/h-layer/skills-map.md`
 EXP-001..EXP-005, Version 0 vs. Version 1, usability questionnaire) lives in
 `docs/architecture/evaluation-diagram.md`, per the separate-diagrams directive.
 
+**Terminology note (added 2026-08-31):** the H1/H2/H3 grouping and S1-S7 skill labels below predate the
+2026-08-05 supervisor pivot to the SQ1 (selective intervention) / SQ2 (judgment representation and
+governance) / SQ3 (reuse and transfer) research-question framing now current in
+`docs/research/phd-proposal/three-study-contract.md`. The two framings describe closely related ideas
+(H1↔SQ1, H2↔SQ2, H3↔SQ3) but have never been formally reconciled - this diagram has not been rewritten
+in case the July H1/H2/H3 grouping still matters for the open agent-boundary decision below (section 6
+of `docs/research/h-layer/skills-map.md`). Do not treat H1/H2/H3 and SQ1/SQ2/SQ3 as interchangeable
+without checking that reconciliation has actually happened.
+
 ```mermaid
 flowchart TD
     A1[Agent 1: Language Advisor]

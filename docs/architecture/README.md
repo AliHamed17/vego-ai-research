@@ -12,6 +12,7 @@ How the research workspace is organized, why, and what each section does.
 6. **`research-lifecycle.md`** — end-to-end research flow
 7. **`reproducibility-contract.md`** — what we commit to for reproducibility
 8. **`source-package-manifest.md`** — what files are included/excluded
+9. **`thesis-and-progress-architecture.md`** — thesis/research documents plus the per-prompt tracking, hook, and generator lifecycle; the map of where everything lives and how it stays current
 
 ## Operational guides
 
