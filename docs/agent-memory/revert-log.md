@@ -2,6 +2,11 @@
 
 Record file changes and rollback notes here.
 
+## 2026-08-31 - Claude - Dashboard visualization enhancement (PR #29, merged to main)
+
+- Files updated: `scripts/build-progress-visualizations.ps1` (new `New-StackedBar`/`Get-BucketColorRole` functions replacing `New-HtmlBar`; full CSS rewrite to dataviz-skill tokens with light/dark support; added Milestone/Executive mermaid pies to the Markdown output), `docs/dashboards/progress-visualizations.generated.html` and `.generated.md` (regenerated), `docs/agent-memory/progress.md` (TASK-013 status Done, PR #6 merged), `docs/dashboards/kpi-register.md` (same PR #6 staleness fix), `docs/research/hardening/release-manifest-v3.json` (regenerated to include the above files' new hashes).
+- Rollback note: `git revert` the merge commit for PR #29 (`0812aa6`) restores the old flat-bar dashboard and the two stale PR #6 references; regenerate `docs/research/hardening/release-manifest-v3.json` afterward via `uv run python scripts/build_hardening_manifests.py` so it matches the reverted tree.
+
 ## 2026-08-20 - ChatGPT - Direct repair of external Literature Workbook v11 to v12
 
 - External file added: `/mnt/data/VEGO-AI_Literature_Workbook_RQ_Only_Organized_v12_Audit_Fixed.xlsx` plus SHA-256 and local verification report; original v11 workbook preserved unchanged.
