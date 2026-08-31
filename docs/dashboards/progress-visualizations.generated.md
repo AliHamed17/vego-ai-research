@@ -1,6 +1,6 @@
 # Progress Visualizations
 
-Generated: 2026-08-24 16:34 +03:00.
+Generated: 2026-08-31 13:15 +03:00.
 
 This generated dashboard summarizes docs/agent-memory/progress.md, docs/dashboards/progress-dashboard.md, and docs/dashboards/kpi-register.md. Regenerate it with .\scripts\build-progress-visualizations.ps1.
 
@@ -10,7 +10,7 @@ This generated dashboard summarizes docs/agent-memory/progress.md, docs/dashboar
 | --- | --- | --- |
 | Milestone completion | 74 of 85 done/green | [#################---] 87% |
 | KPI green rate | 11 of 30 green | [#######-------------] 37% |
-| Active work closed | 21 of 50 done | [########------------] 42% |
+| Active work closed | 22 of 50 done | [#########-----------] 44% |
 | Executive snapshot green | 6 of 22 green | [#####---------------] 27% |
 
 ## KPI Status Mix
@@ -29,10 +29,32 @@ pie showData
 ```mermaid
 pie showData
     title Active work status mix
-    "Done/Green" : 21
-    "In progress/Yellow" : 26
+    "Done/Green" : 22
+    "In progress/Yellow" : 25
     "Blocked" : 2
     "Other" : 1
+```
+
+## Milestone Status Mix
+
+```mermaid
+pie showData
+    title Milestone status mix
+    "Done/Green" : 74
+    "In progress/Yellow" : 4
+    "Other" : 7
+```
+
+## Executive Snapshot Mix
+
+```mermaid
+pie showData
+    title Executive snapshot mix
+    "Done/Green" : 6
+    "In progress/Yellow" : 4
+    "Risk/Red" : 1
+    "Blocked" : 3
+    "Other" : 8
 ```
 
 ## Milestone Timeline
@@ -104,9 +126,9 @@ mechanism readiness now; accuracy later"]:::wait
 | TASK-009 | Open | Keep dashboard/wiki tracking health verified. | Run `.\scripts\dashboard-health.ps1 -RequireOutbox` after every Confluence outbox build. |
 | TASK-010 | Open | Keep runtime dashboard snapshot fresh. | Run `.\scripts\build-confluence-wiki.ps1` after memory/dashboard updates; it regenerates `docs/dashboards/status-snapshot.generated.md`. |
 | TASK-011 | Open | Keep manual Confluence sync pack fresh while live access is blocked. | Run `.\scripts\build-confluence-wiki.ps1`; it regenerates `docs/confluence/manual-sync-pack.generated.md`. |
-| TASK-013 | In review | Harden M4B nested schema requirements. | Review and merge PR #6. |
 | TASK-016 | Open | Complete EXP-001 expert-label evaluation. | Add held-out/cross-setting expert labels, rerun `.\scripts\build-exp001-evaluation.ps1`, and update the evaluation report with generalization-safe metrics. |
 | TASK-017 | Open | Fill EXP-002 expert labeling package. | Human/supervisor should label at least 20 rows, preferably all 27 current rows, then rerun evaluation with leakage-aware partitions. |
+| TASK-019 | Open | Collect EXP-003 independent expert labels. | Fill the blind/full EXP-003 sheets with at least 20 generalization-safe labels before any accuracy-improvement claim or M4B-1 policy refinement. |
 
 ## Generated HTML
 
