@@ -16,6 +16,10 @@ How the research workspace is organized, why, and what each section does.
 
 ## Current enhancement plan
 
+- `../research/future-work-and-verification-plan-2026-09-01.md` — the step-by-step research
+  execution and pipeline-health plan that follows Wave 1: the standing verification ladder, the
+  gated Study 1-3 sequence, and the enhancement-vs-correctness comparison discipline.
+
 - `../research/architecture-enhancement-master-plan-2026-08-31.md` — the wave plan aligning
   architecture, engines, and experiments with the 2026-08-25 doctoral proposal; grounded in
   `../research/phd-proposal/architecture-alignment-audit-2026-08-31.md` (the verified gap
