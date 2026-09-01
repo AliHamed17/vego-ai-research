@@ -1,8 +1,8 @@
 # Confluence Wiki Sync
 
-The Confluence wiki is the external, curated view of the VEGO-AI research workspace. The repository and `docs/agent-memory/` remain the source of truth.
+Curated Confluence publishing workflow for the VEGO-AI research workspace. The repository and `docs/agent-memory/` remain the source of truth.
 
-## Current Mode
+## Current mode
 
 - Live Confluence target: configured locally, but Atlassian Rovo access is not granted yet.
 - Default behavior: generate local Markdown page bodies in `docs/confluence/outbox/`.
@@ -22,7 +22,7 @@ The intended live wiki target is:
 
 Current access note: Atlassian Rovo reports that cloud `724252a1-a5b7-45a5-b6ec-27a8292197ec` is not explicitly granted; rechecked 2026-06-14 13:40 +03:00. A Chrome UI fallback was checked 2026-06-13 13:50 +03:00, but the extension-backed browser channel was unavailable after retry. Live sync must wait until Atlassian access is granted or a browser route is enabled.
 
-## End-Of-Prompt Order
+## End-of-prompt order
 
 For every meaningful prompt:
 
@@ -34,7 +34,7 @@ For every meaningful prompt:
 6. If `docs/confluence/wiki-sync-config.local.json` has real Confluence IDs and Atlassian Rovo access is granted, update the configured Confluence pages with Atlassian Rovo using `contentFormat: markdown`.
 7. If IDs or access are missing, leave the generated outbox and manual sync pack as the pending wiki update and mention that live Confluence sync is pending.
 
-## Curated Pages
+## Curated pages
 
 | Page | Generated File | Purpose |
 | --- | --- | --- |
@@ -61,11 +61,11 @@ Do not commit the local config.
 
 The local config currently maps `home.pageId` to `294914`; child page IDs remain blank until the pages are created or discovered after Atlassian access is granted.
 
-## Manual Fallback
+## Manual fallback
 
 If Atlassian Rovo and browser-based access are unavailable, use `docs/confluence/manual-sync.md`. The generated `docs/confluence/manual-sync-pack.generated.md` contains the five curated page bodies and hashes for an approved manual update path.
 
-## Safety Rules
+## Safety rules
 
 - Do not mirror ignored artifacts or controlled contents.
 - Do not paste PDF, model, analysis, eval output, or raw data contents into Confluence.

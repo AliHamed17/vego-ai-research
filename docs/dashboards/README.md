@@ -1,15 +1,16 @@
 # Dashboards
 
-This folder contains tracked dashboard source pages for VEGO-AI progress, KPIs, validated results, and generated E2E progress views.
+Curated dashboard sources for VEGO-AI progress, KPIs, validated results, and generated review views.
 
-The dashboards are curated Markdown, designed for two uses:
+## Purpose
 
-- local project tracking in Git,
-- generated Confluence dashboard pages through `scripts/build-confluence-wiki.ps1`.
+- Track project state locally in Git
+- Generate Confluence dashboard pages through `scripts/build-confluence-wiki.ps1`
+- Provide metadata-only summaries for evidence-backed reporting
 
 The full memory, dashboard, Confluence, and scheduled update flow is documented in `../operations/progress-update-architecture.md`.
 
-## Files
+## Dashboard files
 
 | File | Purpose |
 | --- | --- |
@@ -32,7 +33,7 @@ The full memory, dashboard, Confluence, and scheduled update flow is documented 
 - Run `.\scripts\dashboard-health.ps1 -RequireLivePageIds` only after Atlassian Rovo access is granted and child page IDs are recorded locally.
 - Use `docs/confluence/manual-sync.md` when a manual Confluence update path is needed while live access is blocked.
 
-## Update Rules
+## Update rules
 
 - Update these dashboards after meaningful milestone, experiment, review, or publication-state changes.
 - Keep values evidence-backed; cite commits, tags, commands, tests, or docs.

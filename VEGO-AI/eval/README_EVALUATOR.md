@@ -1,12 +1,19 @@
-# Evaluation Pipeline — Setup & Run Guide (eval)
+# Evaluation Pipeline
 
-This guide covers the **evaluation system** (Agents A, B, C) that measures the quality
-of outputs produced by the main framework pipeline (Agents 1–4).
+Setup and run guide for the evaluation system (Agents A, B, C) that measures
+outputs from the main framework pipeline (Agents 1–4).
 
-`eval` is a sibling of `framework` and imports all shared code from it
-automatically via `sys.path` — no copying or installation required.
+`eval` is a sibling of `framework` and imports shared code automatically via
+`sys.path` — no copying or installation required.
 
 ---
+
+## Overview
+
+- **Framework**: shared pipeline code
+- **Eval**: evaluation entry point and scoring agents
+- **Inputs**: fixed language/domain references and scoring schema
+- **ModelEval**: external case model files
 
 ## Directory layout
 
@@ -42,7 +49,7 @@ parent/
 
 ---
 
-## What's in this package
+## Package contents
 
 ### Evaluation-specific files
 
@@ -54,7 +61,7 @@ parent/
 | `agentC_case_scorer.py` | Skills: score_case_model · aggregate_scores · DEFAULT_SCORING_SCHEMA |
 | `eval_config.json` | Evaluation configuration |
 
-### Imported from `framework` (no copying needed)
+### Imported from `framework`
 
 | Module | Purpose |
 |---|---|
@@ -70,7 +77,9 @@ parent/
 
 ---
 
-## Step 1 — Configure model directories (before first run)
+## Setup
+
+### Step 1 — Configure model directories
 
 Open `eval_config.json` and set the four paths in the `"model_dirs"` block.
 The defaults assume `Dataset1_ModelEval/` is a sibling of `eval/`:
@@ -102,7 +111,7 @@ ParkWise-UseCaseDiagram/
 
 ---
 
-## Step 2 — Python environment
+### Step 2 — Python environment
 
 The environment should be created and activated **once** for the whole project.
 If you already set it up for `framework`, activate the same one — no reinstall needed.
@@ -127,7 +136,7 @@ pip install -r requirements.txt
 
 ---
 
-## Step 3 — API key
+### Step 3 — API key
 
 **macOS / Linux**
 ```bash
@@ -149,7 +158,7 @@ in `eval_config.json` are rejected; use an environment or project secret only.
 
 ---
 
-## Step 4 — Run the evaluation pipeline
+### Step 4 — Run the evaluation pipeline
 
 Run from the `eval/` directory:
 
@@ -182,7 +191,7 @@ scores every case model using Agents A–C.
 
 ---
 
-## How the evaluation pipeline works
+## Pipeline flow
 
 **Phase A — Language Template Evaluation**
 Runs Agent 1 three times independently, clusters semantically similar guidelines
@@ -203,6 +212,7 @@ For each case model `.txt` file in the configured folder, runs Agent 3 (map → 
 ---
 
 ## Output files
+
 
 Output is written to `eval_output/<setting_id>/` for each setting.
 
