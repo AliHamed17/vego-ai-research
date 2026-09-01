@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "ExperimentDefinition-v3",
+  "id": "EXP-099",
+  "title": "C4 integrated four-arm evaluation - design-only sketch (no outcomes)",
+  "researchSpace": "PhD",
+  "researchTrack": "C4 integrated lifecycle (U-RQ)",
+  "researchQuestion": "U-RQ: once every evidence gate opens, how does the governed end-to-end process compare with AI-only, human-only, and ordinary human-in-the-loop configurations over identical frozen inputs at a matched attention budget, on preregistered outcomes?",
+  "definitionStatus": "future_study",
+  "evidenceClass": "proposal",
+  "architectureTargets": [
+    "src/vego_governed/policy.py",
+    "src/vego_governed/records.py",
+    "src/vego_governed/reuse.py"
+  ],
+  "prerequisites": [
+    "EXP-005 reaches at least 20 generalization-safe labels (currently 0/24)",
+    "Recruited reviewers, raters, and an independent implementer",
+    "Supervisor-approved four-arm protocol with frozen preregistration",
+    "Frozen fixtures, metric definitions, and matched attention budget"
+  ],
+  "approvalGates": [
+    "Supervisor approval recorded before any arm runs",
+    "Ethics and consent approval for human participation",
+    "Preregistration frozen before any outcome is inspected"
+  ],
+  "arms": [
+    {
+      "armId": "ai_only",
+      "description": "Automated judgment with no human review at any point; the automation-only reference condition.",
+      "role": "baseline"
+    },
+    {
+      "armId": "human_only",
+      "description": "Human judgment with no automated support; the human-only reference condition.",
+      "role": "comparator"
+    },
+    {
+      "armId": "ordinary_hitl",
+      "description": "Conventional human-in-the-loop review without the governed-judgment contract, gates, or receipts.",
+      "role": "control"
+    },
+    {
+      "armId": "governed",
+      "description": "The full governed process: selective-intervention policy, governed-judgment records, and controlled reuse gates operating together.",
+      "role": "treatment"
+    }
+  ],
+  "runner": null,
+  "evaluator": null,
+  "metricDefinitionIds": [],
+  "acceptanceRules": [
+    "Design only: this definition authorizes no run and computes no outcome.",
+    "All four arms must be evaluated over identical frozen inputs at one matched attention budget.",
+    "Outcome metrics may be attached only after preregistration is frozen and the evidence gates above are open."
+  ],
+  "comparisonSpec": {
+    "comparisonFamily": "empirical",
+    "treatmentField": "arms",
+    "allowedDifferences": ["arms"],
+    "invariantFields": [
+      "datasetHash",
+      "partitionHash",
+      "attentionBudgetId",
+      "metricSchemaVersion"
+    ],
+    "unitOfAnalysis": "contested fragment",
+    "requiresPairedCohort": true
+  },
+  "claimBoundary": "Design-only sketch of the C4 four-arm evaluation. No arm has been run and no outcome exists; EXP-005 is 0/24 generalization-safe labels, so no accuracy, effort, capture, or generalization claim is made or permitted by this record.",
+  "validityThreats": [
+    "Reviewer contamination across arms",
+    "Budget mismatch across arms breaking comparability",
+    "Outcome switching after inspection without preregistration"
+  ],
+  "owner": "Research program",
+  "nextAction": "Hold as a design sketch until EXP-005 reaches at least 20 generalization-safe labels and the supervisor approves the four-arm protocol.",
+  "artifactLinks": [
+    "docs/research/architecture-enhancement-master-plan-2026-08-31.md",
+    "docs/research/phd-proposal/architecture-alignment-audit-2026-08-31.md",
+    "schemas/experiment-definition-v3.schema.json"
+  ]
+}

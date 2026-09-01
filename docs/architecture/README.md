@@ -14,6 +14,13 @@ How the research workspace is organized, why, and what each section does.
 8. **`source-package-manifest.md`** — what files are included/excluded
 9. **`thesis-and-progress-architecture.md`** — thesis/research documents plus the per-prompt tracking, hook, and generator lifecycle; the map of where everything lives and how it stays current
 
+## Current enhancement plan
+
+- `../research/architecture-enhancement-master-plan-2026-08-31.md` — the wave plan aligning
+  architecture, engines, and experiments with the 2026-08-25 doctoral proposal; grounded in
+  `../research/phd-proposal/architecture-alignment-audit-2026-08-31.md` (the verified gap
+  inventory) and gated by `../research/phd-proposal/2026-08-31-architecture-decisions-packet.md`.
+
 ## Operational guides
 
 - `../operations/progress-update-architecture.md` — detailed progress tracking flow

@@ -1,0 +1,1070 @@
+{
+  "schemaVersion": "GovernedJudgmentRecord-v1",
+  "recordId": "GJR-SE310-2026S-A2-0417-ACTOR-R2",
+  "contractStatus": "Draft — not approved",
+  "conformanceProfile": "full_governed",
+  "immutable": true,
+  "ablation": {
+    "mode": "none",
+    "profileId": null,
+    "withheldComponents": [],
+    "strikeMethod": "delete_top_level_property",
+    "harnessId": null,
+    "harnessVersion": null,
+    "harnessNote": "Ablation mode none: this is the intact reference instance that the Phase B field-removal profiles GJR-ABL-01..06 are struck from."
+  },
+  "createdAt": "2026-05-18T09:12:00+03:00",
+  "caseGrounding": {
+    "caseId": "CASE-SE310-2026S-A2-0417",
+    "claimId": "CLAIM-SE310-2026S-A2-0417-ACTOR-01",
+    "fragmentRef": {
+      "locator": "actor:ShiftSupervisor@SUB-SE310-2026S-A2-0417",
+      "locatorType": "element_id"
+    },
+    "artifactRef": {
+      "id": "SUB-SE310-2026S-A2-0417",
+      "version": "final",
+      "sha256": "7190001c5c98132dcecace34459289cb81d09a801a5ced2c4346e2a526a8f7d7",
+      "locator": "store:coursework/INST-01/SE310-2026S/A2/0417"
+    },
+    "guidelineRef": {
+      "id": "REF-GUIDE-UML-DOMAIN-2.4",
+      "version": "2.4",
+      "sha256": "bac9ca49a610eef4eee86a9d3efe7f2c980c7c1267794bba53c4bda0f3bc426b",
+      "locator": "store:guidelines/INST-01/uml-domain/2.4"
+    },
+    "contextFacets": {
+      "contextDimensionSchemaId": "CTXDIM-COURSE-MODEL-REVIEW",
+      "contextDimensionSchemaVersion": "1.1",
+      "contextDimensionSchemaSha256": "01b7a3a14cec98237110897e2c9d9dbe43f1aa268c8809a145366dcfd7de1a53",
+      "values": {
+        "institution": "INST-01",
+        "course_offering": "SE310-2026S",
+        "assignment": "A2-warehouse-domain-model",
+        "task_type": "domain_model_construction_from_shared_description",
+        "domain": "warehouse-operations",
+        "domain_description": "DD-WAREHOUSE-OPS-1.3",
+        "guideline_family": "REF-GUIDE-UML-DOMAIN-2.4",
+        "notation": "UML-2.5.1-use-case-actor",
+        "artifact_language": "en",
+        "reviewer_role": "course_instructor",
+        "question_kind": "grading_acceptability",
+        "fragment_pattern": "added-actor-mediating-described-but-unattributed-approval"
+      }
+    },
+    "observedDeviation": "The submitted model contains an actor 'Shift Supervisor' that the domain description never mentions. It mediates two relations - release of zone-boundary movements (R-07) and release of restricted-stock movements (R-12) - that other submissions in the comparison set attach directly to the operator. No clause of reference guideline REF-GUIDE-UML-DOMAIN-2.4 covers this fragment, so the Model Inspector reported it as uncovered rather than as compliant or non-compliant.",
+    "evidence": [
+      {
+        "evidenceId": "EV-01",
+        "evidenceType": "domain_description",
+        "locator": "DD-WAREHOUSE-OPS-1.3#p.3/para.4",
+        "locatorType": "page_ref",
+        "contentSha256": "16ef4d2808f150eba1f53a52287e7410c832214d559cc6dc22609de16240781c",
+        "presentedToReviewer": true,
+        "privacyClass": "internal",
+        "retrievability": "referenced_stable",
+        "excerpt": "Stock movements are recorded by the operator. Movements that cross a zone boundary, and movements of restricted stock, are released only after they have been approved; approval is recorded against the shift, not against the operator who entered the movement."
+      },
+      {
+        "evidenceId": "EV-02",
+        "evidenceType": "guideline_text",
+        "locator": "REF-GUIDE-UML-DOMAIN-2.4#G-4.2",
+        "locatorType": "uri",
+        "contentSha256": "53349514907d632598282c4292105f0257ceb74b332c03b94d41615e7abd3b31",
+        "presentedToReviewer": true,
+        "privacyClass": "internal",
+        "retrievability": "referenced_stable",
+        "excerpt": "G-4.2 Actors. Each actor shall denote a party outside the system boundary that interacts with it. Actors shall be drawn from the roles the domain description identifies."
+      },
+      {
+        "evidenceId": "EV-03",
+        "evidenceType": "peer_submission",
+        "locator": "pattern:R-07+R-12-attached-directly-to-operator",
+        "locatorType": "pattern_signature",
+        "contentSha256": "cad77dbf8c925db4290eec86558ecad7c7927ae79f5f890715eb1004ba426eec",
+        "presentedToReviewer": true,
+        "privacyClass": "sensitive_personal",
+        "retrievability": "referenced_stable",
+        "excerpt": null
+      },
+      {
+        "evidenceId": "EV-04",
+        "evidenceType": "system_output",
+        "locator": "run:model-inspector/2026-05-11/SUB-0417#uncovered-3",
+        "locatorType": "uri",
+        "contentSha256": "73c8ec53de63e249c6b53c09144d2e591b2ce2e67d483c9a3a8ceb2cd44b4d46",
+        "presentedToReviewer": true,
+        "privacyClass": "internal",
+        "retrievability": "embedded",
+        "excerpt": "UNCOVERED-FRAGMENT: actor 'Shift Supervisor' mediates relations R-07 and R-12; no reference guideline clause covers this fragment. Reported as uncovered; no compliance verdict issued."
+      },
+      {
+        "evidenceId": "EV-05",
+        "evidenceType": "source_artifact_excerpt",
+        "locator": "actor:ShiftSupervisor@SUB-SE310-2026S-A2-0417",
+        "locatorType": "element_id",
+        "contentSha256": "8701aa40003c62b372722f42ac257618a45e18ac05254797edb01469d3de4bcd",
+        "presentedToReviewer": true,
+        "privacyClass": "sensitive_personal",
+        "retrievability": "referenced_stable",
+        "excerpt": null
+      },
+      {
+        "evidenceId": "EV-06",
+        "evidenceType": "task_description",
+        "locator": "ASSIGN-SE310-2026S-A2#1.1/task",
+        "locatorType": "page_ref",
+        "contentSha256": "015cac4359cee689f845c8ec8f62e432ab131510a8ade9d45dd640524c5e169d",
+        "presentedToReviewer": true,
+        "privacyClass": "internal",
+        "retrievability": "referenced_stable",
+        "excerpt": "Produce a domain model of the described warehouse operation. Represent the parties that interact with the system and the responsibilities the description assigns to them."
+      },
+      {
+        "evidenceId": "EV-07",
+        "evidenceType": "external_reference",
+        "locator": "notation:UML-2.5.1#Actor",
+        "locatorType": "uri",
+        "contentSha256": "db00ff0f0e6e0afd418f40beba435429fc19c4a9d68f7a542e403d639b9a2cad",
+        "presentedToReviewer": true,
+        "privacyClass": "public",
+        "retrievability": "referenced_stable",
+        "excerpt": null
+      }
+    ],
+    "groundingIntegrity": "reconstructable"
+  },
+  "decisionTrace": {
+    "traceSemantics": "surfaced_inspectable_reasoning_not_hidden_chain_of_thought",
+    "capturedAt": "at_judgment_time",
+    "reconstructedAfterTheFact": false,
+    "systemClaimConfidence": null,
+    "slots": {
+      "claim": {
+        "slotId": "DT-CLAIM-0417-ACTOR",
+        "content": "The Model Inspector claims that the submitted model contains a fragment no reference guideline clause covers: an actor 'Shift Supervisor', absent from the domain description, standing between the operator and two relations (R-07 zone-boundary movement release, R-12 restricted-stock movement release) that other submissions in the comparison set attach directly to the operator. The system issued no compliance verdict of its own.",
+        "presentedToReviewer": true,
+        "evidenceIds": [
+          "EV-04",
+          "EV-05"
+        ],
+        "bindingIds": [
+          "BND-SYS-01",
+          "BND-ART-01"
+        ]
+      },
+      "evidence": {
+        "slotId": "DT-EVID-0417-ACTOR",
+        "content": "Placed in front of the instructor at judgment time, in this order: the uncovered-fragment audit entry (EV-04); the model fragment itself (EV-05); the domain-description paragraph that requires approval of exactly those two movement classes without naming an approving party (EV-01); guideline clause G-4.2 on actors (EV-02); the assignment brief (EV-06); the comparison-set signature in which both relations attach directly to the operator (EV-03); the notation reference for Actor (EV-07). Nothing else was shown, and nothing shown is withheld here.",
+        "presentedToReviewer": true,
+        "evidenceIds": [
+          "EV-01",
+          "EV-02",
+          "EV-03",
+          "EV-04",
+          "EV-05",
+          "EV-06",
+          "EV-07"
+        ],
+        "bindingIds": [
+          "BND-ART-04",
+          "BND-ART-05"
+        ]
+      },
+      "appliedRuleOrGuideline": {
+        "slotId": "DT-RULE-0417-ACTOR",
+        "content": "Applied: reference guideline G-4.2 (actors denote parties outside the system boundary, drawn from the roles the domain description identifies), read together with course rubric RUBRIC-SE310-2026S-A2 clause 3(b), which admits a representation the description implies but does not name. G-4.2 is silent on an actor introduced to carry a responsibility the description assigns to no named party, so the rubric - which the instructor owns - and not the guideline supplied the decision rule. This is recorded because it is the point on which the ruling is contestable.",
+        "presentedToReviewer": true,
+        "evidenceIds": [
+          "EV-02"
+        ],
+        "bindingIds": [
+          "BND-ART-02",
+          "BND-ART-03"
+        ]
+      },
+      "alternativesConsidered": {
+        "slotId": "DT-ALT-0417-ACTOR",
+        "content": "Six readings of the identical fragment were live and none was privileged before judgment: (1) defensible abstraction of an unnamed role; (2) modeling-language error - an actor used where the notation calls for a role or boundary element; (3) domain misconception about who authorizes what; (4) genuine ambiguity in the task description; (5) gap in the guideline, which should admit this representation and does not; (6) legitimate local or pedagogical decision by the instructor. Reading (1) was selected. (3) was rejected on the decisive inference below. (4) and (5) are recorded as live and are the reason this ruling rests on rubric ownership. (6) is recorded as an uncertainty source rather than denied. (2) was NOT decided: it is a notation question the instructor did not claim to settle, and it is the subject of retained dissent GJD-SE310-2026S-A2-0417-ACTOR-01.",
+        "presentedToReviewer": true,
+        "evidenceIds": [
+          "EV-01",
+          "EV-02",
+          "EV-06",
+          "EV-07"
+        ]
+      },
+      "sourceOfUncertainty": {
+        "slotId": "DT-UNC-0417-ACTOR",
+        "content": "Two sources, stated before the verdict rather than after it. First, the reference guideline has no clause covering an actor introduced for a responsibility the description leaves unattributed, so the ruling rests on rubric ownership rather than on guideline text. Second, whether 'Shift Supervisor' is properly an actor or a role of Operator is a notation question the course's notation reference does not settle for this case; the instructor holds rubric authority over the grading question but asserted no competence on the notation question, which is assessed separately and is not held by this reviewer.",
+        "presentedToReviewer": true,
+        "evidenceIds": [
+          "EV-02",
+          "EV-07"
+        ]
+      },
+      "decisiveInference": {
+        "slotId": "DT-INF-0417-ACTOR",
+        "content": "The domain description already places an approval step between the operator and exactly the two movement classes the added actor mediates, and it attributes that approval to the shift rather than to the operator who entered the movement. Naming an agent for a mediation the description already asserts adds no content to the domain; it makes explicit what the text implies. That is what separates reading (1) from reading (3): the student did not relocate authorization, the description had already separated it. It does not separate reading (1) from reading (2), which is about notation rather than domain content and is left open here.",
+        "presentedToReviewer": true,
+        "evidenceIds": [
+          "EV-01",
+          "EV-05"
+        ],
+        "bindingIds": [
+          "BND-ART-04"
+        ]
+      }
+    }
+  },
+  "verdict": {
+    "vocabularyId": "VOCAB-COURSE-MODEL-REVIEW",
+    "vocabularyVersion": "1.2.0",
+    "vocabularySha256": "f63d1190df22413168321a817bd4b30cd5d011695423a76e7538a074ee8d5273",
+    "value": "acceptable_as_submitted",
+    "valueLabel": "Acceptable as submitted - defensible abstraction of a role the description implies without naming",
+    "dispositionClass": "corrects_system_claim"
+  },
+  "rationale": {
+    "freeText": "The added actor is a defensible abstraction of a role the description implies without naming. The description itself routes exactly the two relations in question through an approval that it attributes to the shift and not to the operator; giving that approval an agent makes explicit what the text already asserts. The reference guideline does not cover the case, so this ruling is made under rubric clause 3(b), which the instructor owns, and it is recorded as a rubric ruling rather than as a guideline reading. It does not decide whether the notation should carry this as an actor or as a role of Operator; that question is excluded from scope and is under retained dissent.",
+    "structure": [
+      {
+        "assertionId": "A-01",
+        "assertion": "The description asserts the mediation the added actor represents; naming its agent adds no domain content.",
+        "rationaleRole": "grounds_verdict",
+        "traceSlotRef": "DT-INF-0417-ACTOR",
+        "evidenceIds": [
+          "EV-01",
+          "EV-05"
+        ]
+      },
+      {
+        "assertionId": "A-02",
+        "assertion": "Reading (3), domain misconception about who authorizes what, is rejected: the separation of authorization from data entry is in the description, not introduced by the student.",
+        "rationaleRole": "rejects_alternative",
+        "traceSlotRef": "DT-ALT-0417-ACTOR",
+        "evidenceIds": [
+          "EV-01"
+        ]
+      },
+      {
+        "assertionId": "A-03",
+        "assertion": "The ruling holds for this fragment pattern under this domain description version only; the actor's name is the student's and not the description's, so nothing here licenses the name.",
+        "rationaleRole": "qualifies_scope",
+        "traceSlotRef": "DT-RULE-0417-ACTOR",
+        "evidenceIds": [
+          "EV-01"
+        ]
+      },
+      {
+        "assertionId": "A-04",
+        "assertion": "The notation question - actor versus role of Operator - is excluded (EXC-04). Guideline G-4.2 read strictly and alone would fail this actor, and that reading is not resolved here.",
+        "rationaleRole": "records_exclusion",
+        "traceSlotRef": "DT-RULE-0417-ACTOR",
+        "evidenceIds": [
+          "EV-02",
+          "EV-07"
+        ]
+      },
+      {
+        "assertionId": "A-05",
+        "assertion": "That other submissions attach both relations directly to the operator shows the representation is not modal; it does not show it is wrong, and the rubric does not grade by majority.",
+        "rationaleRole": "answers_counterevidence",
+        "traceSlotRef": "DT-EVID-0417-ACTOR",
+        "evidenceIds": [
+          "EV-03"
+        ]
+      },
+      {
+        "assertionId": "A-06",
+        "assertion": "The ruling is made under a guideline gap and by a reviewer who claims no competence on the notation question; both are recorded as uncertainty rather than resolved.",
+        "rationaleRole": "states_uncertainty",
+        "traceSlotRef": "DT-UNC-0417-ACTOR",
+        "evidenceIds": [
+          "EV-02",
+          "EV-07"
+        ]
+      }
+    ]
+  },
+  "uncertainty": {
+    "selfRating": "Medium",
+    "sources": [
+      {
+        "sourceId": "UNC-01",
+        "sourceClass": "guideline_gap",
+        "statement": "REF-GUIDE-UML-DOMAIN-2.4 has no clause covering an actor introduced for a responsibility the description leaves unattributed. Reading (5) of the six is therefore live: the guideline arguably should admit this representation and does not.",
+        "traceSlotRef": "DT-UNC-0417-ACTOR"
+      },
+      {
+        "sourceId": "UNC-02",
+        "sourceClass": "notation_semantics",
+        "statement": "Whether an organizational party that specializes another party already in the model belongs in the actor set or the role set is not settled by the course's notation reference for this case. This reviewer's competence assessment does not extend to it.",
+        "traceSlotRef": "DT-UNC-0417-ACTOR"
+      },
+      {
+        "sourceId": "UNC-03",
+        "sourceClass": "ambiguous_task_description",
+        "statement": "Reading (4) is live: the assignment brief asks for the parties that interact with the system and the responsibilities the description assigns to them, without saying what to do with a responsibility the description assigns to no party.",
+        "traceSlotRef": "DT-ALT-0417-ACTOR"
+      },
+      {
+        "sourceId": "UNC-04",
+        "sourceClass": "conflicting_qualified_opinion",
+        "statement": "A qualified dissent (GJD-SE310-2026S-A2-0417-ACTOR-01) is on record from a reviewer separately assessed competent on notation semantics and holding delegated authority for that sub-question. It is retained rather than reconciled, and it blocks reuse of this record.",
+        "traceSlotRef": "DT-ALT-0417-ACTOR"
+      },
+      {
+        "sourceId": "UNC-05",
+        "sourceClass": "local_permitted_decision",
+        "statement": "Reading (6) is accepted as a description of this ruling's status: it is a local pedagogical decision permitted by rubric ownership. It asserts nothing about how another instructor would or should rule, and the scope exclusions say so.",
+        "traceSlotRef": "DT-RULE-0417-ACTOR"
+      }
+    ]
+  },
+  "counterevidence": [
+    {
+      "counterevidenceId": "CE-01",
+      "evidenceIds": [
+        "EV-03"
+      ],
+      "statement": "Other submissions in the comparison set attach both relations directly to the operator; the added actor is not the modal representation of this fragment.",
+      "weighedAs": "considered_and_outweighed",
+      "effectOnVerdict": "none",
+      "answeredByAssertionId": "A-05"
+    },
+    {
+      "counterevidenceId": "CE-02",
+      "evidenceIds": [
+        "EV-01"
+      ],
+      "statement": "The domain description uses no supervisory title anywhere. The name 'Shift Supervisor' is supplied by the student, not by the text.",
+      "weighedAs": "considered_and_outweighed",
+      "effectOnVerdict": "narrowed_scope",
+      "answeredByAssertionId": "A-03"
+    },
+    {
+      "counterevidenceId": "CE-03",
+      "evidenceIds": [
+        "EV-02"
+      ],
+      "statement": "Guideline clause G-4.2 requires actors to be drawn from the roles the domain description identifies. On a strict reading of G-4.2 alone, this actor fails.",
+      "weighedAs": "considered_and_unresolved",
+      "effectOnVerdict": "added_exclusion",
+      "answeredByAssertionId": "A-04"
+    },
+    {
+      "counterevidenceId": "CE-04",
+      "evidenceIds": [
+        "EV-07"
+      ],
+      "statement": "The notation reference can be read to require a role, not an actor, where a party specializes another party already present in the model. That reading is the basis of the retained dissent.",
+      "weighedAs": "considered_and_unresolved",
+      "effectOnVerdict": "lowered_confidence",
+      "answeredByAssertionId": "A-06"
+    }
+  ],
+  "competence": {
+    "assessmentId": "COMP-SE310-2026S-INSTR01-A2-ACTOR",
+    "assessedForClaimId": "CLAIM-SE310-2026S-A2-0417-ACTOR-01",
+    "claimSpecific": true,
+    "assessmentMethod": "declared_credential",
+    "assessmentBasisRef": "credential:INST-01/faculty-record/instructor-01#conceptual-modeling-teaching-qualification",
+    "assessmentBasisSha256": "a20edc25bee42575a611e392e00b8ea6860e023a856b65460c7e6699907bb305",
+    "level": "adequate",
+    "assessedAt": "2026-03-01T08:00:00+02:00",
+    "assessorRef": "person:department-teaching-committee-chair",
+    "aggregateProfileRef": "profile:instructor-01/aggregate-reviewer-profile",
+    "aggregateProfileIsNotSubstitute": true,
+    "distinctFromAuthority": true
+  },
+  "authority": {
+    "authorityId": "AUTH-SE310-2026S-RUBRIC-01",
+    "holderRef": "person:instructor-01",
+    "roleRef": "role:course-instructor-of-record",
+    "claimScoped": true,
+    "mandate": {
+      "claimId": "CLAIM-SE310-2026S-A2-0417-ACTOR-01",
+      "fragmentRef": "actor:ShiftSupervisor@SUB-SE310-2026S-A2-0417",
+      "terms": [
+        {
+          "dimensionId": "course_offering",
+          "operator": "equals",
+          "values": [
+            "SE310-2026S"
+          ]
+        },
+        {
+          "dimensionId": "assignment",
+          "operator": "equals",
+          "values": [
+            "A2-warehouse-domain-model"
+          ]
+        },
+        {
+          "dimensionId": "question_kind",
+          "operator": "equals",
+          "values": [
+            "grading_acceptability"
+          ]
+        }
+      ]
+    },
+    "authorityBasis": "course_ownership",
+    "bindingPower": "binds_automated_decisions",
+    "grantedAt": "2026-03-01T08:00:00+02:00",
+    "validUntil": "2026-09-30T23:59:59+03:00",
+    "grantRef": "registry:INST-01/course-assignments/SE310-2026S#instructor-of-record",
+    "grantSha256": "0baa3e3b7cb4a9c753daaf1ece1bf23211482f56bc2e4cc068ad6850eff8eef7",
+    "verifiedAt": "2026-05-12T10:18:00+03:00",
+    "verificationMethod": "registry_lookup",
+    "distinctFromCompetence": true
+  },
+  "privacy": {
+    "classification": "sensitive_personal",
+    "handlingConstraints": [
+      "no_public_repository",
+      "no_hosted_llm_service",
+      "approved_environment_only",
+      "pseudonymize_before_export",
+      "retention_limited"
+    ],
+    "dataSubjectPresent": true,
+    "retentionUntil": "2029-09-30",
+    "legalBasisRef": "policy:INST-01/student-records-retention#assessment-evidence",
+    "redactionProfileId": "REDACT-STUDENT-COURSEWORK-01"
+  },
+  "visibility": {
+    "defaultDecision": "deny",
+    "viewerPredicate": {
+      "allowedRoles": [
+        "role:course-instructor-of-record",
+        "role:course-teaching-assistant",
+        "role:programme-adjudication-panel",
+        "role:institutional-auditor",
+        "role:automated-assessment-pipeline"
+      ],
+      "allowedHolderRefs": [
+        "person:instructor-01",
+        "person:teaching-assistant-03"
+      ],
+      "requiresPurpose": true,
+      "allowedPurposes": [
+        "review",
+        "adjudication",
+        "audit",
+        "reuse_evaluation",
+        "teaching"
+      ]
+    },
+    "evidenceVisibility": [
+      {
+        "evidenceId": "EV-01",
+        "decision": "visible",
+        "redactionProfileId": null
+      },
+      {
+        "evidenceId": "EV-02",
+        "decision": "visible",
+        "redactionProfileId": null
+      },
+      {
+        "evidenceId": "EV-03",
+        "decision": "redacted",
+        "redactionProfileId": "REDACT-STUDENT-COURSEWORK-01"
+      },
+      {
+        "evidenceId": "EV-04",
+        "decision": "visible",
+        "redactionProfileId": null
+      },
+      {
+        "evidenceId": "EV-05",
+        "decision": "redacted",
+        "redactionProfileId": "REDACT-STUDENT-COURSEWORK-01"
+      },
+      {
+        "evidenceId": "EV-06",
+        "decision": "visible",
+        "redactionProfileId": null
+      },
+      {
+        "evidenceId": "EV-07",
+        "decision": "visible",
+        "redactionProfileId": null
+      }
+    ]
+  },
+  "validation": {
+    "validationStatus": "validated",
+    "checks": [
+      {
+        "checkId": "VC-01",
+        "checkType": "schema_conformance",
+        "validatorId": "scripts/validate_research_records.py",
+        "validatorVersion": "2026-08-31",
+        "validatorSha256": "bf85fa86406912c7d70240b1f6f615498018381773c5faaf3701dc606659c566",
+        "result": "pass",
+        "reasonCode": null,
+        "performedAt": "2026-05-18T09:12:30+03:00",
+        "evidenceRef": "schemas/governed-judgment-record-v1.schema.json"
+      },
+      {
+        "checkId": "VC-02",
+        "checkType": "rule_check",
+        "validatorId": "governed-judgment-record-v1#allOf/CHK-01..CHK-18",
+        "validatorVersion": "1.0.0",
+        "validatorSha256": "c3030b9c802e561b2250af4ebab96558f88336f6366cb6b67be8a881696081ec",
+        "result": "pass",
+        "reasonCode": null,
+        "performedAt": "2026-05-18T09:12:30+03:00",
+        "evidenceRef": null
+      },
+      {
+        "checkId": "VC-03",
+        "checkType": "reconstructability_review",
+        "validatorId": "protocol:C2-conformance-suite#reconstructability",
+        "validatorVersion": "0.1-draft",
+        "validatorSha256": null,
+        "result": "not_run",
+        "reasonCode": "independent_implementer_not_recruited",
+        "performedAt": "2026-05-18T09:12:30+03:00",
+        "evidenceRef": "docs/research/phd-proposal/chapter-4-research-methodology.md#4.4"
+      },
+      {
+        "checkId": "VC-04",
+        "checkType": "discrimination_test",
+        "validatorId": "protocol:C2-conformance-suite#discrimination",
+        "validatorVersion": "0.1-draft",
+        "validatorSha256": null,
+        "result": "not_run",
+        "reasonCode": "conformance_suite_not_implemented",
+        "performedAt": "2026-05-18T09:12:30+03:00",
+        "evidenceRef": null
+      },
+      {
+        "checkId": "VC-05",
+        "checkType": "human_review",
+        "validatorId": "role:programme-adjudication-panel",
+        "validatorVersion": "n/a",
+        "validatorSha256": null,
+        "result": "not_run",
+        "reasonCode": "adjudication_pending",
+        "performedAt": "2026-05-18T09:12:30+03:00",
+        "evidenceRef": null
+      }
+    ]
+  },
+  "disagreement": {
+    "detection": {
+      "method": "typed_verdict_mismatch_on_same_claim",
+      "keyFields": [
+        "caseGrounding.claimId",
+        "caseGrounding.fragmentRef",
+        "verdict.value",
+        "verdict.dispositionClass"
+      ],
+      "detectorId": "vego-ai.judgment-store.conflict-detector",
+      "detectorVersion": "0.3.1",
+      "detectedAt": "2026-05-18T09:05:00+03:00"
+    },
+    "adjudication": {
+      "required": true,
+      "status": "pending",
+      "adjudicatorAuthorityRef": "AUTH-SE310-2026S-PROGRAMME-PANEL-01",
+      "adjudicatedAt": null,
+      "outcome": "not_applicable",
+      "outcomeRecordId": null,
+      "rationale": null
+    }
+  },
+  "retainedDissent": [
+    {
+      "dissentId": "GJD-SE310-2026S-A2-0417-ACTOR-01",
+      "dissentingRecordId": "GJR-SE310-2026S-A2-0417-ACTOR-TA-D1",
+      "qualified": true,
+      "dissentingCompetenceRef": "COMP-SE310-2026S-TA03-NOTATION-SEMANTICS",
+      "dissentingAuthorityRef": "AUTH-SE310-2026S-NOTATION-DELEGATED-01",
+      "conflictOn": "verdict",
+      "statement": "Reading (2) of the six. The teaching assistant, separately assessed competent on UML actor/role semantics and holding delegated authority for the notation sub-question, holds that Shift Supervisor is a role of Operator and that representing it as a separate actor is a modeling-language error, so the fragment should be marked as a notation defect even where the domain content is defensible. The two judgments are not averaged and no consensus verdict is synthesized: both stand on the record, and this record's reuse gate stays closed until the programme adjudication panel rules.",
+      "registeredAt": "2026-05-18T09:05:00+03:00",
+      "registeredByRef": "person:teaching-assistant-03",
+      "retentionPolicy": "retained_not_averaged",
+      "withdrawn": false,
+      "blocksReuse": true,
+      "adjudication": {
+        "status": "pending",
+        "outcome": "not_applicable",
+        "adjudicatedAt": null,
+        "adjudicatorAuthorityRef": "AUTH-SE310-2026S-PROGRAMME-PANEL-01",
+        "note": "Referred to the programme adjudication panel because the dissent is against the holder of the rubric authority, who therefore cannot adjudicate it."
+      }
+    }
+  ],
+  "provenance": {
+    "agents": [
+      {
+        "agentId": "person:instructor-01",
+        "agentType": "human",
+        "activity": "created",
+        "actedAt": "2026-05-12T10:24:00+03:00",
+        "actorAuthorityRef": "AUTH-SE310-2026S-RUBRIC-01"
+      },
+      {
+        "agentId": "rule:gjr-schema-validator",
+        "agentType": "automated_rule",
+        "activity": "validated",
+        "actedAt": "2026-05-12T10:24:30+03:00",
+        "actorAuthorityRef": null
+      },
+      {
+        "agentId": "system:vego-ai.judgment-store",
+        "agentType": "system_component",
+        "activity": "modified",
+        "actedAt": "2026-05-18T09:12:00+03:00",
+        "actorAuthorityRef": null
+      },
+      {
+        "agentId": "rule:gjr-schema-validator",
+        "agentType": "automated_rule",
+        "activity": "validated",
+        "actedAt": "2026-05-18T09:12:30+03:00",
+        "actorAuthorityRef": null
+      }
+    ],
+    "derivedFrom": [
+      {
+        "sourceRecordId": "GJR-SE310-2026S-A2-0417-ACTOR-R1",
+        "derivationType": "amendment"
+      }
+    ],
+    "revision": 2,
+    "versionHistory": [
+      {
+        "revision": 1,
+        "recordId": "GJR-SE310-2026S-A2-0417-ACTOR-R1",
+        "recordSha256": "5cc067db9d5e3bc8c2bf85783a1dcb444e5ad950cfbadeb23898501c92769069",
+        "createdAt": "2026-05-12T10:24:00+03:00",
+        "changeReason": "initial",
+        "changeSummary": "Instructor judgment captured at judgment time from the elicitation interface; lifecycle draft -> active."
+      },
+      {
+        "revision": 2,
+        "recordId": "GJR-SE310-2026S-A2-0417-ACTOR-R2",
+        "recordSha256": "793d5da46dd7183a3040678505ba7ae30ca2354870ebcb34a3af56e686119ea3",
+        "createdAt": "2026-05-18T09:12:00+03:00",
+        "changeReason": "other",
+        "changeSummary": "Qualified dissent GJD-SE310-2026S-A2-0417-ACTOR-01 registered and retained; lifecycle active -> retained_dissent; record-side reuse gate closed. No content group of the original judgment was altered - revision 1 remains readable at its own digest."
+      }
+    ],
+    "recordSha256Basis": "canonical_json_sorted_keys_lf",
+    "repositoryRef": "vego-ai-arch-artifacts",
+    "commitSha": null
+  },
+  "lifecycle": {
+    "stateMachineId": "GJR-LIFECYCLE",
+    "stateMachineVersion": "1.0.0",
+    "state": "retained_dissent",
+    "stateEnteredAt": "2026-05-18T09:12:00+03:00",
+    "reuseGate": {
+      "decision": "blocked",
+      "derivedFrom": "lifecycle.state",
+      "blockingReasons": [
+        "retained_dissent_pending_adjudication"
+      ],
+      "readSideGatesOwnedBy": "SQ3"
+    },
+    "transitions": [
+      {
+        "attemptId": "TR-0001",
+        "transitionId": "T01",
+        "from": "draft",
+        "to": "active",
+        "attemptedAt": "2026-05-12T10:24:10+03:00",
+        "actorRef": "person:instructor-01",
+        "actorAuthorityRef": "AUTH-SE310-2026S-RUBRIC-01",
+        "accepted": true,
+        "guardEvaluations": [
+          {
+            "guardId": "G-SCOPE",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-EXCL",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-AUTH",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-COMP",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-TRACE",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-PROV",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-PRIV",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-VIS",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-VOCAB",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-BIND",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-VALID",
+            "result": "pass"
+          }
+        ],
+        "rejectionCode": null
+      },
+      {
+        "attemptId": "TR-0002",
+        "transitionId": "T04",
+        "from": "active",
+        "to": "retained_dissent",
+        "attemptedAt": "2026-05-18T09:12:00+03:00",
+        "actorRef": "system:vego-ai.judgment-store",
+        "actorAuthorityRef": null,
+        "accepted": true,
+        "guardEvaluations": [
+          {
+            "guardId": "G-DISSENT-QUALIFIED",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-DISSENT-RETAINED",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-COMP",
+            "result": "pass"
+          },
+          {
+            "guardId": "G-AUTH",
+            "result": "pass"
+          }
+        ],
+        "rejectionCode": null
+      },
+      {
+        "attemptId": "TR-0003",
+        "transitionId": "T13",
+        "from": "retained_dissent",
+        "to": "active",
+        "attemptedAt": "2026-05-21T14:02:00+03:00",
+        "actorRef": "person:instructor-01",
+        "actorAuthorityRef": "AUTH-SE310-2026S-RUBRIC-01",
+        "accepted": false,
+        "guardEvaluations": [
+          {
+            "guardId": "G-ADJ-AUTHORITY",
+            "result": "fail",
+            "rejectionCode": "GJR-E-014",
+            "detail": "Return to active requires the programme adjudication panel's ruling on GJD-SE310-2026S-A2-0417-ACTOR-01. Rubric authority does not extend to adjudicating a qualified dissent raised against its own holder."
+          },
+          {
+            "guardId": "G-DISSENT-RETAINED",
+            "result": "pass"
+          }
+        ],
+        "rejectionCode": "GJR-E-014"
+      },
+      {
+        "attemptId": "TR-0004",
+        "transitionId": "TXX",
+        "from": "retained_dissent",
+        "to": "draft",
+        "attemptedAt": "2026-05-22T08:41:00+03:00",
+        "actorRef": "system:vego-ai.judgment-store",
+        "actorAuthorityRef": null,
+        "accepted": false,
+        "guardEvaluations": [
+          {
+            "guardId": "G-REVALIDATE",
+            "result": "fail",
+            "rejectionCode": "GJR-E-002",
+            "detail": "retained_dissent -> draft is not in the transition table. Records are immutable and cannot be returned to draft; a correction is a new record linked by lineage."
+          }
+        ],
+        "rejectionCode": "GJR-E-002"
+      }
+    ],
+    "expiry": {
+      "policy": "condition_based",
+      "validUntil": null,
+      "reviewIntervalDays": null,
+      "conditions": [
+        {
+          "conditionId": "EXP-COND-01",
+          "conditionType": "domain_description_change",
+          "watchedRef": "DD-WAREHOUSE-OPS-1.3",
+          "watchedSha256": "6b1cb07fb8e2832cbc80c90f3b9f92e3dce695836eed9892b2956ee9588bb01c"
+        },
+        {
+          "conditionId": "EXP-COND-02",
+          "conditionType": "guideline_change",
+          "watchedRef": "REF-GUIDE-UML-DOMAIN-2.4",
+          "watchedSha256": "bac9ca49a610eef4eee86a9d3efe7f2c980c7c1267794bba53c4bda0f3bc426b"
+        },
+        {
+          "conditionId": "EXP-COND-03",
+          "conditionType": "task_change",
+          "watchedRef": "ASSIGN-SE310-2026S-A2@1.1",
+          "watchedSha256": "3adeef70fcb43f9a1570aeecedc04ead87b07c7bdad5c46b3aca36c2d7c404d6"
+        },
+        {
+          "conditionId": "EXP-COND-04",
+          "conditionType": "elapsed_time",
+          "watchedRef": "policy:INST-01/course-judgment-review#end-of-offering",
+          "watchedSha256": null
+        }
+      ],
+      "expiredAt": null,
+      "firedConditionId": null,
+      "detectedBy": "system:vego-ai.expiry-watcher"
+    }
+  },
+  "receipts": {
+    "appendOnly": true,
+    "logRef": "receipt-log:vego-ai/judgment-store/GJR-SE310-2026S-A2-0417-ACTOR",
+    "logSha256": "a2e0ee42906cbe6cca7e92c21e39321df77ffef97e7735a582713d67567b1ac7",
+    "retrieval": [
+      {
+        "receiptId": "RCPT-RET-0001",
+        "recordId": "GJR-SE310-2026S-A2-0417-ACTOR-R1",
+        "retrievedAt": "2026-05-14T11:30:00+03:00",
+        "consumerId": "person:teaching-assistant-03",
+        "consumerType": "human_reviewer",
+        "purpose": "review",
+        "viewerRef": "role:course-teaching-assistant",
+        "visibilityDecision": "granted",
+        "lifecycleStateAtRetrieval": "active",
+        "recordSha256AtRetrieval": "5cc067db9d5e3bc8c2bf85783a1dcb444e5ad950cfbadeb23898501c92769069"
+      },
+      {
+        "receiptId": "RCPT-RET-0002",
+        "recordId": "GJR-SE310-2026S-A2-0417-ACTOR-R2",
+        "retrievedAt": "2026-05-26T09:15:00+03:00",
+        "consumerId": "system:vego-ai.assessment-pipeline",
+        "consumerType": "system_component",
+        "purpose": "reuse_evaluation",
+        "viewerRef": "role:automated-assessment-pipeline",
+        "visibilityDecision": "redacted",
+        "lifecycleStateAtRetrieval": "retained_dissent",
+        "recordSha256AtRetrieval": "793d5da46dd7183a3040678505ba7ae30ca2354870ebcb34a3af56e686119ea3"
+      },
+      {
+        "receiptId": "RCPT-RET-0003",
+        "recordId": "GJR-SE310-2026S-A2-0417-ACTOR-R2",
+        "retrievedAt": "2026-06-02T13:40:00+03:00",
+        "consumerId": "person:institutional-auditor-02",
+        "consumerType": "human_reviewer",
+        "purpose": "audit",
+        "viewerRef": "role:institutional-auditor",
+        "visibilityDecision": "redacted",
+        "lifecycleStateAtRetrieval": "retained_dissent",
+        "recordSha256AtRetrieval": "793d5da46dd7183a3040678505ba7ae30ca2354870ebcb34a3af56e686119ea3"
+      }
+    ],
+    "use": [
+      {
+        "receiptId": "RCPT-USE-0001",
+        "retrievalReceiptId": "RCPT-RET-0001",
+        "usedAt": "2026-05-14T11:52:00+03:00",
+        "consumerId": "person:teaching-assistant-03",
+        "targetCaseRef": "CASE-SE310-2026S-A2-0417",
+        "useMode": "evidence_only",
+        "rulesApplied": [
+          "RUBRIC-SE310-2026S-A2#3b"
+        ],
+        "contextDimensionRef": "CTXDIM-COURSE-MODEL-REVIEW@1.1",
+        "reuseProcedureRef": null,
+        "reuseProcedureOwnedBy": "SQ3"
+      },
+      {
+        "receiptId": "RCPT-USE-0002",
+        "retrievalReceiptId": "RCPT-RET-0002",
+        "usedAt": "2026-05-26T09:15:04+03:00",
+        "consumerId": "system:vego-ai.assessment-pipeline",
+        "targetCaseRef": "CASE-SE310-2026S-A2-0631",
+        "useMode": "not_used",
+        "rulesApplied": [
+          "GJR-LIFECYCLE#reuseGate",
+          "ReuseDecisionRecord-v1#gate-0-record-state"
+        ],
+        "contextDimensionRef": "CTXDIM-COURSE-MODEL-REVIEW@1.1",
+        "reuseProcedureRef": "ReuseDecisionRecord-v1#gates",
+        "reuseProcedureOwnedBy": "SQ3"
+      }
+    ],
+    "outcome": [
+      {
+        "receiptId": "RCPT-OUT-0001",
+        "useReceiptId": "RCPT-USE-0001",
+        "observedAt": "2026-05-18T09:05:00+03:00",
+        "observerId": "person:teaching-assistant-03",
+        "observationMethod": "human_review",
+        "outcomeClass": "escalated",
+        "scopeViolationObserved": false,
+        "violatedTermId": null,
+        "reliedOnNonActiveState": false,
+        "stateReliedOn": "not_applicable",
+        "unsafeInfluenceFlag": false,
+        "note": "Reading the record as evidence led the teaching assistant to register a qualified dissent on the notation question rather than to accept or reject the verdict. Instrumentation entry only: it records what happened, not whether anything worked."
+      },
+      {
+        "receiptId": "RCPT-OUT-0002",
+        "useReceiptId": "RCPT-USE-0002",
+        "observedAt": "2026-05-26T09:15:05+03:00",
+        "observerId": "system:vego-ai.assessment-pipeline",
+        "observationMethod": "automated_check",
+        "outcomeClass": "no_effect",
+        "scopeViolationObserved": false,
+        "violatedTermId": null,
+        "reliedOnNonActiveState": false,
+        "stateReliedOn": "not_applicable",
+        "unsafeInfluenceFlag": false,
+        "note": "The record was retrieved for reuse evaluation against a different submission and was not used: the record-side reuse gate was closed by retained dissent. Instrumentation entry only; no outcome or effectiveness claim is made here."
+      }
+    ]
+  },
+  "bindings": {
+    "bindingCompleteness": "complete",
+    "systemBindings": [
+      {
+        "bindingId": "BND-SYS-01",
+        "componentId": "vego-ai.model-inspector",
+        "componentVersion": "0.9.4",
+        "componentSha256": "78b1143d3bd5ebcbb2aa266714b6f233c858a1a1fcc477418d9df14dd3085630",
+        "componentRole": "assessment_pipeline"
+      },
+      {
+        "bindingId": "BND-SYS-02",
+        "componentId": "vego-ai.judgment-elicitation-ui",
+        "componentVersion": "0.4.2",
+        "componentSha256": "33414a413a847030669916fbb120f97517eeb09c851584e3feb1557563eb3c7e",
+        "componentRole": "elicitation_interface"
+      },
+      {
+        "bindingId": "BND-SYS-03",
+        "componentId": "vego-ai.judgment-store",
+        "componentVersion": "0.3.1",
+        "componentSha256": "459d5078c7b4b8a3a5d5ce9dae1697b3d9c08ddefc4109e9dd47b985902a8f15",
+        "componentRole": "judgment_store"
+      },
+      {
+        "bindingId": "BND-SYS-04",
+        "componentId": "vego-ai.guideline-retrieval",
+        "componentVersion": "0.6.0",
+        "componentSha256": "a7ab00275fd71c9f483a04dd863f79232413650e658f9f825091de6decaae6b2",
+        "componentRole": "retrieval"
+      }
+    ],
+    "artifactBindings": [
+      {
+        "bindingId": "BND-ART-01",
+        "artifactRole": "source_artifact",
+        "ref": {
+          "id": "SUB-SE310-2026S-A2-0417",
+          "version": "final",
+          "sha256": "7190001c5c98132dcecace34459289cb81d09a801a5ced2c4346e2a526a8f7d7",
+          "locator": "store:coursework/INST-01/SE310-2026S/A2/0417"
+        },
+        "presentedToReviewer": true
+      },
+      {
+        "bindingId": "BND-ART-02",
+        "artifactRole": "guideline",
+        "ref": {
+          "id": "REF-GUIDE-UML-DOMAIN-2.4",
+          "version": "2.4",
+          "sha256": "bac9ca49a610eef4eee86a9d3efe7f2c980c7c1267794bba53c4bda0f3bc426b",
+          "locator": "store:guidelines/INST-01/uml-domain/2.4"
+        },
+        "presentedToReviewer": true
+      },
+      {
+        "bindingId": "BND-ART-03",
+        "artifactRole": "rubric",
+        "ref": {
+          "id": "RUBRIC-SE310-2026S-A2",
+          "version": "1.1",
+          "sha256": "00bde350101fe5d4f20af9ada778970c64d99fb337c37374c333aa1d7df37573",
+          "locator": "store:rubrics/INST-01/SE310-2026S/A2/1.1"
+        },
+        "presentedToReviewer": true
+      },
+      {
+        "bindingId": "BND-ART-04",
+        "artifactRole": "domain_description",
+        "ref": {
+          "id": "DD-WAREHOUSE-OPS-1.3",
+          "version": "1.3",
+          "sha256": "6b1cb07fb8e2832cbc80c90f3b9f92e3dce695836eed9892b2956ee9588bb01c",
+          "locator": "store:descriptions/INST-01/warehouse-ops/1.3"
+        },
+        "presentedToReviewer": true
+      },
+      {
+        "bindingId": "BND-ART-05",
+        "artifactRole": "task_description",
+        "ref": {
+          "id": "ASSIGN-SE310-2026S-A2",
+          "version": "1.1",
+          "sha256": "3adeef70fcb43f9a1570aeecedc04ead87b07c7bdad5c46b3aca36c2d7c404d6",
+          "locator": "store:assignments/INST-01/SE310-2026S/A2/1.1"
+        },
+        "presentedToReviewer": true
+      },
+      {
+        "bindingId": "BND-ART-06",
+        "artifactRole": "verdict_vocabulary",
+        "ref": {
+          "id": "VOCAB-COURSE-MODEL-REVIEW",
+          "version": "1.2.0",
+          "sha256": "f63d1190df22413168321a817bd4b30cd5d011695423a76e7538a074ee8d5273",
+          "locator": "store:vocabularies/course-model-review/1.2.0"
+        },
+        "presentedToReviewer": true
+      },
+      {
+        "bindingId": "BND-ART-07",
+        "artifactRole": "context_dimension_schema",
+        "ref": {
+          "id": "CTXDIM-COURSE-MODEL-REVIEW",
+          "version": "1.1",
+          "sha256": "01b7a3a14cec98237110897e2c9d9dbe43f1aa268c8809a145366dcfd7de1a53",
+          "locator": "store:context-dimensions/course-model-review/1.1"
+        },
+        "presentedToReviewer": false
+      },
+      {
+        "bindingId": "BND-ART-08",
+        "artifactRole": "schema",
+        "ref": {
+          "id": "GovernedJudgmentRecord-v1",
+          "version": "1.0.0",
+          "sha256": "c3030b9c802e561b2250af4ebab96558f88336f6366cb6b67be8a881696081ec",
+          "locator": "schemas/governed-judgment-record-v1.schema.json"
+        },
+        "presentedToReviewer": false
+      }
+    ]
+  },
+  "claimBoundary": "Design artifact. This is a worked instance of the C2 governed-judgment contract, written to exercise the contract's content groups against the motivating example in the doctoral proposal (the 'Shift Supervisor' actor and its six readings). It is not a record of a judgment any person made, and it reports no empirical result, accuracy figure, or effectiveness or outcome claim; the outcome receipts are instrumentation entries, not measurements. All identifiers are pseudonymous. Every sha256 in this file is illustrative and is the SHA-256 of a documented seed string of the form 'vego-ai/design-example/<label>', with one exception: artifactBinding BND-ART-08 and validation check VC-02 carry the real digest of schemas/governed-judgment-record-v1.schema.json. The verdict is the instructor's ruling as the proposal describes it; the retained dissent is a designed counterpart, included to show that a conflicting qualified judgment is kept rather than averaged and that it closes the record-side reuse gate pending adjudication."
+}
