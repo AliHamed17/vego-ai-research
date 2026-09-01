@@ -1,7 +1,7 @@
 # VEGO-AI Experiment Benchmark Analytics Report
 
 Generated: `2026-07-26T16:00:00+03:00`
-Input projection: `97a9e118c12d0db946cfb1fdcc9bbf5efa7cefc0577ac528a4e7c3345402bb44`
+Input projection: `06c0250114e41c45ab0ddd844a9669d118692cbac03dc74049d57c51acecec91`
 
 ## Technical summary
 
@@ -73,7 +73,7 @@ All fixture records satisfy the event contract, reconstructable records retain l
 
 Evidence class: `offline`. Claim boundary: Offline architecture or workload evidence only; no production approval or accuracy claim.
 
-### EXP-016 — Authority and timeout safety
+### EXP-016 — Role-based action authorization (not claim-specific authority - see ISS-045) and timeout safety
 
 All authority and timeout fixtures preserve the baseline and create no correction application or trusted-memory write.
 
@@ -192,7 +192,7 @@ Each experiment is assessed against its declared question, baseline, comparator,
 | EXP-013 — Event-contract fidelity | executed | MEASURED_PASS | pass | pass | pass | not_applicable | pass | not_applicable | 4 |
 | EXP-014 — Replay determinism | executed | MEASURED_PASS | pass | pass | pass | not_applicable | pass | not_applicable | 2 |
 | EXP-015 — Workload, bundling, and fairness | executed | MEASURED_PASS | pass | pass | pass | not_applicable | pass | not_applicable | 8 |
-| EXP-016 — Authority and timeout safety | executed | MEASURED_PASS | pass | pass | pass | pass | pass | not_applicable | 3 |
+| EXP-016 — Role-based action authorization (not claim-specific authority - see ISS-045) and timeout safety | executed | MEASURED_PASS | pass | pass | pass | pass | pass | not_applicable | 3 |
 | EXP-017 — Verification provenance | executed | MEASURED_PASS | pass | pass | pass | not_applicable | pass | not_applicable | 2 |
 | EXP-018 — Correction-proposal dry run | executed | MEASURED_PASS | pass | pass | pass | pass | pass | not_applicable | 3 |
 | EXP-019 — Reviewer calibration without evaluation leakage | not_executed | GATED_NOT_RUN | pass | not_measured | not_measured | not_applicable | partial | not_eligible | 0 |

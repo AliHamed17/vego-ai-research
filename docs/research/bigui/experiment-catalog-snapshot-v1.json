@@ -1162,7 +1162,7 @@
       }
     ],
     "generatedAt": "2026-07-26T14:16:00+03:00",
-    "normalizedSha256": "9122024e54a3a6580ef566b21f67b4be5a3d1734caaff2ea49507b65a05916ff",
+    "normalizedSha256": "376a4faceeb4ba7ebbf9df47096fa0659fdb550a199cc63b735cc69df51e5426",
     "paperBaseline": {
       "caseModels": 178,
       "occasional": 18,
@@ -1175,7 +1175,7 @@
     "sources": {
       "docs/research/bigui/architecture-fixture-results-v1.json": "7fcf650512b37dfb7063b48c5fef95d73d7b8db36a268926d6178329aef73ba5",
       "docs/research/bigui/paper-baseline-snapshot-v1.json": "78b6701caea4feee131980e2e8ae84f436451e53853ca0e779a0d161a6ad966a",
-      "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "experiments/accepted-runs": "a5e256650ceb63933fcf70abdc6105dc83e80abe179e2e2e2dbe3bc598299f96",
       "experiments/current-run-index-v1.json#comparison-dependencies": "23968d95c255f890bad6269c9962cfa9c41215b3722c62417f91e3f153d1b588"
     }
@@ -1488,7 +1488,7 @@
     "schemaVersion": "ExperimentBenchmarkSnapshot-v1",
     "generatedAt": "2026-07-26T16:00:00+03:00",
     "publicationTier": "tracked_sanitized",
-    "inputProjectionSha256": "97a9e118c12d0db946cfb1fdcc9bbf5efa7cefc0577ac528a4e7c3345402bb44",
+    "inputProjectionSha256": "06c0250114e41c45ab0ddd844a9669d118692cbac03dc74049d57c51acecec91",
     "standardSha256": "1b9a814e3498ac97ac5da84e5eb15894c15583c87456491af363c3a805e3c7c5",
     "programState": {
       "registeredExperiments": 41,
@@ -3916,7 +3916,7 @@
       },
       {
         "experimentId": "EXP-016",
-        "title": "Authority and timeout safety",
+        "title": "Role-based action authorization (not claim-specific authority - see ISS-045) and timeout safety",
         "status": "Offline evidence",
         "evidenceClass": "offline",
         "executionState": "executed",
@@ -4024,7 +4024,7 @@
           "status": "NOT_COMPUTABLE"
         },
         "claimBoundary": "Offline architecture or workload evidence only; no production approval or accuracy claim.",
-        "nextAction": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority."
+        "nextAction": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority. \"Authority\" here means role-based action authorization (not claim-specific authority - see ISS-045)."
       },
       {
         "experimentId": "EXP-017",
@@ -6797,7 +6797,7 @@
       },
       {
         "experimentId": "EXP-016",
-        "title": "Authority and timeout safety",
+        "title": "Role-based action authorization (not claim-specific authority - see ISS-045) and timeout safety",
         "summary": "All authority and timeout fixtures preserve the baseline and create no correction application or trusted-memory write.",
         "evidenceClass": "synthetic",
         "metrics": [
@@ -7597,7 +7597,7 @@
       },
       {
         "path": "experiments/registry.md",
-        "sha256": "0e27749289fd85e7cd7bda1a9ab6fd31f38168d48b2b375b880e44f71c03f9eb",
+        "sha256": "54aeea6b1fdc6676b3019053e7b3304b96aa5269369f0dfad57c4b83d935a251",
         "role": "Complete experiment identity and status registry."
       },
       {
@@ -7612,7 +7612,7 @@
       },
       {
         "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-        "sha256": "c7c3dad8fad59161350fbc1b5554718d7cf003422e8df0d51ec017f3965ea481",
+        "sha256": "accb6e57a3e81f39b8c2ec16b374d61fa02d0e0a59a68caa0810fe3f6744bcdd",
         "role": "Paper, architecture, comparison, and thesis-readiness results."
       }
     ]
@@ -8487,7 +8487,7 @@
     },
     {
       "id": "EXP-016",
-      "title": "Authority and timeout safety",
+      "title": "Role-based action authorization (not claim-specific authority - see ISS-045) and timeout safety",
       "researchSpace": "Cross-program",
       "researchTrack": "Architecture conformance",
       "researchQuestion": "H-layer safety",
@@ -8513,7 +8513,7 @@
         "Evidence class and cohort limits must remain visible."
       ],
       "owner": "Research program",
-      "nextAction": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority.",
+      "nextAction": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority. \"Authority\" here means role-based action authorization (not claim-specific authority - see ISS-045).",
       "artifactLinks": [
         "experiments/EXP-016-authority-timeout-safety/README.md"
       ],
@@ -8524,7 +8524,7 @@
         "EXP-016-2e9b44d98fbe"
       ],
       "latestResult": {
-        "summary": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority.",
+        "summary": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority. \"Authority\" here means role-based action authorization (not claim-specific authority - see ISS-045).",
         "metricObservationIds": [
           "OBS-METRIC-AUTHORITY_CORRECTION_APPLICATIONS-960d682c6c76",
           "OBS-METRIC-AUTHORITY_SAFE_CASE_RATE-aa770f8ad159",
@@ -9417,7 +9417,7 @@
         "EXP-035-a9de44bc668d"
       ],
       "latestResult": {
-        "summary": "The finite fault catalog passed baseline preservation, zero unsafe memory writes, zero correction applications, and correct park/escalate behavior.",
+        "summary": "The finite fault catalog passed baseline preservation, zero unsafe memory writes, zero correction applications, and correct park/escalate behavior. \"Authority\" here means role-based action authorization (not claim-specific authority - see ISS-045).",
         "metricObservationIds": [
           "OBS-METRIC-SAFETY_BASELINE_PRESERVATION-5b86492fccd3",
           "OBS-METRIC-SAFETY_CORRECTION_APPLICATIONS-eed8ae585cf3",
@@ -9815,7 +9815,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9832,7 +9832,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9849,7 +9849,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9866,7 +9866,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9883,7 +9883,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9900,7 +9900,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9917,7 +9917,7 @@
       "direction": "lower_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9934,7 +9934,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "evaluation_ready",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9951,7 +9951,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9968,7 +9968,7 @@
       "direction": "target",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9985,7 +9985,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10002,7 +10002,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10019,7 +10019,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10036,7 +10036,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10053,7 +10053,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sourceSha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -89796,7 +89796,7 @@
     {
       "id": "experiment-registry",
       "path": "experiments/registry.md",
-      "sha256": "0e27749289fd85e7cd7bda1a9ab6fd31f38168d48b2b375b880e44f71c03f9eb",
+      "sha256": "54aeea6b1fdc6676b3019053e7b3304b96aa5269369f0dfad57c4b83d935a251",
       "role": "Experiment titles, status narratives, and artifact references"
     },
     {
@@ -89808,7 +89808,7 @@
     {
       "id": "thesis-evidence",
       "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+      "sha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
       "role": "Mechanism counts, B0–B5 evidence ladder, and claim gates"
     },
     {
@@ -89844,7 +89844,7 @@
     {
       "id": "baseline-comparison",
       "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-      "sha256": "c7c3dad8fad59161350fbc1b5554718d7cf003422e8df0d51ec017f3965ea481",
+      "sha256": "accb6e57a3e81f39b8c2ec16b374d61fa02d0e0a59a68caa0810fe3f6744bcdd",
       "role": "EXP-037–EXP-040 baseline, comparison, and thesis-readiness results"
     },
     {
@@ -89856,7 +89856,7 @@
     {
       "id": "experiment-benchmark",
       "path": "docs/research/bigui/experiment-benchmark-snapshot-v1.json",
-      "sha256": "ae1eeb63e5ee9d58f63e02091517c0f18e0f55874226bce2dbcfa31a7d09a4cf",
+      "sha256": "1fbe9865bb9070e541be72c68c493683ad387e9fd15982323b50199db848759c",
       "role": "All-experiment evaluation records, program analytics, findings, and recommendations"
     },
     {

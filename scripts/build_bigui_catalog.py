@@ -189,10 +189,22 @@ def parse_registry() -> dict[str, dict[str, str]]:
             "notes": notes,
         }
     expected = {f"EXP-{index:03d}" for index in range(41)}
-    if set(records) != expected:
-        missing = sorted(expected - set(records))
-        extra = sorted(set(records) - expected)
-        raise ValueError(f"registry mismatch; missing={missing}, extra={extra}")
+    missing = sorted(expected - set(records))
+    if missing:
+        raise ValueError(f"registry mismatch; missing={missing}")
+    extras = sorted(set(records) - expected)
+    for extra_id in extras:
+        number = int(extra_id.split("-")[1])
+        if number <= 40:
+            raise ValueError(f"unexpected non-sequential registry ID {extra_id}")
+        experiment_directory(extra_id)
+        print(
+            f"NOTE: {extra_id} is registered outside the frozen EXP-000..EXP-040 "
+            "benchmark cohort; it is identity-tracked only until a benchmark "
+            "revision admits it.",
+            file=sys.stderr,
+        )
+        del records[extra_id]
     return records
 
 
