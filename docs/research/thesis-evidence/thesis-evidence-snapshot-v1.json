@@ -1,8 +1,8 @@
 {
   "schemaVersion": "ThesisEvidenceSnapshot-v1",
   "generatedAt": "2026-07-25T23:30:48+00:00",
-  "sourceRevision": "1e20d52b334d17a2fed8ff5eb3c15403d3b04f0d",
-  "sourceTreeHash": "9ed490dfcf20752820fe30f0f1a8e8f7736459995f62577ab5aeb66c46684742",
+  "sourceRevision": "9ef277a2f2e617af6c99008254ea8f87ad279903",
+  "sourceTreeHash": "e301c433f2fcd64258192fa03ac9d47a0a6e4590f180c6f6ff6a28e4d51e65cb",
   "canonicalSourcesDirty": false,
   "programSnapshot": {
     "path": "docs/research/h-layer/program-status-snapshot-v1.json",
@@ -1208,7 +1208,7 @@
     "schemas/security-posture-snapshot-v1.schema.json": "326daafe746cbbe0d184739fd4fae5ed1fa814406e744fccbb640a5afd4ca770",
     "configs/hlayer-runtime.json": "0e8c03d4297b74cf04020c244be6a09441555b595b63434a3c83c86cdaf993e2",
     "configs/protected-change-authorization-v1.json": "54d2f919c52598fab1ac83ef8901d4f36b5145bd61e7507e159282b1afb0e6bb",
-    "scripts/build_hardening_manifests.py": "af85cd88724635de68c83ca6a8ce308a6185d4e307ef00407d2cb7110ff936d1",
+    "scripts/build_hardening_manifests.py": "3e9428943a2bed5811bd715c8e53f71174a7f111bf05d87d2ef953aa80cb569d",
     "scripts/run_hlayer_architecture.py": "559dd30181753dd6d12d925c78ab9ff3410b252c520b5d1d62e23927313f9ce9",
     "scripts/verify-source.ps1": "0c93156ff18554b3b43c7cbf564326e541fd8803648fc92bd4b0b15c73620b0f",
     "scripts/verify-controlled.ps1": "ff50f86a9fb54edc2df1a9f8164b35f378ffb63b00dd5e7b6d479e522bd10f4e",

@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "1e20d52b334d17a2fed8ff5eb3c15403d3b04f0d",
-  "packageRevision": "48b3055d29cc4df6510eecf7880ac3ad44e52b77",
-  "sourceTreeHash": "9ed490dfcf20752820fe30f0f1a8e8f7736459995f62577ab5aeb66c46684742",
+  "sourceRevision": "9ef277a2f2e617af6c99008254ea8f87ad279903",
+  "packageRevision": "9ef277a2f2e617af6c99008254ea8f87ad279903",
+  "sourceTreeHash": "e301c433f2fcd64258192fa03ac9d47a0a6e4590f180c6f6ff6a28e4d51e65cb",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "252d3bc3d8eb3e8bd551e65950f763fdc804b2fb8636a1df6c061ce65cb545c7",
+    "sha256": "220cf84336de3ced18d0074c6da66b9d9b8be87b808c3f4d2d3e5f25b5d51d18",
     "bytes": 48319,
     "tracked": true
   },
@@ -179,7 +179,7 @@
     },
     {
       "path": "scripts/build_hardening_manifests.py",
-      "sha256": "af85cd88724635de68c83ca6a8ce308a6185d4e307ef00407d2cb7110ff936d1"
+      "sha256": "3e9428943a2bed5811bd715c8e53f71174a7f111bf05d87d2ef953aa80cb569d"
     },
     {
       "path": "scripts/build_thesis_evidence_package.py",
