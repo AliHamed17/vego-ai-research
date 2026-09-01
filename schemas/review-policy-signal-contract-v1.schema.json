@@ -1,0 +1,2812 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/review-policy-signal-contract-v1.schema.json",
+  "title": "ReviewPolicySignalContract-v1",
+  "description": "System-independent contract for the C1 attention-budget review-policy model (proposal Table 2, p.13). One instance is either (a) a frozen configuration of one comparator arm, or (b) one routing decision made by one arm over one contested fragment. The six comparator arms named in section 3.3 (p.17) are expressible as configurations of this single contract, so they are evaluable head-to-head on identical inputs. DESIGN ARTIFACT ONLY: an instance of this schema is not evidence of any outcome (section 3.1, p.15).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordType",
+    "recordId",
+    "createdAt",
+    "hostBinding",
+    "vocabularyBinding",
+    "policyArm",
+    "attentionBudget",
+    "declaredSignalSet",
+    "combinationRule",
+    "reviewerStandingModel",
+    "evaluationContext",
+    "preregistration",
+    "provenance",
+    "evidenceClass",
+    "outcomeClaimAsserted",
+    "claimBoundary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ReviewPolicySignalContract-v1",
+      "description": "Fixed identifier of this contract version. Bump the filename and this constant together whenever any field, enum member, or invariant changes, so that a stored instance always names the exact contract it was validated against."
+    },
+    "recordType": {
+      "enum": [
+        "arm_configuration",
+        "routing_decision"
+      ],
+      "description": "Which of the two instance shapes this is. 'arm_configuration' freezes one comparator arm before evaluation and carries no event. 'routing_decision' is one arm's decision over one contested fragment and additionally requires eventIdentity, contestedFragment, currentReviewState, signalObservations, reviewerCandidates, hardRuleEvaluations, evidenceExposure, routingDecision, attentionAccounting, selectiveRiskAccounting, and receipt."
+    },
+    "recordId": {
+      "type": "string",
+      "pattern": "^RPSC-[A-Za-z0-9_.-]+$",
+      "description": "Stable unique identifier for this instance, prefixed RPSC-. Referenced by metric observations and by the replay harness so a computed number can be traced to the exact decisions that produced it."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp at which this instance was emitted. For offline counterfactual replay this is the replay time, not the original event time; the original event time lives in eventIdentity."
+    },
+    "hostBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contractIsSystemIndependent",
+        "hostSystemId",
+        "hostSystemVersion",
+        "adapterRef"
+      ],
+      "description": "Optional binding of this system-independent contract to whatever system produced the instance. The contract is defined without reference to VEGO-AI; this object records the adapter, so that a second, independent implementation can be conformance-checked against the same contract.",
+      "properties": {
+        "contractIsSystemIndependent": {
+          "const": true,
+          "description": "Asserts that no field of this contract is defined by reference to a particular implementation. Held constant so that an instance cannot silently become system-coupled."
+        },
+        "hostSystemId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Identifier of the system that emitted this instance, or null for a purely design-stage instance with no emitting system."
+        },
+        "hostSystemVersion": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Version of the emitting system, or null. Distinct from provenance.policyVersion: the same policy version may run on several host versions."
+        },
+        "adapterRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Repository-relative path or URI of the mapping document that translates host-system concepts onto this contract's fields, or null when the host emits the contract natively."
+        }
+      }
+    },
+    "vocabularyBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claimTypeVocabulary",
+        "reviewerRoleVocabulary",
+        "consequenceScaleVocabulary",
+        "fixedByThisContract"
+      ],
+      "description": "Declared indirection for the three vocabularies this contract deliberately does not fix, so that the contract can be reused in a different institution without editing the schema. The routing-action set, the signal-identifier set, and the authority ladder are NOT indirected: they are fixed by this contract because they are stated verbatim in section 3.3 (p.16).",
+      "properties": {
+        "claimTypeVocabulary": {
+          "$ref": "#/$defs/vocabularyRef",
+          "description": "External vocabulary that supplies contestedFragment.claimType. Left external because the readings available for a contested fragment are domain-specific (section 1.7, p.9 lists six readings for one modelling example)."
+        },
+        "reviewerRoleVocabulary": {
+          "$ref": "#/$defs/vocabularyRef",
+          "description": "External vocabulary that supplies reviewerCandidates[].reviewerRoleLabel, for example language specialist, domain expert, rubric owner (section 1.7, p.9). Role is descriptive only; it is not competence and it is not authority, both of which are valued separately per candidate."
+        },
+        "consequenceScaleVocabulary": {
+          "$ref": "#/$defs/vocabularyRef",
+          "description": "External vocabulary that supplies the scale for the unreviewed_error_consequence signal. Left external because consequence differs between the two scenario families of section 2.3 (p.13): an assessment rubric and a patient-safety setting do not share a consequence scale."
+        },
+        "fixedByThisContract": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "routing_action_set",
+              "signal_identifier_set",
+              "authority_ladder",
+              "comparator_arm_family_set"
+            ]
+          },
+          "description": "The vocabularies this contract fixes rather than indirects, because each is stated verbatim in the proposal and changing it would change what is being tested. Listing them explicitly prevents a downstream implementation from quietly substituting its own."
+        }
+      }
+    },
+    "policyArm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "armId",
+        "family",
+        "armLabel",
+        "policyVersion",
+        "equivalentPriorWorkFormulation"
+      ],
+      "description": "Identity of the comparator arm this instance belongs to. Section 3.3 (p.17) fixes the comparator set: never ask, always ask, random review at the same budget, uncertainty only, a fixed threshold, and the proposed policy. Expressing all six as configurations of one contract is what makes them evaluable on identical inputs.",
+      "properties": {
+        "armId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable identifier for this specific arm configuration, unique within one evaluation. Two arms of the same family but different weights are different armIds."
+        },
+        "family": {
+          "enum": [
+            "never_ask",
+            "always_ask",
+            "random_at_matched_budget",
+            "uncertainty_only",
+            "fixed_threshold",
+            "proposed_policy"
+          ],
+          "description": "The comparator family, taken verbatim from section 3.3 (p.17). Each family constrains declaredSignalSet, combinationRule, attentionBudget.enforcement, reviewerStandingModel, and the admissible routing actions; see the allOf block at the end of this schema."
+        },
+        "armLabel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable label for reports and figures. Carries no semantics; the family field is authoritative."
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the policy definition this arm instantiates. Section 3.3 (p.16) requires the policy to use versioned signals rather than one opaque score; this is the version of the policy as a whole, and each signal additionally carries its own signalVersion."
+        },
+        "equivalentPriorWorkFormulation": {
+          "enum": [
+            "none_declared",
+            "single_expert_deferral",
+            "multi_expert_deferral_aggregate_profile",
+            "uncertainty_thresholding",
+            "random_allocation",
+            "no_allocation"
+          ],
+          "description": "Which prior-work formulation this arm is intended to instantiate, per section 1.8 (p.11). 'single_expert_deferral' is the model-versus-undifferentiated-human formulation; 'multi_expert_deferral_aggregate_profile' is the multi-expert formulation that conditions on an aggregate competence profile over a task distribution. Declaring this per arm is what turns the section 1.8 deficit statement into a head-to-head test rather than an assertion: an arm declared as multi_expert_deferral_aggregate_profile MUST set reviewerStandingModel.competenceAssessmentScope to task_distribution_aggregate."
+        },
+        "isReferenceArm": {
+          "type": "boolean",
+          "description": "True for the single arm designated as the reference against which the others are reported. Optional; absence means the harness supplies the reference."
+        },
+        "armDescription": {
+          "type": "string",
+          "description": "Free-text description of the arm for the frozen protocol. Optional and non-normative."
+        }
+      }
+    },
+    "ablation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ablationId",
+        "withheldSignalIds",
+        "withheldComponents",
+        "rationale"
+      ],
+      "description": "Present only when this instance is an ablation of its family rather than the intact arm. Section 3.3 (p.16) states that each signal is versioned and logged separately so that its contribution can be audited and ablated, and that the ablation is what tests whether the three contributed signals earn their place. Withheld signals remain in signalObservations with usedByPolicy set to false, so an ablation removes a signal from the decision without removing it from the log.",
+      "properties": {
+        "ablationId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable identifier of this ablation cell, unique within the ablation protocol."
+        },
+        "withheldSignalIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/signalId"
+          },
+          "description": "Signals present in signalObservations but excluded from declaredSignalSet for this cell. Empty when the ablation withholds a component rather than a signal."
+        },
+        "withheldComponents": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "combination_weights",
+              "hard_rules",
+              "reviewer_selection",
+              "authority_check",
+              "competence_assessment",
+              "budget_enforcement"
+            ]
+          },
+          "description": "Non-signal machinery withheld for this cell. 'competence_assessment' and 'authority_check' are listed separately on purpose: withholding one while retaining the other is the direct test of whether authority modelled as distinct from competence contributes anything (section 1.8, p.11)."
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Preregistered reason this cell exists and what its result would show. Required so that ablation cells cannot be added after seeing results."
+        },
+        "structurallyUncomputable": {
+          "type": "boolean",
+          "description": "True when the cell cannot be computed because the withheld component has no representation in the arm being ablated. Such a cell must be reported as structurally uncomputable rather than as a null ablation result."
+        }
+      }
+    },
+    "attentionBudget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budgetId",
+        "unit",
+        "amount",
+        "period",
+        "reviewerPoolId",
+        "reviewerPoolSize",
+        "allocationRule",
+        "exhaustionRule",
+        "enforcement",
+        "matchedAcrossArms",
+        "auditLoadCountedAgainstBudget",
+        "separateAuditLoadAccounting"
+      ],
+      "description": "The explicit attention budget the policy is evaluated at. Section 3.3 (p.16) declares the primary estimand as important-case capture at a fixed expert-attention budget, and section 1.4 (p.8) requires that any defensible policy be evaluated at a controlled attention budget. Without this object the primary estimand has no denominator and the arms are not comparable.",
+      "properties": {
+        "budgetId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the budget instance. Arms declared as matched must reference the same budgetId."
+        },
+        "unit": {
+          "enum": [
+            "expert_minutes",
+            "review_items",
+            "interruptions",
+            "reviewer_sessions"
+          ],
+          "description": "The accounting unit in which the budget is denominated and consumed. Section 3.6 (p.20) lists expert minutes and interruptions as separate human-work measures, so the unit must be declared rather than assumed; 'matched expert attention' means matched in this unit."
+        },
+        "amount": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Total budget available per period, in the declared unit. Must be positive; a zero budget is expressed as the never_ask family, not as amount zero."
+        },
+        "period": {
+          "enum": [
+            "per_run",
+            "per_day",
+            "per_week",
+            "per_case_set",
+            "per_reviewer_per_week"
+          ],
+          "description": "The window over which amount is available and after which consumption resets. Fixing the period is what makes budget exhaustion a defined event rather than an artefact of when the log was cut."
+        },
+        "periodStart": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "Start of the current budget period, or null when the period is defined by a case set rather than by wall-clock time."
+        },
+        "periodEnd": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "End of the current budget period, or null when the period is not defined by wall-clock time."
+        },
+        "reviewerPoolId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the reviewer pool the budget draws on. The pool is the population from which reviewerCandidates is drawn; naming it separately is what distinguishes a budget over one undifferentiated reviewer from a budget over a differentiated pool."
+        },
+        "reviewerPoolSize": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of distinct reviewers in the pool at the time of this decision. A pool size of one reproduces the single-undifferentiated-expert formulation section 1.8 (p.11) names as prior work, and this field makes that visible."
+        },
+        "allocationRule": {
+          "enum": [
+            "first_come_first_served",
+            "priority_ordered",
+            "rank_and_cap",
+            "proportional_by_consequence"
+          ],
+          "description": "How competing demands are ordered against the remaining budget within a period. Declared separately from exhaustionRule because ordering and the behaviour at exhaustion are independent choices."
+        },
+        "exhaustionRule": {
+          "enum": [
+            "defer_to_next_period",
+            "downgrade_to_queue",
+            "downgrade_to_batch_review",
+            "downgrade_to_audit_sample",
+            "autonomous_action_with_logging",
+            "block_action"
+          ],
+          "description": "The action taken when the budget for the period is exhausted. Every value except defer_to_next_period names one of the six routing actions, so exhaustion is expressed inside the declared action space rather than as an undefined fallback."
+        },
+        "enforcement": {
+          "enum": [
+            "enforced_hard_cap",
+            "observed_not_enforced"
+          ],
+          "description": "Whether the budget binds. 'enforced_hard_cap' means the arm cannot exceed amount. 'observed_not_enforced' means consumption is measured but unconstrained, which is the only honest setting for the always_ask arm, whose burden is the thing being measured."
+        },
+        "matchedAcrossArms": {
+          "type": "boolean",
+          "description": "True when this budget is held identical across the arms listed in matchedArmIds. The random arm of section 3.3 (p.17) is specifically 'random review at the same budget', so a random arm with matchedAcrossArms false is not the declared comparator."
+        },
+        "matchedArmIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "The armIds this budget is matched across. Optional; required in practice whenever matchedAcrossArms is true."
+        },
+        "auditLoadCountedAgainstBudget": {
+          "type": "boolean",
+          "description": "Whether units charged by audit_sample actions draw down the same budget as live review. Declared rather than assumed, because the answer changes both the capture denominator and the selective-risk denominator."
+        },
+        "separateAuditLoadAccounting": {
+          "const": true,
+          "description": "Held constant. Section 3.3 (p.17) names separate accounting of live review and audit load as a Phase A property to be validated, so a conforming instance must always carry the two counters separately in attentionAccounting, whatever auditLoadCountedAgainstBudget says."
+        }
+      }
+    },
+    "declaredSignalSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/signalId"
+      },
+      "description": "The signals this arm is permitted to use in its decision. Distinct from signalObservations, which is everything logged. Section 3.3 (p.16) declares eight signals and requires each to be versioned and logged separately so its contribution can be audited and ablated; separating the declared set from the logged set is what makes an ablation a change of policy rather than a change of instrumentation. An empty set is the correct expression of never_ask, always_ask, and random_at_matched_budget."
+    },
+    "combinationRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "deterministic"
+      ],
+      "description": "How the declared signals are combined into an action. Section 1.4 (p.8) states the untested question as whether uncertainty, consequence, evidence quality, reviewer fit, and burden weighed JOINTLY at the level of a claim-bearing decision improve handling of the cases that matter; a disjunction of independent booleans is not a joint weighting, so this object exists to make the combination itself an inspectable, versioned, ablatable object.",
+      "properties": {
+        "method": {
+          "enum": [
+            "none",
+            "random",
+            "single_signal_threshold",
+            "fixed_threshold",
+            "weighted_sum",
+            "weighted_sum_with_hard_rules",
+            "lexicographic_with_hard_rules"
+          ],
+          "description": "The combination form. 'none' is used by arms that do not read signals at all. 'single_signal_threshold' is the uncertainty-only comparator. 'fixed_threshold' is the fixed-threshold comparator. The two _with_hard_rules forms are the only ones in which hard rules can override the combined score, which section 3.3 (p.16) requires of the proposed policy."
+        },
+        "weights": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "signalId",
+              "weight",
+              "weightVersion"
+            ],
+            "properties": {
+              "signalId": {
+                "$ref": "#/$defs/signalId",
+                "description": "The signal this weight applies to. Must appear in declaredSignalSet; an executable invariant checks this, since JSON Schema cannot compare two sibling values."
+              },
+              "weight": {
+                "type": "number",
+                "description": "The signal's coefficient in the combined score. Sign is meaningful: burden and queue conditions are expected to enter negatively."
+              },
+              "weightVersion": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Version of this weight value, so that a re-tuned weight is a different arm and cannot be mistaken for the frozen one."
+              }
+            }
+          },
+          "description": "Per-signal coefficients for the weighted forms. Required for the proposed policy so that the joint weighting is explicit and auditable rather than implicit in code."
+        },
+        "thresholds": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "thresholdId",
+              "appliesTo",
+              "operator",
+              "value",
+              "resultingAction"
+            ],
+            "properties": {
+              "thresholdId": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Stable identifier of this threshold, referenced by nestedThresholdOrder and by routingDecision.decisiveThresholdId."
+              },
+              "appliesTo": {
+                "enum": [
+                  "signal",
+                  "combined_score"
+                ],
+                "description": "Whether this threshold reads one signal directly or the combined score."
+              },
+              "signalId": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/signalId"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "The signal read when appliesTo is 'signal'; null when appliesTo is 'combined_score'."
+              },
+              "operator": {
+                "enum": [
+                  ">=",
+                  ">",
+                  "<=",
+                  "<",
+                  "=="
+                ],
+                "description": "Comparison applied between the read value and this threshold's value."
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "string",
+                  "boolean"
+                ],
+                "description": "The threshold value, in the same scale as the thing it is compared against."
+              },
+              "resultingAction": {
+                "$ref": "#/$defs/routingAction",
+                "description": "The routing action taken when this threshold is the decisive one."
+              }
+            }
+          },
+          "description": "The threshold ladder. Section 3.3 (p.17) names predictable behaviour for nested thresholds as a Phase A property, which requires the thresholds to be enumerable objects rather than inline conditionals."
+        },
+        "nestedThresholdOrder": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "The thresholdIds in the exact order they are evaluated. Declaring the order is what makes nested-threshold behaviour predictable and testable rather than dependent on evaluation order in code."
+        },
+        "combinedScore": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "The combined score actually computed for this decision, or null on an arm_configuration instance or an arm whose method is 'none' or 'random'. Logged so that the score can be recomputed from the signal values and weights and checked."
+        },
+        "scoreScale": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "min",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "type": "number",
+              "description": "Lower bound of the combined score scale."
+            },
+            "max": {
+              "type": "number",
+              "description": "Upper bound of the combined score scale."
+            }
+          },
+          "description": "Declared bounds of the combined score, so that a score is interpretable across arms and across versions."
+        },
+        "tieBreak": {
+          "enum": [
+            "lowest_action_cost",
+            "highest_consequence",
+            "deterministic_by_event_hash",
+            "random_seeded"
+          ],
+          "description": "How ties between candidate actions are resolved. Declared because an undeclared tie-break makes replay non-deterministic and breaks the deterministic-receipt property of section 3.3 Phase A (p.17)."
+        },
+        "randomSelectionProbability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Probability of selecting a case for review under the random arm, calibrated to consume the matched budget. Null on every other arm."
+        },
+        "randomSeed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Seed used by the random arm, recorded so the arm is reproducible. Null on every other arm."
+        },
+        "deterministic": {
+          "type": "boolean",
+          "description": "True when replaying this arm over the same frozen inputs reproduces the same action. The random arm is deterministic given randomSeed and must set this true; an arm that cannot set this true cannot satisfy the deterministic-receipt property."
+        }
+      }
+    },
+    "reviewerStandingModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "competenceAuthorityCoupling",
+        "competenceAssessmentScope",
+        "authorityAssertionScope",
+        "selectionFunction",
+        "selectionFunctionVersion"
+      ],
+      "description": "The load-bearing object of this contract. Section 1.8 (p.11) states the falsifiable deficit: no reviewed formulation makes the selection of the reviewer a function of assessed competence AND authority over the specific contested fragment, and multi-expert deferral conditions on an aggregate competence profile over a task distribution and does not model authority as distinct from competence. This object declares, per arm, exactly which of those positions the arm occupies, so the claim is tested by configuration rather than argued in prose.",
+      "properties": {
+        "competenceAuthorityCoupling": {
+          "enum": [
+            "independently_valued",
+            "authority_derived_from_competence",
+            "competence_derived_from_authority",
+            "single_combined_standing_score",
+            "not_modelled"
+          ],
+          "description": "Whether competence and authority are separate, independently-valued inputs. 'independently_valued' is the position section 1.8 (p.11) says no reviewed formulation occupies and is required of the proposed_policy family. The remaining values exist so that prior-work formulations can be expressed in the same contract and run as comparators rather than described."
+        },
+        "competenceAssessmentScope": {
+          "enum": [
+            "contested_fragment",
+            "claim_type",
+            "task_distribution_aggregate",
+            "not_assessed"
+          ],
+          "description": "The unit over which competence is assessed. 'contested_fragment' is assessed standing to settle the specific contested fragment and is required of the proposed_policy family. 'task_distribution_aggregate' is the aggregate competence profile section 1.8 (p.11) attributes to multi-expert deferral and is the value an arm declared as multi_expert_deferral_aggregate_profile must carry."
+        },
+        "authorityAssertionScope": {
+          "enum": [
+            "contested_fragment",
+            "artifact",
+            "case_set",
+            "guideline",
+            "institution",
+            "not_asserted"
+          ],
+          "description": "The unit over which authority is asserted. Deliberately a different enumeration from competenceAssessmentScope, and deliberately named assertion rather than assessment, because a mandate is GRANTED over an object of governance while competence is ESTIMATED over a question; section 1.3 (p.6) separates them with the example of a language specialist who reads the notation correctly and has no mandate to alter an institutional rule."
+        },
+        "selectionFunction": {
+          "enum": [
+            "none",
+            "fixed_single_undifferentiated_reviewer",
+            "random_from_pool",
+            "queue_order",
+            "competence_only",
+            "authority_only",
+            "competence_and_authority_jointly"
+          ],
+          "description": "How a reviewer is chosen once the policy has decided to escalate. 'fixed_single_undifferentiated_reviewer' is the single-expert deferral formulation; 'competence_only' is the multi-expert deferral formulation; 'competence_and_authority_jointly' is the position section 1.8 (p.11) designates as unoccupied and is required of the proposed_policy family. 'none' is correct for arms that never escalate, and 'queue_order' expresses enqueueing into an undifferentiated list, which is a selection function only in the degenerate sense."
+        },
+        "selectionFunctionVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the selection function, versioned separately from policyArm.policyVersion so that a change to reviewer selection alone is visible as such."
+        },
+        "authorityIsRoutingHardRule": {
+          "type": "boolean",
+          "description": "True when insufficient authority forces an action through hardRuleEvaluations rather than merely lowering a score. Section 3.3 (p.16) requires hard rules for missing authorization, so the proposed policy is expected to set this true; recording it as a field rather than assuming it lets an ablation withhold the hard rule and retain the score contribution."
+        },
+        "unassessedCompetenceDefault": {
+          "enum": [
+            "treat_as_zero",
+            "treat_as_pool_mean",
+            "exclude_candidate",
+            "force_undetermined"
+          ],
+          "description": "What the selection function does with a candidate whose competence for this fragment has never been assessed. Declared because the default silently determines whether an unassessed reviewer can be selected, and 'treat_as_pool_mean' reintroduces the aggregate profile the proposed policy is meant to avoid."
+        }
+      }
+    },
+    "evaluationContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "armsCompared",
+        "reviewerExposureGuard",
+        "reviewerSeenFragmentUnderAnotherArm"
+      ],
+      "description": "Which of the two evidence designs of section 3.3 (p.17) produced this instance. Policy comparison is split by evidence type: routing behaviour by offline counterfactual replay over frozen logs where every policy sees every case, and human-facing measures by a separate study in which no reviewer meets the same fragment under two policies.",
+      "properties": {
+        "mode": {
+          "enum": [
+            "offline_counterfactual_replay",
+            "live_operation",
+            "between_subjects_human_study",
+            "within_subjects_disjoint_case_sets"
+          ],
+          "description": "The design under which this decision was produced. The two human-study values are the only ones admissible for review yield, burden, and interruption cost; routing behaviour comes from replay."
+        },
+        "armsCompared": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "The armIds this instance is part of a comparison across. Recorded on every instance so that a partial replay cannot be reported as a full six-arm comparison."
+        },
+        "reviewerExposureGuard": {
+          "enum": [
+            "not_applicable_offline_replay",
+            "between_subjects",
+            "within_subjects_disjoint_case_sets"
+          ],
+          "description": "The control preventing a reviewer from meeting the same fragment under two policies. Section 3.3 (p.17) states that showing one reviewer the same case under several policies confounds the policy effect with recall of the earlier decision and that hierarchical modelling does not remove it."
+        },
+        "reviewerSeenFragmentUnderAnotherArm": {
+          "type": "boolean",
+          "description": "Whether the selected reviewer has already seen this fragment under a different arm. Must be false in every admissible design; recording it as a field means a violation is detectable in the data rather than assumed away."
+        },
+        "counterbalanceGroup": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Counterbalancing cell for the within-subjects disjoint-case-set design, or null when not applicable."
+        }
+      }
+    },
+    "preregistration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preregistrationId",
+        "primaryEstimand",
+        "selectiveRiskCeiling",
+        "selectiveRiskDenominatorRule",
+        "importantCaseLabelInstrumentRef",
+        "estimandFrozen",
+        "frozenBeforeOutcomeEvaluation",
+        "protocolSha256"
+      ],
+      "description": "The declarations section 3.3 (p.16) requires to be made before data collection: one primary estimand, and a preregistered ceiling on selective risk treated as a constraint rather than a co-primary outcome. Carrying them on every instance means an instance cannot be re-scored against a ceiling chosen after the fact.",
+      "properties": {
+        "preregistrationId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the frozen protocol registration this instance was produced under."
+        },
+        "primaryEstimand": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The single declared estimand, verbatim from the protocol. Section 3.3 (p.16) declares it as important-case capture at a fixed expert-attention budget, subject to a preregistered ceiling on selective risk, and states that one declared estimand closes off reporting whichever of five measures happens to improve."
+        },
+        "selectiveRiskCeiling": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "The preregistered ceiling on selective risk, or null before the ceiling is registered. Section 3.3 (p.16) makes selective risk a constraint: a policy that raises capture by displacing errors into unreviewed cases fails whatever its capture rate."
+        },
+        "selectiveRiskDenominatorRule": {
+          "enum": [
+            "unescalated_only",
+            "unescalated_plus_audit_sampled"
+          ],
+          "description": "Which cases count in the selective-risk denominator. The proposal does not fix this, and the two rules give different numbers for the same log because an audit-sampled case received review but not live review, so the rule is declared in advance rather than chosen at analysis time."
+        },
+        "importantCaseLabelInstrumentRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the instrument that establishes important-case labels independently of the policy, or null while no such instrument exists. Section 3.3 (p.17) requires Phase B to use independently established important-case labels; a null here means the primary estimand is not yet computable and must be reported as such."
+        },
+        "estimandFrozen": {
+          "type": "boolean",
+          "description": "True once the primary estimand is frozen and can no longer be edited."
+        },
+        "frozenBeforeOutcomeEvaluation": {
+          "type": "boolean",
+          "description": "True when this preregistration was frozen before any outcome was evaluated, per the leakage controls of section 3.7 (p.20)."
+        },
+        "protocolSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen protocol document, so that the declarations above can be verified against the document that was actually frozen."
+        },
+        "deviations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Recorded protocol deviations affecting this instance. Section 3.7 (p.20) requires all protocol deviations, missing responses, exclusions, and post hoc changes to be recorded."
+        }
+      }
+    },
+    "eventIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventIdentityHash",
+        "eventIdentityVersion",
+        "stableAcrossReplay",
+        "sourceLogSha256",
+        "eventObservedAt"
+      ],
+      "description": "Identity of the claim-bearing event this decision was made over. Section 3.3 (p.17) names stable event identity as a Phase A property validated on frozen replay data, and stable identity is the precondition for every policy seeing every case.",
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the claim-bearing event, stable across arms and across replays of the same frozen log."
+        },
+        "eventIdentityHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 over the declared identity fields of the event. Two arms scoring the same case must produce the same hash; a mismatch means the arms did not see the same case."
+        },
+        "eventIdentityVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the identity-hash definition, so a change to what identity is computed over is visible rather than silent."
+        },
+        "stableAcrossReplay": {
+          "const": true,
+          "description": "Held constant. An identity that changes between replays cannot support counterfactual comparison, so a conforming instance asserts stability."
+        },
+        "sourceLogSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen event log this event was drawn from, per the freezing obligation of section 3.7 (p.20)."
+        },
+        "eventObservedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the event originally occurred, as distinct from createdAt, which is when this decision instance was emitted."
+        },
+        "replayIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Position of this event in the frozen log, so that order-dependent state such as queue depth is reconstructable."
+        }
+      }
+    },
+    "contestedFragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fragmentId",
+        "routingUnit",
+        "caseId",
+        "artifactRef",
+        "fragmentLocator",
+        "claimRef",
+        "claimType"
+      ],
+      "description": "The routing unit. Section 1.8 (p.11) requires standing over the SPECIFIC CONTESTED FRAGMENT, and section 1.7 (p.9) gives the concrete instance: one uncovered fragment in one submission, over which six competing readings are available. An aggregate recurring pattern is an object above the individual model and is therefore not a routing unit under this contract.",
+      "properties": {
+        "fragmentId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the specific contested fragment. Every competence assessment and every authority assertion in reviewerCandidates carries this same fragmentId; an executable invariant checks the equality, since JSON Schema cannot compare two sibling values."
+        },
+        "routingUnit": {
+          "const": "contested_fragment",
+          "description": "Held constant. Fixing the unit in the schema is what prevents a judgment made over an aggregate pattern from being attributed to standing over a specific contested fragment. A contract instance whose unit is a recurring pattern is not expressible, and that is deliberate."
+        },
+        "caseId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the case the fragment belongs to, for example one submitted model. Recorded so that fragments can be grouped without the group becoming the routing unit."
+        },
+        "artifactRef": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the artifact the fragment lives in, at the exact version inspected."
+        },
+        "fragmentLocator": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Pointer into the artifact that locates the fragment precisely, for example an element identifier or a JSON pointer. Required because 'the contested fragment' must be resolvable by a later reader, not merely named."
+        },
+        "claimRef": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the contested claim itself: the proposition over which competence and authority are assessed. Held as a reference rather than inline text so that the claim's own record remains the source of truth."
+        },
+        "claimType": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The claim's type, drawn from vocabularyBinding.claimTypeVocabulary. Section 1.7 (p.9) enumerates six readings of one fragment; which reading holds determines who should review it, which is why the type is an input to selection and not merely a label."
+        },
+        "alternativeReadingRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "References to the competing readings available for this fragment. Optional; present when the pipeline has enumerated alternatives, since the set of live readings is what makes the fragment contested."
+        },
+        "producingComponentId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the pipeline component that emitted the fragment as contested. Optional; used to attribute cross-component disagreement."
+        }
+      }
+    },
+    "currentReviewState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "queueDepth",
+        "inFlightReviews",
+        "availableReviewerCount",
+        "budgetUnitsConsumedInPeriod",
+        "budgetUnitsRemainingInPeriod",
+        "interruptionsInPeriod"
+      ],
+      "description": "The second input to the policy. Section 3.3 (p.16) defines the artifact as a model that maps a claim-bearing event AND THE CURRENT REVIEW STATE onto one of several actions, so review state is a first-class input rather than an implementation detail of a queue.",
+      "properties": {
+        "queueDepth": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of items awaiting review at the moment of this decision. Feeds the current_queue_conditions signal."
+        },
+        "oldestQueuedAgeMinutes": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Age of the oldest queued item in minutes, or null when the queue is empty. Supports the queue-delay measure of section 3.6 Table 3 (p.20)."
+        },
+        "inFlightReviews": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of reviews currently open. Distinguished from queueDepth because an item under review consumes a reviewer while an item in the queue does not."
+        },
+        "availableReviewerCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of reviewers in the pool available at this moment. Availability is not competence and not authority: section 1.3 (p.6) states that presence is not expertise, and this field is the presence term."
+        },
+        "budgetUnitsConsumedInPeriod": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Budget units already consumed in the current period, in attentionBudget.unit."
+        },
+        "budgetUnitsRemainingInPeriod": {
+          "type": "number",
+          "description": "Budget units remaining in the current period. May be negative when enforcement is observed_not_enforced, which is how always_ask records overrun rather than hiding it."
+        },
+        "interruptionsInPeriod": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Interruptions already issued in the current period. Supports the interruption-cost measure and connects to the alert-fatigue argument of section 1.4 (p.7)."
+        },
+        "reviewStateVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the review-state definition, so that a change to how state is computed does not silently change the policy's inputs."
+        }
+      }
+    },
+    "signalObservations": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/signalObservation"
+      },
+      "description": "Every declared signal as observed for this event, whether or not this arm uses it. Section 3.3 (p.16) requires each signal to be versioned and logged separately so that its contribution can be audited and ablated. Logging all eight on every arm is what makes the arms comparable on identical inputs and what makes an ablation cell computable from the same log. An executable invariant checks that signalId values are unique and that every member of declaredSignalSet appears here with usedByPolicy true."
+    },
+    "reviewerCandidates": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/reviewerCandidate"
+      },
+      "description": "The reviewers considered for this specific contested fragment, each carrying a claim-specific assessed competence and a claim-specific asserted authority as two separately-valued objects. This array is the difference between routing to an assessed reviewer and enqueueing into an undifferentiated list. An empty array is admissible only for arms whose selectionFunction is 'none'."
+    },
+    "hardRuleEvaluations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/hardRuleEvaluation"
+      },
+      "description": "Evaluation of every hard rule for this event. Section 3.3 (p.16) states that the policy includes hard rules for missing authorization, prohibited transfer, and other high-consequence conditions. Hard rules are recorded as evaluated-and-not-fired as well as fired, so that a rule's silence is evidence rather than absence."
+    },
+    "evidenceExposure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exposureGranted",
+        "exposureGatedByAuthorization",
+        "decisionTraceRef",
+        "decisionTraceContractRef",
+        "withheldElementIds"
+      ],
+      "description": "What the selected reviewer is permitted to see, and whether authorization gated it. Section 2.2 (p.12) fixes the hand-off precisely: SQ2 specifies what the decision trace contains, while SQ1 decides whether and when a reviewer sees it. This contract therefore carries a reference to the trace and the exposure decision, and deliberately does not carry the trace's content.",
+      "properties": {
+        "exposureGranted": {
+          "type": "boolean",
+          "description": "Whether the evidence was exposed to the selected reviewer for this decision."
+        },
+        "exposureGatedByAuthorization": {
+          "const": true,
+          "description": "Held constant. Authorization is always evaluated before exposure, never after; section 3.5 (p.18) states the same ordering obligation for reuse, and applying it here keeps the two contracts consistent on the point that carries the safety load."
+        },
+        "decisionTraceRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the governed-judgment decision trace that would be shown, or null when no trace exists yet. Content is owned by the C2 contract, not by this one."
+        },
+        "decisionTraceContractRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the contract version the trace conforms to, or null. Recording it here means a later reader can tell what shape of evidence the reviewer actually received."
+        },
+        "withheldElementIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Identifiers of trace elements withheld from this reviewer, for example on privacy or authorization grounds. An empty array means nothing was withheld; the field is required so that withholding is recorded rather than invisible."
+        },
+        "privacyClassRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the privacy or sensitivity class governing the evidence, or null when none is assigned. Held as a reference because the class vocabulary belongs to the governed-judgment contract."
+        }
+      }
+    },
+    "routingDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "selectedReviewerCandidateId",
+        "selectionBasis",
+        "firedRuleIds",
+        "decisiveThresholdId",
+        "budgetUnitsCharged",
+        "loadClass",
+        "deferredDueToBudgetExhaustion"
+      ],
+      "description": "The action emitted for this event. Section 3.3 (p.16) fixes the action space at six values: immediate qualified review, queue, batch review, audit sample, autonomous action with logging, and blocked action. A policy with no action space cannot express five of the six.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/routingAction",
+          "description": "The emitted routing action, from the six declared in section 3.3 (p.16)."
+        },
+        "selectedReviewerCandidateId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The candidateId of the reviewer selected, or null when the action selects no reviewer. Required non-null for immediate_qualified_review, because 'qualified' is precisely the selection claim of section 1.8 (p.11)."
+        },
+        "selectionBasis": {
+          "enum": [
+            "not_applicable",
+            "hard_rule",
+            "competence_and_authority_jointly",
+            "competence_only",
+            "authority_only",
+            "random",
+            "queue_order"
+          ],
+          "description": "What determined the selection for this particular decision, as opposed to reviewerStandingModel.selectionFunction, which declares what the arm is configured to do. Logging both lets a divergence between configuration and behaviour be detected."
+        },
+        "firedRuleIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Identifiers of the hard rules that fired for this event. Empty when none fired."
+        },
+        "decisiveThresholdId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The thresholdId that produced the action, or null when no threshold was decisive. Naming the decisive threshold is what makes nested-threshold behaviour auditable rather than inferred."
+        },
+        "combinedScoreAtDecision": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "The combined score at the moment of decision, or null for arms that compute none. Duplicated from combinationRule.combinedScore for arms that recompute per decision; optional."
+        },
+        "budgetUnitsCharged": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Budget units this action consumes, in attentionBudget.unit. Zero for actions that consume no expert attention."
+        },
+        "loadClass": {
+          "enum": [
+            "live_review",
+            "audit",
+            "none"
+          ],
+          "description": "Which load account this action charges. Section 3.3 (p.17) requires separate accounting of live review and audit load, which is only possible if every action declares which account it charges."
+        },
+        "deferredDueToBudgetExhaustion": {
+          "type": "boolean",
+          "description": "True when attentionBudget.exhaustionRule, rather than the signal combination, determined this action. Distinguishing exhaustion-driven actions from signal-driven ones is necessary to interpret capture at a matched budget."
+        },
+        "actionRationaleRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "References to the signalIds, thresholdIds, and ruleIds that jointly produced this action. Optional but recommended: it is what lets a decision be reconstructed without re-running the policy."
+        }
+      }
+    },
+    "attentionAccounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budgetId",
+        "unitsChargedLiveReview",
+        "unitsChargedAudit",
+        "cumulativeLiveReviewUnitsInPeriod",
+        "cumulativeAuditUnitsInPeriod",
+        "budgetExhaustedAtDecision"
+      ],
+      "description": "Per-decision budget accounting with live review and audit load held in separate counters. Section 3.3 (p.17) names separate accounting of live review and audit load as a Phase A property to be validated on frozen replay data.",
+      "properties": {
+        "budgetId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The budget this decision charged. Must match attentionBudget.budgetId; an executable invariant checks the equality."
+        },
+        "unitsChargedLiveReview": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Units charged to the live-review account by this decision."
+        },
+        "unitsChargedAudit": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Units charged to the audit account by this decision. Kept separate even when auditLoadCountedAgainstBudget is true, so the two can always be reported apart."
+        },
+        "cumulativeLiveReviewUnitsInPeriod": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Running live-review total for the period after this decision."
+        },
+        "cumulativeAuditUnitsInPeriod": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Running audit total for the period after this decision."
+        },
+        "budgetRemainingAtDecision": {
+          "type": "number",
+          "description": "Budget remaining immediately after this decision. May be negative only when enforcement is observed_not_enforced."
+        },
+        "budgetExhaustedAtDecision": {
+          "type": "boolean",
+          "description": "Whether the budget was already exhausted when this decision was taken. Together with deferredDueToBudgetExhaustion this separates a policy that chose not to escalate from one that could not."
+        }
+      }
+    },
+    "selectiveRiskAccounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receivedLiveHumanReview",
+        "inSelectiveRiskDenominator",
+        "importantCaseLabel",
+        "importantCaseLabelSource",
+        "importantCaseLabelIndependentOfPolicy",
+        "unreviewedOutcome",
+        "unreviewedOutcomeSource",
+        "countsTowardImportantCaseCapture"
+      ],
+      "description": "The per-decision fields from which the two declared quantities are computed over a set of instances. Important-case capture = instances with importantCaseLabel 'important' and receivedLiveHumanReview true, over all instances with importantCaseLabel 'important'. Selective risk = instances with inSelectiveRiskDenominator true and unreviewedOutcome 'error_present', over all instances with inSelectiveRiskDenominator true. Section 1.4 (p.8) requires a policy to report where errors remain in the cases it chose not to escalate, and section 3.3 (p.16) makes that ceiling a constraint rather than a co-primary outcome.",
+      "properties": {
+        "receivedLiveHumanReview": {
+          "type": "boolean",
+          "description": "Whether a person actually reviewed this fragment under the live-review account. An audit_sample action is review but not live review, which is why this is a separate field from the action."
+        },
+        "inSelectiveRiskDenominator": {
+          "type": "boolean",
+          "description": "Whether this instance counts in the selective-risk denominator, per preregistration.selectiveRiskDenominatorRule. Recorded per instance so that the denominator is fixed by the frozen rule and cannot be redefined at analysis time."
+        },
+        "importantCaseLabel": {
+          "enum": [
+            "important",
+            "not_important",
+            "not_yet_labeled"
+          ],
+          "description": "The independently established important-case label for this fragment, or not_yet_labeled while no label exists. Section 3.3 (p.17) requires Phase B to use independently established important-case labels."
+        },
+        "importantCaseLabelSource": {
+          "enum": [
+            "independent_expert_panel",
+            "preregistered_rule",
+            "not_yet_established"
+          ],
+          "description": "How the label was established. 'not_yet_established' forces importantCaseLabel to not_yet_labeled, so an instance cannot carry a label with no instrument behind it."
+        },
+        "importantCaseLabelIndependentOfPolicy": {
+          "type": "boolean",
+          "description": "Whether the label was produced without sight of any arm's routing decision. A label derived from what a policy escalated would make capture circular, so independence is recorded rather than assumed."
+        },
+        "importantCaseLabelRecordRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the label record, or null. Lets a capture number be traced to the labelling instrument that produced its numerator."
+        },
+        "unreviewedOutcome": {
+          "enum": [
+            "error_present",
+            "error_absent",
+            "not_yet_evaluated"
+          ],
+          "description": "Whether an error remained in this fragment after the policy declined to escalate it. This is the numerator term of selective risk and is the field that makes 'error remaining among cases not escalated' computable."
+        },
+        "unreviewedOutcomeSource": {
+          "enum": [
+            "adjudicated_gold_label",
+            "independent_review",
+            "not_yet_evaluated"
+          ],
+          "description": "How the unreviewed outcome was established. 'not_yet_evaluated' forces unreviewedOutcome to not_yet_evaluated, so selective risk cannot be computed from instances that carry no outcome instrument."
+        },
+        "countsTowardImportantCaseCapture": {
+          "type": "boolean",
+          "description": "Whether this instance is in the capture denominator. Held explicitly so that exclusions are recorded per instance rather than applied as an undocumented filter."
+        },
+        "exclusionReason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Why this instance is excluded from either denominator, or null when it is not excluded. Section 3.7 (p.20) requires exclusions to be recorded."
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "receiptSha256",
+        "receiptInputsSha256",
+        "deterministic"
+      ],
+      "description": "The deterministic receipt for this decision. Section 3.3 (p.17) names deterministic receipts as a Phase A property validated on frozen replay data. This receipt attests to the routing decision only; it is a different object from the per-use outcome receipt of section 3.5 (p.18), which belongs to the C3 artifact, and the two must not be conflated.",
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of this receipt."
+        },
+        "receiptSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 over the emitted decision. Replaying the same arm over the same inputs must reproduce this value."
+        },
+        "receiptInputsSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 over the exact inputs the decision was computed from: event identity, signal observations, reviewer candidates, review state, and arm configuration. Separating input and output hashes lets a receipt mismatch be attributed to changed inputs or to changed policy."
+        },
+        "deterministic": {
+          "const": true,
+          "description": "Held constant. A non-deterministic receipt cannot support counterfactual replay; the random arm satisfies this through combinationRule.randomSeed."
+        },
+        "receiptSchemaRef": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the receipt schema version, when the receipt is also serialized independently of this record. Optional."
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policyId",
+        "policyVersion",
+        "signalRegistrySha256",
+        "frozenEventLogSha256",
+        "producedBy",
+        "producedAt"
+      ],
+      "description": "Binding of this instance to the exact policy, signal registry, and frozen log that produced it. Section 3.7 (p.20) requires policies, thresholds, model versions, guideline snapshots, stores, and exclusion rules to be frozen before outcome evaluation.",
+      "properties": {
+        "policyId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the policy definition."
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the policy definition. Must match policyArm.policyVersion; an executable invariant checks the equality."
+        },
+        "signalRegistrySha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen signal registry that defines the eight signalIds and their versions, so that a signal's meaning at decision time is recoverable."
+        },
+        "frozenEventLogSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen event log used for this evaluation."
+        },
+        "codeCommitSha": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Commit identifier of the implementation that produced the instance, or null for a hand-authored design instance."
+        },
+        "producedBy": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the component, harness, or author that produced this instance."
+        },
+        "producedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the instance was produced."
+        }
+      }
+    },
+    "evidenceClass": {
+      "enum": [
+        "design",
+        "historical",
+        "mechanism",
+        "offline",
+        "synthetic",
+        "evaluation_ready",
+        "pilot",
+        "empirical"
+      ],
+      "description": "The evidential standing of this instance, reusing the vocabulary of MetricObservation-v2 with one addition. 'design' is added for an instance that exists only as a design artifact with no data behind it; every other value carries the meaning it has in MetricObservation-v2."
+    },
+    "outcomeClaimAsserted": {
+      "const": false,
+      "description": "Held constant. No instance of this contract asserts an outcome. Section 3.1 (p.15) states that the separation of artifact from evaluation prevents software completion, unit tests, or conformance checks from being read as empirical evidence of improved outcomes, and this field encodes that as a validation failure rather than a convention."
+    },
+    "claimBoundary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Explicit statement of what this instance may and may not be cited for, following the claimBoundary convention used across the repository's schemas. For a design-stage instance this states that the instance is a design artifact, that no important-case capture, selective-risk, burden, or accuracy value has been measured, and that conformance to this schema is not evidence about any outcome."
+    }
+  },
+  "$defs": {
+    "vocabularyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vocabularyId",
+        "vocabularyVersion",
+        "vocabularySha256"
+      ],
+      "description": "Reference to an external vocabulary this contract deliberately does not fix, so the contract can be reused in a different institution without editing the schema.",
+      "properties": {
+        "vocabularyId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the external vocabulary."
+        },
+        "vocabularyVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the external vocabulary in force for this instance."
+        },
+        "vocabularySha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen vocabulary, so that a term's meaning at decision time is recoverable."
+        }
+      }
+    },
+    "signalId": {
+      "enum": [
+        "claim_uncertainty",
+        "unreviewed_error_consequence",
+        "evidence_quality",
+        "reviewer_competence_for_claim",
+        "current_queue_conditions",
+        "novelty_vs_judgment_store",
+        "cross_agent_disagreement",
+        "expected_future_reuse_value"
+      ],
+      "description": "The eight signals declared in section 3.3 (p.16), fixed by this contract because changing the set would change what P1 tests. The first five are the literature-derived signals: claim-level uncertainty, consequence of an unreviewed error, evidence quality, reviewer competence for the specific claim, and current queue conditions. The last three are contributed by the design: novelty relative to the judgment store, cross-agent disagreement within the pipeline, and expected future reuse value. The section 1.4 (p.8) labels map onto the first five as uncertainty, consequence, evidence quality, reviewer fit, and burden respectively."
+    },
+    "routingAction": {
+      "enum": [
+        "immediate_qualified_review",
+        "queue",
+        "batch_review",
+        "audit_sample",
+        "autonomous_action_with_logging",
+        "blocked_action"
+      ],
+      "description": "The six routing actions declared in section 3.3 (p.16), fixed by this contract. 'immediate_qualified_review' is the only action that requires a selected reviewer, because qualification is the selection claim of section 1.8 (p.11); 'blocked_action' is reachable only through a fired hard rule."
+    },
+    "signalObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signalId",
+        "signalVersion",
+        "signalDefinitionSha256",
+        "signalProvenance",
+        "valueType",
+        "value",
+        "missing",
+        "usedByPolicy"
+      ],
+      "description": "One separately versioned, separately logged signal value for one event. Section 3.3 (p.16) requires each signal to be versioned and logged separately so that its contribution can be audited and ablated; a policy that records only which trigger names fired, without their values, cannot support that.",
+      "properties": {
+        "signalId": {
+          "$ref": "#/$defs/signalId",
+          "description": "Which of the eight declared signals this observation carries."
+        },
+        "signalVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of this individual signal's definition, independent of policyArm.policyVersion. Without a per-signal version only the policy as a whole is versioned and a signal-level ablation cannot be attributed."
+        },
+        "signalDefinitionSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen definition of this signal at this version, so the computation behind the value is recoverable."
+        },
+        "signalProvenance": {
+          "enum": [
+            "literature_derived",
+            "contributed_by_design"
+          ],
+          "description": "Whether the signal comes from the literature reviewed in section 1.4 or is contributed by this design. Section 3.3 (p.16) states that the asymmetry is the point of the study rather than a defect in it, and that P1's primary test uses the five literature-derived signals only, so the provenance must be readable per observation."
+        },
+        "literatureLabel": {
+          "enum": [
+            "uncertainty",
+            "consequence",
+            "evidence_quality",
+            "reviewer_fit",
+            "burden",
+            null
+          ],
+          "description": "The section 1.4 (p.8) label for this signal, or null for the three contributed signals. Present so that both the section 1.4 and section 3.3 vocabularies for the same five signals are recoverable from one record."
+        },
+        "valueType": {
+          "enum": [
+            "probability",
+            "unit_interval",
+            "ordinal",
+            "count",
+            "minutes",
+            "boolean",
+            "categorical"
+          ],
+          "description": "The scale of value, declared per observation because the eight signals are not on a common scale and a weighted combination is uninterpretable without it."
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ],
+          "description": "The observed signal value on its own scale, or null when missing is true. Recording the value, not only that a trigger fired, is what makes the signal ablatable and auditable."
+        },
+        "normalizedValue": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "The value mapped onto the unit interval for combination, or null when the signal is not combined numerically. Kept alongside the raw value so the normalization is inspectable."
+        },
+        "missing": {
+          "type": "boolean",
+          "description": "Whether the signal could not be computed for this event. A missing signal is recorded rather than silently defaulted, because the default determines the action."
+        },
+        "missingReason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Why the signal is missing, or null when it is not missing."
+        },
+        "missingValuePolicy": {
+          "enum": [
+            "treat_as_zero",
+            "treat_as_maximum",
+            "exclude_from_score",
+            "force_escalation",
+            "force_undetermined"
+          ],
+          "description": "What the arm does with this signal when it is missing. Declared per observation because a missing-value default is a policy choice with an outcome, not an implementation detail."
+        },
+        "usedByPolicy": {
+          "type": "boolean",
+          "description": "Whether this arm used the signal in the decision. False for a signal that is logged but outside declaredSignalSet, which is exactly how an ablation cell is expressed without changing the instrumentation."
+        },
+        "computedBy": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the component that computed the value. Optional; used to attribute a signal to its producer."
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the value was computed. Optional; distinct from the event time when signals are computed asynchronously."
+        },
+        "derivedFromReviewerCandidateIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "For reviewer_competence_for_claim, the candidateIds whose per-candidate assessments the scalar signal summarizes. Present so that the escalation signal and the selection inputs are explicitly linked and cannot drift apart: the signal answers whether a competent reviewer exists, while reviewerCandidates answers which one."
+        }
+      }
+    },
+    "reviewerCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "reviewerId",
+        "available",
+        "assessedCompetence",
+        "assertedAuthority"
+      ],
+      "description": "One reviewer considered for this specific contested fragment. Competence and authority are carried as two sibling objects with different value spaces, different sources, and different lifecycles, which is the structural expression of section 1.8's requirement that authority be modelled as distinct from competence.",
+      "properties": {
+        "candidateId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of this candidacy, unique within the instance and referenced by routingDecision.selectedReviewerCandidateId."
+        },
+        "reviewerId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Pseudonymous identifier of the reviewer. Section 3.7 (p.20) requires human material to stay in its approved environment; this contract carries an opaque identifier and no personal data."
+        },
+        "reviewerRoleLabel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Role label drawn from vocabularyBinding.reviewerRoleVocabulary. Descriptive only: section 1.3 (p.6) separates presence, expertise, authority, and correctness, and a role label is none of the last three."
+        },
+        "available": {
+          "type": "boolean",
+          "description": "Whether the reviewer is available within the decision's timing constraints. The presence term of section 1.3 (p.6), kept separate from competence because presence is not expertise."
+        },
+        "assessedCompetence": {
+          "$ref": "#/$defs/assessedCompetence",
+          "description": "Claim-specific assessed competence for this candidate over this fragment."
+        },
+        "assertedAuthority": {
+          "$ref": "#/$defs/assertedAuthority",
+          "description": "Claim-specific asserted authority for this candidate over this fragment."
+        },
+        "burdenState": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "currentQueuedItems",
+            "unitsConsumedInPeriod",
+            "interruptionsInPeriod"
+          ],
+          "description": "Per-reviewer burden, the term the alert-fatigue literature of section 1.4 (p.7) supplies. Held per candidate because burden is a property of a person, whereas currentReviewState.queueDepth is a property of the system.",
+          "properties": {
+            "currentQueuedItems": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Items already queued to this reviewer."
+            },
+            "unitsConsumedInPeriod": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Budget units this reviewer has already consumed in the period, in attentionBudget.unit."
+            },
+            "interruptionsInPeriod": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Interruptions already delivered to this reviewer in the period."
+            },
+            "availabilityWindowRef": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Reference to this reviewer's availability window, or null when unmodelled."
+            }
+          }
+        },
+        "excludedReason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Why this candidate was excluded from selection, or null when not excluded. Recorded so that a narrowed candidate set is visible rather than implicit."
+        }
+      }
+    },
+    "assessedCompetence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "competenceId",
+        "assessmentScope",
+        "fragmentId",
+        "valueScale",
+        "value",
+        "assessmentBasis",
+        "assessedAt",
+        "signalVersion",
+        "definitionSha256",
+        "derivedFromAuthority"
+      ],
+      "description": "Assessed competence of one reviewer over one specific contested fragment. Section 1.8 (p.11) distinguishes this from an aggregate competence profile over a task distribution, which is what multi-expert deferral conditions on; assessmentScope is the field that makes the distinction machine-checkable rather than rhetorical.",
+      "properties": {
+        "competenceId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of this competence assessment, so it can be cited, superseded, and audited independently of the routing decision that used it."
+        },
+        "assessmentScope": {
+          "enum": [
+            "contested_fragment",
+            "claim_type",
+            "task_distribution_aggregate",
+            "not_assessed"
+          ],
+          "description": "The unit this competence was assessed over. 'contested_fragment' is assessed standing to settle this specific fragment. 'task_distribution_aggregate' is the prior-work position of section 1.8 (p.11) and is admissible here only so that the comparator arm can be built and run, not because it satisfies the proposed policy."
+        },
+        "fragmentId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The fragment this assessment is scoped to. Must equal contestedFragment.fragmentId; an executable invariant checks the equality, since JSON Schema cannot compare two sibling values. This is the field that prevents a competence figure computed over some other unit from being presented as standing over this fragment."
+        },
+        "valueScale": {
+          "enum": [
+            "unit_interval",
+            "ordinal_0_3",
+            "categorical"
+          ],
+          "description": "The scale value is expressed on. Declared because competence is an estimate whose scale varies with the assessment basis."
+        },
+        "value": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "The assessed competence value on its declared scale. Deliberately numeric or ordinal, and deliberately NOT drawn from the same value space as assertedAuthority.value, so the two cannot be conflated or summed into one standing score."
+        },
+        "assessmentBasis": {
+          "enum": [
+            "prior_adjudicated_agreement",
+            "credentialed_qualification",
+            "calibration_task",
+            "peer_attestation",
+            "self_declared",
+            "unassessed"
+          ],
+          "description": "What the assessment rests on. Recorded because a competence value from self-declaration and one from prior adjudicated agreement are not interchangeable, and a study that does not distinguish them cannot report what it conditioned on."
+        },
+        "assessmentEvidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "References to the evidence behind the assessment. Optional; empty is admissible only when assessmentBasis is self_declared or unassessed."
+        },
+        "assessedBy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Identifier of the assessor, or null when the assessment is computed rather than issued by a person."
+        },
+        "assessedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the assessment was made. Competence assessed long before the decision is weaker evidence of present standing, and dating it makes that visible."
+        },
+        "validUntil": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "When the assessment lapses, or null when it does not expire. A competence assessment that is valid forever by construction cannot be governed."
+        },
+        "signalVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the competence-assessment definition, versioned separately so that a change in how competence is assessed is not hidden inside a policy version bump."
+        },
+        "definitionSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen competence-assessment definition at this version."
+        },
+        "derivedFromAuthority": {
+          "const": false,
+          "description": "Held constant. A competence value may not be computed from an authority assertion. Together with assertedAuthority.derivedFromCompetence, this makes the independence of the two inputs a validation condition rather than a claim in prose."
+        }
+      }
+    },
+    "assertedAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorityId",
+        "authorityScope",
+        "fragmentId",
+        "value",
+        "mandateSource",
+        "status",
+        "effectiveFrom",
+        "definitionSha256",
+        "derivedFromCompetence"
+      ],
+      "description": "Asserted authority of one reviewer over one specific contested fragment: the mandate to settle it, as opposed to the ability to reason about it correctly. Section 1.3 (p.6) states the separation directly, and section 1.8 (p.11) states that no reviewed formulation models authority as distinct from competence. This object is a mandate ladder with an issuer, a lifecycle, and a revocation state, and shares no value space with assessedCompetence.",
+      "properties": {
+        "authorityId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of this authority assertion, so it can be cited, revoked, and audited independently of the competence assessment for the same reviewer."
+        },
+        "authorityScope": {
+          "enum": [
+            "contested_fragment",
+            "artifact",
+            "case_set",
+            "guideline",
+            "institution",
+            "not_asserted"
+          ],
+          "description": "The object of governance the mandate is held over. Required to be 'contested_fragment' for the proposed policy, because section 1.8 (p.11) requires standing over the specific contested fragment; the broader values are admissible so that an authority held at guideline or institution level can be recorded and its insufficiency for this fragment detected."
+        },
+        "fragmentId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The fragment this assertion is scoped to. Must equal contestedFragment.fragmentId; an executable invariant checks the equality."
+        },
+        "value": {
+          "enum": [
+            "none",
+            "advisory",
+            "decides_with_review",
+            "decides",
+            "decides_and_may_amend_guideline"
+          ],
+          "description": "The mandate held, as an ordered ladder. Categorical and ordered rather than numeric, deliberately: a mandate is granted at a level by an issuer, it is not estimated, and giving it a different value space from competence is what makes summing the two into one standing score impossible by construction."
+        },
+        "mandateSource": {
+          "enum": [
+            "role_assignment",
+            "institutional_policy",
+            "rubric_ownership",
+            "delegation",
+            "statutory",
+            "unassigned"
+          ],
+          "description": "Where the mandate comes from. Section 1.7 (p.9) turns on this: the instructor who owns the rubric may rule on the fragment where the language specialist may not, and the difference is the source of the mandate, not the quality of the reasoning."
+        },
+        "mandateInstrumentRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the instrument granting the mandate, or null when unrecorded. A mandate with no instrument is recordable but is visibly weaker."
+        },
+        "grantedBy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Identifier of the party that granted the mandate, or null when unrecorded."
+        },
+        "status": {
+          "enum": [
+            "active",
+            "suspended",
+            "revoked",
+            "expired"
+          ],
+          "description": "Lifecycle state of the mandate at decision time. Present because a mandate that cannot lapse or be revoked cannot support the authority-compliance and reliance-on-revoked measures of section 3.6 Table 3 (p.20)."
+        },
+        "effectiveFrom": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the mandate took effect."
+        },
+        "effectiveUntil": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "When the mandate lapses, or null when it does not."
+        },
+        "definitionSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen authority model at the version in force, so that what the ladder meant at decision time is recoverable."
+        },
+        "derivedFromCompetence": {
+          "const": false,
+          "description": "Held constant. An authority assertion may not be computed from a competence value. This is the second half of the independence condition and is the field that makes the section 1.8 novelty claim a validation condition."
+        }
+      }
+    },
+    "hardRuleEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ruleId",
+        "ruleVersion",
+        "ruleDefinitionSha256",
+        "evaluationOrder",
+        "evaluatedBefore",
+        "fired",
+        "forcedAction",
+        "overridableBySignals"
+      ],
+      "description": "Evaluation of one hard rule for one event. Section 3.3 (p.16) requires hard rules for missing authorization, prohibited transfer, and other high-consequence conditions; a hard rule differs from a threshold in that it cannot be outweighed by a favourable score.",
+      "properties": {
+        "ruleId": {
+          "enum": [
+            "missing_authorization",
+            "prohibited_transfer",
+            "revoked_judgment_reliance",
+            "privacy_restricted_evidence",
+            "consequence_ceiling_exceeded",
+            "other_high_consequence"
+          ],
+          "description": "Which hard rule this is. The first two are named verbatim in section 3.3 (p.16); the remainder instantiate 'other high-consequence conditions' and are enumerated rather than left open so that a conformance suite can check which were evaluated."
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of this rule's definition, versioned separately from the policy so a rule change is attributable."
+        },
+        "ruleDefinitionSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the frozen rule definition at this version."
+        },
+        "evaluationOrder": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Position of this rule in the evaluation sequence for this event, so that rule ordering is recorded rather than inferred from code."
+        },
+        "evaluatedBefore": {
+          "enum": [
+            "signal_combination",
+            "after_signal_combination"
+          ],
+          "description": "Whether the rule was evaluated before or after the signals were combined. missing_authorization must be evaluated before signal combination, because authorization gates exposure of evidence and cannot be traded against a score."
+        },
+        "fired": {
+          "type": "boolean",
+          "description": "Whether the rule's condition held for this event. Recorded on every evaluation, so that a rule's silence is evidence that it was checked."
+        },
+        "forcedAction": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/routingAction"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The action the rule forces when it fires, or null when it did not fire. Naming the forced action makes the rule's consequence explicit instead of implicit in control flow."
+        },
+        "overridableBySignals": {
+          "const": false,
+          "description": "Held constant. A rule that a favourable signal score can override is a threshold, not a hard rule, and belongs in combinationRule.thresholds."
+        },
+        "ruleRationaleRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference to the condition and evidence that caused the rule to fire, or null. Optional."
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "recordType"
+        ],
+        "properties": {
+          "recordType": {
+            "const": "routing_decision"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "eventIdentity",
+          "contestedFragment",
+          "currentReviewState",
+          "signalObservations",
+          "reviewerCandidates",
+          "hardRuleEvaluations",
+          "evidenceExposure",
+          "routingDecision",
+          "attentionAccounting",
+          "selectiveRiskAccounting",
+          "receipt"
+        ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "recordType"
+        ],
+        "properties": {
+          "recordType": {
+            "const": "arm_configuration"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "routingDecision"
+              ]
+            },
+            {
+              "required": [
+                "selectiveRiskAccounting"
+              ]
+            },
+            {
+              "required": [
+                "attentionAccounting"
+              ]
+            },
+            {
+              "required": [
+                "receipt"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "family"
+            ],
+            "properties": {
+              "family": {
+                "const": "never_ask"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declaredSignalSet": {
+            "maxItems": 0
+          },
+          "combinationRule": {
+            "properties": {
+              "method": {
+                "const": "none"
+              }
+            }
+          },
+          "reviewerStandingModel": {
+            "properties": {
+              "selectionFunction": {
+                "const": "none"
+              },
+              "competenceAuthorityCoupling": {
+                "const": "not_modelled"
+              }
+            }
+          },
+          "hardRuleEvaluations": {
+            "maxItems": 0
+          },
+          "routingDecision": {
+            "properties": {
+              "action": {
+                "const": "autonomous_action_with_logging"
+              },
+              "budgetUnitsCharged": {
+                "const": 0
+              },
+              "loadClass": {
+                "const": "none"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "family"
+            ],
+            "properties": {
+              "family": {
+                "const": "always_ask"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declaredSignalSet": {
+            "maxItems": 0
+          },
+          "combinationRule": {
+            "properties": {
+              "method": {
+                "const": "none"
+              }
+            }
+          },
+          "attentionBudget": {
+            "properties": {
+              "enforcement": {
+                "const": "observed_not_enforced"
+              }
+            }
+          },
+          "routingDecision": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "immediate_qualified_review",
+                  "queue"
+                ]
+              },
+              "loadClass": {
+                "const": "live_review"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "family"
+            ],
+            "properties": {
+              "family": {
+                "const": "random_at_matched_budget"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declaredSignalSet": {
+            "maxItems": 0
+          },
+          "combinationRule": {
+            "required": [
+              "randomSelectionProbability",
+              "randomSeed"
+            ],
+            "properties": {
+              "method": {
+                "const": "random"
+              },
+              "randomSelectionProbability": {
+                "type": "number"
+              },
+              "randomSeed": {
+                "type": "integer"
+              }
+            }
+          },
+          "attentionBudget": {
+            "properties": {
+              "enforcement": {
+                "const": "enforced_hard_cap"
+              },
+              "matchedAcrossArms": {
+                "const": true
+              }
+            }
+          },
+          "reviewerStandingModel": {
+            "properties": {
+              "selectionFunction": {
+                "enum": [
+                  "none",
+                  "fixed_single_undifferentiated_reviewer",
+                  "random_from_pool",
+                  "queue_order"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "family"
+            ],
+            "properties": {
+              "family": {
+                "const": "uncertainty_only"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declaredSignalSet": {
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "const": "claim_uncertainty"
+            }
+          },
+          "combinationRule": {
+            "required": [
+              "thresholds"
+            ],
+            "properties": {
+              "method": {
+                "const": "single_signal_threshold"
+              },
+              "thresholds": {
+                "minItems": 1
+              }
+            }
+          },
+          "reviewerStandingModel": {
+            "properties": {
+              "competenceAuthorityCoupling": {
+                "enum": [
+                  "not_modelled",
+                  "single_combined_standing_score"
+                ]
+              },
+              "selectionFunction": {
+                "enum": [
+                  "none",
+                  "fixed_single_undifferentiated_reviewer",
+                  "random_from_pool",
+                  "queue_order"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "family"
+            ],
+            "properties": {
+              "family": {
+                "const": "fixed_threshold"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declaredSignalSet": {
+            "minItems": 1
+          },
+          "combinationRule": {
+            "required": [
+              "thresholds",
+              "nestedThresholdOrder"
+            ],
+            "properties": {
+              "method": {
+                "const": "fixed_threshold"
+              },
+              "thresholds": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "not": {
+          "required": [
+            "ablation"
+          ]
+        },
+        "properties": {
+          "policyArm": {
+            "required": [
+              "family"
+            ],
+            "properties": {
+              "family": {
+                "const": "proposed_policy"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declaredSignalSet": {
+            "minItems": 5,
+            "allOf": [
+              {
+                "contains": {
+                  "const": "claim_uncertainty"
+                }
+              },
+              {
+                "contains": {
+                  "const": "unreviewed_error_consequence"
+                }
+              },
+              {
+                "contains": {
+                  "const": "evidence_quality"
+                }
+              },
+              {
+                "contains": {
+                  "const": "reviewer_competence_for_claim"
+                }
+              },
+              {
+                "contains": {
+                  "const": "current_queue_conditions"
+                }
+              }
+            ]
+          },
+          "combinationRule": {
+            "required": [
+              "weights",
+              "thresholds",
+              "nestedThresholdOrder",
+              "tieBreak"
+            ],
+            "properties": {
+              "method": {
+                "enum": [
+                  "weighted_sum_with_hard_rules",
+                  "lexicographic_with_hard_rules"
+                ]
+              },
+              "weights": {
+                "minItems": 5
+              }
+            }
+          },
+          "reviewerStandingModel": {
+            "required": [
+              "authorityIsRoutingHardRule",
+              "unassessedCompetenceDefault"
+            ],
+            "properties": {
+              "competenceAuthorityCoupling": {
+                "const": "independently_valued"
+              },
+              "competenceAssessmentScope": {
+                "const": "contested_fragment"
+              },
+              "authorityAssertionScope": {
+                "const": "contested_fragment"
+              },
+              "selectionFunction": {
+                "const": "competence_and_authority_jointly"
+              },
+              "authorityIsRoutingHardRule": {
+                "const": true
+              }
+            }
+          },
+          "policyArm": {
+            "properties": {
+              "equivalentPriorWorkFormulation": {
+                "const": "none_declared"
+              }
+            }
+          },
+          "reviewerCandidates": {
+            "minItems": 1,
+            "items": {
+              "properties": {
+                "assessedCompetence": {
+                  "properties": {
+                    "assessmentScope": {
+                      "const": "contested_fragment"
+                    }
+                  }
+                },
+                "assertedAuthority": {
+                  "properties": {
+                    "authorityScope": {
+                      "const": "contested_fragment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "hardRuleEvaluations": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "ruleId"
+              ],
+              "properties": {
+                "ruleId": {
+                  "const": "missing_authorization"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "equivalentPriorWorkFormulation"
+            ],
+            "properties": {
+              "equivalentPriorWorkFormulation": {
+                "const": "multi_expert_deferral_aggregate_profile"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reviewerStandingModel": {
+            "properties": {
+              "competenceAssessmentScope": {
+                "const": "task_distribution_aggregate"
+              },
+              "competenceAuthorityCoupling": {
+                "enum": [
+                  "not_modelled",
+                  "single_combined_standing_score",
+                  "authority_derived_from_competence"
+                ]
+              },
+              "selectionFunction": {
+                "const": "competence_only"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "policyArm"
+        ],
+        "properties": {
+          "policyArm": {
+            "required": [
+              "equivalentPriorWorkFormulation"
+            ],
+            "properties": {
+              "equivalentPriorWorkFormulation": {
+                "const": "single_expert_deferral"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reviewerStandingModel": {
+            "properties": {
+              "selectionFunction": {
+                "const": "fixed_single_undifferentiated_reviewer"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "routingDecision"
+        ],
+        "properties": {
+          "routingDecision": {
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "immediate_qualified_review"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "routingDecision": {
+            "properties": {
+              "selectedReviewerCandidateId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "selectionBasis": {
+                "not": {
+                  "const": "not_applicable"
+                }
+              },
+              "loadClass": {
+                "const": "live_review"
+              }
+            }
+          },
+          "reviewerCandidates": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "routingDecision"
+        ],
+        "properties": {
+          "routingDecision": {
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "audit_sample"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "routingDecision": {
+            "properties": {
+              "loadClass": {
+                "const": "audit"
+              }
+            }
+          },
+          "selectiveRiskAccounting": {
+            "properties": {
+              "receivedLiveHumanReview": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "routingDecision"
+        ],
+        "properties": {
+          "routingDecision": {
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "autonomous_action_with_logging"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "routingDecision": {
+            "properties": {
+              "loadClass": {
+                "const": "none"
+              },
+              "budgetUnitsCharged": {
+                "const": 0
+              }
+            }
+          },
+          "selectiveRiskAccounting": {
+            "properties": {
+              "receivedLiveHumanReview": {
+                "const": false
+              },
+              "inSelectiveRiskDenominator": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "routingDecision"
+        ],
+        "properties": {
+          "routingDecision": {
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "blocked_action"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "routingDecision": {
+            "properties": {
+              "firedRuleIds": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "hardRuleEvaluations"
+        ],
+        "properties": {
+          "hardRuleEvaluations": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "ruleId",
+                "fired"
+              ],
+              "properties": {
+                "ruleId": {
+                  "const": "missing_authorization"
+                },
+                "fired": {
+                  "const": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidenceExposure": {
+            "properties": {
+              "exposureGranted": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "hardRuleEvaluations"
+        ],
+        "properties": {
+          "hardRuleEvaluations": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "ruleId"
+              ],
+              "properties": {
+                "ruleId": {
+                  "const": "missing_authorization"
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "hardRuleEvaluations": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "ruleId",
+                "evaluatedBefore"
+              ],
+              "properties": {
+                "ruleId": {
+                  "const": "missing_authorization"
+                },
+                "evaluatedBefore": {
+                  "const": "signal_combination"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "selectiveRiskAccounting"
+        ],
+        "properties": {
+          "selectiveRiskAccounting": {
+            "required": [
+              "importantCaseLabelSource"
+            ],
+            "properties": {
+              "importantCaseLabelSource": {
+                "const": "not_yet_established"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "selectiveRiskAccounting": {
+            "properties": {
+              "importantCaseLabel": {
+                "const": "not_yet_labeled"
+              },
+              "countsTowardImportantCaseCapture": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "selectiveRiskAccounting"
+        ],
+        "properties": {
+          "selectiveRiskAccounting": {
+            "required": [
+              "unreviewedOutcomeSource"
+            ],
+            "properties": {
+              "unreviewedOutcomeSource": {
+                "const": "not_yet_evaluated"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "selectiveRiskAccounting": {
+            "properties": {
+              "unreviewedOutcome": {
+                "const": "not_yet_evaluated"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "preregistration"
+        ],
+        "properties": {
+          "preregistration": {
+            "required": [
+              "selectiveRiskCeiling"
+            ],
+            "properties": {
+              "selectiveRiskCeiling": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidenceClass": {
+            "enum": [
+              "design",
+              "mechanism",
+              "synthetic",
+              "historical"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "evaluationContext"
+        ],
+        "properties": {
+          "evaluationContext": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "offline_counterfactual_replay"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evaluationContext": {
+            "properties": {
+              "reviewerExposureGuard": {
+                "const": "not_applicable_offline_replay"
+              },
+              "reviewerSeenFragmentUnderAnotherArm": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "evaluationContext"
+        ],
+        "properties": {
+          "evaluationContext": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "enum": [
+                  "between_subjects_human_study",
+                  "within_subjects_disjoint_case_sets"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evaluationContext": {
+            "properties": {
+              "reviewerSeenFragmentUnderAnotherArm": {
+                "const": false
+              },
+              "reviewerExposureGuard": {
+                "enum": [
+                  "between_subjects",
+                  "within_subjects_disjoint_case_sets"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
