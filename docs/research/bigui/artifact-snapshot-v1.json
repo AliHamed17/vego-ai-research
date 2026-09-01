@@ -191,14 +191,14 @@
       },
       {
         "experiment_id": "EXP-016",
-        "title": "Authority and timeout safety",
+        "title": "Role-based action authorization (not claim-specific authority - see ISS-045) and timeout safety",
         "research_space": "Cross-program",
         "track": "Architecture conformance",
         "status": "Offline evidence",
         "evidence_class": "offline",
         "accepted_runs": 2,
         "claim_boundary": "Offline architecture or workload evidence only; no production approval or accuracy claim.",
-        "next_action": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority."
+        "next_action": "`SYNTHETIC_NOT_HUMAN` cases preserved baseline hashes, parked timeout/denial paths, and produced zero trusted-memory writes/correction applications. No implementation authority. \"Authority\" here means role-based action authorization (not claim-specific authority - see ISS-045)."
       },
       {
         "experiment_id": "EXP-017",

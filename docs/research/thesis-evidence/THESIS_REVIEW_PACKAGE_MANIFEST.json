@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "f71135ac8bed7fcce852865380c0de96335e8819",
-  "packageRevision": "bb5119e1a15fa9a76742d59e001e0bc481b8862e",
-  "sourceTreeHash": "f1198fa2cfda92cfcdf4fff0ff3f0e7f15fe083d92ff3baa77bee864a630be80",
+  "sourceRevision": "9ef277a2f2e617af6c99008254ea8f87ad279903",
+  "packageRevision": "67c7352c8aa048f388bd046ef16680a044fb65ab",
+  "sourceTreeHash": "e301c433f2fcd64258192fa03ac9d47a0a6e4590f180c6f6ff6a28e4d51e65cb",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "a1f2645e13c71b01350982fd5eee6077dcfda67661e6ab0745ae17e46b420558",
+    "sha256": "220cf84336de3ced18d0074c6da66b9d9b8be87b808c3f4d2d3e5f25b5d51d18",
     "bytes": 48319,
     "tracked": true
   },
@@ -22,7 +22,7 @@
     },
     "interactiveHtml": {
       "path": "VEGO-AI-Thesis-Baseline-Progress.html",
-      "sha256": "9dd22095425f322b52872c145bfd1e1f083afc02efb9d0a8065bfcf5f5df847e",
+      "sha256": "42a7dba5b7852ecf1b2bbeb71c0f15b938f4a617c4c37609a7d113743f208bba",
       "bytes": 81914,
       "tracked": true
     }
@@ -131,7 +131,7 @@
     },
     {
       "path": "experiments/registry.md",
-      "sha256": "0e27749289fd85e7cd7bda1a9ab6fd31f38168d48b2b375b880e44f71c03f9eb"
+      "sha256": "54aeea6b1fdc6676b3019053e7b3304b96aa5269369f0dfad57c4b83d935a251"
     },
     {
       "path": "requirements-thesis.txt",
@@ -179,7 +179,7 @@
     },
     {
       "path": "scripts/build_hardening_manifests.py",
-      "sha256": "af85cd88724635de68c83ca6a8ce308a6185d4e307ef00407d2cb7110ff936d1"
+      "sha256": "3e9428943a2bed5811bd715c8e53f71174a7f111bf05d87d2ef953aa80cb569d"
     },
     {
       "path": "scripts/build_thesis_evidence_package.py",
@@ -211,7 +211,7 @@
     },
     {
       "path": "scripts/validate_research_records.py",
-      "sha256": "2457800947d5dfa8b539f62f84c1266e5cd0bb3500d8f630977c2d3b1874fb88"
+      "sha256": "4e9586f31a3ec80ab1180ebe51f3d0acea4503d89f84d4fdf830189b9b279cb2"
     },
     {
       "path": "scripts/validate_thesis_content.py",

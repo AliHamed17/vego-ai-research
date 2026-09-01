@@ -14,6 +14,17 @@ How the research workspace is organized, why, and what each section does.
 8. **\source-package-manifest.md\** — what files are included/excluded
 9. **\	hesis-and-progress-architecture.md\** — thesis/research documents plus tracking lifecycle
 
+## Current enhancement plan
+
+- `../research/future-work-and-verification-plan-2026-09-01.md` — the step-by-step research
+  execution and pipeline-health plan that follows Wave 1: the standing verification ladder, the
+  gated Study 1-3 sequence, and the enhancement-vs-correctness comparison discipline.
+
+- `../research/architecture-enhancement-master-plan-2026-08-31.md` — the wave plan aligning
+  architecture, engines, and experiments with the 2026-08-25 doctoral proposal; grounded in
+  `../research/phd-proposal/architecture-alignment-audit-2026-08-31.md` (the verified gap
+  inventory) and gated by `../research/phd-proposal/2026-08-31-architecture-decisions-packet.md`.
+
 ## Operational guides
 
 - \../operations/progress-update-architecture.md\ — detailed progress tracking flow

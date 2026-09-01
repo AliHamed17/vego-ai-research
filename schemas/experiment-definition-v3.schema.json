@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai/schemas/experiment-definition-v3.schema.json",
+  "title": "ExperimentDefinition-v3",
+  "$comment": "Additive successor to experiment-definition-v2. v2's single baseline+comparator pair cannot express N-arm designs such as C4's four-arm integrated evaluation; v3 replaces the pair with an arms array (minItems 2) and changes nothing else. v2 remains valid for two-arm definitions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "title",
+    "researchSpace",
+    "researchTrack",
+    "researchQuestion",
+    "definitionStatus",
+    "evidenceClass",
+    "architectureTargets",
+    "prerequisites",
+    "approvalGates",
+    "arms",
+    "runner",
+    "evaluator",
+    "metricDefinitionIds",
+    "acceptanceRules",
+    "comparisonSpec",
+    "claimBoundary",
+    "validityThreats",
+    "owner",
+    "nextAction",
+    "artifactLinks"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "ExperimentDefinition-v3"},
+    "id": {"type": "string", "pattern": "^EXP-[0-9]{3}$"},
+    "title": {"type": "string", "minLength": 1},
+    "researchSpace": {"enum": ["MSc", "PhD", "Cross-program"]},
+    "researchTrack": {"type": "string", "minLength": 1},
+    "researchQuestion": {"type": "string", "minLength": 1},
+    "definitionStatus": {
+      "enum": [
+        "measured",
+        "ready_to_run",
+        "awaiting_external_observation",
+        "ready_after_dependency",
+        "future_study",
+        "historical"
+      ]
+    },
+    "evidenceClass": {
+      "enum": [
+        "historical",
+        "mechanism",
+        "offline",
+        "synthetic",
+        "evaluation_ready",
+        "pilot",
+        "empirical",
+        "proposal"
+      ]
+    },
+    "architectureTargets": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "approvalGates": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["armId", "description", "role"],
+        "properties": {
+          "armId": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "role": {"enum": ["baseline", "comparator", "treatment", "control"]}
+        }
+      }
+    },
+    "runner": {"type": ["string", "null"]},
+    "evaluator": {"type": ["string", "null"]},
+    "metricDefinitionIds": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[A-Z][A-Z0-9_.-]+$"},
+      "uniqueItems": true
+    },
+    "acceptanceRules": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    },
+    "comparisonSpec": {"$ref": "comparison-eligibility-v2.schema.json#/$defs/spec"},
+    "claimBoundary": {"type": "string", "minLength": 1},
+    "validityThreats": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "owner": {"type": "string", "minLength": 1},
+    "nextAction": {"type": "string", "minLength": 1},
+    "artifactLinks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "not": {"pattern": "^[A-Za-z]:\\\\|^file://"}
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

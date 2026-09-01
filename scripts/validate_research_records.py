@@ -50,6 +50,8 @@ SCHEMAS = {
     "BigUIStudyRecord-v1": ROOT / "schemas/bigui-study-record-v1.schema.json",
     "ExperimentCatalogSnapshot-v1": ROOT
     / "schemas/experiment-catalog-snapshot-v1.schema.json",
+    "ExperimentDefinition-v3": ROOT
+    / "schemas/experiment-definition-v3.schema.json",
     "ReviewPolicySignalContract-v1": ROOT
     / "schemas/review-policy-signal-contract-v1.schema.json",
     "GovernedJudgmentRecord-v1": ROOT
@@ -212,6 +214,8 @@ def semantic_errors(record: dict[str, Any]) -> list[str]:
                     )
     elif version == "ReviewPolicySignalContract-v1":
         errors.extend(_review_policy_signal_contract_errors(record))
+    elif version == "GovernedJudgmentRecord-v1":
+        errors.extend(_governed_judgment_record_errors(record))
     elif version == "ReuseDecisionRecord-v1":
         errors.extend(_reuse_decision_record_errors(record))
     return errors
@@ -284,6 +288,90 @@ def _review_policy_signal_contract_errors(record: dict[str, Any]) -> list[str]:
     return errors
 
 
+def _governed_judgment_record_errors(record: dict[str, Any]) -> list[str]:
+    """Referential invariants across content groups that JSON Schema cannot express.
+
+    Each check is tolerant of absent optional sections: a pair is flagged only
+    when both sides are present and inconsistent.
+    """
+    errors: list[str] = []
+    grounding = record.get("caseGrounding") or {}
+    grounded_claim = grounding.get("claimId")
+
+    assessed_claim = (record.get("competence") or {}).get("assessedForClaimId")
+    if (
+        assessed_claim is not None
+        and grounded_claim is not None
+        and assessed_claim != grounded_claim
+    ):
+        errors.append(
+            f"competence.assessedForClaimId {assessed_claim!r} does not match "
+            f"caseGrounding.claimId {grounded_claim!r}"
+        )
+    mandate_claim = ((record.get("authority") or {}).get("mandate") or {}).get(
+        "claimId"
+    )
+    if (
+        mandate_claim is not None
+        and grounded_claim is not None
+        and mandate_claim != grounded_claim
+    ):
+        errors.append(
+            f"authority.mandate.claimId {mandate_claim!r} does not match "
+            f"caseGrounding.claimId {grounded_claim!r}"
+        )
+
+    slots = (record.get("decisionTrace") or {}).get("slots") or {}
+    declared_evidence = grounding.get("evidence")
+    if declared_evidence is not None and slots:
+        evidence_ids = {item.get("evidenceId") for item in declared_evidence}
+        for slot_name in sorted(slots):
+            slot = slots[slot_name] or {}
+            referenced = set(slot.get("evidenceIds") or [])
+            for evidence_id in sorted(referenced - evidence_ids):
+                errors.append(
+                    f"decisionTrace.slots.{slot_name} references undeclared "
+                    f"evidenceId {evidence_id!r}"
+                )
+
+    structure = (record.get("rationale") or {}).get("structure") or []
+    if record.get("decisionTrace") is not None and structure:
+        slot_ids = {
+            slot.get("slotId") for slot in slots.values() if isinstance(slot, dict)
+        }
+        for entry in structure:
+            slot_ref = entry.get("traceSlotRef")
+            if slot_ref is not None and slot_ref not in slot_ids:
+                errors.append(
+                    f"rationale.structure[{entry.get('assertionId')}].traceSlotRef "
+                    f"{slot_ref!r} does not match any decisionTrace slotId"
+                )
+
+    receipts = record.get("receipts") or {}
+    retrieval = receipts.get("retrieval")
+    if retrieval is not None:
+        retrieval_ids = {receipt.get("receiptId") for receipt in retrieval}
+        for use_receipt in receipts.get("use") or []:
+            retrieval_ref = use_receipt.get("retrievalReceiptId")
+            if retrieval_ref is not None and retrieval_ref not in retrieval_ids:
+                errors.append(
+                    f"receipts.use[{use_receipt.get('receiptId')}]"
+                    f".retrievalReceiptId {retrieval_ref!r} does not match any "
+                    "receipts.retrieval receiptId"
+                )
+
+    lifecycle = record.get("lifecycle") or {}
+    if lifecycle.get("state") == "revoked":
+        revocation = lifecycle.get("revocation") or {}
+        for field in ("reason", "revokedByAuthorityRef"):
+            if revocation.get(field) is None:
+                errors.append(
+                    "lifecycle.state 'revoked' requires non-null "
+                    f"lifecycle.revocation.{field}"
+                )
+    return errors
+
+
 def _reuse_decision_record_errors(record: dict[str, Any]) -> list[str]:
     """Keep an outcome receipt from contradicting the decision it receipts."""
     errors: list[str] = []
@@ -329,6 +417,7 @@ def main() -> int:
                 path
                 for path in sorted(supplied.rglob("*.json"))
                 if not path.name.endswith(".invalid.json")
+                and not path.name.endswith("-fixtures.json")
             )
         else:
             paths.append(supplied)
