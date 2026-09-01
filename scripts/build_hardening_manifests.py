@@ -56,7 +56,11 @@ CURRENT_RUNTIME_LOCKS = {
         "c185879270a318a2b7c3920f4a9c49c6be6ae807afe33eddb4d4577fd9603794"
     ),
     "VEGO-AI/eval/README_EVALUATOR.md": (
-        "eea1faae35daee60a1d7af34769f8523374d56b48bb9c896eddb297ee238474f"
+        # Re-locked 2026-09-01 after PR #32 (docs-only README restructure)
+        # changed this file on main without updating the lock, leaving
+        # main's hardening check red. Content diff reviewed: no runtime
+        # change. See ISS-049.
+        "b24280599b799a121d4758f9d9eb81b1451cb9b178ce1c60fb0ebdfe9ac20832"
     ),
     "VEGO-AI/eval/agentA_language_evaluator.py": (
         "de412e3ab42dc783c3fdd94dc6e42969c84d565b687277e2c359c2a0299a28cf"

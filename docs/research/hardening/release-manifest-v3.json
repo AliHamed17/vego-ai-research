@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "f9c480a6f048dd09e3c04851f896db7593616690483161439ed27341268fd4e4",
+  "packageTreeSha256": "b78696fce72bfe3648f47e61796c5bf8e1bc07a94f48d2d1004e4011236f0786",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -47,6 +47,7 @@
     "VEGO-AI/framework/memory_informed_classifier.py",
     "VEGO-AI/framework/requirements.txt",
     "VEGO-AI/schemas/memory_informed_comparison.schema.json",
+    "VEGO-AI/tests/README.md",
     "VEGO-AI/tests/test_accuracy_improvement_analysis.py",
     "VEGO-AI/tests/test_human_feedback_manager.py",
     "VEGO-AI/tests/test_human_judgment_memory.py",
@@ -225,7 +226,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "a055aaefce1cb9b545c9d6f87a47683a7c56eeaa59f20fe2ad10132a265c36a3",
+  "sourceTreeSha256": "86dee497e6021be8f3b5453ac81e4f98ae019942057b04f16797f0c480104c83",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -237,7 +238,7 @@
     "VEGO-AI-Research-Hub.html": "00ca056e6679a70956c901b9cfea002454bc5caf28a2f59a8b183e130238ef83",
     "VEGO-AI-Thesis-Baseline-Progress.html": "1d904a88bff44d00dd8801e7f485123ec7a8c2e568f3d26605e0c61805dc5bbb",
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
-    "docs/research/hardening/baseline-lock-manifest-v2.json": "3ed664b6de6b8d943e36493bbb8e31d863e8a3dea041cfda82c7be5e218d695f",
+    "docs/research/hardening/baseline-lock-manifest-v2.json": "9d383969fd3e5fe0ae6583f82285fbfa3aef096e6dbac9ac25cbf6fcfe2179fd",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
     "docs/research/hardening/sbom.cdx.json": "28dca632ac7473ad86ae4796ac14eaafc453bb4e530ce596a8f3db0f938cfc5c",
     "docs/research/hardening/security-posture-snapshot-v1.json": "927c5c5c6b57d559a4bdf3120ef463d741cc1118560eff0599ec28e2899f2bf8"
