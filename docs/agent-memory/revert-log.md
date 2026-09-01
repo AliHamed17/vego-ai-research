@@ -2,6 +2,12 @@
 
 Record file changes and rollback notes here.
 
+## 2026-09-01 - Claude - Wave 1 engines, plans, and main-red repair (PR #33, merged to main)
+
+- Files added: `src/vego_governed/` (records, lifecycle, policy, reuse + package init), `scripts/run_governed_contract_conformance.py`, 6 test files under `scripts/tests/`, `schemas/experiment-definition-v3.schema.json` + example, `schemas/examples/policy-replay-fixtures.json`, `schemas/examples/conformance-variants/*.invalid.json` (5 planted variants), `experiments/EXP-041..044/`, `docs/research/architecture-enhancement-master-plan-2026-08-31.md`, `docs/research/future-work-and-verification-plan-2026-09-01.md`, `docs/research/phd-proposal/2026-08-31-architecture-decisions-packet.md`.
+- Files updated: `experiments/registry.md` (4 new rows; EXP-016/035 relabeled per ISS-045), `scripts/validate_research_records.py` (v3 registration + GJR invariants), `scripts/build_bigui_catalog.py` (post-cohort registry tolerance), `scripts/build_hardening_manifests.py` (README_EVALUATOR re-lock after PR #32 broke main; ISS-049), `docs/architecture/README.md` (plan links), `docs/agent-memory/issues.md` (ISS-049), plus the regenerated derived-artifact set (evidence snapshot/baseline, review manifest, comparison results, benchmark, catalog, hub, progress visual, hardening manifests).
+- Rollback note: `git revert` the PR #33 merge commit (`6ec035f`). The engines/tests/cards/plans are additive. Reverting also restores the broken pre-#32-repair lock hash and the cohort-strict registry parser, so after reverting either also revert PR #32's README change or re-apply the re-lock, and remove the EXP-041..044 registry rows or re-apply the parser tolerance - then rerun the §1 health ladder of `docs/research/future-work-and-verification-plan-2026-09-01.md` and regenerate to a clean fixed point.
+
 ## 2026-08-31 - Claude - C1-C3 contract artifacts and alignment audit (PR #31, merged to main)
 
 - Files added: `schemas/review-policy-signal-contract-v1.schema.json`, `schemas/governed-judgment-record-v1.schema.json`, `schemas/reuse-decision-record-v1.schema.json`, their three `schemas/examples/*.valid.json` counterparts, and `docs/research/phd-proposal/architecture-alignment-audit-2026-08-31.md`.
