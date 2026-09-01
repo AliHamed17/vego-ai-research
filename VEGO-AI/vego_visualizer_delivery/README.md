@@ -1,6 +1,8 @@
-# VEGO-AI Compliance Visualizer – Delivery Package
+# VEGO-AI Compliance Visualizer
 
-## What's inside
+Delivery package for the local compliance visualizer.
+
+## Contents
 
 ```
 vego_visualizer_delivery/
