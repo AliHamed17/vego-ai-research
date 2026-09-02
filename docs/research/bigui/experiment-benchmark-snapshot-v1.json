@@ -6111,7 +6111,7 @@
     },
     {
       "path": "experiments/registry.md",
-      "sha256": "54aeea6b1fdc6676b3019053e7b3304b96aa5269369f0dfad57c4b83d935a251",
+      "sha256": "98e71e46e7fe9aa1f23399aacba6e4f7acfe86fb2555bf60c2323c7226e69bd3",
       "role": "Complete experiment identity and status registry."
     },
     {
