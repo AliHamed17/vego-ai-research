@@ -1,27 +1,32 @@
-# Where should VEGO-AI ask a human? Preliminary study on the Cheers and ParkWise runs
+# Preliminary study: when should VEGO-AI ask a human?
 
-**Ali Hamed, 3 September 2026. For Prof. Iris Reinhartz-Berger and Prof. Arnon Sturm.**
+**Ali Hamed. For Prof. Iris Reinhartz-Berger and Prof. Arnon Sturm. 3 September 2026.**
 
-**The question.** SQ1 asks when an agentic assessment system should request human judgment. This study takes the *when* only: at which points in a completed VEGO-AI run could a human have been asked, and can those points be found automatically from what the system already produces? It demonstrates such points. It does not prove that asking would have produced a better model, and it compares no accuracy.
+> Figures referenced below (`figureN_*.png`) are generated, not committed as binaries: run `python scripts/make_figures.py --dataset-root <dataset> --out <dir>` and `python scripts/make_figure4.py --dataset-root <dataset> --out <dir>` against the delivered dataset, then `python scripts/build_paper.py <this file> <out.docx> --figures <dir>` (add `--rtl` for the Hebrew file).
 
-**The data, and the human judgment already inside it.** The completed run over the two course examples, Cheers and ParkWise, in use-case and class diagrams: 179 scored student models, 27 recurring variability patterns, four settings. Two kinds of human judgment already exist in the project's own workbooks and are used here as they stand: a review in which a person went through a sample of the agent's output and marked each item kept or overturned, with a written reason; and the course grade, available beside the agent's score for 164 model rows. Nothing new is collected, and no synthetic data is used.
 
-**The baseline: where the system asks today, and what a human changed where it did not.**
+**The question.** Sub-question SQ1 asks when an agentic assessment system should request human judgment. This study takes the *when* only, as a question about where in the pipeline. It demonstrates points at which a human could have been asked and shows that those points can be identified automatically. It does not prove that asking would have changed any outcome, and it compares no accuracy.
 
-|Stage|Does the system ask?|Human review already recorded|What the human changed|
-|---|---|---|---|
-|1. Language advisor|No|None|Not known|
-|2. Domain advisor: the guidelines it writes|No|186 guidelines|68 not accepted in full (37%): 46 partly, 21 wrong, 1 unsure. Separately, 59 requirements in the course reference have no agent guideline matched to them|
-|3. Inspector: is the guideline met?|No|915 judgments, 32 model reviews|120 overturned (13%)|
-|3. Inspector: alternative reading or mistake?|No|104 judgments|27 overturned (26%)|
-|4. Variability classifier|Yes, the only point|None|11 of 27 patterns queued, for medium confidence or a proposed guideline change|
+**The dataset.** The completed VEGO-AI run over the two course cases, Cheers and ParkWise, in use-case and class diagrams: 179 scored student models, 165 with a per-model inspection report, 27 variability patterns. The expert assessment recorded for the MODELS 2026 evaluation is used exactly as it stands; recomputing it reproduces the paper's Table 3 setting by setting. Nothing new is collected, no agent is re-run, and no synthetic data is used.
 
-**Can those points be found automatically? At Stage 3, largely yes, from the agent's own verdict.** The reviewer overturned 2% of the items the agent called *Satisfied*, but 46% of *Partially-Satisfied* and 35% of *Not-Satisfied*. A rule that asks a human whenever the agent did not say *Satisfied* would have put 28% of the items in front of a person and covered 90% of the judgments that person went on to change. For the second Stage 3 question, whether an unmatched fragment is a legitimate alternative or a mistake, no field separates them: the severity the agent assigns does not distinguish the overturned cases. That is where a human is needed most and where automatic identification helps least. At Stage 2, more than a third of the agent's own guidelines were not accepted in full, and the system never asks there.
+**What the run does today.** It asks a person at one point only, after the variability classifier, where 11 of 27 patterns were queued. Everything the first three agents left open passed on silently.
 
-**At model level.** For the 164 rows where both exist, the agent's score and the course grade order the models differently: correlation 0.25 overall, and 0.02 in the ParkWise use-case setting. They measure different things, and the grade is not treated here as the correct answer for any single guideline. The weak association is a reason to put a person in the loop, not evidence that either number is wrong.
+FIGURE:figure3_decision.png|**Figure 1.** The three points where a human enters, placed on the pipeline.
 
-**What the study adds by Sunday.** First, the same signals applied to the whole corpus rather than to the reviewed sample, reporting per stage how many items each rule would send to a person. Second, the trade-off curve behind the 28% and 90% above, at several thresholds. Third, one case worked end to end: Cheers use-case pattern P6, "Customer as actor", where the course reference names no such actor in any of its nine use-case requirements, three of the five models carrying it were flagged as alternative readings, and the classifier queued it at medium confidence; we then add the missing guideline by hand and record what changes, with no agent re-run. Fourth, for each pattern, the earliest stage at which any signal fires. That last one is the measurable form of the open question about intervening at Agent 2 rather than Agent 3: it reports where the first signal sits and ranks no stage.
+**The three points.**
 
-**What is not claimed.** The recorded review is the project's own, not independent adjudication, and the reviewed items were chosen by the reviewer rather than sampled at random, so the rates describe that sample. "Overturned" means the reviewer disagreed, not that the system was proven wrong. No improvement, accuracy, effort or generalization statement follows, and no independent expert labels exist for the 27 classifications. Asking a human may also harm or change nothing.
+| | Where | When to ask | Size of the ask | What the expert record shows |
+| --- | --- | --- | --- | --- |
+| H1 | Domain guidelines, before any model is scored | always, once per case | 119 guidelines govern 4,853 later judgments | 68 of 169 guidelines not fully aligned; 17 required ones missing |
+| H2 | Inspector, per guideline and model | when the verdict is not *Satisfied* | 28% of items, covering 90% of the expert's changes | 120 of 915 judgments overturned |
+| H3 | Variability classifier | keep the existing queue | 11 of 27 patterns | judged by the co-authors only |
 
-**Plan.** Thursday 3 September: this page, for your comments before the run. Friday 4 September: whole-corpus signal counts and the trade-off curve. Saturday 5 September: the worked case and the earliest-stage counts. Sunday 6 September: two pages with results and conclusions. Wednesday 9 September: proposal version 2, with these results as the preliminary results of Study 1.
+**What I measure.** Four counts, each with its denominator. How many points each rule sends to a person, per stage and setting. How far those points coincide with the places the expert actually changed the verdict. Where the trade-off sits at the inspector, as the threshold moves. And, for each pattern, the earliest stage at which any signal fires, which is the measurable form of the open question about intervening at Agent 2 rather than Agent 3. No real users this month: the three of us stand in for the humans in the loop, and we inject one intervention by hand (Saturday) to see what it changes downstream, rather than only observing.
+
+**What kind of intervention.** At H1, accept, reject, or add a missing guideline — the three actions already in the recorded review. At H2, accept the verdict or overrule it with a corrected one.
+
+**Why H1 is unconditional and H2 is triggered.** At the inspector the agent's own verdict separates: the expert overturned 2% of *Satisfied*, 46% of *Partially-Satisfied*, 35% of *Not-Satisfied*. At the guideline stage nothing separates: rejection is 39% for guidelines produced by all three runs, 44% by two, 33% by one, and the certainty the agent states averages 0.76 for accepted against 0.69 for rejected. Where no signal works and the items are few, the review is unconditional; where a signal works and the items are many, it is triggered.
+
+**Plan.** Friday 4 September: the counts above over the whole corpus, and the trade-off curve. Saturday 5 September: one case worked end to end, adding by hand the missing Cheers use-case requirement that no guideline covers, recording what changes downstream with no agent re-run. Sunday 6 September: two pages with results and conclusions. Wednesday 9 September: proposal version 2, with these results entered as the preliminary results of Study 1 (selective intervention).
+
+**What this does not establish.** The experts who assessed the run are co-authors of the system, and at the classifier they judged their own output, so this is not independent adjudication. The reviewed items were chosen rather than sampled at random, so every rate describes that sample. Overturned records a disagreement, not a demonstrated error. Independent expert labels remain at 0 of 24.
