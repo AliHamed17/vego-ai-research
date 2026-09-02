@@ -30,10 +30,11 @@ def result():
 
 def test_stage2_guideline_review(result):
     s2 = result["stage2_guideline_review"]
-    assert s2["reviewed"] == 186
-    assert s2["accepted_in_full"] == 118
+    assert s2["reviewed"] == 169
+    assert s2["accepted_in_full"] == 101
     assert s2["not_accepted_in_full"] == 68
     assert s2["breakdown"]["wrong"] == 21
+    assert s2["absent_no_run_wrote_it"] == 17
 
 
 def test_stage2_reference_coverage(result):

@@ -1,8 +1,8 @@
 {
   "schemaVersion": "ThesisEvidenceSnapshot-v1",
   "generatedAt": "2026-07-25T23:30:48+00:00",
-  "sourceRevision": "193cc133edc02744dbb4e2674430e0e15a3520aa",
-  "sourceTreeHash": "f13bb2faa0d273cc7650e0aa5d223e734ad12630ed4a736fcbbd172daac480b7",
+  "sourceRevision": "47f4ef0672a366dbfa5e2f4fbf266620a110a388",
+  "sourceTreeHash": "d789e036ad5b6302ca6f9e436aa12003c9416649c0c8762656b62d7068763049",
   "canonicalSourcesDirty": false,
   "programSnapshot": {
     "path": "docs/research/h-layer/program-status-snapshot-v1.json",
@@ -1227,7 +1227,7 @@
     "docs/research/hardening/VERIFICATION_AND_RELEASE.md": "837785203f5a3d070008884df5c37733a68815f2700c60eb3b38d300d3d0c2b5",
     "docs/research/accuracy-improvement-plan.md": "4df5b7c6a01ca2fcaa9e878ee9099705c6f61e561281913915e441639e3ccb60",
     "docs/research/supervisor-label-approval-pack.md": "f4e3316d7e45bd50db87525ea8272c9ad43ebe044706b45b7f99c55843ffa85b",
-    "experiments/registry.md": "54f90e33edc23c5c4e14221a438fb912de0041b6a850c5481493331e9edf61d9",
+    "experiments/registry.md": "01a91eb59f949876bca42048e07dc249d84e7f019a84fe3901697311860239b0",
     "experiments/EXP-019-reviewer-calibration/README.md": "ad22627ca7f4c10a9fa117b48e39fb5ee7c99c3bf9433cdd276ec3b8cfbb8a06",
     "experiments/EXP-020-independent-expert-labeling/README.md": "c626d94c0a0fa4aff67e6ac8df8feda0d21fe7945b6be664def093ecf82f45a5",
     "experiments/EXP-021-development-baseline-error-analysis/README.md": "6121e00ba7bed66a1e152d4445cf882b3ed965511eb816d79d21137b99fc6cce",

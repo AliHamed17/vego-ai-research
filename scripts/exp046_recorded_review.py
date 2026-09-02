@@ -54,24 +54,39 @@ def _col(header, predicate):
 
 
 def stage2_review(root):
-    """Human Status verdict on each guideline the domain advisor wrote."""
-    per, counts = {}, collections.Counter()
+    """Human Status verdict on each guideline, split by whether any run produced it.
+
+    Some Status rows carry no Run 1/2/3 ID at all: the assessor added these because
+    they are a requirement no run wrote, not because a written guideline was judged.
+    Conflating them with agent-written guidelines understates the agent's own
+    rejection rate and overstates its coverage, so they are counted separately.
+    """
+    per, counts, absent = {}, collections.Counter(), collections.Counter()
     for path in sorted(glob.glob(os.path.join(root, "System", "analysis", "guideline_clusters_*.xlsx"))):
         setting = os.path.basename(path)[len("guideline_clusters_"):-len(".xlsx")]
         for _, header, body in _load_sheet(path):
             st = _col(header, lambda h: h == "status")
-            verdicts = [str(r[st]).strip().lower().replace("parially", "partially")
-                        for r in body if r[st] not in (None, "")
-                        and str(r[st]).strip().lower() in STATUS_VERDICTS]
-            full = sum(1 for v in verdicts if v == "full")
-            per[setting] = {"reviewed": len(verdicts), "accepted_in_full": full,
-                            "not_accepted_in_full": len(verdicts) - full,
-                            "breakdown": dict(collections.Counter(verdicts))}
-            for v in verdicts:
+            run_cols = [_col(header, lambda h, i=i: h == "run {} id".format(i)) for i in (1, 2, 3)]
+            written, added = [], []
+            for r in body:
+                if r[st] in (None, "") or str(r[st]).strip().lower() not in STATUS_VERDICTS:
+                    continue
+                v = str(r[st]).strip().lower().replace("parially", "partially")
+                has_run = any(r[c] not in (None, "", "null") for c in run_cols)
+                (written if has_run else added).append(v)
+            full = sum(1 for v in written if v == "full")
+            per[setting] = {"reviewed": len(written), "accepted_in_full": full,
+                            "not_accepted_in_full": len(written) - full,
+                            "absent_no_run_wrote_it": len(added),
+                            "breakdown": dict(collections.Counter(written))}
+            for v in written:
                 counts[v] += 1
+            for v in added:
+                absent[v] += 1
     total = sum(counts.values())
     return {"per_setting": per, "reviewed": total, "accepted_in_full": counts["full"],
-            "not_accepted_in_full": total - counts["full"], "breakdown": dict(counts)}
+            "not_accepted_in_full": total - counts["full"], "breakdown": dict(counts),
+            "absent_no_run_wrote_it": sum(absent.values())}
 
 
 def stage3_review(root):
@@ -182,9 +197,10 @@ def run(root):
     result = {
         "experiment": "EXP-046",
         "title": "What the recorded human review of the frozen run already shows",
-        "claim_boundary": ("Descriptive counts over the review as recorded. Overturned means the reviewer disagreed, "
-                           "not that the system was proven wrong; the review is the project's own, not independent "
-                           "adjudication, and its items were chosen by the reviewer, not sampled at random. "
+        "claim_boundary": ("Descriptive counts over the published MODELS 2026 expert assessment (two co-authors acting as domain "
+                           "experts across all phases). Overturned means an assessor disagreed, not that the system was "
+                           "proven wrong; the assessors are co-authors evaluating their own system, so this is not "
+                           "independent adjudication, and its items were chosen rather than sampled at random. "
                            "No accuracy, improvement, effort or generalization claim; EXP-005 remains 0/24."),
         "stage2_guideline_review": s2,
         "stage2_reference_coverage": reference_coverage(root),
@@ -208,8 +224,9 @@ def main(argv=None):
     r = run(args.dataset_root)
 
     s2, cov, s3 = r["stage2_guideline_review"], r["stage2_reference_coverage"], r["stage3_review"]
-    print(f"Stage 2  guidelines reviewed {s2['reviewed']}, not accepted in full {s2['not_accepted_in_full']} "
-          f"({s2['not_accepted_in_full'] / s2['reviewed']:.0%}) {s2['breakdown']}")
+    print(f"Stage 2  agent-written guidelines reviewed {s2['reviewed']}, not accepted in full "
+          f"{s2['not_accepted_in_full']} ({s2['not_accepted_in_full'] / s2['reviewed']:.0%}) {s2['breakdown']}")
+    print(f"Stage 2  required guidelines no run wrote at all: {s2['absent_no_run_wrote_it']}")
     print(f"Stage 2  course requirements unmatched {cov['unmatched']} of {cov['reference_lines']} reference lines")
     for sheet in ("compliance_vectors", "uncovered_fragments"):
         d = s3[sheet]

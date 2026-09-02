@@ -6,7 +6,7 @@ Related research question: umbrella question -> SQ1 (selective intervention), th
 
 ## Purpose
 
-The project's own analysis workbooks already contain human judgment about the agent's output: a reviewer went through a sample of the inspector's judgments and of the guidelines the domain advisor wrote, marked each item kept or overturned, and left a written reason. This experiment reads that record as it stands and answers two descriptive questions. Where did a human already change the agent's verdict, at which stage? And does anything the agent itself emits point at those places, so that they could be found automatically?
+The MODELS 2026 submission's own experimental material contains a published expert assessment of the agent's output: two co-authors, acting as domain experts, evaluated the reference guidelines (Phase B), the inspector's compliance and fragment judgments (Phase C), and the variability classification, providing continuity across all three. Recomputing the analysis workbooks reproduces the paper's own Table 3 setting by setting, which is how we know the workbooks and the published evaluation are the same record. This experiment reads that record as it stands and answers two descriptive questions. Where did a human already change the agent's verdict, at which stage? And does anything the agent itself emits point at those places, so that they could be found automatically?
 
 ## Inputs (existing; no LLM call, no pipeline change, nothing new collected)
 
@@ -31,7 +31,7 @@ Read-only over the dataset; writes only the JSON summary passed to `--json`. Det
 
 ## Results (2026-09-02)
 
-Stage 2, the guidelines the domain advisor wrote: 186 reviewed, 118 accepted in full, 68 not accepted in full (37%) - 46 partly, 21 wrong, 1 unsure. Separately, 59 requirements in the course reference (78 reference lines across the four settings) have no agent guideline matched to them.
+Stage 2, the guidelines the domain advisor wrote: 169 agent-written guidelines reviewed, 101 accepted in full, 68 not accepted in full (40%) - 46 partly, 21 wrong, 1 unsure. A further 17 required guidelines were added by the assessors because no run had written them at all; they are counted separately and not folded into the 40%. Separately, 59 requirements in the course reference (78 reference lines across the four settings) have no agent guideline matched to them.
 
 Stage 3, the inspector: 915 guideline-compliance judgments reviewed over 32 model reviews, 120 overturned (13%); 104 alternative-or-mistake judgments reviewed, 27 overturned (26%). Pooled: 147 of 1,019 reviewed items overturned.
 
@@ -47,11 +47,29 @@ At the inspector stage the agent's own verdict is already a usable escalation si
 
 ## Limitations
 
-The review is the project's own record, not independent adjudication, and its items were chosen by the reviewer rather than sampled at random, so every rate describes that sample and not the corpus. `Overturned` records a disagreement, not a demonstrated error. The overturn rates by verdict are an association within the reviewed sample; no threshold is fitted or selected here. The course grade and the agent's score measure different things, and the grade is not treated as the correct answer for any single guideline. Stage 1 has no recorded review.
+The two assessors are co-authors of the VEGO-AI system, and they evaluated their own architecture's output across every phase, including the classification stage, so this is not independent adjudication. Its items were also chosen by the assessors rather than sampled at random, so every rate describes that sample and not the corpus. `Overturned` records a disagreement, not a demonstrated error. The overturn rates by verdict are an association within the reviewed sample; no threshold is fitted or selected here. The course grade and the agent's score measure different things, and the grade is not treated as the correct answer for any single guideline. Stage 1 has no recorded review.
 
 ## Claim boundary
 
 Descriptive evidence about where a human already changed a verdict and about what the agent emits at those points. No claim that asking a human improves accuracy, reduces effort, generalizes, or is better; no how-to-improve or how-to-approach-the-user content; nothing here changes the pipeline or the baseline. EXP-005 remains at 0 of 24 generalization-safe expert labels, and none of the counts here is an expert label.
+
+## Synthetic rehearsal - the one stage this record does not cover
+
+Stage 4 (variability classification) was assessed by the same two co-author domain
+experts, so no independent label exists for any of the 27 patterns; that is exactly
+what EXP-005 tracks at 0 of 24. `scripts/exp046_synthetic_rehearsal.py` generates 27
+records under five stated, deterministic rules derived from how the assessors
+actually behaved elsewhere in this record (compliance-verdict recalibration,
+construct-placement correction), so the H1/H2/H3 measurement can be exercised
+end to end before a real label exists. Every record is stamped
+`reviewerId = SYNTHETIC_NOT_HUMAN` and `evidenceClass = SYNTHETIC_NOT_EXPERT_EVIDENCE`;
+none of its rows may be cited as agreement, accuracy, or evidence of anything, and it
+does not change the 0 of 24 count. Run it as:
+
+```powershell
+python scripts/exp046_synthetic_rehearsal.py --dataset-root <dataset> --out reports/generated/exp046_synthetic
+python -m pytest scripts/tests/test_exp046_synthetic_rehearsal.py -q
+```
 
 ## Reproducibility
 
