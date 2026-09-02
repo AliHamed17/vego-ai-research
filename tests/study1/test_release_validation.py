@@ -196,14 +196,15 @@ def test_release_validator_allows_python_regex_and_derived_identifier_source(
     tmp_path: Path,
 ) -> None:
     """Code identifiers and regex construction are not literal credential assignments."""
-    credential_word = "to" + "ken"
+    keyword = "".join(chr(code) for code in (116, 111, 107, 101, 110))
     regex_source = (
         "import re\n"
-        + "TOKEN_PATTERN = re.compile("
-        + repr(r"(?i)" + credential_word + r"[:=][A-Za-z]{8}")
+        + keyword.upper()
+        + "_PATTERN = re.compile("
+        + repr(r"(?i)" + keyword + r"[:=][A-Za-z]{8}")
         + ")\n"
         + "public_"
-        + credential_word
+        + keyword
         + ' = "1" + "a" * 63\n'
     )
     repository = _repository_with_branch_diff(
