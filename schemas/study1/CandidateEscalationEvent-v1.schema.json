@@ -4,6 +4,28 @@
   "title": "CandidateEscalationEvent-v1",
   "type": "object",
   "additionalProperties": false,
+  "$defs": {
+    "unavailableObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {"kind": {"const": "unavailable"}}
+    },
+    "policyInputObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {"const": "policy_input"},
+        "normalized_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "missing_value_policy": {"enum": ["force_escalation", "force_undetermined"]}
+      },
+      "anyOf": [
+        {"required": ["normalized_value"]},
+        {"required": ["missing_value_policy"]}
+      ]
+    }
+  },
   "required": ["schema_version", "event_id", "source", "stage", "item_type", "sanitized_local_locator", "signals", "claim_boundary"],
   "properties": {
     "schema_version": {"const": "CandidateEscalationEvent-v1"},
@@ -36,9 +58,28 @@
         "required": ["signal_id", "observation", "evidence_state"],
         "properties": {
           "signal_id": {"enum": ["claim_uncertainty", "unreviewed_error_consequence", "evidence_quality", "reviewer_competence_for_claim", "current_queue_conditions", "novelty_vs_judgment_store", "cross_agent_disagreement", "expected_future_reuse_value"]},
-          "observation": {"type": "string", "minLength": 1},
+          "observation": {
+            "oneOf": [
+              {"$ref": "#/$defs/unavailableObservation"},
+              {"$ref": "#/$defs/policyInputObservation"}
+            ]
+          },
           "evidence_state": {"enum": ["observed", "derived", "unavailable"]}
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {"evidence_state": {"const": "unavailable"}},
+              "required": ["evidence_state"]
+            },
+            "then": {
+              "properties": {"observation": {"$ref": "#/$defs/unavailableObservation"}}
+            },
+            "else": {
+              "properties": {"observation": {"$ref": "#/$defs/policyInputObservation"}}
+            }
+          }
+        ]
       },
       "allOf": [
         {"contains": {"properties": {"signal_id": {"const": "claim_uncertainty"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},

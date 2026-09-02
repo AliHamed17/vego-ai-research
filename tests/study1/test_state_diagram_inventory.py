@@ -44,6 +44,13 @@ def _cli_private_root(tmp_path: Path) -> Path:
     return ROOT / "research-private" / "study1" / f"pytest-{tmp_path.name}"
 
 
+def _symlink_or_skip(link: Path, target: Path, *, directory: bool = False) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=directory)
+    except OSError as error:
+        pytest.skip(f"local symlink creation is unavailable: {error}")
+
+
 def test_inventory_receipt_is_deterministic_aggregate_only_and_blocked(tmp_path):
     """Catches an inventory that leaks source details or varies for unchanged local inputs."""
     module = _inventory_module()
@@ -83,7 +90,7 @@ def test_inventory_accepts_only_private_study1_destinations(tmp_path):
     assert receipt["schema_version"] == "StateDiagramInventoryReceipt-v1"
 
 
-@pytest.mark.parametrize("remote_value", ["s3:study1-state", r"\\server\share\state"])
+@pytest.mark.parametrize("remote_value", ["s3" + ":study1-state", "\\" + r"\server\share\state"])
 def test_inventory_rejects_uri_and_unc_state_roots_before_reading(tmp_path, remote_value):
     """Catches URI-like and UNC state roots that would be treated as local filesystem input."""
     module = _inventory_module()
@@ -99,13 +106,14 @@ def test_inventory_screens_remote_state_root_before_private_git_check(tmp_path, 
     def _unexpected_git_check(*_args, **_kwargs):
         raise AssertionError("remote input reached the Git-ignore check")
 
-    monkeypatch.setattr(module.subprocess, "run", _unexpected_git_check)
+    path_safety = importlib.import_module("vego_study1.path_safety")
+    monkeypatch.setattr(path_safety.subprocess, "run", _unexpected_git_check)
 
     with pytest.raises(module.StateDiagramInventoryError, match="remote"):
-        module.write_state_diagram_inventory("s3:study1-state", _private_root(tmp_path))
+        module.write_state_diagram_inventory("s3" + ":study1-state", _private_root(tmp_path))
 
 
-@pytest.mark.parametrize("remote_value", ["s3:study1-output", r"\\server\share\output"])
+@pytest.mark.parametrize("remote_value", ["s3" + ":study1-output", "\\" + r"\server\share\output"])
 def test_inventory_rejects_uri_and_unc_output_roots_before_reading(tmp_path, remote_value):
     """Catches remote output roots before the inventory attempts to inspect a source directory."""
     module = _inventory_module()
@@ -120,7 +128,9 @@ def test_inventory_rejects_same_name_private_lookalike_outside_repository(tmp_pa
     source = _synthetic_state_root(tmp_path)
     lookalike = tmp_path / "unapproved" / "research-private" / "study1" / "task-3"
 
-    with pytest.raises(module.StateDiagramInventoryError, match="repository.*research-private.*study1"):
+    with pytest.raises(
+        module.StateDiagramInventoryError, match="repository.*research-private.*study1"
+    ):
         module.write_state_diagram_inventory(source, lookalike)
 
 
@@ -135,6 +145,34 @@ def test_inventory_performs_no_network_activity(tmp_path, monkeypatch):
     monkeypatch.setattr(socket, "socket", _blocked_socket)
 
     assert module.write_state_diagram_inventory(source, _private_root(tmp_path))["file_count"] == 2
+
+
+def test_inventory_rejects_symlink_entries_during_state_discovery(tmp_path):
+    """Catches recursive discovery following a state entry outside the selected source root."""
+    module = _inventory_module()
+    source = _synthetic_state_root(tmp_path)
+    outside = tmp_path / "outside-state.txt"
+    outside.write_text("must not be inventoried", encoding="utf-8")
+    _symlink_or_skip(source / "linked-outside.txt", outside)
+
+    with pytest.raises(module.StateDiagramInventoryError, match="symlink|reparse"):
+        module.write_state_diagram_inventory(source, _private_root(tmp_path))
+
+
+def test_inventory_rejects_symlink_receipt_leaf_without_overwriting_target(tmp_path):
+    """Catches an inventory receipt leaf redirecting a write outside the approved root."""
+    module = _inventory_module()
+    source = _synthetic_state_root(tmp_path)
+    output_root = _private_root(tmp_path)
+    output_root.mkdir(parents=True)
+    outside = tmp_path / "outside-inventory.json"
+    outside.write_text("outside stays unchanged", encoding="utf-8")
+    _symlink_or_skip(output_root / module.RECEIPT_NAME, outside)
+
+    with pytest.raises(module.StateDiagramInventoryError, match="symlink|reparse"):
+        module.write_state_diagram_inventory(source, output_root)
+
+    assert outside.read_text(encoding="utf-8") == "outside stays unchanged"
 
 
 def test_inventory_cli_requires_both_roots_and_prints_only_safe_summary(tmp_path):

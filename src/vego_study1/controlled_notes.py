@@ -6,9 +6,18 @@ import csv
 import hashlib
 import json
 import re
-import subprocess
 from pathlib import Path
 from typing import Any
+
+from .path_safety import (
+    assert_local_file_unchanged,
+    atomic_write_private_text,
+    ensure_private_directory,
+    is_remote_value,
+    local_path,
+    read_local_bytes,
+    validate_private_output_root,
+)
 
 RECEIPT_NAME = "controlled_notes_import.receipt.json"
 PROVENANCE_SCHEMA = "ControlledNotesProvenance-v1"
@@ -18,8 +27,6 @@ PROVENANCE_FIELDS = frozenset(
     {"schema_version", "source_hash", "source_classification", "intended_use"}
 )
 _SHA256 = re.compile(r"^sha256:[0-9a-f]{64}$")
-_URI_SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
-_WINDOWS_DRIVE = re.compile(r"^[A-Za-z]:[\\/]")
 
 
 class ControlledNotesError(ValueError):
@@ -30,23 +37,9 @@ def _sha256(data: bytes) -> str:
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
 
-def _is_remote_value(value: str | Path) -> bool:
-    raw_value = str(value)
-    return (
-        raw_value.startswith((r"\\", "//"))
-        or (bool(_URI_SCHEME.match(raw_value)) and not bool(_WINDOWS_DRIVE.match(raw_value)))
-    )
-
-
-def _local_path(value: str | Path, field_name: str) -> Path:
-    if _is_remote_value(value):
-        raise ControlledNotesError(f"{field_name} must not be a remote URL, URI, or UNC path")
-    return Path(value)
-
-
 def _contains_remote_url(value: Any) -> bool:
     if isinstance(value, str):
-        return not value.startswith("sha256:") and _is_remote_value(value)
+        return not value.startswith("sha256:") and is_remote_value(value)
     if isinstance(value, dict):
         return any(_contains_remote_url(item) for item in value.values())
     if isinstance(value, list):
@@ -55,33 +48,13 @@ def _contains_remote_url(value: Any) -> bool:
 
 
 def _private_study1_root(value: str | Path) -> Path:
-    root = _local_path(value, "private_output_root").resolve()
-    private_base = (REPOSITORY_ROOT / "research-private" / "study1").resolve()
-    try:
-        root.relative_to(private_base)
-    except ValueError as error:
-        raise ControlledNotesError(
-            "private_output_root must be beneath this repository's research-private/study1"
-        ) from error
-    try:
-        relative_root = root.relative_to(REPOSITORY_ROOT)
-        ignored = subprocess.run(
-            ["git", "-C", str(REPOSITORY_ROOT), "check-ignore", "-q", "--", str(relative_root)],
-            capture_output=True,
-            check=False,
-        ).returncode == 0
-    except OSError as error:
-        raise ControlledNotesError("private_output_root Git-ignore check failed") from error
-    if not ignored:
-        raise ControlledNotesError("private_output_root must pass the repository Git-ignore check")
-    return root
+    return validate_private_output_root(value, REPOSITORY_ROOT, ControlledNotesError)
 
 
-def _load_provenance(path_value: str | Path) -> dict[str, Any]:
-    path = _local_path(path_value, "provenance_manifest")
+def _load_provenance(content: bytes) -> dict[str, Any]:
     try:
-        loaded = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        loaded = json.loads(content.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
         raise ControlledNotesError("provenance_manifest must be valid JSON") from error
     if not isinstance(loaded, dict):
         raise ControlledNotesError("provenance_manifest must be a JSON object")
@@ -110,10 +83,10 @@ def _validate_provenance(provenance: dict[str, Any], source_hash: str, intended_
         raise ControlledNotesError("provenance intended_use must be development_only")
 
 
-def _record_hashes(notes_path: Path) -> list[str]:
+def _record_hashes(notes_path: Path, source_bytes: bytes) -> list[str]:
     try:
-        content = notes_path.read_text(encoding="utf-8")
-    except (OSError, UnicodeDecodeError) as error:
+        content = source_bytes.decode("utf-8")
+    except UnicodeDecodeError as error:
         raise ControlledNotesError("notes_source must be a readable local UTF-8 file") from error
     suffix = notes_path.suffix.casefold()
     if suffix == ".csv":
@@ -134,7 +107,11 @@ def _record_hashes(notes_path: Path) -> list[str]:
     else:
         raise ControlledNotesError("notes_source must be CSV or JSON")
     return sorted(
-        _sha256(json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
+        _sha256(
+            json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
+                "utf-8"
+            )
+        )
         for record in records
     )
 
@@ -147,17 +124,15 @@ def import_controlled_notes(
     intended_use: str,
 ) -> dict[str, Any]:
     """Validate local provenance and emit a redacted, private development-only receipt."""
-    notes_path = _local_path(notes_source, "notes_source")
-    manifest_path = _local_path(provenance_manifest, "provenance_manifest")
+    notes_path = local_path(notes_source, "notes_source", ControlledNotesError)
+    manifest_path = local_path(provenance_manifest, "provenance_manifest", ControlledNotesError)
     output_root = _private_study1_root(private_output_root)
-    try:
-        source_bytes = notes_path.read_bytes()
-    except OSError as error:
-        raise ControlledNotesError("notes_source must be a readable local file") from error
+    source_bytes = read_local_bytes(notes_path, "notes_source", ControlledNotesError)
+    provenance_bytes = read_local_bytes(manifest_path, "provenance_manifest", ControlledNotesError)
     source_hash = _sha256(source_bytes)
-    provenance = _load_provenance(manifest_path)
+    provenance = _load_provenance(provenance_bytes)
     _validate_provenance(provenance, source_hash, intended_use)
-    record_hashes = _record_hashes(notes_path)
+    record_hashes = _record_hashes(notes_path, source_bytes)
     receipt = {
         "schema_version": "ControlledNotesImportReceipt-v1",
         "status": DEVELOPMENT_ONLY,
@@ -177,8 +152,19 @@ def import_controlled_notes(
             "intended_use": provenance["intended_use"],
         },
     }
-    output_root.mkdir(parents=True, exist_ok=True)
-    (output_root / RECEIPT_NAME).write_text(
-        json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    assert_local_file_unchanged(notes_path, source_bytes, "notes_source", ControlledNotesError)
+    assert_local_file_unchanged(
+        manifest_path,
+        provenance_bytes,
+        "provenance_manifest",
+        ControlledNotesError,
+    )
+    ensure_private_directory(output_root, output_root, REPOSITORY_ROOT, ControlledNotesError)
+    atomic_write_private_text(
+        output_root / RECEIPT_NAME,
+        json.dumps(receipt, indent=2, sort_keys=True) + "\n",
+        output_root,
+        REPOSITORY_ROOT,
+        ControlledNotesError,
     )
     return receipt

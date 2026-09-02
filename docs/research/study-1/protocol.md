@@ -21,7 +21,7 @@ Each replay compares six deterministic arms over the same review-item sequence:
 | `never_ask` | Reference arm that proposes no escalation. |
 | `always_ask` | Reference arm that proposes every available review item until budget handling applies. |
 | `random_at_budget` | Seeded deterministic random reference arm. |
-| `uncertainty_only` | Reference arm using the uncertainty signal only. |
+| `uncertainty_only` | Reference arm reproducing the shipped triggers through claim uncertainty, evidence quality for undetermined classifications, and novelty for proposed guideline updates. |
 | `fixed_threshold` | Reference arm using its fixed threshold rule. |
 | `proposed_joint_policy` | Candidate joint-policy arm; it does not grant reviewer authority. |
 

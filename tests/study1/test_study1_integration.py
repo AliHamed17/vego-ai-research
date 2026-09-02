@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import json
+import os
 import socket
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 
+from vego_governed.policy import Arm, replay
 from vego_study1.c0 import (
     C0MutationError,
     adapt_c0_root,
@@ -22,6 +25,15 @@ from vego_study1.privacy import validate_tracked_artifacts
 from vego_study1.state_diagram_inventory import (
     StateDiagramInventoryError,
     write_state_diagram_inventory,
+)
+
+ROOT = Path(__file__).resolve().parents[2]
+STUDY1_CLIS = (
+    "run_study1_c0_baseline.py",
+    "inventory_state_diagram.py",
+    "import_controlled_notes.py",
+    "validate_study1_privacy.py",
+    "validate_study1_release.py",
 )
 
 
@@ -74,6 +86,24 @@ def synthetic_c0_root(tmp_path: Path) -> Path:
     return root
 
 
+@pytest.mark.parametrize("script_name", STUDY1_CLIS)
+def test_every_study1_cli_help_runs_with_pythonpath_cleared(script_name: str):
+    """Catches direct entry points that rely on pytest or caller PYTHONPATH injection."""
+    environment = dict(os.environ)
+    environment.pop("PYTHONPATH", None)
+
+    completed = subprocess.run(
+        [sys.executable, "-B", str(ROOT / "scripts" / script_name), "--help"],
+        cwd=ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    assert "usage:" in completed.stdout.casefold()
+
+
 def test_synthetic_c0_integration_preserves_determinism_arms_budgets_and_signals(tmp_path: Path):
     """Catches an integration path that changes events, budgets, or signal states between replays."""
     root = synthetic_c0_root(tmp_path)
@@ -86,24 +116,35 @@ def test_synthetic_c0_integration_preserves_determinism_arms_budgets_and_signals
         assert first[rate] == second[rate]
         assert first[rate]["budget"] == {"5": 1, "10": 2, "20": 4}[rate]
         assert len(first[rate]["arms"]) == 6
-        assert all(arm["event_ids"] == first[rate]["event_ids"] for arm in first[rate]["arms"].values())
+        assert all(
+            arm["event_ids"] == first[rate]["event_ids"] for arm in first[rate]["arms"].values()
+        )
         assert first[rate]["arms"]["random_at_budget"] == second[rate]["arms"]["random_at_budget"]
 
     signal_states = {
-        signal["evidence_state"]
-        for event in first_events
-        for signal in event["signals"]
+        signal["evidence_state"] for event in first_events for signal in event["signals"]
     }
     assert signal_states == {"derived", "unavailable"}
     forced = next(event for event in first_events if event["stage"] == "variability_classification")
-    assert {signal["observation"] for signal in forced["signals"]} >= {
-        "missing_force_escalation",
-        "missing_force_undetermined",
-        "normalized:0.900",
+    observations = {signal["signal_id"]: signal["observation"] for signal in forced["signals"]}
+    assert observations["claim_uncertainty"] == {
+        "kind": "policy_input",
+        "normalized_value": 0.8,
+        "missing_value_policy": "force_escalation",
+    }
+    assert observations["evidence_quality"] == {
+        "kind": "policy_input",
+        "missing_value_policy": "force_undetermined",
+    }
+    assert observations["novelty_vs_judgment_store"] == {
+        "kind": "policy_input",
+        "normalized_value": 0.9,
     }
 
 
-def test_synthetic_c0_integration_aborts_on_manifest_mutation_and_keeps_report_private(tmp_path: Path):
+def test_synthetic_c0_integration_aborts_on_manifest_mutation_and_keeps_report_private(
+    tmp_path: Path, monkeypatch
+):
     """Catches a run accepting changed frozen input or emitting locators/content into its aggregate report."""
     root = synthetic_c0_root(tmp_path)
     manifest = build_manifest(root)
@@ -112,7 +153,14 @@ def test_synthetic_c0_integration_aborts_on_manifest_mutation_and_keeps_report_p
     with pytest.raises(C0MutationError):
         assert_manifest_unchanged(root, manifest)
 
-    report_root = tmp_path / "research-private" / "study1" / "synthetic-report"
+    repository = tmp_path / "temporary-repository"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    (repository / ".gitignore").write_text("research-private/study1/\n", encoding="utf-8")
+    import vego_study1.c0 as c0
+
+    monkeypatch.setattr(c0, "REPOSITORY_ROOT", repository)
+    report_root = repository / "research-private" / "study1" / "synthetic-report"
     write_baseline_artifacts(synthetic_c0_root(tmp_path / "report-input"), report_root)
     report = report_root / "sanitized" / "study1-c0-baseline-summary.json"
     rendered = report.read_text(encoding="utf-8")
@@ -125,6 +173,7 @@ def test_synthetic_c0_integration_aborts_on_manifest_mutation_and_keeps_report_p
 
 def test_state_and_notes_interfaces_fail_closed_without_network(tmp_path: Path, monkeypatch):
     """Catches State or controlled-notes wiring that performs network work or bypasses its authorization gate."""
+
     def _blocked_socket(*_args, **_kwargs):
         raise AssertionError("network activity is prohibited")
 
@@ -157,3 +206,27 @@ def test_state_and_notes_interfaces_fail_closed_without_network(tmp_path: Path, 
             repository / "research-private" / "study1" / "notes",
             intended_use="development_only",
         )
+
+
+def test_protocol_uncertainty_arm_description_matches_all_shipped_triggers(tmp_path: Path):
+    """Catches protocol wording that hides evidence-quality or novelty trigger inputs."""
+    protocol = (ROOT / "docs" / "research" / "study-1" / "protocol.md").read_text(encoding="utf-8")
+    row = next(
+        line for line in protocol.splitlines() if line.startswith("| `uncertainty_only`")
+    ).casefold()
+    event = next(
+        candidate
+        for candidate in adapt_c0_root(synthetic_c0_root(tmp_path))
+        if candidate["stage"] == "variability_classification"
+    )
+    from vego_study1.c0 import candidate_to_replay_event
+
+    decision = replay(
+        Arm("uncertainty_only"), [candidate_to_replay_event(event)], budget=1
+    ).decisions[0]
+
+    assert "uncertainty" in row
+    assert "evidence quality" in row
+    assert "novelty" in row
+    assert "undetermined_classification" in decision.reason
+    assert "guideline_update_proposed" in decision.reason

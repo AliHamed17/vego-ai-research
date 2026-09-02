@@ -3,9 +3,18 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
-from vego_study1.controlled_notes import ControlledNotesError, import_controlled_notes
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from vego_study1.controlled_notes import (  # noqa: E402
+    ControlledNotesError,
+    import_controlled_notes,
+)
 
 
 def main() -> int:
@@ -24,7 +33,9 @@ def main() -> int:
         )
     except ControlledNotesError as error:
         parser.error(str(error))
-    print(f"controlled notes import status: {receipt['status']}; records: {receipt['record_count']}")
+    print(
+        f"controlled notes import status: {receipt['status']}; records: {receipt['record_count']}"
+    )
     return 0
 
 

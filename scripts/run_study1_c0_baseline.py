@@ -3,9 +3,15 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
-from vego_study1.c0 import C0ValidationError, write_baseline_artifacts
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from vego_study1.c0 import C0ValidationError, write_baseline_artifacts  # noqa: E402
 
 
 def main() -> int:
@@ -17,7 +23,9 @@ def main() -> int:
         summary = write_baseline_artifacts(arguments.c0_root, arguments.private_output_root)
     except C0ValidationError as error:
         parser.error(str(error))
-    print(f"wrote sanitized aggregate for {sum(summary['candidate_count_by_stage'].values())} candidates")
+    print(
+        f"wrote sanitized aggregate for {sum(summary['candidate_count_by_stage'].values())} candidates"
+    )
     return 0
 
 

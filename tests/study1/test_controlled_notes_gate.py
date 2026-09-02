@@ -38,7 +38,9 @@ def _cli_private_root(tmp_path: Path) -> Path:
 def _write_synthetic_notes_and_manifest(tmp_path: Path) -> tuple[Path, Path]:
     tmp_path.mkdir(parents=True, exist_ok=True)
     notes = tmp_path / "synthetic-notes.csv"
-    notes.write_text("topic,observation\nalpha,synthetic one\nbeta,synthetic two\n", encoding="utf-8")
+    notes.write_text(
+        "topic,observation\nalpha,synthetic one\nbeta,synthetic two\n", encoding="utf-8"
+    )
     manifest = tmp_path / "synthetic-provenance.json"
     manifest.write_text(
         json.dumps(
@@ -52,6 +54,13 @@ def _write_synthetic_notes_and_manifest(tmp_path: Path) -> tuple[Path, Path]:
         encoding="utf-8",
     )
     return notes, manifest
+
+
+def _symlink_or_skip(link: Path, target: Path, *, directory: bool = False) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=directory)
+    except OSError as error:
+        pytest.skip(f"local symlink creation is unavailable: {error}")
 
 
 def test_controlled_notes_import_writes_redacted_development_only_receipt(tmp_path):
@@ -84,7 +93,12 @@ def test_controlled_notes_import_writes_redacted_development_only_receipt(tmp_pa
         ({"source_hash": "sha256:" + "0" * 64}, "development_only", None, "source_hash"),
         ({"source_classification": "public"}, "development_only", None, "source_classification"),
         ({"intended_use": "evaluation"}, "development_only", None, "intended_use"),
-        ({"source_url": "https://" + "drive.google.com/file/d/synthetic"}, "development_only", None, "remote URL"),
+        (
+            {"source_url": "https://" + "drive.google.com/file/d/synthetic"},
+            "development_only",
+            None,
+            "remote URL",
+        ),
         ({}, "evaluation", None, "development_only"),
         ({}, "development_only", "https://" + "drive.google.com/file/d/synthetic", "remote URL"),
     ],
@@ -115,7 +129,9 @@ def test_controlled_notes_import_rejects_bad_json_and_non_private_output(tmp_pat
     manifest.write_text("not JSON", encoding="utf-8")
 
     with pytest.raises(module.ControlledNotesError, match="valid JSON"):
-        module.import_controlled_notes(notes, manifest, _private_root(tmp_path), intended_use="development_only")
+        module.import_controlled_notes(
+            notes, manifest, _private_root(tmp_path), intended_use="development_only"
+        )
 
     _, valid_manifest = _write_synthetic_notes_and_manifest(tmp_path / "valid")
     valid_notes = tmp_path / "valid" / "synthetic-notes.csv"
@@ -152,7 +168,9 @@ def test_controlled_notes_import_requires_exactly_four_typed_provenance_fields(
         )
 
 
-@pytest.mark.parametrize("remote_value", ["drive:notes.csv", r"\\server\share\notes.csv"])
+@pytest.mark.parametrize(
+    "remote_value", ["drive" + ":notes.csv", "\\" + r"\server\share\notes.csv"]
+)
 def test_controlled_notes_rejects_uri_and_unc_notes_sources_before_reading(tmp_path, remote_value):
     """Catches URI-like and UNC note sources before the gate tries to open them."""
     module = _notes_module()
@@ -166,7 +184,9 @@ def test_controlled_notes_rejects_uri_and_unc_notes_sources_before_reading(tmp_p
         )
 
 
-@pytest.mark.parametrize("remote_value", ["file:manifest.json", r"\\server\share\manifest.json"])
+@pytest.mark.parametrize(
+    "remote_value", ["file" + ":manifest.json", "\\" + r"\server\share\manifest.json"]
+)
 def test_controlled_notes_rejects_uri_and_unc_manifests_before_reading(tmp_path, remote_value):
     """Catches URI-like and UNC manifests before the gate tries to open note input."""
     module = _notes_module()
@@ -180,7 +200,7 @@ def test_controlled_notes_rejects_uri_and_unc_manifests_before_reading(tmp_path,
         )
 
 
-@pytest.mark.parametrize("remote_value", ["s3:private-output", r"\\server\share\output"])
+@pytest.mark.parametrize("remote_value", ["s3" + ":private-output", "\\" + r"\server\share\output"])
 def test_controlled_notes_rejects_uri_and_unc_output_before_reading(tmp_path, remote_value):
     """Catches remote output roots before the gate attempts any source or manifest reads."""
     module = _notes_module()
@@ -201,9 +221,7 @@ def test_controlled_notes_rejects_same_name_private_lookalike_outside_repository
     lookalike = tmp_path / "unapproved" / "research-private" / "study1" / "task-3"
 
     with pytest.raises(module.ControlledNotesError, match="repository.*research-private.*study1"):
-        module.import_controlled_notes(
-            notes, manifest, lookalike, intended_use="development_only"
-        )
+        module.import_controlled_notes(notes, manifest, lookalike, intended_use="development_only")
 
 
 def test_controlled_notes_import_performs_no_network_activity(tmp_path, monkeypatch):
@@ -216,9 +234,69 @@ def test_controlled_notes_import_performs_no_network_activity(tmp_path, monkeypa
 
     monkeypatch.setattr(socket, "socket", _blocked_socket)
 
-    assert module.import_controlled_notes(
-        notes, manifest, _private_root(tmp_path), intended_use="development_only"
-    )["record_count"] == 2
+    assert (
+        module.import_controlled_notes(
+            notes, manifest, _private_root(tmp_path), intended_use="development_only"
+        )["record_count"]
+        == 2
+    )
+
+
+def test_controlled_notes_aborts_if_source_mutates_after_snapshot(tmp_path, monkeypatch):
+    """Catches hashing one notes version while parsing or receipting another version."""
+    module = _notes_module()
+    notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
+    original_read_local_bytes = module.read_local_bytes
+    original_write_text = Path.write_text
+    mutated = False
+
+    def _read_and_mutate(path: Path, *args, **kwargs) -> bytes:
+        nonlocal mutated
+        content = original_read_local_bytes(path, *args, **kwargs)
+        if path == notes and not mutated:
+            mutated = True
+            original_write_text(
+                path, "topic,observation\ngamma,changed after snapshot\n", encoding="utf-8"
+            )
+        return content
+
+    monkeypatch.setattr(module, "read_local_bytes", _read_and_mutate)
+
+    with pytest.raises(module.ControlledNotesError, match="changed"):
+        module.import_controlled_notes(
+            notes, manifest, _private_root(tmp_path), intended_use="development_only"
+        )
+
+
+def test_controlled_notes_rejects_symlink_source_entry(tmp_path):
+    """Catches a controlled source path that redirects outside the selected local file."""
+    module = _notes_module()
+    notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
+    link = tmp_path / "linked-notes.csv"
+    _symlink_or_skip(link, notes)
+
+    with pytest.raises(module.ControlledNotesError, match="symlink|reparse"):
+        module.import_controlled_notes(
+            link, manifest, _private_root(tmp_path), intended_use="development_only"
+        )
+
+
+def test_controlled_notes_rejects_symlink_receipt_leaf_without_overwriting_target(tmp_path):
+    """Catches a private receipt leaf redirecting an atomic write outside the approved root."""
+    module = _notes_module()
+    notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
+    output_root = _private_root(tmp_path)
+    output_root.mkdir(parents=True)
+    outside = tmp_path / "outside-receipt.json"
+    outside.write_text("outside stays unchanged", encoding="utf-8")
+    _symlink_or_skip(output_root / module.RECEIPT_NAME, outside)
+
+    with pytest.raises(module.ControlledNotesError, match="symlink|reparse"):
+        module.import_controlled_notes(
+            notes, manifest, output_root, intended_use="development_only"
+        )
+
+    assert outside.read_text(encoding="utf-8") == "outside stays unchanged"
 
 
 def test_controlled_notes_cli_requires_development_only_and_prints_safe_summary(tmp_path):

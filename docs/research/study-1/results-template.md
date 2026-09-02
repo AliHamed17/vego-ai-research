@@ -4,18 +4,28 @@
 
 Complete only with sanitized aggregate values. Leave outcome fields blank until independently reviewed evidence exists.
 
-## Receipt and availability
+## Sanitized summary field parity
 
-| Field | Value |
+Every top-level key below is emitted by the sanitized summary. Nested rows name the exact emitted field that supplies the value.
+
+| Safe summary top-level key | Value |
 | --- | --- |
-| Run identifier | |
-| Frozen manifest receipt hash | |
-| Manifest mutation check | pass / abort |
-| Seed | `20260902` |
-| Claim boundary | `descriptive_candidate_escalation_only_no_outcome_evidence` |
-| Candidate count by stage | |
-| Signal availability by stage and evidence state | |
-| Source-manifest receipt status | |
+| `claim_boundary` | `descriptive_candidate_escalation_only_no_outcome_evidence` |
+| `seed` | `20260902` |
+| `frozen_manifest` | Safe hash and mutation-check status; see exact nested fields below. |
+| `candidate_count_by_stage` | |
+| `candidate_signal_availability_by_stage` | |
+| `rates` | The three matched-budget summaries used in the ledger sections below. |
+| `selection_stability_by_arm` | Pairwise Jaccard values across 5%, 10%, and 20%. |
+| `report_hashes` | Exact deterministic artifact hashes; see nested fields below. |
+
+| Exact nested summary field | Value |
+| --- | --- |
+| `frozen_manifest.manifest_hash` | |
+| `frozen_manifest.mutation_check` | `passed` or run aborts before summary emission |
+| `report_hashes.frozen_manifest` | |
+| `report_hashes.candidate_events` | |
+| `report_hashes.replay_ledgers` | |
 
 ## Arm and budget ledger
 
@@ -48,6 +58,20 @@ Complete only with sanitized aggregate values. Leave outcome fields blank until 
 
 | Budget | Arm pair | Jaccard overlap of escalated event IDs |
 | ---: | --- | ---: |
+| | | |
+
+## Candidate coverage distribution
+
+These are descriptive review-item selection fractions, not correctness, performance, benefit, or human-effort measurements.
+
+| Budget | Arm | Stage | Candidate count | Escalated count | Escalation fraction |
+| ---: | --- | --- | ---: | ---: | ---: |
+| | | | | | |
+
+## Selection stability across budgets
+
+| Arm | Budget pair | Jaccard overlap of escalated event IDs |
+| --- | --- | ---: |
 | | | |
 
 ## Readiness and notes status

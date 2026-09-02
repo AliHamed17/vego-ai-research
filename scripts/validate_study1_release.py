@@ -3,12 +3,17 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
-from vego_study1.release_validation import (
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from vego_study1.release_validation import (  # noqa: E402
     ReleaseValidationError,
-    proposed_tracked_paths,
-    validate_release_diff,
+    scan_release_diff,
 )
 
 
@@ -19,18 +24,15 @@ def main() -> int:
     parser.add_argument("--head-ref", default="HEAD")
     arguments = parser.parse_args()
     try:
-        proposed = proposed_tracked_paths(
-            arguments.repository_root, base_ref=arguments.base_ref, head_ref=arguments.head_ref
-        )
-        findings = validate_release_diff(
+        scan = scan_release_diff(
             arguments.repository_root, base_ref=arguments.base_ref, head_ref=arguments.head_ref
         )
     except ReleaseValidationError as error:
         parser.error(str(error))
-    if findings:
-        print(f"Study 1 release validation failed: {len(findings)} prohibited reference(s).")
+    if scan.findings:
+        print(f"Study 1 release validation failed: {len(scan.findings)} prohibited reference(s).")
         return 1
-    print(f"Study 1 release validation passed for {len(proposed)} proposed tracked artifact(s).")
+    print(f"Study 1 release validation passed for {len(scan.paths)} proposed tracked artifact(s).")
     return 0
 
 

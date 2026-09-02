@@ -25,7 +25,12 @@ SIGNAL_IDS = frozenset(
     }
 )
 RAW_LOCATOR_KEYS = frozenset({"locator", "path", "raw_locator", "raw_content", "content"})
-SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schemas" / "study1" / "CandidateEscalationEvent-v1.schema.json"
+SCHEMA_PATH = (
+    Path(__file__).resolve().parents[2]
+    / "schemas"
+    / "study1"
+    / "CandidateEscalationEvent-v1.schema.json"
+)
 
 
 class PrivacyValidationError(ValueError):
@@ -43,7 +48,9 @@ def _load_schema() -> dict[str, Any]:
     return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
 
-def validate_candidate_event(event: dict[str, Any], *, schema: dict[str, Any] | None = None) -> dict[str, Any]:
+def validate_candidate_event(
+    event: dict[str, Any], *, schema: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Validate a privacy-sanitized candidate event and return it unchanged."""
     try:
         UUID(str(event.get("event_id")))
@@ -72,24 +79,65 @@ def validate_candidate_event(event: dict[str, Any], *, schema: dict[str, Any] | 
                 raise PrivacyValidationError("evidence_state is required")
         signal_ids = {signal.get("signal_id") for signal in signals if isinstance(signal, dict)}
         if len(signals) != len(SIGNAL_IDS) or signal_ids != SIGNAL_IDS:
-            raise PrivacyValidationError("exactly one observation is required for every policy signal")
+            raise PrivacyValidationError(
+                "exactly one observation is required for every policy signal"
+            )
 
     validator = Draft202012Validator(schema or _load_schema())
     errors = sorted(validator.iter_errors(event), key=lambda error: list(error.absolute_path))
     if errors:
         error = errors[0]
         field = ".".join(str(part) for part in error.absolute_path)
-        raise PrivacyValidationError(f"candidate event schema violation at {field or 'root'}: {error.message}")
+        raise PrivacyValidationError(
+            f"candidate event schema violation at {field or 'root'}: {error.message}"
+        )
     return event
 
 
-_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
+PUBLIC_ARTIFACT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("controlled_path", re.compile(r"(?i)(?:[a-z]:\\|/(?:home|users|private)/)")),
-    ("controlled_content_marker", re.compile(r"(?i)RAW[_]CONTROLLED[_]CONTENT|CONTROLLED[_](?:STUDENT|EXPERT)|(?:STUDENT|EXPERT)[_]RAW[_]")),
+    (
+        "raw_subject_path",
+        re.compile(r"(?i)(?<![a-z0-9_.-])(?:student|expert|model)[\\/][^\s\"']+"),
+    ),
+    (
+        "raw_control_path",
+        re.compile(r"(?i)(?<![a-z0-9_.-])(?:control|controlled)[\\/][^\s\"']+"),
+    ),
+    (
+        "raw_evaluation_output_path",
+        re.compile(r"(?i)(?<![a-z0-9_.-])(?:[^\s\"']*[\\/])?eval_output[\\/][^\s\"']+"),
+    ),
     ("drive_url", re.compile(r"(?i)https?://(?:drive|docs)\.google\.com/")),
-    ("drive_id", re.compile(r"\b1[A-Za-z0-9_-]{24,}\b")),
-    ("private_url", re.compile(r"(?i)https?://(?:localhost|127\.0\.0\.1|[\w-]+\.(?:internal|private|local))/")),
-    ("credential_like", re.compile(r"(?i)\b(?:api[_-]?key|token|secret|password|credential)\b\s*[:=]\s*(?!\$\{|\{\{)[A-Za-z0-9_./+=-]{8,}")),
+    ("drive_id", re.compile(r"(?<!sha256:)\b1[A-Za-z0-9_-]{24,}\b")),
+    (
+        "private_url",
+        re.compile(
+            r"(?i)https?://(?:localhost|127\.0\.0\.1|(?:[a-z0-9-]+\.)+(?:internal|private|local))"
+            r"(?::\d+)?(?:[/?#]|$)"
+        ),
+    ),
+    (
+        "remote_or_unc_reference",
+        re.compile(
+            r"(?i)(?<![a-z0-9+.-])(?:\\\\[a-z0-9][a-z0-9._-]*[\\/]"
+            r"|(?:file|s3|ssh|ftp|git):(?://)?)"
+        ),
+    ),
+    (
+        "credential_like",
+        re.compile(
+            r"(?i)\b(?:[a-z0-9_]*api[_-]?key|token|secret|password|credential)\b"
+            r"[\"']?\s*[:=]\s*[\"']?(?!\$\{|\{\{)[A-Za-z0-9_./+=-]{8,}"
+        ),
+    ),
+    (
+        "controlled_content_marker",
+        re.compile(
+            r"(?i)RAW[_]CONTROLLED[_]CONTENT|CONTROLLED[_](?:STUDENT|EXPERT)|"
+            r"(?:STUDENT|EXPERT)[_]RAW[_]"
+        ),
+    ),
 )
 
 
@@ -105,7 +153,7 @@ def validate_tracked_artifacts(paths: Iterable[Path]) -> list[PrivacyFinding]:
         except UnicodeDecodeError:
             continue
         for line_number, line in enumerate(lines, start=1):
-            for kind, pattern in _PATTERNS:
+            for kind, pattern in PUBLIC_ARTIFACT_PATTERNS:
                 if pattern.search(line):
                     findings.append(PrivacyFinding(path=candidate, line=line_number, kind=kind))
     return findings

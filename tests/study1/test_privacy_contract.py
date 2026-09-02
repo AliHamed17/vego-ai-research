@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from vego_study1.c0 import candidate_to_replay_event
 from vego_study1.privacy import (
     PrivacyValidationError,
     validate_candidate_event,
@@ -13,7 +14,9 @@ from vego_study1.privacy import (
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = ROOT / "schemas" / "study1" / "CandidateEscalationEvent-v1.schema.json"
-EXAMPLE_PATH = ROOT / "schemas" / "study1" / "examples" / "candidate-escalation-event-v1.synthetic.json"
+EXAMPLE_PATH = (
+    ROOT / "schemas" / "study1" / "examples" / "candidate-escalation-event-v1.synthetic.json"
+)
 VALIDATOR_SCRIPT = ROOT / "scripts" / "validate_study1_privacy.py"
 REVIEW_POLICY_SIGNAL_IDS = (
     "claim_uncertainty",
@@ -39,7 +42,11 @@ def synthetic_event() -> dict:
             "locator_hash": "sha256:" + "b" * 64,
         },
         "signals": [
-            {"signal_id": signal_id, "observation": "present", "evidence_state": "observed"}
+            {
+                "signal_id": signal_id,
+                "observation": {"kind": "policy_input", "normalized_value": 0.25},
+                "evidence_state": "observed",
+            }
             for signal_id in REVIEW_POLICY_SIGNAL_IDS
         ],
         "claim_boundary": "candidate_escalation_only",
@@ -52,16 +59,34 @@ def test_schema_and_public_example_validate_a_synthetic_candidate_event():
     example = json.loads(EXAMPLE_PATH.read_text(encoding="utf-8"))
 
     assert validate_candidate_event(synthetic_event(), schema=schema) == synthetic_event()
-    assert validate_candidate_event(example, schema=schema)["claim_boundary"] == "candidate_escalation_only"
+    assert (
+        validate_candidate_event(example, schema=schema)["claim_boundary"]
+        == "candidate_escalation_only"
+    )
 
 
 @pytest.mark.parametrize(
     ("mutate", "expected_message"),
     [
-        (lambda event: event["signals"].__setitem__(0, {"signal_id": "unknown_signal", "observation": "present", "evidence_state": "observed"}), "unknown signal"),
+        (
+            lambda event: event["signals"].__setitem__(
+                0,
+                {
+                    "signal_id": "unknown_signal",
+                    "observation": {"kind": "policy_input", "normalized_value": 0.25},
+                    "evidence_state": "observed",
+                },
+            ),
+            "unknown signal",
+        ),
         (lambda event: event["source"].pop("source_hash"), "source_hash"),
         (lambda event: event["signals"][0].pop("evidence_state"), "evidence_state"),
-        (lambda event: event["sanitized_local_locator"].update({"raw_locator": "synthetic-local-item"}), "raw locator"),
+        (
+            lambda event: event["sanitized_local_locator"].update(
+                {"raw_locator": "synthetic-local-item"}
+            ),
+            "raw locator",
+        ),
         (lambda event: event.__setitem__("claim_boundary", "verified_finding"), "claim_boundary"),
     ],
 )
@@ -82,6 +107,41 @@ def test_event_validator_accepts_derived_evidence_state():
     assert validate_candidate_event(event)["signals"][0]["evidence_state"] == "derived"
 
 
+@pytest.mark.parametrize(
+    "observation",
+    [
+        "C" + ":/pri" + "vate/raw-note.txt",
+        {"kind": "unknown", "value": "raw note text"},
+        {"kind": "policy_input", "normalized_value": 1.1},
+        {"kind": "policy_input"},
+    ],
+)
+def test_event_validator_rejects_free_form_unknown_or_out_of_range_observations(observation):
+    """Catches candidate observations that cannot map exactly to replay input."""
+    event = synthetic_event()
+    event["signals"][0]["observation"] = observation
+
+    with pytest.raises(PrivacyValidationError, match="observation|schema violation"):
+        validate_candidate_event(event)
+
+
+@pytest.mark.parametrize(
+    ("evidence_state", "observation"),
+    [
+        ("unavailable", {"kind": "policy_input", "normalized_value": 0.4}),
+        ("observed", {"kind": "unavailable"}),
+        ("derived", {"kind": "unavailable"}),
+    ],
+)
+def test_event_validator_ties_observation_shape_to_evidence_state(evidence_state, observation):
+    """Catches unavailable evidence carrying values or available evidence carrying no fact."""
+    event = synthetic_event()
+    event["signals"][0].update({"evidence_state": evidence_state, "observation": observation})
+
+    with pytest.raises(PrivacyValidationError, match="observation|schema violation"):
+        validate_candidate_event(event)
+
+
 def test_event_validator_rejects_non_contract_evidence_state():
     """Catches a contract that admits evidence states outside the three-state vocabulary."""
     event = synthetic_event()
@@ -96,7 +156,7 @@ def test_event_validator_rejects_duplicate_signal_id_even_when_observations_diff
     event = synthetic_event()
     event["signals"][-1] = {
         "signal_id": "claim_uncertainty",
-        "observation": "second synthetic observation",
+        "observation": {"kind": "policy_input", "normalized_value": 0.75},
         "evidence_state": "observed",
     }
 
@@ -131,6 +191,45 @@ def test_event_validator_rejects_routing_outcome_as_stage():
         validate_candidate_event(event)
 
 
+def test_public_example_round_trips_to_bounded_replay_semantics():
+    """Catches an example that validates but loses or invents replay signal semantics."""
+    example = json.loads(EXAMPLE_PATH.read_text(encoding="utf-8"))
+
+    replay = candidate_to_replay_event(example)
+    observations = {item["signalId"]: item for item in replay["signalObservations"]}
+
+    assert observations["claim_uncertainty"] == {
+        "signalId": "claim_uncertainty",
+        "normalizedValue": 0.8,
+        "missing": True,
+        "missingValuePolicy": "force_escalation",
+    }
+    assert observations["evidence_quality"] == {
+        "signalId": "evidence_quality",
+        "missing": True,
+        "missingValuePolicy": "force_undetermined",
+    }
+    assert observations["novelty_vs_judgment_store"] == {
+        "signalId": "novelty_vs_judgment_store",
+        "normalizedValue": 0.9,
+        "missing": False,
+    }
+    assert observations["unreviewed_error_consequence"] == {
+        "signalId": "unreviewed_error_consequence",
+        "missing": True,
+        "missingValuePolicy": "exclude_from_score",
+    }
+
+
+def test_candidate_conversion_validates_input_before_replay_translation():
+    """Catches conversion paths that silently reinterpret malformed candidate observations."""
+    event = synthetic_event()
+    event["signals"][0]["observation"] = {"kind": "unavailable"}
+
+    with pytest.raises(PrivacyValidationError, match="observation|schema violation"):
+        candidate_to_replay_event(event)
+
+
 def test_tracked_artifact_validator_reports_only_unsafe_synthetic_markers(tmp_path):
     """Catches a scanner that misses proposed tracked-artifact privacy leaks."""
     safe = tmp_path / "safe.json"
@@ -149,8 +248,31 @@ def test_tracked_artifact_validator_reports_only_unsafe_synthetic_markers(tmp_pa
 
     findings = validate_tracked_artifacts([safe, unsafe])
 
-    assert [finding.kind for finding in findings] == ["controlled_content_marker", "drive_url", "drive_id", "credential_like"]
+    assert [finding.kind for finding in findings] == [
+        "controlled_content_marker",
+        "drive_url",
+        "drive_id",
+        "credential_like",
+    ]
     assert all(finding.path == unsafe for finding in findings)
+
+
+@pytest.mark.parametrize(
+    ("unsafe_content", "expected_kind"),
+    [
+        ('{"uri": "fi' + 'le://host/private.bin"}', "remote_or_unc_reference"),
+        ("uri: 's3" + "://private-bucket/object'", "remote_or_unc_reference"),
+        ('{"endpoint": "https://' + 'service.local/value"}', "private_url"),
+    ],
+)
+def test_privacy_scanner_rejects_quoted_remote_values_and_private_hosts(
+    tmp_path, unsafe_content, expected_kind
+):
+    """Catches public-artifact URI leaks regardless of JSON/YAML quoting."""
+    unsafe = tmp_path / "unsafe.yaml"
+    unsafe.write_text(unsafe_content, encoding="utf-8")
+
+    assert expected_kind in {finding.kind for finding in validate_tracked_artifacts([unsafe])}
 
 
 def test_privacy_validator_cli_accepts_the_public_synthetic_example():
