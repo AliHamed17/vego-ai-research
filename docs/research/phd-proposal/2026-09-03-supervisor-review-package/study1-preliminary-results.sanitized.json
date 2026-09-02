@@ -1,0 +1,117 @@
+{
+  "schema_version": "vego-study1-preliminary-results-v1",
+  "as_of": "2026-09-03",
+  "evidence_states": {
+    "exp045": "FACT_FROM_FROZEN_OUTPUT",
+    "exp046": "FACT_FROM_RECORDED_PROJECT_REVIEW",
+    "c0_policy_replay": "FACT_FROM_DETERMINISTIC_OFFLINE_REPLAY",
+    "human_intervention_replay": "FACT_FROM_DEVELOPMENT_ONLY_SIMULATION"
+  },
+  "source_inventory": {
+    "scored_model_rows": 179,
+    "per_model_inspection_reports": 165,
+    "variability_pattern_records": 27,
+    "working_manuscript_models": 178,
+    "working_manuscript_patterns": 26,
+    "reconciliation_status": "open_selection_and_counting_rule_not_documented"
+  },
+  "exp045": {
+    "stage_1_candidate_signals": 6,
+    "stage_1_agent_clusters": 38,
+    "stage_1_unreached_reference_constructs": 7,
+    "stage_1_reference_constructs": 40,
+    "stage_2_candidate_signals": 18,
+    "stage_2_agent_clusters": 28,
+    "stage_2_open_questions": 12,
+    "stage_2_reference_guidelines_missed": 59,
+    "stage_2_reference_guidelines_denominator": 80,
+    "stage_3_case_files": 165,
+    "stage_3_files_with_alternative": 150,
+    "stage_3_alternative_readings": 491,
+    "stage_3_high_severity_mistakes": 15,
+    "stage_3_total_candidate_signals": 506,
+    "stage_4_candidate_trigger_patterns": 11,
+    "stage_4_pattern_denominator": 27,
+    "stage_4_materialized_queue_objects": 0,
+    "claim_boundary": "descriptive_signal_inventory_only"
+  },
+  "exp046": {
+    "stage_2_total_review_rows": 186,
+    "stage_2_agent_written_guidelines_reviewed": 169,
+    "stage_2_missing_required_guidelines": 17,
+    "stage_2_not_accepted_in_full": 68,
+    "stage_2_not_accepted_share_of_agent_written": 0.4024,
+    "stage_2_reference_lines": 78,
+    "stage_2_unmatched_reference_lines": 59,
+    "stage_3_compliance_judgments_reviewed": 915,
+    "stage_3_compliance_judgments_overturned": 120,
+    "stage_3_compliance_overturn_share": 0.1311,
+    "stage_3_uncovered_fragment_judgments_reviewed": 104,
+    "stage_3_uncovered_fragment_judgments_overturned": 27,
+    "stage_3_uncovered_fragment_overturn_share": 0.2596,
+    "non_satisfied_rule_flagged": 257,
+    "non_satisfied_rule_denominator": 915,
+    "non_satisfied_rule_overturns_covered": 108,
+    "non_satisfied_rule_total_overturns": 120,
+    "course_grade_rows": 164,
+    "score_grade_correlation": 0.2501,
+    "claim_boundary": "descriptive_nonrandom_recorded_review_not_independent_ground_truth"
+  },
+  "c0_policy_replay": {
+    "candidate_events": 1874,
+    "by_stage": {
+      "template": 6,
+      "guideline": 18,
+      "case_inspection": 1839,
+      "variability_classification": 11
+    },
+    "budgets": {
+      "5_percent": 93,
+      "10_percent": 187,
+      "20_percent": 374
+    },
+    "arms": [
+      "never_ask",
+      "always_ask",
+      "random_at_budget",
+      "uncertainty_only",
+      "fixed_threshold",
+      "proposed_joint_policy"
+    ],
+    "proposed_joint_policy_selected": {
+      "5_percent": 0,
+      "10_percent": 0,
+      "20_percent": 0
+    },
+    "why_zero": "required observed reviewer, authority, consequence, queue, disagreement, and reuse-value inputs are absent rather than imputed",
+    "seed": 20260902,
+    "run_a_run_b_hash_match": true,
+    "claim_boundary": "descriptive_candidate_escalation_only_no_outcome_evidence"
+  },
+  "human_intervention_replay": {
+    "interventions_applied": 1,
+    "baseline_label": "Alternative",
+    "assisted_label": "Language Mistake",
+    "baseline_score": "17.5/27",
+    "assisted_score": "16.5/27",
+    "score_delta": -1.0,
+    "recorded_review_alignment_before": 0,
+    "recorded_review_alignment_after": 1,
+    "technical_propagation_success": true,
+    "run_a_run_b_hash_match": true,
+    "receipt_sha256": "cb36ade40b70f3bca0aac794396b6830b4142e819fa2191b40f4f607874d8e05",
+    "private_assisted_record_sha256": "d66df0f072766e51ba26b6fbb0339c6812407d04ee407d6bd35615704a862e11",
+    "reference_status": "development_only",
+    "claim_boundary": "technical_propagation_only_no_accuracy_or_human_benefit_claim"
+  },
+  "open_evidence_gates": [
+    "independent blinded expert labels",
+    "reviewer competence observations",
+    "claim-scoped authority registry",
+    "human burden and interruption time",
+    "prospective held-out outcomes",
+    "adjudication and inter-rater reliability",
+    "integrated human-AI benefit",
+    "cross-context reuse safety"
+  ]
+}
