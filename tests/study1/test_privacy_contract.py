@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator
 
 import vego_study1.privacy as privacy
 from vego_study1.c0 import candidate_to_replay_event
@@ -125,6 +126,32 @@ def test_event_validator_rejects_free_form_unknown_or_out_of_range_observations(
 
     with pytest.raises(PrivacyValidationError, match="observation|schema violation"):
         validate_candidate_event(event)
+
+
+def test_candidate_schema_rejects_numeric_and_force_missing_observation() -> None:
+    """Catches contradictory candidate facts satisfying both policy-input branches."""
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    event = synthetic_event()
+    event["signals"][0]["observation"] = {
+        "kind": "policy_input",
+        "normalized_value": 0.8,
+        "missing_value_policy": "force_undetermined",
+    }
+
+    assert list(Draft202012Validator(schema).iter_errors(event))
+
+
+def test_candidate_conversion_rejects_numeric_and_force_missing_observation() -> None:
+    """Catches replay conversion discarding a validated numeric observation as missing."""
+    event = synthetic_event()
+    event["signals"][0]["observation"] = {
+        "kind": "policy_input",
+        "normalized_value": 0.8,
+        "missing_value_policy": "force_undetermined",
+    }
+
+    with pytest.raises(PrivacyValidationError, match="observation|schema violation"):
+        candidate_to_replay_event(event)
 
 
 @pytest.mark.parametrize(
@@ -327,6 +354,18 @@ def test_candidate_validator_rejects_non_finite_numbers_without_echoing_values(
     assert repr(non_finite) not in str(captured.value).casefold()
 
 
+def test_candidate_non_finite_error_does_not_echo_adversarial_instance_key() -> None:
+    """Catches arbitrary input keys leaking through a recursive validation path."""
+    event = synthetic_event()
+    private_key = "C:" + "/sensitive/control" + "led/field"
+    event[private_key] = float("nan")
+
+    with pytest.raises(PrivacyValidationError, match="non_finite_number") as captured:
+        validate_candidate_event(event)
+
+    assert private_key not in str(captured.value)
+
+
 def test_candidate_schema_errors_report_only_field_and_category() -> None:
     """Catches rejected private instance text being reflected in validation errors."""
     event = synthetic_event()
@@ -401,6 +440,81 @@ def test_privacy_scanner_rejects_quoted_remote_values_and_private_hosts(
     assert expected_kind in {finding.kind for finding in validate_tracked_artifacts([unsafe])}
 
 
+@pytest.mark.parametrize(
+    ("payload", "expected_kind"),
+    [
+        (b'{"uri":"g\\u0073:\\/\\/private-bucket\\/item"}', "remote_or_unc_reference"),
+        (b'{"uri":"data:text/plain;base64,U0VDUkVU"}', "remote_or_unc_reference"),
+        (
+            b'{"path":"' + b"\\" + b"u002fmnt" + b"\\" + b'u002fsecure/item"}',
+            "absolute_path_reference",
+        ),
+        (
+            b'{"path":"'
+            + b"\\"
+            + b"u005c"
+            + b"\\"
+            + b"u005cserver"
+            + b"\\"
+            + b"u005cshare/item"
+            + b'"}',
+            "remote_or_unc_reference",
+        ),
+        (b'{"host":"review\\u002einternal"}', "private_host_reference"),
+        (
+            b'{"uri":"sha256:\\/\\/server\\/share\\/item"}',
+            "remote_or_unc_reference",
+        ),
+        (b'{"host":"10\\u002e0\\u002e0\\u002e1"}', "private_host_reference"),
+    ],
+)
+def test_structured_scanner_rejects_decoded_json_scalar_values(
+    payload: bytes, expected_kind: str
+) -> None:
+    """Catches encoded structured values bypassing the raw-byte matcher."""
+    findings = privacy.public_artifact_byte_findings(
+        payload,
+        relative_path="docs/public.json",
+    )
+
+    assert expected_kind in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize(
+    ("payload", "relative_path"),
+    [
+        (b'{"unterminated":', "docs/public.json"),
+        (b"value: [unterminated\n", "docs/public.yaml"),
+    ],
+)
+def test_structured_scanner_fails_closed_when_decoding_is_impossible(
+    payload: bytes, relative_path: str
+) -> None:
+    """Catches malformed structured artifacts being treated as sanitized text."""
+    assert (1, "unparseable_structured_artifact") in privacy.public_artifact_byte_findings(
+        payload,
+        relative_path=relative_path,
+    )
+
+
+def test_drive_id_matcher_ignores_public_package_url_path_tokens() -> None:
+    """Catches content-addressed package paths being confused with bare Drive IDs."""
+    public_token = "1" + "a" * 63
+    payloads = (
+        f"https://files.pythonhosted.org/packages/{public_token}/package.whl".encode(),
+        f"https://files.pythonhosted.org/packages/public-package-1-{public_token}.whl".encode(),
+    )
+
+    for payload in payloads:
+        assert "drive_id" not in {
+            kind
+            for _line, kind in privacy.public_artifact_byte_findings(
+                payload,
+                relative_path="uv.lock",
+            )
+        }
+
+
 def test_privacy_validator_cli_accepts_the_public_synthetic_example():
     """Catches direct CLI execution that loses the repository src import path."""
     result = subprocess.run(
@@ -435,6 +549,25 @@ def _staged_repository(tmp_path: Path, content: bytes, *, name: str = "public.js
     artifact.write_bytes(content)
     _git(repository, "add", "--", f"docs/{name}")
     return repository
+
+
+def test_staged_privacy_scan_decodes_exact_index_json_scalars(tmp_path: Path) -> None:
+    """Catches staged encoded private hosts hidden from the raw index-byte matcher."""
+    repository = _staged_repository(
+        tmp_path,
+        b'{"host":"review\\u002einternal","uri":"i\\u0070f'
+        + b's:'
+        + b"\\/"
+        + b"\\/"
+        + b'private-item"}',
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert {finding.kind for finding in scan.findings} >= {
+        "private_host_reference",
+        "remote_or_unc_reference",
+    }
 
 
 def test_privacy_cli_scans_nul_delimited_index_bytes_from_any_cwd(tmp_path: Path) -> None:

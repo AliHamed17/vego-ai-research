@@ -169,6 +169,40 @@ def test_release_validator_rejects_prohibited_public_artifacts(
     assert {path for path, _kind in relative_findings} == {"docs/public.md"}
 
 
+@pytest.mark.parametrize(
+    ("content", "relative_path", "expected_kind"),
+    [
+        (
+            '{"uri":"g\\u0073:\\/\\/private-bucket\\/committed-item"}\n',
+            "docs/public.json",
+            "remote_or_unc_reference",
+        ),
+        (
+            "payload: >-\n  data:text/plain;base64,\n  U0VDUkVU\n",
+            "docs/public.yaml",
+            "remote_or_unc_reference",
+        ),
+    ],
+)
+def test_release_validator_scans_decoded_committed_structured_scalars(
+    tmp_path: Path,
+    content: str,
+    relative_path: str,
+    expected_kind: str,
+) -> None:
+    """Catches encoded or folded private locators inside the resolved head object."""
+    module = _validator_module()
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        content,
+        relative_path=relative_path,
+    )
+
+    findings = module.validate_release_diff(repository, base_ref="baseline")
+
+    assert expected_kind in {finding.kind for finding in findings}
+
+
 def test_release_validator_rejects_an_unknown_diff_base(tmp_path: Path):
     """Catches a validator that silently scans an unspecified or incorrect Git comparison range."""
     module = _validator_module()

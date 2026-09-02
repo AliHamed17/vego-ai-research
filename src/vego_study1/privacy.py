@@ -2,17 +2,22 @@
 
 from __future__ import annotations
 
+import ipaddress
 import json
 import math
 import re
 import subprocess
+import unicodedata
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import Any
+from urllib.parse import urlsplit
 from uuid import UUID
 
+import yaml
 from jsonschema import Draft202012Validator
+from yaml.nodes import MappingNode, Node, ScalarNode, SequenceNode
 
 from .path_safety import local_path, resolve_local_directory
 
@@ -29,6 +34,48 @@ SIGNAL_IDS = frozenset(
     }
 )
 RAW_LOCATOR_KEYS = frozenset({"locator", "path", "raw_locator", "raw_content", "content"})
+SAFE_CANDIDATE_FIELD_NAMES = frozenset(
+    {
+        "root",
+        "schema_version",
+        "event_id",
+        "source",
+        "source_hash",
+        "stage",
+        "item_type",
+        "sanitized_local_locator",
+        "storage_scope",
+        "locator_hash",
+        "signals",
+        "signal_id",
+        "observation",
+        "kind",
+        "normalized_value",
+        "missing_value_policy",
+        "evidence_state",
+        "escalation_request",
+        "claim_boundary",
+    }
+)
+SAFE_SCHEMA_VALIDATION_CATEGORIES = frozenset(
+    {
+        "additionalProperties",
+        "const",
+        "enum",
+        "format",
+        "maxContains",
+        "maximum",
+        "maxItems",
+        "minContains",
+        "minimum",
+        "minItems",
+        "oneOf",
+        "pattern",
+        "required",
+        "type",
+        "uniqueItems",
+    }
+)
 SCHEMA_PATH = (
     Path(__file__).resolve().parents[2]
     / "schemas"
@@ -77,15 +124,27 @@ def _non_finite_number_path(value: Any, path: tuple[object, ...] = ()) -> tuple[
     return None
 
 
+def _safe_candidate_field(path: Iterable[object]) -> str:
+    """Return only schema-owned field labels, never caller-controlled path components."""
+    fields = [part for part in path if isinstance(part, str) and part in SAFE_CANDIDATE_FIELD_NAMES]
+    return ".".join(fields) or "root"
+
+
+def _safe_schema_category(value: object) -> str:
+    if isinstance(value, str) and value in SAFE_SCHEMA_VALIDATION_CATEGORIES:
+        return value
+    return "schema"
+
+
 def validate_candidate_event(
     event: dict[str, Any], *, schema: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """Validate a privacy-sanitized candidate event and return it unchanged."""
     non_finite_path = _non_finite_number_path(event)
     if non_finite_path is not None:
-        field = ".".join(str(part) for part in non_finite_path)
         raise PrivacyValidationError(
-            f"candidate event validation at {field or 'root'} [non_finite_number]"
+            f"candidate event validation at {_safe_candidate_field(non_finite_path)} "
+            "[non_finite_number]"
         )
     try:
         UUID(str(event.get("event_id")))
@@ -119,13 +178,19 @@ def validate_candidate_event(
             )
 
     validator = Draft202012Validator(schema or _load_schema())
-    errors = sorted(validator.iter_errors(event), key=lambda error: list(error.absolute_path))
+    errors = sorted(
+        validator.iter_errors(event),
+        key=lambda error: (
+            _safe_candidate_field(error.absolute_path),
+            _safe_schema_category(error.validator),
+        ),
+    )
     if errors:
         error = errors[0]
-        field = ".".join(str(part) for part in error.absolute_path)
-        category = str(error.validator or "schema")
+        field = _safe_candidate_field(error.absolute_path)
+        category = _safe_schema_category(error.validator)
         raise PrivacyValidationError(
-            f"candidate event schema violation at {field or 'root'} [{category}]"
+            f"candidate event schema violation at {field} [{category}]"
         )
     return event
 
@@ -152,7 +217,13 @@ PUBLIC_ARTIFACT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
         re.compile(r"(?i)(?<![a-z0-9_.-])(?:[^\s\"']*[\\/])?eval_output[\\/][^\s\"']+"),
     ),
     ("drive_url", re.compile(r"(?i)https?://(?:drive|docs)\.google\.com/")),
-    ("drive_id", re.compile(r"(?<!sha256:)\b1[A-Za-z0-9_-]{24,}\b")),
+    (
+        "drive_id",
+        re.compile(
+            r"(?<!sha256:)(?:(?<=[/]d[/])1[A-Za-z0-9_-]{24,}(?=[/?#\s\"']|$)"
+            r"|(?<![A-Za-z0-9_./-])1[A-Za-z0-9_-]{24,}(?![A-Za-z0-9_./-]))"
+        ),
+    ),
     (
         "private_url",
         re.compile(
@@ -199,6 +270,16 @@ PROHIBITED_PUBLIC_PATH_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("raw_control_path", re.compile(r"(?i)(?:^|/)(?:control|controlled)(?:/|$)")),
     ("raw_evaluation_output_path", re.compile(r"(?i)(?:^|/)eval_output(?:/|$)")),
 )
+STRUCTURED_ARTIFACT_SUFFIXES = frozenset({".json", ".yaml", ".yml"})
+PUBLIC_URI_SCHEMES = frozenset({"http", "https", "sha256"})
+URI_SCHEME_PATTERN = re.compile(r"^(?P<scheme>[A-Za-z][A-Za-z0-9+.-]*):")
+PRIVATE_HOST_PATTERN = re.compile(
+    r"(?i)^(?:localhost|127\.0\.0\.1|(?:[a-z0-9-]+\.)+(?:internal|private|local))$"
+)
+
+
+class _JsonObjectPairs(list[tuple[str, Any]]):
+    """Preserve duplicate JSON members so every decoded key and value is scanned."""
 
 
 def public_path_finding_kinds(relative_path: str) -> tuple[str, ...]:
@@ -211,11 +292,145 @@ def public_path_finding_kinds(relative_path: str) -> tuple[str, ...]:
 def _contains_non_finite_json_number(value: Any) -> bool:
     if isinstance(value, float):
         return not math.isfinite(value)
+    if isinstance(value, _JsonObjectPairs):
+        return any(
+            _contains_non_finite_json_number(key) or _contains_non_finite_json_number(item)
+            for key, item in value
+        )
     if isinstance(value, dict):
         return any(_contains_non_finite_json_number(item) for item in value.values())
-    if isinstance(value, list):
+    if isinstance(value, (list, tuple)):
         return any(_contains_non_finite_json_number(item) for item in value)
     return False
+
+
+def _json_object_pairs(pairs: list[tuple[str, Any]]) -> _JsonObjectPairs:
+    return _JsonObjectPairs(pairs)
+
+
+def _reject_non_standard_json_constant(_value: str) -> None:
+    raise ValueError("non_standard_numeric_constant")
+
+
+def _json_scalar_values(value: Any) -> Iterable[tuple[int, str]]:
+    if isinstance(value, str):
+        yield 1, value
+    elif isinstance(value, _JsonObjectPairs):
+        for key, item in value:
+            yield 1, key
+            yield from _json_scalar_values(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _json_scalar_values(item)
+
+
+def _yaml_scalar_values(documents: Iterable[Node | None]) -> Iterable[tuple[int, str]]:
+    seen: set[int] = set()
+
+    def _walk(node: Node | None) -> Iterable[tuple[int, str]]:
+        if node is None or id(node) in seen:
+            return
+        seen.add(id(node))
+        if isinstance(node, ScalarNode):
+            yield node.start_mark.line + 1, node.value
+        elif isinstance(node, SequenceNode):
+            for item in node.value:
+                yield from _walk(item)
+        elif isinstance(node, MappingNode):
+            for key, item in node.value:
+                yield from _walk(key)
+                yield from _walk(item)
+
+    for document in documents:
+        yield from _walk(document)
+
+
+def _normalized_structured_scalar(value: str) -> str:
+    normalized = unicodedata.normalize("NFKC", value)
+    normalized = normalized.replace("\r\n", "\n").replace("\r", "\n")
+    normalized = re.sub(r"[\u200b\u200c\u200d\u2060\ufeff]", "", normalized)
+    return re.sub(r"\s+", " ", normalized).strip()
+
+
+def _is_private_host(value: str) -> bool:
+    candidate = value.casefold().strip().rstrip(".")
+    if candidate.startswith("[") and candidate.endswith("]"):
+        candidate = candidate[1:-1]
+    elif candidate.count(":") == 1:
+        host, separator, port = candidate.rpartition(":")
+        if separator and port.isdigit():
+            candidate = host.rstrip(".")
+    if PRIVATE_HOST_PATTERN.fullmatch(candidate):
+        return True
+    try:
+        address = ipaddress.ip_address(candidate)
+    except ValueError:
+        return False
+    return address.is_private or address.is_loopback or address.is_link_local
+
+
+def _structured_scalar_finding_kinds(value: str) -> tuple[str, ...]:
+    """Classify one decoded scalar using fixed public/privacy boundary labels."""
+    normalized = _normalized_structured_scalar(value)
+    if not normalized:
+        return ()
+
+    findings = [
+        kind for kind, pattern in PUBLIC_ARTIFACT_PATTERNS if pattern.search(normalized)
+    ]
+    path_value = normalized.replace("\\", "/")
+    if path_value.startswith("//"):
+        findings.append("remote_or_unc_reference")
+    elif re.match(r"^[A-Za-z]:/", path_value) or path_value.startswith("/"):
+        findings.append("absolute_path_reference")
+
+    scheme_match = URI_SCHEME_PATTERN.match(normalized)
+    if scheme_match is not None and not re.match(r"^[A-Za-z]:[\\/]", normalized):
+        scheme = scheme_match.group("scheme").casefold()
+        remainder = normalized[scheme_match.end() :]
+        if scheme not in PUBLIC_URI_SCHEMES or (
+            scheme == "sha256" and remainder.startswith(("/", "\\"))
+        ):
+            findings.append("remote_or_unc_reference")
+        elif scheme in {"http", "https"}:
+            try:
+                hostname = urlsplit(normalized).hostname
+            except ValueError:
+                hostname = None
+            if hostname is not None and _is_private_host(hostname):
+                findings.append("private_host_reference")
+
+    if _is_private_host(normalized):
+        findings.append("private_host_reference")
+    return tuple(dict.fromkeys(findings))
+
+
+def _decoded_structured_scalars(
+    text: str, *, suffix: str
+) -> tuple[tuple[tuple[int, str], ...], str | None]:
+    """Return decoded scalars and an optional fixed parse-failure category."""
+    if suffix == ".json":
+        try:
+            loaded = json.loads(
+                text,
+                parse_constant=_reject_non_standard_json_constant,
+                object_pairs_hook=_json_object_pairs,
+            )
+        except json.JSONDecodeError:
+            return (), "unparseable_structured_artifact"
+        except ValueError as error:
+            if str(error) == "non_standard_numeric_constant":
+                return (), "non_finite_json_number"
+            return (), "unparseable_structured_artifact"
+        if _contains_non_finite_json_number(loaded):
+            return tuple(_json_scalar_values(loaded)), "non_finite_json_number"
+        return tuple(_json_scalar_values(loaded)), None
+
+    try:
+        documents = tuple(yaml.compose_all(text, Loader=yaml.SafeLoader))
+    except yaml.YAMLError:
+        return (), "unparseable_structured_artifact"
+    return tuple(_yaml_scalar_values(documents)), None
 
 
 def public_artifact_byte_findings(
@@ -235,22 +450,16 @@ def public_artifact_byte_findings(
             if pattern.search(line):
                 findings.append((line_number, kind))
 
-    if PurePosixPath(relative_path).suffix.casefold() == ".json":
-        non_standard = False
-
-        def _reject_constant(_value: str) -> None:
-            raise ValueError("non_standard_numeric_constant")
-
-        try:
-            loaded = json.loads(text, parse_constant=_reject_constant)
-        except json.JSONDecodeError:
-            loaded = None
-        except ValueError as error:
-            loaded = None
-            non_standard = str(error) == "non_standard_numeric_constant"
-        if non_standard or _contains_non_finite_json_number(loaded):
-            findings.append((1, "non_finite_json_number"))
-    return tuple(findings)
+    suffix = PurePosixPath(relative_path).suffix.casefold()
+    if suffix in STRUCTURED_ARTIFACT_SUFFIXES:
+        scalars, parse_finding = _decoded_structured_scalars(text, suffix=suffix)
+        if parse_finding is not None:
+            findings.append((1, parse_finding))
+        for line_number, value in scalars:
+            findings.extend(
+                (line_number, kind) for kind in _structured_scalar_finding_kinds(value)
+            )
+    return tuple(dict.fromkeys(findings))
 
 
 def _validated_relative_path(value: str) -> str:

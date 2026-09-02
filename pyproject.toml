@@ -7,6 +7,7 @@ dependencies = [
     "chardet==7.4.3",
     "jsonschema==4.26.0",
     "openai==1.109.1",
+    "PyYAML==6.0.3",
     "tomli==2.2.1; python_version < '3.11'",
 ]
 
@@ -50,4 +51,3 @@ ignore = ["E501"]
 "VEGO-AI/tests/**/*.py" = ["S101"]
 "scripts/tests/**/*.py" = ["S101"]
 "tests/**/*.py" = ["S101"]
-

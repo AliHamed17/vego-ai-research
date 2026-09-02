@@ -47,6 +47,7 @@ empirical outcome. EXP-005 labels remain 0/24; no outcome is computable.
 from __future__ import annotations
 
 import json
+import math
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from hashlib import sha256
@@ -113,6 +114,14 @@ TRIGGER_UNDETERMINED = "undetermined_classification"
 TRIGGER_LOW_CONFIDENCE = "low_confidence"
 TRIGGER_MEDIUM_CONFIDENCE = "medium_confidence"
 TRIGGER_GUIDELINE_UPDATE = "guideline_update_proposed"
+MISSING_VALUE_POLICIES: tuple[str, ...] = (
+    "treat_as_zero",
+    "treat_as_maximum",
+    "exclude_from_score",
+    "force_escalation",
+    "force_undetermined",
+)
+UNIT_INTERVAL_VALUE_TYPES = frozenset({"probability", "unit_interval"})
 
 ESCALATION_UNIT_COST = 1
 
@@ -138,6 +147,31 @@ DEFAULT_PROPOSED_WEIGHTS: tuple[Mapping[str, Any], ...] = (
 
 class PolicyValidationError(ValueError):
     """Raised when an arm configuration, ledger, or event violates the engine contract."""
+
+
+def _finite_number(
+    value: Any,
+    *,
+    category: str,
+    minimum: float | None = None,
+    maximum: float | None = None,
+) -> float:
+    """Validate one arithmetic input without reflecting its caller-controlled value."""
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        raise PolicyValidationError(f"{category} validation failed [type_finite_range]")
+    try:
+        numeric = float(value)
+    except (OverflowError, ValueError) as error:
+        raise PolicyValidationError(
+            f"{category} validation failed [type_finite_range]"
+        ) from error
+    if (
+        not math.isfinite(numeric)
+        or (minimum is not None and numeric < minimum)
+        or (maximum is not None and numeric > maximum)
+    ):
+        raise PolicyValidationError(f"{category} validation failed [type_finite_range]")
+    return numeric
 
 
 def canonical_json(value: Any) -> str:
@@ -191,16 +225,12 @@ class Arm:
 
     def __post_init__(self) -> None:
         if self.arm_id not in ARM_TO_SCHEMA_FAMILY:
-            raise PolicyValidationError(
-                f"arm_id must be one of {sorted(ARM_IDS)}, got {self.arm_id!r}"
-            )
+            raise PolicyValidationError("arm_id validation failed [enum]")
         if not isinstance(self.params, Mapping):
             raise PolicyValidationError("params must be a mapping")
         unknown = set(self.params) - self._ALLOWED_PARAMS[self.arm_id]
         if unknown:
-            raise PolicyValidationError(
-                f"unknown params for arm {self.arm_id}: {sorted(unknown)}"
-            )
+            raise PolicyValidationError("arm params validation failed [additional_properties]")
         if self.arm_id == ARM_RANDOM_AT_BUDGET:
             seed = self.params.get("seed")
             if not isinstance(seed, int) or isinstance(seed, bool):
@@ -208,24 +238,76 @@ class Arm:
                     "random_at_budget requires an explicit integer 'seed' param"
                 )
             probability = self.params.get("selection_probability", 0.5)
-            if not isinstance(probability, (int, float)) or not 0.0 <= float(probability) <= 1.0:
-                raise PolicyValidationError("selection_probability must be within [0, 1]")
+            _finite_number(
+                probability,
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+        if self.arm_id == ARM_UNCERTAINTY_ONLY:
+            include_medium = self.params.get("include_medium", True)
+            if not isinstance(include_medium, bool):
+                raise PolicyValidationError("include_medium validation failed [type]")
+            low_floor = _finite_number(
+                self.params.get("low_confidence_floor", 0.75),
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+            medium_floor = _finite_number(
+                self.params.get("medium_confidence_floor", 0.5),
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+            _finite_number(
+                self.params.get("guideline_novelty_floor", 0.9),
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+            if medium_floor > low_floor:
+                raise PolicyValidationError("arm numeric parameter validation failed [order]")
         if self.arm_id == ARM_FIXED_THRESHOLD:
-            for signal_id in self.params.get("signal_ids", ()):
+            _finite_number(
+                self.params.get("threshold", 0.6),
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+            signal_ids = self.params.get("signal_ids", ())
+            if not isinstance(signal_ids, Sequence) or isinstance(signal_ids, (str, bytes)):
+                raise PolicyValidationError("signal_ids validation failed [type]")
+            for signal_id in signal_ids:
                 if signal_id not in SIGNAL_IDS:
-                    raise PolicyValidationError(f"unknown signal id {signal_id!r}")
+                    raise PolicyValidationError("signal_ids validation failed [enum]")
         if self.arm_id == ARM_PROPOSED_JOINT_POLICY:
-            for entry in self.params.get("weights", ()):
+            _finite_number(
+                self.params.get("escalation_threshold", 0.35),
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+            _finite_number(
+                self.params.get("competence_floor", 0.4),
+                category="arm numeric parameter",
+                minimum=0.0,
+                maximum=1.0,
+            )
+            weights = self.params.get("weights", DEFAULT_PROPOSED_WEIGHTS)
+            if not isinstance(weights, Sequence) or isinstance(weights, (str, bytes)):
+                raise PolicyValidationError("weights validation failed [type]")
+            for entry in weights:
                 if (
                     not isinstance(entry, Mapping)
                     or entry.get("signalId") not in SIGNAL_IDS
-                    or not isinstance(entry.get("weight"), (int, float))
                     or not isinstance(entry.get("weightVersion"), str)
                 ):
                     raise PolicyValidationError(
                         "weights entries must carry signalId/weight/weightVersion "
                         "per the combinationRule.weights contract shape"
                     )
+                _finite_number(entry.get("weight"), category="arm weight")
 
     @property
     def schema_family(self) -> str:
@@ -400,6 +482,13 @@ def select_reviewer(
     compared explicitly (smaller wins) because it sorts opposite to the two
     value components.
     """
+
+    competence_floor = _finite_number(
+        competence_floor,
+        category="reviewer competence floor",
+        minimum=0.0,
+        maximum=1.0,
+    )
 
     best_key: tuple[int, float, str] | None = None
     best_candidate: str | None = None
@@ -691,6 +780,8 @@ def _as_ledger(budget: int | BudgetLedger) -> BudgetLedger:
 
 
 def _validate_events(events: Sequence[Mapping[str, Any]]) -> None:
+    if not isinstance(events, Sequence) or isinstance(events, (str, bytes)):
+        raise PolicyValidationError("events validation failed [type]")
     seen: set[str] = set()
     for event in events:
         if not isinstance(event, Mapping):
@@ -699,23 +790,93 @@ def _validate_events(events: Sequence[Mapping[str, Any]]) -> None:
         if not isinstance(event_id, str) or not event_id:
             raise PolicyValidationError("each event must carry a non-empty string eventId")
         if event_id in seen:
-            raise PolicyValidationError(f"duplicate eventId {event_id!r}")
+            raise PolicyValidationError("eventId validation failed [duplicate]")
         seen.add(event_id)
+        observations = event.get("signalObservations", ())
+        if not isinstance(observations, Sequence) or isinstance(observations, (str, bytes)):
+            raise PolicyValidationError("signalObservations validation failed [type]")
         observed: set[str] = set()
-        for observation in event.get("signalObservations", ()):
+        for observation in observations:
             if not isinstance(observation, Mapping):
-                raise PolicyValidationError(f"{event_id}: signal observations must be mappings")
+                raise PolicyValidationError("signalObservations item validation failed [type]")
             signal_id = observation.get("signalId")
             if signal_id not in SIGNAL_IDS:
-                raise PolicyValidationError(f"{event_id}: unknown signalId {signal_id!r}")
+                raise PolicyValidationError("signalObservations.signalId validation failed [enum]")
             if signal_id in observed:
-                raise PolicyValidationError(f"{event_id}: duplicate signalId {signal_id!r}")
+                raise PolicyValidationError(
+                    "signalObservations.signalId validation failed [duplicate]"
+                )
             observed.add(signal_id)
+            missing = observation.get("missing")
+            if not isinstance(missing, bool):
+                raise PolicyValidationError("signalObservations.missing validation failed [type]")
+            normalized = observation.get("normalizedValue")
+            if normalized is not None:
+                _finite_number(
+                    normalized,
+                    category="signalObservations.normalizedValue",
+                    minimum=0.0,
+                    maximum=1.0,
+                )
+                if missing:
+                    raise PolicyValidationError(
+                        "signalObservations missing and normalizedValue validation failed "
+                        "[mutually_exclusive]"
+                    )
+            raw_value = observation.get("value")
+            value_type = observation.get("valueType")
+            if missing and raw_value is not None:
+                raise PolicyValidationError(
+                    "signalObservations missing and observation value validation failed "
+                    "[mutually_exclusive]"
+                )
+            if raw_value is not None and value_type in UNIT_INTERVAL_VALUE_TYPES:
+                _finite_number(
+                    raw_value,
+                    category="signal observation value",
+                    minimum=0.0,
+                    maximum=1.0,
+                )
+            elif raw_value is not None and value_type == "minutes":
+                _finite_number(
+                    raw_value,
+                    category="signal observation value",
+                    minimum=0.0,
+                )
+            elif raw_value is not None and value_type == "count" and (
+                not isinstance(raw_value, int)
+                or isinstance(raw_value, bool)
+                or raw_value < 0
+            ):
+                raise PolicyValidationError(
+                    "signal observation value validation failed [type_finite_range]"
+                )
+            elif isinstance(raw_value, float) and not math.isfinite(raw_value):
+                raise PolicyValidationError(
+                    "signal observation value validation failed [finite]"
+                )
+            missing_policy = observation.get("missingValuePolicy")
+            if missing_policy is not None and missing_policy not in MISSING_VALUE_POLICIES:
+                raise PolicyValidationError(
+                    "signalObservations.missingValuePolicy validation failed [enum]"
+                )
+        candidates = event.get("reviewerCandidates", ())
+        if not isinstance(candidates, Sequence) or isinstance(candidates, (str, bytes)):
+            raise PolicyValidationError("reviewerCandidates validation failed [type]")
+        for candidate in candidates:
+            if not isinstance(candidate, Mapping):
+                raise PolicyValidationError("reviewerCandidates item validation failed [type]")
+            competence = candidate.get("assessedCompetence")
+            if isinstance(competence, Mapping) and "value" in competence:
+                _finite_number(
+                    competence.get("value"),
+                    category="reviewerCandidates.assessedCompetence.value",
+                    minimum=0.0,
+                    maximum=1.0,
+                )
         requests = event.get("explicitEscalationRequests", ())
         if not isinstance(requests, Sequence) or isinstance(requests, (str, bytes)):
-            raise PolicyValidationError(
-                f"{event_id}: explicit escalation requests must be a sequence"
-            )
+            raise PolicyValidationError("explicit escalation requests must be a sequence")
         requested_signals: set[str] = set()
         for request in requests:
             if not isinstance(request, Mapping) or set(request) != {
@@ -724,24 +885,18 @@ def _validate_events(events: Sequence[Mapping[str, Any]]) -> None:
                 "evidenceState",
             }:
                 raise PolicyValidationError(
-                    f"{event_id}: explicit escalation requests must use the bounded shape"
+                    "explicit escalation requests must use the bounded shape"
                 )
             signal_id = request.get("signalId")
             if signal_id not in SIGNAL_IDS:
-                raise PolicyValidationError(
-                    f"{event_id}: explicit escalation request has unknown signalId"
-                )
+                raise PolicyValidationError("explicit escalation request has unknown signalId")
             if (
                 request.get("trigger") != TRIGGER_AGENT_REQUESTED
                 or request.get("evidenceState") != "observed"
             ):
-                raise PolicyValidationError(
-                    f"{event_id}: explicit escalation request has invalid semantics"
-                )
+                raise PolicyValidationError("explicit escalation request has invalid semantics")
             if signal_id in requested_signals:
-                raise PolicyValidationError(
-                    f"{event_id}: duplicate explicit escalation request signalId"
-                )
+                raise PolicyValidationError("duplicate explicit escalation request signalId")
             requested_signals.add(str(signal_id))
 
 
