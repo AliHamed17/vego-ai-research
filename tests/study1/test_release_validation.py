@@ -108,6 +108,12 @@ def _bare_credential_placeholder_assignment() -> str:
     return _plain_text_credential_assignment(placeholder)
 
 
+def _credential_placeholder_with_literal_assignment(prefix: str, suffix: str) -> str:
+    """Build a non-standalone placeholder without tracking a credential-shaped sample."""
+    placeholder = "${" + "STUDY1_TOKEN" + "}"
+    return _plain_text_credential_assignment(prefix + placeholder + suffix)
+
+
 def _release_locator_cases() -> tuple[tuple[str, str], ...]:
     drive_locator = (
         "https://"
@@ -373,6 +379,36 @@ def test_release_validator_keeps_a_bare_plain_text_credential_placeholder_public
     findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
 
     assert "credential_like" not in {finding.kind for finding in findings}
+
+
+@pytest.mark.parametrize(
+    ("prefix", "suffix"),
+    [
+        ("literal-", ""),
+        ("", "-literal"),
+        ("literal-", "-literal"),
+        ("literal ", ""),
+        ("", " literal"),
+        ("", "${OTHER}"),
+        ("(", ")"),
+        ("", ",literal"),
+        ("", "#literal"),
+        ('"', '"literal'),
+    ],
+)
+def test_release_validator_rejects_credential_placeholders_with_literal_neighbors(
+    tmp_path: Path, prefix: str, suffix: str
+) -> None:
+    """Catches committed-tree scans that allowlist only a placeholder substring."""
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        _credential_placeholder_with_literal_assignment(prefix, suffix),
+        relative_path="docs/public.env",
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" in {finding.kind for finding in findings}
 
 
 @pytest.mark.parametrize(("locator", "expected_kind"), _release_locator_cases())

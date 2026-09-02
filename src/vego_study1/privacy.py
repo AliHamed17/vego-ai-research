@@ -319,9 +319,9 @@ CREDENTIAL_PLACEHOLDER_PATTERNS = (
 )
 CREDENTIAL_TEXT_ASSIGNMENT_PATTERN = re.compile(
     r'''(?ix)(?<![\w.-])(?P<key>["']?[\w.-]+["']?)\s*[:=]\s*'''
-    r'''(?P<value>"(?:[\x5c].|[^"\x5c\r\n])*"|'(?:[\x5c].|[^'\x5c\r\n])*' '''
-    r'''|\$\{[^}\r\n]*\}|\{\{[^\r\n]*?\}\}'''
-    r'''|[^\s,;#\]\}\(\[\{\r\n]+)(?=\s*(?:$|[,;#\]\}]))'''
+    r'''(?P<value>"(?:[\x5c].|[^"\x5c\r\n])*"(?=\s*(?:$|[,;#\]\}]))|'''
+    r''' '(?:[\x5c].|[^'\x5c\r\n])*'(?=\s*(?:$|[,;#\]\}]))'''
+    r'''|[^\r\n]*)'''
 )
 CREDENTIAL_PLACEHOLDER_LITERALS = frozenset(
     {"", "redacted", "[redacted]", "<redacted>", "placeholder", "unset", "null", "none"}
@@ -414,6 +414,10 @@ def _text_assignment_value_is_placeholder(value: str) -> bool:
     normalized = _normalized_structured_scalar(value)
     if len(normalized) >= 2 and normalized[0] == normalized[-1] and normalized[0] in {"'", '"'}:
         normalized = normalized[1:-1]
+    else:
+        comment = re.search(r"\s+#", normalized)
+        if comment is not None:
+            normalized = normalized[: comment.start()].rstrip()
     return _credential_value_is_placeholder(normalized)
 
 

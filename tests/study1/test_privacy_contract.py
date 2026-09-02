@@ -496,6 +496,12 @@ def _bare_credential_placeholder_bytes() -> bytes:
     return _plain_text_credential_assignment_bytes(placeholder)
 
 
+def _credential_placeholder_with_literal_bytes(prefix: str, suffix: str) -> bytes:
+    """Build a non-standalone placeholder without storing a credential-shaped sample."""
+    placeholder = "${" + "STUDY1_TOKEN" + "}"
+    return _plain_text_credential_assignment_bytes(prefix + placeholder + suffix)
+
+
 def _encoded_drive_locator() -> str:
     locator = (
         "https://"
@@ -640,6 +646,33 @@ def test_direct_scanner_keeps_a_bare_plain_text_credential_placeholder_public_sa
     )
 
     assert "credential_like" not in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize(
+    ("prefix", "suffix"),
+    [
+        ("literal-", ""),
+        ("", "-literal"),
+        ("literal-", "-literal"),
+        ("literal ", ""),
+        ("", " literal"),
+        ("", "${OTHER}"),
+        ("(", ")"),
+        ("", ",literal"),
+        ("", "#literal"),
+        ('"', '"literal'),
+    ],
+)
+def test_direct_scanner_rejects_credential_placeholders_with_literal_neighbors(
+    prefix: str, suffix: str
+) -> None:
+    """Catches plain-text scanning that strips literal text around a placeholder."""
+    findings = privacy.public_artifact_byte_findings(
+        _credential_placeholder_with_literal_bytes(prefix, suffix),
+        relative_path="docs/public.env",
+    )
+
+    assert "credential_like" in {kind for _line, kind in findings}
 
 
 @pytest.mark.parametrize(("locator", "expected_kind"), _unicode_locator_cases())
@@ -918,6 +951,36 @@ def test_staged_privacy_scan_keeps_a_bare_plain_text_credential_placeholder_publ
     scan = privacy.scan_staged_artifacts(repository)
 
     assert "credential_like" not in {finding.kind for finding in scan.findings}
+
+
+@pytest.mark.parametrize(
+    ("prefix", "suffix"),
+    [
+        ("literal-", ""),
+        ("", "-literal"),
+        ("literal-", "-literal"),
+        ("literal ", ""),
+        ("", " literal"),
+        ("", "${OTHER}"),
+        ("(", ")"),
+        ("", ",literal"),
+        ("", "#literal"),
+        ('"', '"literal'),
+    ],
+)
+def test_staged_privacy_scan_rejects_credential_placeholders_with_literal_neighbors(
+    tmp_path: Path, prefix: str, suffix: str
+) -> None:
+    """Catches index scans that allowlist only the placeholder fragment of a scalar."""
+    repository = _staged_repository(
+        tmp_path,
+        _credential_placeholder_with_literal_bytes(prefix, suffix),
+        name="public.env",
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "credential_like" in {finding.kind for finding in scan.findings}
 
 
 @pytest.mark.parametrize(("locator", "expected_kind"), _unicode_locator_cases())
