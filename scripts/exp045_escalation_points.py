@@ -125,6 +125,10 @@ def stage2(root, setting):
     fn = metrics.get("false_negatives")
     if isinstance(fn, int) and fn != len(missed):
         raise SystemExit(f"{setting}: unassigned_base_guidelines ({len(missed)}) != false_negatives ({fn})")
+    best_path = os.path.join(ev, "agentB_best_guidelines.json")
+    best = _load(best_path) if os.path.exists(best_path) else {}
+    open_questions = best.get("questions_to_language_advisor", []) if isinstance(best, dict) else []
+    best_guidelines = best.get("reference_guidelines", []) if isinstance(best, dict) else []
     diagram, domain = setting.split("_")
     ref_rel = f"inputs/{domain}/domain_base_{diagram}.txt"
     ref_in_repo = os.path.exists(os.path.join(root, ref_rel))
@@ -134,11 +138,14 @@ def stage2(root, setting):
         "reference_file_in_repo": ref_in_repo,
         "reference": ref_rel if ref_in_repo else f"{ref_rel} NOT in repository; reference read from the evaluator record (agentB_metrics.json unassigned_base_guidelines, agentB_guideline_mapping.json base_assignment)",
         "denominators": {"agent_clusters": len(clusters),
+                         "best_run_guidelines": len(best_guidelines),
                          "reference_guidelines": (metrics.get("true_positives") or 0) + (metrics.get("false_negatives") or 0)},
         "metrics": {k: metrics.get(k) for k in ("precision", "recall", "f1", "true_positives", "false_positives", "false_negatives")},
         "candidate_points": points,
         "reference_guidelines_missed": missed,
-        "counts": {"candidate_points": len(points), "reference_guidelines_missed": len(missed)},
+        "open_questions_to_language_advisor": open_questions,
+        "counts": {"candidate_points": len(points), "reference_guidelines_missed": len(missed),
+                   "open_questions_to_language_advisor": len(open_questions)},
     }
 
 
@@ -149,8 +156,11 @@ def stage3(root, setting):
     severity_counts = collections.Counter()
     partial = 0
     points = []
+    files_with_alternative = 0
     for f in files:
         case = _load(f)
+        if any(fr.get("label") == "Alternative" for fr in case.get("uncovered_fragments", [])):
+            files_with_alternative += 1
         for frag in case.get("uncovered_fragments", []):
             label = frag.get("label")
             label_counts[label] += 1
@@ -175,6 +185,7 @@ def stage3(root, setting):
         "candidate_points": points,
         "counts": {"candidate_points": len(points),
                    "alternative_readings": label_counts.get("Alternative", 0),
+                   "case_files_with_alternative": files_with_alternative,
                    "high_severity_mistakes": severity_counts.get("High", 0)},
     }
 
@@ -247,8 +258,10 @@ def run(root, out):
         ("1", "language clusters not High-confidence or unassigned / clusters", "stage1", "candidate_points", "agent_clusters"),
         ("1", "language-base constructs not reached / base constructs", "stage1", "unreached_base_constructs", "base_constructs"),
         ("2", "domain clusters low-certainty or no base match / clusters", "stage2", "candidate_points", "agent_clusters"),
-        ("2", "reference domain guidelines missed (FN) / reference guidelines", "stage2", "reference_guidelines_missed", "reference_guidelines"),
-        ("3", "fragments labelled Alternative / case files", "stage3", "alternative_readings", "case_files"),
+        ("2", "guidelines with an open question to the language advisor / best-run guidelines", "stage2", "open_questions_to_language_advisor", "best_run_guidelines"),
+        ("2", "reference domain guidelines with no Agent 2 match / reference guidelines (as recorded by the evaluator)", "stage2", "reference_guidelines_missed", "reference_guidelines"),
+        ("3", "case files with at least one Alternative fragment / case files", "stage3", "case_files_with_alternative", "case_files"),
+        ("3", "fragments labelled Alternative (count) / case files", "stage3", "alternative_readings", "case_files"),
         ("3", "High-severity mistakes / case files", "stage3", "high_severity_mistakes", "case_files"),
         ("4", "patterns with a queue-trigger signal / patterns", "stage4", "candidate_points", "patterns"),
         ("4", "M1 queue items actually created / patterns", "stage4", "queue_items", "patterns"),

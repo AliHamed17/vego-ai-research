@@ -51,6 +51,8 @@ def test_stage2_reference_metrics_are_read_not_computed(summary):
     assert s["settings"]["cd_ch"]["stage2"]["counts"]["reference_guidelines_missed"] == 22
     assert s["totals"]["stage2.reference_guidelines_missed"] == 59
     assert s["totals"]["stage2.denominator.reference_guidelines"] == 80
+    assert s["totals"]["stage2.open_questions_to_language_advisor"] == 12
+    assert s["totals"]["stage3.case_files_with_alternative"] == 150
 
 
 def test_outputs_written_and_claim_boundary_present(summary):

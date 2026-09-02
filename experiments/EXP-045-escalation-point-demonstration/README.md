@@ -26,7 +26,7 @@ python -m pytest scripts/tests/test_exp045_escalation_points.py -q
 
 Stage map (Iris: "template guidelines, inspector, domain guidelines"): Stage 1 = Agent 1 language advisor; Stage 2 = Agent 2 domain advisor; Stage 3 = Agent 3 model inspector; Stage 4 = Agent 4 variability explorer (the only stage with an escalation hook today: `human_review_queue.py`, `PIPELINE_STAGE = agent4_classify_variability`).
 
-Signals read per stage: Stage 1 cluster `match_confidence` not High or no `base_assignment`, and language-base constructs not reached; Stage 2 `mapping_certainty` < 0.8 or no base match, and reference guidelines missed (`unassigned_base_guidelines`); Stage 3 uncovered fragments labelled `Alternative` and mistakes with `severity` High; Stage 4 `confidence` Low/Medium, `requires_human_review`, `flag_for_guidelines_update`, `Undetermined`, plus the M1 queue items and `trigger_reasons`.
+Signals read per stage: Stage 1 cluster `match_confidence` not High or no `base_assignment`, and language-base constructs not reached; Stage 2 `mapping_certainty` < 0.8 or no base match, open `questions_to_language_advisor` in the best-run guideline set (12 across settings, none answered), and reference guidelines with no Agent 2 match (`unassigned_base_guidelines`, equal to the evaluator's false negatives); Stage 3 uncovered fragments labelled `Alternative` and mistakes with `severity` High; Stage 4 `confidence` Low/Medium, `requires_human_review`, `flag_for_guidelines_update`, `Undetermined`, plus the M1 queue items and `trigger_reasons`.
 
 Measures (all descriptive, numerator / denominator): candidate points per stage over the stage's own denominator (clusters, reference guidelines, case files, patterns); overlap between automatic points and reference disagreements where a reference exists (Stages 1-2); on the Sunday case, agreement between automatic points and the three blind human marks per stage (counts, not rates of correctness).
 
@@ -39,13 +39,15 @@ Randomness: none. Runs: 1 deterministic inventory; Sunday adds the blind marks o
 | 1 | language clusters not High-confidence or unassigned / clusters | 0/8 | 2/9 | 2/10 | 2/11 | 6/38 |
 | 1 | language-base constructs not reached / base constructs | 0/8 | 1/8 | 3/12 | 3/12 | 7/40 |
 | 2 | domain clusters low-certainty or no base match / clusters | 8/12 | 7/8 | 3/4 | 0/4 | 18/28 |
-| 2 | reference domain guidelines missed / reference guidelines | 4/10 | 17/24 | 22/26 | 16/20 | 59/80 |
-| 3 | fragments labelled Alternative / case files | 113/45 | 95/37 | 154/46 | 129/37 | 491/165 |
+| 2 | guidelines with an open question to the language advisor / best-run guidelines | 2/27 | 1/48 | 3/26 | 6/18 | 12/119 |
+| 2 | reference domain guidelines with no Agent 2 match / reference guidelines (as recorded by the evaluator) | 4/10 | 17/24 | 22/26 | 16/20 | 59/80 |
+| 3 | case files with at least one Alternative fragment / case files | 40/45 | 34/37 | 44/46 | 32/37 | 150/165 |
+| 3 | fragments labelled Alternative (count) / case files | 113/45 | 95/37 | 154/46 | 129/37 | 491/165 |
 | 3 | High-severity mistakes / case files | 0/45 | 0/37 | 3/46 | 12/37 | 15/165 |
 | 4 | patterns with a queue-trigger signal / patterns | 4/8 | 5/8 | 2/4 | 0/7 | 11/27 |
 | 4 | M1 queue items actually created / patterns | 4/8 | 5/8 | 2/4 | 0/7 | 11/27 |
 
-Reading: today nothing before Stage 4 is escalated. Stage 2 is where the reference disagrees most (59 of 80 reference domain guidelines missed) and where the agent's own certainty signal is already low on 18 of 28 clusters; Stage 3 produces the largest volume of ambiguity signals (491 alternative readings over 165 case files); Stage 4 escalates 11 of 27 patterns, 9 of them for a proposed guideline update and 3 for medium confidence. These are counts of signal values, not verified errors.
+Reading: today nothing before Stage 4 is escalated. Stage 2 is where the reference disagrees most (59 of 80 reference domain guidelines missed) and where the agent's own certainty signal is already low on 18 of 28 clusters; Stage 3 produces the largest volume of ambiguity signals (150 of 165 case files carry at least one Alternative fragment; 491 such fragments in total); Stage 4 escalates 11 of 27 patterns, 9 of them for a proposed guideline update and 3 for medium confidence. These are counts of signal values, not verified errors.
 
 ## Interpretation
 
