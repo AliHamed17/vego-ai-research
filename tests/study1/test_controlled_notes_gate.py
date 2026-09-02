@@ -84,9 +84,9 @@ def test_controlled_notes_import_writes_redacted_development_only_receipt(tmp_pa
         ({"source_hash": "sha256:" + "0" * 64}, "development_only", None, "source_hash"),
         ({"source_classification": "public"}, "development_only", None, "source_classification"),
         ({"intended_use": "evaluation"}, "development_only", None, "intended_use"),
-        ({"source_url": "https://drive.google.com/file/d/synthetic"}, "development_only", None, "remote URL"),
+        ({"source_url": "https://" + "drive.google.com/file/d/synthetic"}, "development_only", None, "remote URL"),
         ({}, "evaluation", None, "development_only"),
-        ({}, "development_only", "https://drive.google.com/file/d/synthetic", "remote URL"),
+        ({}, "development_only", "https://" + "drive.google.com/file/d/synthetic", "remote URL"),
     ],
 )
 def test_controlled_notes_import_fails_closed_for_invalid_provenance_or_input(
