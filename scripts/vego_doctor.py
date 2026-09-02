@@ -21,7 +21,7 @@ EXPECTED_PACKAGES = {
     "jsonschema": "4.26.0",
     "python-docx": "1.2.0",
     "Pillow": "12.3.0",
-    "pypdf": "6.15.0",
+    "pypdf": "6.16.1",
     "pytest": "9.0.3",
     "ruff": "0.15.16",
     "pip-audit": "2.10.1",
