@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -458,6 +459,45 @@ def _structured_credential_bytes(suffix: str) -> bytes:
     return (field_name + ": >-\n  " + field_value[:8] + "\n  " + field_value[8:] + "\n").encode()
 
 
+def _credential_fallback_bytes(suffix: str) -> bytes:
+    """Build an unsafe shell fallback only at runtime so no credential sample is tracked."""
+    field_name = "api_" + "key"
+    fallback = (
+        "${"
+        + "STUDY1_TOKEN"
+        + ":-"
+        + "abc"
+        + "DEF12345"
+        + "67890"
+        + "}"
+    )
+    if suffix == ".json":
+        return json.dumps({field_name: fallback}).encode()
+    return (field_name + ": " + json.dumps(fallback) + "\n").encode()
+
+
+def _encoded_drive_locator() -> str:
+    locator = (
+        "https://"
+        + "drive."
+        + "google.com/file/d/"
+        + "1"
+        + "A" * 28
+    )
+    return quote(locator, safe="")
+
+
+def _unicode_locator_cases() -> tuple[tuple[str, str], ...]:
+    return (
+        (_encoded_drive_locator(), "drive_url"),
+        ("/" + "安全" + "/" + "記録", "absolute_path_reference"),
+        (
+            chr(92) * 2 + "伺服器" + chr(92) + "共享" + chr(92) + "記録",
+            "remote_or_unc_reference",
+        ),
+    )
+
+
 @pytest.mark.parametrize("suffix", [".json", ".yaml"])
 def test_structured_scanner_preserves_credential_key_value_association(suffix: str) -> None:
     """Catches escaped or folded structured credentials split into separately safe scalars."""
@@ -536,6 +576,40 @@ def test_structured_scanner_keeps_explicit_credential_placeholders_public_safe()
     )
 
     assert "credential_like" not in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize("suffix", [".json", ".yaml"])
+def test_direct_scanner_rejects_shell_fallbacks_under_credential_keys(suffix: str) -> None:
+    """Catches a literal fallback hidden inside a non-bare credential placeholder."""
+    findings = privacy.public_artifact_byte_findings(
+        _credential_fallback_bytes(suffix),
+        relative_path="docs/public" + suffix,
+    )
+
+    assert "credential_like" in {kind for _line, kind in findings}
+
+
+def test_direct_scanner_rejects_shell_fallbacks_in_plain_assignments() -> None:
+    """Catches arbitrary text treating every shell expansion as a safe credential placeholder."""
+    findings = privacy.public_artifact_byte_findings(
+        _credential_fallback_bytes(".env"),
+        relative_path="docs/public.env",
+    )
+
+    assert "credential_like" in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize(("locator", "expected_kind"), _unicode_locator_cases())
+def test_direct_scanner_decodes_and_classifies_encoded_or_unicode_locators(
+    locator: str, expected_kind: str
+) -> None:
+    """Catches locator classification before percent decoding or with ASCII-only path tokens."""
+    findings = privacy.public_artifact_byte_findings(
+        ("Locator " + locator).encode(),
+        relative_path="docs/public.md",
+    )
+
+    assert expected_kind in {kind for _line, kind in findings}
 
 
 @pytest.mark.parametrize(
@@ -754,6 +828,38 @@ def test_staged_privacy_scan_preserves_reused_yaml_alias_credential_context(
     scan = privacy.scan_staged_artifacts(repository)
 
     assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+@pytest.mark.parametrize("suffix", [".json", ".yaml"])
+def test_staged_privacy_scan_rejects_credential_shell_fallbacks(
+    tmp_path: Path, suffix: str
+) -> None:
+    """Catches exact index scanning that allowlists a non-bare credential placeholder."""
+    repository = _staged_repository(
+        tmp_path,
+        _credential_fallback_bytes(suffix),
+        name="public" + suffix,
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+@pytest.mark.parametrize(("locator", "expected_kind"), _unicode_locator_cases())
+def test_staged_privacy_scan_decodes_and_classifies_encoded_or_unicode_locators(
+    tmp_path: Path, locator: str, expected_kind: str
+) -> None:
+    """Catches exact index scans that miss encoded Drive and Unicode path or UNC tokens."""
+    repository = _staged_repository(
+        tmp_path,
+        ("Locator " + locator + "\n").encode(),
+        name="public.md",
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert expected_kind in {finding.kind for finding in scan.findings}
 
 
 def test_staged_privacy_scan_normalizes_arbitrary_text_locator_tokens(tmp_path: Path) -> None:

@@ -22,6 +22,8 @@ from vego_study1.c0 import (
 )
 
 SETTINGS = ("ucd_ch", "ucd_pw", "cd_ch", "cd_pw")
+ROOT = Path(__file__).resolve().parents[2]
+SHIPPED_POLICY_PATH = ROOT / "VEGO-AI" / "framework" / "selective_intervention_policy.py"
 
 
 def _c0_module():
@@ -45,6 +47,17 @@ def _approved_private_test_repository(tmp_path: Path, monkeypatch):
 def _write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value), encoding="utf-8")
+
+
+def _shipped_selective_policy():
+    spec = importlib.util.spec_from_file_location(
+        "study1_shipped_selective_intervention_policy",
+        SHIPPED_POLICY_PATH,
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def _symlink_or_skip(link: Path, target: Path, *, directory: bool = False) -> None:
@@ -171,6 +184,60 @@ def test_cooccurring_review_request_and_low_confidence_fire_independent_triggers
     )
     assert replay_results["fixed_threshold"]["decisions"][0]["escalate"] is True
     assert "fixed_threshold" in replay_results["fixed_threshold"]["decisions"][0]["reason"]
+
+
+@pytest.mark.parametrize(
+    "classification",
+    [
+        "Undetermined",
+        " undetermined ",
+        "Undetermined pending",
+        "Undetermined_extra",
+    ],
+)
+def test_variability_undetermined_mapping_matches_the_shipped_comparator(
+    tmp_path: Path, classification: str
+) -> None:
+    """Catches prefix matching that broadens the shipped normalized equality comparator."""
+    root = synthetic_c0_root(tmp_path)
+    for setting in SETTINGS:
+        artifact = (
+            root
+            / "eval_output"
+            / setting
+            / "agentD_variability_classes.synthetic.json"
+        )
+        payload = json.loads(artifact.read_text(encoding="utf-8"))
+        payload["variability_classifications"][0]["classification"] = classification
+        _write_json(artifact, payload)
+
+    shipped = _shipped_selective_policy()
+    source_record = {
+        "classification": classification,
+        "confidence": "Low",
+        "requires_human_review": False,
+        "flag_for_guidelines_update": False,
+    }
+    _needs_review, shipped_reasons = shipped.should_request_human_review(source_record)
+    shipped_undetermined = shipped.TRIGGER_UNDETERMINED in shipped_reasons
+    candidates = [
+        candidate
+        for candidate in adapt_c0_root(root)
+        if candidate["stage"] == "variability_classification"
+    ]
+
+    assert len(candidates) == len(SETTINGS)
+    for candidate in candidates:
+        evidence_quality = next(
+            signal
+            for signal in candidate["signals"]
+            if signal["signal_id"] == "evidence_quality"
+        )
+        adapter_undetermined = (
+            evidence_quality["observation"].get("missing_value_policy")
+            == "force_undetermined"
+        )
+        assert adapter_undetermined is shipped_undetermined
 
 
 def test_agent_c_high_severity_does_not_fabricate_error_consequence(tmp_path: Path):

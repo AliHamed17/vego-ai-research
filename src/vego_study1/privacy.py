@@ -12,7 +12,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import Any
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 from uuid import UUID
 
 import yaml
@@ -250,8 +250,8 @@ PUBLIC_ARTIFACT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "remote_or_unc_reference",
         re.compile(
-            r"(?i)(?<![a-z0-9+.-])(?:\\\\[a-z0-9][a-z0-9._-]*[\\/]"
-            r"|(?<!:)//[a-z0-9][a-z0-9._-]*/"
+            r"(?i)(?<![\w+.-])(?:\\\\[\w][\w._-]*[\\/]"
+            r"|(?<!:)//[\w][\w._-]*/"
             r"|(?:file|s3|ssh|ftp|git):(?://)?"
             r"|(?!(?:https?|sha256):)[a-z][a-z0-9+.-]*://)"
         ),
@@ -293,7 +293,7 @@ WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN = re.compile(
     r"(?i)(?<![a-z0-9])[a-z]:[\\/][^\s<>\"'`|]+"
 )
 POSIX_ABSOLUTE_PATH_TOKEN_PATTERN = re.compile(
-    r"(?i)(?<![a-z0-9:/\\}\]])/(?!/)[a-z0-9._~][a-z0-9._~-]*"
+    r"(?i)(?<![:/\\}\]\w])/(?!/)[\w._~][\w._~-]*"
     r"(?:/[^\s<>\"'`|]+)*"
 )
 EMAIL_IDENTIFIER_PATTERN = re.compile(
@@ -314,8 +314,12 @@ CREDENTIAL_KEY_FRAGMENT_PATTERN = re.compile(
     r"(?i)api(?:key|keys)|token|secret|password|credential"
 )
 CREDENTIAL_PLACEHOLDER_PATTERNS = (
-    re.compile(r"^\$\{[A-Za-z_][A-Za-z0-9_]*(?::[-+?=][^}]*)?\}$"),
+    re.compile(r"^\$\{[A-Za-z_][A-Za-z0-9_]*\}$"),
     re.compile(r"^\{\{\s*[A-Za-z_][A-Za-z0-9_.-]*\s*\}\}$"),
+)
+CREDENTIAL_PLACEHOLDER_ASSIGNMENT_PATTERN = re.compile(
+    r"(?i)(?P<key>[a-z0-9_.-]+)[\"']?\s*[:=]\s*[\"']?"
+    r"(?P<value>\$\{[^}\r\n]*\}|\{\{[^\r\n]*?\}\})"
 )
 CREDENTIAL_PLACEHOLDER_LITERALS = frozenset(
     {"", "redacted", "[redacted]", "<redacted>", "placeholder", "unset", "null", "none"}
@@ -464,7 +468,8 @@ def _yaml_scalar_values(
 
 
 def _normalized_structured_scalar(value: str) -> str:
-    normalized = unicodedata.normalize("NFKC", value).translate(_UNICODE_PATH_SEPARATORS)
+    decoded = unquote(value)
+    normalized = unicodedata.normalize("NFKC", decoded).translate(_UNICODE_PATH_SEPARATORS)
     normalized = normalized.replace("\r\n", "\n").replace("\r", "\n")
     normalized = re.sub(
         r"[\u200b\u200c\u200d\u202a-\u202e\u2060\u2066-\u2069\ufeff]",
@@ -503,6 +508,12 @@ def _text_finding_kinds(value: str) -> tuple[str, ...]:
         findings.append("absolute_path_reference")
     if EMAIL_IDENTIFIER_PATTERN.search(normalized):
         findings.append("email_identifier")
+    if any(
+        _is_credential_field_name(match.group("key"))
+        and not _credential_value_is_placeholder(match.group("value"))
+        for match in CREDENTIAL_PLACEHOLDER_ASSIGNMENT_PATTERN.finditer(normalized)
+    ):
+        findings.append("credential_like")
 
     for match in URI_TOKEN_PATTERN.finditer(normalized):
         scheme = match.group("scheme").casefold()

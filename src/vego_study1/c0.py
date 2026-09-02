@@ -367,9 +367,7 @@ def _variability_candidates(item: SelectedFile) -> Iterable[dict[str, Any]]:
         if not isinstance(record, Mapping):
             continue
         confidence = str(record.get("confidence", "")).strip().lower()
-        undetermined = (
-            str(record.get("classification", "")).strip().lower().startswith("undetermined")
-        )
+        undetermined = str(record.get("classification", "")).strip().lower() == "undetermined"
         requested = record.get("requires_human_review") is True
         guideline_update = record.get("flag_for_guidelines_update") is True
         if not (confidence in {"low", "medium"} or undetermined or requested or guideline_update):

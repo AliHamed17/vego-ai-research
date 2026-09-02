@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
+from urllib.parse import quote
 
 import pytest
 
@@ -71,6 +72,43 @@ def _structured_credential_text(suffix: str) -> str:
             + '"}\n'
         )
     return field_name + ": >-\n  " + field_value[:8] + "\n  " + field_value[8:] + "\n"
+
+
+def _credential_fallback_text(suffix: str) -> str:
+    """Build an unsafe shell fallback only at runtime so no credential sample is tracked."""
+    field_name = "api_" + "key"
+    fallback = (
+        "${"
+        + "STUDY1_TOKEN"
+        + ":-"
+        + "abc"
+        + "DEF12345"
+        + "67890"
+        + "}"
+    )
+    if suffix == ".json":
+        import json
+
+        return json.dumps({field_name: fallback}) + "\n"
+    return field_name + ": " + repr(fallback) + "\n"
+
+
+def _release_locator_cases() -> tuple[tuple[str, str], ...]:
+    drive_locator = (
+        "https://"
+        + "drive."
+        + "google.com/file/d/"
+        + "1"
+        + "A" * 28
+    )
+    return (
+        (quote(drive_locator, safe=""), "drive_url"),
+        ("/" + "安全" + "/" + "記録", "absolute_path_reference"),
+        (
+            chr(92) * 2 + "伺服器" + chr(92) + "共享" + chr(92) + "記録",
+            "remote_or_unc_reference",
+        ),
+    )
 
 
 def _repository_with_branch_blob(tmp_path: Path, content: bytes) -> Path:
@@ -273,6 +311,37 @@ def test_release_validator_preserves_reused_yaml_alias_credential_context(
     findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
 
     assert "credential_like" in {finding.kind for finding in findings}
+
+
+@pytest.mark.parametrize("suffix", [".json", ".yaml"])
+def test_release_validator_rejects_credential_shell_fallbacks_from_committed_trees(
+    tmp_path: Path, suffix: str
+) -> None:
+    """Catches a committed JSON or YAML literal fallback allowlisted as a bare placeholder."""
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        _credential_fallback_text(suffix),
+        relative_path="docs/public" + suffix,
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" in {finding.kind for finding in findings}
+
+
+@pytest.mark.parametrize(("locator", "expected_kind"), _release_locator_cases())
+def test_release_validator_decodes_and_classifies_encoded_or_unicode_tree_locators(
+    tmp_path: Path, locator: str, expected_kind: str
+) -> None:
+    """Catches committed-tree scans that miss encoded Drive and Unicode path or UNC tokens."""
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        "Locator " + locator + "\n",
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
+
+    assert expected_kind in {finding.kind for finding in findings}
 
 
 @pytest.mark.parametrize(
