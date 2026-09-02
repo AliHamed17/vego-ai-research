@@ -119,11 +119,20 @@ def stage2(root, setting):
                 "min_mapping_certainty": min(certs) if certs else None,
                 "match_confidence": c.get("match_confidence"),
             })
-    missed = mapping.get("unassigned_base_guidelines") or metrics.get("unassigned_base_guidelines") or []
+    # The evaluator metric file is authoritative; the mapping file may list fewer entries
+    # (cd_ch: 20 in the mapping vs 22 false negatives in the metrics).
+    missed = metrics.get("unassigned_base_guidelines") or mapping.get("unassigned_base_guidelines") or []
+    fn = metrics.get("false_negatives")
+    if isinstance(fn, int) and fn != len(missed):
+        raise SystemExit(f"{setting}: unassigned_base_guidelines ({len(missed)}) != false_negatives ({fn})")
+    diagram, domain = setting.split("_")
+    ref_rel = f"inputs/{domain}/domain_base_{diagram}.txt"
+    ref_in_repo = os.path.exists(os.path.join(root, ref_rel))
     return {
         "stage": 2,
         "reference_exists": True,
-        "reference": f"inputs/{setting.split('_')[1]}/domain_base_{setting.split('_')[0]}.txt",
+        "reference_file_in_repo": ref_in_repo,
+        "reference": ref_rel if ref_in_repo else f"{ref_rel} NOT in repository; reference read from the evaluator record (agentB_metrics.json unassigned_base_guidelines, agentB_guideline_mapping.json base_assignment)",
         "denominators": {"agent_clusters": len(clusters),
                          "reference_guidelines": (metrics.get("true_positives") or 0) + (metrics.get("false_negatives") or 0)},
         "metrics": {k: metrics.get(k) for k in ("precision", "recall", "f1", "true_positives", "false_positives", "false_negatives")},

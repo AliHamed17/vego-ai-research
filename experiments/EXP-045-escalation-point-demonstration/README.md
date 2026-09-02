@@ -12,7 +12,7 @@ Demonstrate - not prove - points in the frozen VEGO-AI run over the Cheers and P
 
 - Dataset: the frozen run `VEGO-AI/runs/20260614-122150` over 179 student models, 27 recurring patterns, 4 settings (`ucd_ch` 46 models / 8 patterns, `ucd_pw` 44 / 8, `cd_ch` 48 / 4, `cd_pw` 41 / 7). Per-case Agent C score files exist for 165 of the 179 models.
 - Per-stage artifacts (local, controlled, ignored by Git): `VEGO-AI/eval_output/<setting>/agentA_guideline_mapping.json`, `agentA_metrics.json`, `agentB_guideline_mapping.json`, `agentB_metrics.json`, `agentC_case_*.json`, `agentD_variability_classes*.json`; `VEGO-AI/human_review_output/<setting>/human_review_queue.jsonl`.
-- Reference material (the "benchmark in some sense" Iris pointed to): `VEGO-AI/inputs/language_base_{ucd,cd}.txt` (Stage 1), `VEGO-AI/inputs/{ch,pw}/domain_base_*.txt` (Stage 2), `VEGO-AI/inputs/scoring_schema.txt` (labels only, Stage 3). Stages 3 and 4 have no reference verdict; the author-reviewed Agent D classes are byte-identical to Agent 4 output (agreement, not ground truth).
+- Reference material (the "benchmark in some sense" Iris pointed to): `VEGO-AI/inputs/language_base_{ucd,cd}.txt` (Stage 1), `VEGO-AI/inputs/pw/domain_base_{ucd,cd}.txt` (Stage 2, ParkWise); the Cheers domain-base files are not in the repository, so the Cheers Stage 2 reference is read from the evaluator record (`agentB_metrics.json` unassigned list, `agentB_guideline_mapping.json` base assignments) and the course file should be recovered from Iris's teaching materials; `VEGO-AI/inputs/scoring_schema.txt` (labels only, Stage 3). Stages 3 and 4 have no reference verdict; the author-reviewed Agent D classes are byte-identical to Agent 4 output (agreement, not ground truth).
 - Humans: none this month. For the Sunday run the three of us (Ali, Iris, Arnon) mark, blind to the signals, where they would have wanted to be asked on one case; the marks are stand-ins, and are reported as such.
 
 ## Method
@@ -39,13 +39,13 @@ Randomness: none. Runs: 1 deterministic inventory; Sunday adds the blind marks o
 | 1 | language clusters not High-confidence or unassigned / clusters | 0/8 | 2/9 | 2/10 | 2/11 | 6/38 |
 | 1 | language-base constructs not reached / base constructs | 0/8 | 1/8 | 3/12 | 3/12 | 7/40 |
 | 2 | domain clusters low-certainty or no base match / clusters | 8/12 | 7/8 | 3/4 | 0/4 | 18/28 |
-| 2 | reference domain guidelines missed / reference guidelines | 4/10 | 17/24 | 20/26 | 16/20 | 57/80 |
+| 2 | reference domain guidelines missed / reference guidelines | 4/10 | 17/24 | 22/26 | 16/20 | 59/80 |
 | 3 | fragments labelled Alternative / case files | 113/45 | 95/37 | 154/46 | 129/37 | 491/165 |
 | 3 | High-severity mistakes / case files | 0/45 | 0/37 | 3/46 | 12/37 | 15/165 |
 | 4 | patterns with a queue-trigger signal / patterns | 4/8 | 5/8 | 2/4 | 0/7 | 11/27 |
 | 4 | M1 queue items actually created / patterns | 4/8 | 5/8 | 2/4 | 0/7 | 11/27 |
 
-Reading: today nothing before Stage 4 is escalated. Stage 2 is where the reference disagrees most (57 of 80 reference domain guidelines missed) and where the agent's own certainty signal is already low on 18 of 28 clusters; Stage 3 produces the largest volume of ambiguity signals (491 alternative readings over 165 case files); Stage 4 escalates 11 of 27 patterns, 9 of them for a proposed guideline update and 3 for medium confidence. These are counts of signal values, not verified errors.
+Reading: today nothing before Stage 4 is escalated. Stage 2 is where the reference disagrees most (59 of 80 reference domain guidelines missed) and where the agent's own certainty signal is already low on 18 of 28 clusters; Stage 3 produces the largest volume of ambiguity signals (491 alternative readings over 165 case files); Stage 4 escalates 11 of 27 patterns, 9 of them for a proposed guideline update and 3 for medium confidence. These are counts of signal values, not verified errors.
 
 ## Interpretation
 
@@ -53,7 +53,7 @@ The counts locate, per stage, where a "when to ask" trigger would have fired if 
 
 ## Limitations
 
-No independent labels (EXP-005 0/24); no users; the three supervisors are stand-ins, not participants; the reference at Stages 1-2 is the course base, not an adjudicated ground truth; Stage 3-4 points have no reference at all; the inventory covers one frozen run with one model version; the 0.8 certainty threshold is a declared reading threshold, not a fitted one.
+No independent labels (EXP-005 0/24); no users; the three supervisors are stand-ins, not participants; the reference at Stages 1-2 is the course base, not an adjudicated ground truth (and for Cheers only the evaluator-recorded projection of it is available locally); Stage 3-4 points have no reference at all; the inventory covers one frozen run with one model version; the 0.8 certainty threshold is a declared reading threshold, not a fitted one.
 
 ## Claim boundary
 

@@ -48,6 +48,9 @@ def test_stage2_reference_metrics_are_read_not_computed(summary):
     m = s["settings"]["ucd_ch"]["stage2"]["metrics"]
     assert m["true_positives"] == 6 and m["false_negatives"] == 4
     assert s["settings"]["ucd_ch"]["stage2"]["counts"]["reference_guidelines_missed"] == 4
+    assert s["settings"]["cd_ch"]["stage2"]["counts"]["reference_guidelines_missed"] == 22
+    assert s["totals"]["stage2.reference_guidelines_missed"] == 59
+    assert s["totals"]["stage2.denominator.reference_guidelines"] == 80
 
 
 def test_outputs_written_and_claim_boundary_present(summary):
