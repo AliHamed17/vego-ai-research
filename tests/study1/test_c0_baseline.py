@@ -364,6 +364,43 @@ def test_artifacts_are_sanitized_and_private_root_is_enforced(tmp_path: Path):
         assert required_section in markdown
 
 
+def test_sanitized_reports_reduce_replay_reasons_to_fixed_trigger_categories(
+    tmp_path: Path,
+) -> None:
+    """Catches numeric draws, scores, or candidate-level factors leaking through reason keys."""
+    private_root = _private_root(tmp_path)
+    summary = write_baseline_artifacts(synthetic_c0_root(tmp_path), private_root)
+    markdown = (private_root / "sanitized" / "study1-c0-baseline-summary.md").read_text(
+        encoding="utf-8"
+    )
+    rendered = json.dumps(summary, sort_keys=True) + markdown
+    allowed_codes = {
+        "arm_rule_triggered",
+        "arm_rule_not_triggered",
+        "budget_deferred",
+    }
+
+    for rate in summary["rates"].values():
+        for arm in rate["arms"].values():
+            assert set(arm["trigger_attribution"]) == allowed_codes
+    assert not any(
+        prohibited in rendered
+        for prohibited in (
+            "seeded_draw=",
+            "selection_probability=",
+            "mean_signal_score=",
+            "fixed_threshold=",
+            "combined_score=",
+            "escalation_threshold=",
+            "agent_requested_human_review",
+            "undetermined_classification",
+            "low_confidence",
+            "guideline_update_proposed",
+            "explicit_review_request",
+        )
+    )
+
+
 def test_summary_counts_eight_signal_states_once_and_reports_review_requests_separately(
     tmp_path: Path,
 ) -> None:
@@ -444,6 +481,22 @@ def test_c0_rejects_uri_and_unc_source_roots_before_filesystem_probing(
     """Catches remote C0 values reaching eval_output filesystem inspection."""
     with pytest.raises(C0ValidationError, match="remote"):
         write_baseline_artifacts(remote_value, _private_root(tmp_path))
+
+
+def test_c0_rejects_a_mapped_network_drive_before_filesystem_probing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Catches a mapped SMB or WebDAV drive treated as a local C0 source."""
+    import vego_study1.path_safety as path_safety
+
+    def _drive_type(root: str) -> int:
+        return 4 if root.casefold().startswith("z:") else 3
+
+    monkeypatch.setattr(path_safety, "_windows_drive_type", _drive_type, raising=False)
+    mapped_source = "Z:" + chr(92) + "controlled-c0"
+
+    with pytest.raises(C0ValidationError, match="mapped network drive"):
+        write_baseline_artifacts(mapped_source, _private_root(tmp_path))
 
 
 @pytest.mark.parametrize(

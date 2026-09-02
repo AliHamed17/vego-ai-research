@@ -470,12 +470,106 @@ def test_structured_scanner_preserves_credential_key_value_association(suffix: s
 
 
 @pytest.mark.parametrize(
+    ("payload", "relative_path"),
+    [
+        (
+            json.dumps(
+                {"serviceAccount" + "Password" + "Value": "סוד"},
+                ensure_ascii=False,
+            ).encode(),
+            "docs/public.json",
+        ),
+        (
+            (("service-" + "token-copy") + ': "秘密"\n').encode(),
+            "docs/public.yaml",
+        ),
+        (
+            json.dumps({"client_" + "secret_hint": True}).encode(),
+            "docs/public.json",
+        ),
+    ],
+)
+def test_structured_scanner_rejects_any_non_placeholder_credential_scalar(
+    payload: bytes, relative_path: str
+) -> None:
+    """Catches compound credential keys, Unicode values, and non-string scalar bypasses."""
+    findings = privacy.public_artifact_byte_findings(payload, relative_path=relative_path)
+
+    assert "credential_like" in {kind for _line, kind in findings}
+
+
+def test_structured_scanner_preserves_credential_context_for_a_reused_yaml_alias() -> None:
+    """Catches a safe-first YAML alias skipped when reused under a credential-like key."""
+    payload = (
+        'public_label: &shared "synthetic unicode 私密"\n'
+        + ("service-" + "token-copy")
+        + ": *shared\n"
+    ).encode()
+
+    findings = privacy.public_artifact_byte_findings(
+        payload,
+        relative_path="docs/public.yaml",
+    )
+
+    assert "credential_like" in {kind for _line, kind in findings}
+
+
+def test_structured_scanner_terminates_safely_on_a_cyclic_yaml_alias() -> None:
+    """Catches per-context alias traversal that recurses forever on a YAML cycle."""
+    findings = privacy.public_artifact_byte_findings(
+        b"root: &node\n  child: *node\n",
+        relative_path="docs/public.yaml",
+    )
+
+    assert "unparseable_structured_artifact" not in {kind for _line, kind in findings}
+
+
+def test_structured_scanner_keeps_explicit_credential_placeholders_public_safe() -> None:
+    """Catches credential hardening that rejects an explicit environment placeholder."""
+    payload = json.dumps(
+        {"serviceAccount" + "Password" + "Value": "${STUDY1_PLACEHOLDER}"}
+    ).encode()
+
+    findings = privacy.public_artifact_byte_findings(
+        payload,
+        relative_path="docs/public.json",
+    )
+
+    assert "credential_like" not in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize(
     ("unsafe_content", "expected_kind"),
     [
         ("Review endpoint: https://" + "10." + "23.4.5:8443/item", "private_url"),
         ("Review endpoint: https://" + "[fd00" + "::1]/item", "private_url"),
         ("Open " + "/" + "mnt/secure/item.json next", "absolute_path_reference"),
         ("Contact ali" + "ce@" + "example.test for access", "email_identifier"),
+        ("Fetch g" + chr(115) + ":private-bucket/item", "remote_or_unc_reference"),
+        (
+            "Open "
+            + chr(0xFF23)
+            + chr(0xFF1A)
+            + chr(0xFF3C)
+            + "private"
+            + chr(0xFF3C)
+            + "item.json",
+            "absolute_path_reference",
+        ),
+        (
+            "Open " + chr(0xFF0F) * 2 + "server" + chr(0xFF0F) + "share/item",
+            "remote_or_unc_reference",
+        ),
+        (
+            "Download https://"
+            + "drive."
+            + "usercontent.google.com/download?id="
+            + "0B"
+            + "A" * 28,
+            "drive_url",
+        ),
+        ("Legacy locator " + "0B" + "A" * 28, "drive_id"),
+        ("Host review" + chr(0xFF0E) + "internal", "private_host_reference"),
     ],
 )
 def test_text_scanner_classifies_locator_and_identifier_tokens(
@@ -504,7 +598,7 @@ def test_text_scanner_allows_a_public_scholarly_url() -> None:
     ("payload", "expected_kind"),
     [
         (b'{"uri":"g\\u0073:\\/\\/private-bucket\\/item"}', "remote_or_unc_reference"),
-        (b'{"uri":"data:text/plain;base64,U0VDUkVU"}', "remote_or_unc_reference"),
+        (b'{"uri":"' + b"data" + b':text/plain;base64,U0VDUkVU"}', "remote_or_unc_reference"),
         (
             b'{"path":"' + b"\\" + b"u002fmnt" + b"\\" + b'u002fsecure/item"}',
             "absolute_path_reference",
@@ -522,7 +616,7 @@ def test_text_scanner_allows_a_public_scholarly_url() -> None:
         ),
         (b'{"host":"review\\u002einternal"}', "private_host_reference"),
         (
-            b'{"uri":"sha256:\\/\\/server\\/share\\/item"}',
+            b'{"uri":"' + b"sha256" + b':\\/\\/server\\/share\\/item"}',
             "remote_or_unc_reference",
         ),
         (b'{"host":"10\\u002e0\\u002e0\\u002e1"}', "private_host_reference"),
@@ -644,6 +738,32 @@ def test_staged_privacy_scan_detects_structured_credential_association(
     scan = privacy.scan_staged_artifacts(repository)
 
     assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+def test_staged_privacy_scan_preserves_reused_yaml_alias_credential_context(
+    tmp_path: Path,
+) -> None:
+    """Catches exact index scanning that loses the second context of a YAML alias."""
+    payload = (
+        'public_label: &shared "synthetic unicode 私密"\n'
+        + ("service-" + "token-copy")
+        + ": *shared\n"
+    ).encode()
+    repository = _staged_repository(tmp_path, payload, name="public.yaml")
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+def test_staged_privacy_scan_normalizes_arbitrary_text_locator_tokens(tmp_path: Path) -> None:
+    """Catches exact index scanning that classifies raw rather than normalized prose."""
+    payload = ("Fetch g" + chr(115) + ":private-bucket/item\n").encode()
+    repository = _staged_repository(tmp_path, payload, name="public.md")
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "remote_or_unc_reference" in {finding.kind for finding in scan.findings}
 
 
 @pytest.mark.parametrize(

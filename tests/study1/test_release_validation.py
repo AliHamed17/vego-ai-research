@@ -170,6 +170,20 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
         ("api_" + "key=" + "abcDEF1234567890", "credential_like"),
         ('"api_' + 'key": "' + "abcDEF1234567890" + '"', "credential_like"),
         ("OPENAI_" + "API_" + "KEY=" + "abcDEF1234567890", "credential_like"),
+        ("Fetch g" + chr(115) + ":private-bucket/item", "remote_or_unc_reference"),
+        (
+            "Open " + chr(0xFF0F) * 2 + "server" + chr(0xFF0F) + "share/item",
+            "remote_or_unc_reference",
+        ),
+        (
+            "Download https://"
+            + "drive."
+            + "usercontent.google.com/download?id="
+            + "0B"
+            + "A" * 28,
+            "drive_url",
+        ),
+        ("Legacy locator " + "0B" + "A" * 28, "drive_id"),
         ("RAW" + "_CONTROLLED_CONTENT", "controlled_content_marker"),
     ],
 )
@@ -199,7 +213,7 @@ def test_release_validator_rejects_prohibited_public_artifacts(
             "remote_or_unc_reference",
         ),
         (
-            "payload: >-\n  data:text/plain;base64,\n  U0VDUkVU\n",
+            "payload: >-\n  " + "data" + ":text/plain;base64,\n  U0VDUkVU\n",
             "docs/public.yaml",
             "remote_or_unc_reference",
         ),
@@ -237,6 +251,26 @@ def test_release_validator_detects_structured_credential_association(
     )
 
     findings = module.validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" in {finding.kind for finding in findings}
+
+
+def test_release_validator_preserves_reused_yaml_alias_credential_context(
+    tmp_path: Path,
+) -> None:
+    """Catches committed-tree scanning that loses the second context of a YAML alias."""
+    content = (
+        'public_label: &shared "synthetic unicode 私密"\n'
+        + ("service-" + "token-copy")
+        + ": *shared\n"
+    )
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        content,
+        relative_path="docs/public.yaml",
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
 
     assert "credential_like" in {finding.kind for finding in findings}
 

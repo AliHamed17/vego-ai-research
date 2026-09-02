@@ -184,6 +184,41 @@ def test_controlled_notes_import_requires_exactly_four_typed_provenance_fields(
 
 
 @pytest.mark.parametrize(
+    ("duplicate_field", "unsafe_value"),
+    [
+        ("schema_version", "unsafe-schema"),
+        ("source_hash", "sha256:" + "0" * 64),
+        ("source_classification", "public"),
+        ("intended_use", "evaluation"),
+    ],
+)
+def test_controlled_notes_rejects_unsafe_first_duplicate_provenance_members(
+    tmp_path: Path, duplicate_field: str, unsafe_value: str
+) -> None:
+    """Catches JSON last-member-wins bypasses of every exact provenance field."""
+    module = _notes_module()
+    notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
+    safe_members = json.loads(manifest.read_text(encoding="utf-8"))
+    encoded_members = [(duplicate_field, unsafe_value), *safe_members.items()]
+    manifest.write_text(
+        "{"
+        + ",".join(
+            f"{json.dumps(field)}:{json.dumps(value)}" for field, value in encoded_members
+        )
+        + "}",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(module.ControlledNotesError, match="duplicate_member"):
+        module.import_controlled_notes(
+            notes,
+            manifest,
+            _private_root(tmp_path),
+            intended_use="development_only",
+        )
+
+
+@pytest.mark.parametrize(
     "remote_value", ["drive" + ":notes.csv", "\\" + r"\server\share\notes.csv"]
 )
 def test_controlled_notes_rejects_uri_and_unc_notes_sources_before_reading(tmp_path, remote_value):
@@ -225,6 +260,37 @@ def test_controlled_notes_rejects_uri_and_unc_output_before_reading(tmp_path, re
             tmp_path / "must-not-read.csv",
             tmp_path / "must-not-read.json",
             remote_value,
+            intended_use="development_only",
+        )
+
+
+@pytest.mark.parametrize(
+    "mapped_field",
+    ["notes_source", "provenance_manifest", "private_output_root"],
+)
+def test_controlled_notes_rejects_mapped_network_drives_before_any_file_access(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, mapped_field: str
+) -> None:
+    """Catches mapped SMB or WebDAV drives on each controlled-notes path interface."""
+    module = _notes_module()
+    import vego_study1.path_safety as path_safety
+
+    def _drive_type(root: str) -> int:
+        return 4 if root.casefold().startswith("z:") else 3
+
+    monkeypatch.setattr(path_safety, "_windows_drive_type", _drive_type, raising=False)
+    values: dict[str, str | Path] = {
+        "notes_source": tmp_path / "must-not-read.csv",
+        "provenance_manifest": tmp_path / "must-not-read.json",
+        "private_output_root": _private_root(tmp_path),
+    }
+    values[mapped_field] = "Z:" + chr(92) + "controlled-input"
+
+    with pytest.raises(module.ControlledNotesError, match="mapped network drive"):
+        module.import_controlled_notes(
+            values["notes_source"],
+            values["provenance_manifest"],
+            values["private_output_root"],
             intended_use="development_only",
         )
 

@@ -216,7 +216,15 @@ PUBLIC_ARTIFACT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
         "raw_evaluation_output_path",
         re.compile(r"(?i)(?<![a-z0-9_.-])(?:[^\s\"']*[\\/])?eval_output[\\/][^\s\"']+"),
     ),
-    ("drive_url", re.compile(r"(?i)https?://(?:drive|docs)\.google\.com/")),
+    (
+        "drive_url",
+        re.compile(
+            r"(?i)https?://(?:drive|docs)\.google\.com/"
+            r"|https?://drive\.usercontent\.google\.com/"
+            r"|https?://(?:drive|docs)\.googleusercontent\.com/"
+            r"|https?://(?:www\.)?googledrive\.com/"
+        ),
+    ),
     (
         "drive_id",
         re.compile(
@@ -277,6 +285,10 @@ PRIVATE_HOST_PATTERN = re.compile(
     r"(?i)^(?:localhost|127\.0\.0\.1|(?:[a-z0-9-]+\.)+(?:internal|private|local))$"
 )
 URL_TOKEN_PATTERN = re.compile(r"(?i)\bhttps?://[^\s<>\"'`]+")
+URI_TOKEN_PATTERN = re.compile(
+    r"(?i)(?<![a-z0-9+._\\{\[-])(?P<scheme>[a-z][a-z0-9+.-]*):"
+    r"(?P<remainder>[a-z0-9/%\\][^\s<>\"'`]*)"
+)
 WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN = re.compile(
     r"(?i)(?<![a-z0-9])[a-z]:[\\/][^\s<>\"'`|]+"
 )
@@ -292,10 +304,52 @@ IPV4_TOKEN_PATTERN = re.compile(
     r"(?<![a-zA-Z0-9.])(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?![a-zA-Z0-9.])"
 )
 BRACKETED_IPV6_TOKEN_PATTERN = re.compile(r"\[[0-9a-fA-F:.%]+\](?::\d+)?")
-CREDENTIAL_FIELD_PATTERN = re.compile(
-    r"(?i)^[a-z0-9_-]*(?:api[_-]?keys?|tokens?|secrets?|passwords?|credentials?)$"
+BARE_IPV6_TOKEN_PATTERN = re.compile(
+    r"(?i)(?<![0-9a-f:])(?:"
+    r"(?:[0-9a-f]{1,4}:){2,7}[0-9a-f]{1,4}"
+    r"|(?:[0-9a-f]{1,4}:){1,7}:[0-9a-f]{0,4}"
+    r")(?![0-9a-f:])"
 )
-CREDENTIAL_VALUE_PATTERN = re.compile(r"[A-Za-z0-9_./+=-]{8,}")
+CREDENTIAL_KEY_FRAGMENT_PATTERN = re.compile(
+    r"(?i)api(?:key|keys)|token|secret|password|credential"
+)
+CREDENTIAL_PLACEHOLDER_PATTERNS = (
+    re.compile(r"^\$\{[A-Za-z_][A-Za-z0-9_]*(?::[-+?=][^}]*)?\}$"),
+    re.compile(r"^\{\{\s*[A-Za-z_][A-Za-z0-9_.-]*\s*\}\}$"),
+)
+CREDENTIAL_PLACEHOLDER_LITERALS = frozenset(
+    {"", "redacted", "[redacted]", "<redacted>", "placeholder", "unset", "null", "none"}
+)
+DRIVE_HOSTS = frozenset(
+    {
+        "drive.google.com",
+        "docs.google.com",
+        "drive.usercontent.google.com",
+        "drive.googleusercontent.com",
+        "docs.googleusercontent.com",
+        "googledrive.com",
+        "www.googledrive.com",
+    }
+)
+DRIVE_ID_CONTEXT_PATTERN = re.compile(
+    r"(?i)(?:/(?:d|folders|host)/|[?&]id=)[A-Za-z0-9_-]{20,}"
+)
+LEGACY_DRIVE_ID_PATTERN = re.compile(
+    r"(?<!sha256:)(?<![A-Za-z0-9_./-])"
+    r"(?:1[A-Za-z0-9_-]{24,}|0B[A-Za-z0-9_-]{22,})"
+    r"(?![A-Za-z0-9_./-])"
+)
+_UNICODE_PATH_SEPARATORS = str.maketrans(
+    {
+        "\u2044": "/",
+        "\u2215": "/",
+        "\u29f8": "/",
+        "\uff0f": "/",
+        "\u29f5": "\\",
+        "\ufe68": "\\",
+        "\uff3c": "\\",
+    }
+)
 
 
 class _JsonObjectPairs(list[tuple[str, Any]]):
@@ -334,15 +388,41 @@ def _reject_non_standard_json_constant(_value: str) -> None:
     raise ValueError("non_standard_numeric_constant")
 
 
+def _is_credential_field_name(value: str | None) -> bool:
+    if value is None:
+        return False
+    normalized = _normalized_structured_scalar(value)
+    camel_separated = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", normalized)
+    compact = re.sub(r"[^a-z0-9]", "", camel_separated.casefold())
+    return CREDENTIAL_KEY_FRAGMENT_PATTERN.search(compact) is not None
+
+
+def _credential_value_is_placeholder(value: str) -> bool:
+    normalized = _normalized_structured_scalar(value)
+    if normalized.casefold() in CREDENTIAL_PLACEHOLDER_LITERALS:
+        return True
+    return any(pattern.fullmatch(normalized) for pattern in CREDENTIAL_PLACEHOLDER_PATTERNS)
+
+
 def _json_scalar_values(
     value: Any, *, associated_key: str | None = None
 ) -> Iterable[tuple[int, str, str | None]]:
     if isinstance(value, str):
         yield 1, value, associated_key
+    elif isinstance(value, bool):
+        yield 1, "true" if value else "false", associated_key
+    elif isinstance(value, (int, float)):
+        yield 1, str(value), associated_key
     elif isinstance(value, _JsonObjectPairs):
         for key, item in value:
             yield 1, key, None
-            yield from _json_scalar_values(item, associated_key=key)
+            inherited_credential_key = (
+                associated_key if _is_credential_field_name(associated_key) else None
+            )
+            yield from _json_scalar_values(
+                item,
+                associated_key=inherited_credential_key or key,
+            )
     elif isinstance(value, list):
         for item in value:
             yield from _json_scalar_values(item, associated_key=associated_key)
@@ -351,33 +431,46 @@ def _json_scalar_values(
 def _yaml_scalar_values(
     documents: Iterable[Node | None],
 ) -> Iterable[tuple[int, str, str | None]]:
-    seen: set[int] = set()
+    active: set[int] = set()
 
     def _walk(
         node: Node | None, *, associated_key: str | None = None
     ) -> Iterable[tuple[int, str, str | None]]:
-        if node is None or id(node) in seen:
+        if node is None or id(node) in active:
             return
-        seen.add(id(node))
-        if isinstance(node, ScalarNode):
-            yield node.start_mark.line + 1, node.value, associated_key
-        elif isinstance(node, SequenceNode):
-            for item in node.value:
-                yield from _walk(item, associated_key=associated_key)
-        elif isinstance(node, MappingNode):
-            for key, item in node.value:
-                yield from _walk(key)
-                key_value = key.value if isinstance(key, ScalarNode) else None
-                yield from _walk(item, associated_key=key_value)
+        active.add(id(node))
+        try:
+            if isinstance(node, ScalarNode):
+                yield node.start_mark.line + 1, node.value, associated_key
+            elif isinstance(node, SequenceNode):
+                for item in node.value:
+                    yield from _walk(item, associated_key=associated_key)
+            elif isinstance(node, MappingNode):
+                for key, item in node.value:
+                    yield from _walk(key)
+                    key_value = key.value if isinstance(key, ScalarNode) else None
+                    inherited_credential_key = (
+                        associated_key if _is_credential_field_name(associated_key) else None
+                    )
+                    yield from _walk(
+                        item,
+                        associated_key=inherited_credential_key or key_value,
+                    )
+        finally:
+            active.remove(id(node))
 
     for document in documents:
         yield from _walk(document)
 
 
 def _normalized_structured_scalar(value: str) -> str:
-    normalized = unicodedata.normalize("NFKC", value)
+    normalized = unicodedata.normalize("NFKC", value).translate(_UNICODE_PATH_SEPARATORS)
     normalized = normalized.replace("\r\n", "\n").replace("\r", "\n")
-    normalized = re.sub(r"[\u200b\u200c\u200d\u2060\ufeff]", "", normalized)
+    normalized = re.sub(
+        r"[\u200b\u200c\u200d\u202a-\u202e\u2060\u2066-\u2069\ufeff]",
+        "",
+        normalized,
+    )
     return re.sub(r"\s+", " ", normalized).strip()
 
 
@@ -400,25 +493,46 @@ def _is_private_host(value: str) -> bool:
 
 def _text_finding_kinds(value: str) -> tuple[str, ...]:
     """Extract and classify privacy-sensitive tokens from arbitrary decoded text."""
-    findings = [kind for kind, pattern in PUBLIC_ARTIFACT_PATTERNS if pattern.search(value)]
-    if WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN.search(value) or POSIX_ABSOLUTE_PATH_TOKEN_PATTERN.search(
-        value
-    ):
+    normalized = _normalized_structured_scalar(value)
+    findings = [
+        kind for kind, pattern in PUBLIC_ARTIFACT_PATTERNS if pattern.search(normalized)
+    ]
+    if WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN.search(
+        normalized
+    ) or POSIX_ABSOLUTE_PATH_TOKEN_PATTERN.search(normalized):
         findings.append("absolute_path_reference")
-    if EMAIL_IDENTIFIER_PATTERN.search(value):
+    if EMAIL_IDENTIFIER_PATTERN.search(normalized):
         findings.append("email_identifier")
 
-    for match in URL_TOKEN_PATTERN.finditer(value):
+    for match in URI_TOKEN_PATTERN.finditer(normalized):
+        scheme = match.group("scheme").casefold()
+        remainder = match.group("remainder")
+        if len(scheme) == 1 and remainder.startswith(("/", "\\")):
+            continue
+        if scheme not in PUBLIC_URI_SCHEMES or (
+            scheme == "sha256" and remainder.startswith(("/", "\\"))
+        ):
+            findings.append("remote_or_unc_reference")
+
+    for match in URL_TOKEN_PATTERN.finditer(normalized):
         try:
             hostname = urlsplit(match.group(0)).hostname
         except ValueError:
             hostname = None
-        if hostname is not None and _is_private_host(hostname):
-            findings.append("private_url")
+        if hostname is not None:
+            normalized_host = hostname.casefold().rstrip(".")
+            if normalized_host in DRIVE_HOSTS:
+                findings.append("drive_url")
+            if _is_private_host(normalized_host):
+                findings.append("private_url")
+
+    if DRIVE_ID_CONTEXT_PATTERN.search(normalized) or LEGACY_DRIVE_ID_PATTERN.search(normalized):
+        findings.append("drive_id")
 
     host_tokens = (
-        *(match.group(0) for match in IPV4_TOKEN_PATTERN.finditer(value)),
-        *(match.group(0) for match in BRACKETED_IPV6_TOKEN_PATTERN.finditer(value)),
+        *(match.group(0) for match in IPV4_TOKEN_PATTERN.finditer(normalized)),
+        *(match.group(0) for match in BRACKETED_IPV6_TOKEN_PATTERN.finditer(normalized)),
+        *(match.group(0) for match in BARE_IPV6_TOKEN_PATTERN.finditer(normalized)),
     )
     if any(_is_private_host(token) for token in host_tokens):
         findings.append("private_host_reference")
@@ -427,18 +541,11 @@ def _text_finding_kinds(value: str) -> tuple[str, ...]:
 
 def _structured_mapping_finding_kinds(key: str | None, value: str) -> tuple[str, ...]:
     """Classify a decoded scalar while retaining its immediate mapping-key context."""
-    if key is None:
+    if not _is_credential_field_name(key):
         return ()
-    normalized_key = _normalized_structured_scalar(key)
-    if CREDENTIAL_FIELD_PATTERN.fullmatch(normalized_key) is None:
+    if _credential_value_is_placeholder(value):
         return ()
-    normalized_value = _normalized_structured_scalar(value)
-    if normalized_value.startswith(("${", "{{")):
-        return ()
-    compact_value = re.sub(r"\s+", "", normalized_value)
-    if CREDENTIAL_VALUE_PATTERN.fullmatch(compact_value) is not None:
-        return ("credential_like",)
-    return ()
+    return ("credential_like",)
 
 
 def _structured_scalar_finding_kinds(value: str) -> tuple[str, ...]:

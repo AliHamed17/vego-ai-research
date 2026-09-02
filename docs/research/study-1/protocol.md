@@ -27,6 +27,8 @@ Each replay compares six deterministic arms over the same review-item sequence:
 
 Run each arm at 5%, 10%, and 20% of the available review-item units. Budgets are recorded as configured units and actual ledger consumption. All arm outputs are candidate-escalation descriptions only.
 
+Sanitized trigger attribution uses only the fixed aggregate codes `arm_rule_triggered`, `arm_rule_not_triggered`, and `budget_deferred`. Per-event replay reasons, signal-derived factors, thresholds, scores, and seeded draws remain private and are not rendered in the sanitized JSON or Markdown receipt.
+
 ## StateDiagram and controlled-notes gates
 
 StateDiagram is **inventory-only**. The present interface may produce a local aggregate inventory receipt only; it performs no evaluator configuration, network work, empirical evaluation, or C0 comparison. Its status remains blocked pending data-processing authorization.

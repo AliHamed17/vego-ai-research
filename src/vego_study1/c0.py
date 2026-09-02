@@ -504,8 +504,12 @@ def _sanitized_summary(
         arms = result["arms"]
         arm_summary = {}
         for arm_id, ledger in arms.items():
-            reasons = Counter(decision["reason"] for decision in ledger["decisions"])
             escalated = set(ledger["escalated_event_ids"])
+            trigger_attribution = {
+                "arm_rule_triggered": len(ledger["escalated_event_ids"]),
+                "arm_rule_not_triggered": len(ledger["declined_event_ids"]),
+                "budget_deferred": len(ledger["deferred_event_ids"]),
+            }
             arm_summary[arm_id] = {
                 "queue": {
                     "escalated": len(ledger["escalated_event_ids"]),
@@ -513,7 +517,7 @@ def _sanitized_summary(
                     "declined": len(ledger["declined_event_ids"]),
                 },
                 "budget": ledger["budget"],
-                "trigger_attribution": dict(sorted(reasons.items())),
+                "trigger_attribution": trigger_attribution,
                 "candidate_coverage_by_stage": {
                     stage: {
                         "candidate_count": len(candidate_ids),

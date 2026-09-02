@@ -35,6 +35,10 @@ class ControlledNotesError(ValueError):
     """Raised when controlled notes do not satisfy the development-only import gate."""
 
 
+class _DuplicateJsonMemberError(ValueError):
+    """Internal fixed-category signal for ambiguous provenance objects."""
+
+
 def _sha256(data: bytes) -> str:
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
@@ -57,8 +61,24 @@ def _load_provenance(content: bytes) -> dict[str, Any]:
     def _reject_constant(_value: str) -> None:
         raise ValueError("non_standard_numeric_constant")
 
+    def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                raise _DuplicateJsonMemberError
+            result[key] = value
+        return result
+
     try:
-        loaded = json.loads(content.decode("utf-8"), parse_constant=_reject_constant)
+        loaded = json.loads(
+            content.decode("utf-8"),
+            parse_constant=_reject_constant,
+            object_pairs_hook=_unique_object,
+        )
+    except _DuplicateJsonMemberError as error:
+        raise ControlledNotesError(
+            "provenance_manifest validation failed [duplicate_member]"
+        ) from error
     except ValueError as error:
         if str(error) == "non_standard_numeric_constant":
             raise ControlledNotesError(

@@ -59,7 +59,7 @@ Every top-level key below is emitted by the sanitized summary. Nested rows name 
 
 ## Trigger attribution and overlap
 
-| Budget | Arm | Trigger or decision reason | Count |
+| Budget | Arm | Fixed categorical trigger code | Count |
 | ---: | --- | --- | ---: |
 | | | | |
 

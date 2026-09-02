@@ -99,6 +99,23 @@ def test_inventory_rejects_uri_and_unc_state_roots_before_reading(tmp_path, remo
         module.write_state_diagram_inventory(remote_value, _private_root(tmp_path))
 
 
+def test_inventory_rejects_a_mapped_network_drive_before_directory_inspection(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Catches a mapped SMB or WebDAV drive treated as a local State input."""
+    module = _inventory_module()
+    import vego_study1.path_safety as path_safety
+
+    def _drive_type(root: str) -> int:
+        return 4 if root.casefold().startswith("z:") else 3
+
+    monkeypatch.setattr(path_safety, "_windows_drive_type", _drive_type, raising=False)
+    mapped_source = "Z:" + chr(92) + "controlled-state"
+
+    with pytest.raises(module.StateDiagramInventoryError, match="mapped network drive"):
+        module.write_state_diagram_inventory(mapped_source, _private_root(tmp_path))
+
+
 def test_inventory_screens_remote_state_root_before_private_git_check(tmp_path, monkeypatch):
     """Catches a remote state root that reaches private-root filesystem validation first."""
     module = _inventory_module()

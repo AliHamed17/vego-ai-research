@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ctypes
 import os
 import re
 import secrets
@@ -12,6 +13,7 @@ from pathlib import Path
 _URI_SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 _WINDOWS_DRIVE = re.compile(r"^[A-Za-z]:[\\/]")
 _REPARSE_ATTRIBUTE = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+_DRIVE_REMOTE = 4
 
 
 def is_remote_value(value: str | Path) -> bool:
@@ -26,7 +28,49 @@ def local_path(value: str | Path, field_name: str, error_type: type[Exception]) 
     """Reject remote syntax before any filesystem operation and return a lexical path."""
     if is_remote_value(value):
         raise error_type(f"{field_name} must not be a remote URL, URI, or UNC path")
-    return Path(value)
+    candidate = Path(value)
+    reject_mapped_remote_drive(candidate, field_name, error_type)
+    return candidate
+
+
+def _windows_drive_root(value: str | Path) -> str | None:
+    raw_value = os.fspath(value)
+    match = _WINDOWS_DRIVE.match(raw_value)
+    if match is None and os.name == "nt":
+        match = _WINDOWS_DRIVE.match(os.path.abspath(raw_value))
+    if match is None:
+        return None
+    return match.group(0)[:2].upper() + "\\"
+
+
+def _windows_drive_type(root: str) -> int | None:
+    """Return the Win32 drive type, or None when Win32 drive types do not apply."""
+    if os.name != "nt":
+        return None
+    try:
+        get_drive_type = ctypes.WinDLL("kernel32", use_last_error=True).GetDriveTypeW
+        get_drive_type.argtypes = [ctypes.c_wchar_p]
+        get_drive_type.restype = ctypes.c_uint
+        return int(get_drive_type(root))
+    except (AttributeError, OSError) as error:
+        raise OSError("Windows drive-type lookup failed") from error
+
+
+def reject_mapped_remote_drive(
+    candidate: str | Path,
+    field_name: str,
+    error_type: type[Exception],
+) -> None:
+    """Reject drive letters backed by mapped SMB or WebDAV network resources."""
+    drive_root = _windows_drive_root(candidate)
+    if drive_root is None:
+        return
+    try:
+        drive_type = _windows_drive_type(drive_root)
+    except OSError as error:
+        raise error_type(f"{field_name} mapped-drive safety check failed") from error
+    if drive_type == _DRIVE_REMOTE:
+        raise error_type(f"{field_name} must not use a mapped network drive")
 
 
 def _absolute_lexical(path: Path) -> Path:
@@ -70,6 +114,7 @@ def reject_reparse_components(
     containment_anchor: Path | None = None,
 ) -> None:
     """Reject redirects in every existing component before resolving or probing a leaf."""
+    reject_mapped_remote_drive(candidate, field_name, error_type)
     absolute_candidate = _absolute_lexical(candidate)
     if containment_anchor is not None:
         absolute_anchor = _absolute_lexical(containment_anchor)
