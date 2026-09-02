@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "12847bd0c962649e31c7f5e0a86fd6edeae11ade048693d6b07aeda068c039fb",
+  "packageTreeSha256": "902dda6145064848403c4833f4396de7f6729fc892df5b256c5bf604a77209e7",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -182,6 +182,7 @@
     "scripts/tests/test_dependency_lock.py",
     "scripts/tests/test_exp005_interactive_labeler.py",
     "scripts/tests/test_exp045_escalation_points.py",
+    "scripts/tests/test_exp046_recorded_review.py",
     "scripts/tests/test_experiment_benchmark.py",
     "scripts/tests/test_experiment_definition_v3.py",
     "scripts/tests/test_feedback_generalizer.py",
@@ -227,7 +228,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "e6f0f537550bbed4367ca88d7dcca2fb11ac8f357e5242c0ccd5d6ff95abe6f9",
+  "sourceTreeSha256": "706da4b72c9cc4d6163409db194769e28241f29c4dba2e2091e22fd4bda39121",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -236,8 +237,8 @@
     "ruff": "0.15.16"
   },
   "trackedArtifacts": {
-    "VEGO-AI-Research-Hub.html": "486c49f57e251259ffdf1de57d24b074b03bcb0813b4dd906fc976e77232212a",
-    "VEGO-AI-Thesis-Baseline-Progress.html": "2bc1226fff407d51807f2168e25912539ad7315886057f005960c04c0614526f",
+    "VEGO-AI-Research-Hub.html": "b56b2af55fb94b928e0283b20ea6fd8d35bb84e84947ede1eb5231e12f98a11c",
+    "VEGO-AI-Thesis-Baseline-Progress.html": "9874d96051cb908cc38544fb70c3842994c3920202475669f985538d93f550ea",
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
     "docs/research/hardening/baseline-lock-manifest-v2.json": "9d383969fd3e5fe0ae6583f82285fbfa3aef096e6dbac9ac25cbf6fcfe2179fd",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
