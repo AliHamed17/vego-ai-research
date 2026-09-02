@@ -459,6 +459,11 @@ def _structured_credential_bytes(suffix: str) -> bytes:
     return (field_name + ": >-\n  " + field_value[:8] + "\n  " + field_value[8:] + "\n").encode()
 
 
+def _structured_boolean_credential_bytes() -> bytes:
+    field_name = "client_" + "secret_hint"
+    return json.dumps({field_name: True}).encode()
+
+
 def _credential_fallback_bytes(suffix: str) -> bytes:
     """Build an unsafe shell fallback only at runtime so no credential sample is tracked."""
     field_name = "api_" + "key"
@@ -474,6 +479,21 @@ def _credential_fallback_bytes(suffix: str) -> bytes:
     if suffix == ".json":
         return json.dumps({field_name: fallback}).encode()
     return (field_name + ": " + json.dumps(fallback) + "\n").encode()
+
+
+def _plain_text_credential_assignment_bytes(scalar: str) -> bytes:
+    """Build a text assignment only at runtime so tracked test code stays scanner-safe."""
+    field_name = "service_" + "token"
+    return (field_name + "=" + scalar + "\n").encode()
+
+
+def _plain_text_credential_scalars() -> tuple[str, ...]:
+    return ("x", chr(0x79D8) + chr(0x5BC6), "false")
+
+
+def _bare_credential_placeholder_bytes() -> bytes:
+    placeholder = "${" + "STUDY1_TOKEN" + "}"
+    return _plain_text_credential_assignment_bytes(placeholder)
 
 
 def _encoded_drive_locator() -> str:
@@ -524,7 +544,7 @@ def test_structured_scanner_preserves_credential_key_value_association(suffix: s
             "docs/public.yaml",
         ),
         (
-            json.dumps({"client_" + "secret_hint": True}).encode(),
+            _structured_boolean_credential_bytes(),
             "docs/public.json",
         ),
     ],
@@ -597,6 +617,29 @@ def test_direct_scanner_rejects_shell_fallbacks_in_plain_assignments() -> None:
     )
 
     assert "credential_like" in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize("scalar", _plain_text_credential_scalars())
+def test_direct_scanner_rejects_any_non_placeholder_plain_text_credential_scalar(
+    scalar: str,
+) -> None:
+    """Catches short, Unicode, or boolean-like text values bypassing the assignment scanner."""
+    findings = privacy.public_artifact_byte_findings(
+        _plain_text_credential_assignment_bytes(scalar),
+        relative_path="docs/public.env",
+    )
+
+    assert "credential_like" in {kind for _line, kind in findings}
+
+
+def test_direct_scanner_keeps_a_bare_plain_text_credential_placeholder_public_safe() -> None:
+    """Catches text-assignment hardening that rejects a bare environment placeholder."""
+    findings = privacy.public_artifact_byte_findings(
+        _bare_credential_placeholder_bytes(),
+        relative_path="docs/public.env",
+    )
+
+    assert "credential_like" not in {kind for _line, kind in findings}
 
 
 @pytest.mark.parametrize(("locator", "expected_kind"), _unicode_locator_cases())
@@ -844,6 +887,37 @@ def test_staged_privacy_scan_rejects_credential_shell_fallbacks(
     scan = privacy.scan_staged_artifacts(repository)
 
     assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+@pytest.mark.parametrize("scalar", _plain_text_credential_scalars())
+def test_staged_privacy_scan_rejects_any_non_placeholder_plain_text_credential_scalar(
+    tmp_path: Path, scalar: str
+) -> None:
+    """Catches index scanning that permits short, Unicode, or boolean-like text values."""
+    repository = _staged_repository(
+        tmp_path,
+        _plain_text_credential_assignment_bytes(scalar),
+        name="public.env",
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+def test_staged_privacy_scan_keeps_a_bare_plain_text_credential_placeholder_public_safe(
+    tmp_path: Path,
+) -> None:
+    """Catches index-assignment hardening that rejects a bare environment placeholder."""
+    repository = _staged_repository(
+        tmp_path,
+        _bare_credential_placeholder_bytes(),
+        name="public.env",
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "credential_like" not in {finding.kind for finding in scan.findings}
 
 
 @pytest.mark.parametrize(("locator", "expected_kind"), _unicode_locator_cases())

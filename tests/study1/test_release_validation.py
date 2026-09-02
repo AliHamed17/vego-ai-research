@@ -93,6 +93,21 @@ def _credential_fallback_text(suffix: str) -> str:
     return field_name + ": " + repr(fallback) + "\n"
 
 
+def _plain_text_credential_assignment(scalar: str) -> str:
+    """Build a text assignment only at runtime so tracked test code stays scanner-safe."""
+    field_name = "service_" + "token"
+    return field_name + "=" + scalar + "\n"
+
+
+def _plain_text_credential_scalars() -> tuple[str, ...]:
+    return ("x", chr(0x79D8) + chr(0x5BC6), "false")
+
+
+def _bare_credential_placeholder_assignment() -> str:
+    placeholder = "${" + "STUDY1_TOKEN" + "}"
+    return _plain_text_credential_assignment(placeholder)
+
+
 def _release_locator_cases() -> tuple[tuple[str, str], ...]:
     drive_locator = (
         "https://"
@@ -327,6 +342,37 @@ def test_release_validator_rejects_credential_shell_fallbacks_from_committed_tre
     findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
 
     assert "credential_like" in {finding.kind for finding in findings}
+
+
+@pytest.mark.parametrize("scalar", _plain_text_credential_scalars())
+def test_release_validator_rejects_any_non_placeholder_plain_text_credential_scalar(
+    tmp_path: Path, scalar: str
+) -> None:
+    """Catches committed-tree scanning that permits short, Unicode, or boolean-like values."""
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        _plain_text_credential_assignment(scalar),
+        relative_path="docs/public.env",
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" in {finding.kind for finding in findings}
+
+
+def test_release_validator_keeps_a_bare_plain_text_credential_placeholder_public_safe(
+    tmp_path: Path,
+) -> None:
+    """Catches committed-tree assignment hardening that rejects a bare placeholder."""
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        _bare_credential_placeholder_assignment(),
+        relative_path="docs/public.env",
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" not in {finding.kind for finding in findings}
 
 
 @pytest.mark.parametrize(("locator", "expected_kind"), _release_locator_cases())

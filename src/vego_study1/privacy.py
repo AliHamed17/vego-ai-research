@@ -317,9 +317,11 @@ CREDENTIAL_PLACEHOLDER_PATTERNS = (
     re.compile(r"^\$\{[A-Za-z_][A-Za-z0-9_]*\}$"),
     re.compile(r"^\{\{\s*[A-Za-z_][A-Za-z0-9_.-]*\s*\}\}$"),
 )
-CREDENTIAL_PLACEHOLDER_ASSIGNMENT_PATTERN = re.compile(
-    r"(?i)(?P<key>[a-z0-9_.-]+)[\"']?\s*[:=]\s*[\"']?"
-    r"(?P<value>\$\{[^}\r\n]*\}|\{\{[^\r\n]*?\}\})"
+CREDENTIAL_TEXT_ASSIGNMENT_PATTERN = re.compile(
+    r'''(?ix)(?<![\w.-])(?P<key>["']?[\w.-]+["']?)\s*[:=]\s*'''
+    r'''(?P<value>"(?:[\x5c].|[^"\x5c\r\n])*"|'(?:[\x5c].|[^'\x5c\r\n])*' '''
+    r'''|\$\{[^}\r\n]*\}|\{\{[^\r\n]*?\}\}'''
+    r'''|[^\s,;#\]\}\(\[\{\r\n]+)(?=\s*(?:$|[,;#\]\}]))'''
 )
 CREDENTIAL_PLACEHOLDER_LITERALS = frozenset(
     {"", "redacted", "[redacted]", "<redacted>", "placeholder", "unset", "null", "none"}
@@ -406,6 +408,13 @@ def _credential_value_is_placeholder(value: str) -> bool:
     if normalized.casefold() in CREDENTIAL_PLACEHOLDER_LITERALS:
         return True
     return any(pattern.fullmatch(normalized) for pattern in CREDENTIAL_PLACEHOLDER_PATTERNS)
+
+
+def _text_assignment_value_is_placeholder(value: str) -> bool:
+    normalized = _normalized_structured_scalar(value)
+    if len(normalized) >= 2 and normalized[0] == normalized[-1] and normalized[0] in {"'", '"'}:
+        normalized = normalized[1:-1]
+    return _credential_value_is_placeholder(normalized)
 
 
 def _json_scalar_values(
@@ -510,8 +519,8 @@ def _text_finding_kinds(value: str) -> tuple[str, ...]:
         findings.append("email_identifier")
     if any(
         _is_credential_field_name(match.group("key"))
-        and not _credential_value_is_placeholder(match.group("value"))
-        for match in CREDENTIAL_PLACEHOLDER_ASSIGNMENT_PATTERN.finditer(normalized)
+        and not _text_assignment_value_is_placeholder(match.group("value"))
+        for match in CREDENTIAL_TEXT_ASSIGNMENT_PATTERN.finditer(normalized)
     ):
         findings.append("credential_like")
 
