@@ -1,6 +1,7 @@
 import hashlib
 import importlib
 import json
+import shutil
 import socket
 import subprocess
 import sys
@@ -17,7 +18,21 @@ def _notes_module():
 
 
 def _private_root(tmp_path: Path) -> Path:
-    return tmp_path / "research-private" / "study1" / "task-3"
+    return tmp_path / "temporary-repository" / "research-private" / "study1" / "task-3"
+
+
+@pytest.fixture(autouse=True)
+def _approved_private_test_repository(tmp_path, monkeypatch):
+    """Use a synthetic local Git repository to exercise the private-root ignore gate."""
+    repository_root = tmp_path / "temporary-repository"
+    repository_root.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository_root)], check=True)
+    (repository_root / ".gitignore").write_text("research-private/study1/\n", encoding="utf-8")
+    monkeypatch.setattr(_notes_module(), "REPOSITORY_ROOT", repository_root)
+
+
+def _cli_private_root(tmp_path: Path) -> Path:
+    return ROOT / "research-private" / "study1" / f"pytest-{tmp_path.name}"
 
 
 def _write_synthetic_notes_and_manifest(tmp_path: Path) -> tuple[Path, Path]:
@@ -110,6 +125,87 @@ def test_controlled_notes_import_rejects_bad_json_and_non_private_output(tmp_pat
         )
 
 
+@pytest.mark.parametrize(
+    ("manifest_change", "expected_message"),
+    [
+        ({"unexpected": "synthetic"}, "exactly"),
+        ({"metadata": {"uncontrolled": "synthetic"}}, "exactly"),
+        ({"schema_version": 1}, "schema_version must be a string"),
+        ({"source_hash": "sha256:not-a-valid-hash"}, "source_hash must be a SHA-256"),
+        ({"source_classification": []}, "source_classification must be a string"),
+        ({"intended_use": {}}, "intended_use must be a string"),
+    ],
+)
+def test_controlled_notes_import_requires_exactly_four_typed_provenance_fields(
+    tmp_path, manifest_change, expected_message
+):
+    """Catches uncontrolled metadata, malformed hashes, and non-string provenance fields."""
+    module = _notes_module()
+    notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
+    manifest_data = json.loads(manifest.read_text(encoding="utf-8"))
+    manifest_data.update(manifest_change)
+    manifest.write_text(json.dumps(manifest_data), encoding="utf-8")
+
+    with pytest.raises(module.ControlledNotesError, match=expected_message):
+        module.import_controlled_notes(
+            notes, manifest, _private_root(tmp_path), intended_use="development_only"
+        )
+
+
+@pytest.mark.parametrize("remote_value", ["drive:notes.csv", r"\\server\share\notes.csv"])
+def test_controlled_notes_rejects_uri_and_unc_notes_sources_before_reading(tmp_path, remote_value):
+    """Catches URI-like and UNC note sources before the gate tries to open them."""
+    module = _notes_module()
+
+    with pytest.raises(module.ControlledNotesError, match="remote"):
+        module.import_controlled_notes(
+            remote_value,
+            tmp_path / "must-not-read.json",
+            _private_root(tmp_path),
+            intended_use="development_only",
+        )
+
+
+@pytest.mark.parametrize("remote_value", ["file:manifest.json", r"\\server\share\manifest.json"])
+def test_controlled_notes_rejects_uri_and_unc_manifests_before_reading(tmp_path, remote_value):
+    """Catches URI-like and UNC manifests before the gate tries to open note input."""
+    module = _notes_module()
+
+    with pytest.raises(module.ControlledNotesError, match="remote"):
+        module.import_controlled_notes(
+            tmp_path / "must-not-read.csv",
+            remote_value,
+            _private_root(tmp_path),
+            intended_use="development_only",
+        )
+
+
+@pytest.mark.parametrize("remote_value", ["s3:private-output", r"\\server\share\output"])
+def test_controlled_notes_rejects_uri_and_unc_output_before_reading(tmp_path, remote_value):
+    """Catches remote output roots before the gate attempts any source or manifest reads."""
+    module = _notes_module()
+
+    with pytest.raises(module.ControlledNotesError, match="remote"):
+        module.import_controlled_notes(
+            tmp_path / "must-not-read.csv",
+            tmp_path / "must-not-read.json",
+            remote_value,
+            intended_use="development_only",
+        )
+
+
+def test_controlled_notes_rejects_same_name_private_lookalike_outside_repository(tmp_path):
+    """Catches a receipt write allowed merely by a matching private-looking path segment."""
+    module = _notes_module()
+    notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
+    lookalike = tmp_path / "unapproved" / "research-private" / "study1" / "task-3"
+
+    with pytest.raises(module.ControlledNotesError, match="repository.*research-private.*study1"):
+        module.import_controlled_notes(
+            notes, manifest, lookalike, intended_use="development_only"
+        )
+
+
 def test_controlled_notes_import_performs_no_network_activity(tmp_path, monkeypatch):
     """Catches a future controlled-notes import that attempts to open a network socket."""
     module = _notes_module()
@@ -128,43 +224,46 @@ def test_controlled_notes_import_performs_no_network_activity(tmp_path, monkeypa
 def test_controlled_notes_cli_requires_development_only_and_prints_safe_summary(tmp_path):
     """Catches a wrapper that omits the intended-use gate or prints sensitive local input details."""
     notes, manifest = _write_synthetic_notes_and_manifest(tmp_path)
-    private_root = _private_root(tmp_path)
+    private_root = _cli_private_root(tmp_path)
 
-    missing_use = subprocess.run(
-        [
-            sys.executable,
-            str(CLI),
-            "--notes-source",
-            str(notes),
-            "--provenance-manifest",
-            str(manifest),
-            "--private-output-root",
-            str(private_root),
-        ],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    completed = subprocess.run(
-        [
-            sys.executable,
-            str(CLI),
-            "--notes-source",
-            str(notes),
-            "--provenance-manifest",
-            str(manifest),
-            "--private-output-root",
-            str(private_root),
-            "--intended-use",
-            "development_only",
-        ],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        missing_use = subprocess.run(
+            [
+                sys.executable,
+                str(CLI),
+                "--notes-source",
+                str(notes),
+                "--provenance-manifest",
+                str(manifest),
+                "--private-output-root",
+                str(private_root),
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(CLI),
+                "--notes-source",
+                str(notes),
+                "--provenance-manifest",
+                str(manifest),
+                "--private-output-root",
+                str(private_root),
+                "--intended-use",
+                "development_only",
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
 
-    assert missing_use.returncode != 0
-    assert completed.returncode == 0, completed.stderr
-    assert "development_only" in completed.stdout
-    assert str(notes) not in completed.stdout
-    assert "synthetic one" not in completed.stdout
+        assert missing_use.returncode != 0
+        assert completed.returncode == 0, completed.stderr
+        assert "development_only" in completed.stdout
+        assert str(notes) not in completed.stdout
+        assert "synthetic one" not in completed.stdout
+    finally:
+        shutil.rmtree(private_root, ignore_errors=True)

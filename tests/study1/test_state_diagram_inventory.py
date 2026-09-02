@@ -1,5 +1,6 @@
 import importlib
 import json
+import shutil
 import socket
 import subprocess
 import sys
@@ -26,7 +27,21 @@ def _synthetic_state_root(tmp_path: Path) -> Path:
 
 
 def _private_root(tmp_path: Path) -> Path:
-    return tmp_path / "research-private" / "study1" / "task-3"
+    return tmp_path / "temporary-repository" / "research-private" / "study1" / "task-3"
+
+
+@pytest.fixture(autouse=True)
+def _approved_private_test_repository(tmp_path, monkeypatch):
+    """Use a synthetic local Git repository to exercise the private-root ignore gate."""
+    repository_root = tmp_path / "temporary-repository"
+    repository_root.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository_root)], check=True)
+    (repository_root / ".gitignore").write_text("research-private/study1/\n", encoding="utf-8")
+    monkeypatch.setattr(_inventory_module(), "REPOSITORY_ROOT", repository_root)
+
+
+def _cli_private_root(tmp_path: Path) -> Path:
+    return ROOT / "research-private" / "study1" / f"pytest-{tmp_path.name}"
 
 
 def test_inventory_receipt_is_deterministic_aggregate_only_and_blocked(tmp_path):
@@ -68,6 +83,47 @@ def test_inventory_accepts_only_private_study1_destinations(tmp_path):
     assert receipt["schema_version"] == "StateDiagramInventoryReceipt-v1"
 
 
+@pytest.mark.parametrize("remote_value", ["s3:study1-state", r"\\server\share\state"])
+def test_inventory_rejects_uri_and_unc_state_roots_before_reading(tmp_path, remote_value):
+    """Catches URI-like and UNC state roots that would be treated as local filesystem input."""
+    module = _inventory_module()
+
+    with pytest.raises(module.StateDiagramInventoryError, match="remote"):
+        module.write_state_diagram_inventory(remote_value, _private_root(tmp_path))
+
+
+def test_inventory_screens_remote_state_root_before_private_git_check(tmp_path, monkeypatch):
+    """Catches a remote state root that reaches private-root filesystem validation first."""
+    module = _inventory_module()
+
+    def _unexpected_git_check(*_args, **_kwargs):
+        raise AssertionError("remote input reached the Git-ignore check")
+
+    monkeypatch.setattr(module.subprocess, "run", _unexpected_git_check)
+
+    with pytest.raises(module.StateDiagramInventoryError, match="remote"):
+        module.write_state_diagram_inventory("s3:study1-state", _private_root(tmp_path))
+
+
+@pytest.mark.parametrize("remote_value", ["s3:study1-output", r"\\server\share\output"])
+def test_inventory_rejects_uri_and_unc_output_roots_before_reading(tmp_path, remote_value):
+    """Catches remote output roots before the inventory attempts to inspect a source directory."""
+    module = _inventory_module()
+
+    with pytest.raises(module.StateDiagramInventoryError, match="remote"):
+        module.write_state_diagram_inventory(tmp_path / "must-not-read", remote_value)
+
+
+def test_inventory_rejects_same_name_private_lookalike_outside_repository(tmp_path):
+    """Catches an output root accepted solely because its path contains private-looking segments."""
+    module = _inventory_module()
+    source = _synthetic_state_root(tmp_path)
+    lookalike = tmp_path / "unapproved" / "research-private" / "study1" / "task-3"
+
+    with pytest.raises(module.StateDiagramInventoryError, match="repository.*research-private.*study1"):
+        module.write_state_diagram_inventory(source, lookalike)
+
+
 def test_inventory_performs_no_network_activity(tmp_path, monkeypatch):
     """Catches a future local inventory implementation that opens a network socket."""
     module = _inventory_module()
@@ -84,30 +140,33 @@ def test_inventory_performs_no_network_activity(tmp_path, monkeypatch):
 def test_inventory_cli_requires_both_roots_and_prints_only_safe_summary(tmp_path):
     """Catches a wrapper that accepts unscoped input or echoes a raw source path."""
     source = _synthetic_state_root(tmp_path)
-    private_root = _private_root(tmp_path)
+    private_root = _cli_private_root(tmp_path)
 
-    missing_argument = subprocess.run(
-        [sys.executable, str(CLI), "--state-root", str(source)],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    completed = subprocess.run(
-        [
-            sys.executable,
-            str(CLI),
-            "--state-root",
-            str(source),
-            "--private-output-root",
-            str(private_root),
-        ],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        missing_argument = subprocess.run(
+            [sys.executable, str(CLI), "--state-root", str(source)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(CLI),
+                "--state-root",
+                str(source),
+                "--private-output-root",
+                str(private_root),
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
 
-    assert missing_argument.returncode != 0
-    assert completed.returncode == 0, completed.stderr
-    assert "blocked_pending_data_processing_authorization" in completed.stdout
-    assert str(source) not in completed.stdout
-    assert "transition.alpha" not in completed.stdout
+        assert missing_argument.returncode != 0
+        assert completed.returncode == 0, completed.stderr
+        assert "blocked_pending_data_processing_authorization" in completed.stdout
+        assert str(source) not in completed.stdout
+        assert "transition.alpha" not in completed.stdout
+    finally:
+        shutil.rmtree(private_root, ignore_errors=True)
