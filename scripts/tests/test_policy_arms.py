@@ -364,13 +364,13 @@ def test_arm_rejects_invalid_numeric_parameters(arm_id: str, params: dict) -> No
 
 def test_policy_validation_errors_do_not_echo_caller_event_ids_or_parameter_keys() -> None:
     """Catches private caller-controlled identifiers being reflected in failures."""
-    private_event_id = "C:" + "/sensitive/control" + "led/event"
+    private_event_id = "C:" + "/" + "sensitive/control" + "led/event"
     duplicate = {"eventId": private_event_id, "signalObservations": []}
 
     with pytest.raises(PolicyValidationError) as event_error:
         replay_all([duplicate, duplicate], budget=1, seed=7)
 
-    private_parameter = "C:" + "/sensitive/control" + "led/parameter"
+    private_parameter = "C:" + "/" + "sensitive/control" + "led/parameter"
     with pytest.raises(PolicyValidationError) as parameter_error:
         Arm("fixed_threshold", {private_parameter: 0.5})
 

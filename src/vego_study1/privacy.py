@@ -276,6 +276,26 @@ URI_SCHEME_PATTERN = re.compile(r"^(?P<scheme>[A-Za-z][A-Za-z0-9+.-]*):")
 PRIVATE_HOST_PATTERN = re.compile(
     r"(?i)^(?:localhost|127\.0\.0\.1|(?:[a-z0-9-]+\.)+(?:internal|private|local))$"
 )
+URL_TOKEN_PATTERN = re.compile(r"(?i)\bhttps?://[^\s<>\"'`]+")
+WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN = re.compile(
+    r"(?i)(?<![a-z0-9])[a-z]:[\\/][^\s<>\"'`|]+"
+)
+POSIX_ABSOLUTE_PATH_TOKEN_PATTERN = re.compile(
+    r"(?i)(?<![a-z0-9:/\\}\]])/(?!/)[a-z0-9._~][a-z0-9._~-]*"
+    r"(?:/[^\s<>\"'`|]+)*"
+)
+EMAIL_IDENTIFIER_PATTERN = re.compile(
+    r"(?i)(?<![a-z0-9._%+-])[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}"
+    r"(?![a-z0-9.-])"
+)
+IPV4_TOKEN_PATTERN = re.compile(
+    r"(?<![a-zA-Z0-9.])(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?![a-zA-Z0-9.])"
+)
+BRACKETED_IPV6_TOKEN_PATTERN = re.compile(r"\[[0-9a-fA-F:.%]+\](?::\d+)?")
+CREDENTIAL_FIELD_PATTERN = re.compile(
+    r"(?i)^[a-z0-9_-]*(?:api[_-]?keys?|tokens?|secrets?|passwords?|credentials?)$"
+)
+CREDENTIAL_VALUE_PATTERN = re.compile(r"[A-Za-z0-9_./+=-]{8,}")
 
 
 class _JsonObjectPairs(list[tuple[str, Any]]):
@@ -283,10 +303,12 @@ class _JsonObjectPairs(list[tuple[str, Any]]):
 
 
 def public_path_finding_kinds(relative_path: str) -> tuple[str, ...]:
-    """Return prohibited kinds carried by one validated repository-relative path."""
-    return tuple(
+    """Scan the complete validated repository-relative path for private metadata."""
+    findings = [
         kind for kind, pattern in PROHIBITED_PUBLIC_PATH_PATTERNS if pattern.search(relative_path)
-    )
+    ]
+    findings.extend(_text_finding_kinds(relative_path))
+    return tuple(dict.fromkeys(findings))
 
 
 def _contains_non_finite_json_number(value: Any) -> bool:
@@ -312,34 +334,41 @@ def _reject_non_standard_json_constant(_value: str) -> None:
     raise ValueError("non_standard_numeric_constant")
 
 
-def _json_scalar_values(value: Any) -> Iterable[tuple[int, str]]:
+def _json_scalar_values(
+    value: Any, *, associated_key: str | None = None
+) -> Iterable[tuple[int, str, str | None]]:
     if isinstance(value, str):
-        yield 1, value
+        yield 1, value, associated_key
     elif isinstance(value, _JsonObjectPairs):
         for key, item in value:
-            yield 1, key
-            yield from _json_scalar_values(item)
+            yield 1, key, None
+            yield from _json_scalar_values(item, associated_key=key)
     elif isinstance(value, list):
         for item in value:
-            yield from _json_scalar_values(item)
+            yield from _json_scalar_values(item, associated_key=associated_key)
 
 
-def _yaml_scalar_values(documents: Iterable[Node | None]) -> Iterable[tuple[int, str]]:
+def _yaml_scalar_values(
+    documents: Iterable[Node | None],
+) -> Iterable[tuple[int, str, str | None]]:
     seen: set[int] = set()
 
-    def _walk(node: Node | None) -> Iterable[tuple[int, str]]:
+    def _walk(
+        node: Node | None, *, associated_key: str | None = None
+    ) -> Iterable[tuple[int, str, str | None]]:
         if node is None or id(node) in seen:
             return
         seen.add(id(node))
         if isinstance(node, ScalarNode):
-            yield node.start_mark.line + 1, node.value
+            yield node.start_mark.line + 1, node.value, associated_key
         elif isinstance(node, SequenceNode):
             for item in node.value:
-                yield from _walk(item)
+                yield from _walk(item, associated_key=associated_key)
         elif isinstance(node, MappingNode):
             for key, item in node.value:
                 yield from _walk(key)
-                yield from _walk(item)
+                key_value = key.value if isinstance(key, ScalarNode) else None
+                yield from _walk(item, associated_key=key_value)
 
     for document in documents:
         yield from _walk(document)
@@ -369,15 +398,56 @@ def _is_private_host(value: str) -> bool:
     return address.is_private or address.is_loopback or address.is_link_local
 
 
+def _text_finding_kinds(value: str) -> tuple[str, ...]:
+    """Extract and classify privacy-sensitive tokens from arbitrary decoded text."""
+    findings = [kind for kind, pattern in PUBLIC_ARTIFACT_PATTERNS if pattern.search(value)]
+    if WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN.search(value) or POSIX_ABSOLUTE_PATH_TOKEN_PATTERN.search(
+        value
+    ):
+        findings.append("absolute_path_reference")
+    if EMAIL_IDENTIFIER_PATTERN.search(value):
+        findings.append("email_identifier")
+
+    for match in URL_TOKEN_PATTERN.finditer(value):
+        try:
+            hostname = urlsplit(match.group(0)).hostname
+        except ValueError:
+            hostname = None
+        if hostname is not None and _is_private_host(hostname):
+            findings.append("private_url")
+
+    host_tokens = (
+        *(match.group(0) for match in IPV4_TOKEN_PATTERN.finditer(value)),
+        *(match.group(0) for match in BRACKETED_IPV6_TOKEN_PATTERN.finditer(value)),
+    )
+    if any(_is_private_host(token) for token in host_tokens):
+        findings.append("private_host_reference")
+    return tuple(dict.fromkeys(findings))
+
+
+def _structured_mapping_finding_kinds(key: str | None, value: str) -> tuple[str, ...]:
+    """Classify a decoded scalar while retaining its immediate mapping-key context."""
+    if key is None:
+        return ()
+    normalized_key = _normalized_structured_scalar(key)
+    if CREDENTIAL_FIELD_PATTERN.fullmatch(normalized_key) is None:
+        return ()
+    normalized_value = _normalized_structured_scalar(value)
+    if normalized_value.startswith(("${", "{{")):
+        return ()
+    compact_value = re.sub(r"\s+", "", normalized_value)
+    if CREDENTIAL_VALUE_PATTERN.fullmatch(compact_value) is not None:
+        return ("credential_like",)
+    return ()
+
+
 def _structured_scalar_finding_kinds(value: str) -> tuple[str, ...]:
     """Classify one decoded scalar using fixed public/privacy boundary labels."""
     normalized = _normalized_structured_scalar(value)
     if not normalized:
         return ()
 
-    findings = [
-        kind for kind, pattern in PUBLIC_ARTIFACT_PATTERNS if pattern.search(normalized)
-    ]
+    findings = list(_text_finding_kinds(normalized))
     path_value = normalized.replace("\\", "/")
     if path_value.startswith("//"):
         findings.append("remote_or_unc_reference")
@@ -407,7 +477,7 @@ def _structured_scalar_finding_kinds(value: str) -> tuple[str, ...]:
 
 def _decoded_structured_scalars(
     text: str, *, suffix: str
-) -> tuple[tuple[tuple[int, str], ...], str | None]:
+) -> tuple[tuple[tuple[int, str, str | None], ...], str | None]:
     """Return decoded scalars and an optional fixed parse-failure category."""
     if suffix == ".json":
         try:
@@ -446,18 +516,20 @@ def public_artifact_byte_findings(
 
     findings: list[tuple[int, str]] = []
     for line_number, line in enumerate(text.splitlines(), start=1):
-        for kind, pattern in PUBLIC_ARTIFACT_PATTERNS:
-            if pattern.search(line):
-                findings.append((line_number, kind))
+        findings.extend((line_number, kind) for kind in _text_finding_kinds(line))
 
     suffix = PurePosixPath(relative_path).suffix.casefold()
     if suffix in STRUCTURED_ARTIFACT_SUFFIXES:
         scalars, parse_finding = _decoded_structured_scalars(text, suffix=suffix)
         if parse_finding is not None:
             findings.append((1, parse_finding))
-        for line_number, value in scalars:
+        for line_number, value, associated_key in scalars:
             findings.extend(
                 (line_number, kind) for kind in _structured_scalar_finding_kinds(value)
+            )
+            findings.extend(
+                (line_number, kind)
+                for kind in _structured_mapping_finding_kinds(associated_key, value)
             )
     return tuple(dict.fromkeys(findings))
 

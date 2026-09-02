@@ -10,7 +10,7 @@ The unit is one **review item**: one sanitized candidate-escalation event. Count
 
 The C0 adapter uses a user-selected frozen-output root and the four fixed settings `ucd_ch`, `ucd_pw`, `cd_ch`, and `cd_pw`. It produces only sanitized candidate-event records, whose public fields contain opaque source and locator hashes. A manifest is hashed before adaptation and rechecked before artifact writing; any selected-input mutation aborts the run.
 
-The seed is `20260902`. Replays must use the same canonical event IDs for every arm and budget. Candidate events carry the complete policy-signal inventory with explicit evidence states; unavailable signals remain unavailable and are not fabricated. A directly observed `requires_human_review` request is recorded as an explicit escalation-request fact, independently of any derived numeric confidence fact, so neither fact masks the other during replay.
+The seed is `20260902`. Replays must use the same canonical event IDs for every arm and budget. Candidate events carry the complete policy-signal inventory with explicit evidence states; unavailable signals remain unavailable and are not fabricated. Sanitized availability aggregates count exactly the eight policy signals once per candidate and report review-request attachment separately. A directly observed `requires_human_review` request is recorded as an explicit escalation-request fact, independently of any derived numeric confidence fact, so neither fact masks the other during replay.
 
 ## Arms and escalation budgets
 

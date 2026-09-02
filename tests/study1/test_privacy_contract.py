@@ -357,7 +357,7 @@ def test_candidate_validator_rejects_non_finite_numbers_without_echoing_values(
 def test_candidate_non_finite_error_does_not_echo_adversarial_instance_key() -> None:
     """Catches arbitrary input keys leaking through a recursive validation path."""
     event = synthetic_event()
-    private_key = "C:" + "/sensitive/control" + "led/field"
+    private_key = "C:" + "/" + "sensitive/control" + "led/field"
     event[private_key] = float("nan")
 
     with pytest.raises(PrivacyValidationError, match="non_finite_number") as captured:
@@ -424,7 +424,7 @@ def test_tracked_artifact_validator_reports_only_unsafe_synthetic_markers(tmp_pa
         ('{"uri": "file' + '://host/private.bin"}', "remote_or_unc_reference"),
         ("uri: 's3" + "://private-bucket/object'", "remote_or_unc_reference"),
         ('{"uri": "gs' + '://private-bucket/object"}', "remote_or_unc_reference"),
-        ('{"path": "/' + '/server/share/object"}', "remote_or_unc_reference"),
+        ('{"path": "/' + "/" + 'server/share/object"}', "remote_or_unc_reference"),
         ('{"path": "/' + 'mnt/secure/object"}', "absolute_path_reference"),
         ('{"host": "review.' + 'internal"}', "private_host_reference"),
         ('{"endpoint": "https://' + 'service.' + 'local/value"}', "private_url"),
@@ -438,6 +438,66 @@ def test_privacy_scanner_rejects_quoted_remote_values_and_private_hosts(
     unsafe.write_text(unsafe_content, encoding="utf-8")
 
     assert expected_kind in {finding.kind for finding in validate_tracked_artifacts([unsafe])}
+
+
+def _structured_credential_bytes(suffix: str) -> bytes:
+    """Build credential-shaped bytes at runtime without tracking a complete sample."""
+    field_name = "api_" + "key"
+    field_value = "abc" + "DEF12345" + "67890"
+    if suffix == ".json":
+        encoded_name = field_name.replace("k", "\\u006b", 1)
+        return (
+            '{"'
+            + encoded_name
+            + '":"'
+            + field_value[:8]
+            + "\\n"
+            + field_value[8:]
+            + '"}'
+        ).encode()
+    return (field_name + ": >-\n  " + field_value[:8] + "\n  " + field_value[8:] + "\n").encode()
+
+
+@pytest.mark.parametrize("suffix", [".json", ".yaml"])
+def test_structured_scanner_preserves_credential_key_value_association(suffix: str) -> None:
+    """Catches escaped or folded structured credentials split into separately safe scalars."""
+    findings = privacy.public_artifact_byte_findings(
+        _structured_credential_bytes(suffix),
+        relative_path="docs/public" + suffix,
+    )
+
+    assert "credential_like" in {kind for _line, kind in findings}
+
+
+@pytest.mark.parametrize(
+    ("unsafe_content", "expected_kind"),
+    [
+        ("Review endpoint: https://" + "10." + "23.4.5:8443/item", "private_url"),
+        ("Review endpoint: https://" + "[fd00" + "::1]/item", "private_url"),
+        ("Open " + "/" + "mnt/secure/item.json next", "absolute_path_reference"),
+        ("Contact ali" + "ce@" + "example.test for access", "email_identifier"),
+    ],
+)
+def test_text_scanner_classifies_locator_and_identifier_tokens(
+    unsafe_content: str, expected_kind: str
+) -> None:
+    """Catches private locators and direct identifiers embedded in ordinary prose."""
+    findings = privacy.public_artifact_byte_findings(
+        unsafe_content.encode(),
+        relative_path="docs/public.md",
+    )
+
+    assert expected_kind in {kind for _line, kind in findings}
+
+
+def test_text_scanner_allows_a_public_scholarly_url() -> None:
+    """Catches broad locator matching that blocks a public scholarly citation."""
+    findings = privacy.public_artifact_byte_findings(
+        b"See https://proceedings.mlr.press/v119/example.html for context.",
+        relative_path="docs/public.md",
+    )
+
+    assert not findings
 
 
 @pytest.mark.parametrize(
@@ -539,13 +599,13 @@ def _staged_repository(tmp_path: Path, content: bytes, *, name: str = "public.js
     repository = tmp_path / "staged-repository"
     repository.mkdir()
     _git(repository, "init", "-q")
-    _git(repository, "config", "user.email", "study1@example.test")
+    _git(repository, "config", "user.email", "study1@" + "example.test")
     _git(repository, "config", "user.name", "Study 1 Test")
     (repository / "README.md").write_text("base\n", encoding="utf-8")
     _git(repository, "add", "README.md")
     _git(repository, "commit", "-qm", "base")
     artifact = repository / "docs" / name
-    artifact.parent.mkdir()
+    artifact.parent.mkdir(parents=True)
     artifact.write_bytes(content)
     _git(repository, "add", "--", f"docs/{name}")
     return repository
@@ -568,6 +628,44 @@ def test_staged_privacy_scan_decodes_exact_index_json_scalars(tmp_path: Path) ->
         "private_host_reference",
         "remote_or_unc_reference",
     }
+
+
+@pytest.mark.parametrize("suffix", [".json", ".yaml"])
+def test_staged_privacy_scan_detects_structured_credential_association(
+    tmp_path: Path, suffix: str
+) -> None:
+    """Catches the index scan losing decoded credential key/value association."""
+    repository = _staged_repository(
+        tmp_path,
+        _structured_credential_bytes(suffix),
+        name="public" + suffix,
+    )
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert "credential_like" in {finding.kind for finding in scan.findings}
+
+
+@pytest.mark.parametrize(
+    ("name", "expected_kind"),
+    [
+        ("archive/review." + "internal/public.md", "private_host_reference"),
+        ("archive/ali" + "ce@" + "example.test/public.md", "email_identifier"),
+        (
+            "archive/api_" + "key=abc" + "DEF1234567890/public.md",
+            "credential_like",
+        ),
+    ],
+)
+def test_staged_privacy_scan_applies_privacy_rules_to_the_whole_pathname(
+    tmp_path: Path, name: str, expected_kind: str
+) -> None:
+    """Catches path-only private metadata outside the legacy special directory names."""
+    repository = _staged_repository(tmp_path, b"sanitized\n", name=name)
+
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert expected_kind in {finding.kind for finding in scan.findings}
 
 
 def test_privacy_cli_scans_nul_delimited_index_bytes_from_any_cwd(tmp_path: Path) -> None:

@@ -485,15 +485,20 @@ def _sanitized_summary(
     manifest: Mapping[str, Any],
     artifact_hashes: Mapping[str, str],
 ) -> dict[str, Any]:
-    availability: dict[str, Counter[str]] = {stage: Counter() for stage in STAGES}
+    signal_availability: dict[str, Counter[str]] = {stage: Counter() for stage in STAGES}
+    review_request_availability: dict[str, Counter[str]] = {
+        stage: Counter() for stage in STAGES
+    }
     candidate_ids_by_stage: dict[str, set[str]] = {stage: set() for stage in STAGES}
     for event in candidates:
+        stage = str(event["stage"])
         for signal in event["signals"]:
-            availability[str(event["stage"])].update([signal["evidence_state"]])
-            request = signal.get("escalation_request")
-            if request is not None:
-                availability[str(event["stage"])].update([request["evidence_state"]])
-        candidate_ids_by_stage[str(event["stage"])].add(str(event["event_id"]))
+            signal_availability[stage].update([signal["evidence_state"]])
+        request_attached = any(signal.get("escalation_request") is not None for signal in event["signals"])
+        review_request_availability[stage].update(
+            ["attached" if request_attached else "not_attached"]
+        )
+        candidate_ids_by_stage[stage].add(str(event["event_id"]))
     rates: dict[str, Any] = {}
     for rate, result in results.items():
         arms = result["arms"]
@@ -556,7 +561,13 @@ def _sanitized_summary(
         },
         "candidate_count_by_stage": dict(Counter(event["stage"] for event in candidates)),
         "candidate_signal_availability_by_stage": {
-            stage: dict(sorted(counts.items())) for stage, counts in availability.items()
+            stage: dict(sorted(counts.items())) for stage, counts in signal_availability.items()
+        },
+        "review_request_availability_by_stage": {
+            stage: {
+                status: counts.get(status, 0) for status in ("attached", "not_attached")
+            }
+            for stage, counts in review_request_availability.items()
         },
         "rates": rates,
         "selection_stability_by_arm": selection_stability,
@@ -573,6 +584,8 @@ def _summary_markdown(summary: Mapping[str, Any]) -> str:
         "# Study 1 C0 baseline (sanitized aggregate)",
         "",
         f"Claim boundary: `{CLAIM_BOUNDARY}`.",
+        "",
+        f"Deterministic replay seed: `{summary['seed']}`.",
         "",
     ]
     lines.extend(
@@ -602,6 +615,19 @@ def _summary_markdown(summary: Mapping[str, Any]) -> str:
         lines.append(
             f"| {stage} | {counts.get('derived', 0)} | {counts.get('observed', 0)} | "
             f"{counts.get('unavailable', 0)} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Review-request availability by stage",
+            "",
+            "| Stage | Attached | Not attached |",
+            "| --- | ---: | ---: |",
+        ]
+    )
+    for stage, counts in sorted(summary["review_request_availability_by_stage"].items()):
+        lines.append(
+            f"| {stage} | {counts.get('attached', 0)} | {counts.get('not_attached', 0)} |"
         )
     lines.extend(
         [

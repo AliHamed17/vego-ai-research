@@ -14,7 +14,8 @@ Every top-level key below is emitted by the sanitized summary. Nested rows name 
 | `seed` | `20260902` |
 | `frozen_manifest` | Safe hash and mutation-check status; see exact nested fields below. |
 | `candidate_count_by_stage` | |
-| `candidate_signal_availability_by_stage` | |
+| `candidate_signal_availability_by_stage` | Exactly eight policy-signal evidence states per candidate. |
+| `review_request_availability_by_stage` | Review-request attachment counted once per candidate and kept separate from signal availability. |
 | `rates` | The three matched-budget summaries used in the ledger sections below. |
 | `selection_stability_by_arm` | Pairwise Jaccard values across 5%, 10%, and 20%. |
 | `report_hashes` | SHA-256 hashes of the exact serialized artifact file bytes, including the terminal newline; see nested fields below. |
@@ -26,6 +27,12 @@ Every top-level key below is emitted by the sanitized summary. Nested rows name 
 | `report_hashes.frozen_manifest` | |
 | `report_hashes.candidate_events` | |
 | `report_hashes.replay_ledgers` | |
+
+## Candidate signal and review-request availability
+
+| Stage | Derived signals | Observed signals | Unavailable signals | Review request attached | Review request not attached |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| | | | | | |
 
 ## Arm and budget ledger
 

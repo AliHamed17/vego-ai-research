@@ -41,7 +41,7 @@ def _repository_with_branch_diff(
     repository = tmp_path / "synthetic-release-repository"
     repository.mkdir()
     _git(repository, "init", "-q")
-    _git(repository, "config", "user.email", "study1@example.test")
+    _git(repository, "config", "user.email", "study1@" + "example.test")
     _git(repository, "config", "user.name", "Study 1 Test")
     (repository / "README.md").write_text("base\n", encoding="utf-8")
     _git(repository, "add", "README.md")
@@ -53,6 +53,24 @@ def _repository_with_branch_diff(
     _git(repository, "add", "--", relative_path)
     _git(repository, "commit", "-qm", "public artifact")
     return repository
+
+
+def _structured_credential_text(suffix: str) -> str:
+    """Build credential-shaped text at runtime without tracking a complete sample."""
+    field_name = "api_" + "key"
+    field_value = "abc" + "DEF12345" + "67890"
+    if suffix == ".json":
+        encoded_name = field_name.replace("k", "\\u006b", 1)
+        return (
+            '{"'
+            + encoded_name
+            + '":"'
+            + field_value[:8]
+            + "\\n"
+            + field_value[8:]
+            + '"}\n'
+        )
+    return field_name + ": >-\n  " + field_value[:8] + "\n  " + field_value[8:] + "\n"
 
 
 def _repository_with_branch_blob(tmp_path: Path, content: bytes) -> Path:
@@ -123,12 +141,12 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
             "raw_subject_path",
         ),
         ("/" + "private/" + "eval_" + "output/run.json", "raw_evaluation_output_path"),
-        ("model" + "/output.json", "raw_subject_path"),
-        ("student" + "/output.json", "raw_subject_path"),
-        ("expert" + "/output.json", "raw_subject_path"),
-        ("controlled" + "/raw.json", "raw_control_path"),
-        ("evaluation" + "/eval_" + "output/run.json", "raw_evaluation_output_path"),
-        ("eval_" + "output/run.json", "raw_evaluation_output_path"),
+        ("model" + "/" + "output.json", "raw_subject_path"),
+        ("student" + "/" + "output.json", "raw_subject_path"),
+        ("expert" + "/" + "output.json", "raw_subject_path"),
+        ("controlled" + "/" + "raw.json", "raw_control_path"),
+        ("evaluation" + "/" + "eval_" + "output/run.json", "raw_evaluation_output_path"),
+        ("eval_" + "output" + "/" + "run.json", "raw_evaluation_output_path"),
         (
             "https://" + "drive.google.com/file/d/" + "1" + "AbCdEfGhIjKlMnOpQrStUvWxYz012345",
             "drive_url",
@@ -138,7 +156,10 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
         ('{"artifact_uri": "file' + '://host/private.bin"}', "remote_or_unc_reference"),
         ("artifact_uri: 's3" + "://private-bucket/item'", "remote_or_unc_reference"),
         ('{"artifact_uri": "gs' + '://private-bucket/item"}', "remote_or_unc_reference"),
-        ('{"artifact_path": "/' + '/server/share/item.json"}', "remote_or_unc_reference"),
+        (
+            '{"artifact_path": "/' + "/" + 'server/share/item.json"}',
+            "remote_or_unc_reference",
+        ),
         ('{"artifact_path": "/' + 'mnt/secure/item.json"}', "absolute_path_reference"),
         ('{"review_host": "review.' + 'internal"}', "private_host_reference"),
         ("artifact_uri: gs" + "://private-bucket/item", "remote_or_unc_reference"),
@@ -195,6 +216,50 @@ def test_release_validator_scans_decoded_committed_structured_scalars(
     repository = _repository_with_branch_diff(
         tmp_path,
         content,
+        relative_path=relative_path,
+    )
+
+    findings = module.validate_release_diff(repository, base_ref="baseline")
+
+    assert expected_kind in {finding.kind for finding in findings}
+
+
+@pytest.mark.parametrize("suffix", [".json", ".yaml"])
+def test_release_validator_detects_structured_credential_association(
+    tmp_path: Path, suffix: str
+) -> None:
+    """Catches the committed-tree scan losing decoded credential key/value association."""
+    module = _validator_module()
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        _structured_credential_text(suffix),
+        relative_path="docs/public" + suffix,
+    )
+
+    findings = module.validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" in {finding.kind for finding in findings}
+
+
+@pytest.mark.parametrize(
+    ("relative_path", "expected_kind"),
+    [
+        ("docs/archive/review." + "internal/public.md", "private_host_reference"),
+        ("docs/archive/ali" + "ce@" + "example.test/public.md", "email_identifier"),
+        (
+            "docs/archive/api_" + "key=abc" + "DEF1234567890/public.md",
+            "credential_like",
+        ),
+    ],
+)
+def test_release_validator_applies_privacy_rules_to_the_whole_tree_pathname(
+    tmp_path: Path, relative_path: str, expected_kind: str
+) -> None:
+    """Catches sanitized committed blobs whose Git path alone carries private metadata."""
+    module = _validator_module()
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        "sanitized public content\n",
         relative_path=relative_path,
     )
 
@@ -298,7 +363,7 @@ def test_release_validator_includes_type_changes_and_rejects_non_regular_head_en
 @pytest.mark.parametrize(
     "raw_path",
     [
-        b".." + b"/outside.json\0",
+        b".." + bytes((47,)) + b"outside.json\0",
         bytes((47,)) + b"absolute.json\0",
         b"C:" + bytes((92,)) + b"absolute.json\0",
         b"nested" + bytes((92,)) + b"escape.json\0",

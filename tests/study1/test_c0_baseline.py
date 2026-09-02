@@ -352,6 +352,7 @@ def test_artifacts_are_sanitized_and_private_root_is_enforced(tmp_path: Path):
         "Frozen manifest check",
         "Candidate counts",
         "Signal availability by stage",
+        "Review-request availability by stage",
         "Queue and budget use",
         "Trigger attribution",
         "Candidate coverage by stage",
@@ -361,6 +362,34 @@ def test_artifacts_are_sanitized_and_private_root_is_enforced(tmp_path: Path):
         "descriptive_candidate_escalation_only_no_outcome_evidence",
     ):
         assert required_section in markdown
+
+
+def test_summary_counts_eight_signal_states_once_and_reports_review_requests_separately(
+    tmp_path: Path,
+) -> None:
+    """Catches review-request attachment inflating fixed policy-signal availability."""
+    summary = write_baseline_artifacts(synthetic_c0_root(tmp_path), _private_root(tmp_path))
+
+    for stage, candidate_count in summary["candidate_count_by_stage"].items():
+        signal_counts = summary["candidate_signal_availability_by_stage"][stage]
+        assert sum(signal_counts.values()) == candidate_count * 8
+        request_counts = summary["review_request_availability_by_stage"][stage]
+        assert sum(request_counts.values()) == candidate_count
+    assert sum(
+        counts["attached"]
+        for counts in summary["review_request_availability_by_stage"].values()
+    ) > 0
+
+
+def test_markdown_receipt_renders_the_json_deterministic_seed(tmp_path: Path) -> None:
+    """Catches a Markdown receipt that cannot reproduce the JSON replay configuration."""
+    private_root = _private_root(tmp_path)
+    summary = write_baseline_artifacts(synthetic_c0_root(tmp_path), private_root)
+    markdown = (private_root / "sanitized" / "study1-c0-baseline-summary.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert f"Deterministic replay seed: `{summary['seed']}`." in markdown
 
 
 def test_results_template_top_level_fields_match_generated_safe_summary(tmp_path: Path):
@@ -381,6 +410,7 @@ def test_results_template_top_level_fields_match_generated_safe_summary(tmp_path
     }
 
     assert template_keys == set(summary)
+    assert f"| `seed` | `{summary['seed']}` |" in template
     assert "`report_hashes.candidate_events`" in template
     assert "`report_hashes.replay_ledgers`" in template
     assert "`report_hashes.frozen_manifest`" in template

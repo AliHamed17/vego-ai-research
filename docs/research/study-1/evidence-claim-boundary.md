@@ -17,7 +17,7 @@ Until independently reviewed empirical evidence exists, this study must not clai
 - reviewer authority or automated decisions; or
 - a StateDiagram-versus-C0 comparison.
 
-Queue counts, configured budgets, trigger attribution, event overlap, bounded selection stability, per-stage candidate coverage distributions, hashes, and readiness statuses are descriptive implementation outputs. They cannot be translated into any prohibited claim.
+Queue counts, configured budgets, fixed-signal availability, separately reported review-request attachment, trigger attribution, event overlap, bounded selection stability, per-stage candidate coverage distributions, hashes, and readiness statuses are descriptive implementation outputs. They cannot be translated into any prohibited claim.
 
 ## Required wording
 
