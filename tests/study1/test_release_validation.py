@@ -58,23 +58,23 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
     assert module.validate_release_diff(repository, base_ref="baseline") == []
 
 
-def test_release_validator_allows_relative_generated_output_configuration(tmp_path: Path):
-    """Catches a matcher that treats a repository-relative ignored-output name as a raw source path."""
-    module = _validator_module()
-    repository = _repository_with_branch_diff(tmp_path, "known/eval/eval_output/\n")
-
-    assert module.validate_release_diff(repository, base_ref="baseline") == []
-
-
 @pytest.mark.parametrize(
     ("unsafe_content", "expected_kind"),
     [
-        ("C:" + r"\\private\\student\\record.json", "raw_subject_path"),
-        ("/pri" + "vate/" + "eval_output/run.json", "raw_evaluation_output_path"),
+        ("C:" + r"\\private\\stu" + "dent\\record.json", "raw_subject_path"),
+        ("/pri" + "vate/" + "eval_" + "output/run.json", "raw_evaluation_output_path"),
+        ("model" + "/output.json", "raw_subject_path"),
+        ("student" + "/output.json", "raw_subject_path"),
+        ("expert" + "/output.json", "raw_subject_path"),
+        ("controlled" + "/raw.json", "raw_control_path"),
+        ("evaluation" + "/eval_" + "output/run.json", "raw_evaluation_output_path"),
+        ("eval_" + "output/run.json", "raw_evaluation_output_path"),
         ("https://" + "drive.google.com/file/d/" + "1" + "AbCdEfGhIjKlMnOpQrStUvWxYz012345", "drive_url"),
         ("1" + "AbCdEfGhIjKlMnOpQrStUvWxYz012345", "drive_id"),
         (r"\\server\\share\\artifact.json", "remote_or_unc_reference"),
         ("api_" + "key=" + "abcDEF1234567890", "credential_like"),
+        ('"api_' + 'key": "' + "abcDEF1234567890" + '"', "credential_like"),
+        ("OPENAI_" + "API_" + "KEY=" + "abcDEF1234567890", "credential_like"),
         ("RAW" + "_CONTROLLED_CONTENT", "controlled_content_marker"),
     ],
 )

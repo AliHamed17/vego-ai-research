@@ -27,8 +27,18 @@ Complete only with sanitized aggregate values. Leave outcome fields blank until 
 | 5% | `uncertainty_only` | | | | | | |
 | 5% | `fixed_threshold` | | | | | | |
 | 5% | `proposed_joint_policy` | | | | | | |
-| 10% | all six arms | | | | | | |
-| 20% | all six arms | | | | | | |
+| 10% | `never_ask` | | | | | | |
+| 10% | `always_ask` | | | | | | |
+| 10% | `random_at_budget` | | | | | | |
+| 10% | `uncertainty_only` | | | | | | |
+| 10% | `fixed_threshold` | | | | | | |
+| 10% | `proposed_joint_policy` | | | | | | |
+| 20% | `never_ask` | | | | | | |
+| 20% | `always_ask` | | | | | | |
+| 20% | `random_at_budget` | | | | | | |
+| 20% | `uncertainty_only` | | | | | | |
+| 20% | `fixed_threshold` | | | | | | |
+| 20% | `proposed_joint_policy` | | | | | | |
 
 ## Trigger attribution and overlap
 

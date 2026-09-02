@@ -25,13 +25,16 @@ class ReleaseFinding:
 _PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "raw_subject_path",
-        re.compile(r"(?i)(?:[a-z]:[\\/]|/)(?:[^\s\"']*[\\/])?(?:student|expert|model)[\\/][^\s\"']+"),
+        re.compile(r"(?i)(?<![a-z0-9_.-])(?:student|expert|model)[\\/][^\s\"']+"),
+    ),
+    (
+        "raw_control_path",
+        re.compile(r"(?i)(?<![a-z0-9_.-])(?:control|controlled)[\\/][^\s\"']+"),
     ),
     (
         "raw_evaluation_output_path",
         re.compile(
-            r"(?i)(?<![a-z0-9_-])(?:[a-z]:[\\/]|/)[^\s\"']*"
-            r"[\\/]eval_output(?:[\\/][^\s\"']*)?"
+            r"(?i)(?<![a-z0-9_.-])(?:[^\s\"']*[\\/])?eval_output[\\/][^\s\"']+"
         ),
     ),
     (
@@ -47,8 +50,8 @@ _PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "credential_like",
         re.compile(
-            r"(?i)\b(?:api[_-]?key|token|secret|password|credential)\b\s*[:=]\s*"
-            r"(?!\$\{|\{\{)[A-Za-z0-9_./+=-]{8,}"
+            r"(?i)\b(?:[a-z0-9_]*api[_-]?key|token|secret|password|credential)\b[\"']?\s*[:=]\s*"
+            r"[\"']?(?!\$\{|\{\{)[A-Za-z0-9_./+=-]{8,}"
         ),
     ),
     (
