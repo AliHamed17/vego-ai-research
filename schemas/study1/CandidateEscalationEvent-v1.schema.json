@@ -14,7 +14,7 @@
       "required": ["source_hash"],
       "properties": {"source_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}}
     },
-    "stage": {"enum": ["observed", "triaged", "escalated"]},
+    "stage": {"enum": ["template", "guideline", "case_inspection", "variability_classification"]},
     "item_type": {"enum": ["candidate_interaction", "candidate_artifact"]},
     "sanitized_local_locator": {
       "type": "object",
@@ -35,20 +35,20 @@
         "additionalProperties": false,
         "required": ["signal_id", "observation", "evidence_state"],
         "properties": {
-          "signal_id": {"enum": ["prompt_scope", "artifact_sensitivity", "identity_exposure", "evidence_conflict", "policy_uncertainty", "impact_severity", "human_review_need", "reversibility_risk"]},
+          "signal_id": {"enum": ["claim_uncertainty", "unreviewed_error_consequence", "evidence_quality", "reviewer_competence_for_claim", "current_queue_conditions", "novelty_vs_judgment_store", "cross_agent_disagreement", "expected_future_reuse_value"]},
           "observation": {"type": "string", "minLength": 1},
           "evidence_state": {"enum": ["observed", "derived", "unavailable"]}
         }
       },
       "allOf": [
-        {"contains": {"properties": {"signal_id": {"const": "prompt_scope"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "artifact_sensitivity"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "identity_exposure"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "evidence_conflict"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "policy_uncertainty"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "impact_severity"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "human_review_need"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
-        {"contains": {"properties": {"signal_id": {"const": "reversibility_risk"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1}
+        {"contains": {"properties": {"signal_id": {"const": "claim_uncertainty"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "unreviewed_error_consequence"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "evidence_quality"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "reviewer_competence_for_claim"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "current_queue_conditions"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "novelty_vs_judgment_store"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "cross_agent_disagreement"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "expected_future_reuse_value"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1}
       ]
     },
     "claim_boundary": {"const": "candidate_escalation_only"}

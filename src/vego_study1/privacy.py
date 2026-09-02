@@ -14,14 +14,14 @@ from jsonschema import Draft202012Validator
 
 SIGNAL_IDS = frozenset(
     {
-        "prompt_scope",
-        "artifact_sensitivity",
-        "identity_exposure",
-        "evidence_conflict",
-        "policy_uncertainty",
-        "impact_severity",
-        "human_review_need",
-        "reversibility_risk",
+        "claim_uncertainty",
+        "unreviewed_error_consequence",
+        "evidence_quality",
+        "reviewer_competence_for_claim",
+        "current_queue_conditions",
+        "novelty_vs_judgment_store",
+        "cross_agent_disagreement",
+        "expected_future_reuse_value",
     }
 )
 RAW_LOCATOR_KEYS = frozenset({"locator", "path", "raw_locator", "raw_content", "content"})

@@ -15,6 +15,16 @@ ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = ROOT / "schemas" / "study1" / "CandidateEscalationEvent-v1.schema.json"
 EXAMPLE_PATH = ROOT / "schemas" / "study1" / "examples" / "candidate-escalation-event-v1.synthetic.json"
 VALIDATOR_SCRIPT = ROOT / "scripts" / "validate_study1_privacy.py"
+REVIEW_POLICY_SIGNAL_IDS = (
+    "claim_uncertainty",
+    "unreviewed_error_consequence",
+    "evidence_quality",
+    "reviewer_competence_for_claim",
+    "current_queue_conditions",
+    "novelty_vs_judgment_store",
+    "cross_agent_disagreement",
+    "expected_future_reuse_value",
+)
 
 
 def synthetic_event() -> dict:
@@ -22,7 +32,7 @@ def synthetic_event() -> dict:
         "schema_version": "CandidateEscalationEvent-v1",
         "event_id": "8d9f2f51-3f06-4569-9a99-9a12a3286c34",
         "source": {"source_hash": "sha256:" + "a" * 64},
-        "stage": "triaged",
+        "stage": "case_inspection",
         "item_type": "candidate_interaction",
         "sanitized_local_locator": {
             "storage_scope": "private_workspace",
@@ -30,16 +40,7 @@ def synthetic_event() -> dict:
         },
         "signals": [
             {"signal_id": signal_id, "observation": "present", "evidence_state": "observed"}
-            for signal_id in (
-                "prompt_scope",
-                "artifact_sensitivity",
-                "identity_exposure",
-                "evidence_conflict",
-                "policy_uncertainty",
-                "impact_severity",
-                "human_review_need",
-                "reversibility_risk",
-            )
+            for signal_id in REVIEW_POLICY_SIGNAL_IDS
         ],
         "claim_boundary": "candidate_escalation_only",
     }
@@ -94,7 +95,7 @@ def test_event_validator_rejects_duplicate_signal_id_even_when_observations_diff
     """Catches eight distinct signal objects that do not cover all eight policy signals."""
     event = synthetic_event()
     event["signals"][-1] = {
-        "signal_id": "prompt_scope",
+        "signal_id": "claim_uncertainty",
         "observation": "second synthetic observation",
         "evidence_state": "observed",
     }
@@ -109,6 +110,24 @@ def test_event_validator_rejects_non_uuid_event_id():
     event["event_id"] = "synthetic-event-id"
 
     with pytest.raises(PrivacyValidationError, match="event_id"):
+        validate_candidate_event(event)
+
+
+def test_event_validator_rejects_legacy_signal_id():
+    """Catches a contract that accepts identifiers outside ReviewPolicySignalContract-v1."""
+    event = synthetic_event()
+    event["signals"][0]["signal_id"] = "prompt_scope"
+
+    with pytest.raises(PrivacyValidationError, match="unknown signal"):
+        validate_candidate_event(event)
+
+
+def test_event_validator_rejects_routing_outcome_as_stage():
+    """Catches a stage vocabulary that encodes routing outcomes instead of policy workflow stages."""
+    event = synthetic_event()
+    event["stage"] = "triaged"
+
+    with pytest.raises(PrivacyValidationError, match="stage"):
         validate_candidate_event(event)
 
 

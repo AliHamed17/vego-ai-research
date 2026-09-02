@@ -2,18 +2,18 @@
   "schema_version": "CandidateEscalationEvent-v1",
   "event_id": "a6b2ed4a-03de-4a7f-850a-2ce3b6df286d",
   "source": {"source_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"},
-  "stage": "observed",
+  "stage": "case_inspection",
   "item_type": "candidate_artifact",
   "sanitized_local_locator": {"storage_scope": "private_workspace", "locator_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"},
   "signals": [
-    {"signal_id": "prompt_scope", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "artifact_sensitivity", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "identity_exposure", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "evidence_conflict", "observation": "noted", "evidence_state": "unavailable"},
-    {"signal_id": "policy_uncertainty", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "impact_severity", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "human_review_need", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "reversibility_risk", "observation": "noted", "evidence_state": "derived"}
+    {"signal_id": "claim_uncertainty", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "unreviewed_error_consequence", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "evidence_quality", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "reviewer_competence_for_claim", "observation": "noted", "evidence_state": "unavailable"},
+    {"signal_id": "current_queue_conditions", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "novelty_vs_judgment_store", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "cross_agent_disagreement", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "expected_future_reuse_value", "observation": "noted", "evidence_state": "derived"}
   ],
   "claim_boundary": "candidate_escalation_only"
 }
