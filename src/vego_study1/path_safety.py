@@ -62,20 +62,59 @@ def reject_reparse_entry(path: Path, field_name: str, error_type: type[Exception
         raise error_type(f"{field_name} must not be a symlink or reparse point")
 
 
-def _reject_reparse_components(
+def reject_reparse_components(
     candidate: Path,
-    anchor: Path,
     field_name: str,
     error_type: type[Exception],
+    *,
+    containment_anchor: Path | None = None,
 ) -> None:
-    try:
-        relative = candidate.relative_to(anchor)
-    except ValueError as error:
-        raise error_type(f"{field_name} escapes its approved root") from error
-    current = anchor
-    for part in relative.parts:
+    """Reject redirects in every existing component before resolving or probing a leaf."""
+    absolute_candidate = _absolute_lexical(candidate)
+    if containment_anchor is not None:
+        absolute_anchor = _absolute_lexical(containment_anchor)
+        try:
+            absolute_candidate.relative_to(absolute_anchor)
+        except ValueError as error:
+            raise error_type(f"{field_name} escapes its approved root") from error
+    current = Path(absolute_candidate.anchor)
+    reject_reparse_entry(current, field_name, error_type)
+    for part in absolute_candidate.parts[1:]:
         current /= part
         reject_reparse_entry(current, field_name, error_type)
+
+
+def resolve_local_directory(
+    path: Path,
+    field_name: str,
+    error_type: type[Exception],
+    *,
+    containment_root: Path | None = None,
+) -> Path:
+    """Resolve one existing local directory only after all components are non-redirecting."""
+    candidate = _absolute_lexical(path)
+    reject_reparse_components(candidate, field_name, error_type)
+    try:
+        metadata = candidate.lstat()
+    except OSError as error:
+        raise error_type(f"{field_name} must be an existing local directory") from error
+    if not stat.S_ISDIR(metadata.st_mode):
+        raise error_type(f"{field_name} must be an existing local directory")
+    try:
+        resolved = candidate.resolve(strict=True)
+    except OSError as error:
+        raise error_type(f"{field_name} must be an existing local directory") from error
+    reject_reparse_components(candidate, field_name, error_type)
+    if containment_root is not None:
+        root_candidate = _absolute_lexical(containment_root)
+        reject_reparse_components(root_candidate, field_name, error_type)
+        try:
+            root = root_candidate.resolve(strict=True)
+        except OSError as error:
+            raise error_type(f"{field_name} selected source root is unavailable") from error
+        if not _is_within(resolved, root):
+            raise error_type(f"{field_name} resolved outside its selected source root")
+    return resolved
 
 
 def validate_private_output_root(
@@ -85,19 +124,35 @@ def validate_private_output_root(
 ) -> Path:
     """Authorize exactly one ignored, repository-owned Study 1 private destination."""
     candidate = _absolute_lexical(local_path(value, "private_output_root", error_type))
-    repository = Path(repository_root).resolve()
+    repository_candidate = _absolute_lexical(
+        local_path(repository_root, "repository_root", error_type)
+    )
+    repository = resolve_local_directory(
+        repository_candidate, "repository_root", error_type
+    )
     private_base = repository / "research-private" / "study1"
     if not _is_within(candidate, private_base):
         raise error_type(
             "private_output_root must be beneath this repository's research-private/study1"
         )
-    _reject_reparse_components(candidate, repository, "private_output_root", error_type)
+    reject_reparse_components(
+        candidate,
+        "private_output_root",
+        error_type,
+        containment_anchor=repository,
+    )
     resolved_candidate = candidate.resolve(strict=False)
     resolved_base = private_base.resolve(strict=False)
     if not _is_within(resolved_candidate, resolved_base):
         raise error_type(
             "private_output_root must resolve beneath this repository's research-private/study1"
         )
+    reject_reparse_components(
+        candidate,
+        "private_output_root",
+        error_type,
+        containment_anchor=repository,
+    )
     try:
         relative = candidate.relative_to(repository)
         ignored = (
@@ -125,15 +180,29 @@ def _mkdir_without_reparse(
     current = repository_root
     for part in relative.parts:
         current /= part
-        reject_reparse_entry(current, field_name, error_type)
+        reject_reparse_components(
+            current,
+            field_name,
+            error_type,
+            containment_anchor=repository_root,
+        )
         try:
             current.mkdir()
         except FileExistsError:
             pass
         except OSError as error:
             raise error_type(f"{field_name} directory creation failed") from error
-        reject_reparse_entry(current, field_name, error_type)
-        if not current.is_dir():
+        reject_reparse_components(
+            current,
+            field_name,
+            error_type,
+            containment_anchor=repository_root,
+        )
+        try:
+            metadata = current.lstat()
+        except OSError as error:
+            raise error_type(f"{field_name} directory verification failed") from error
+        if not stat.S_ISDIR(metadata.st_mode):
             raise error_type(f"{field_name} must contain only local directories")
 
 
@@ -148,11 +217,25 @@ def ensure_private_directory(
     candidate = _absolute_lexical(local_path(directory, "private directory", error_type))
     if not _is_within(candidate, root):
         raise error_type("private directory escapes private_output_root")
-    repository = Path(repository_root).resolve()
-    _reject_reparse_components(candidate, repository, "private directory", error_type)
+    repository = resolve_local_directory(
+        local_path(repository_root, "repository_root", error_type),
+        "repository_root",
+        error_type,
+    )
+    reject_reparse_components(
+        candidate,
+        "private directory",
+        error_type,
+        containment_anchor=repository,
+    )
     _mkdir_without_reparse(candidate, repository, "private directory", error_type)
     validate_private_output_root(root, repository, error_type)
-    _reject_reparse_components(candidate, repository, "private directory", error_type)
+    reject_reparse_components(
+        candidate,
+        "private directory",
+        error_type,
+        containment_anchor=repository,
+    )
     if not _is_within(candidate.resolve(strict=True), root.resolve(strict=True)):
         raise error_type("private directory resolved outside private_output_root")
     return candidate
@@ -167,22 +250,81 @@ def read_local_bytes(
 ) -> bytes:
     """Read a regular local file after immediate no-redirect and containment checks."""
     candidate = _absolute_lexical(path)
-    reject_reparse_entry(candidate, field_name, error_type)
+    reject_reparse_components(candidate, field_name, error_type)
     try:
+        metadata = candidate.lstat()
+        if not stat.S_ISREG(metadata.st_mode):
+            raise OSError("not a regular file")
         resolved = candidate.resolve(strict=True)
     except OSError as error:
         raise error_type(f"{field_name} must be a readable local file") from error
-    if containment_root is not None and not _is_within(
-        resolved, containment_root.resolve(strict=True)
-    ):
-        raise error_type(f"{field_name} resolved outside its selected source root")
+    resolved_root: Path | None = None
+    if containment_root is not None:
+        root_candidate = _absolute_lexical(containment_root)
+        reject_reparse_components(root_candidate, field_name, error_type)
+        try:
+            resolved_root = root_candidate.resolve(strict=True)
+        except OSError as error:
+            raise error_type(f"{field_name} selected source root is unavailable") from error
+        if not _is_within(resolved, resolved_root):
+            raise error_type(f"{field_name} resolved outside its selected source root")
     flags = os.O_RDONLY | getattr(os, "O_BINARY", 0) | getattr(os, "O_NOFOLLOW", 0)
     try:
         descriptor = os.open(candidate, flags)
         with os.fdopen(descriptor, "rb") as stream:
+            opened_metadata = os.fstat(stream.fileno())
+            if not stat.S_ISREG(opened_metadata.st_mode):
+                raise error_type(f"{field_name} must be a readable regular local file")
+            reject_reparse_components(candidate, field_name, error_type)
+            resolved_after_open = candidate.resolve(strict=True)
+            if resolved_after_open != resolved:
+                raise error_type(f"{field_name} changed while it was opened")
+            if resolved_root is not None and not _is_within(resolved_after_open, resolved_root):
+                raise error_type(f"{field_name} resolved outside its selected source root")
+            current_metadata = candidate.lstat()
+            if (
+                getattr(current_metadata, "st_dev", None),
+                getattr(current_metadata, "st_ino", None),
+            ) != (
+                getattr(opened_metadata, "st_dev", None),
+                getattr(opened_metadata, "st_ino", None),
+            ):
+                raise error_type(f"{field_name} changed while it was opened")
             return stream.read()
     except OSError as error:
         raise error_type(f"{field_name} must be a readable local file") from error
+
+
+def reject_path_alias(
+    source: Path,
+    destination: Path,
+    field_name: str,
+    error_type: type[Exception],
+) -> None:
+    """Reject lexical, resolved, or same-file aliases without following unsafe components."""
+    source_candidate = _absolute_lexical(source)
+    destination_candidate = _absolute_lexical(destination)
+    if source_candidate == destination_candidate:
+        raise error_type(f"{field_name} must not be a receipt destination alias")
+    reject_reparse_components(source_candidate, field_name, error_type)
+    reject_reparse_components(destination_candidate, "receipt destination", error_type)
+    if source_candidate.resolve(strict=False) == destination_candidate.resolve(strict=False):
+        raise error_type(f"{field_name} must not be a receipt destination alias")
+    try:
+        source_candidate.lstat()
+        destination_candidate.lstat()
+    except FileNotFoundError:
+        return
+    except OSError as error:
+        raise error_type(f"{field_name} alias check failed") from error
+    try:
+        aliases = os.path.samefile(source_candidate, destination_candidate)
+    except OSError as error:
+        raise error_type(f"{field_name} alias check failed") from error
+    reject_reparse_components(source_candidate, field_name, error_type)
+    reject_reparse_components(destination_candidate, "receipt destination", error_type)
+    if aliases:
+        raise error_type(f"{field_name} must not be a receipt destination alias")
 
 
 def assert_local_file_unchanged(
@@ -209,7 +351,12 @@ def atomic_write_private_text(
     if not _is_within(target, root):
         raise error_type("private destination escapes private_output_root")
     parent = ensure_private_directory(target.parent, root, repository_root, error_type)
-    reject_reparse_entry(target, "private destination", error_type)
+    reject_reparse_components(
+        target,
+        "private destination",
+        error_type,
+        containment_anchor=root,
+    )
     temporary = parent / f".{target.name}.{secrets.token_hex(8)}.tmp"
     flags = (
         os.O_WRONLY
@@ -221,14 +368,28 @@ def atomic_write_private_text(
     try:
         descriptor = os.open(temporary, flags, 0o600)
         with os.fdopen(descriptor, "wb") as stream:
+            if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
+                raise error_type("private destination temporary file is not regular")
             stream.write(content.encode("utf-8"))
             stream.flush()
             os.fsync(stream.fileno())
         validate_private_output_root(root, repository_root, error_type)
-        _reject_reparse_components(
-            parent, Path(repository_root).resolve(), "private destination", error_type
+        reject_reparse_components(
+            parent,
+            "private destination",
+            error_type,
+            containment_anchor=resolve_local_directory(
+                local_path(repository_root, "repository_root", error_type),
+                "repository_root",
+                error_type,
+            ),
         )
-        reject_reparse_entry(target, "private destination", error_type)
+        reject_reparse_components(
+            target,
+            "private destination",
+            error_type,
+            containment_anchor=root,
+        )
         os.replace(temporary, target)
     except OSError as error:
         raise error_type("private destination atomic write failed") from error

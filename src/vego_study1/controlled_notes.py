@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,7 @@ from .path_safety import (
     is_remote_value,
     local_path,
     read_local_bytes,
+    reject_path_alias,
     validate_private_output_root,
 )
 
@@ -52,15 +54,36 @@ def _private_study1_root(value: str | Path) -> Path:
 
 
 def _load_provenance(content: bytes) -> dict[str, Any]:
+    def _reject_constant(_value: str) -> None:
+        raise ValueError("non_standard_numeric_constant")
+
     try:
-        loaded = json.loads(content.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        loaded = json.loads(content.decode("utf-8"), parse_constant=_reject_constant)
+    except ValueError as error:
+        if str(error) == "non_standard_numeric_constant":
+            raise ControlledNotesError(
+                "provenance_manifest validation failed [non_standard_numeric_constant]"
+            ) from error
         raise ControlledNotesError("provenance_manifest must be valid JSON") from error
+    if _contains_non_finite_number(loaded):
+        raise ControlledNotesError(
+            "provenance_manifest validation failed [non_standard_numeric_constant]"
+        )
     if not isinstance(loaded, dict):
         raise ControlledNotesError("provenance_manifest must be a JSON object")
     if _contains_remote_url(loaded):
         raise ControlledNotesError("provenance_manifest must not contain a remote URL")
     return loaded
+
+
+def _contains_non_finite_number(value: Any) -> bool:
+    if isinstance(value, float):
+        return not math.isfinite(value)
+    if isinstance(value, dict):
+        return any(_contains_non_finite_number(item) for item in value.values())
+    if isinstance(value, list):
+        return any(_contains_non_finite_number(item) for item in value)
+    return False
 
 
 def _validate_provenance(provenance: dict[str, Any], source_hash: str, intended_use: str) -> None:
@@ -92,10 +115,21 @@ def _record_hashes(notes_path: Path, source_bytes: bytes) -> list[str]:
     if suffix == ".csv":
         records: list[Any] = list(csv.DictReader(content.splitlines()))
     elif suffix == ".json":
+        def _reject_constant(_value: str) -> None:
+            raise ValueError("non_standard_numeric_constant")
+
         try:
-            document = json.loads(content)
-        except json.JSONDecodeError as error:
+            document = json.loads(content, parse_constant=_reject_constant)
+        except ValueError as error:
+            if str(error) == "non_standard_numeric_constant":
+                raise ControlledNotesError(
+                    "notes_source validation failed [non_standard_numeric_constant]"
+                ) from error
             raise ControlledNotesError("notes_source JSON must be valid") from error
+        if _contains_non_finite_number(document):
+            raise ControlledNotesError(
+                "notes_source validation failed [non_standard_numeric_constant]"
+            )
         if isinstance(document, list):
             records = document
         elif isinstance(document, dict) and isinstance(document.get("records"), list):
@@ -108,9 +142,13 @@ def _record_hashes(notes_path: Path, source_bytes: bytes) -> list[str]:
         raise ControlledNotesError("notes_source must be CSV or JSON")
     return sorted(
         _sha256(
-            json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
-                "utf-8"
-            )
+            json.dumps(
+                record,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+                allow_nan=False,
+            ).encode("utf-8")
         )
         for record in records
     )
@@ -127,6 +165,19 @@ def import_controlled_notes(
     notes_path = local_path(notes_source, "notes_source", ControlledNotesError)
     manifest_path = local_path(provenance_manifest, "provenance_manifest", ControlledNotesError)
     output_root = _private_study1_root(private_output_root)
+    receipt_destination = output_root / RECEIPT_NAME
+    reject_path_alias(
+        notes_path,
+        receipt_destination,
+        "notes_source",
+        ControlledNotesError,
+    )
+    reject_path_alias(
+        manifest_path,
+        receipt_destination,
+        "provenance_manifest",
+        ControlledNotesError,
+    )
     source_bytes = read_local_bytes(notes_path, "notes_source", ControlledNotesError)
     provenance_bytes = read_local_bytes(manifest_path, "provenance_manifest", ControlledNotesError)
     source_hash = _sha256(source_bytes)
@@ -161,8 +212,8 @@ def import_controlled_notes(
     )
     ensure_private_directory(output_root, output_root, REPOSITORY_ROOT, ControlledNotesError)
     atomic_write_private_text(
-        output_root / RECEIPT_NAME,
-        json.dumps(receipt, indent=2, sort_keys=True) + "\n",
+        receipt_destination,
+        json.dumps(receipt, indent=2, sort_keys=True, allow_nan=False) + "\n",
         output_root,
         REPOSITORY_ROOT,
         ControlledNotesError,

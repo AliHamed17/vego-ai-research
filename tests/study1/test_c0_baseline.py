@@ -47,6 +47,13 @@ def _write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value), encoding="utf-8")
 
 
+def _symlink_or_skip(link: Path, target: Path, *, directory: bool = False) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=directory)
+    except OSError as error:
+        pytest.skip(f"local symlink creation is unavailable: {error}")
+
+
 def synthetic_c0_root(tmp_path: Path) -> Path:
     """Create the smallest non-sensitive frozen-C0 shaped fixture."""
     root = tmp_path / "frozen-c0"
@@ -116,7 +123,11 @@ def test_adapter_orders_uuid5_events_and_exposes_all_policy_signals(tmp_path: Pa
     assert signals["claim_uncertainty"]["observation"] == {
         "kind": "policy_input",
         "normalized_value": 0.8,
-        "missing_value_policy": "force_escalation",
+    }
+    assert signals["claim_uncertainty"]["evidence_state"] == "derived"
+    assert signals["claim_uncertainty"]["escalation_request"] == {
+        "kind": "requires_human_review",
+        "evidence_state": "observed",
     }
     assert signals["evidence_quality"]["observation"] == {
         "kind": "policy_input",
@@ -131,9 +142,35 @@ def test_adapter_orders_uuid5_events_and_exposes_all_policy_signals(tmp_path: Pa
     assert replay_signals["claim_uncertainty"] == {
         "signalId": "claim_uncertainty",
         "normalizedValue": 0.8,
-        "missing": True,
-        "missingValuePolicy": "force_escalation",
+        "missing": False,
     }
+    assert replay["explicitEscalationRequests"] == [
+        {
+            "signalId": "claim_uncertainty",
+            "trigger": "agent_requested_human_review",
+            "evidenceState": "observed",
+        }
+    ]
+
+
+def test_cooccurring_review_request_and_low_confidence_fire_independent_triggers(
+    tmp_path: Path,
+) -> None:
+    """Catches the observed request fact masking confidence in replay behavior."""
+    event = next(
+        candidate
+        for candidate in adapt_c0_root(synthetic_c0_root(tmp_path))
+        if candidate["stage"] == "variability_classification"
+    )
+
+    replay_results = run_baselines([event])["20"]["arms"]
+
+    assert replay_results["uncertainty_only"]["decisions"][0]["reason"] == (
+        "agent_requested_human_review+undetermined_classification+"
+        "low_confidence+guideline_update_proposed"
+    )
+    assert replay_results["fixed_threshold"]["decisions"][0]["escalate"] is True
+    assert "fixed_threshold" in replay_results["fixed_threshold"]["decisions"][0]["reason"]
 
 
 def test_agent_c_high_severity_does_not_fabricate_error_consequence(tmp_path: Path):
@@ -172,6 +209,48 @@ def test_adapter_uses_one_immutable_byte_snapshot_for_hashing_and_parsing(
     events = module.adapt_c0_root(root)
 
     assert sum(event["stage"] == "template" for event in events) == 4
+
+
+@pytest.mark.parametrize("constant", ["NaN", "Infinity", "-Infinity", "1e999"])
+def test_adapter_rejects_non_standard_json_numeric_constants(
+    tmp_path: Path, constant: str
+) -> None:
+    """Catches permissive JSON parsing of values that cannot be serialized portably."""
+    root = synthetic_c0_root(tmp_path)
+    target = root / "eval_output" / "ucd_ch" / "agentB_guideline_mapping.json"
+    target.write_text(
+        '{"clusters":[{"run1_guideline":{"mapping_certainty":' + constant + "}}]}",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(C0ValidationError, match="non_standard_numeric_constant"):
+        adapt_c0_root(root)
+
+
+def test_c0_discovery_safety_checks_entries_before_any_is_file_probe(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """Catches C0 discovery following a leaf before the reparse-point safety gate."""
+    root = synthetic_c0_root(tmp_path)
+
+    def _unexpected_is_file(_path: Path) -> bool:
+        raise AssertionError("C0 discovery called Path.is_file before safety validation")
+
+    monkeypatch.setattr(Path, "is_file", _unexpected_is_file)
+
+    assert adapt_c0_root(root)
+
+
+def test_c0_rejects_reparse_point_in_a_parent_component(tmp_path: Path) -> None:
+    """Catches a safe-looking C0 leaf reached through an unsafe parent component."""
+    real_parent = tmp_path / "real-parent"
+    root = synthetic_c0_root(real_parent)
+    linked_parent = tmp_path / "linked-parent"
+    _symlink_or_skip(linked_parent, real_parent, directory=True)
+    aliased_root = linked_parent / root.relative_to(real_parent)
+
+    with pytest.raises(C0ValidationError, match="symlink|reparse"):
+        adapt_c0_root(aliased_root)
 
 
 def test_byte_identical_files_at_one_stage_have_unique_event_ids(tmp_path: Path):
@@ -230,24 +309,21 @@ def test_artifacts_are_sanitized_and_private_root_is_enforced(tmp_path: Path):
     assert str(root) not in rendered
     assert "candidate_signal_availability_by_stage" in public_json
     assert all("pairwise_jaccard_overlap" in rate for rate in public_json["rates"].values())
-    manifest = json.loads((private_root / "frozen-c0-manifest.json").read_text(encoding="utf-8"))
-    expected_manifest_hash = (
-        "sha256:"
-        + hashlib.sha256(
-            json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
-                "utf-8"
-            )
-        ).hexdigest()
-    )
+    manifest_path = private_root / "frozen-c0-manifest.json"
+    expected_manifest_hash = "sha256:" + hashlib.sha256(manifest_path.read_bytes()).hexdigest()
     assert public_json["frozen_manifest"] == {
         "manifest_hash": expected_manifest_hash,
         "mutation_check": "passed",
     }
     assert public_json["seed"] == 20260902
+    emitted_artifacts = {
+        "candidate_events": private_root / "candidate-events.json",
+        "frozen_manifest": manifest_path,
+        "replay_ledgers": private_root / "replay-ledgers.json",
+    }
     assert public_json["report_hashes"] == {
-        "candidate_events": public_json["report_hashes"]["candidate_events"],
-        "frozen_manifest": expected_manifest_hash,
-        "replay_ledgers": public_json["report_hashes"]["replay_ledgers"],
+        artifact: "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+        for artifact, path in emitted_artifacts.items()
     }
     assert set(public_json["selection_stability_by_arm"]) == {
         "never_ask",

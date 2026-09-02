@@ -27,7 +27,16 @@ def _git_text(repository: Path, *arguments: str) -> str:
     ).stdout.strip()
 
 
-def _repository_with_branch_diff(tmp_path: Path, content: str) -> Path:
+def _symlink_or_skip(link: Path, target: Path, *, directory: bool = False) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=directory)
+    except OSError as error:
+        pytest.skip(f"local symlink creation is unavailable: {error}")
+
+
+def _repository_with_branch_diff(
+    tmp_path: Path, content: str, *, relative_path: str = "docs/public.md"
+) -> Path:
     """Build a small committed branch diff containing one public artifact."""
     repository = tmp_path / "synthetic-release-repository"
     repository.mkdir()
@@ -38,9 +47,10 @@ def _repository_with_branch_diff(tmp_path: Path, content: str) -> Path:
     _git(repository, "add", "README.md")
     _git(repository, "commit", "-qm", "base")
     _git(repository, "branch", "baseline")
-    (repository / "docs").mkdir()
-    (repository / "docs" / "public.md").write_text(content, encoding="utf-8")
-    _git(repository, "add", "docs/public.md")
+    artifact = repository.joinpath(*relative_path.split("/"))
+    artifact.parent.mkdir(parents=True)
+    artifact.write_text(content, encoding="utf-8")
+    _git(repository, "add", "--", relative_path)
     _git(repository, "commit", "-qm", "public artifact")
     return repository
 
@@ -112,7 +122,7 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
             "C:" + chr(92) + "private" + chr(92) + "stu" + "dent" + chr(92) + "record.json",
             "raw_subject_path",
         ),
-        ("/pri" + "vate/" + "eval_" + "output/run.json", "raw_evaluation_output_path"),
+        ("/" + "private/" + "eval_" + "output/run.json", "raw_evaluation_output_path"),
         ("model" + "/output.json", "raw_subject_path"),
         ("student" + "/output.json", "raw_subject_path"),
         ("expert" + "/output.json", "raw_subject_path"),
@@ -125,10 +135,17 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
         ),
         ("1" + "AbCdEfGhIjKlMnOpQrStUvWxYz012345", "drive_id"),
         ("\\" + r"\server\share\artifact.json", "remote_or_unc_reference"),
-        ('{"artifact_uri": "fi' + 'le://host/private.bin"}', "remote_or_unc_reference"),
+        ('{"artifact_uri": "file' + '://host/private.bin"}', "remote_or_unc_reference"),
         ("artifact_uri: 's3" + "://private-bucket/item'", "remote_or_unc_reference"),
-        ('{"endpoint": "https://' + 'review.internal/api"}', "private_url"),
-        ("endpoint: https://service." + "private/path", "private_url"),
+        ('{"artifact_uri": "gs' + '://private-bucket/item"}', "remote_or_unc_reference"),
+        ('{"artifact_path": "/' + '/server/share/item.json"}', "remote_or_unc_reference"),
+        ('{"artifact_path": "/' + 'mnt/secure/item.json"}', "absolute_path_reference"),
+        ('{"review_host": "review.' + 'internal"}', "private_host_reference"),
+        ("artifact_uri: gs" + "://private-bucket/item", "remote_or_unc_reference"),
+        ("artifact_path: /" + "mnt/secure/item.json", "absolute_path_reference"),
+        ("review_host: review." + "internal", "private_host_reference"),
+        ('{"endpoint": "https://' + 'review.' + 'internal/api"}', "private_url"),
+        ("endpoint: https://service." + "pri" + "vate/path", "private_url"),
         ("api_" + "key=" + "abcDEF1234567890", "credential_like"),
         ('"api_' + 'key": "' + "abcDEF1234567890" + '"', "credential_like"),
         ("OPENAI_" + "API_" + "KEY=" + "abcDEF1234567890", "credential_like"),
@@ -161,6 +178,20 @@ def test_release_validator_rejects_an_unknown_diff_base(tmp_path: Path):
         module.validate_release_diff(repository, base_ref="missing-base")
 
 
+def test_release_validator_rejects_reparse_point_in_repository_parent(tmp_path: Path) -> None:
+    """Catches Git repository probing through a redirecting path component."""
+    module = _validator_module()
+    real_parent = tmp_path / "real-parent"
+    real_parent.mkdir()
+    repository = _repository_with_branch_diff(real_parent, "sanitized public protocol\n")
+    linked_parent = tmp_path / "linked-parent"
+    _symlink_or_skip(linked_parent, real_parent, directory=True)
+    aliased_repository = linked_parent / repository.relative_to(real_parent)
+
+    with pytest.raises(module.ReleaseValidationError, match="symlink|reparse"):
+        module.validate_release_diff(aliased_repository, base_ref="baseline")
+
+
 @pytest.mark.parametrize("content", [b"\xff\xfe\x00private", b"safe-prefix\x00binary"])
 def test_release_validator_fails_closed_for_undecodable_or_binary_changed_blobs(
     tmp_path: Path, content: bytes
@@ -185,3 +216,74 @@ def test_release_validator_allows_only_exact_explicit_binary_path_allowlist(
     monkeypatch.setattr(module, "SAFE_BINARY_PATHS", frozenset({"docs/public.bin"}), raising=False)
 
     assert module.validate_release_diff(repository, base_ref="baseline") == []
+
+
+def test_release_validator_rejects_sanitized_blob_at_prohibited_relative_path(
+    tmp_path: Path,
+) -> None:
+    """Catches content-only scanning that permits a private-zone path with sanitized bytes."""
+    module = _validator_module()
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        '{"status": "sanitized"}\n',
+        relative_path="research-private/study1/sanitized.json",
+    )
+
+    findings = module.validate_release_diff(repository, base_ref="baseline")
+
+    assert (
+        repository / "research-private" / "study1" / "sanitized.json",
+        "private_release_path",
+    ) in {(finding.path, finding.kind) for finding in findings}
+
+
+def test_release_validator_includes_type_changes_and_rejects_non_regular_head_entries(
+    tmp_path: Path,
+) -> None:
+    """Catches type-changed symlink or gitlink entries being omitted from the resolved-head scan."""
+    module = _validator_module()
+    repository = _repository_with_branch_diff(tmp_path, "sanitized regular content\n")
+    _git(repository, "branch", "regular-head")
+    target = subprocess.run(
+        ["git", "-C", str(repository), "hash-object", "-w", "--stdin"],
+        input=b"synthetic-target",
+        check=True,
+        capture_output=True,
+    ).stdout.decode("ascii").strip()
+    _git(repository, "update-index", "--cacheinfo", f"120000,{target},docs/public.md")
+    _git(repository, "commit", "-qm", "type change")
+
+    scan = module.scan_release_diff(repository, base_ref="regular-head")
+
+    assert scan.paths == (repository / "docs" / "public.md",)
+    assert [(finding.path, finding.kind) for finding in scan.findings] == [
+        (repository / "docs" / "public.md", "non_regular_tree_entry")
+    ]
+
+
+@pytest.mark.parametrize(
+    "raw_path",
+    [
+        b".." + b"/outside.json\0",
+        bytes((47,)) + b"absolute.json\0",
+        b"C:" + bytes((92,)) + b"absolute.json\0",
+        b"nested" + bytes((92,)) + b"escape.json\0",
+    ],
+)
+def test_release_validator_rejects_non_repository_relative_diff_paths(
+    tmp_path: Path, monkeypatch, raw_path: bytes
+) -> None:
+    """Catches traversal, absolute, drive, or alternate-separator paths from Git output."""
+    module = _validator_module()
+    repository = _repository_with_branch_diff(tmp_path, "sanitized\n")
+    original = module._run_git
+
+    def _malicious_diff(root: Path, *arguments: str) -> bytes:
+        if arguments and arguments[0] == "diff":
+            return raw_path
+        return original(root, *arguments)
+
+    monkeypatch.setattr(module, "_run_git", _malicious_diff)
+
+    with pytest.raises(module.ReleaseValidationError, match="outside the repository"):
+        module.validate_release_diff(repository, base_ref="baseline")

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import subprocess
 import sys
 from pathlib import Path
 
@@ -12,26 +11,30 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from vego_study1.privacy import validate_tracked_artifacts  # noqa: E402
-
-
-def proposed_paths() -> list[Path]:
-    result = subprocess.run(
-        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return [Path(line) for line in result.stdout.splitlines()]
+from vego_study1.privacy import (  # noqa: E402
+    PrivacyValidationError,
+    scan_staged_artifacts,
+)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("paths", nargs="*", type=Path, help="proposed public artifacts")
+    parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=ROOT,
+        help="repository whose staged index objects are validated",
+    )
     args = parser.parse_args()
-    findings = validate_tracked_artifacts(args.paths or proposed_paths())
+    try:
+        scan = scan_staged_artifacts(args.repository_root)
+    except PrivacyValidationError as error:
+        parser.error(str(error))
+    findings = scan.findings
     for finding in findings:
-        print(f"{finding.path}:{finding.line}: {finding.kind}")
+        print(f"field=staged_artifact line={finding.line} category={finding.kind}")
+    if not findings:
+        print(f"Study 1 privacy validation passed for {len(scan.paths)} staged artifact(s).")
     return 1 if findings else 0
 
 

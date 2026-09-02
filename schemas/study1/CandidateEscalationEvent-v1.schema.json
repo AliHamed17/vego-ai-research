@@ -18,12 +18,21 @@
       "properties": {
         "kind": {"const": "policy_input"},
         "normalized_value": {"type": "number", "minimum": 0, "maximum": 1},
-        "missing_value_policy": {"enum": ["force_escalation", "force_undetermined"]}
+        "missing_value_policy": {"const": "force_undetermined"}
       },
       "anyOf": [
         {"required": ["normalized_value"]},
         {"required": ["missing_value_policy"]}
       ]
+    },
+    "escalationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "evidence_state"],
+      "properties": {
+        "kind": {"const": "requires_human_review"},
+        "evidence_state": {"const": "observed"}
+      }
     }
   },
   "required": ["schema_version", "event_id", "source", "stage", "item_type", "sanitized_local_locator", "signals", "claim_boundary"],
@@ -64,7 +73,8 @@
               {"$ref": "#/$defs/policyInputObservation"}
             ]
           },
-          "evidence_state": {"enum": ["observed", "derived", "unavailable"]}
+          "evidence_state": {"enum": ["observed", "derived", "unavailable"]},
+          "escalation_request": {"$ref": "#/$defs/escalationRequest"}
         },
         "allOf": [
           {
@@ -77,6 +87,12 @@
             },
             "else": {
               "properties": {"observation": {"$ref": "#/$defs/policyInputObservation"}}
+            }
+          },
+          {
+            "if": {"required": ["escalation_request"]},
+            "then": {
+              "properties": {"signal_id": {"const": "claim_uncertainty"}}
             }
           }
         ]

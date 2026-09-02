@@ -56,6 +56,21 @@ def _write_synthetic_notes_and_manifest(tmp_path: Path) -> tuple[Path, Path]:
     return notes, manifest
 
 
+def _write_manifest_for(notes: Path, manifest: Path) -> Path:
+    manifest.write_text(
+        json.dumps(
+            {
+                "schema_version": "ControlledNotesProvenance-v1",
+                "source_hash": "sha256:" + hashlib.sha256(notes.read_bytes()).hexdigest(),
+                "source_classification": "controlled_development_only",
+                "intended_use": "development_only",
+            }
+        ),
+        encoding="utf-8",
+    )
+    return manifest
+
+
 def _symlink_or_skip(link: Path, target: Path, *, directory: bool = False) -> None:
     try:
         link.symlink_to(target, target_is_directory=directory)
@@ -268,6 +283,34 @@ def test_controlled_notes_aborts_if_source_mutates_after_snapshot(tmp_path, monk
         )
 
 
+@pytest.mark.parametrize("constant", ["NaN", "Infinity", "-Infinity", "1e999"])
+def test_controlled_notes_rejects_non_standard_json_numeric_constants(
+    tmp_path: Path, constant: str
+) -> None:
+    """Catches non-standard JSON numbers in either controlled JSON boundary."""
+    module = _notes_module()
+    notes = tmp_path / "synthetic-notes.json"
+    notes.write_text('{"score":' + constant + "}", encoding="utf-8")
+    manifest = _write_manifest_for(notes, tmp_path / "synthetic-provenance.json")
+
+    with pytest.raises(module.ControlledNotesError, match="non_standard_numeric_constant"):
+        module.import_controlled_notes(
+            notes, manifest, _private_root(tmp_path), intended_use="development_only"
+        )
+
+    provenance_constant = tmp_path / "constant-provenance.json"
+    provenance_constant.write_text(constant, encoding="utf-8")
+    csv_notes = tmp_path / "synthetic-notes.csv"
+    csv_notes.write_text("topic,observation\nalpha,synthetic\n", encoding="utf-8")
+    with pytest.raises(module.ControlledNotesError, match="non_standard_numeric_constant"):
+        module.import_controlled_notes(
+            csv_notes,
+            provenance_constant,
+            _private_root(tmp_path),
+            intended_use="development_only",
+        )
+
+
 def test_controlled_notes_rejects_symlink_source_entry(tmp_path):
     """Catches a controlled source path that redirects outside the selected local file."""
     module = _notes_module()
@@ -279,6 +322,97 @@ def test_controlled_notes_rejects_symlink_source_entry(tmp_path):
         module.import_controlled_notes(
             link, manifest, _private_root(tmp_path), intended_use="development_only"
         )
+
+
+def test_controlled_notes_rejects_reparse_point_in_source_parent_component(tmp_path):
+    """Catches controlled inputs reached through a redirecting parent directory."""
+    module = _notes_module()
+    real_parent = tmp_path / "real-parent"
+    notes, manifest = _write_synthetic_notes_and_manifest(real_parent)
+    linked_parent = tmp_path / "linked-parent"
+    _symlink_or_skip(linked_parent, real_parent, directory=True)
+
+    with pytest.raises(module.ControlledNotesError, match="symlink|reparse"):
+        module.import_controlled_notes(
+            linked_parent / notes.name,
+            linked_parent / manifest.name,
+            _private_root(tmp_path),
+            intended_use="development_only",
+        )
+
+
+def test_controlled_notes_rejects_lexical_receipt_collision_before_write(tmp_path):
+    """Catches a notes source being overwritten by its own fixed receipt destination."""
+    module = _notes_module()
+    output_root = _private_root(tmp_path)
+    output_root.mkdir(parents=True)
+    receipt = output_root / module.RECEIPT_NAME
+    receipt.write_text("topic,observation\nalpha,synthetic\n", encoding="utf-8")
+    original = receipt.read_bytes()
+    manifest = _write_manifest_for(receipt, tmp_path / "synthetic-provenance.json")
+
+    with pytest.raises(module.ControlledNotesError, match="receipt destination alias"):
+        module.import_controlled_notes(
+            receipt, manifest, output_root, intended_use="development_only"
+        )
+
+    assert receipt.read_bytes() == original
+
+
+def test_controlled_notes_rejects_resolved_receipt_collision_before_write(tmp_path):
+    """Catches a dot-segment source alias targeting the fixed receipt destination."""
+    module = _notes_module()
+    output_root = _private_root(tmp_path)
+    (output_root / "alias").mkdir(parents=True)
+    receipt = output_root / module.RECEIPT_NAME
+    receipt.write_text("topic,observation\nalpha,synthetic\n", encoding="utf-8")
+    original = receipt.read_bytes()
+    alias = output_root / "alias" / ".." / module.RECEIPT_NAME
+    manifest = _write_manifest_for(receipt, tmp_path / "synthetic-provenance.json")
+
+    with pytest.raises(module.ControlledNotesError, match="receipt destination alias"):
+        module.import_controlled_notes(alias, manifest, output_root, intended_use="development_only")
+
+    assert receipt.read_bytes() == original
+
+
+def test_controlled_notes_rejects_same_file_receipt_collision_before_write(tmp_path):
+    """Catches a hard-link alias targeting the fixed receipt destination."""
+    module = _notes_module()
+    output_root = _private_root(tmp_path)
+    output_root.mkdir(parents=True)
+    notes = tmp_path / "synthetic-notes.csv"
+    notes.write_text("topic,observation\nalpha,synthetic\n", encoding="utf-8")
+    receipt = output_root / module.RECEIPT_NAME
+    try:
+        receipt.hardlink_to(notes)
+    except OSError as error:
+        pytest.skip(f"local hard-link creation is unavailable: {error}")
+    original = receipt.read_bytes()
+    manifest = _write_manifest_for(notes, tmp_path / "synthetic-provenance.json")
+
+    with pytest.raises(module.ControlledNotesError, match="receipt destination alias"):
+        module.import_controlled_notes(notes, manifest, output_root, intended_use="development_only")
+
+    assert receipt.read_bytes() == original
+
+
+def test_controlled_notes_rejects_manifest_receipt_collision_before_write(tmp_path):
+    """Catches provenance being overwritten when it is the fixed receipt destination."""
+    module = _notes_module()
+    notes = tmp_path / "synthetic-notes.csv"
+    notes.write_text("topic,observation\nalpha,synthetic\n", encoding="utf-8")
+    output_root = _private_root(tmp_path)
+    output_root.mkdir(parents=True)
+    receipt = _write_manifest_for(notes, output_root / module.RECEIPT_NAME)
+    original = receipt.read_bytes()
+
+    with pytest.raises(module.ControlledNotesError, match="receipt destination alias"):
+        module.import_controlled_notes(
+            notes, receipt, output_root, intended_use="development_only"
+        )
+
+    assert receipt.read_bytes() == original
 
 
 def test_controlled_notes_rejects_symlink_receipt_leaf_without_overwriting_target(tmp_path):

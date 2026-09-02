@@ -130,7 +130,14 @@ def test_synthetic_c0_integration_preserves_determinism_arms_budgets_and_signals
     assert observations["claim_uncertainty"] == {
         "kind": "policy_input",
         "normalized_value": 0.8,
-        "missing_value_policy": "force_escalation",
+    }
+    claim_signal = next(
+        signal for signal in forced["signals"] if signal["signal_id"] == "claim_uncertainty"
+    )
+    assert claim_signal["evidence_state"] == "derived"
+    assert claim_signal["escalation_request"] == {
+        "kind": "requires_human_review",
+        "evidence_state": "observed",
     }
     assert observations["evidence_quality"] == {
         "kind": "policy_input",

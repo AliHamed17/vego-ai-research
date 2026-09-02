@@ -29,4 +29,4 @@ Use it on every generated public summary, presentation extract, and results temp
 
 ## Release boundary
 
-Public artifacts may contain only sanitized aggregates, opaque hashes, schemas, deterministic code, and this bounded documentation. They must not contain raw input, evaluation output, local or remote locator references, credentials, source text, person identities, or unreviewed notes. The release validator scans the selected Git branch diff only; ignored private material is not read or treated as publishable evidence.
+Public artifacts may contain only sanitized aggregates, opaque hashes, schemas, deterministic code, and this bounded documentation. They must not contain raw input, evaluation output, local or remote locator references, credentials, source text, person identities, or unreviewed notes. The release validator scans non-deleted entries and exact object bytes from the resolved head tree of the selected Git branch diff; the staged privacy validator scans exact index objects. Neither validator treats dirty working-tree bytes or ignored private material as publishable evidence.

@@ -159,6 +159,20 @@ def test_inventory_rejects_symlink_entries_during_state_discovery(tmp_path):
         module.write_state_diagram_inventory(source, _private_root(tmp_path))
 
 
+def test_inventory_rejects_reparse_point_in_state_root_parent_component(tmp_path):
+    """Catches a source root reached through a redirecting parent directory."""
+    module = _inventory_module()
+    real_parent = tmp_path / "real-parent"
+    real_parent.mkdir()
+    source = _synthetic_state_root(real_parent)
+    linked_parent = tmp_path / "linked-parent"
+    _symlink_or_skip(linked_parent, real_parent, directory=True)
+    aliased_source = linked_parent / source.relative_to(real_parent)
+
+    with pytest.raises(module.StateDiagramInventoryError, match="symlink|reparse"):
+        module.write_state_diagram_inventory(aliased_source, _private_root(tmp_path))
+
+
 def test_inventory_rejects_symlink_receipt_leaf_without_overwriting_target(tmp_path):
     """Catches an inventory receipt leaf redirecting a write outside the approved root."""
     module = _inventory_module()

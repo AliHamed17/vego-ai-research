@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
@@ -23,7 +24,7 @@ from .path_safety import (
     ensure_private_directory,
     local_path,
     read_local_bytes,
-    reject_reparse_entry,
+    resolve_local_directory,
     validate_private_output_root,
 )
 from .privacy import validate_candidate_event
@@ -56,11 +57,21 @@ class SelectedFile:
 
 
 def _canonical_json(value: Any) -> str:
-    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
 
 
 def _sha256_bytes(value: bytes) -> str:
     return "sha256:" + hashlib.sha256(value).hexdigest()
+
+
+def _serialized_json_bytes(value: Any) -> bytes:
+    return (_canonical_json(value) + "\n").encode("utf-8")
 
 
 def _locator_hash(*parts: object) -> str:
@@ -68,23 +79,50 @@ def _locator_hash(*parts: object) -> str:
 
 
 def _read_json(content: bytes) -> Mapping[str, Any]:
+    def _reject_constant(_value: str) -> None:
+        raise ValueError("non_standard_numeric_constant")
+
     try:
-        loaded = json.loads(content.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        loaded = json.loads(content.decode("utf-8"), parse_constant=_reject_constant)
+    except ValueError as error:
+        if str(error) == "non_standard_numeric_constant":
+            raise C0ValidationError(
+                "selected C0 artifact validation failed [non_standard_numeric_constant]"
+            ) from error
         raise C0ValidationError("selected C0 artifact is not valid UTF-8 JSON") from error
+    if _contains_non_finite_number(loaded):
+        raise C0ValidationError(
+            "selected C0 artifact validation failed [non_standard_numeric_constant]"
+        )
     if not isinstance(loaded, Mapping):
         raise C0ValidationError("selected C0 artifact must contain a JSON object")
     return loaded
 
 
+def _contains_non_finite_number(value: Any) -> bool:
+    if isinstance(value, float):
+        return not math.isfinite(value)
+    if isinstance(value, Mapping):
+        return any(_contains_non_finite_number(item) for item in value.values())
+    if isinstance(value, (list, tuple)):
+        return any(_contains_non_finite_number(item) for item in value)
+    return False
+
+
 def _select_files(c0_root: Path | str) -> tuple[SelectedFile, ...]:
     root_candidate = local_path(c0_root, "c0_root", C0ValidationError)
-    reject_reparse_entry(root_candidate, "c0_root", C0ValidationError)
-    root = root_candidate.resolve()
-    evaluation_root = root / "eval_output"
-    reject_reparse_entry(evaluation_root, "c0_root", C0ValidationError)
-    if not evaluation_root.is_dir():
-        raise C0ValidationError("--c0-root must contain eval_output")
+    root = resolve_local_directory(root_candidate, "c0_root", C0ValidationError)
+    try:
+        evaluation_root = resolve_local_directory(
+            root / "eval_output",
+            "c0_root",
+            C0ValidationError,
+            containment_root=root,
+        )
+    except C0ValidationError as error:
+        if "symlink" in str(error) or "reparse" in str(error):
+            raise
+        raise C0ValidationError("--c0-root must contain eval_output") from error
 
     selected: list[SelectedFile] = []
     patterns = {
@@ -96,18 +134,25 @@ def _select_files(c0_root: Path | str) -> tuple[SelectedFile, ...]:
     for stage in STAGES:
         pattern = patterns[stage]
         for setting in SETTINGS:
-            directory = evaluation_root / setting
-            reject_reparse_entry(directory, "c0_root", C0ValidationError)
-            if not directory.is_dir():
-                raise C0ValidationError("all four frozen C0 setting directories are required")
+            try:
+                directory = resolve_local_directory(
+                    evaluation_root / setting,
+                    "c0_root",
+                    C0ValidationError,
+                    containment_root=evaluation_root,
+                )
+            except C0ValidationError as error:
+                if "symlink" in str(error) or "reparse" in str(error):
+                    raise
+                raise C0ValidationError(
+                    "all four frozen C0 setting directories are required"
+                ) from error
             files = sorted(directory.glob(pattern), key=lambda candidate: candidate.name)
             if stage in {"template", "guideline"} and len(files) != 1:
                 raise C0ValidationError(
                     "each setting requires one Agent A and one Agent B mapping artifact"
                 )
             for index, path in enumerate(files):
-                if not path.is_file():
-                    continue
                 content = read_local_bytes(
                     path,
                     "selected C0 artifact",
@@ -188,6 +233,16 @@ def _normalized(signal_id: str, value: float) -> dict[str, Any]:
 
 def _missing(signal_id: str, policy: str) -> dict[str, Any]:
     return _policy_input(signal_id, missing_value_policy=policy)
+
+
+def _with_review_request(signal: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **signal,
+        "escalation_request": {
+            "kind": "requires_human_review",
+            "evidence_state": "observed",
+        },
+    }
 
 
 def _signals(overrides: Mapping[str, dict[str, Any]]) -> list[dict[str, Any]]:
@@ -321,11 +376,15 @@ def _variability_candidates(item: SelectedFile) -> Iterable[dict[str, Any]]:
             continue
         overrides: dict[str, dict[str, Any]] = {}
         confidence_value = {"low": 0.8, "medium": 0.6}.get(confidence)
-        if confidence_value is not None or requested:
-            overrides["claim_uncertainty"] = _policy_input(
-                "claim_uncertainty",
-                normalized_value=confidence_value,
-                missing_value_policy="force_escalation" if requested else None,
+        if confidence_value is not None:
+            overrides["claim_uncertainty"] = _normalized(
+                "claim_uncertainty", confidence_value
+            )
+        elif requested:
+            overrides["claim_uncertainty"] = _unavailable("claim_uncertainty")
+        if requested:
+            overrides["claim_uncertainty"] = _with_review_request(
+                overrides["claim_uncertainty"]
             )
         if undetermined:
             overrides["evidence_quality"] = _missing("evidence_quality", "force_undetermined")
@@ -356,9 +415,10 @@ def _adapt_selected(selected: Sequence[SelectedFile]) -> list[dict[str, Any]]:
 
 
 def candidate_to_replay_event(candidate: Mapping[str, Any]) -> dict[str, Any]:
-    """Translate a candidate record into the unchanged policy engine contract."""
+    """Translate independent candidate facts into one policy-engine event."""
     validated = validate_candidate_event(dict(candidate))
     observations = []
+    explicit_requests = []
     for signal in validated["signals"]:
         signal_id = signal["signal_id"]
         observation = signal["observation"]
@@ -374,10 +434,20 @@ def candidate_to_replay_event(candidate: Mapping[str, Any]) -> dict[str, Any]:
             else:
                 policy_observation["missing"] = False
         observations.append(policy_observation)
+        request = signal.get("escalation_request")
+        if request is not None:
+            explicit_requests.append(
+                {
+                    "signalId": signal_id,
+                    "trigger": "agent_requested_human_review",
+                    "evidenceState": request["evidence_state"],
+                }
+            )
     return {
         "eventId": validated["event_id"],
         "fragmentId": validated["event_id"],
         "reviewerCandidates": [],
+        "explicitEscalationRequests": explicit_requests,
         "signalObservations": observations,
     }
 
@@ -413,13 +483,16 @@ def _sanitized_summary(
     candidates: Sequence[Mapping[str, Any]],
     results: Mapping[str, Any],
     manifest: Mapping[str, Any],
+    artifact_hashes: Mapping[str, str],
 ) -> dict[str, Any]:
     availability: dict[str, Counter[str]] = {stage: Counter() for stage in STAGES}
     candidate_ids_by_stage: dict[str, set[str]] = {stage: set() for stage in STAGES}
     for event in candidates:
-        availability[str(event["stage"])].update(
-            signal["evidence_state"] for signal in event["signals"]
-        )
+        for signal in event["signals"]:
+            availability[str(event["stage"])].update([signal["evidence_state"]])
+            request = signal.get("escalation_request")
+            if request is not None:
+                availability[str(event["stage"])].update([request["evidence_state"]])
         candidate_ids_by_stage[str(event["stage"])].add(str(event["event_id"]))
     rates: dict[str, Any] = {}
     for rate, result in results.items():
@@ -473,7 +546,7 @@ def _sanitized_summary(
         }
         for arm_id in arm_ids
     }
-    manifest_hash = _sha256_bytes(_canonical_json(dict(manifest)).encode("utf-8"))
+    manifest_hash = artifact_hashes["frozen_manifest"]
     return {
         "claim_boundary": CLAIM_BOUNDARY,
         "seed": SEED,
@@ -487,11 +560,7 @@ def _sanitized_summary(
         },
         "rates": rates,
         "selection_stability_by_arm": selection_stability,
-        "report_hashes": {
-            "candidate_events": _sha256_bytes(_canonical_json(list(candidates)).encode("utf-8")),
-            "frozen_manifest": manifest_hash,
-            "replay_ledgers": _sha256_bytes(_canonical_json(results).encode("utf-8")),
-        },
+        "report_hashes": dict(artifact_hashes),
     }
 
 
@@ -622,35 +691,43 @@ def write_baseline_artifacts(
     candidates = _adapt_selected(selected)
     results = run_baselines(candidates)
     assert_manifest_unchanged(c0_root, manifest)
+    artifact_bytes = {
+        "frozen_manifest": _serialized_json_bytes(manifest),
+        "candidate_events": _serialized_json_bytes(candidates),
+        "replay_ledgers": _serialized_json_bytes(results),
+    }
+    artifact_hashes = {
+        artifact: _sha256_bytes(content) for artifact, content in artifact_bytes.items()
+    }
 
     ensure_private_directory(output_root, output_root, REPOSITORY_ROOT, C0ValidationError)
     atomic_write_private_text(
         output_root / "frozen-c0-manifest.json",
-        _canonical_json(manifest) + "\n",
+        artifact_bytes["frozen_manifest"].decode("utf-8"),
         output_root,
         REPOSITORY_ROOT,
         C0ValidationError,
     )
     atomic_write_private_text(
         output_root / "candidate-events.json",
-        _canonical_json(candidates) + "\n",
+        artifact_bytes["candidate_events"].decode("utf-8"),
         output_root,
         REPOSITORY_ROOT,
         C0ValidationError,
     )
     atomic_write_private_text(
         output_root / "replay-ledgers.json",
-        _canonical_json(results) + "\n",
+        artifact_bytes["replay_ledgers"].decode("utf-8"),
         output_root,
         REPOSITORY_ROOT,
         C0ValidationError,
     )
-    summary = _sanitized_summary(candidates, results, manifest)
+    summary = _sanitized_summary(candidates, results, manifest, artifact_hashes)
     sanitized = output_root / "sanitized"
     ensure_private_directory(sanitized, output_root, REPOSITORY_ROOT, C0ValidationError)
     atomic_write_private_text(
         sanitized / "study1-c0-baseline-summary.json",
-        _canonical_json(summary) + "\n",
+        _serialized_json_bytes(summary).decode("utf-8"),
         output_root,
         REPOSITORY_ROOT,
         C0ValidationError,

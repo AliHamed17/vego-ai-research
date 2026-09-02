@@ -178,6 +178,67 @@ def test_uncertainty_only_matches_hand_computed_expectation(events) -> None:
     assert by_id["EVT-FIX-011"].reason == "guideline_update_proposed"
 
 
+def test_explicit_review_request_coexists_with_numeric_confidence_for_every_arm() -> None:
+    """Catches an observed review request masking a separately derived confidence value."""
+    event = {
+        "eventId": "EVT-COOCCURRING-001",
+        "fragmentId": "EVT-COOCCURRING-001",
+        "reviewerCandidates": [],
+        "explicitEscalationRequests": [
+            {
+                "signalId": "claim_uncertainty",
+                "trigger": "agent_requested_human_review",
+                "evidenceState": "observed",
+            }
+        ],
+        "signalObservations": [
+            {
+                "signalId": "claim_uncertainty",
+                "normalizedValue": 0.8,
+                "missing": False,
+            }
+        ],
+    }
+
+    ledgers = replay_all([event], budget=1, seed=7)
+
+    uncertainty = ledgers["uncertainty_only"].decisions[0]
+    assert uncertainty.escalate is True
+    assert uncertainty.reason == "agent_requested_human_review+low_confidence"
+    threshold = ledgers["fixed_threshold"].decisions[0]
+    assert threshold.escalate is True
+    assert threshold.reason == "mean_signal_score=0.8000>=fixed_threshold=0.6000"
+    proposed = ledgers["proposed_joint_policy"].decisions[0]
+    assert proposed.escalate is True
+    assert proposed.reason.startswith("explicit_review_request:claim_uncertainty")
+
+
+@pytest.mark.parametrize(
+    "requests",
+    [
+        "agent_requested_human_review",
+        [{"signalId": "claim_uncertainty", "trigger": "unexpected", "evidenceState": "observed"}],
+        [
+            {
+                "signalId": "claim_uncertainty",
+                "trigger": "agent_requested_human_review",
+                "evidenceState": "derived",
+            }
+        ],
+    ],
+)
+def test_explicit_review_request_contract_fails_closed(requests: object) -> None:
+    """Catches unbounded or non-observed request facts entering policy replay."""
+    event = {
+        "eventId": "EVT-REQUEST-VALIDATION-001",
+        "explicitEscalationRequests": requests,
+        "signalObservations": [],
+    }
+
+    with pytest.raises(PolicyValidationError, match="explicit escalation request"):
+        replay_all([event], budget=1, seed=7)
+
+
 def test_budget_exhaustion_produces_deferred_not_dropped(events) -> None:
     ledger = replay(Arm("uncertainty_only"), events, 4)
     assert ledger.escalated_event_ids == (

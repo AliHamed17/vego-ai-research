@@ -17,7 +17,7 @@ Every top-level key below is emitted by the sanitized summary. Nested rows name 
 | `candidate_signal_availability_by_stage` | |
 | `rates` | The three matched-budget summaries used in the ledger sections below. |
 | `selection_stability_by_arm` | Pairwise Jaccard values across 5%, 10%, and 20%. |
-| `report_hashes` | Exact deterministic artifact hashes; see nested fields below. |
+| `report_hashes` | SHA-256 hashes of the exact serialized artifact file bytes, including the terminal newline; see nested fields below. |
 
 | Exact nested summary field | Value |
 | --- | --- |

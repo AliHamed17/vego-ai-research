@@ -347,6 +347,17 @@ def _observation(event: Mapping[str, Any], signal_id: str) -> Mapping[str, Any] 
     return None
 
 
+def _has_explicit_escalation_request(event: Mapping[str, Any], signal_id: str) -> bool:
+    """Return whether an independently observed human-review request exists."""
+    return any(
+        isinstance(request, Mapping)
+        and request.get("signalId") == signal_id
+        and request.get("trigger") == TRIGGER_AGENT_REQUESTED
+        and request.get("evidenceState") == "observed"
+        for request in event.get("explicitEscalationRequests", ())
+    )
+
+
 def _normalized(observation: Mapping[str, Any] | None) -> float | None:
     if observation is None or observation.get("missing") is True:
         return None
@@ -468,10 +479,11 @@ def _uncertainty_only_trigger(
     comparator reads the same triggers mapped onto ReviewPolicySignalContract-v1
     signal fields as follows:
 
-    - agent_requested_human_review (requires_human_review == True):
-      claim_uncertainty observation with ``missing == true`` and
-      ``missingValuePolicy == "force_escalation"`` (the emitting agent
-      abstained from quantifying and demanded review).
+    - agent_requested_human_review (requires_human_review == True): an
+      independently observed ``explicitEscalationRequests`` fact for
+      claim_uncertainty. The legacy claim_uncertainty representation with
+      ``missing == true`` and ``missingValuePolicy == "force_escalation"``
+      remains supported when no numeric value exists.
     - undetermined_classification (classification == "Undetermined"):
       evidence_quality observation with ``missing == true`` and
       ``missingValuePolicy == "force_undetermined"`` (no evidence-quality
@@ -500,9 +512,12 @@ def _uncertainty_only_trigger(
     reasons: list[str] = []
     uncertainty = _observation(event, SIGNAL_CLAIM_UNCERTAINTY)
     if (
-        uncertainty is not None
-        and uncertainty.get("missing") is True
-        and uncertainty.get("missingValuePolicy") == "force_escalation"
+        _has_explicit_escalation_request(event, SIGNAL_CLAIM_UNCERTAINTY)
+        or (
+            uncertainty is not None
+            and uncertainty.get("missing") is True
+            and uncertainty.get("missingValuePolicy") == "force_escalation"
+        )
     ):
         reasons.append(TRIGGER_AGENT_REQUESTED)
     evidence = _observation(event, SIGNAL_EVIDENCE_QUALITY)
@@ -561,10 +576,11 @@ def _proposed_trigger(arm: Arm, event: Mapping[str, Any]) -> tuple[bool, str, st
 
     Combined score follows the contract's combinationRule shape: a weighted sum
     of per-signal normalized values with signed coefficients (burden and
-    evidence quality enter negatively in the default weights). A missing signal
-    whose declared ``missingValuePolicy`` is ``force_escalation`` escalates
-    outright; other missing signals are excluded from the score. When the score
-    clears ``escalation_threshold``, the reviewer is chosen by
+    evidence quality enter negatively in the default weights). An explicit
+    escalation request, or a legacy missing signal whose declared
+    ``missingValuePolicy`` is ``force_escalation``, escalates outright; other
+    missing signals are excluded from the score. When the score clears
+    ``escalation_threshold``, the reviewer is chosen by
     ``select_reviewer`` (a DESIGN PLACEHOLDER pending supervisor decision
     ISS-043; see its docstring).
     """
@@ -576,6 +592,17 @@ def _proposed_trigger(arm: Arm, event: Mapping[str, Any]) -> tuple[bool, str, st
     candidates = event.get("reviewerCandidates", ())
 
     for entry in weights:
+        if _has_explicit_escalation_request(event, str(entry["signalId"])):
+            reviewer = select_reviewer(
+                candidates,
+                competence_floor=competence_floor,
+                fragment_id=fragment_id if isinstance(fragment_id, str) else None,
+            )
+            reason = f"explicit_review_request:{entry['signalId']}"
+            reason += (
+                f"+selected_reviewer={reviewer}" if reviewer else "+no_selectable_reviewer"
+            )
+            return True, reason, reviewer
         observation = _observation(event, str(entry["signalId"]))
         if (
             observation is not None
@@ -684,6 +711,38 @@ def _validate_events(events: Sequence[Mapping[str, Any]]) -> None:
             if signal_id in observed:
                 raise PolicyValidationError(f"{event_id}: duplicate signalId {signal_id!r}")
             observed.add(signal_id)
+        requests = event.get("explicitEscalationRequests", ())
+        if not isinstance(requests, Sequence) or isinstance(requests, (str, bytes)):
+            raise PolicyValidationError(
+                f"{event_id}: explicit escalation requests must be a sequence"
+            )
+        requested_signals: set[str] = set()
+        for request in requests:
+            if not isinstance(request, Mapping) or set(request) != {
+                "signalId",
+                "trigger",
+                "evidenceState",
+            }:
+                raise PolicyValidationError(
+                    f"{event_id}: explicit escalation requests must use the bounded shape"
+                )
+            signal_id = request.get("signalId")
+            if signal_id not in SIGNAL_IDS:
+                raise PolicyValidationError(
+                    f"{event_id}: explicit escalation request has unknown signalId"
+                )
+            if (
+                request.get("trigger") != TRIGGER_AGENT_REQUESTED
+                or request.get("evidenceState") != "observed"
+            ):
+                raise PolicyValidationError(
+                    f"{event_id}: explicit escalation request has invalid semantics"
+                )
+            if signal_id in requested_signals:
+                raise PolicyValidationError(
+                    f"{event_id}: duplicate explicit escalation request signalId"
+                )
+            requested_signals.add(str(signal_id))
 
 
 def replay(

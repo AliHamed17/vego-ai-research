@@ -1,10 +1,12 @@
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
 
 import pytest
 
+import vego_study1.privacy as privacy
 from vego_study1.c0 import candidate_to_replay_event
 from vego_study1.privacy import (
     PrivacyValidationError,
@@ -110,7 +112,7 @@ def test_event_validator_accepts_derived_evidence_state():
 @pytest.mark.parametrize(
     "observation",
     [
-        "C" + ":/pri" + "vate/raw-note.txt",
+        "C:" + "/" + "private/raw-note.txt",
         {"kind": "unknown", "value": "raw note text"},
         {"kind": "policy_input", "normalized_value": 1.1},
         {"kind": "policy_input"},
@@ -201,9 +203,15 @@ def test_public_example_round_trips_to_bounded_replay_semantics():
     assert observations["claim_uncertainty"] == {
         "signalId": "claim_uncertainty",
         "normalizedValue": 0.8,
-        "missing": True,
-        "missingValuePolicy": "force_escalation",
+        "missing": False,
     }
+    assert replay["explicitEscalationRequests"] == [
+        {
+            "signalId": "claim_uncertainty",
+            "trigger": "agent_requested_human_review",
+            "evidenceState": "observed",
+        }
+    ]
     assert observations["evidence_quality"] == {
         "signalId": "evidence_quality",
         "missing": True,
@@ -228,6 +236,120 @@ def test_candidate_conversion_validates_input_before_replay_translation():
 
     with pytest.raises(PrivacyValidationError, match="observation|schema violation"):
         candidate_to_replay_event(event)
+
+
+def test_candidate_conversion_preserves_observed_request_and_derived_confidence() -> None:
+    """Catches co-occurring facts being collapsed into one missing numeric observation."""
+    event = synthetic_event()
+    event["signals"][0].update(
+        {
+            "observation": {"kind": "policy_input", "normalized_value": 0.8},
+            "evidence_state": "derived",
+            "escalation_request": {
+                "kind": "requires_human_review",
+                "evidence_state": "observed",
+            },
+        }
+    )
+
+    validated = validate_candidate_event(event)
+    replay = candidate_to_replay_event(validated)
+
+    assert validated["signals"][0]["escalation_request"]["evidence_state"] == "observed"
+    assert replay["signalObservations"][0] == {
+        "signalId": "claim_uncertainty",
+        "normalizedValue": 0.8,
+        "missing": False,
+    }
+    assert replay["explicitEscalationRequests"] == [
+        {
+            "signalId": "claim_uncertainty",
+            "trigger": "agent_requested_human_review",
+            "evidenceState": "observed",
+        }
+    ]
+
+
+def test_candidate_validator_rejects_legacy_collapsed_force_escalation_observation() -> None:
+    """Catches review requests being encoded as missing numeric signal values again."""
+    event = synthetic_event()
+    event["signals"][0]["observation"] = {
+        "kind": "policy_input",
+        "normalized_value": 0.8,
+        "missing_value_policy": "force_escalation",
+    }
+
+    with pytest.raises(PrivacyValidationError, match="observation.*enum|schema violation"):
+        validate_candidate_event(event)
+
+
+@pytest.mark.parametrize(
+    "mutate",
+    [
+        lambda event: event["signals"][1].update(
+            {
+                "escalation_request": {
+                    "kind": "requires_human_review",
+                    "evidence_state": "observed",
+                }
+            }
+        ),
+        lambda event: event["signals"][0].update(
+            {
+                "escalation_request": {
+                    "kind": "requires_human_review",
+                    "evidence_state": "derived",
+                }
+            }
+        ),
+    ],
+)
+def test_candidate_validator_bounds_explicit_review_request_semantics(mutate) -> None:
+    """Catches review-request facts attached to the wrong signal or provenance state."""
+    event = synthetic_event()
+    mutate(event)
+
+    with pytest.raises(PrivacyValidationError, match="schema violation"):
+        validate_candidate_event(event)
+
+
+@pytest.mark.parametrize("non_finite", [float("nan"), float("inf"), float("-inf")])
+def test_candidate_validator_rejects_non_finite_numbers_without_echoing_values(
+    non_finite: float,
+) -> None:
+    """Catches non-finite candidate values crossing the JSON validation boundary."""
+    event = synthetic_event()
+    event["signals"][0]["observation"]["normalized_value"] = non_finite
+
+    with pytest.raises(PrivacyValidationError, match="non_finite_number") as captured:
+        validate_candidate_event(event)
+
+    assert repr(non_finite) not in str(captured.value).casefold()
+
+
+def test_candidate_schema_errors_report_only_field_and_category() -> None:
+    """Catches rejected private instance text being reflected in validation errors."""
+    event = synthetic_event()
+    private_value = "C:" + "/" + "sensitive/control" + "led/item.json"
+    event["stage"] = private_value
+
+    with pytest.raises(PrivacyValidationError) as captured:
+        validate_candidate_event(event)
+
+    message = str(captured.value)
+    assert message == "candidate event schema violation at stage [enum]"
+    assert private_value not in message
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [b'{"value":NaN}', b'{"value":Infinity}', b'{"value":-Infinity}', b'{"value":1e999}'],
+)
+def test_public_json_byte_scanner_rejects_every_non_finite_numeric_form(payload: bytes) -> None:
+    """Catches non-portable JSON numbers in exact tracked or staged object bytes."""
+    assert (1, "non_finite_json_number") in privacy.public_artifact_byte_findings(
+        payload, relative_path="docs/public.json"
+    )
 
 
 def test_tracked_artifact_validator_reports_only_unsafe_synthetic_markers(tmp_path):
@@ -260,9 +382,13 @@ def test_tracked_artifact_validator_reports_only_unsafe_synthetic_markers(tmp_pa
 @pytest.mark.parametrize(
     ("unsafe_content", "expected_kind"),
     [
-        ('{"uri": "fi' + 'le://host/private.bin"}', "remote_or_unc_reference"),
+        ('{"uri": "file' + '://host/private.bin"}', "remote_or_unc_reference"),
         ("uri: 's3" + "://private-bucket/object'", "remote_or_unc_reference"),
-        ('{"endpoint": "https://' + 'service.local/value"}', "private_url"),
+        ('{"uri": "gs' + '://private-bucket/object"}', "remote_or_unc_reference"),
+        ('{"path": "/' + '/server/share/object"}', "remote_or_unc_reference"),
+        ('{"path": "/' + 'mnt/secure/object"}', "absolute_path_reference"),
+        ('{"host": "review.' + 'internal"}', "private_host_reference"),
+        ('{"endpoint": "https://' + 'service.' + 'local/value"}', "private_url"),
     ],
 )
 def test_privacy_scanner_rejects_quoted_remote_values_and_private_hosts(
@@ -278,10 +404,96 @@ def test_privacy_scanner_rejects_quoted_remote_values_and_private_hosts(
 def test_privacy_validator_cli_accepts_the_public_synthetic_example():
     """Catches direct CLI execution that loses the repository src import path."""
     result = subprocess.run(
-        [sys.executable, str(VALIDATOR_SCRIPT), str(EXAMPLE_PATH)],
+        [sys.executable, str(VALIDATOR_SCRIPT), "--repository-root", str(ROOT)],
         cwd=ROOT,
         capture_output=True,
         text=True,
     )
 
     assert result.returncode == 0, result.stderr
+
+
+def _git(repository: Path, *arguments: str) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(
+        ["git", "-C", str(repository), *arguments],
+        check=True,
+        capture_output=True,
+    )
+
+
+def _staged_repository(tmp_path: Path, content: bytes, *, name: str = "public.json") -> Path:
+    repository = tmp_path / "staged-repository"
+    repository.mkdir()
+    _git(repository, "init", "-q")
+    _git(repository, "config", "user.email", "study1@example.test")
+    _git(repository, "config", "user.name", "Study 1 Test")
+    (repository / "README.md").write_text("base\n", encoding="utf-8")
+    _git(repository, "add", "README.md")
+    _git(repository, "commit", "-qm", "base")
+    artifact = repository / "docs" / name
+    artifact.parent.mkdir()
+    artifact.write_bytes(content)
+    _git(repository, "add", "--", f"docs/{name}")
+    return repository
+
+
+def test_privacy_cli_scans_nul_delimited_index_bytes_from_any_cwd(tmp_path: Path) -> None:
+    """Catches dirty masking, CWD drift, and working-tree reads in one regression."""
+    unsafe = ("RAW" + "_CONTROLLED_CONTENT\n").encode()
+    repository = _staged_repository(tmp_path, unsafe, name="public artifact.json")
+    artifact = repository / "docs" / "public artifact.json"
+    artifact.write_text('{"status": "sanitized dirty mask"}\n', encoding="utf-8")
+    nested_cwd = repository / "nested" / "cwd"
+    nested_cwd.mkdir(parents=True)
+    environment = dict(os.environ)
+    environment.pop("PYTHONPATH", None)
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            str(VALIDATOR_SCRIPT),
+            "--repository-root",
+            str(repository),
+        ],
+        cwd=nested_cwd,
+        env=environment,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 1, completed.stderr
+    assert "controlled_content_marker" in completed.stdout
+    assert "public artifact.json" not in completed.stdout
+
+
+def test_staged_path_parser_preserves_newlines_inside_nul_delimited_names() -> None:
+    """Catches line-oriented parsing of Git's NUL-delimited staged path stream."""
+    assert hasattr(privacy, "_decode_nul_paths")
+    assert privacy._decode_nul_paths(b"docs/public\nartifact.json\0docs/second.json\0") == (
+        "docs/public\nartifact.json",
+        "docs/second.json",
+    )
+
+
+def test_staged_privacy_scan_fails_closed_for_undecodable_object_bytes(tmp_path: Path) -> None:
+    """Catches invalid UTF-8 staged object bytes being silently skipped."""
+    repository = _staged_repository(tmp_path, b"\xff\xfeprivate")
+
+    assert hasattr(privacy, "scan_staged_artifacts")
+    scan = privacy.scan_staged_artifacts(repository)
+
+    assert [finding.kind for finding in scan.findings] == ["undecodable_or_binary_artifact"]
+
+
+def test_staged_privacy_scan_fails_closed_when_an_index_object_is_missing(tmp_path: Path) -> None:
+    """Catches a missing staged object being treated as an empty or safe artifact."""
+    repository = _staged_repository(tmp_path, b'{"status": "safe"}\n')
+    object_id = _git(repository, "rev-parse", ":docs/public.json").stdout.decode("ascii").strip()
+    loose_object = repository / ".git" / "objects" / object_id[:2] / object_id[2:]
+    os.chmod(loose_object, 0o600)
+    loose_object.unlink()
+
+    assert hasattr(privacy, "scan_staged_artifacts")
+    with pytest.raises(PrivacyValidationError, match="staged_object_unreadable"):
+        privacy.scan_staged_artifacts(repository)

@@ -15,6 +15,7 @@ from .path_safety import (
     local_path,
     read_local_bytes,
     reject_reparse_entry,
+    resolve_local_directory,
     validate_private_output_root,
 )
 
@@ -44,8 +45,6 @@ def _is_within(candidate: Path, parent: Path) -> bool:
 
 
 def _source_files(source_root: Path, private_output_root: Path) -> list[Path]:
-    if not source_root.is_dir():
-        raise StateDiagramInventoryError("state_root must be an existing local directory")
     if _is_within(private_output_root, source_root):
         raise StateDiagramInventoryError("private_output_root must not be inside state_root")
     files: list[Path] = []
@@ -116,8 +115,9 @@ def write_state_diagram_inventory(
         private_output_root, "private_output_root", StateDiagramInventoryError
     )
     output_root = _private_study1_root(output_candidate)
-    reject_reparse_entry(source_candidate, "state_root", StateDiagramInventoryError)
-    source_root = source_candidate.resolve()
+    source_root = resolve_local_directory(
+        source_candidate, "state_root", StateDiagramInventoryError
+    )
     files = _source_files(source_root, output_root)
     receipt = _build_receipt(source_root, files)
     ensure_private_directory(
