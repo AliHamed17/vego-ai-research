@@ -239,10 +239,6 @@ def _case_candidates(item: SelectedFile) -> Iterable[dict[str, Any]]:
             overrides: dict[str, dict[str, str]] = {}
             if str(fragment.get("label", "")).strip().lower() == "alternative":
                 overrides["claim_uncertainty"] = _normalized("claim_uncertainty", 0.8)
-            if str(fragment.get("severity", "")).strip().lower() == "high":
-                overrides["unreviewed_error_consequence"] = _normalized(
-                    "unreviewed_error_consequence", 0.9
-                )
             yield _candidate(item, index, item_type="candidate_interaction", signal_overrides=overrides)
     potential = source.get("potential_found", [])
     if isinstance(potential, list):
@@ -410,6 +406,41 @@ def _summary_markdown(summary: Mapping[str, Any]) -> str:
     lines.extend(["## Candidate counts", "", "| Stage | Candidates |", "| --- | ---: |"])
     for stage, count in sorted(summary["candidate_count_by_stage"].items()):
         lines.append(f"| {stage} | {count} |")
+    lines.extend(["", "## Signal availability by stage", "", "| Stage | Derived | Observed | Unavailable |", "| --- | ---: | ---: | ---: |"])
+    for stage, counts in sorted(summary["candidate_signal_availability_by_stage"].items()):
+        lines.append(
+            f"| {stage} | {counts.get('derived', 0)} | {counts.get('observed', 0)} | "
+            f"{counts.get('unavailable', 0)} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Queue and budget use",
+            "",
+            "| Rate | Arm | Budget | Consumed | Remaining | Escalated | Deferred | Declined |",
+            "| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for rate, rate_summary in sorted(summary["rates"].items(), key=lambda item: int(item[0])):
+        for arm_id, arm in sorted(rate_summary["arms"].items()):
+            queue, budget = arm["queue"], arm["budget"]
+            lines.append(
+                f"| {rate}% | {arm_id} | {budget['amount']} | {budget['consumed']} | "
+                f"{budget['remaining']} | {queue['escalated']} | {queue['deferred']} | "
+                f"{queue['declined']} |"
+            )
+    lines.extend(["", "## Trigger attribution", "", "| Rate | Arm | Trigger | Count |", "| ---: | --- | --- | ---: |"])
+    for rate, rate_summary in sorted(summary["rates"].items(), key=lambda item: int(item[0])):
+        for arm_id, arm in sorted(rate_summary["arms"].items()):
+            for trigger, count in sorted(arm["trigger_attribution"].items()):
+                lines.append(f"| {rate}% | {arm_id} | {trigger} | {count} |")
+    lines.extend(["", "## Pairwise Jaccard overlap", "", "| Rate | Arms | Jaccard |", "| ---: | --- | ---: |"])
+    for rate, rate_summary in sorted(summary["rates"].items(), key=lambda item: int(item[0])):
+        for arms, overlap in sorted(rate_summary["pairwise_jaccard_overlap"].items()):
+            lines.append(f"| {rate}% | {arms} | {overlap:.6f} |")
+    lines.extend(["", "## Deterministic report hashes", "", "| Artifact | SHA-256 |", "| --- | --- |"])
+    for artifact, value in sorted(summary["report_hashes"].items()):
+        lines.append(f"| {artifact} | {value} |")
     return "\n".join(lines) + "\n"
 
 

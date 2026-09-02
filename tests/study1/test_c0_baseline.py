@@ -96,6 +96,18 @@ def test_adapter_orders_uuid5_events_and_exposes_all_policy_signals(tmp_path: Pa
     assert signals["novelty_vs_judgment_store"]["observation"] == "normalized:0.900"
 
 
+def test_agent_c_high_severity_does_not_fabricate_error_consequence(tmp_path: Path):
+    events = adapt_c0_root(synthetic_c0_root(tmp_path))
+    case_event = next(event for event in events if event["stage"] == "case_inspection")
+    signals = {signal["signal_id"]: signal for signal in case_event["signals"]}
+
+    assert signals["unreviewed_error_consequence"] == {
+        "signal_id": "unreviewed_error_consequence",
+        "observation": "unavailable",
+        "evidence_state": "unavailable",
+    }
+
+
 def test_six_arms_share_events_budgets_and_deterministic_random_replay(tmp_path: Path):
     events = adapt_c0_root(synthetic_c0_root(tmp_path))
     first = run_baselines(events)
@@ -126,6 +138,9 @@ def test_artifacts_are_sanitized_and_private_root_is_enforced(tmp_path: Path):
     public_json = json.loads(
         (private_root / "sanitized" / "study1-c0-baseline-summary.json").read_text(encoding="utf-8")
     )
+    markdown = (private_root / "sanitized" / "study1-c0-baseline-summary.md").read_text(
+        encoding="utf-8"
+    )
     rendered = json.dumps(public_json)
 
     assert result["claim_boundary"] == "descriptive_candidate_escalation_only_no_outcome_evidence"
@@ -134,5 +149,15 @@ def test_artifacts_are_sanitized_and_private_root_is_enforced(tmp_path: Path):
     assert str(root) not in rendered
     assert "candidate_signal_availability_by_stage" in public_json
     assert all("pairwise_jaccard_overlap" in rate for rate in public_json["rates"].values())
+    for required_section in (
+        "Candidate counts",
+        "Signal availability by stage",
+        "Queue and budget use",
+        "Trigger attribution",
+        "Pairwise Jaccard overlap",
+        "Deterministic report hashes",
+        "descriptive_candidate_escalation_only_no_outcome_evidence",
+    ):
+        assert required_section in markdown
     with pytest.raises(C0ValidationError, match="research-private/study1"):
         write_baseline_artifacts(root, tmp_path / "not-private")
