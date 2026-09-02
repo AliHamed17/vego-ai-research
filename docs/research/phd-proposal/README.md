@@ -14,6 +14,9 @@ This directory turns the requirements from the 29 July 2026 supervisor call into
 6. [`iris-requirements-closure-audit.md`](./iris-requirements-closure-audit.md) — point-by-point `R/A/Q` readiness audit with call times, evidence, presentation checks, and remaining gates.
 7. [`../meetings/2026-08-05-supervisor-presentation-checklist.md`](../meetings/2026-08-05-supervisor-presentation-checklist.md) — 12-checkpoint video-call outline, full requirement coverage, decision worksheet, preflight, and closeout.
 8. [`iris-alignment-experiment-register.md`](./iris-alignment-experiment-register.md) — separate non-production assurance series for traceability, presentation readiness, claim boundaries, and weekly propagation.
+9. [`iris-arnon-requirements-2026-09-02.en.md`](./iris-arnon-requirements-2026-09-02.en.md) / [`.he.md`](./iris-arnon-requirements-2026-09-02.he.md) — reviewed paraphrase of the 2026-09-02 supervisor call that narrowed the preliminary study to one descriptive WHEN-to-escalate study and set the 09-03 / 09-06 / 09-09 deliverables.
+10. [`iris-arnon-requirements-2026-09-02-checklist.md`](./iris-arnon-requirements-2026-09-02-checklist.md) — word-by-word checklist of that call (115 items) with where each is addressed.
+11. [`2026-09-03-preliminary-study-design.en.md`](./2026-09-03-preliminary-study-design.en.md) / [`.he.md`](./2026-09-03-preliminary-study-design.he.md) — the one-page study design due Thursday 2026-09-03 (EXP-045; descriptive; no improvement claim).
 
 ## Canonical working research architecture
 

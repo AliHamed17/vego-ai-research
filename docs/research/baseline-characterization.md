@@ -45,7 +45,7 @@ admissible ground truth is independently collected expert labels (not yet suppli
 
 | Layer | Count | Detail |
 | --- | ---: | --- |
-| M1 review queue | 11 / 27 | Targeting rate 40.7%. Triggers: `requires_human_review` (most common), low/medium confidence, `flag_for_guidelines_update`. |
+| M1 review queue | 11 / 27 | Targeting rate 40.7%. Trigger reasons recorded in the four `human_review_queue.jsonl` files: `guideline_update_proposed` on 9 items and `medium_confidence` on 3 items (one `cd_ch` item carries both); `agent_requested_human_review` and `low_confidence` fired 0 times (corrected 2026-09-02 against the queue files; the earlier wording listed `requires_human_review` as most common). |
 | M2 feedback | 4 | 100% schema-valid, 0 signature mismatches; `approve` + `reclassify` decisions, complete rationales. |
 | M3 memory | 3 | 3 of 4 feedback entries promoted to reusable memory; full provenance chains; `ucd_ch` setting. |
 | M4A advice | 8 advised | Advice-strength distribution below. `ai_classification_changed = false` on all. |
