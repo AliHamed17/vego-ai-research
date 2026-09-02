@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.example/schemas/study1/CandidateEscalationEvent-v1.schema.json",
+  "title": "CandidateEscalationEvent-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "source", "stage", "item_type", "sanitized_local_locator", "signals", "claim_boundary"],
+  "properties": {
+    "schema_version": {"const": "CandidateEscalationEvent-v1"},
+    "event_id": {"type": "string", "format": "uuid"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_hash"],
+      "properties": {"source_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}}
+    },
+    "stage": {"enum": ["observed", "triaged", "escalated"]},
+    "item_type": {"enum": ["candidate_interaction", "candidate_artifact"]},
+    "sanitized_local_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["storage_scope", "locator_hash"],
+      "properties": {
+        "storage_scope": {"const": "private_workspace"},
+        "locator_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["signal_id", "observation", "evidence_state"],
+        "properties": {
+          "signal_id": {"enum": ["prompt_scope", "artifact_sensitivity", "identity_exposure", "evidence_conflict", "policy_uncertainty", "impact_severity", "human_review_need", "reversibility_risk"]},
+          "observation": {"type": "string", "minLength": 1},
+          "evidence_state": {"enum": ["observed", "unavailable", "not_applicable"]}
+        }
+      }
+    },
+    "claim_boundary": {"const": "candidate_escalation_only"}
+  }
+}

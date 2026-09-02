@@ -1,0 +1,19 @@
+{
+  "schema_version": "CandidateEscalationEvent-v1",
+  "event_id": "a6b2ed4a-03de-4a7f-850a-2ce3b6df286d",
+  "source": {"source_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"},
+  "stage": "observed",
+  "item_type": "candidate_artifact",
+  "sanitized_local_locator": {"storage_scope": "private_workspace", "locator_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"},
+  "signals": [
+    {"signal_id": "prompt_scope", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "artifact_sensitivity", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "identity_exposure", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "evidence_conflict", "observation": "noted", "evidence_state": "unavailable"},
+    {"signal_id": "policy_uncertainty", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "impact_severity", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "human_review_need", "observation": "noted", "evidence_state": "observed"},
+    {"signal_id": "reversibility_risk", "observation": "noted", "evidence_state": "not_applicable"}
+  ],
+  "claim_boundary": "candidate_escalation_only"
+}
