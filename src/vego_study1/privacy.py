@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import ast
+import io
 import ipaddress
 import json
 import math
 import re
 import subprocess
+import tokenize
 import unicodedata
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -279,6 +282,7 @@ PROHIBITED_PUBLIC_PATH_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("raw_evaluation_output_path", re.compile(r"(?i)(?:^|/)eval_output(?:/|$)")),
 )
 STRUCTURED_ARTIFACT_SUFFIXES = frozenset({".json", ".yaml", ".yml"})
+PYTHON_ARTIFACT_SUFFIXES = frozenset({".py", ".pyi"})
 PUBLIC_URI_SCHEMES = frozenset({"http", "https", "sha256"})
 URI_SCHEME_PATTERN = re.compile(r"^(?P<scheme>[A-Za-z][A-Za-z0-9+.-]*):")
 PRIVATE_HOST_PATTERN = re.compile(
@@ -509,11 +513,13 @@ def _is_private_host(value: str) -> bool:
     return address.is_private or address.is_loopback or address.is_link_local
 
 
-def _text_finding_kinds(value: str) -> tuple[str, ...]:
+def _text_finding_kinds(value: str, *, include_credentials: bool = True) -> tuple[str, ...]:
     """Extract and classify privacy-sensitive tokens from arbitrary decoded text."""
     normalized = _normalized_structured_scalar(value)
     findings = [
-        kind for kind, pattern in PUBLIC_ARTIFACT_PATTERNS if pattern.search(normalized)
+        kind
+        for kind, pattern in PUBLIC_ARTIFACT_PATTERNS
+        if (include_credentials or kind != "credential_like") and pattern.search(normalized)
     ]
     if WINDOWS_ABSOLUTE_PATH_TOKEN_PATTERN.search(
         normalized
@@ -521,7 +527,7 @@ def _text_finding_kinds(value: str) -> tuple[str, ...]:
         findings.append("absolute_path_reference")
     if EMAIL_IDENTIFIER_PATTERN.search(normalized):
         findings.append("email_identifier")
-    if any(
+    if include_credentials and any(
         _is_credential_field_name(match.group("key"))
         and not _text_assignment_value_is_placeholder(match.group("value"))
         for match in CREDENTIAL_TEXT_ASSIGNMENT_PATTERN.finditer(normalized)
@@ -561,6 +567,167 @@ def _text_finding_kinds(value: str) -> tuple[str, ...]:
     if any(_is_private_host(token) for token in host_tokens):
         findings.append("private_host_reference")
     return tuple(dict.fromkeys(findings))
+
+
+def _python_regex_constructor_names(tree: ast.AST | None) -> tuple[set[str], set[str]]:
+    """Return imported module and function names used for regular-expression compilation."""
+    modules = {"re", "regex"}
+    functions: set[str] = set()
+    if tree is None:
+        return modules, functions
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name in {"re", "regex"}:
+                    modules.add(alias.asname or alias.name)
+        elif isinstance(node, ast.ImportFrom) and node.module in {"re", "regex"}:
+            for alias in node.names:
+                if alias.name == "compile":
+                    functions.add(alias.asname or alias.name)
+    return modules, functions
+
+
+def _python_regex_string_token_indexes(
+    tokens: tuple[tokenize.TokenInfo, ...], tree: ast.AST | None
+) -> set[int]:
+    """Identify string tokens passed to a known regular-expression compiler."""
+    modules, functions = _python_regex_constructor_names(tree)
+    significant_indexes = [
+        index
+        for index, token in enumerate(tokens)
+        if token.type
+        not in {
+            tokenize.ENCODING,
+            tokenize.INDENT,
+            tokenize.DEDENT,
+            tokenize.NL,
+            tokenize.NEWLINE,
+            tokenize.COMMENT,
+            tokenize.ENDMARKER,
+        }
+    ]
+    significant_position = {index: position for position, index in enumerate(significant_indexes)}
+    regex_string_indexes: set[int] = set()
+    delimiter_stack: list[tuple[str, bool]] = []
+    for index, token in enumerate(tokens):
+        if token.type == tokenize.OP and token.string in "([{":
+            position = significant_position.get(index)
+            is_regex_call = False
+            if position is not None and position >= 1:
+                previous = [tokens[item] for item in significant_indexes[position - 3 : position]]
+                if len(previous) >= 3:
+                    is_regex_call = (
+                        previous[-3].type == tokenize.NAME
+                        and previous[-3].string in modules
+                        and previous[-2].string == "."
+                        and previous[-1].type == tokenize.NAME
+                        and previous[-1].string == "compile"
+                    )
+                if not is_regex_call and len(previous) >= 1:
+                    is_regex_call = (
+                        previous[-1].type == tokenize.NAME
+                        and previous[-1].string in functions
+                    )
+            delimiter_stack.append((token.string, is_regex_call))
+        elif token.type == tokenize.STRING and any(
+            is_regex_call for _delimiter, is_regex_call in delimiter_stack
+        ):
+            regex_string_indexes.add(index)
+        elif token.type == tokenize.OP and token.string in ")]}" and delimiter_stack:
+            delimiter_stack.pop()
+    return regex_string_indexes
+
+
+def _python_literal_scalar(node: ast.AST | None) -> str | None:
+    """Return a directly written scalar value, preserving strict placeholder handling."""
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+        left = _python_literal_string(node.left)
+        right = _python_literal_string(node.right)
+        if left is not None and right is not None:
+            return left + right
+        return None
+    literal_string = _python_literal_string(node)
+    if literal_string is not None:
+        return literal_string
+    if not isinstance(node, ast.Constant):
+        return None
+    value = node.value
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if value is None:
+        return "none"
+    if isinstance(value, (int, float)):
+        return str(value)
+    return None
+
+
+def _python_literal_string(node: ast.AST | None) -> str | None:
+    """Return statically written string content without evaluating arbitrary Python code."""
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    if isinstance(node, ast.JoinedStr):
+        parts: list[str] = []
+        for value in node.values:
+            if not isinstance(value, ast.Constant) or not isinstance(value.value, str):
+                return None
+            parts.append(value.value)
+        return "".join(parts)
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+        left = _python_literal_string(node.left)
+        right = _python_literal_string(node.right)
+        if left is not None and right is not None:
+            return left + right
+    return None
+
+
+def _python_credential_assignment_findings(tree: ast.AST) -> set[int]:
+    """Find literal credential assignments represented by Python's parsed syntax tree."""
+    lines: set[int] = set()
+
+    def add_if_credential(target: ast.AST | None, value: ast.AST | None) -> None:
+        if not isinstance(target, (ast.Name, ast.Attribute)):
+            return
+        name = target.id if isinstance(target, ast.Name) else target.attr
+        if not _is_credential_field_name(name):
+            return
+        scalar = _python_literal_scalar(value)
+        if scalar is not None and not _credential_value_is_placeholder(scalar):
+            lines.add(getattr(target, "lineno", getattr(value, "lineno", 1)))
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                add_if_credential(target, node.value)
+        elif isinstance(node, ast.AnnAssign):
+            add_if_credential(node.target, node.value)
+        elif isinstance(node, ast.NamedExpr):
+            add_if_credential(node.target, node.value)
+        elif isinstance(node, ast.keyword) and node.arg is not None:
+            add_if_credential(ast.Name(id=node.arg), node.value)
+        elif isinstance(node, ast.Dict):
+            for key, value in zip(node.keys, node.values, strict=True):
+                if isinstance(key, ast.Constant) and isinstance(key.value, str):
+                    add_if_credential(ast.Name(id=key.value), value)
+    return lines
+
+
+def _python_credential_finding_lines(text: str) -> set[int] | None:
+    """Return credential findings for Python syntax, or ``None`` when parsing must fail closed."""
+    try:
+        tree = ast.parse(text)
+        tokens = tuple(tokenize.generate_tokens(io.StringIO(text).readline))
+    except (IndentationError, SyntaxError, tokenize.TokenError):
+        return None
+
+    findings = _python_credential_assignment_findings(tree)
+    regex_string_indexes = _python_regex_string_token_indexes(tokens, tree)
+    for index, token in enumerate(tokens):
+        if token.type == tokenize.COMMENT or (
+            token.type == tokenize.STRING and index not in regex_string_indexes
+        ):
+            if "credential_like" in _text_finding_kinds(token.string):
+                findings.add(token.start[0])
+    return findings
 
 
 def _structured_mapping_finding_kinds(key: str | None, value: str) -> tuple[str, ...]:
@@ -646,10 +813,25 @@ def public_artifact_byte_findings(
         return ((1, "undecodable_or_binary_artifact"),)
 
     findings: list[tuple[int, str]] = []
-    for line_number, line in enumerate(text.splitlines(), start=1):
-        findings.extend((line_number, kind) for kind in _text_finding_kinds(line))
-
     suffix = PurePosixPath(relative_path).suffix.casefold()
+    python_credential_lines = (
+        _python_credential_finding_lines(text)
+        if suffix in PYTHON_ARTIFACT_SUFFIXES
+        else None
+    )
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        findings.extend(
+            (line_number, kind)
+            for kind in _text_finding_kinds(
+                line,
+                include_credentials=(
+                    suffix not in PYTHON_ARTIFACT_SUFFIXES or python_credential_lines is None
+                ),
+            )
+        )
+        if python_credential_lines is not None and line_number in python_credential_lines:
+            findings.append((line_number, "credential_like"))
+
     if suffix in STRUCTURED_ARTIFACT_SUFFIXES:
         scalars, parse_finding = _decoded_structured_scalars(text, suffix=suffix)
         if parse_finding is not None:

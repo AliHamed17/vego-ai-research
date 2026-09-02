@@ -192,6 +192,58 @@ def test_release_validator_allows_public_research_context_links(tmp_path: Path):
     assert module.validate_release_diff(repository, base_ref="baseline") == []
 
 
+def test_release_validator_allows_python_regex_and_derived_identifier_source(
+    tmp_path: Path,
+) -> None:
+    """Code identifiers and regex construction are not literal credential assignments."""
+    credential_word = "to" + "ken"
+    regex_source = (
+        "import re\n"
+        + "TOKEN_PATTERN = re.compile("
+        + repr(r"(?i)" + credential_word + r"[:=][A-Za-z]{8}")
+        + ")\n"
+        + "public_"
+        + credential_word
+        + ' = "1" + "a" * 63\n'
+    )
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        regex_source,
+        relative_path="scripts/public_scan.py",
+    )
+
+    assert _validator_module().validate_release_diff(repository, base_ref="baseline") == []
+
+
+@pytest.mark.parametrize(
+    "placement",
+    ["assignment", "concatenated_assignment", "fstring_assignment", "comment", "docstring", "string"],
+)
+def test_release_validator_rejects_credentials_in_python_source_contexts(
+    tmp_path: Path, placement: str
+) -> None:
+    """Python-aware scanning must still reject credentials in every source context."""
+    key = "api_" + "key"
+    value = "abc" + "DEF1234567890"
+    source_by_placement = {
+        "assignment": key + " = " + repr(value) + "\n",
+        "concatenated_assignment": key + " = " + repr("abc") + " + " + repr("DEF1234567890") + "\n",
+        "fstring_assignment": key + " = f" + repr(value) + "\n",
+        "comment": "# " + key + "=" + value + "\n",
+        "docstring": '"""' + key + "=" + value + '"""\n',
+        "string": "message = " + repr(key + "=" + value) + "\n",
+    }
+    repository = _repository_with_branch_diff(
+        tmp_path,
+        source_by_placement[placement],
+        relative_path="scripts/public_scan.py",
+    )
+
+    findings = _validator_module().validate_release_diff(repository, base_ref="baseline")
+
+    assert "credential_like" in {finding.kind for finding in findings}
+
+
 @pytest.mark.parametrize(
     ("unsafe_content", "expected_kind"),
     [
