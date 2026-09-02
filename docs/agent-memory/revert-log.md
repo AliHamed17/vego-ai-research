@@ -230,3 +230,16 @@ Record file changes and rollback notes here.
   - regenerated snapshots under docs/research/bigui, docs/research/hardening, docs/research/thesis-evidence, docs/visualizations
 - Rollback note: All changes are additive docs/scripts/registry plus regenerated snapshots; revert = git revert of commits 5860aa0..a72ee0a on main. No protected runtime path changed.
 - Git commit: none recorded by script.
+
+## 2026-09-02 20:49 +03:00 - Claude - EXP-046 recorded-review analysis and the data-driven 2026-09-03 one-pager
+
+- Files changed:
+  - scripts/exp046_recorded_review.py
+  - scripts/tests/test_exp046_recorded_review.py
+  - experiments/EXP-046-recorded-review-analysis/README.md
+  - experiments/registry.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.en.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.he.md
+  - regenerated snapshots under docs/research/bigui, docs/research/hardening, docs/research/thesis-evidence, docs/visualizations
+- Rollback note: Additive scripts/docs plus regenerated snapshots; revert = git revert of 193cc13..4953f43. The dataset itself is not in the repository.
+- Git commit: none recorded by script.

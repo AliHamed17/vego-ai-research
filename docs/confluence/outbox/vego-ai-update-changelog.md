@@ -1,6 +1,6 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-02 19:11 +03:00.
+Generated from repository memory on 2026-09-02 20:49 +03:00.
 
 Showing the latest 20 session entries.
 
@@ -189,3 +189,30 @@ Showing the latest 20 session entries.
   - Word COM render: EN and HE pages = 1 page each
 - Status: completed
 - Next steps: Thu 09-03 13:00: send the one-pager to Iris and Arnon; Fri 09-04: freeze the per-row CSV and send the marking sheet (7 ucd_ch patterns), request the Cheers domain-base files / TA index from Iris; Sat 09-05: marks, m2-m5, injected P6 intervention; Sun 09-06: two-page results; Wed 09-09: proposal v2 with Study 1 preliminary results; regenerate proposal figure images 11/14/18/20; complete reference entries 74-81
+
+## 2026-09-02 20:49 +03:00 - Claude - EXP-046 recorded-review analysis and the data-driven 2026-09-03 one-pager
+
+- Request: Use the delivered VEGO-AI dataset and its baselines to rebuild the preliminary-study page around where the human should be involved
+- Actions taken:
+  - Ingested the delivered VEGO-AI dataset zip (System/, Dataset_Cheers/, Visualizer/; 27.8 MB): its evaluator outputs are byte-identical to the frozen run already tracked, so the EXP-045 signal inventory and this analysis describe the same run
+  - Found human judgment already recorded in the project analysis workbooks and registered it as EXP-046 (scripts/exp046_recorded_review.py + smoke test + card + registry row)
+  - Stage 2: 186 agent guidelines reviewed, 68 not accepted in full (46 partly, 21 wrong, 1 unsure); 59 course requirements unmatched (the Cheers domain bases, previously absent locally, ship with the dataset)
+  - Stage 3: 915 compliance judgments reviewed with 120 overturned, 104 alternative-or-mistake judgments with 27 overturned (147 of 1,019 pooled); overturn rate by the agents own verdict Satisfied 1.8% / Partially-Satisfied 46.3% / Not-Satisfied 34.7%, so escalating everything not called Satisfied flags 257 of 915 items (28%) and covers 108 of 120 overturns (90%)
+  - Model level: agent score against course grade over 164 rows, r = 0.25 overall and 0.02 for ucd_pw, recomputed independently and matching the workbook pivot
+  - Rebuilt the 2026-09-03 one-pager (EN + HE) on these numbers: the baseline is now empirical, every figure cross-checked against the EXP-046 output before commit
+  - Source workbooks deliberately kept out of the repository (student submission ids); check_repository_privacy passes and the smoke test skips where the dataset is absent
+- Files changed:
+  - scripts/exp046_recorded_review.py
+  - scripts/tests/test_exp046_recorded_review.py
+  - experiments/EXP-046-recorded-review-analysis/README.md
+  - experiments/registry.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.en.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.he.md
+  - regenerated snapshots under docs/research/bigui, docs/research/hardening, docs/research/thesis-evidence, docs/visualizations
+- Commands/checks:
+  - python scripts/exp046_recorded_review.py --dataset-root <dataset> --json summary.json -> all page figures
+  - pytest scripts/tests/test_exp046_recorded_review.py -> 6 passed with the dataset, 6 skipped without
+  - Regeneration chain to a fixed point after the registry row; all 22 CI checks pass locally
+  - Word render: EN and HE pages are one page each
+- Status: completed
+- Next steps: Thu 09-03: send the page; ask whether the recorded review may be cited as preliminary evidence and who performed it. Fri 09-04: apply the signals to the whole corpus (not only the reviewed sample) and produce the capture/load curve. Sat 09-05: worked P6 case and earliest-stage counts. Sun 09-06: two-page results. Wed 09-09: proposal v2 with Study 1 preliminary results.
