@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "902dda6145064848403c4833f4396de7f6729fc892df5b256c5bf604a77209e7",
+  "packageTreeSha256": "051479205b8753f1e761d709774447e83eef1032b0b2335f9834a5ed4b576417",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -183,6 +183,7 @@
     "scripts/tests/test_exp005_interactive_labeler.py",
     "scripts/tests/test_exp045_escalation_points.py",
     "scripts/tests/test_exp046_recorded_review.py",
+    "scripts/tests/test_exp046_synthetic_rehearsal.py",
     "scripts/tests/test_experiment_benchmark.py",
     "scripts/tests/test_experiment_definition_v3.py",
     "scripts/tests/test_feedback_generalizer.py",
@@ -228,7 +229,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "706da4b72c9cc4d6163409db194769e28241f29c4dba2e2091e22fd4bda39121",
+  "sourceTreeSha256": "166ecce60411b35a4d4f88f54dc68cc4ab930ccdd853b38ef164414961d63219",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -237,8 +238,8 @@
     "ruff": "0.15.16"
   },
   "trackedArtifacts": {
-    "VEGO-AI-Research-Hub.html": "b56b2af55fb94b928e0283b20ea6fd8d35bb84e84947ede1eb5231e12f98a11c",
-    "VEGO-AI-Thesis-Baseline-Progress.html": "9874d96051cb908cc38544fb70c3842994c3920202475669f985538d93f550ea",
+    "VEGO-AI-Research-Hub.html": "03ddcd73d1a07859bafc81417e0f5c0103f82aedfe5d1663c5f8c8d06538a76a",
+    "VEGO-AI-Thesis-Baseline-Progress.html": "ee5bcf0ee746a77aac15ef0b9d794920daa20d5f37da22d1d1ad61d2f068b647",
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
     "docs/research/hardening/baseline-lock-manifest-v2.json": "9d383969fd3e5fe0ae6583f82285fbfa3aef096e6dbac9ac25cbf6fcfe2179fd",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
