@@ -8,6 +8,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+from uuid import UUID
 
 from jsonschema import Draft202012Validator
 
@@ -44,6 +45,11 @@ def _load_schema() -> dict[str, Any]:
 
 def validate_candidate_event(event: dict[str, Any], *, schema: dict[str, Any] | None = None) -> dict[str, Any]:
     """Validate a privacy-sanitized candidate event and return it unchanged."""
+    try:
+        UUID(str(event.get("event_id")))
+    except (TypeError, ValueError, AttributeError) as error:
+        raise PrivacyValidationError("event_id must be a UUID") from error
+
     source = event.get("source")
     if not isinstance(source, dict) or not source.get("source_hash"):
         raise PrivacyValidationError("source_hash is required")
@@ -64,6 +70,9 @@ def validate_candidate_event(event: dict[str, Any], *, schema: dict[str, Any] | 
                 raise PrivacyValidationError("unknown signal ID")
             if not signal.get("evidence_state"):
                 raise PrivacyValidationError("evidence_state is required")
+        signal_ids = {signal.get("signal_id") for signal in signals if isinstance(signal, dict)}
+        if len(signals) != len(SIGNAL_IDS) or signal_ids != SIGNAL_IDS:
+            raise PrivacyValidationError("exactly one observation is required for every policy signal")
 
     validator = Draft202012Validator(schema or _load_schema())
     errors = sorted(validator.iter_errors(event), key=lambda error: list(error.absolute_path))

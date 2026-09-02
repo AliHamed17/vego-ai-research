@@ -13,7 +13,7 @@
     {"signal_id": "policy_uncertainty", "observation": "noted", "evidence_state": "observed"},
     {"signal_id": "impact_severity", "observation": "noted", "evidence_state": "observed"},
     {"signal_id": "human_review_need", "observation": "noted", "evidence_state": "observed"},
-    {"signal_id": "reversibility_risk", "observation": "noted", "evidence_state": "not_applicable"}
+    {"signal_id": "reversibility_risk", "observation": "noted", "evidence_state": "derived"}
   ],
   "claim_boundary": "candidate_escalation_only"
 }

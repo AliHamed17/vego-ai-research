@@ -73,6 +73,45 @@ def test_event_validator_rejects_privacy_or_claim_contract_violations(mutate, ex
         validate_candidate_event(event)
 
 
+def test_event_validator_accepts_derived_evidence_state():
+    """Catches a contract that rejects the required derived evidence state."""
+    event = synthetic_event()
+    event["signals"][0]["evidence_state"] = "derived"
+
+    assert validate_candidate_event(event)["signals"][0]["evidence_state"] == "derived"
+
+
+def test_event_validator_rejects_non_contract_evidence_state():
+    """Catches a contract that admits evidence states outside the three-state vocabulary."""
+    event = synthetic_event()
+    event["signals"][0]["evidence_state"] = "not_applicable"
+
+    with pytest.raises(PrivacyValidationError, match="evidence_state"):
+        validate_candidate_event(event)
+
+
+def test_event_validator_rejects_duplicate_signal_id_even_when_observations_differ():
+    """Catches eight distinct signal objects that do not cover all eight policy signals."""
+    event = synthetic_event()
+    event["signals"][-1] = {
+        "signal_id": "prompt_scope",
+        "observation": "second synthetic observation",
+        "evidence_state": "observed",
+    }
+
+    with pytest.raises(PrivacyValidationError, match="exactly one observation"):
+        validate_candidate_event(event)
+
+
+def test_event_validator_rejects_non_uuid_event_id():
+    """Catches schema-only UUID annotations that do not validate helper input."""
+    event = synthetic_event()
+    event["event_id"] = "synthetic-event-id"
+
+    with pytest.raises(PrivacyValidationError, match="event_id"):
+        validate_candidate_event(event)
+
+
 def test_tracked_artifact_validator_reports_only_unsafe_synthetic_markers(tmp_path):
     """Catches a scanner that misses proposed tracked-artifact privacy leaks."""
     safe = tmp_path / "safe.json"

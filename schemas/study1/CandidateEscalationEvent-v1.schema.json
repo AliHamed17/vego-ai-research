@@ -7,7 +7,7 @@
   "required": ["schema_version", "event_id", "source", "stage", "item_type", "sanitized_local_locator", "signals", "claim_boundary"],
   "properties": {
     "schema_version": {"const": "CandidateEscalationEvent-v1"},
-    "event_id": {"type": "string", "format": "uuid"},
+    "event_id": {"type": "string", "format": "uuid", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"},
     "source": {
       "type": "object",
       "additionalProperties": false,
@@ -37,9 +37,19 @@
         "properties": {
           "signal_id": {"enum": ["prompt_scope", "artifact_sensitivity", "identity_exposure", "evidence_conflict", "policy_uncertainty", "impact_severity", "human_review_need", "reversibility_risk"]},
           "observation": {"type": "string", "minLength": 1},
-          "evidence_state": {"enum": ["observed", "unavailable", "not_applicable"]}
+          "evidence_state": {"enum": ["observed", "derived", "unavailable"]}
         }
-      }
+      },
+      "allOf": [
+        {"contains": {"properties": {"signal_id": {"const": "prompt_scope"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "artifact_sensitivity"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "identity_exposure"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "evidence_conflict"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "policy_uncertainty"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "impact_severity"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "human_review_need"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "reversibility_risk"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1}
+      ]
     },
     "claim_boundary": {"const": "candidate_escalation_only"}
   }
