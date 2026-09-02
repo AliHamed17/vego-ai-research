@@ -209,3 +209,24 @@ Record file changes and rollback notes here.
 - Rollback note: No repo code changed; proposal artifacts live outside the repo. Revert = git revert of this log commit.
 - Git commit: none recorded by script.
 
+
+## 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
+
+- Files changed:
+  - scripts/exp045_escalation_points.py
+  - scripts/tests/test_exp045_escalation_points.py
+  - experiments/EXP-045-escalation-point-demonstration/README.md
+  - experiments/registry.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.en.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.he.md
+  - docs/research/phd-proposal/iris-arnon-requirements-2026-09-02-checklist.md
+  - docs/research/phd-proposal/README.md
+  - docs/research/baseline-characterization.md
+  - docs/agent-memory/issues.md
+  - pyproject.toml
+  - uv.lock
+  - requirements-thesis.txt
+  - scripts/vego_doctor.py
+  - regenerated snapshots under docs/research/bigui, docs/research/hardening, docs/research/thesis-evidence, docs/visualizations
+- Rollback note: All changes are additive docs/scripts/registry plus regenerated snapshots; revert = git revert of commits 5860aa0..a72ee0a on main. No protected runtime path changed.
+- Git commit: none recorded by script.

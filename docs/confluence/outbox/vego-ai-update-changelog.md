@@ -1,6 +1,6 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-02 09:28 +03:00.
+Generated from repository memory on 2026-09-02 19:11 +03:00.
 
 Showing the latest 20 session entries.
 
@@ -154,3 +154,38 @@ Showing the latest 20 session entries.
   - render.ps1 (Word COM) -> 36-page PDF; DOCX zip ok, 553 paragraphs
 - Status: completed
 - Next steps: Regenerate figure images 11/14/18/20; complete author lists for refs 74/75/78/79/80/81 against publisher records; execute QL-01..05; run constants pilot; decide ISS-042..049
+
+## 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
+
+- Request: Follow the 2026-09-02 supervisor requirements word by word; produce the one-page study design for Iris (baseline/benchmark of WHEN to involve the human in VEGO-AI), a checklist of every requirement, and the repository work behind it
+- Actions taken:
+  - Grounded the 2026-09-02 supervisor call: Cheers/ParkWise course examples are the VEGO-AI frozen run (179 scored rows / 165 case files, 27 patterns, 4 settings); eval_output and human_review_output are local-only; only Agent 4 has an escalation hook
+  - Built and registered EXP-045 (scripts/exp045_escalation_points.py + smoke test + card + registry row): deterministic read-only inventory of per-stage escalation signals and reference disagreement; Stage 2 misses 59/80 reference guidelines (evaluator FN authoritative), 12 unanswered Agent 2 questions, 150/165 case files with an Alternative fragment, 11/27 patterns queued
+  - Wrote the Thursday 2026-09-03 one-page study design (EN + HE) via a 3-angle draft panel, judges, synthesis and adversarial verification (4 blocking defects fixed: false advisor-questions count, untraceable bracket citations, non-computable m2, infeasible blindness on P6); rendered to one A4 page with Word
+  - Produced the 115-item word-by-word call checklist and compliance matrix (66 covered on the page, 8 partly, 11 deferred, 30 context); all 192 quotations verified verbatim against the page
+  - Repo hygiene: fixed red main (stale visualization catalog after untracking generated dashboards; pypdf CVE-2026-84309/84310/84311 bump to 6.16.1 + vego_doctor pin), ran the hash cascade to fixed points, ISS-050..052 logged, baseline-characterization trigger description corrected
+  - Delivered to Downloads\VEGO_AI_Preliminary_Study_2026-09-03 (PDF/DOCX/MD EN+HE, checklist, matrix, inventory table)
+- Files changed:
+  - scripts/exp045_escalation_points.py
+  - scripts/tests/test_exp045_escalation_points.py
+  - experiments/EXP-045-escalation-point-demonstration/README.md
+  - experiments/registry.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.en.md
+  - docs/research/phd-proposal/2026-09-03-preliminary-study-design.he.md
+  - docs/research/phd-proposal/iris-arnon-requirements-2026-09-02-checklist.md
+  - docs/research/phd-proposal/README.md
+  - docs/research/baseline-characterization.md
+  - docs/agent-memory/issues.md
+  - pyproject.toml
+  - uv.lock
+  - requirements-thesis.txt
+  - scripts/vego_doctor.py
+  - regenerated snapshots under docs/research/bigui, docs/research/hardening, docs/research/thesis-evidence, docs/visualizations
+- Commands/checks:
+  - python scripts/exp045_escalation_points.py --vego-root C:/Users/ahamed/vego-ai/VEGO-AI -> summary.md (per-stage table)
+  - pytest scripts/tests/test_exp045_escalation_points.py -> 5 passed (VEGO_AI_ROOT set)
+  - CI check list (22 scripts) -> all pass at 68f8bbf; pytest VEGO-AI/tests 113 passed; tests/hlayer_offline 46 passed; scripts/tests 256 passed + 26 long-path fixture errors (environment-only, pass in the main checkout and CI)
+  - GitHub CI: green at a671543 and 68f8bbf; a72ee0a pending
+  - Word COM render: EN and HE pages = 1 page each
+- Status: completed
+- Next steps: Thu 09-03 13:00: send the one-pager to Iris and Arnon; Fri 09-04: freeze the per-row CSV and send the marking sheet (7 ucd_ch patterns), request the Cheers domain-base files / TA index from Iris; Sat 09-05: marks, m2-m5, injected P6 intervention; Sun 09-06: two-page results; Wed 09-09: proposal v2 with Study 1 preliminary results; regenerate proposal figure images 11/14/18/20; complete reference entries 74-81

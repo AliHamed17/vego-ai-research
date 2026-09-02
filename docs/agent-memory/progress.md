@@ -151,6 +151,7 @@ Track milestones, current work, and next steps here.
 | TASK-051 | 2026-07-24 | Done | Execute the continuation plan (`docs/research/continuation-plan-2026-07-24.md`). | PR #8 is the historical thesis evidence release. Its human-label and claim gates remain in force. |
 | TASK-052 | 2026-07-25 | In review / governance-gated | Publish unified runtime, baseline, model, security, infrastructure, and package hardening through PR #10. | Local release verification is green. Keep the PR open until exact-head review is clean, required CI passes, enforceable main protection is confirmed, and one separate collaborator approves. Never bypass these gates. |
 | TASK-053 | 2026-08-01 | Implemented locally / human-gated | Execute the Iris requirements next-step program through the August 5 package and August 12 handoff interfaces. | Ali reviews and approves the exact corrected package, names the human roles, runs timed/adversarial rehearsals, authorizes sharing/access tests, and records August 5 decisions. Continue transcript review and literature execution without inventing evidence. |
+| TASK-054 | 2026-09-02 | In progress | Preliminary Study 1 (EXP-045): descriptive WHEN-to-escalate inventory over the frozen Cheers/ParkWise run; Thursday one-page design delivered (EN/HE) with the 115-item call checklist. | Fri 09-04 freeze per-row CSV and send the marking sheet; Sat 09-05 marks, m2-m5, injected P6 intervention; Sun 09-06 two-page results; Wed 09-09 proposal v2 (Study 1 preliminary results). |
 
 ## Completed Work
 
@@ -213,6 +214,7 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
+- **2026-09-02 (Claude):** send the one-page study design to Iris and Arnon before Thu 09-03 13:00; request the Cheers domain-base files / TA exercise index; run EXP-045 to a per-row CSV on Fri 09-04; collect the three marking sheets by Sat 09-05 (fallback: report m1, m2, m5 and Ali's marks on Sunday); write the Sun 09-06 two-pager; integrate as Chapter 5 preliminary results in the Wed 09-09 proposal v2.
 Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor package was delivered and the August 12 meeting happened; see [`2026-08-12-supervisor-meeting.md`](../research/meetings/2026-08-12-supervisor-meeting.md) (evidence matrix `F1`-`F17`) and its bilingual companion [`2026-08-12-post-meeting-plan.md`](../research/meetings/2026-08-12-post-meeting-plan.md) for the current, live next-step list. Medical work remains blocked at 0/6 gates and EXP-005 remains 0/24 — unchanged by this call.
 
 1. **Time-critical:** fill in the real scholarship name/portal/deadline in [`scholarship-recommendation-request-template.md`](../operations/scholarship-recommendation-request-template.md) and send it to Iris and Arnon before the stated "15th" deadline (`F16`/`A0812-06`) — this assistant cannot send email itself.
