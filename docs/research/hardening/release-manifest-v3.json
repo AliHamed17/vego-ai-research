@@ -205,6 +205,7 @@
     "scripts/tests/test_thesis_evidence_package.py",
     "scripts/tests/test_validate_hlayer_program_portability.py",
     "scripts/tests/test_validate_research_records_gjr.py",
+    "scripts/tests/test_verify_iris_preliminary_pilot.py",
     "scripts/tests/thesis_progress_browser_smoke.mjs",
     "scripts/validate_hlayer_offline.py",
     "scripts/validate_hlayer_program.py",
@@ -230,7 +231,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "8e0706c5debeacd80ab4de3bc0eab5027cbce3b71908fbdca2853aa575110428",
+  "sourceTreeSha256": "0c846790f93c6d22114478f8474903ef43e384f5875b2d9f1072b69b701e82ef",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
