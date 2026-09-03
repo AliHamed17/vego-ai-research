@@ -131,6 +131,7 @@
     "schemas/model-execution-manifest-v1.schema.json",
     "schemas/paper-baseline-snapshot-v1.schema.json",
     "schemas/policy-candidate-record-v1.schema.json",
+    "schemas/qa-escalation-event-v1.schema.json",
     "schemas/release-manifest-v3.schema.json",
     "schemas/reuse-decision-record-v1.schema.json",
     "schemas/review-policy-signal-contract-v1.schema.json",
@@ -186,6 +187,7 @@
     "scripts/tests/test_exp046_synthetic_rehearsal.py",
     "scripts/tests/test_experiment_benchmark.py",
     "scripts/tests/test_experiment_definition_v3.py",
+    "scripts/tests/test_extract_qa_escalation_features.py",
     "scripts/tests/test_feedback_generalizer.py",
     "scripts/tests/test_governed_conformance.py",
     "scripts/tests/test_governed_lifecycle.py",
@@ -232,7 +234,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "158371aa368b19f5c2321823c4c2206848bb6568e59569b8b6e7d23f4adc931d",
+  "sourceTreeSha256": "b45f9526b682b00225c556ec309b9c108a46d3e4e7c16f74309a0ccdd6bae849",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
