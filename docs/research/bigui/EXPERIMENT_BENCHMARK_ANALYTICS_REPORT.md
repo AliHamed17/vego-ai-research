@@ -1,7 +1,7 @@
 # VEGO-AI Experiment Benchmark Analytics Report
 
 Generated: `2026-07-26T16:00:00+03:00`
-Input projection: `18ff0e8cb85f328641160fa5bac5f8d8d4a691072de77b9dbabe7601a22eef72`
+Input projection: `d262313d554d348a98348a2bce2c3ff9eb3b5114d876eb3f6df6a330c3d04fa0`
 
 ## Technical summary
 
@@ -132,11 +132,11 @@ Evidence class: `synthetic`. Claim boundary: Operational overhead only; syntheti
 
 The paper and current repository can be aligned on corpus and architecture counts, but not on independent classification performance.
 
-- `PAPER_CASE_MODEL_COUNT` = 178 case models (N=178; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `CURRENT_CASE_MODEL_COUNT` = 179 case models (N=179; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `PAPER_PATTERN_COUNT` = 26 patterns (N=26; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `CURRENT_PATTERN_COUNT` = 27 patterns (N=27; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `PAPER_CURRENT_CLASSIFICATION_COMPARISON_ELIGIBLE` = 0 boolean (N=1; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
+- `PAPER_CASE_MODEL_COUNT` = 178 case models (N=178; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `CURRENT_CASE_MODEL_COUNT` = 179 case models (N=179; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `PAPER_PATTERN_COUNT` = 26 patterns (N=26; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `CURRENT_PATTERN_COUNT` = 27 patterns (N=27; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `PAPER_CURRENT_CLASSIFICATION_COMPARISON_ELIGIBLE` = 0 boolean (N=1; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
 
 Evidence class: `offline`. Claim boundary: The comparison reconciles versions and capabilities; it cannot prove higher classification accuracy than the paper.
 
@@ -144,10 +144,10 @@ Evidence class: `offline`. Claim boundary: The comparison reconciles versions an
 
 The thesis traceability audit separates supported mechanism claims from empirical improvement claims that remain unopened.
 
-- `THESIS_SAFE_CURRENT_CLAIMS` = 4 claims (N=4; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `THESIS_EMPIRICAL_IMPROVEMENT_CLAIMS_READY` = 0 claims (N=3; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `THESIS_HYPOTHESES_CONFIRMED` = 0 hypotheses (N=4; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
-- `THESIS_TRACEABILITY_RECORDS` = 7 records (N=7; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`a362d8765774…`, 2026-07-26).
+- `THESIS_SAFE_CURRENT_CLAIMS` = 4 claims (N=4; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `THESIS_EMPIRICAL_IMPROVEMENT_CLAIMS_READY` = 0 claims (N=3; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `THESIS_HYPOTHESES_CONFIRMED` = 0 hypotheses (N=4; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
+- `THESIS_TRACEABILITY_RECORDS` = 7 records (N=7; aggregate)  Source: `docs/research/bigui/baseline-comparison-results-v1.json` (`52a39a9a8b36…`, 2026-07-26).
 
 Evidence class: `offline`. Claim boundary: Readiness and traceability do not substitute for the missing independent observations.
 

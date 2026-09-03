@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "051479205b8753f1e761d709774447e83eef1032b0b2335f9834a5ed4b576417",
+  "packageTreeSha256": "d84fcf9e9dfef6d6221ecac9987d8e5b4a1d46f29b31360eacc520f56817cab9",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -198,6 +198,7 @@
     "scripts/tests/test_iris_zoom_disposition_ledger.py",
     "scripts/tests/test_iris_zoom_review_batches.py",
     "scripts/tests/test_policy_arms.py",
+    "scripts/tests/test_preliminary_human_intervention_one_page.py",
     "scripts/tests/test_reuse_gates.py",
     "scripts/tests/test_security_audit.py",
     "scripts/tests/test_supervisor_source_manifest.py",
@@ -229,7 +230,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "166ecce60411b35a4d4f88f54dc68cc4ab930ccdd853b38ef164414961d63219",
+  "sourceTreeSha256": "8e0706c5debeacd80ab4de3bc0eab5027cbce3b71908fbdca2853aa575110428",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -238,8 +239,8 @@
     "ruff": "0.15.16"
   },
   "trackedArtifacts": {
-    "VEGO-AI-Research-Hub.html": "03ddcd73d1a07859bafc81417e0f5c0103f82aedfe5d1663c5f8c8d06538a76a",
-    "VEGO-AI-Thesis-Baseline-Progress.html": "ee5bcf0ee746a77aac15ef0b9d794920daa20d5f37da22d1d1ad61d2f068b647",
+    "VEGO-AI-Research-Hub.html": "ae323fbd8915c864c3f777fe6c1dc15ff6c997adb6c53c08fec80e9f0388adc0",
+    "VEGO-AI-Thesis-Baseline-Progress.html": "944ec443381ce6efd8746f4ce9202b7dbb7b6cb62d1b0258f9fd4fb79021479d",
     "docs/research/h-layer/program-status-snapshot-v1.json": "c28e034fbf0efd2221e96e5517ee14e55380f2f496a022b5d4145ccd3629882f",
     "docs/research/hardening/baseline-lock-manifest-v2.json": "9d383969fd3e5fe0ae6583f82285fbfa3aef096e6dbac9ac25cbf6fcfe2179fd",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",

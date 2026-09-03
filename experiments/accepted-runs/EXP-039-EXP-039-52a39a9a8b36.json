@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "AcceptedExperimentRunBundle-v1",
+  "publicationTier": "tracked_sanitized",
+  "envelope": {
+    "schemaVersion": "ExperimentRunEnvelope-v2",
+    "experimentId": "EXP-039",
+    "runId": "EXP-039-52a39a9a8b36",
+    "attemptId": "attempt-001",
+    "executionStatus": "succeeded",
+    "startedAt": "2026-07-26T14:16:00+03:00",
+    "completedAt": "2026-07-26T14:16:00+03:00",
+    "durationMilliseconds": null,
+    "manifestSchema": "SanitizedAggregateSource",
+    "manifestPath": "docs/research/bigui/baseline-comparison-results-v1.json",
+    "manifestSha256": "52a39a9a8b36a4b72b9179f0ffccbebf04bae03b2118f37098621dca91f56272",
+    "acceptanceStatus": "accepted",
+    "acceptedAt": "2026-07-26T14:16:00+03:00",
+    "evidenceClass": "offline",
+    "sourceRevision": "ace3baaf1d49225e7b8f763cb896caefeb4d3117",
+    "inputHashes": {
+      "baselineCohort": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f"
+    },
+    "outputHashes": {
+      "summary": "52a39a9a8b36a4b72b9179f0ffccbebf04bae03b2118f37098621dca91f56272"
+    },
+    "metricObservationIds": [
+      "OBS-METRIC-DIRECT_COMPARISON_GROUPS-1ebd43bca091",
+      "OBS-METRIC-INCOMPATIBLE_COMPARISONS_SUPPRESSED-db44094341b5"
+    ],
+    "metricDefinitionHashes": {
+      "DIRECT_COMPARISON_GROUPS": "eca5090b331f96a195aaaeb1f8fc9aed408aa8fb63ccc555dc699fc2fde9a4b7",
+      "INCOMPATIBLE_COMPARISONS_SUPPRESSED": "90813946e196f33f91281edd0444dd43b1ee2949406c4014a799f65672e24860"
+    },
+    "comparisonContext": {
+      "datasetHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
+      "partitionHash": "not_applicable",
+      "baselineRevision": "2eeccb1cbb2d01faa3e8ceb43466a52e0fee23cf",
+      "policyVersion": "m4b1-v1",
+      "promptVersion": "historical-frozen",
+      "modelIdentifier": "gpt-4o-historical-alias",
+      "metricSchemaVersion": "2.0",
+      "labelEligibility": "generalization_safe",
+      "leakageClass": "none",
+      "evidenceClass": "offline",
+      "architectureMode": "multi-mode",
+      "topology": "not_applicable",
+      "interfaceVersion": "BigUI-v3",
+      "pairedCohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f"
+    },
+    "artifactRefs": [
+      "docs/research/bigui/baseline-comparison-results-v1.json"
+    ],
+    "logRef": null,
+    "evaluation": {
+      "schemaVersion": "ExperimentEvaluation-v1",
+      "experimentId": "EXP-039",
+      "runId": "EXP-039-52a39a9a8b36",
+      "executionValid": true,
+      "deterministic": true,
+      "engineeringTargetMet": null,
+      "evidenceAdmissible": true,
+      "resultVerdict": "CONFORMANCE_PASS",
+      "criteria": [
+        {
+          "id": "EXECUTION_VALID",
+          "passed": true,
+          "detail": "The comparison experiment completed with schema-valid output."
+        },
+        {
+          "id": "EVIDENCE_BOUNDARY_PRESERVED",
+          "passed": true,
+          "detail": "Unsupported accuracy and effort deltas remain suppressed."
+        }
+      ],
+      "claimBoundary": "Every 'better' statement is metric-specific and accompanied by its countervailing trade-off and evidence boundary."
+    }
+  },
+  "metricDefinitions": [
+    {
+      "schemaVersion": "MetricDefinition-v1",
+      "metricId": "DIRECT_COMPARISON_GROUPS",
+      "title": "Direct Comparison Groups",
+      "description": "Direct Comparison Groups",
+      "formula": "direct comparison groups",
+      "unit": "comparison groups",
+      "direction": "higher_is_better",
+      "grain": "baseline comparison experiment",
+      "requiredEvidenceClass": "offline",
+      "nullable": false,
+      "nullRule": "Observed from the accepted experiment run.",
+      "dimensions": [],
+      "target": null
+    },
+    {
+      "schemaVersion": "MetricDefinition-v1",
+      "metricId": "INCOMPATIBLE_COMPARISONS_SUPPRESSED",
+      "title": "Incompatible Comparisons Suppressed",
+      "description": "Incompatible Comparisons Suppressed",
+      "formula": "incompatible comparisons suppressed",
+      "unit": "comparison groups",
+      "direction": "target",
+      "grain": "baseline comparison experiment",
+      "requiredEvidenceClass": "offline",
+      "nullable": false,
+      "nullRule": "Observed from the accepted experiment run.",
+      "dimensions": [],
+      "target": null
+    }
+  ],
+  "metricObservations": [
+    {
+      "schemaVersion": "MetricObservation-v2",
+      "observationId": "OBS-METRIC-DIRECT_COMPARISON_GROUPS-1ebd43bca091",
+      "experimentId": "EXP-039",
+      "runId": "EXP-039-52a39a9a8b36",
+      "metricId": "DIRECT_COMPARISON_GROUPS",
+      "metricDefinitionSha256": "eca5090b331f96a195aaaeb1f8fc9aed408aa8fb63ccc555dc699fc2fde9a4b7",
+      "baselineId": "B0/B1",
+      "comparatorId": "DECLARED-TREATMENTS",
+      "value": 7,
+      "numerator": 7,
+      "denominator": 8,
+      "missingCount": 0,
+      "unit": "comparison groups",
+      "direction": "higher_is_better",
+      "estimand": "Direct Comparison Groups",
+      "grain": "baseline comparison experiment",
+      "dimensions": {},
+      "exclusions": [],
+      "analysisMethod": "deterministic source reconciliation",
+      "confidenceInterval": null,
+      "sourcePath": "docs/research/bigui/baseline-comparison-results-v1.json",
+      "sourceSha256": "52a39a9a8b36a4b72b9179f0ffccbebf04bae03b2118f37098621dca91f56272",
+      "evidenceClass": "offline",
+      "observationDate": "2026-07-26",
+      "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
+      "metricSchemaVersion": "2.0",
+      "claimBoundary": "Eligibility means the treatment comparison is well-formed; it does not imply a positive result."
+    },
+    {
+      "schemaVersion": "MetricObservation-v2",
+      "observationId": "OBS-METRIC-INCOMPATIBLE_COMPARISONS_SUPPRESSED-db44094341b5",
+      "experimentId": "EXP-039",
+      "runId": "EXP-039-52a39a9a8b36",
+      "metricId": "INCOMPATIBLE_COMPARISONS_SUPPRESSED",
+      "metricDefinitionSha256": "90813946e196f33f91281edd0444dd43b1ee2949406c4014a799f65672e24860",
+      "baselineId": "B0/B1",
+      "comparatorId": "DECLARED-TREATMENTS",
+      "value": 1,
+      "numerator": 1,
+      "denominator": 8,
+      "missingCount": 0,
+      "unit": "comparison groups",
+      "direction": "target",
+      "estimand": "Incompatible Comparisons Suppressed",
+      "grain": "baseline comparison experiment",
+      "dimensions": {},
+      "exclusions": [],
+      "analysisMethod": "deterministic source reconciliation",
+      "confidenceInterval": null,
+      "sourcePath": "docs/research/bigui/baseline-comparison-results-v1.json",
+      "sourceSha256": "52a39a9a8b36a4b72b9179f0ffccbebf04bae03b2118f37098621dca91f56272",
+      "evidenceClass": "offline",
+      "observationDate": "2026-07-26",
+      "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
+      "metricSchemaVersion": "2.0",
+      "claimBoundary": "Incompatible paper-to-current accuracy deltas are refused."
+    }
+  ],
+  "acceptance": {
+    "schemaVersion": "RunAcceptanceRecord-v1",
+    "experimentId": "EXP-039",
+    "runId": "EXP-039-52a39a9a8b36",
+    "status": "accepted",
+    "evaluatorVersion": "bigui-run-store-v1",
+    "evaluatedAt": "2026-07-26T14:16:00+03:00",
+    "criteriaOutcomes": [
+      {
+        "id": "EXECUTION_VALID",
+        "passed": true,
+        "detail": "The comparison experiment completed with schema-valid output."
+      },
+      {
+        "id": "EVIDENCE_BOUNDARY_PRESERVED",
+        "passed": true,
+        "detail": "Unsupported accuracy and effort deltas remain suppressed."
+      }
+    ],
+    "rationale": "The privacy-safe aggregate run is accepted for its stated evidence class.",
+    "approverClass": "deterministic_validator"
+  }
+}
