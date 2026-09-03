@@ -288,8 +288,11 @@ STRUCTURED_ARTIFACT_SUFFIXES = frozenset({".json", ".yaml", ".yml"})
 PYTHON_ARTIFACT_SUFFIXES = frozenset({".py", ".pyi"})
 PUBLIC_URI_SCHEMES = frozenset({"http", "https", "pkg", "sha256", "urn", "vego-ai"})
 REVIEWED_GENERATED_ARTIFACT_SHA256 = {
+    "VEGO-AI-Experiment-Benchmark-Report.html": (
+        "c1d04720a6a91444abc81627c471b13df5830bc50d6750f5aa13882f7e1456e3"
+    ),
     "VEGO-AI-Research-Hub.html": (
-        "aabe3813951cc0e59669a1a45bf84f3cf6fc6a7396b52b1d701aa40959c14121"
+        "bad2a6e356516ae3aa7e8b4c2623c24284b28bedf015204e5901d04d0b30af68"
     ),
     "VEGO-AI-Thesis-Baseline-Progress.html": (
         "c64f764fde9666446e8a76fd76cdf6a97b7bf71d17bdd814936deef53ac2da9d"
