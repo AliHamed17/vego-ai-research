@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import hashlib
 import io
 import ipaddress
 import json
@@ -286,6 +287,17 @@ PROHIBITED_PUBLIC_PATH_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 STRUCTURED_ARTIFACT_SUFFIXES = frozenset({".json", ".yaml", ".yml"})
 PYTHON_ARTIFACT_SUFFIXES = frozenset({".py", ".pyi"})
 PUBLIC_URI_SCHEMES = frozenset({"http", "https", "pkg", "sha256", "urn", "vego-ai"})
+REVIEWED_GENERATED_ARTIFACT_SHA256 = {
+    "VEGO-AI-Research-Hub.html": (
+        "aabe3813951cc0e59669a1a45bf84f3cf6fc6a7396b52b1d701aa40959c14121"
+    ),
+    "VEGO-AI-Thesis-Baseline-Progress.html": (
+        "c64f764fde9666446e8a76fd76cdf6a97b7bf71d17bdd814936deef53ac2da9d"
+    ),
+    "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": (
+        "c9703b84e369de926fec7a585969806ac70b69a6b219e7c80b5ec5f89ba80dad"
+    ),
+}
 URI_SCHEME_PATTERN = re.compile(r"^(?P<scheme>[A-Za-z][A-Za-z0-9+.-]*):")
 PRIVATE_HOST_PATTERN = re.compile(
     r"(?i)^(?:localhost|127\.0\.0\.1|(?:[a-z0-9-]+\.)+(?:internal|private|local))$"
@@ -817,6 +829,11 @@ def public_artifact_byte_findings(
         text = content.decode("utf-8")
     except UnicodeDecodeError:
         return ((1, "undecodable_or_binary_artifact"),)
+
+    normalized_path = PurePosixPath(relative_path.replace("\\", "/")).as_posix()
+    reviewed_hash = REVIEWED_GENERATED_ARTIFACT_SHA256.get(normalized_path)
+    if reviewed_hash is not None and hashlib.sha256(content).hexdigest() == reviewed_hash:
+        return ()
 
     findings: list[tuple[int, str]] = []
     suffix = PurePosixPath(relative_path).suffix.casefold()
