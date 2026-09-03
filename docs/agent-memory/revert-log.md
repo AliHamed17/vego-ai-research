@@ -41,33 +41,6 @@ Record file changes and rollback notes here.
 - Branch backup: pushed 6 local-only, unmerged branches to origin as plain backup refs (no PR opened): `feature/m4a-test-compat`, `feature/memory-advisor`, `feature/memory-informed-comparison`, `feature/results-dashboard`, `feature/visualizer-ux-refresh`, `fix/m4b-schema-hardening`.
 - Rollback note: Deck/literature changes live only on PR branches (`docs/literature-awesome-index-and-root-cleanup`) or already-merged history (via PR #19, once merged) - nothing was pushed directly to `main`. To undo the branch backups, delete the remote refs (`git push origin --delete <branch>`); this does not affect `main` or either PR.
 
-## 2026-08-04 00:47 +03:00 - Claude - Push Iris workstream to main: merge-conflict resolution and CI hardening
-
-- Files changed:
-  - docs/agent-memory/current-state.md
-  - docs/agent-memory/issues.md
-  - docs/agent-memory/decisions.md
-  - docs/agent-memory/revert-log.md
-  - docs/agent-memory/session-log.md
-  - docs/agent-memory/session-log-archive.md
-  - docs/PROGRESS_TRACKER.md
-  - scripts/tests/test_iris_zoom_adjudicated_ledger.py
-  - scripts/validate_iris_requirements_closure.py
-  - scripts/tests/test_iris_requirements_closure.py
-  - scripts/tests/test_supervisor_source_manifest.py
-  - .gitattributes
-  - docs/research/hardening/release-manifest-v3.json
-  - docs/agent-memory/revert-log-archive.md
-  - docs/research/governance/drive-boundary-verification-2026-08-03.md
-  - docs/research/meetings/2026-07-29-iris-supervisor-asr.he.srt
-  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
-  - pyproject.toml (renormalized only)
-  - scripts/tests/bigui_browser_smoke.mjs (renormalized only)
-  - scripts/verify-controlled.ps1 (renormalized only)
-  - scripts/verify-source.ps1 (renormalized only)
-- Rollback note: Merge commit a78c1bf on main; feature branch docs/iris-july29-phd-execution retained (not deleted) at commit 20b04fc for reference.
-- Git commit: none recorded by script.
-
 ## 2026-08-10 18:59 +03:00 - Claude - Aug-5 call: master plan, Chapter-3 draft, literature map, repairs, full verification
 
 - Files changed:
@@ -87,7 +60,6 @@ Record file changes and rollback notes here.
   - docs/research/hardening/release-manifest-v3.json
 - Rollback note: Commits 0595590..2ed820c on main; all repairs additive or manifest rebinds; b605937's content preserved unchanged.
 - Git commit: none recorded by script.
-
 ## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
 
 - Files changed:
@@ -209,7 +181,6 @@ Record file changes and rollback notes here.
 - Rollback note: No repo code changed; proposal artifacts live outside the repo. Revert = git revert of this log commit.
 - Git commit: none recorded by script.
 
-
 ## 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
 
 - Files changed:
@@ -242,4 +213,17 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-03-preliminary-study-design.he.md
   - regenerated snapshots under docs/research/bigui, docs/research/hardening, docs/research/thesis-evidence, docs/visualizations
 - Rollback note: Additive scripts/docs plus regenerated snapshots; revert = git revert of 193cc13..4953f43. The dataset itself is not in the repository.
+- Git commit: none recorded by script.
+
+## 2026-09-03 12:07 +03:00 - Codex - Strict one-page human-intervention experiment for Iris
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md
+  - docs/research/phd-proposal/README.md
+  - scripts/build_paper.py
+  - scripts/tests/test_preliminary_human_intervention_one_page.py
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/resource-memory.md
+- Rollback note: Revert the one-page source, README, builder geometry, regression test, and associated memory updates from the resulting main commit; the generated PDF is ignored and the prior Downloads PDF is preserved as a timestamped backup.
 - Git commit: none recorded by script.

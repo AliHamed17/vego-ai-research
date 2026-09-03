@@ -127,8 +127,22 @@ def build(md_path, out_path, fig_dir, rtl=False):
             table.style = "Table Grid"
             table.alignment = WD_TABLE_ALIGNMENT.CENTER
             table.autofit = False
-            first = 0.22 if ncol >= 4 else 0.3
-            widths = [USABLE_CM * first] + [USABLE_CM * (1 - first) / (ncol - 1)] * (ncol - 1)
+            comparison_header = [
+                "Case",
+                "Baseline Issue",
+                "Trigger",
+                "Human Input",
+                "Result After Intervention",
+                "Reference",
+                "Outcome",
+            ]
+            if ncol == 7 and rows[0] == comparison_header:
+                widths = [1.2, 2.6, 2.5, 2.4, 3.0, 3.0, 3.1]
+            else:
+                first = 0.22 if ncol >= 4 else 0.3
+                widths = [USABLE_CM * first] + [USABLE_CM * (1 - first) / (ncol - 1)] * (ncol - 1)
+            for c, width in enumerate(widths):
+                table.columns[c].width = Cm(width)
             for r, cells in enumerate(rows):
                 for c in range(ncol):
                     cell = table.cell(r, c)

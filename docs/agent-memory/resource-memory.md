@@ -2,7 +2,15 @@
 
 This file is the compact shared resource index for Codex and Claude. It points agents to reusable research resources without forcing every prompt to reload downloaded source files.
 
-Last updated: 2026-08-01 by Codex.
+Last updated: 2026-09-03 by Codex.
+
+## September 3 Preliminary Human-Intervention One-Pager
+
+- Source: `docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md`
+- Builder: `scripts/build_paper.py`
+- Regression test: `scripts/tests/test_preliminary_human_intervention_one_page.py`
+- Generated PDF: local/ignored; exactly one A4 page after Word export and full-page raster inspection.
+- Evidence boundary: paired feasibility design only; every outcome remains `To be measured`, the recorded review is development-only, and EXP-005 remains 0/24.
 
 ## Iris Next-Step Execution Program
 

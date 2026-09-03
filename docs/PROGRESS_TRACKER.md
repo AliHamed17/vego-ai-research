@@ -98,15 +98,15 @@ supervisor-approval evidence.
 <!-- AUTO:invariants:start -->
 | Invariant | Value | Checked by |
 | --- | --- | --- |
-| Tests passing | **113 passed** | `pytest VEGO-AI/tests` |
-| `ai_classification_changed` | **?** | dashboard / guard |
-| baseline `eval_output` modified | **?** | guard |
-| memory-informed differs from original | **0 / ?** | guard |
+| Tests passing | **113 passed _(dated verification record)_** | `pytest VEGO-AI/tests` |
+| `ai_classification_changed` | **0** | dashboard / guard |
+| baseline `eval_output` modified | **false** | guard |
+| memory-informed differs from original | **0 / 27** | guard |
 | generalization-safe expert labels | **0** | guard |
 | deterministic policy | **v1 (no M4B-1.1 in code)** | guard |
-| evidence consistency | **3/3 present checks passed PASS** | `scripts/check_evidence_consistency.py` |
+| evidence consistency | **18/18 present checks passed PASS** | `scripts/check_evidence_consistency.py` |
 
-Scale figures: **?** models · **?** patterns · **?** review items · **?** reusable judgments · **?** advice items.
+Scale figures: **179** models · **27** patterns · **11** review items · **3** reusable judgments · **8** advice items.
 <!-- AUTO:invariants:end -->
 
 ## 6. Critical path (what actually unblocks the thesis)
@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-03 12:07 +03:00 - Codex - Strict one-page human-intervention experiment for Iris
+- 2026-09-02 20:49 +03:00 - Claude - EXP-046 recorded-review analysis and the data-driven 2026-09-03 one-pager
+- 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
+- 2026-09-02 09:28 +03:00 - Claude - Proposal Revision 19: committee + supervisor review closure
 - 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
 - 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
-- 2026-08-20 02:10 +03:00 - Claude - Do-next-step review: fix forbidden-artifact unsafe verdict
-- 2026-08-19 13:36 +03:00 - Claude - Verify literature review v13 and evidence workbook v5
-- 2026-08-19 02:12 +03:00 - Claude - Fix CI packageRevision self-reference (thesis review manifest)
-- 2026-08-18 23:15 +03:00 - Claude - Executed the 2026-08-12 call's non-literature requirements
 <!-- AUTO:activity:end -->
 
 ---

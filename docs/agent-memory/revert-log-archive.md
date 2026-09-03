@@ -2125,3 +2125,30 @@ Historical entries.
 - Rollback note: This is a merge commit combining `docs/iris-july29-phd-execution` (209+ commits) into `main` alongside the already-merged evaluation-phase work (PR #15). Revert the merge commit to undo; the source branch remains available at `origin/docs/iris-july29-phd-execution` for cherry-picking if a partial revert is ever needed.
 - Git commit: recorded as the merge commit for PR #16.
 
+## 2026-08-04 00:47 +03:00 - Claude - Push Iris workstream to main: merge-conflict resolution and CI hardening
+
+- Files changed:
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/revert-log.md
+  - docs/agent-memory/session-log.md
+  - docs/agent-memory/session-log-archive.md
+  - docs/PROGRESS_TRACKER.md
+  - scripts/tests/test_iris_zoom_adjudicated_ledger.py
+  - scripts/validate_iris_requirements_closure.py
+  - scripts/tests/test_iris_requirements_closure.py
+  - scripts/tests/test_supervisor_source_manifest.py
+  - .gitattributes
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/agent-memory/revert-log-archive.md
+  - docs/research/governance/drive-boundary-verification-2026-08-03.md
+  - docs/research/meetings/2026-07-29-iris-supervisor-asr.he.srt
+  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
+  - pyproject.toml (renormalized only)
+  - scripts/tests/bigui_browser_smoke.mjs (renormalized only)
+  - scripts/verify-controlled.ps1 (renormalized only)
+  - scripts/verify-source.ps1 (renormalized only)
+- Rollback note: Merge commit a78c1bf on main; feature branch docs/iris-july29-phd-execution retained (not deleted) at commit 20b04fc for reference.
+- Git commit: none recorded by script.
+

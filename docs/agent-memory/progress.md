@@ -157,6 +157,7 @@ Track milestones, current work, and next steps here.
 
 | Date | Summary | Files |
 | --- | --- | --- |
+| 2026-09-03 | Created and validated the strict one-page preliminary human-intervention experiment for Iris. It uses three frozen cases, explicit autonomous/human-assisted conditions, bounded controlled inputs, and `To be measured` outcomes; the local PDF is exactly one A4 page and is not an effectiveness result. | `docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md`, `scripts/build_paper.py`, `scripts/tests/test_preliminary_human_intervention_one_page.py`, ignored local PDF |
 | 2026-06-11 | Created shared memory foundation for Codex and Claude. | `AGENTS.md`, `CLAUDE.md`, `docs/agent-memory/*` |
 | 2026-06-11 | Added clearer current-state and progress tracking requirements. | `AGENTS.md`, `CLAUDE.md`, `docs/agent-memory/README.md`, `docs/agent-memory/current-state.md`, `docs/agent-memory/progress.md` |
 | 2026-06-11 | Added scripted memory automation for prompt start/end. | `scripts/agent-memory-start.ps1`, `scripts/agent-memory-finish.ps1`, `docs/agent-memory/automation.md` |
@@ -214,6 +215,7 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
+- **2026-09-03 (Codex):** Ali reviews and sends the strict one-page experiment design to Iris. Obtain explicit approval of the case/review unit and independent-review protocol before replacing any `To be measured` outcome or making a benefit claim.
 - **2026-09-02 (Claude):** send the one-page study design to Iris and Arnon before Thu 09-03 13:00; request the Cheers domain-base files / TA exercise index; run EXP-045 to a per-row CSV on Fri 09-04; collect the three marking sheets by Sat 09-05 (fallback: report m1, m2, m5 and Ali's marks on Sunday); write the Sun 09-06 two-pager; integrate as Chapter 5 preliminary results in the Wed 09-09 proposal v2.
 Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor package was delivered and the August 12 meeting happened; see [`2026-08-12-supervisor-meeting.md`](../research/meetings/2026-08-12-supervisor-meeting.md) (evidence matrix `F1`-`F17`) and its bilingual companion [`2026-08-12-post-meeting-plan.md`](../research/meetings/2026-08-12-post-meeting-plan.md) for the current, live next-step list. Medical work remains blocked at 0/6 gates and EXP-005 remains 0/24 — unchanged by this call.
 

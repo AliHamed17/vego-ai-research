@@ -17,8 +17,9 @@ This directory turns the requirements from the 29 July 2026 supervisor call into
 9. [`iris-arnon-requirements-2026-09-02.en.md`](./iris-arnon-requirements-2026-09-02.en.md) / [`.he.md`](./iris-arnon-requirements-2026-09-02.he.md) — reviewed paraphrase of the 2026-09-02 supervisor call that narrowed the preliminary study to one descriptive WHEN-to-escalate study and set the 09-03 / 09-06 / 09-09 deliverables.
 10. [`iris-arnon-requirements-2026-09-02-checklist.md`](./iris-arnon-requirements-2026-09-02-checklist.md) — word-by-word checklist of that call (115 items) with where each is addressed.
 11. [`2026-09-03-preliminary-study-design.en.md`](./2026-09-03-preliminary-study-design.en.md) / [`.he.md`](./2026-09-03-preliminary-study-design.he.md) — the one-page study design due Thursday 2026-09-03 (EXP-045; descriptive; no improvement claim).
-12. [`2026-09-03-preliminary-study-two-page-backup.en.md`](./2026-09-03-preliminary-study-two-page-backup.en.md) — a two-page backup with more detail, if Iris asks for it; requests the course grading index by name.
-13. [`2026-09-03-preliminary-study-comprehensive-paper.en.md`](./2026-09-03-preliminary-study-comprehensive-paper.en.md) — the full deep-research write-up (three pages, four figures) behind the one-pager, with the negative results stated explicitly.
+12. [`2026-09-03-preliminary-human-intervention-experiment.en.md`](./2026-09-03-preliminary-human-intervention-experiment.en.md) — the strict one-page paired-condition experiment design for Iris: three frozen cases, explicit trigger status, bounded controlled human input, credible reference evidence, and no fabricated outcome.
+13. [`2026-09-03-preliminary-study-two-page-backup.en.md`](./2026-09-03-preliminary-study-two-page-backup.en.md) — a two-page backup with more detail, if Iris asks for it; requests the course grading index by name.
+14. [`2026-09-03-preliminary-study-comprehensive-paper.en.md`](./2026-09-03-preliminary-study-comprehensive-paper.en.md) — the full deep-research write-up (three pages, four figures) behind the one-pager, with the negative results stated explicitly.
 
 ## Canonical working research architecture
 

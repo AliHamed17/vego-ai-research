@@ -38,46 +38,6 @@ Chronological prompt history for Codex and Claude.
 - Commands run: `pwsh ./scripts/build-progress-visualizations.ps1` (multiple iterations), `[Parser]::ParseFile` syntax checks, Browser tool screenshots (light + dark), `gh pr create/checks/view`, `gh api repos/.../pulls/29/merge`, `git worktree add/remove`.
 - Next steps: None outstanding for this task. The dashboard now shows all 4 status mixes it already computes, in both generated outputs, with real charts instead of flat bars.
 
-## 2026-08-20 - ChatGPT - Direct repair of external Literature Workbook v11 to audited v12
-
-- Request: Ali asked to fix the external Downloads workbook `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx` directly against `docs/research/phd-proposal/literature-review-v16-workbook-v11-verification-report.md`, preserve its hand-maintained four-sheet structure and formatting, repair G6/maturity/arithmetic/source/ranking defects, and update project memory.
-- Actions taken: Confirmed no workbook generator exists in the repository; imported and edited the actual `.xlsx` directly with `artifact_tool`. Added G6 to `RQ` and `RQ2` as a construct-risk/open-decision row; re-derived FT-A/FT-B labels from accessible full sources (Bansal retained FT-A; Kulesza, Aamodt & Plaza in both sheets, NIST SP 800-162, and Schünemann set FT-A); replaced the PDF-unresolved Raykar core anchor with Aroyo & Welty and recorded the anchor revision; corrected EXP-008 from `1.35` to `33/26 = 1.269 (~1.27)`; corrected RES-2/RES-3 citations to `chapter-4-research-methodology.md` and the 2026-08-18 decisions entry; replaced pseudo-numeric priority scores with transparent editorial-priority labels; narrowed ACL disposition and global-score wording; preserved current provisional RQs and separate v15 candidate wording.
-- Repository changes: Corrected the inherited EXP-008 arithmetic in `docs/research/phd-proposal/chapter-5-preliminary-results.md`; added `docs/research/phd-proposal/literature-review-v16-workbook-v11-follow-up-v12.md`; updated ISS-036 as workbook-side remediated and ISS-038 as unchanged/open in `docs/agent-memory/issues.md`.
-- Validation: Re-imported the exported workbook; four sheets preserved; five anchors per RQ; no formula errors; G6 found in RQ and RQ2; Aamodt maturity consistent across RQ2/RQ3; EXP-008 arithmetic independently recomputed; corrected resourcing sources reopened and checked; all four sheets rendered and visually inspected; shifted merged rows repaired after first render.
-- Result: External output `/mnt/data/VEGO-AI_Literature_Workbook_RQ_Only_Organized_v12_Audit_Fixed.xlsx`, SHA-256 `0f5d9c2b328485477ae114e2a585ceb9c74984c9072a3e8aa468cd96e20d598d`. Workbook-side audit findings are repaired. PDF v16 was deliberately not modified; PDF scorecard, bibliography, and remaining cross-artifact consistency require the paired PDF pass. Formal searches remain 0/5, EXP-005 0/24, medical gates 0/6, and PR #20 remains open.
-- Rollback: The workbook is external and the v11 input is preserved unchanged. Revert repository commits affecting `chapter-5-preliminary-results.md`, the follow-up report, `issues.md`, and this memory entry to undo repo-side documentation; delete the v12 external output to withdraw the workbook repair.
-
-## 2026-08-20 - Claude - Strict 70-agent audit of Literature Review v16 + Workbook v11; bilingual requirements-landing-page prompt
-
-- Request: User supplied two new Downloads files (`VEGO_AI_Literature_Review_v16_GitHub_Synchronized_45_Page_2026-08-19.pdf`, `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx`) and asked for a validated, verified, "strict review and score" using literature-review-methods expertise. Separately asked for a bilingual (Hebrew/English) Claude prompt to design and build a requirements landing page.
-- Actions taken: Extracted the 45-page PDF to text via pymupdf and the 4-sheet workbook to CSV (no poppler/pdftoppm on this machine, so the Read tool's page-render path didn't work; used `pymupdf`/`openpyxl` directly instead). Ran a 70-agent Workflow: 7 independent expert-lens reviews (methodology, citation integrity, cross-artifact consistency, workbook internal integrity, ground-truth alignment against this repo's real files, claim-boundary compliance, academic writing quality) each pipelined into a single-skeptic adversarial verification per finding (23 of 59 raised findings rejected), then 3 independent judges scored the release against its own 7-criterion rubric, reconciled by a synthesis agent. Wrote the full report to `docs/research/phd-proposal/literature-review-v16-workbook-v11-verification-report.md`. Separately wrote a bilingual (mirrored EN/HE) strict build-prompt to `docs/agent-memory/claude-requirements-landing-page-prompt.md`, grounded in the real structure of `iris-arnon-requirements.en.md`/`.he.md` and the existing `build_thesis_progress_visual.py`/`docs/dashboards/` conventions; not yet executed.
-- Result: Reconciled score 32/100 (judges: 28, 32, 34) vs. the document's self-reported 76/100 -- rejected as inflated and internally uncomputable. 4 critical + 17 high + 10 medium + 5 low findings confirmed, including 6 named citations (3 anchoring the central novelty argument) missing from the document's own bibliography, a 106/116 headline count contradicted by the document's own Appendix A ("Not final"), 6 inverted FT-A/FT-B labels and a missing gap G6 between the PDF and its paired workbook, and an undisclosed RQ-wording substitution (a demoted v15 candidate shown as current). Logged as ISS-036/037/038. Also found and logged (ISS-038) that PR #20 (the literature awesome-list rebuild from earlier the same night) is fully green/mergeable but was never merged -- `main`'s `literature/README.md` is still the old stub, which is why this audit's own ground-truth check against it came up empty.
-- Commands run: `pymupdf`/`fitz` text extraction, `openpyxl` CSV dump, `Workflow` (70 agents, ~6.0M subagent tokens, 1135 tool uses, run wf_96cc5736-6cc), `git commit`/`pull`/`push` (multiple rounds, syncing against a very active concurrent-session main throughout).
-- Next steps: Decide whether to merge PR #20 (ISS-038). Decide whether/how to act on the v16/v11 findings before any supervisor sees them (ISS-036/037). Decide whether to execute the requirements-landing-page prompt now or hand it to a fresh session.
-
-## 2026-08-20 02:10 +03:00 - Claude - Do-next-step review: fix forbidden-artifact unsafe verdict
-
-- Request: User said 'do next step' with no new specific plan -- ran the project's own established next-step workflow per CLAUDE.md.
-- Actions taken:
-  - Ran run-codex-next-step.ps1 -RefreshWiki -RunHealth -NoOpen per CLAUDE.md Continue/Next-Step Prompts instructions.
-  - Project review returned verdict unsafe: Forbidden/generated/controlled artifacts are tracked (27 files: 5 architecture-figure PDFs plus supervisor-delivery PDF/ZIP snapshots under outputs and presentations), alongside the standing EXP-005 0 of 24 blocker.
-  - Traced all 27 files to the same historical commit 9163b2d already logged as ISS-032 root cause, confirming this was a pre-existing condition surfaced by finally re-running this specific check, not something newly broken.
-  - Asked Ali via AskUserQuestion how to handle it; he chose to untrack the files.
-  - Ran git rm --cached on all 27 files, kept on disk, now correctly covered by existing gitignore rules, no new gitignore entries needed. Committed and pushed; CI green.
-  - Re-ran run-project-review.ps1: verdict improved from unsafe to blocked, leaving only the standing expected EXP-005 gate.
-  - Logged the fix as ISS-035 resolved and cross-referenced it from ISS-032, which remains open for the distinct dashboard generated-file tracking question.
-- Files changed:
-  - docs/agent-memory/issues.md
-  - docs/research/figures/fig1-vego-ai-architecture.pdf (untracked, kept on disk)
-  - outputs and presentations PDFs/ZIP (26 more files, untracked, kept on disk)
-- Commands/checks:
-  - run-codex-next-step.ps1 -RefreshWiki -RunHealth -NoOpen (verdict unsafe)
-  - git rm --cached on 27 files
-  - run-project-review.ps1 (verdict blocked, was unsafe)
-  - gh run view (success)
-- Status: run-project-review.ps1 verdict is blocked, expected standing EXP-005 gate only, not unsafe. CI green on main.
-- Next steps: ISS-032 dashboard generated file tracking question, same root commit, remains open and undecided, separate from the 27 files resolved here. EXP-005 0 of 24 remains the standing blocker across the whole project; requires real human expert labeling, not further automation.
-
 ## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
 
 - Request: Strict scored review of 2026-08-23 doctoral proposal PDF as reviewer and orchestrator; also fix broken main CI.
@@ -153,7 +113,6 @@ Chronological prompt history for Codex and Claude.
 - Status: completed
 - Next steps: Regenerate figure images 11/14/18/20; complete author lists for refs 74/75/78/79/80/81 against publisher records; execute QL-01..05; run constants pilot; decide ISS-042..049
 
-
 ## 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
 
 - Request: Follow the 2026-09-02 supervisor requirements word by word; produce the one-page study design for Iris (baseline/benchmark of WHEN to involve the human in VEGO-AI), a checklist of every requirement, and the repository work behind it
@@ -215,3 +174,30 @@ Chronological prompt history for Codex and Claude.
   - Word render: EN and HE pages are one page each
 - Status: completed
 - Next steps: Thu 09-03: send the page; ask whether the recorded review may be cited as preliminary evidence and who performed it. Fri 09-04: apply the signals to the whole corpus (not only the reviewed sample) and produce the capture/load curve. Sat 09-05: worked P6 case and earliest-stage counts. Sun 09-06: two-page results. Wed 09-09: proposal v2 with Study 1 preliminary results.
+
+## 2026-09-03 12:07 +03:00 - Codex - Strict one-page human-intervention experiment for Iris
+
+- Request: Create one A4 page only with the paired baseline and controlled human-intervention experiment, preserve evidence boundaries, validate it, and publish the sanitized change to main.
+- Actions taken:
+  - Created a ten-section one-page experiment design tied to provisional SQ1.
+  - Defined three frozen Cheers/ParkWise cases with explicit Condition A and Condition B.
+  - Separated automatic, reference-dependent, and manually identified triggers.
+  - Kept every evaluative outcome To be measured and removed an exact rehearsal number not yet present on main.
+  - Rendered with Microsoft Word, visually inspected the full page, and verified A4 geometry, embedded fonts, content, and hash.
+- Files changed:
+  - docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md
+  - docs/research/phd-proposal/README.md
+  - scripts/build_paper.py
+  - scripts/tests/test_preliminary_human_intervention_one_page.py
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/resource-memory.md
+- Commands/checks:
+  - uv run pytest targeted Study 1 suite: 6 passed, 10 dataset-dependent skips
+  - uv run ruff check targeted files: passed
+  - PDF semantic QA: one A4 page, 16 required markers, no private path or unsupported rehearsal numbers
+  - PDF font embedding: three Calibri subsets embedded
+  - repository privacy scan: passed
+  - git diff --check: passed
+- Status: Ready for Iris review; no human-effectiveness result or supervisor approval is claimed.
+- Next steps: Ali sends the one-page PDF; Iris confirms the case/review unit and independent evaluation protocol before any outcome is filled.
