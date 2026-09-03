@@ -50,6 +50,12 @@
       "version": "1.2.0"
     },
     {
+      "name": "PyYAML",
+      "purl": "pkg:pypi/pyyaml@6.0.3",
+      "type": "library",
+      "version": "6.0.3"
+    },
+    {
       "name": "ruff",
       "purl": "pkg:pypi/ruff@0.15.16",
       "type": "library",

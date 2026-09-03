@@ -819,6 +819,33 @@ def test_drive_id_matcher_ignores_public_package_url_path_tokens() -> None:
         }
 
 
+def test_structured_scanner_allows_public_supply_chain_metadata() -> None:
+    """Keeps standard PURLs, UUID URNs, digests, and scan-status metadata public-safe."""
+    payload = json.dumps(
+        {
+            "serialNumber": "urn:uuid:00000000-0000-4000-8000-000000000015",
+            "components": [
+                {"purl": "pkg:pypi/pyyaml@6.0.3"},
+                {"purl": "pkg:npm/playwright@1.61.1"},
+            ],
+            "properties": [{"name": "vego-ai:scope", "value": "development"}],
+            "sourceHashes": {
+                "pyproject.toml": "1" + "a" * 63,
+            },
+            "secretScan": {
+                "provider": "gitleaks",
+                "status": "PASS",
+            },
+        },
+        indent=2,
+    ).encode()
+
+    assert not privacy.public_artifact_byte_findings(
+        payload,
+        relative_path="docs/public-sbom.json",
+    )
+
+
 def test_privacy_validator_cli_accepts_the_public_synthetic_example():
     """Catches direct CLI execution that loses the repository src import path."""
     result = subprocess.run(

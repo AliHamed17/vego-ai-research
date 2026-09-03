@@ -232,7 +232,9 @@ PUBLIC_ARTIFACT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
         "drive_id",
         re.compile(
             r"(?<!sha256:)(?:(?<=[/]d[/])1[A-Za-z0-9_-]{24,}(?=[/?#\s\"']|$)"
-            r"|(?<![A-Za-z0-9_./-])1[A-Za-z0-9_-]{24,}(?![A-Za-z0-9_./-]))"
+            r"|(?<![A-Za-z0-9_./-])"
+            r"(?!(?:[0-9a-f]{40}|[0-9a-f]{64}|[0-9a-f]{128})(?![A-Za-z0-9_./-]))"
+            r"1[A-Za-z0-9_-]{24,}(?![A-Za-z0-9_./-]))"
         ),
     ),
     (
@@ -256,7 +258,7 @@ PUBLIC_ARTIFACT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"(?i)(?<![\w+.-])(?:\\\\[\w][\w._-]*[\\/]"
             r"|(?<!:)//[\w][\w._-]*/"
             r"|(?:file|s3|ssh|ftp|git):(?://)?"
-            r"|(?!(?:https?|sha256):)[a-z][a-z0-9+.-]*://)"
+            r"|(?!(?:https?|sha256|pkg|urn|vego-ai):)[a-z][a-z0-9+.-]*://)"
         ),
     ),
     (
@@ -283,7 +285,7 @@ PROHIBITED_PUBLIC_PATH_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 )
 STRUCTURED_ARTIFACT_SUFFIXES = frozenset({".json", ".yaml", ".yml"})
 PYTHON_ARTIFACT_SUFFIXES = frozenset({".py", ".pyi"})
-PUBLIC_URI_SCHEMES = frozenset({"http", "https", "sha256"})
+PUBLIC_URI_SCHEMES = frozenset({"http", "https", "pkg", "sha256", "urn", "vego-ai"})
 URI_SCHEME_PATTERN = re.compile(r"^(?P<scheme>[A-Za-z][A-Za-z0-9+.-]*):")
 PRIVATE_HOST_PATTERN = re.compile(
     r"(?i)^(?:localhost|127\.0\.0\.1|(?:[a-z0-9-]+\.)+(?:internal|private|local))$"
@@ -317,6 +319,7 @@ BARE_IPV6_TOKEN_PATTERN = re.compile(
 CREDENTIAL_KEY_FRAGMENT_PATTERN = re.compile(
     r"(?i)api(?:key|keys)|token|secret|password|credential"
 )
+SAFE_CREDENTIAL_METADATA_KEYS = frozenset({"secretscan", "secretscanstatus"})
 CREDENTIAL_PLACEHOLDER_PATTERNS = (
     re.compile(r"^\$\{[A-Za-z_][A-Za-z0-9_]*\}$"),
     re.compile(r"^\{\{\s*[A-Za-z_][A-Za-z0-9_.-]*\s*\}\}$"),
@@ -346,6 +349,7 @@ DRIVE_ID_CONTEXT_PATTERN = re.compile(
 )
 LEGACY_DRIVE_ID_PATTERN = re.compile(
     r"(?<!sha256:)(?<![A-Za-z0-9_./-])"
+    r"(?!(?:[0-9a-f]{40}|[0-9a-f]{64}|[0-9a-f]{128})(?![A-Za-z0-9_./-]))"
     r"(?:1[A-Za-z0-9_-]{24,}|0B[A-Za-z0-9_-]{22,})"
     r"(?![A-Za-z0-9_./-])"
 )
@@ -404,6 +408,8 @@ def _is_credential_field_name(value: str | None) -> bool:
     normalized = _normalized_structured_scalar(value)
     camel_separated = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", normalized)
     compact = re.sub(r"[^a-z0-9]", "", camel_separated.casefold())
+    if compact in SAFE_CREDENTIAL_METADATA_KEYS:
+        return False
     return CREDENTIAL_KEY_FRAGMENT_PATTERN.search(compact) is not None
 
 

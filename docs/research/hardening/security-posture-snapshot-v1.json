@@ -13,8 +13,8 @@
   "exceptions": [],
   "inputHashes": {
     "package-lock.json": "186f2bfecc4c4655ba4e12059c51b1abf993d5fd69a9cd9183328c898ca44c0e",
-    "pyproject.toml": "c1a0092f6f969b7a5a41220bdc6cff6b6acfcd45b40209e1147c4726811e295e",
-    "uv.lock": "ae3820df9477c87b9bba86438df47ad4774fbde5725a4b629cd960a6dbe4635d"
+    "pyproject.toml": "11b0a361c04b0a4530a6a15bddfb517a7aa057776b0956f56c3e707d715c5020",
+    "uv.lock": "0deda1dd9c85ea1776fc96097dcd957dcfc3110de52c60f743a1025708f78e26"
   },
   "privacy": {
     "evidence": "Interaction logs default to metadata_only; full_content is explicit opt-in and locally retained.",
