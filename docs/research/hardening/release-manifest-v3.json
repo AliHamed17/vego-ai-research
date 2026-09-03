@@ -202,6 +202,7 @@
     "scripts/tests/test_iris_zoom_review_batches.py",
     "scripts/tests/test_policy_arms.py",
     "scripts/tests/test_preliminary_human_intervention_one_page.py",
+    "scripts/tests/test_qa_escalation_task_plan.py",
     "scripts/tests/test_reuse_gates.py",
     "scripts/tests/test_security_audit.py",
     "scripts/tests/test_supervisor_source_manifest.py",
@@ -234,7 +235,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "b45f9526b682b00225c556ec309b9c108a46d3e4e7c16f74309a0ccdd6bae849",
+  "sourceTreeSha256": "b653833f84c8d4749da778ecc6fbbf4e91575c51234172ad089c27bedc4e3439",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
