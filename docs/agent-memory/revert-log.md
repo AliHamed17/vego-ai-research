@@ -251,3 +251,13 @@ Record file changes and rollback notes here.
   - docs/agent-memory/decisions.md
 - Rollback note: Revert the Q&A scaffold, schema, docs, and tracking entries; frozen baseline and prior score-reconstruction artifacts are untouched.
 - Git commit: none recorded by script.
+
+## 2026-09-03 23:06 +03:00 - Codex - Supervisor-facing Q&A task plan
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-task-plan.he.md
+  - scripts/build_qa_escalation_task_plan.py
+  - scripts/build_qa_escalation_task_plan_pdf.py
+  - scripts/tests/test_qa_escalation_task_plan.py
+- Rollback note: Remove the four new source/build/test files; ignored output/docx and output/pdf artifacts remain local.
+- Git commit: none recorded by script.

@@ -249,3 +249,23 @@ Chronological prompt history for Codex and Claude.
   - python scripts/check_evidence_consistency.py
 - Status: completed
 - Next steps: Obtain approved answer-level Q&A histories and blind labels; do not run intervention or score-effect replay.
+
+## 2026-09-03 23:06 +03:00 - Codex - Supervisor-facing Q&A task plan
+
+- Request: Create the precise Hebrew operational task list requested by Iris without implementing instrumentation or manual validation.
+- Actions taken:
+  - Created eight filled tasks with P0/P1/P2 priorities
+  - Corrected terminology to ANSWER_NOT_PERSISTED
+  - Built ignored RTL DOCX/PDF companions and added plan tests
+- Files changed:
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-task-plan.he.md
+  - scripts/build_qa_escalation_task_plan.py
+  - scripts/build_qa_escalation_task_plan_pdf.py
+  - scripts/tests/test_qa_escalation_task_plan.py
+- Commands/checks:
+  - python -m pytest -q scripts/tests/test_qa_escalation_task_plan.py (2 passed)
+  - python scripts/build_qa_escalation_task_plan.py
+  - python scripts/build_qa_escalation_task_plan_pdf.py
+  - pdftoppm/pdfinfo and visual inspection (3 A4 pages)
+- Status: completed; ready for supervisor review
+- Next steps: Supervisor decides whether descriptive feasibility is acceptable; instrumentation and rerun remain pending.

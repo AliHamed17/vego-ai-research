@@ -217,6 +217,8 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
+- **2026-09-03 (Codex):** produced the filled Hebrew supervisor-facing Q&A task plan (8 tasks, P0/P1/P2, no manual labeling), plus ignored local RTL DOCX/PDF deliverables. Current 12 Q&A records are documented as `ANSWER_NOT_PERSISTED`; only a descriptive feasibility result is permitted until complete observability is available.
+
 - **2026-09-03 (Codex):** Ali reviews and sends the strict one-page experiment design to Iris. Obtain explicit approval of the case/review unit and independent-review protocol before replacing any `To be measured` outcome or making a benefit claim.
 - **2026-09-02 (Claude):** send the one-page study design to Iris and Arnon before Thu 09-03 13:00; request the Cheers domain-base files / TA exercise index; run EXP-045 to a per-row CSV on Fri 09-04; collect the three marking sheets by Sat 09-05 (fallback: report m1, m2, m5 and Ali's marks on Sunday); write the Sun 09-06 two-pager; integrate as Chapter 5 preliminary results in the Wed 09-09 proposal v2.
 Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor package was delivered and the August 12 meeting happened; see [`2026-08-12-supervisor-meeting.md`](../research/meetings/2026-08-12-supervisor-meeting.md) (evidence matrix `F1`-`F17`) and its bilingual companion [`2026-08-12-post-meeting-plan.md`](../research/meetings/2026-08-12-post-meeting-plan.md) for the current, live next-step list. Medical work remains blocked at 0/6 gates and EXP-005 remains 0/24 — unchanged by this call.
