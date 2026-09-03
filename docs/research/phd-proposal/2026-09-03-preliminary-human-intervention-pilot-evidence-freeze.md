@@ -2,13 +2,19 @@
 
 **INTERNAL EVIDENCE FREEZE — NOT A NEW SUPERVISOR DELIVERABLE.**
 Scientific/methodological lead record. Codex holds the technical/reproducibility lane.
-Date 2026-09-03. Base revision `3b8ce46`. Evidence source: the supervisor-supplied package
-(`System/eval_output`, `System/analysis`), which is byte-identical to `VEGO-AI/eval_output` in this repo.
+**Revision 2**, 2026-09-03. Base revision `f12ba2c`. Revision 1 was `f12ba2c`.
+Evidence source: the supervisor-supplied package (`System/eval_output`, `System/analysis`), byte-identical
+to `VEGO-AI/eval_output` in this repo.
 
-This document does **not** replace
+This does **not** replace
 [`2026-09-03-preliminary-human-intervention-experiment.en.md`](2026-09-03-preliminary-human-intervention-experiment.en.md),
-which may already have been sent. It records which statements in that page must be corrected before any
-result is reported. No intervention was executed. No agent, LLM, schema or `eval_output` file was touched.
+which may already have been sent. No intervention was executed. No agent, LLM, schema or `eval_output`
+artifact was touched.
+
+**Revision 2 fixes three methodological defects in Revision 1**, all raised in supervisor review and all
+confirmed here against the rows: the unit of analysis was ambiguous; P-B was presented as a primary
+triggered case when the stated trigger does not select it; and the Improved/Degraded outcome was
+circular. See §14–§18.
 
 ## 1. Evidence state
 
@@ -18,176 +24,248 @@ result is reported. No intervention was executed. No agent, LLM, schema or `eval
 | Ranking rows | 179 (46+48+44+41) | `agentC_all_scores.json` |
 | Duplicate-ID ranking rows | 14 | joined on `case_id` |
 | Expert-reviewed compliance judgments | 915 | four `scores_*.xlsx` / `compliance_vectors` |
-| Expert-rejected (`Score`=0) | 120 | ditto |
-| Trigger `status != Satisfied` | 257/915 = 28.1%, captures 108/120 = 90% | ditto |
+| Recorded expert disagreements (`Score`=0) | 120 | ditto |
 | Agent-B coverage gap | **59 of 80** (not 59 of 78) | `agentB_metrics.json` `false_negatives` / `TP+FN` |
 | Cases where `total_score` = sum of contributions | 27 of 165 | recomputed read-only |
 | Variability patterns | 27 shipped / 26 in the paper | `agentD_variability_classes*.json` vs Table 4 |
 | EXP-005 generalization-safe labels | **0 of 24** | `exp005_label_review_full.csv` |
 
-`Score` in `compliance_vectors` is an **expert agreement flag on the agent's verdict**, not a compliance
-score (rows with `Not-Satisfied` carry `Score`=1). The `Comment` column carries the corrected label.
-
-**New contradictions recorded, not resolved.** (a) The camera-ready states 16 Model Inspector outcomes
-were reviewed, 4 per setting; the artifact carries expert scores on 32 (setting, case) pairs — 8/8/7/9 —
-over 18 distinct case ids. (b) Each case file records the compliance label **twice**, in
-`existing_mapping[]` and in `compliance_contributions[]`, and these disagree in **78 of 4,852 entries
-across 36 cases**. Any replay must state which array it treats as the decision of record.
+`Score` is an **expert agreement flag on the agent's verdict**, not a compliance score. `Comment` carries
+the corrected label. Two contradictions recorded, not resolved: the camera-ready states 16 Model Inspector
+outcomes were reviewed (4/setting) against 32 (setting, case) pairs in the artifact (8/8/7/9, 18 case
+ids); and the compliance label is stored **twice** per case — `existing_mapping[]` and
+`compliance_contributions[]` — disagreeing in **78 of 4,852 entries across 36 cases**.
 
 ## 2. Corrected count interpretation
 
-**PARTIALLY RECONCILED.** 179 ranking rows → 165 distinct case identifiers → 14 duplicate-ID rows is
-verified. Why the published paper prints **178** rather than 179 is **not** established. The gap is
-localised to `ch-cd` alone (Table 1 says 47; the ranking array has 48); the other three settings match
-exactly. **No explanation is offered.**
-
+**PARTIALLY RECONCILED.** 179 ranking rows → 165 distinct ids → 14 duplicates is verified. Why the paper
+prints **178** is **not** established; the gap is `ch-cd` alone (47 vs 48). No explanation offered.
 Required wording: *"The published paper reports 178 case models; the supplied ranking artifacts contain
 179 scoring rows over 165 distinct case identifiers."*
 
-**Duplicate causes are mixed — the earlier "all AppleDouble" claim is withdrawn.** Of the 14:
-AppleDouble `._` stub 8 · `_1` copy 3 · draft/final variant 1 · alternate submission 1 · other 1.
-The loader is an unfiltered `sorted(folder.glob("*.txt"))`, so eight binary resource forks were read as
-text and scored: in `cd_pw` a 506-byte fork of case 70229 scored **130.6%** and ranks first in that
-setting. Only the second load persists into the case artifacts. Two md5-identical files (case 70248)
-scored 91.7% and 58.3% — a directly measured non-determinism datum.
-
-**Patterns: 27 shipped vs 26 published.** Localised to one cell: `pw-ucd` substantial 5 vs 4; the other
-three settings and all occasional counts match. Cause **UNRESOLVED**.
+Duplicate causes are mixed — the "all AppleDouble" claim is withdrawn: AppleDouble 8, `_1` copy 3,
+draft/final 1, alternate 1, other 1. The loader is an unfiltered `sorted(glob("*.txt"))`, so eight binary
+resource forks were scored; in `cd_pw` a 506-byte fork ranks first at 130.6%. Two md5-identical files
+(case 70248) scored 91.7% and 58.3%. **Patterns 27 vs 26: UNRESOLVED**, localised to `pw-ucd` substantial
+5 vs 4.
 
 ## 3. Reference-quality boundary
 
-The recorded expert review is **RECORDED EXPERT / DEVELOPMENT REFERENCE**. It is **not** independent
-held-out ground truth. The camera-ready states the assessors were *"two of the co-authors acting as
-domain experts, who also served as evaluators in the earlier phases"*. There is one `Score` column, no
-reviewer id and no second rating, so **no inter-rater agreement is computable** from this package.
+**RECORDED EXPERT / DEVELOPMENT REFERENCE — not independent held-out ground truth.** The camera-ready
+states the assessors were *"two of the co-authors acting as domain experts, who also served as evaluators
+in the earlier phases"*. One `Score` column, no reviewer id, no second rating → **no inter-rater agreement
+computable**. Agent-4 has no reference at all (`analysis/agentD_*` is md5-identical to `eval_output`).
 
-Agent-4 has **no** reference at all: `System/analysis/agentD_*.json` is md5-identical to
-`eval_output/*/agentD_*.json`, so any "expert vs agent" comparison there is self-comparison.
+## 14. FINAL PILOT UNIT
 
-## 4. Primary executable pilot cases
+**One case-guideline compliance judgment: the triple `(setting, case_id, guideline_id)`.**
 
-**One intervention type — correction of a recorded compliance verdict — over two cases.** Both are in the
-27 clean cases, both are fully expert-reviewed at row level, and both carry **zero** `existing_mapping`
-vs `compliance_contributions` label disagreements, so neither depends on Codex's re-aggregation.
+Revision 1 called a whole model "one bounded correction" while P-A carried 3 corrections and P-B carried
+6. That was wrong. Each experimental unit now contains exactly one baseline verdict, one trigger state,
+one recorded expert correction, one baseline contribution and one counterfactual contribution.
 
-**P-A · `cd_ch` / case 68064** — upward corrections. `agentC_case_68064.json`, baseline `total_score`
-22.0 = recomputed 22.0, `max_score` 26.0.
+A model-level aggregate may be reported **secondarily**, only after multiple independent micro-
+interventions are applied to the same case, and only where aggregation is technically clean. It must never
+be described as the effect of a single human input.
 
-| Row | Guideline | Baseline | Expert `Comment` | Contribution | Delta |
-| --- | --- | --- | --- | --- | --- |
-| `scores_cd_ch.xlsx` r58 | G5 Order Composition | Partially-Satisfied | `Satisfied` | 0.5 → 1.0 | +0.50 |
-| r60 | G7 Employee Ordering Conditions | Partially-Satisfied | `Satisfied` | 0.5 → 1.0 | +0.50 |
-| r78 | G25 Inventory Update Process | Not-Satisfied | `Partially-Satisfied` | 0.0 → 0.5 | +0.50 |
+## 15. FINAL PRIMARY OUTCOME
 
-Total delta **+1.50** → 23.5/26.0 (84.6% → 90.4%).
+**Improved / No Change / Degraded is withdrawn as an outcome.** It is circular: the recorded expert
+correction is both the input substituted into Condition B and the reference Condition B would be judged
+against, so agreement is guaranteed by construction. The pilot cannot establish benefit from this design.
 
-**P-B · `ucd_pw` / case 70219** — **opposite direction**, the agent was more generous than the expert.
-`agentC_case_70219.json`, baseline 48.0 = recomputed 48.0, `max_score` 48.0, all 48 guidelines
-`Satisfied`.
+Per unit, report only:
 
-Six rows in `scores_ucd_pw.xlsx` — r389 G4, r391 G6, r399 G14, r411 G26, r424 G39, r425 G40 — all
-baseline `Satisfied`, all expert `Comment` = `Partially`, each 1.0 → 0.5. Total delta **−3.00** →
-45.0/48.0 (100.0% → 93.8%).
+| Field | Values |
+| --- | --- |
+| Trigger status | Triggered / Not Triggered |
+| Replay status | Successful / Failed |
+| Baseline verdict | recorded label |
+| Controlled correction | recorded expert label |
+| Baseline contribution | schema constant |
+| Counterfactual contribution | schema constant |
+| Contribution delta | signed number |
+| Score effect | **UPWARD / DOWNWARD / NO SCORE EFFECT** |
+| Model-level aggregate delta | only if aggregation is clean |
+| Reference source | recorded development / co-author review |
+| Independence | **not independent** |
 
-P-B is included deliberately: it is the only clean fully-reviewed case that moves the score **down**.
-Corroborating contradiction, recorded not smoothed: `all_scores_published.xlsx` r98 gives this same case
-agent 100% against a human grade of 18.5/25 = 74%.
+A positive delta is **not** an improvement and a negative delta is **not** a degradation. Score direction
+is not quality direction: case `ucd_pw`/70219 carries an agent score of 100% against a human grade of
+18.5/25 = 74%, so a downward move there could be a correction of an over-generous baseline. Nothing in
+this design can distinguish the two.
 
-## 5. Secondary / exploratory cases
+## 16. TRIGGER-POSITIVE PRIMARY SET
+
+Trigger `compliance_status != "Satisfied"`. Eight screens applied: trigger-positive · explicit recorded
+correction · existing-schema · no prose mapping · clean frozen baseline · no dual-array disagreement ·
+deterministic contribution · no LLM.
+
+**Exactly three units survive across the whole corpus.** All three are in `cd_ch`/68064.
+
+| Unit | Guideline | Baseline | Recorded correction | Row | Contribution | Delta | Effect |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| U1 `cd_ch`/68064/G5 | Order Composition | Partially-Satisfied | Satisfied | `scores_cd_ch.xlsx` r58 | 0.5 → 1.0 | +0.50 | UPWARD |
+| U2 `cd_ch`/68064/G7 | Employee Ordering Conditions | Partially-Satisfied | Satisfied | r60 | 0.5 → 1.0 | +0.50 | UPWARD |
+| U3 `cd_ch`/68064/G25 | Inventory Update Process | Not-Satisfied | Partially-Satisfied | r78 | 0.0 → 0.5 | +0.50 | UPWARD |
+
+**All three are UPWARD. No clean trigger-positive downward unit exists in the corpus.** This is reported
+as found; no negative example was manufactured. Secondary model-level aggregate for 68064, if all three
+are applied: 22.0 → 23.5 of `max_score` 26.0. The case is clean (printed = recomputed) and carries zero
+dual-array disagreements, so the aggregate is technically admissible.
+
+**Near-misses, available as sensitivity checks only:** `ucd_ch`/68074/G17 (r153) and /G19 (r155), both
+Partially-Satisfied and trigger-positive in a clean case, excluded because the correction is prose
+(*"Can be considerted as satisfied"*, *"Can be considered as satisfied"*) rather than an explicit label.
+
+**Blocked:** `cd_ch`/68113/G4 (Not-Satisfied → Satisfied, +1.00) is the only clean-schema route to that
+direction but sits among the 138 unreconciled cases (printed 24.5 vs recomputed 24.0), giving two routes
+that differ by 0.5. It waits on Codex.
+
+## 17. TRIGGER BLIND-SPOT SET
+
+**P-B is reclassified. It is not a primary triggered case.** All six of its baseline verdicts are
+`Satisfied`, so the trigger `compliance_status != "Satisfied"` would **not** have requested human review
+for any of them.
+
+`ucd_pw`/70219, six units — G4 (r389), G6 (r391), G14 (r399), G26 (r411), G39 (r424), G40 (r425) — all
+baseline `Satisfied`, all recorded correction `Partially`, each 1.0 → 0.5, each delta −0.50.
+
+Its scientific value is precisely that it is a **false negative of the proposed trigger**: a simple
+`status != Satisfied` rule misses recorded expert disagreements, and this case concentrates six of them
+in one model. That bears directly on Iris's *when* question and must not be hidden. Its counterfactual
+replay, if run at all, is secondary and must be labelled a blind-spot demonstration.
+
+## 18. DEVELOPMENT TRIGGER STATISTICS
+
+Recomputed read-only over the four `compliance_vectors` sheets. These describe a **development-time
+co-author review**, not independent ground truth. Labelled accordingly — not "accuracy", not "precision".
+
+| Measure | Value |
+| --- | --- |
+| Reviewed judgments | 915 |
+| Recorded expert disagreements | 120 |
+| Flagged by `status != Satisfied` | 257 |
+| **Development disagreement coverage** | 108 / 120 = **90.0%** |
+| **Flag burden** | 257 / 915 = **28.1%** |
+| **Review yield among flagged** | 108 / 257 = **42.0%** |
+
+The 12 disagreements the trigger misses are all `Satisfied`-baseline rows; six of them are the
+`ucd_pw`/70219 blind-spot set above.
+
+## 4. Frozen Condition A
+
+The recorded artifact exactly as shipped: `agentC_case_<id>.json` with `existing_mapping[]`,
+`compliance_contributions[]` and `total_score`. Nothing re-executed.
+
+## 5. Controlled Condition B
+
+**FROZEN-OUTPUT CONTROLLED COUNTERFACTUAL REPLAY.** For one unit, the recorded expert label is
+substituted at exactly that `(case, guideline)` entry and only the dependent scoring contribution — and,
+where clean, the model aggregate — is recomputed from published schema constants. **No agent runs, no LLM
+call, no write to `eval_output`.**
+
+Demonstrates intervention-point, input-representation and downstream-effect feasibility. Does **not**
+demonstrate real-time interaction, agent adaptation, joint human–AI performance, accuracy or benefit.
+*"Human-Assisted VEGO-AI"* in §7 of the delivered one-pager overstates this and must be corrected.
+
+**Dependency on external evidence (Codex, `74d389f`).** The units are identified from
+`System/analysis/scores_*.xlsx`, which is **not tracked in this repository**. Codex lists "exact public C2
+row selection" as blocked and puts use of that workbook under supervisor approval. See §19-B.
+
+## 6. Technical success criterion (PASS / FAIL, per unit)
+
+1. Exact frozen baseline identified. 2. Exactly one verdict substituted. 3. No other decision field
+changes. 4. No LLM/API call. 5. Deterministic recomputation. 6. Repeated replay gives an identical result.
+7. The expected arithmetic delta is reproduced (U1/U2/U3 each **+0.50**).
+
+Scientific effect is **only** the observed downstream delta and its direction. It is never classified as
+beneficial.
+
+## 7. Allowed claim
+
+*"In selected frozen VEGO-AI compliance judgments, an observable review trigger can identify decision
+points at which one bounded, previously recorded expert correction can be substituted and its downstream
+scoring consequence recomputed deterministically without rerunning the LLM pipeline."*
+
+*"The pilot demonstrates intervention and replay feasibility; it does not establish that the intervention
+improves assessment quality."*
+
+Additionally admissible: that the proposed trigger has recorded false negatives (§17), and the measured
+workload it creates (§18).
+
+## 8. Forbidden claims
+
+No accuracy, effectiveness, quality, benefit, effort, superiority, generalization or statistical claim ·
+not independent validation · not a user study · `Score`=0 records disagreement, not agent error · a
+positive delta is not improvement and a negative delta is not degradation · no Agent-4 quantitative claim ·
+nothing built on `total_score` for the 138 unreconciled cases · never *prove*.
+
+## 9. Iris's WHEN / WHERE, answered
+
+- **WHEN** — `compliance_status != "Satisfied"`, computable from frozen output; flags 28.1% of judgments,
+  covers 90.0% of recorded disagreements, yield 42.0%; with recorded false negatives (§17).
+- **WHERE** — the Model Inspector compliance judgment for one `(case, guideline)` pair.
+- **WHAT THE HUMAN DOES** — confirms or corrects that one verdict.
+- **WHAT THE SYSTEM DOES** — recomputes only the corresponding scoring contribution, and the model
+  aggregate where clean.
+- **WHAT WE LEARN** — whether that intervention point is technically actionable, and how much review
+  workload the trigger creates. Not whether the intervention helps.
+
+## 19. EXECUTION GO / NO-GO CONDITIONS
+
+**GO requires all of:**
+
+1. **G1** Supervisor approval to use the external recorded-expert workbook as the human-input source
+   (§19-B below). **Currently NOT granted.**
+2. **G2** Codex confirms `cd_ch`/68064 remains clean under its reconstruction (printed = recomputed;
+   zero dual-array disagreements). Independently verified here, pending Codex's own receipt.
+3. **G3** The replay harness is Codex's, read-only against `eval_output`, writing only to a separate
+   result record.
+4. **G4** Outcome fields are those in §15. Any artifact using Improved/Degraded is a NO-GO.
+5. **G5** U1–U3 are reported as three units, not one intervention.
+
+**NO-GO if any of:** the delta differs from +0.50 on any unit (a failed replay, not a finding) · any LLM
+call occurs · any `eval_output` file is modified · the aggregate is claimed for a case among the 138 ·
+P-B is presented as trigger-positive.
+
+**Two gates, deliberately separated (§19-A / §19-B):**
+
+- **A — Internal technical/methodological preparation: MAY CONTINUE NOW.** Unit definition, screening,
+  trigger statistics, harness design and dry-run planning need no further approval, and **EXP-005 at 0/24
+  does not block them.** EXP-005 blocks accuracy and generalization claims, which this pilot does not make.
+- **B — Using the external recorded-expert workbook as the human-input source for a supervisor-facing
+  preliminary result: REQUIRES EXPLICIT IRIS/ARNON APPROVAL**, per Codex's technical boundary. This is the
+  single blocking gate. The analysis is not blocked; only that use of it is.
+
+## 10. Secondary / rejected cases
 
 | Case | Verdict | Reason |
 | --- | --- | --- |
-| **P-C** `cd_ch`/68113 — Not-Satisfied→Satisfied | **SECONDARY, blocked** | Supplies the missing upward-from-Not-Satisfied direction (+2.00) but is one of the 138: printed 24.5 vs recomputed 24.0. Two routes give 26.0 (=max) or 26.5 (>max). **Waits on Codex.** |
-| **C1 missing guideline** (page's P2) | **REMOVED from the paired pilot** | Option A falsified: all 17 human-inserted rows hold the literal string `null` in every Run-ID, name, description and citation cell, supplying **0 of the 6** fields the Model Inspector consumes. Even with an object, the verdict is an LLM call — `agentC_case_scorer.py` marks `score_case_model` `[LLM call]`. |
-| **C1-B guideline deletion** | **CANDIDATE, needs a design pass** | 21 rows are `Status='WRONG'`; 13 have a real Run-1 ID and exist in the best run. Primary candidate `ucd_ch` G20. First-order arithmetic is deterministic; **second-order effects are not** — whether removal changes remaining verdicts needs an LLM. Carry as a stated assumption or drop. |
-| **C3 uncovered fragment** (page's P1) | **EXPLORATORY ONLY** | 27 rejections partition 3 / 12 / 10 / 2. Only 3 name a different schema label, and even those are not rescorable: a Mistake label requires a severity the expert never supplied, and the baseline severity is `N/A`. The universal claim "C3 is always outside the schema" is **withdrawn** — 88.9% is accurate. |
-| **C4 variability** | **REJECT** | Self-comparison (md5-identical). `requires_human_review` false on all 27. Absent from `Tasks.docx`. |
-| The 114-row set as a block | **EXPLORATORY ONLY** | Six of the 114 sit in cases with the dual-label disagreement; a set-level claim needs per-row screening. Individually screened cases remain admissible. |
+| `cd_ch`/68113 | SECONDARY, blocked | Only clean-schema Not-Satisfied→Satisfied route; among the 138 |
+| C1 insertion | REMOVED | All 17 rows hold literal `null` in every run-ID/name/description/citation cell — 0 of the 6 fields the Model Inspector consumes; and the verdict is an LLM call |
+| C1 deletion variant | CANDIDATE, needs design | 13 viable `WRONG` guidelines; first-order deterministic, second-order not |
+| C3 uncovered fragment | EXPLORATORY ONLY | 27 rejections split 3/12/10/2; even the 3 schema-naming rows need a severity the expert never supplied. The universal "outside the schema" claim is withdrawn — 88.9% |
+| C4 variability | REJECT | Self-comparison (md5-identical); `requires_human_review` false on all 27; absent from `Tasks.docx` |
+| The 114-row set as a block | EXPLORATORY ONLY | Six sit in dual-label-disagreement cases |
 
-**Dependency on external evidence (raised by Codex, `74d389f`).** P-A and P-B are identified from
-`System/analysis/scores_*.xlsx`, which is **not tracked in this repository** — only aggregate EXP-046
-evidence is. Codex's technical boundary lists "exact public C2 row selection" as blocked for that reason
-and puts "whether controlled external EXP-046 row-level evidence may be used" under supervisor approval.
-**These two cases therefore cannot be executed until that approval is given.** The selection above is
-recorded so the decision can be taken on concrete rows rather than in the abstract. Both agree with Codex
-on 179/165/14/27, on the Agent-4 byte-identity, on EXP-005 0/24, and on C1 being blocked without an LLM.
+## 11. Technical dependencies assigned to Codex
 
-## 6. Frozen Condition A
+Re-aggregation of the 138 (fragment key is `total_contribution`, not `score`) · deciding the decision-of-
+record array for the 78 disagreeing entries · replay harness and provenance receipts · reconstruction of
+`ch-cd` 47 if reconstructible · contamination register for the 8 resource-fork rows and 14 duplicates.
 
-The recorded run exactly as shipped: `agentC_case_<id>.json` with its `existing_mapping[]`,
-`compliance_contributions[]` and `total_score`. Nothing is re-executed. For P-A and P-B the printed and
-recomputed totals agree, so no aggregation choice is required.
+## 12. Open supervisor decisions
 
-## 7. Controlled Condition B
-
-**FROZEN-OUTPUT CONTROLLED COUNTERFACTUAL REPLAY.** One bounded expert-derived correction is substituted
-at one identified decision point; only the deterministic downstream score aggregation is recomputed by
-applying the published schema constant. **No agent runs. No LLM call. No file in `eval_output` is
-modified** — the replay reads frozen inputs and writes only to a separate result record.
-
-This demonstrates intervention-point feasibility, input-representation feasibility and downstream-effect
-feasibility. It does **not** demonstrate real-time interaction, agent adaptation, joint human–AI
-performance, accuracy improvement or user benefit. The term *"Human-Assisted VEGO-AI"* used in §7 of the
-delivered one-pager **overstates** what happens and must be corrected.
-
-## 8. Trigger rule
-
-`compliance_status != "Satisfied"`, computable from the frozen artifact with no LLM. On the recorded
-review it selects 257/915 = 28.1% of judgments and covers 108/120 = 90% of the expert's rejections.
-These are **descriptive development statistics**, not accuracy evidence.
-
-P-B is reached by this trigger only in the reverse sense — its six corrections sit on `Satisfied`
-verdicts, which the rule does **not** flag. That is a finding about the trigger's blind spot and must be
-reported as such, not hidden.
-
-## 9. Predefined success criterion
-
-Fixed before execution, per case:
-
-- **Applied** — the corrected label is substituted at exactly the named guideline entry and nowhere else.
-- **Deterministic** — recomputation uses only published schema constants; re-running yields identical output.
-- **Expected delta** — P-A **+1.50** (22.0 → 23.5); P-B **−3.00** (48.0 → 45.0). A different delta is a
-  failed replay, not a finding about human value.
-- **Bounded** — exactly one field changes per correction; no other array is edited.
-
-Outcome per case: **Improved / No Change / Degraded** against the recorded reference. P-B is expected to
-record *Degraded* against the agent's own score, and that is a legitimate result.
-
-## 10. Allowed conclusion
-
-That an automatically computable condition marks decision points where a bounded, already-recorded expert
-correction can be substituted into frozen VEGO-AI output and its downstream effect recomputed
-deterministically. **Demonstrate feasibility, not prove effectiveness.**
-
-## 11. Forbidden conclusions
-
-No accuracy, effectiveness, benefit, effort-reduction, superiority, generalization or statistical claim.
-Not independent validation — the reference is co-author development review. Not a user study. No claim
-that the expert was right and the agent wrong: `Score`=0 records disagreement. No Agent-4 quantitative
-claim. No claim built on `total_score` for the 138 unreconciled cases. Never the word *prove*.
-
-## 12. Technical dependencies assigned to Codex
-
-1. Score re-aggregation across the 138 cases where `total_score` ≠ sum of contributions (−3.5 to +11.5).
-   Note the fragment key is `total_contribution`, not `score`.
-2. Decide which array is the decision of record where `existing_mapping` and `compliance_contributions`
-   disagree (78 entries, 36 cases).
-3. Replay harness and provenance/hash checks.
-4. Technical reconstruction of the paper's 178 for `ch-cd`, if reconstructible.
-5. Contamination register for the 8 AppleDouble-scored rows and the 14 duplicate ids.
-
-## 13. Open supervisor decisions
-
-1. **Is a two-case, one-intervention-type pilot acceptable**, given three heterogeneous types are not
-   defensible? Recommended: yes.
-2. **P-B moves the score down.** Confirm it stays in.
-3. **C1 deletion variant** — pursue with the stated second-order assumption, or drop C1 entirely?
-4. **The delivered one-pager needs three corrections** before results are reported: §7
-   "Human-Assisted VEGO-AI" → frozen-output counterfactual replay; §8 P3's reference "Blinded reviewers
-   plus adjudication" — these do not exist (0 filled rows, no `_filled.csv`); P1's reference if it means
-   Agent-4 classification — that is self-comparison.
-5. **Non-independence disclosure** — the proposal does not state that the paper's assessors were
-   co-authors. Add it.
-6. **Report the package defects to the supervisors?** Resource forks scored as models, case id `20277`
-   which does not exist, `Scores` vs `Score` header, spreadsheets missing 225 compliance and 70 fragment
-   rows relative to the JSON.
+1. **G1/§19-B** — approve use of the external expert workbook? **This is the blocking gate.**
+2. **A one-case, three-unit primary pilot** — acceptable? All three units are upward and all sit in a
+   single model; there is no clean alternative.
+3. **P-B as a blind-spot demonstration** — include or drop?
+4. **C1 deletion variant** — pursue with the stated second-order assumption, or drop C1 entirely?
+5. **The delivered one-pager needs corrections** before results are reported: §7 "Human-Assisted VEGO-AI"
+   → frozen-output counterfactual replay; §8 P3's reference "Blinded reviewers plus adjudication" — these
+   do not exist (0 filled rows, no `_filled.csv`); §8 "Outcome" column → the §15 fields; P1's reference if
+   it means Agent-4 classification — that is self-comparison.
+6. **Non-independence disclosure** — the proposal does not state the paper's assessors were co-authors.
+7. **Report the package defects?** Resource forks scored as models; case id `20277` which does not exist;
+   `Scores` vs `Score` header; spreadsheets missing 225 compliance and 70 fragment rows vs the JSON.
