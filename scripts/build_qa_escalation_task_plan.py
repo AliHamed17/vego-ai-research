@@ -213,7 +213,7 @@ TASKS = [
     }),
     ("הרצת VEGO-AI עם observability מועשר", "P1", {
         "מטרה": "לאסוף corpus שמיש של פרקי Q&A בפועל.",
-        "מה אני אבצע": "אבדוק inputs ואפעיל, במידת האפשר, Cheers ו-ParkWise בארבע ההגדרות; אדווח על הרצה מלאה/מופחתת ועל חסרים.",
+        "מה אני אבצע": "אבדוק לאילו settings יש קלטים שלמים, אבחר setting אחד בלבד בעל הסיכוי הטוב ביותר להפיק תקשורת Q&A, אתעד את נימוקי הבחירה ואריץ רק אותו; הרחבה תישקל רק אם ההרצה הראשונה מפיקה פרקי Q&A שימושיים.",
         "המקור לזיהוי האוטומטי": "runtime logs, run manifest ורשומות qa-communication-event-v1.",
         "ה-Dataset": "Cheers ו-ParkWise, בכפוף להרשאות, קלטים ומשאבי runtime.",
         "הפלט": "corpus Q&A חתום, דוח כיסוי והודעת reproducibility.",
@@ -245,7 +245,7 @@ TASKS = [
         "הפלט": "detector manifest, event-level decisions ו-reason-code inventory.",
         "קריטריון השלמה": "אותו קלט/גרסה/seed מפיק אותו decision hash; כל ALERT מקושר ל-feature ול-source event.",
         "מה נדרש ממני": "קביעת rules, מימוש, versioning ובדיקת reproducibility.",
-        "מה נדרש מאיריס וארנון": "לכל היותר אישור מתודולוגי יחיד לכללי v1; אין בדיקת שורות.",
+        "מה נדרש מאיריס וארנון": "לא נדרש דבר בשלב הביצוע; כללי Detector v1 יתועדו במפורש ויוצגו לעיון.",
         "מה חסר / מאתגר": "ALERT הוא מועמד להתערבות, לא הוכחה שנדרשה התערבות.",
         "תלויות": "משימה 5; אין שימוש ב-labels אנושיים.",
         "הערכת זמן": "Ali: 2–3 שעות; ריצה: פחות מ-10 דקות.",
@@ -263,17 +263,17 @@ TASKS = [
         "תלויות": "משימות 5–6.",
         "הערכת זמן": "Ali: 2–3 שעות; ריצה: פחות מ-15 דקות.",
     }),
-    ("קיבוע המגבלה והחלטה על ראיות עתידיות", "P2 | נדחה", {
-        "מטרה": "לתעד את גבול הטענה ולהחליט אם תוצאה תיאורית מספיקה לאבן-הדרך המקדימה.",
+    ("תיעוד גבול הראיות והשלב העתידי", "P2 | נדחה", {
+        "מטרה": "לתעד מה המחקר האוטומטי הנוכחי יכול לבסס ומה אינו יכול.",
         "מה אני אבצע": "אנסח limitation מפורש, אשמור reviewer sheets ככלי עתידי בלבד ולא אפעילם.",
         "המקור לזיהוי האוטומטי": "claim register, descriptive report ו-evidence boundary.",
         "ה-Dataset": "תוצרי משימות 1–7; אין dataset חדש.",
-        "הפלט": "decision note עם סטטוס validation deferred.",
+        "הפלט": "תיעוד גבול ראיות: כעת — אותות אוטומטיים, ספירות התראות, התפלגויות, היתכנות ו-reproducibility; נדחה — true/false, precision, recall, F1, accuracy, missed interventions ותועלת לאדם.",
         "קריטריון השלמה": "התכנית אינה מבקשת מאיריס או מארנון לתייג או לבדוק אירועים.",
         "מה נדרש ממני": "שמירת גבול הטענה ועדכון התיעוד.",
-        "מה נדרש מאיריס וארנון": "החלטה אחת: האם feasibility תיאורי מספיק, כאשר true/false validation נדחה.",
+        "מה נדרש מאיריס וארנון": "לא נדרש דבר.",
         "מה חסר / מאתגר": "אין ground truth אוטומטי לגיטימי; אין להמיר proxy לתווית מדעית.",
-        "תלויות": "תוצאות משימה 7 והחלטת governance.",
+        "תלויות": "תוצאות משימה 7.",
         "הערכת זמן": "Ali: 0.5–1 שעה; אין runtime.",
     }),
 ]
@@ -324,12 +324,12 @@ def build():
     bottom.set(qn("w:color"), BLUE)
     p_bdr.append(bottom)
     shade_box.append(p_bdr)
-    add_para(doc, "בסיס ראיות: main = 1ca98f2cec4aba527fb59dbec8c1a510edde84ba. ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", size=8.0, color="263238", after=4)
+    add_para(doc, "ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", size=8.0, color="263238", after=4)
     add_para(doc, "כללי טענה: ניתן להפיק alerts אוטומטיים, ספירות, התפלגויות, reproducibility וניתוח תיאורי. לא ניתן לקבוע true/false alerts, accuracy, precision, recall או נחיצות אובייקטיבית של התערבות אנושית ללא labels עצמאיים.", size=8.0, color=RED, bold=True, after=4)
     add_para(doc, "רמות עדיפות: P0 — תנאי אפשרות; P1 — תוצאה תיאורית מקדימה; P2 — אימות עתידי שנדחה.", size=7.8, color=MUTED, after=3)
     for i, (name, priority, fields) in enumerate(TASKS, 1):
         add_task(doc, i, name, priority, fields)
-    add_para(doc, "סה\"כ עבודת Ali נטו: כ-15–24 שעות לכל שמונה המשימות. מכונה/API: כ-2–6 שעות להרצות ובדיקות; עלות API תימדד לאחר בדיקת inputs. חסמים: קלטים, הרשאות runtime ועלות אפשרית. אין חסם של תיוג אנושי בשלב זה.", size=8.2, bold=True, color=NAVY, before=5, after=2)
+    add_para(doc, "סה\"כ עבודת Ali נטו: כ-13–20 שעות לכל שמונה המשימות. מכונה/API: כ-1–3 שעות, רובן בהרצה מבוקרת של setting אחד; עלות API תימדד לאחר בדיקת inputs. חסמים: קלטים, הרשאות runtime ועלות אפשרית. אין חסם של תיוג אנושי בשלב זה.", size=8.2, bold=True, color=NAVY, before=5, after=2)
     add_para(doc, "החלטה יחידה המבוקשת מאיריס וארנון: האם תוצאה תיאורית של feasibility מקובלת לאבן-הדרך, כאשר true/false validation נדחה? אין בקשה לתייג או לבדוק אירועים.", size=8.3, bold=True, color=RED, after=0)
     doc.core_properties.title = "תכנית עבודה אופרטיבית — Q&A escalation ב-VEGO-AI"
     doc.core_properties.subject = "Supervisor-facing operational task list"

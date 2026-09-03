@@ -66,7 +66,7 @@ def build():
     story.append(para("זיהוי אוטומטי של צורך בהתערבות אנושית מתוך תקשורת Q&A ב-VEGO-AI", subtitle))
     story.append(para("לפרופ' Iris Reinhartz-Berger ולפרופ' Arnon Sturm | סטטוס: תכנית לביצוע ללא תיוג או בדיקה ידנית בשלב הנוכחי", meta))
     story.append(para("בהתאם להנחיה שלא יבוצעו תיוגים או בדיקות ידניות, התכנית מתמקדת בשלב זה באיסוף מלא של תקשורת ה-Q&A, בזיהוי אוטומטי של התראות ובניתוח תיאורי. בדיקת נכונות/שגיאות ההתראות תידחה לשלב שבו יהיה מקור תיוג עצמאי.", intro))
-    story.append(para("בסיס ראיות: main = 1ca98f2cec4aba527fb59dbec8c1a510edde84ba. ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", intro))
+    story.append(para("ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", intro))
     story.append(para("כללי טענה: ניתן להפיק alerts אוטומטיים, ספירות, התפלגויות, reproducibility וניתוח תיאורי. לא ניתן לקבוע true/false alerts, accuracy, precision, recall או נחיצות אובייקטיבית של התערבות אנושית ללא labels עצמאיים.", foot))
     labels = ["מטרה", "מה אני אבצע", "המקור לזיהוי האוטומטי", "ה-Dataset", "הפלט", "קריטריון השלמה", "מה נדרש ממני", "מה נדרש מאיריס וארנון", "מה חסר / מאתגר", "תלויות", "הערכת זמן"]
     for idx, (name, priority, fields) in enumerate(TASKS, 1):
@@ -87,7 +87,7 @@ def build():
         ]))
         story.append(KeepTogether(table))
     story.append(Spacer(1, 2))
-    story.append(para("סה\"כ עבודת Ali נטו: כ-15–24 שעות לכל שמונה המשימות. מכונה/API: כ-2–6 שעות להרצות ובדיקות; עלות API תימדד לאחר בדיקת inputs. חסמים: קלטים, הרשאות runtime ועלות אפשרית. אין חסם של תיוג אנושי בשלב זה.", intro))
+    story.append(para("סה\"כ עבודת Ali נטו: כ-13–20 שעות לכל שמונה המשימות. מכונה/API: כ-1–3 שעות, רובן בהרצה מבוקרת של setting אחד; עלות API תימדד לאחר בדיקת inputs. חסמים: קלטים, הרשאות runtime ועלות אפשרית. אין חסם של תיוג אנושי בשלב זה.", intro))
     story.append(para("החלטה יחידה המבוקשת מאיריס וארנון: האם תוצאה תיאורית של feasibility מקובלת לאבן-הדרך, כאשר true/false validation נדחה? אין בקשה לתייג או לבדוק אירועים.", foot))
     doc.build(story)
     print(OUT)
