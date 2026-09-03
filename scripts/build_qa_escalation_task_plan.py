@@ -174,14 +174,14 @@ def add_task(doc, number, name, priority, fields):
 TASKS = [
     ("תיקון והקפאת מצאי תקשורת ה-Q&A", "P0 | הושלם טכנית; נדרש קיבוע תיעודי", {
         "מטרה": "לקבע בדיוק איזו ראיית תקשורת קיימת כיום ומה אינה זמינה.",
-        "מה אני אבצע": "אאמת את 12 שאלות Agent 2 → Agent 1, את היעדר התשובות השמורות ואת המסלולים הנתמכים-בקוד אך לא נצפו; הסימון יהיה ANSWER_NOT_PERSISTED.",
-        "המקור לזיהוי האוטומטי": "agentB_best_guidelines.json; eval_state.json; state.lang_qa_history/state.dom_qa_history; orchestrator; hash manifest.",
+        "מה אני אבצע": "ראשית אחפש את interaction_log.jsonl המקורי בכל החבילות והמאגרים — צעד בעלות אפס לפני כל הרצה מחדש. לאחר מכן אאמת את 12 שאלות Agent 2 → Agent 1, את היעדר התשובות השמורות ואת המסלולים הנתמכים-בקוד אך לא נצפו; הסימון יהיה ANSWER_NOT_PERSISTED.",
+        "המקור לזיהוי האוטומטי": "agentB_best_guidelines.json; eval_state.json; state.lang_qa_history/state.dom_qa_history; orchestrator; hash manifest; הגדרת interaction_log ב-eval_config.json וכתיבת response_raw ב-llm_client.py.",
         "ה-Dataset": "ucd_ch, ucd_pw, cd_ch, cd_pw; snapshot קפוא ובנפרד 30 רשומות snapshot של Agent B.",
-        "הפלט": "דוח observability קפוא עם מטריצת תקשורת, ספירות, hash וגבול טענה.",
+        "הפלט": "דוח observability קפוא עם מטריצת תקשורת, ספירות, hash וגבול טענה; ולגבי ה-interaction log: זמינות, hash ומצאי שדות.",
         "קריטריון השלמה": "כל רשומה מזוהה ומקושרת ל-source hash; אין טענה שהתרחשה אי-מענה בזמן הריצה.",
         "מה נדרש ממני": "קיבוע הדוח והטרמינולוגיה במסמך נשלט.",
-        "מה נדרש מאיריס וארנון": "לא נדרש דבר.",
-        "מה חסר / מאתגר": "ה-artifacts אינם משמרים את מלוא פרק התקשורת; ייתכן שנוצרה תשובה שלא יוצאה.",
+        "מה נדרש מאיריס וארנון": "רק אם לא אאתר את הקובץ בעצמי: לשלוח את interaction_log.jsonl המקורי אם הוא עדיין שמור. זו אינה בקשה לתיוג או לבדיקה ידנית.",
+        "מה חסר / מאתגר": "ה-artifacts אינם משמרים את מלוא פרק התקשורת; ייתכן שנוצרה תשובה שלא יוצאה. גם אם ה-interaction log יימצא, הוא עשוי להחזיר פלטים גולמיים ו-provenance עשירים יותר אך אינו יכול להכיל תשובות יועץ שמעולם לא נוצרו; מאחר שה-evaluator לא הריץ לולאת מענה, אין לצפות לשחזור answer confidence משם.",
         "תלויות": "קבצי evaluation קפואים ו-hash manifest.",
         "הערכת זמן": "Ali: 0.5–1 שעה; מכונה: פחות מ-5 דקות.",
     }),
@@ -324,7 +324,7 @@ def build():
     bottom.set(qn("w:color"), BLUE)
     p_bdr.append(bottom)
     shade_box.append(p_bdr)
-    add_para(doc, "בסיס ראיות: main = 0bf14f17784827042e92b0d3745bbfa09c800fef. ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", size=8.0, color="263238", after=4)
+    add_para(doc, "בסיס ראיות: main = 1ca98f2cec4aba527fb59dbec8c1a510edde84ba. ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", size=8.0, color="263238", after=4)
     add_para(doc, "כללי טענה: ניתן להפיק alerts אוטומטיים, ספירות, התפלגויות, reproducibility וניתוח תיאורי. לא ניתן לקבוע true/false alerts, accuracy, precision, recall או נחיצות אובייקטיבית של התערבות אנושית ללא labels עצמאיים.", size=8.0, color=RED, bold=True, after=4)
     add_para(doc, "רמות עדיפות: P0 — תנאי אפשרות; P1 — תוצאה תיאורית מקדימה; P2 — אימות עתידי שנדחה.", size=7.8, color=MUTED, after=3)
     for i, (name, priority, fields) in enumerate(TASKS, 1):

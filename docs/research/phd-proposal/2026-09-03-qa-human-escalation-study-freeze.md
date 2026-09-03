@@ -126,6 +126,15 @@ scope for this milestone.
 
 ## 9. Human validation protocol
 
+> **DEFERRED — NOT PART OF THE CURRENT SUPERVISOR EXECUTION PLAN.**
+> Prof. Reinhartz-Berger has stated there will be no time for labeling and/or manual checks.
+> Reviewer labeling, blind first pass, agreement and adjudication are therefore **not scheduled**
+> and carry no time estimate in the current plan. Nothing below is retracted; it is the protocol to
+> use once an independent reference exists. The operational plan for the current milestone is
+> [`2026-09-03-qa-escalation-task-plan.he.md`](2026-09-03-qa-escalation-task-plan.he.md).
+> Consequently §10 alert classification and the confirmed/false/unclear measures in §11 are also
+> deferred: without labels they cannot be computed, and no automatic substitute may be invented.
+
 Three independent reviewers, documented generically as **Reviewer A / B / C** (Ali, Iris, Arnon).
 
 Per episode: **HUMAN INTERVENTION REQUIRED / NOT REQUIRED / UNCLEAR**, plus a short rationale and optional
