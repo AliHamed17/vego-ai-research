@@ -705,6 +705,7 @@ def _add_table(doc: Document, rows: list[list[str]], *, compact: bool = False) -
                 size=7.0 if compact else 7.25,
                 color=WHITE if row_index == 0 else INK,
             )
+            cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.LEFT
             if row_index == 0:
                 for run in cell.paragraphs[0].runs:
                     run.bold = True
@@ -1043,7 +1044,7 @@ def build_one_page(figures: dict[str, Path], output: Path) -> Path:
         source,
         figures,
         skip_headings={"Study 1: where and when should VEGO-AI ask a human?"},
-        start_at="Question and claim boundary",
+        start_at="Question, data, and claim boundary",
         compact=True,
     )
     path = output / "VEGO_AI_Study1_One_Page_Plan_20260903.docx"

@@ -11,6 +11,7 @@ This directory contains the sanitized, evidence-bound sources for the revised pr
 | C. One-page experiment plan | `study1-one-page-plan.md` |
 | D. Executable protocol | `study1-executable-protocol.md` |
 | E. Preliminary results | Section E plus `study1-preliminary-results.sanitized.json` |
+| E.1 Metric validation receipt | `study1-metric-validation.sanitized.json` |
 | F. Revised proposal | `proposal-v2-candidate.md` |
 | G. Comment-resolution matrix | Section G, all 26 Arnon comments |
 | H. RQ-to-study traceability | Section H |
@@ -26,4 +27,4 @@ This directory contains the sanitized, evidence-bound sources for the revised pr
 
 ## Reproduction
 
-Follow `study1-executable-protocol.md`. The protocol includes expected aggregate values and canonical hashes for two-run determinism checks.
+Follow `study1-executable-protocol.md`. The protocol includes metric formulas, expected aggregate values, canonical hashes for two-run determinism checks, and the command that regenerates the denominator-audited public receipt.

@@ -1,0 +1,28 @@
+{
+  "as_of": "2026-09-03",
+  "claim_boundary": "arithmetic_and_reproducibility_validation_only; recorded-change measures are descriptive and are not accuracy, human-benefit, or effort-reduction estimates",
+  "metrics": {
+    "guideline_not_accepted_share": 0.4024,
+    "h2_recorded_change_coverage": 0.9,
+    "h2_recorded_change_yield": 0.4202,
+    "h2_review_load_share": 0.2809,
+    "h2_review_volume_not_selected_share": 0.7191,
+    "matched_budgets": {
+      "10_percent": 187,
+      "20_percent": 374,
+      "5_percent": 93
+    },
+    "variability_trigger_share": 0.4074
+  },
+  "schema_version": "vego-study1-measurement-validation-v1",
+  "status": "PASS",
+  "validated_invariants": [
+    "guideline review rows and status categories reconcile",
+    "stored derived shares match recomputed guideline, compliance, and uncovered-fragment values",
+    "compliance judgments and recorded-change categories reconcile",
+    "non-Satisfied rule numerators reconcile to category totals",
+    "candidate events reconcile across lifecycle stages",
+    "5/10/20 percent budgets use floor(event_count * rate)",
+    "paired C0 and intervention runs are hash-identical"
+  ]
+}

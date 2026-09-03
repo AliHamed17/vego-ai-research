@@ -15,7 +15,7 @@ The proposal is therefore reframed around one falsifiable integration claim: cla
 
 ## A.1 Source and authority
 
-The canonical atomic register is the repository file `iris-arnon-requirements-2026-09-02-checklist.md` in the parent proposal directory. It contains 115 timestamped rows plus its evidence caveat. This package does not duplicate or silently paraphrase those rows because that would create a second, drift-prone authority. The English and Hebrew requirement sources are machine-derived meeting records with neutral/uncertain attribution; they are evidence of what was discussed, not proof of approval.
+The canonical atomic register is the repository file `iris-arnon-requirements-2026-09-02-checklist.md` in the parent proposal directory. It contains 115 timestamped rows plus its evidence caveat. Its older “where addressed” locations describe an earlier draft and are not treated as proof that the current package closes every row. The current package instead uses the reverified control view below and the tomorrow-deliverable coverage table in A.2. The English and Hebrew requirement sources are machine-derived meeting records with neutral/uncertain attribution; they are evidence of what was discussed, not proof of approval.
 
 The table below is the implementation-level control view. “Closed in package” means the current artifact contains a traceable response; it does not mean that Iris or Arnon accepted it.
 
@@ -62,6 +62,19 @@ The table below is the implementation-level control view. “Closed in package�
 | SR-39 | Add ethics, recruitment, pilot, and review execution to the preparatory period. | Strict committee review | Work plan corrected; medical route de-scoped from the critical path. | Closed in plan |
 | SR-40 | Expand AI-assistance disclosure and retain candidate responsibility. | Strict committee review | Tools, date, functions, verification, and responsibility are stated in a numbered section. | Closed in revision |
 
+## A.2 Tomorrow-deliverable coverage
+
+| Supervisor need | What is ready to show | Evidence location | What remains open |
+|---|---|---|---|
+| One narrow question | **When/where should VEGO-AI propose a human review?** | One-page plan, opening block | Iris confirmation of scope |
+| Real baseline data | Frozen Cheers/ParkWise outputs; no synthetic empirical observation | One-page data block; protocol Sections 3–5 | 179/178 and 27/26 counting reconciliation |
+| Human-intervention points | H1 guideline review, H2 claim review, H3 variability trigger | One-page H1–H3 table; EXP-045 | No causal stage ranking |
+| Automatic identification | Explicit H1 baseline, non-*Satisfied* H2 rule, implemented H3 trigger | One-page H1–H3 table; results Sections E.1–E.2 | Prospective detector calibration |
+| A concrete intervention | One hash-bound recorded correction propagated without rerunning an agent | Protocol Section 7; results Section E.4 | Independent correctness and human-benefit evidence |
+| Baselines and budgets | Six-arm replay at 5%, 10%, and 20%; seven-arm prospective plan | Protocol Sections 6 and 8 | Approval of 10% primary budget and competence-blind arm |
+| Evaluation and effort | Exact current formulas plus prospective quality, time, interruption, and queue measures | One-page scorecard; protocol Section 9; metric receipt | Independent labels, qualified reviewers, timing instrumentation |
+| Honest conclusion | Technical/descriptive feasibility only | Every result boundary; Section I gates | Supervisor approval and prospective outcome study |
+
 # B. Gap Analysis
 
 ## B.1 Before this revision
@@ -71,6 +84,8 @@ The prior proposal had a strong evidence-boundary style but a fractured logic. I
 ## B.2 Corrected scientific gap
 
 **FACT:** selective prediction, learning to defer, multi-expert assignment, interaction design, provenance, reviewability, corrective memory, precedent reuse, guideline adaptation, truth maintenance, access control, and transfer theory all exist. **INFERENCE:** their existence removes any defensible claim that the individual mechanisms are novel. **INFERENCE:** the frozen VEGO-AI outputs expose a claim-level coordination problem: the same contested fragment may require a competence judgment, an authority decision, a recorded rationale, and a later applicability decision.
+
+Recent direct checks strengthen the benchmark design. [Wei, Cao, and Feng (2024)](https://proceedings.mlr.press/v235/wei24a.html) show that model–expert dependence matters to deferral; [Tailor et al. (2024)](https://proceedings.mlr.press/v238/tailor24a.html) characterize an available expert from a small context set; and [Nguyen, Do, and Carneiro (2025)](https://proceedings.iclr.cc/paper_files/paper/2025/hash/78df0f831fbe5854349dbdfccde7ee5d-Abstract-Conference.html) explicitly constrain workload distribution. **INFERENCE:** confidence-only routing is an insufficient comparator, reviewer qualification needs observations, and effort must be measured rather than assumed. None of these studies validates a VEGO-AI outcome.
 
 **PROPOSAL — residual gap:** within the verified exploratory corpus, no evaluated approach was found that jointly provides, at the level of one assessment claim:
 
@@ -161,6 +176,20 @@ The public correction directive accepts no raw fragment text and cannot assert i
 
 **Permitted conclusion:** a recorded correction can be technically propagated through the frozen scoring representation with a deterministic receipt. **Forbidden conclusions:** the human was independently correct; the lower score is more accurate; a human improved the system; the policy reduced burden; or the result generalises.
 
+## E.5 Measurement and effort scorecard
+
+The public metric receipt recomputes each value from sanitized category totals and fails if a denominator, category sum, matched budget, or paired-run indicator is inconsistent.
+
+| Question | Formula | Current result | Permitted use |
+|---|---|---:|---|
+| How much H2 review is requested? | selected / eligible | 257/915 = **28.1%** | Descriptive review load |
+| How many recorded changes fall inside that set? | changed selected / all recorded changes | 108/120 = **90.0%** | Retrospective recorded-change coverage; not recall |
+| How often was a selected item changed in the old review? | changed selected / selected | 108/257 = **42.0%** | Retrospective recorded-change yield; not precision |
+| What review volume was not selected? | (eligible − selected) / eligible | 658/915 = **71.9%** | Replay volume not selected; not observed effort reduction |
+| Can the computation be repeated? | canonical artifact hashes equal across runs | **PASS** | Technical reproducibility only |
+
+Human effort has not been observed. The prospective benchmark must therefore record reviewer minutes per 100 eligible claims, interruptions per 100 claims, queue delay, abandonment, and useful adjudicated corrections per reviewer-hour. Independent labels are required for important-case capture and reviewer-conditional correctness. None may be back-filled from the project-owned recorded review.
+
 # F. Revised Proposal
 
 The revised proposal master is [`proposal-v2-candidate.md`](proposal-v2-candidate.md). It differs structurally from the prior 30-page extended review:
@@ -240,7 +269,7 @@ The current RQ block remains the drafting baseline and is not represented as app
 |---|---:|---:|---:|---|
 | Methodological rigour and feasibility | 35 | 18.9/35 | **26/35** | Current replay is reproducible and bounded; future design, comparators, constants, and falsifiers are specified. Human outcome evidence and pilot-derived N remain missing. |
 | Gap and contribution logic | 25 | 16/25 | **21/25** | Named neighbours are conceded; gap is integration/evaluation; SQ1 now carries *whom*. RQ wording is unapproved and systematic search incomplete. |
-| Evidence integrity | 25 | 15.5/25 | **20/25** | Source hashes, denominators, negative result, non-random review, and AI role are explicit. Independent labels and second-reviewer screening remain absent. |
+| Evidence integrity | 25 | 15.5/25 | **20/25** | Source hashes, denominator invariants, paired-run hashes, negative result, non-random review, and AI role are explicit. Independent labels and second-reviewer screening remain absent. |
 | Structure and presentation | 15 | 10.2/15 | **12/15** | Proposal is problem-led, methodology-heavy, and visually reduced. Final supervisor terminology and institutional format review remain open. |
 
 ## I.2 Hard-gate audit
@@ -253,6 +282,7 @@ The current RQ block remains the drafting baseline and is not represented as app
 | No accuracy, benefit, burden, causality, or superiority claim from descriptive evidence | PASS |
 | Six policy arms share the canonical event table and matched budgets | PASS |
 | Two identical C0 runs and two identical correction runs | PASS |
+| Metric formulas and category denominators independently recomputed | PASS |
 | Raw student material and private review content excluded from tracked artifacts | PASS |
 | All 26 Arnon comments have a disposition | PASS; acceptance pending |
 | All 115 atomic supervisor rows preserved in canonical register | PASS; supervisor validation pending |
@@ -286,6 +316,7 @@ The current RQ block remains the drafting baseline and is not represented as app
 
 - added one bounded human-correction replay module, direct CLI, JSON Schema, synthetic fixture, and regression tests;
 - added a source-hash manifest, sanitized result record, literature verification log, one-page plan, executable protocol, revised proposal source, and this evidence package;
+- added a fail-closed denominator validator and public-safe metric receipt for the supervisor-facing measures;
 - reframed the gap as an integration-and-evaluation claim and aligned the proposed RQs and studies;
 - fixed the prospective benchmark, integrated design, quantitative defaults, work plan, AI disclosure, and comment dispositions.
 
@@ -296,6 +327,7 @@ The current RQ block remains the drafting baseline and is not represented as app
 - six-arm C0 replays at 5%, 10%, and 20%, twice, with matching hashes;
 - one bounded recorded-correction replay, twice, with matching hashes;
 - focused new tests for transformation scope, stale-input rejection, privacy, schema validity, and direct CLI execution.
+- an independent 3 September validation rerun of EXP-045, EXP-046, paired C0 replay, paired correction replay, and the metric receipt.
 
 ## Still open
 
@@ -307,6 +339,6 @@ Supervisor approval, RQ wording, title terminology, reviewer qualification and a
 
 ## Three highest-priority next actions
 
-1. Freeze the supervisor-approved title and RQ wording, explicitly deciding whether *whom*, competence, and authority remain in Study 1.
-2. Obtain and independently label a safe calibration/test sample, with reviewer qualification and claim-scoped mandate data, before any policy comparison.
-3. Execute the locked literature protocol with second screening and update the gap only after all named competitors and contradictions are reconciled.
+- Confirm the title/RQ wording and whether *whom*, competence, and authority remain in Study 1.
+- Freeze an independently labelled calibration/test sample plus reviewer qualification and claim-scoped mandate data.
+- Complete the locked literature protocol with a second screener before revising the gap claim.

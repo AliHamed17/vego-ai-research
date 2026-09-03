@@ -145,7 +145,34 @@ The current analyses may be extended to outcome evaluation only after these inpu
 
 The prospective primary attention budget is proposed as 10%, with 5% and 20% sensitivity runs. The comparator set adds competence-blind routing so the proposed *whom* mechanism can fail. Reviewer-conditional correctness and important-case capture are co-primary; selective risk is a ceiling. Multiplicity, power, and minimum detectable effects are frozen before test access.
 
-## 9. Reproducibility and release
+## 9. Measurement contract
+
+The denominator-audited public receipt is generated from sanitized aggregates. The current measures are descriptive and reproducibility-oriented:
+
+| Measure | Definition | Current status |
+|---|---|---|
+| Review load | selected events / eligible events | Measured retrospectively for H2: 257/915 = 28.1% |
+| Recorded-change coverage | changed selected events / all recorded changes | Measured retrospectively for H2: 108/120 = 90.0%; not recall |
+| Recorded-change yield | changed selected events / selected events | Measured retrospectively for H2: 108/257 = 42.0%; not precision |
+| Budget utilization | selected events / configured budget | Measured in the replay; not human effort |
+| Stage placement | earliest lifecycle stage at which a traceable trigger is observable | Measured descriptively; no stage-superiority inference |
+| Reproducibility | equality of canonical hashes across paired runs | Measured for C0 and the bounded correction |
+| Important-case capture | independently important selected events / all independently important events | Prospective; blocked on independent labels |
+| Reviewer-conditional correctness | final correctness conditional on reviewer assignment and qualification | Prospective; blocked on labels and qualification data |
+| Human effort | review minutes, interruptions, abandonment, and queue delay per 100 eligible claims | Prospective; not observed in the archive |
+| Review efficiency | adjudicated useful corrections / reviewer-hour | Prospective; cannot be inferred from review volume |
+
+Generate the receipt with:
+
+```powershell
+uv run python scripts/validate_study1_measurements.py `
+  --input docs/research/phd-proposal/2026-09-03-supervisor-review-package/study1-preliminary-results.sanitized.json `
+  --output docs/research/phd-proposal/2026-09-03-supervisor-review-package/study1-metric-validation.sanitized.json
+```
+
+The command fails if category totals, denominators, matched-budget arithmetic, or paired-run evidence do not reconcile. A pass validates arithmetic and stated reproducibility only.
+
+## 10. Reproducibility and release
 
 ```powershell
 uv run ruff check src/vego_study1 tests/study1 scripts/run_study1_human_intervention_feasibility.py

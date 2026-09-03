@@ -41,11 +41,27 @@
     "stage_2_missing_required_guidelines": 17,
     "stage_2_not_accepted_in_full": 68,
     "stage_2_not_accepted_share_of_agent_written": 0.4024,
+    "stage_2_agent_written_review_status_counts": {
+      "accepted_in_full": 101,
+      "partially_accepted": 46,
+      "wrong": 21,
+      "unsure": 1
+    },
     "stage_2_reference_lines": 78,
     "stage_2_unmatched_reference_lines": 59,
     "stage_3_compliance_judgments_reviewed": 915,
     "stage_3_compliance_judgments_overturned": 120,
     "stage_3_compliance_overturn_share": 0.1311,
+    "stage_3_compliance_status_counts": {
+      "satisfied": 658,
+      "partially_satisfied": 162,
+      "not_satisfied": 95
+    },
+    "stage_3_recorded_change_counts": {
+      "satisfied": 12,
+      "partially_satisfied": 75,
+      "not_satisfied": 33
+    },
     "stage_3_uncovered_fragment_judgments_reviewed": 104,
     "stage_3_uncovered_fragment_judgments_overturned": 27,
     "stage_3_uncovered_fragment_overturn_share": 0.2596,

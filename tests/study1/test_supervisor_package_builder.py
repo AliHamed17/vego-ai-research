@@ -9,7 +9,11 @@ import pytest
 docx = pytest.importorskip("docx")
 Document = docx.Document
 
-from scripts.build_20260903_supervisor_package import _inline  # noqa: E402
+from scripts.build_20260903_supervisor_package import (  # noqa: E402
+    _add_table,
+    _inline,
+    build_one_page,
+)
 
 
 def test_inline_turns_a_plain_https_url_into_a_docx_hyperlink(tmp_path) -> None:
@@ -63,3 +67,28 @@ def test_inline_renders_relative_markdown_link_as_clean_label(tmp_path) -> None:
     assert "[`controlled protocol`](study1-protocol.md)" not in document_xml
     assert "`controlled protocol`" not in document_xml
     assert "study1-protocol.md" not in relationships
+
+
+def test_one_page_builder_does_not_drop_body_when_source_heading_changes(tmp_path) -> None:
+    destination = build_one_page({}, tmp_path)
+
+    document = Document(destination)
+    text = "\n".join(paragraph.text for paragraph in document.paragraphs)
+    table_text = "\n".join(
+        cell.text for table in document.tables for row in table.rows for cell in row.cells
+    )
+
+    assert "Question, data, and claim boundary" in text
+    assert "Measurable now versus evidence still required" in text
+    assert "Recorded-change coverage" in table_text
+    assert "Tomorrow: show, decide, then measure prospectively" in text
+
+
+def test_table_cells_are_left_aligned_to_avoid_justified_word_gaps() -> None:
+    document = Document()
+
+    _add_table(document, [["Measure", "Formula"], ["Review load", "selected / eligible"]])
+
+    for row in document.tables[0].rows:
+        for cell in row.cells:
+            assert cell.paragraphs[0].alignment == 0
