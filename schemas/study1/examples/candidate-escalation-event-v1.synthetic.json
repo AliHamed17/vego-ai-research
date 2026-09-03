@@ -1,0 +1,19 @@
+{
+  "schema_version": "CandidateEscalationEvent-v1",
+  "event_id": "a6b2ed4a-03de-4a7f-850a-2ce3b6df286d",
+  "source": {"source_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"},
+  "stage": "case_inspection",
+  "item_type": "candidate_artifact",
+  "sanitized_local_locator": {"storage_scope": "private_workspace", "locator_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"},
+  "signals": [
+    {"signal_id": "claim_uncertainty", "observation": {"kind": "policy_input", "normalized_value": 0.8}, "evidence_state": "derived", "escalation_request": {"kind": "requires_human_review", "evidence_state": "observed"}},
+    {"signal_id": "unreviewed_error_consequence", "observation": {"kind": "unavailable"}, "evidence_state": "unavailable"},
+    {"signal_id": "evidence_quality", "observation": {"kind": "policy_input", "missing_value_policy": "force_undetermined"}, "evidence_state": "derived"},
+    {"signal_id": "reviewer_competence_for_claim", "observation": {"kind": "unavailable"}, "evidence_state": "unavailable"},
+    {"signal_id": "current_queue_conditions", "observation": {"kind": "unavailable"}, "evidence_state": "unavailable"},
+    {"signal_id": "novelty_vs_judgment_store", "observation": {"kind": "policy_input", "normalized_value": 0.9}, "evidence_state": "derived"},
+    {"signal_id": "cross_agent_disagreement", "observation": {"kind": "unavailable"}, "evidence_state": "unavailable"},
+    {"signal_id": "expected_future_reuse_value", "observation": {"kind": "unavailable"}, "evidence_state": "unavailable"}
+  ],
+  "claim_boundary": "candidate_escalation_only"
+}

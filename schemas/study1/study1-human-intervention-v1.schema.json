@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.invalid/schemas/study1-human-intervention-v1.schema.json",
+  "title": "Study1HumanIntervention-v1",
+  "description": "A bounded development-only correction directive. It identifies one frozen fragment by hash and cannot carry raw model text, an independent gold label, or an outcome claim.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "intervention_id",
+    "source_kind",
+    "human_input_mode",
+    "target_fragment_sha256",
+    "expected_baseline_label",
+    "replacement_label",
+    "replacement_severity",
+    "reference_status",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "study1-human-intervention-v1"},
+    "intervention_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9_-]{2,63}$"
+    },
+    "source_kind": {"const": "recorded_human_review"},
+    "human_input_mode": {"const": "simulated_from_recorded_review"},
+    "target_fragment_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "expected_baseline_label": {
+      "enum": ["Alternative", "Domain Mistake", "Language Mistake"]
+    },
+    "replacement_label": {
+      "enum": ["Alternative", "Domain Mistake", "Language Mistake"]
+    },
+    "replacement_severity": {
+      "enum": ["N/A", "High", "Medium", "Low"]
+    },
+    "reference_status": {"const": "development_only"},
+    "claim_boundary": {"const": "technical_propagation_only"}
+  }
+}

@@ -42,6 +42,9 @@ reports/generated/**
 output/**
 tmp/
 
+# Study 1 controlled artifacts remain local to the private workspace.
+research-private/study1/
+
 # Data zones: keep structure and documentation, not bulk data
 data/raw/**
 !data/raw/README.md

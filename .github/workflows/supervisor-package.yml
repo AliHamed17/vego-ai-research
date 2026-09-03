@@ -44,9 +44,10 @@ jobs:
 
       - name: Run every Python test group without deselection
         run: |
-          uv run python -m pytest VEGO-AI/tests -q -p no:cacheprovider
-          uv run python -m pytest scripts/tests -q -p no:cacheprovider
-          uv run python -m pytest tests/hlayer_offline -q -p no:cacheprovider
+          uv run python -m pytest VEGO-AI/tests -q
+          uv run python -m pytest scripts/tests -q
+          uv run python -m pytest tests/hlayer_offline -q
+          uv run python -m pytest tests/study1 -q
 
   source-security-and-documents:
     name: Source, security, browser, and documents
@@ -104,6 +105,12 @@ jobs:
           uv run python scripts/visualization_agent.py --check
           uv run python scripts/check_repository_privacy.py
           uv run python scripts/check_evidence_consistency.py --check
+          uv run python scripts/validate_study1_measurements.py \
+            --input docs/research/phd-proposal/2026-09-03-supervisor-review-package/study1-preliminary-results.sanitized.json \
+            --output "${RUNNER_TEMP}/study1-metric-validation.json"
+          cmp \
+            docs/research/phd-proposal/2026-09-03-supervisor-review-package/study1-metric-validation.sanitized.json \
+            "${RUNNER_TEMP}/study1-metric-validation.json"
 
       - name: Validate deterministic thesis DOCX
         run: |
@@ -119,7 +126,7 @@ jobs:
           test "$(sha256sum "${RUNNER_TEMP}/thesis-a/review.docx" | cut -d' ' -f1)" = \
                "$(sha256sum "${RUNNER_TEMP}/thesis-b/review.docx" | cut -d' ' -f1)"
 
-      - name: Enforce reviewed protected-change allowlist
+      - name: Enforce reviewed protected-change and Study 1 release gates
         env:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PUSH_BEFORE_SHA: ${{ github.event.before }}
@@ -128,6 +135,7 @@ jobs:
           BASE="${PR_BASE_SHA:-${PUSH_BEFORE_SHA:-origin/main}}"
           if [[ "${BASE}" =~ ^0+$ ]]; then BASE="origin/main"; fi
           uv run python scripts/check_hlayer_change_authorization.py --base "${BASE}"
+          uv run python scripts/validate_study1_release.py --base-ref "${BASE}"
 
       - name: Run security, dependency, privacy, and binary gates
         run: |

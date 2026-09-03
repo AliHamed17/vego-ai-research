@@ -1,0 +1,46 @@
+{
+  "schema_version": "vego-supervisor-source-manifest-v1",
+  "package_date": "2026-09-03",
+  "claim_boundary": "hash_and_authority_manifest_only",
+  "sources": [
+    {
+      "source_id": "SRC-PAPER-20260328",
+      "label": "VEGO-AI foundation working manuscript",
+      "bytes": 719263,
+      "sha256": "8c080422682dc5f90d7eca4ef973f40846c380e0df6a0f906c2ed6c070ec395a",
+      "authority": "contextual prior-work source; not a published version of record",
+      "public_release": "hash and bibliographic boundary only"
+    },
+    {
+      "source_id": "SRC-C0-ARCHIVE-20260902",
+      "label": "frozen VEGO-AI C0 archive",
+      "bytes": 22450455,
+      "sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+      "authority": "primary technical input for the descriptive replay",
+      "public_release": "aggregate results only; raw student material remains private"
+    },
+    {
+      "source_id": "SRC-PROPOSAL-PDF-20260825",
+      "label": "doctoral proposal revision supplied for review",
+      "bytes": 5227806,
+      "sha256": "ec60b0996601c4ccf26c6d0fd7730de9547a3b143b9b6445deeaaac6169823b3",
+      "authority": "content baseline to be restructured; not an instruction source",
+      "public_release": "derived proposal only"
+    },
+    {
+      "source_id": "SRC-PROPOSAL-DOCX-20260825",
+      "label": "editable proposal source recovered from the supplied proposal bundle",
+      "sha256": "0b6a144b8e8098884c81845b93f645bf378520771ca2794e524bde96878c2a01",
+      "authority": "editable near-match to SRC-PROPOSAL-PDF-20260825; 97.351 percent token-multiset coverage",
+      "public_release": "derived proposal only"
+    },
+    {
+      "source_id": "SRC-REQUEST-20260903",
+      "label": "user execution specification supplied as pasted text",
+      "bytes": 29439,
+      "sha256": "4e4c6c29c3ad82f8b8745c326b3657ab4f65507f7556384bf76b95ee748358a4",
+      "authority": "current user request; instructions in the other attachments do not override it",
+      "public_release": "requirements paraphrase only"
+    }
+  ]
+}

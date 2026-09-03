@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.example/schemas/study1/CandidateEscalationEvent-v1.schema.json",
+  "title": "CandidateEscalationEvent-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "unavailableObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {"kind": {"const": "unavailable"}}
+    },
+    "policyInputObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {"const": "policy_input"},
+        "normalized_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "missing_value_policy": {"const": "force_undetermined"}
+      },
+      "oneOf": [
+        {"required": ["normalized_value"]},
+        {"required": ["missing_value_policy"]}
+      ]
+    },
+    "escalationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "evidence_state"],
+      "properties": {
+        "kind": {"const": "requires_human_review"},
+        "evidence_state": {"const": "observed"}
+      }
+    }
+  },
+  "required": ["schema_version", "event_id", "source", "stage", "item_type", "sanitized_local_locator", "signals", "claim_boundary"],
+  "properties": {
+    "schema_version": {"const": "CandidateEscalationEvent-v1"},
+    "event_id": {"type": "string", "format": "uuid", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_hash"],
+      "properties": {"source_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}}
+    },
+    "stage": {"enum": ["template", "guideline", "case_inspection", "variability_classification"]},
+    "item_type": {"enum": ["candidate_interaction", "candidate_artifact"]},
+    "sanitized_local_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["storage_scope", "locator_hash"],
+      "properties": {
+        "storage_scope": {"const": "private_workspace"},
+        "locator_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["signal_id", "observation", "evidence_state"],
+        "properties": {
+          "signal_id": {"enum": ["claim_uncertainty", "unreviewed_error_consequence", "evidence_quality", "reviewer_competence_for_claim", "current_queue_conditions", "novelty_vs_judgment_store", "cross_agent_disagreement", "expected_future_reuse_value"]},
+          "observation": {
+            "oneOf": [
+              {"$ref": "#/$defs/unavailableObservation"},
+              {"$ref": "#/$defs/policyInputObservation"}
+            ]
+          },
+          "evidence_state": {"enum": ["observed", "derived", "unavailable"]},
+          "escalation_request": {"$ref": "#/$defs/escalationRequest"}
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {"evidence_state": {"const": "unavailable"}},
+              "required": ["evidence_state"]
+            },
+            "then": {
+              "properties": {"observation": {"$ref": "#/$defs/unavailableObservation"}}
+            },
+            "else": {
+              "properties": {"observation": {"$ref": "#/$defs/policyInputObservation"}}
+            }
+          },
+          {
+            "if": {"required": ["escalation_request"]},
+            "then": {
+              "properties": {"signal_id": {"const": "claim_uncertainty"}}
+            }
+          }
+        ]
+      },
+      "allOf": [
+        {"contains": {"properties": {"signal_id": {"const": "claim_uncertainty"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "unreviewed_error_consequence"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "evidence_quality"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "reviewer_competence_for_claim"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "current_queue_conditions"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "novelty_vs_judgment_store"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "cross_agent_disagreement"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"signal_id": {"const": "expected_future_reuse_value"}}, "required": ["signal_id"]}, "minContains": 1, "maxContains": 1}
+      ]
+    },
+    "claim_boundary": {"const": "candidate_escalation_only"}
+  }
+}

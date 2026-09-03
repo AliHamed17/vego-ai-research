@@ -178,6 +178,222 @@ def test_uncertainty_only_matches_hand_computed_expectation(events) -> None:
     assert by_id["EVT-FIX-011"].reason == "guideline_update_proposed"
 
 
+def test_explicit_review_request_coexists_with_numeric_confidence_for_every_arm() -> None:
+    """Catches an observed review request masking a separately derived confidence value."""
+    event = {
+        "eventId": "EVT-COOCCURRING-001",
+        "fragmentId": "EVT-COOCCURRING-001",
+        "reviewerCandidates": [],
+        "explicitEscalationRequests": [
+            {
+                "signalId": "claim_uncertainty",
+                "trigger": "agent_requested_human_review",
+                "evidenceState": "observed",
+            }
+        ],
+        "signalObservations": [
+            {
+                "signalId": "claim_uncertainty",
+                "normalizedValue": 0.8,
+                "missing": False,
+            }
+        ],
+    }
+
+    ledgers = replay_all([event], budget=1, seed=7)
+
+    uncertainty = ledgers["uncertainty_only"].decisions[0]
+    assert uncertainty.escalate is True
+    assert uncertainty.reason == "agent_requested_human_review+low_confidence"
+    threshold = ledgers["fixed_threshold"].decisions[0]
+    assert threshold.escalate is True
+    assert threshold.reason == "mean_signal_score=0.8000>=fixed_threshold=0.6000"
+    proposed = ledgers["proposed_joint_policy"].decisions[0]
+    assert proposed.escalate is True
+    assert proposed.reason.startswith("explicit_review_request:claim_uncertainty")
+
+
+@pytest.mark.parametrize(
+    "requests",
+    [
+        "agent_requested_human_review",
+        [{"signalId": "claim_uncertainty", "trigger": "unexpected", "evidenceState": "observed"}],
+        [
+            {
+                "signalId": "claim_uncertainty",
+                "trigger": "agent_requested_human_review",
+                "evidenceState": "derived",
+            }
+        ],
+    ],
+)
+def test_explicit_review_request_contract_fails_closed(requests: object) -> None:
+    """Catches unbounded or non-observed request facts entering policy replay."""
+    event = {
+        "eventId": "EVT-REQUEST-VALIDATION-001",
+        "explicitEscalationRequests": requests,
+        "signalObservations": [],
+    }
+
+    with pytest.raises(PolicyValidationError, match="explicit escalation request"):
+        replay_all([event], budget=1, seed=7)
+
+
+@pytest.mark.parametrize(
+    "invalid_value",
+    [float("nan"), float("inf"), float("-inf"), True, False, -0.01, 1.01, "0.8"],
+)
+def test_direct_replay_rejects_invalid_normalized_observation_values(
+    invalid_value: object,
+) -> None:
+    """Catches direct callers bypassing finite unit-interval observation validation."""
+    event = {
+        "eventId": "EVT-INVALID-NUMERIC-001",
+        "signalObservations": [
+            {
+                "signalId": "claim_uncertainty",
+                "normalizedValue": invalid_value,
+                "missing": False,
+            }
+        ],
+    }
+
+    with pytest.raises(PolicyValidationError, match="normalizedValue"):
+        replay_all([event], budget=1, seed=7)
+
+
+def test_direct_replay_rejects_non_finite_raw_observation_value() -> None:
+    """Catches non-finite full-contract observation values hidden from policy arithmetic."""
+    event = {
+        "eventId": "EVT-INVALID-RAW-NUMERIC-001",
+        "signalObservations": [
+            {
+                "signalId": "claim_uncertainty",
+                "value": float("nan"),
+                "normalizedValue": 0.8,
+                "missing": False,
+            }
+        ],
+    }
+
+    with pytest.raises(PolicyValidationError, match="observation value"):
+        replay_all([event], budget=1, seed=7)
+
+
+@pytest.mark.parametrize("invalid_value", [True, "0.8"])
+def test_direct_replay_rejects_non_numeric_values_for_numeric_observation_types(
+    invalid_value: object,
+) -> None:
+    """Catches Python booleans or strings masquerading as raw probability values."""
+    event = {
+        "eventId": "EVT-INVALID-RAW-TYPE-001",
+        "signalObservations": [
+            {
+                "signalId": "claim_uncertainty",
+                "valueType": "probability",
+                "value": invalid_value,
+                "normalizedValue": 0.8,
+                "missing": False,
+            }
+        ],
+    }
+
+    with pytest.raises(PolicyValidationError, match="observation value"):
+        replay_all([event], budget=1, seed=7)
+
+
+def test_direct_replay_rejects_missing_observation_with_numeric_value() -> None:
+    """Catches replay silently discarding a contradictory numeric observation."""
+    event = {
+        "eventId": "EVT-CONTRADICTORY-001",
+        "signalObservations": [
+            {
+                "signalId": "claim_uncertainty",
+                "normalizedValue": 0.8,
+                "missing": True,
+                "missingValuePolicy": "force_undetermined",
+            }
+        ],
+    }
+
+    with pytest.raises(PolicyValidationError, match="missing.*normalizedValue"):
+        replay_all([event], budget=1, seed=7)
+
+
+@pytest.mark.parametrize(
+    ("arm_id", "params"),
+    [
+        ("random_at_budget", {"seed": 7, "selection_probability": True}),
+        ("uncertainty_only", {"low_confidence_floor": float("nan")}),
+        ("uncertainty_only", {"medium_confidence_floor": -0.01}),
+        ("uncertainty_only", {"guideline_novelty_floor": 1.01}),
+        ("fixed_threshold", {"threshold": float("inf")}),
+        ("proposed_joint_policy", {"escalation_threshold": True}),
+        ("proposed_joint_policy", {"competence_floor": -0.01}),
+        (
+            "proposed_joint_policy",
+            {
+                "weights": [
+                    {
+                        "signalId": "claim_uncertainty",
+                        "weight": False,
+                        "weightVersion": "test-v1",
+                    }
+                ]
+            },
+        ),
+        (
+            "proposed_joint_policy",
+            {
+                "weights": [
+                    {
+                        "signalId": "claim_uncertainty",
+                        "weight": float("nan"),
+                        "weightVersion": "test-v1",
+                    }
+                ]
+            },
+        ),
+    ],
+)
+def test_arm_rejects_invalid_numeric_parameters(arm_id: str, params: dict) -> None:
+    """Catches bool, non-finite, or out-of-range arm parameters reaching replay."""
+    with pytest.raises(PolicyValidationError, match="numeric parameter|weight"):
+        Arm(arm_id, params)
+
+
+def test_policy_validation_errors_do_not_echo_caller_event_ids_or_parameter_keys() -> None:
+    """Catches private caller-controlled identifiers being reflected in failures."""
+    private_event_id = "C:" + "/" + "sensitive/control" + "led/event"
+    duplicate = {"eventId": private_event_id, "signalObservations": []}
+
+    with pytest.raises(PolicyValidationError) as event_error:
+        replay_all([duplicate, duplicate], budget=1, seed=7)
+
+    private_parameter = "C:" + "/" + "sensitive/control" + "led/parameter"
+    with pytest.raises(PolicyValidationError) as parameter_error:
+        Arm("fixed_threshold", {private_parameter: 0.5})
+
+    assert private_event_id not in str(event_error.value)
+    assert private_parameter not in str(parameter_error.value)
+
+
+@pytest.mark.parametrize(
+    ("budget", "seed"),
+    [
+        (True, 7),
+        (float("nan"), 7),
+        (float("inf"), 7),
+        (1, True),
+        (1, float("nan")),
+    ],
+)
+def test_replay_all_rejects_invalid_direct_numeric_inputs(budget: object, seed: object) -> None:
+    """Catches direct matched-replay inputs bypassing ledger or random-arm validation."""
+    with pytest.raises(PolicyValidationError):
+        replay_all([], budget=budget, seed=seed)
+
+
 def test_budget_exhaustion_produces_deferred_not_dropped(events) -> None:
     ledger = replay(Arm("uncertainty_only"), events, 4)
     assert ledger.escalated_event_ids == (

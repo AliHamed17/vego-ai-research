@@ -1,0 +1,12 @@
+{
+  "schema_version": "study1-human-intervention-v1",
+  "intervention_id": "SIM-HI-SYNTHETIC",
+  "source_kind": "recorded_human_review",
+  "human_input_mode": "simulated_from_recorded_review",
+  "target_fragment_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "expected_baseline_label": "Alternative",
+  "replacement_label": "Language Mistake",
+  "replacement_severity": "N/A",
+  "reference_status": "development_only",
+  "claim_boundary": "technical_propagation_only"
+}

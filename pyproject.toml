@@ -14,6 +14,7 @@ dependencies = [
 dev = [
     "pip-audit==2.10.1",
     "pytest==9.0.3",
+    "PyYAML==6.0.3",
     "ruff==0.15.16",
 ]
 thesis = [
@@ -50,4 +51,3 @@ ignore = ["E501"]
 "VEGO-AI/tests/**/*.py" = ["S101"]
 "scripts/tests/**/*.py" = ["S101"]
 "tests/**/*.py" = ["S101"]
-
