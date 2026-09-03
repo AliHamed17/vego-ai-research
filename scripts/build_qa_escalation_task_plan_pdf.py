@@ -12,7 +12,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether
 
-from build_qa_escalation_task_plan import TASKS
+from qa_task_plan_data import PLAN, SUMMARY_HEADERS, SUMMARY_TABLE, TASKS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,23 +42,14 @@ def header_footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Hebrew", 7)
     canvas.setFillColor(MUTED)
-    canvas.drawRightString(A4[0] - 15 * mm, A4[1] - 10 * mm, rtl("VEGO-AI | תכנית עבודה אופרטיבית | 03.09.2026"))
+    canvas.drawRightString(A4[0] - 15 * mm, A4[1] - 10 * mm, rtl(PLAN["metadata"]["header"]))
     canvas.drawCentredString(A4[0] / 2, 8 * mm, rtl(f"מסמך עבודה לבחינה אנושית — עמוד {doc.page}"))
     canvas.restoreState()
 
 
 def summary_table(styles):
-    headers = ["#", "משימה", "עדיפות", "מקור", "Dataset", "תוצר", "נדרש מאיריס/ארנון", "זמן"]
-    rows = [
-        ["1", "איתור interaction_log.jsonl", "P0", "eval_config / llm_client", "הרצה מקורית", "זמינות/hash", "רק אם לא נמצא", "0.5–1 ש'"],
-        ["2", "קיבוע מצב Q&A", "P0", "snapshots / eval_state", "4 settings + 30", "observability", "לא נדרש", "0.5–1 ש'"],
-        ["3", "אירוע Q&A מלא", "P0", "state / schema", "fixtures", "event-v1", "לא נדרש", "1–2 ש'"],
-        ["4", "instrumentation פסיבי", "P0", "orchestrator / writer", "fixtures", "אירועים", "לא נדרש", "4–6 ש'"],
-        ["5", "אימות instrumentation", "P0", "hashes / tests", "fixture", "receipt", "לא נדרש", "2–3 ש'"],
-        ["6", "setting אחד", "P1", "runtime logs", "setting יחיד", "corpus + cost", "רק אם יש עלות", "2–4 ש'"],
-        ["7", "חילוץ אותות", "P1", "event features", "corpus", "feature table", "לא נדרש", "2–3 ש'"],
-        ["8", "detector + descriptive", "P1", "features / manifest", "corpus", "decisions + report", "לא נדרש", "2–3 ש'"],
-    ]
+    headers = SUMMARY_HEADERS
+    rows = SUMMARY_TABLE
     data = [[para(h, styles["table_header"]) for h in headers]]
     data.extend([[para(v, styles["table_cell"]) for v in row] for row in rows])
     table = Table(data, colWidths=[8 * mm, 33 * mm, 13 * mm, 29 * mm, 27 * mm, 28 * mm, 38 * mm, 19 * mm], hAlign="RIGHT")
@@ -90,12 +81,13 @@ def build():
     table_cell = ParagraphStyle("table_cell", parent=body, fontSize=5.45, leading=6.15, alignment=TA_RIGHT)
     table_styles = {"table_header": table_header, "table_cell": table_cell}
     story = []
-    story.append(para("תכנית עבודה אופרטיבית", title))
-    story.append(para("זיהוי אוטומטי של צורך בהתערבות אנושית מתוך תקשורת Q&A ב-VEGO-AI", subtitle))
-    story.append(para("לפרופ' Iris Reinhartz-Berger ולפרופ' Arnon Sturm | סטטוס: תכנית לביצוע ללא תיוג או בדיקה ידנית בשלב הנוכחי", meta))
-    story.append(para("בהתאם להנחיה שלא יבוצעו תיוגים או בדיקות ידניות, התכנית מתמקדת בשלב זה באיסוף מלא של תקשורת ה-Q&A, בזיהוי אוטומטי של התראות ובניתוח תיאורי. בדיקת נכונות/שגיאות ההתראות תידחה לשלב שבו יהיה מקור תיוג עצמאי.", intro))
-    story.append(para("מצב Q&A מאומת: ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק מהתרחשות בזמן הריצה.", intro))
-    story.append(para("בהיעדר מקור ייחוס עצמאי וללא תיוג ידני בשלב הנוכחי, ניתן למדוד באופן מלא את מספר ההתראות, התפלגותן והאותות שהפעילו אותן, אך לא ניתן לקבוע באופן אמפירי בשלב זה אילו מהן True/False.", foot))
+    title_text, subtitle_text = PLAN["metadata"]["title"].split(" — ", 1)
+    story.append(para(title_text, title))
+    story.append(para(subtitle_text, subtitle))
+    story.append(para(f"{PLAN['metadata']['recipient']} | סטטוס: {PLAN['metadata']['status']}", meta))
+    story.append(para(PLAN["opening"], intro))
+    story.append(para("מצב Q&A מאומת: " + PLAN["evidence_boundary"], intro))
+    story.append(para(PLAN["limitation"], foot))
     story.append(summary_table(table_styles))
     labels = ["מטרה", "מה אני אבצע", "המקור לזיהוי האוטומטי", "ה-Dataset", "הפלט", "קריטריון השלמה", "מה נדרש ממני", "מה נדרש מאיריס וארנון", "מה חסר / מאתגר", "תלויות", "הערכת זמן"]
     for idx, (name, priority, fields) in enumerate(TASKS, 1):
@@ -116,8 +108,8 @@ def build():
         ]))
         story.append(KeepTogether(table))
     story.append(Spacer(1, 2))
-    story.append(para("סה\"כ עבודת Ali נטו: כ-14–23 שעות לכל שמונה המשימות. זמן ריצה/API: כ-1–6 שעות להרצה מבוקרת אחת, בתוספת פחות משעה לבדיקות ולניתוח מקומי. זמן חסום/המתנה תלוי ב-interaction_log, inputs, הרשאות ועלות אפשרית ואינו נכלל בזמן העבודה.", intro))
-    story.append(para("מה נדרש מאיריס וארנון: רק להעביר interaction_log.jsonl אם הוא קיים, או לאשר controlled run אחד ועלות API אם שחזור הראיות נכשל. אין בקשה לתייג, לקרוא שורות או לאשר כללי detector.", foot))
+    story.append(para(f"סה\"כ עבודת Ali נטו: {PLAN['effort']['ali']} זמן ריצה/API: {PLAN['effort']['machine_api']} זמן חסום/המתנה: {PLAN['effort']['blocked']}", intro))
+    story.append(para("מה נדרש מאיריס וארנון: " + " ".join(PLAN["supervisor_requests"]) + " " + PLAN["supervisor_closing"], foot))
     doc.build(story)
     print(OUT)
 

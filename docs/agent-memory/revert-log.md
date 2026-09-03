@@ -272,3 +272,16 @@ Record file changes and rollback notes here.
   - scripts/tests/test_qa_escalation_task_plan.py
 - Rollback note: Revert the focused task-plan/data/builder/test changes; generated DOCX/PDF remain ignored local outputs.
 - Git commit: none recorded by script.
+
+## 2026-09-04 00:00 +03:00 - Codex - Unify Iris task plan source and harden RTL verification
+
+- Files changed:
+  - scripts/data/qa_task_plan.json
+  - scripts/qa_task_plan_data.py
+  - scripts/build_qa_escalation_task_plan_md.py
+  - scripts/build_qa_escalation_task_plan.py
+  - scripts/build_qa_escalation_task_plan_pdf.py
+  - scripts/qa_task_plan_send_gate.py
+  - scripts/tests/test_qa_escalation_task_plan.py
+- Rollback note: Revert the canonical JSON/loader/generator/scanner/builder/test changes; generated DOCX/PDF remain local ignored outputs.
+- Git commit: none recorded by script.

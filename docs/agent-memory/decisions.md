@@ -464,3 +464,10 @@ Durable decisions for this project.
 - Decision: The first new runtime should be one controlled setting selected after input-availability checks. Expansion to four settings is conditional on complete answered-Q&A episodes and recorded runtime/cost evidence.
 - Decision: Remove commit SHA/base-revision details from the supervisor-facing DOCX/PDF; retain repository provenance in Git and internal Markdown/audit records.
 - Decision: Iris/Arnon are not asked to approve detector rules or descriptive sufficiency now. Their only possible actions are providing the original log or approving one controlled run/API cost if recovery fails.
+
+## 2026-09-04 - Canonical Q&A task-plan source and verification hardening
+
+- Decision: Keep the approved supervisor-facing Hebrew Markdown byte-equivalent while moving task, summary, metadata, and effort content into `scripts/data/qa_task_plan.json`; Markdown, DOCX, and PDF builders consume that source through one loader.
+- Decision: Add deterministic RTL/control-character normalization and a non-aborting multi-pattern send-gate scanner, plus a semantic interaction-log guard that distinguishes `metadata_only` from full-content logging and forbids reconstructing answers that were never generated.
+- Reason: Engineering consistency and privacy verification require one source of truth and complete diagnostics without changing Iris-facing scientific wording or executing the study.
+- Consequence: Generated local derivatives are ready for human review; DOCX rendering remains structurally checked because the environment lacks `pdf2image`/LibreOffice.

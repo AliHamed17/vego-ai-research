@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-04 00:00 +03:00 - Codex - Unify Iris task plan source and harden RTL verification
 - 2026-09-03 23:30 +03:00 - Codex - Final revision of supervisor Q&A task plan
 - 2026-09-03 23:06 +03:00 - Codex - Supervisor-facing Q&A task plan
 - 2026-09-03 22:42 +03:00 - Codex - Implement Q&A escalation observability study scaffold
 - 2026-09-03 12:55 +03:00 - Codex - Iris preliminary-pilot technical evidence audit
 - 2026-09-03 12:07 +03:00 - Codex - Strict one-page human-intervention experiment for Iris
-- 2026-09-02 20:49 +03:00 - Claude - EXP-046 recorded-review analysis and the data-driven 2026-09-03 one-pager
 <!-- AUTO:activity:end -->
 
 ---

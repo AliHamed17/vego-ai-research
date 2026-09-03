@@ -290,3 +290,31 @@ Chronological prompt history for Codex and Claude.
   - pdftoppm/pdfinfo and visual inspection (3 A4 pages)
 - Status: completed; pending final push and CI
 - Next steps: Push the focused revision; no study execution until interaction-log recovery and one-setting approval gate.
+
+## 2026-09-04 00:00 +03:00 - Codex - Unify Iris task plan source and harden RTL verification
+
+- Request: Engineering hardening only: canonical JSON source, generated Markdown/DOCX/PDF, content equality tests, bidi scanner, and interaction-log semantic guard; no experiment execution.
+- Actions taken:
+  - Added scripts/data/qa_task_plan.json as the sole structured plan source
+  - Converted qa_task_plan_data.py to a JSON loader
+  - Added Markdown generator and deterministic bidi-aware send-gate scanner
+  - Removed hard-coded PDF summary rows and task list duplication
+  - Added full task-field and summary equality tests
+  - Regenerated DOCX and PDF without changing approved supervisor Markdown
+- Files changed:
+  - scripts/data/qa_task_plan.json
+  - scripts/qa_task_plan_data.py
+  - scripts/build_qa_escalation_task_plan_md.py
+  - scripts/build_qa_escalation_task_plan.py
+  - scripts/build_qa_escalation_task_plan_pdf.py
+  - scripts/qa_task_plan_send_gate.py
+  - scripts/tests/test_qa_escalation_task_plan.py
+- Commands/checks:
+  - focused task-plan tests: 9 passed
+  - compileall: PASS
+  - repository privacy: PASS
+  - evidence consistency: 18/18 PASS
+  - PDF: 3 A4 pages and visual inspection PASS
+  - DOCX render unavailable: pdf2image/LibreOffice unavailable; structural QA PASS
+- Status: Ready for human review; engineering hardening complete locally, no VEGO-AI experiment executed.
+- Next steps: Run full CI after commit; preserve approved supervisor-facing content; no runtime study execution in this change.

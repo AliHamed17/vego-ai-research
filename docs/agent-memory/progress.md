@@ -8,6 +8,8 @@ Track milestones, current work, and next steps here.
 
 ## Milestones
 
+| 2026-09-04 | Iris Q&A task-plan source and RTL verification hardening | Implemented / push and CI pending | Canonical JSON now drives Markdown/DOCX/PDF; equality tests cover all eight tasks and summary rows; send-gate and interaction-log semantic guards added. Approved supervisor wording unchanged; no experiment executed. |
+
 | 2026-09-03 | Q&A escalation detection observability scaffold | Implemented / human validation pending | Added a read-only frozen Q&A extractor, confidence-separated feature inventory, transparent alert scaffold, and three blind reviewer-sheet generators. Canonical snapshot: 12 final questions, 0 persisted answers, 12 unanswered; 30 round-snapshot questions. No detector performance or intervention result is claimed. |
 
 | Date | Milestone | Status | Notes |
