@@ -227,3 +227,13 @@ Record file changes and rollback notes here.
   - docs/agent-memory/resource-memory.md
 - Rollback note: Revert the one-page source, README, builder geometry, regression test, and associated memory updates from the resulting main commit; the generated PDF is ignored and the prior Downloads PDF is preserved as a timestamped backup.
 - Git commit: none recorded by script.
+
+## 2026-09-03 12:55 +03:00 - Codex - Iris preliminary-pilot technical evidence audit
+
+- Files changed:
+  - scripts/verify_iris_preliminary_pilot.py
+  - scripts/tests/test_verify_iris_preliminary_pilot.py
+  - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-evidence-map.md
+  - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-boundary.md
+- Rollback note: Revert the audit script, focused test, two technical notes, and corresponding session/revert entries; no VEGO-AI baseline or Agent 4 artifact was modified.
+- Git commit: none recorded by script.

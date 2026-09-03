@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-03 12:55 +03:00 - Codex - Iris preliminary-pilot technical evidence audit
 - 2026-09-03 12:07 +03:00 - Codex - Strict one-page human-intervention experiment for Iris
 - 2026-09-02 20:49 +03:00 - Claude - EXP-046 recorded-review analysis and the data-driven 2026-09-03 one-pager
 - 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
 - 2026-09-02 09:28 +03:00 - Claude - Proposal Revision 19: committee + supervisor review closure
 - 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
-- 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
 <!-- AUTO:activity:end -->
 
 ---

@@ -201,3 +201,25 @@ Chronological prompt history for Codex and Claude.
   - git diff --check: passed
 - Status: Ready for Iris review; no human-effectiveness result or supervisor approval is claimed.
 - Next steps: Ali sends the one-page PDF; Iris confirms the case/review unit and independent evaluation protocol before any outcome is filled.
+
+## 2026-09-03 12:55 +03:00 - Codex - Iris preliminary-pilot technical evidence audit
+
+- Request: Verify frozen VEGO-AI evidence, human-layer milestones, EXP-005 gate, trigger inventory, real pilot candidates, and deterministic replay boundaries without changing VEGO-AI behavior.
+- Actions taken:
+  - Added a fail-closed read-only local evidence verifier.
+  - Reconciled 179 ranked rows, 165 per-case reports, 83 distinct case IDs, 27 patterns, and the separate paper 178/26 snapshot.
+  - Hash-verified Agent 4 analysis copies, audited EXP-005 at 0/24, classified triggers, and documented C1-C4 feasibility and scientific boundaries.
+- Files changed:
+  - scripts/verify_iris_preliminary_pilot.py
+  - scripts/tests/test_verify_iris_preliminary_pilot.py
+  - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-evidence-map.md
+  - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-boundary.md
+- Commands/checks:
+  - uv run pytest scripts/tests/test_verify_iris_preliminary_pilot.py -q => 4 passed
+  - uv run pytest -q => 46 passed
+  - uv run pytest VEGO-AI/tests -q => 113 passed
+  - uv run ruff check focused files => passed
+  - scripts/check_repository_privacy.py and scripts/security_audit.py => passed
+  - project-health/research-health => research-health blocked by pre-existing tracked Confluence outbox files
+- Status: ready for human review
+- Next steps: Supervisor approves pilot protocol and human evidence collection; EXP-005 remains blocked at 0/24.
