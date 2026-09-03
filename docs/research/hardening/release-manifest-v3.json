@@ -194,6 +194,7 @@
     "scripts/tests/test_hlayer_hardening.py",
     "scripts/tests/test_independent_evidence.py",
     "scripts/tests/test_iris_requirements_closure.py",
+    "scripts/tests/test_iris_score_reconstruction.py",
     "scripts/tests/test_iris_zoom_adjudicated_ledger.py",
     "scripts/tests/test_iris_zoom_disposition_ledger.py",
     "scripts/tests/test_iris_zoom_review_batches.py",
@@ -231,7 +232,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "0c846790f93c6d22114478f8474903ef43e384f5875b2d9f1072b69b701e82ef",
+  "sourceTreeSha256": "158371aa368b19f5c2321823c4c2206848bb6568e59569b8b6e7d23f4adc931d",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
