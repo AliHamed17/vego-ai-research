@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai-research.example/schemas/qa-escalation-event-v1.schema.json",
+  "title": "Frozen Q&A escalation observability event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id", "question_id", "source_agent", "source_stage", "target_agent", "scope",
+    "question_text", "answer_confidence", "answer_evidence", "evidence_present", "answered",
+    "follow_up_observed", "repeated_question", "converged", "unresolved",
+    "source_artifact_path", "source_artifact_sha256"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "question_id": {"type": ["string", "null"]},
+    "source_agent": {"enum": ["agent1", "agent2", "agent3", "agent4", "UNKNOWN"]},
+    "source_stage": {"type": "string", "minLength": 1},
+    "target_agent": {"enum": ["language_advisor", "domain_advisor", "UNKNOWN"]},
+    "scope": {"enum": ["language", "domain", "UNKNOWN"]},
+    "case_id": {"type": ["string", "null"]},
+    "guideline_id": {"type": ["string", "null"]},
+    "pattern_id": {"type": ["string", "null"]},
+    "question_text": {"type": ["string", "null"]},
+    "answer_text": {"type": ["string", "null"]},
+    "answer_confidence": {"type": ["string", "null"]},
+    "answer_evidence": {"type": ["string", "array", "null"]},
+    "evidence_present": {"type": ["boolean", "null"]},
+    "round_index": {"type": ["integer", "null"]},
+    "answered": {"type": "boolean"},
+    "follow_up_observed": {"type": ["boolean", "null"]},
+    "repeated_question": {"type": ["boolean", "null"]},
+    "converged": {"type": ["boolean", "null"]},
+    "unresolved": {"type": ["boolean", "null"]},
+    "source_artifact_path": {"type": "string", "minLength": 1},
+    "source_artifact_sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"}
+  }
+}

@@ -223,3 +223,29 @@ Chronological prompt history for Codex and Claude.
   - project-health/research-health => research-health blocked by pre-existing tracked Confluence outbox files
 - Status: ready for human review
 - Next steps: Supervisor approves pilot protocol and human evidence collection; EXP-005 remains blocked at 0/24.
+
+## 2026-09-03 22:42 +03:00 - Codex - Implement Q&A escalation observability study scaffold
+
+- Request: Implement the supervisor-directed Q&A escalation detection milestone while preserving score-replay work as later-stage evidence.
+- Actions taken:
+  - Read live orchestrator and agent communication paths
+  - Extract frozen Q&A questions and confidence inventories
+  - Build transparent detector and blind reviewer material
+  - Defer C2 111-versus-114 reconciliation
+- Files changed:
+  - scripts/extract_qa_escalation_features.py
+  - scripts/tests/test_extract_qa_escalation_features.py
+  - schemas/qa-escalation-event-v1.schema.json
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-observability.md
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+- Commands/checks:
+  - python -m pytest -q
+  - python -m pytest -q VEGO-AI/tests
+  - ruff check scripts/extract_qa_escalation_features.py scripts/tests/test_extract_qa_escalation_features.py
+  - python scripts/check_repository_privacy.py
+  - python scripts/check_evidence_consistency.py
+- Status: completed
+- Next steps: Obtain approved answer-level Q&A histories and blind labels; do not run intervention or score-effect replay.

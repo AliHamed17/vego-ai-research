@@ -3,6 +3,10 @@
 **Status:** **TECHNICAL EVIDENCE AUDIT: PASS**<br>
 **Scientific pilot status:** **SCIENTIFIC PILOT EXECUTION: NOT YET AUTHORIZED**
 
+**Current critical path:** Q&A ESCALATION DETECTION STUDY. The score-reconstruction
+and C2 counterfactual work in this note remains valid later-stage technical
+evidence and is not the current milestone.
+
 ## WHAT EXISTS NOW
 
 - Frozen original Agent 1–4 artifacts: 179 ranked rows, 165 per-case reports,

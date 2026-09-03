@@ -237,3 +237,17 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-boundary.md
 - Rollback note: Revert the audit script, focused test, two technical notes, and corresponding session/revert entries; no VEGO-AI baseline or Agent 4 artifact was modified.
 - Git commit: none recorded by script.
+
+## 2026-09-03 22:42 +03:00 - Codex - Implement Q&A escalation observability study scaffold
+
+- Files changed:
+  - scripts/extract_qa_escalation_features.py
+  - scripts/tests/test_extract_qa_escalation_features.py
+  - schemas/qa-escalation-event-v1.schema.json
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-observability.md
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+- Rollback note: Revert the Q&A scaffold, schema, docs, and tracking entries; frozen baseline and prior score-reconstruction artifacts are untouched.
+- Git commit: none recorded by script.

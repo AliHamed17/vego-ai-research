@@ -7,6 +7,15 @@
 **Status:** **TECHNICAL EVIDENCE AUDIT: PASS**<br>
 **Scientific pilot status:** **SCIENTIFIC PILOT EXECUTION: NOT YET AUTHORIZED**
 
+**Current critical path:** Q&A ESCALATION DETECTION STUDY. Agent-C score
+reconstruction and C2 bridge evidence are preserved as valid later-stage technical
+evidence, not as the current intervention milestone.
+
+The active Q&A package is documented in
+[`2026-09-03-qa-escalation-observability.md`](2026-09-03-qa-escalation-observability.md).
+The Codex/Claude disagreement on usable C2 corrections (111 versus 114) is
+**DEFERRED — NOT BLOCKING Q&A ESCALATION STUDY**.
+
 Run the fail-closed local audit from repository root:
 
 ```powershell

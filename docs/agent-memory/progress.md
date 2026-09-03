@@ -8,6 +8,8 @@ Track milestones, current work, and next steps here.
 
 ## Milestones
 
+| 2026-09-03 | Q&A escalation detection observability scaffold | Implemented / human validation pending | Added a read-only frozen Q&A extractor, confidence-separated feature inventory, transparent alert scaffold, and three blind reviewer-sheet generators. Canonical snapshot: 12 final questions, 0 persisted answers, 12 unanswered; 30 round-snapshot questions. No detector performance or intervention result is claimed. |
+
 | Date | Milestone | Status | Notes |
 | --- | --- | --- | --- |
 | 2026-08-24 | Strict scored review of the 2026-08-23 consolidated doctoral proposal PDF | Delivered to Ali | Score 75/100; see `docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md`. Cross-referenced against the v13/v8/v15 verification reports and external citation checks. Headline gaps: ACL taxonomy exercise still absent (4th consecutive artifact, ISS-040); model/pattern count mismatch now uncontested where v13 at least caveated it (ISS-041); minor citation/figure-order defects. Separately found and fixed a pre-existing CI-red `main` (pip PYSEC-2026-3721, cascading through the BigUI/thesis-evidence build chain) — see ISS-039 and the "Build-Chain Hash-Cascade Fix Pattern" decision. |

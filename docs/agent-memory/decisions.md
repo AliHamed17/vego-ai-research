@@ -9,6 +9,8 @@ Durable decisions for this project.
 
 ## Decision Lifecycle Registry
 
+| 2026-09-03 | Q&A Escalation Detection as Active Milestone | Active, supervisor-directed | The immediate technical path is read-only Q&A communication observability → transparent candidate alert rules → blind human validation sheets. Prior Agent-C score reconstruction/C2 bridge remains valid later-stage evidence; P-A/P-B/P-C replay, correction injection, and Condition-A selection are deferred. |
+
 | Date | Title | Status | Notes / Superseded By |
 |---|---|---|---|
 | 2026-08-19 | Chapter 4 Completion Pass Ahead of Literature-Review Gate | Active, Ali-initiated | Ali explicitly chose to proceed with a Chapter 4 completion pass now, ahead of Iris's 2026-08-12 sequencing instruction (methodology starts only once the literature review is judged done, which it isn't yet per 3 independent verification reports this week). Sorted the chapter's 7 open items by kind: 4 packaged as supervisor decisions (`2026-08-19-chapter4-decisions-packet.md`), 1 resolved editorially (Plan A placement, §4.2), 1 turned into a real-world resourcing request (`docs/operations/study-resourcing-request-template.md`), 1 already answered by Chapter 5 precedent. See `chapter-4-completion-plan-2026-08-19.md`. |
