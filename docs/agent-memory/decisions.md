@@ -471,3 +471,10 @@ Durable decisions for this project.
 - Decision: Add deterministic RTL/control-character normalization and a non-aborting multi-pattern send-gate scanner, plus a semantic interaction-log guard that distinguishes `metadata_only` from full-content logging and forbids reconstructing answers that were never generated.
 - Reason: Engineering consistency and privacy verification require one source of truth and complete diagnostics without changing Iris-facing scientific wording or executing the study.
 - Consequence: Generated local derivatives are ready for human review; DOCX rendering remains structurally checked because the environment lacks `pdf2image`/LibreOffice.
+
+## 2026-09-04 - Task 1 interaction-log recovery
+
+- Decision: Classify the accessible local search as `NOT FOUND — LOCAL SEARCH EXHAUSTED`; do not instrument, rerun VEGO-AI, call an API, or alter the approved supervisor PDF/DOCX.
+- Decision: Treat the archived evaluator configuration/log initialization and archived client implementation as evidence for conditional historical `full_content` logging, but never treat that capability as recovered interaction records.
+- Reason: No `interaction_log.jsonl` bytes or credible variant were found in the repository, supplied archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive folder, or Codex attachments. The historical G-drive shortcut target remains inaccessible locally.
+- Consequence: The frozen 12 canonical questions / 30 snapshot records baseline remains unchanged; contacting Iris/Arnon is a separate human decision only if the inaccessible original source is still needed.

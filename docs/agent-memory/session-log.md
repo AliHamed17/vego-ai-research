@@ -318,3 +318,22 @@ Chronological prompt history for Codex and Claude.
   - DOCX render unavailable: pdf2image/LibreOffice unavailable; structural QA PASS
 - Status: Ready for human review; engineering hardening complete locally, no VEGO-AI experiment executed.
 - Next steps: Run full CI after commit; preserve approved supervisor-facing content; no runtime study execution in this change.
+
+## 2026-09-04 01:04 +03:00 - Codex - Audit original VEGO-AI interaction-log availability
+
+- Request: Task 1 only: recover the original historical interaction log read-only.
+- Actions taken:
+  - Ran deterministic inventory across repository, archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive, and Codex attachments.
+  - Inspected archived evaluator configuration, source, and safe evaluator-log aggregates.
+- Files changed:
+  - docs/research/phd-proposal/2026-09-04-interaction-log-recovery-receipt.md
+  - scripts/find_original_interaction_log.py
+  - scripts/tests/test_find_original_interaction_log.py
+  - tracking memory updates
+- Commands/checks:
+  - focused recovery tests: 3 passed
+  - compileall: PASS
+  - repository privacy: PASS
+  - evidence consistency: 18/18 PASS
+- Status: Task 1 complete: local search exhausted; original interaction log not found; historical mode conditionally full_content; Q&A baseline unchanged; no experiment, rerun, or API call.
+- Next steps: Human decision whether to request the inaccessible original interaction log from Iris/Arnon; do not proceed to instrumentation or rerun.

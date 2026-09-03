@@ -285,3 +285,13 @@ Record file changes and rollback notes here.
   - scripts/tests/test_qa_escalation_task_plan.py
 - Rollback note: Revert the canonical JSON/loader/generator/scanner/builder/test changes; generated DOCX/PDF remain local ignored outputs.
 - Git commit: none recorded by script.
+
+## 2026-09-04 01:04 +03:00 - Codex - Audit original VEGO-AI interaction-log availability
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-04-interaction-log-recovery-receipt.md
+  - scripts/find_original_interaction_log.py
+  - scripts/tests/test_find_original_interaction_log.py
+  - tracking memory updates
+- Rollback note: Revert the receipt, recovery utility, tests, and tracking-memory entries; private generated inventories remain ignored.
+- Git commit: none recorded by script.
