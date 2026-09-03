@@ -427,7 +427,7 @@
         "track": "Paper and baseline alignment",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 12,
+        "accepted_runs": 13,
         "claim_boundary": "The comparison reconciles versions and capabilities; it cannot prove higher classification accuracy than the paper.",
         "next_action": "Keep the paper and repository baselines visibly separate and refresh only when either reviewed source changes."
       },
@@ -438,7 +438,7 @@
         "track": "Architecture evidence",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 12,
+        "accepted_runs": 13,
         "claim_boundary": "Capability and reliability extension may be demonstrated; classification accuracy and human effort remain unmeasured.",
         "next_action": "Use the scorecard as the thesis progress baseline and keep null empirical cells visible."
       },
@@ -449,7 +449,7 @@
         "track": "Metric comparison integrity",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 12,
+        "accepted_runs": 13,
         "claim_boundary": "Better is metric-specific; every positive delta must show its denominator, trade-off, evidence class, and guardrail.",
         "next_action": "Reject incompatible pairs and expose valid routing, topology, and runtime deltas in BigUI."
       },
@@ -460,7 +460,7 @@
         "track": "Thesis alignment",
         "status": "Offline evidence",
         "evidence_class": "offline",
-        "accepted_runs": 12,
+        "accepted_runs": 13,
         "claim_boundary": "Readiness and traceability do not substitute for the missing independent observations.",
         "next_action": "Use this audit to keep the thesis, catalog, and BigUI claim boundaries synchronized."
       }
