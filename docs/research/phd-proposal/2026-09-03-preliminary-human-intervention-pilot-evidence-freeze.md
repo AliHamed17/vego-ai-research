@@ -1,5 +1,17 @@
 # Preliminary Human-Intervention Pilot — Evidence Freeze
 
+> **STATUS: VALID LATER-STAGE COUNTERFACTUAL-REPLAY DESIGN.**
+> **CURRENT MILESTONE: SUPERSEDED BY THE 2026-09-03 IRIS/ARNON Q&A ESCALATION FEEDBACK.**
+> The active preliminary study is now
+> [`2026-09-03-qa-human-escalation-study-freeze.md`](2026-09-03-qa-human-escalation-study-freeze.md).
+> Nothing below is retracted and no historical result here is rewritten. This design remains valid for a
+> later stage that asks whether an intervention changes an outcome. It is not the current milestone,
+> which asks only *which cases require human intervention*. Do not execute the P-A / P-B / U1-U3 pilot.
+> One label here is withdrawn for the new study: the six `ucd_pw`/70219 rows are described below as
+> "false negatives of the proposed trigger". That holds only against the compliance-disagreement target.
+> An agent-versus-expert verdict disagreement does not by itself establish that a human should have been
+> interrupted; under the new study that judgement can only come from the reviewer protocol.
+
 **INTERNAL EVIDENCE FREEZE — NOT A NEW SUPERVISOR DELIVERABLE.**
 Scientific/methodological lead record. Codex holds the technical/reproducibility lane.
 **Revision 2**, 2026-09-03. Base revision `f12ba2c`. Revision 1 was `f12ba2c`.
