@@ -8,6 +8,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
+from qa_task_plan_data import TASKS as PLAN_TASKS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -213,7 +214,7 @@ TASKS = [
     }),
     ("הרצת VEGO-AI עם observability מועשר", "P1", {
         "מטרה": "לאסוף corpus שמיש של פרקי Q&A בפועל.",
-        "מה אני אבצע": "אבדוק לאילו settings יש קלטים שלמים, אבחר setting אחד בלבד בעל הסיכוי הטוב ביותר להפיק תקשורת Q&A, אתעד את נימוקי הבחירה ואריץ רק אותו; הרחבה תישקל רק אם ההרצה הראשונה מפיקה פרקי Q&A שימושיים.",
+        "מה אני אבצע": "אבדוק inputs ואפעיל, במידת האפשר, Cheers ו-ParkWise בארבע ההגדרות; אדווח על הרצה מלאה/מופחתת ועל חסרים.",
         "המקור לזיהוי האוטומטי": "runtime logs, run manifest ורשומות qa-communication-event-v1.",
         "ה-Dataset": "Cheers ו-ParkWise, בכפוף להרשאות, קלטים ומשאבי runtime.",
         "הפלט": "corpus Q&A חתום, דוח כיסוי והודעת reproducibility.",
@@ -245,7 +246,7 @@ TASKS = [
         "הפלט": "detector manifest, event-level decisions ו-reason-code inventory.",
         "קריטריון השלמה": "אותו קלט/גרסה/seed מפיק אותו decision hash; כל ALERT מקושר ל-feature ול-source event.",
         "מה נדרש ממני": "קביעת rules, מימוש, versioning ובדיקת reproducibility.",
-        "מה נדרש מאיריס וארנון": "לא נדרש דבר בשלב הביצוע; כללי Detector v1 יתועדו במפורש ויוצגו לעיון.",
+        "מה נדרש מאיריס וארנון": "לכל היותר אישור מתודולוגי יחיד לכללי v1; אין בדיקת שורות.",
         "מה חסר / מאתגר": "ALERT הוא מועמד להתערבות, לא הוכחה שנדרשה התערבות.",
         "תלויות": "משימה 5; אין שימוש ב-labels אנושיים.",
         "הערכת זמן": "Ali: 2–3 שעות; ריצה: פחות מ-10 דקות.",
@@ -263,20 +264,72 @@ TASKS = [
         "תלויות": "משימות 5–6.",
         "הערכת זמן": "Ali: 2–3 שעות; ריצה: פחות מ-15 דקות.",
     }),
-    ("תיעוד גבול הראיות והשלב העתידי", "P2 | נדחה", {
-        "מטרה": "לתעד מה המחקר האוטומטי הנוכחי יכול לבסס ומה אינו יכול.",
+    ("קיבוע המגבלה והחלטה על ראיות עתידיות", "P2 | נדחה", {
+        "מטרה": "לתעד את גבול הטענה ולהחליט אם תוצאה תיאורית מספיקה לאבן-הדרך המקדימה.",
         "מה אני אבצע": "אנסח limitation מפורש, אשמור reviewer sheets ככלי עתידי בלבד ולא אפעילם.",
         "המקור לזיהוי האוטומטי": "claim register, descriptive report ו-evidence boundary.",
         "ה-Dataset": "תוצרי משימות 1–7; אין dataset חדש.",
-        "הפלט": "תיעוד גבול ראיות: כעת — אותות אוטומטיים, ספירות התראות, התפלגויות, היתכנות ו-reproducibility; נדחה — true/false, precision, recall, F1, accuracy, missed interventions ותועלת לאדם.",
+        "הפלט": "decision note עם סטטוס validation deferred.",
         "קריטריון השלמה": "התכנית אינה מבקשת מאיריס או מארנון לתייג או לבדוק אירועים.",
         "מה נדרש ממני": "שמירת גבול הטענה ועדכון התיעוד.",
-        "מה נדרש מאיריס וארנון": "לא נדרש דבר.",
+        "מה נדרש מאיריס וארנון": "החלטה אחת: האם feasibility תיאורי מספיק, כאשר true/false validation נדחה.",
         "מה חסר / מאתגר": "אין ground truth אוטומטי לגיטימי; אין להמיר proxy לתווית מדעית.",
-        "תלויות": "תוצאות משימה 7.",
+        "תלויות": "תוצאות משימה 7 והחלטת governance.",
         "הערכת זמן": "Ali: 0.5–1 שעה; אין runtime.",
     }),
 ]
+
+# The shared plan data is the single source for current supervisor-facing task order.
+TASKS = PLAN_TASKS
+
+
+def add_summary_table(doc):
+    headers = ["#", "משימה", "עדיפות", "מקור", "Dataset", "תוצר", "נדרש מאיריס/ארנון", "זמן"]
+    rows = [
+        ["1", "איתור interaction_log.jsonl", "P0", "eval_config / llm_client", "הרצה מקורית", "דוח זמינות/hash", "רק אם לא נמצא", "0.5–1 ש'"],
+        ["2", "קיבוע מצב Q&A קיים", "P0", "snapshots / eval_state", "4 settings + 30 רשומות", "observability report", "לא נדרש", "0.5–1 ש'"],
+        ["3", "הגדרת אירוע Q&A מלא", "P0", "state / schema", "fixtures", "event-v1 + validator", "לא נדרש", "1–2 ש'"],
+        ["4", "instrumentation פסיבי", "P0", "orchestrator / writer", "fixtures", "אירועים", "לא נדרש", "4–6 ש'"],
+        ["5", "אימות instrumentation", "P0", "hashes / tests", "fixture", "receipt", "לא נדרש", "2–3 ש'"],
+        ["6", "הרצה מבוקרת של setting אחד", "P1", "runtime logs", "setting יחיד", "corpus + cost", "רק אם יש עלות", "2–4 ש'"],
+        ["7", "חילוץ אותות", "P1", "event features", "corpus", "feature table", "לא נדרש", "2–3 ש'"],
+        ["8", "detector + descriptive analysis", "P1", "features / manifest", "corpus", "decisions + report", "לא נדרש", "2–3 ש'"],
+    ]
+    table = doc.add_table(rows=1, cols=len(headers))
+    widths = (360, 1500, 520, 1380, 1250, 1500, 1800, 1050)
+    set_table_geometry(table, widths)
+    for i, header in enumerate(headers):
+        cell = table.rows[0].cells[i]
+        shade(cell, NAVY)
+        p = cell.paragraphs[0]
+        set_bidi(p, WD_ALIGN_PARAGRAPH.CENTER)
+        p.paragraph_format.space_after = Pt(0)
+        r = p.add_run(header)
+        set_run(r, size=6.7, bold=True, color="FFFFFF")
+    for row_values in rows:
+        row = table.add_row()
+        for i, value in enumerate(row_values):
+            cell = row.cells[i]
+            shade(cell, "F7F9FB" if len(table.rows) % 2 == 0 else "FFFFFF")
+            p = cell.paragraphs[0]
+            set_bidi(p, WD_ALIGN_PARAGRAPH.CENTER if i in (0, 2, 7) else WD_ALIGN_PARAGRAPH.RIGHT)
+            p.paragraph_format.space_after = Pt(0)
+            r = p.add_run(value)
+            set_run(r, size=6.45, bold=False, color="263238")
+    tbl_pr = table._tbl.tblPr
+    borders = tbl_pr.first_child_found_in("w:tblBorders")
+    if borders is None:
+        borders = OxmlElement("w:tblBorders")
+        tbl_pr.append(borders)
+    for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        node = borders.find(qn(f"w:{edge}"))
+        if node is None:
+            node = OxmlElement(f"w:{edge}")
+            borders.append(node)
+        node.set(qn("w:val"), "single")
+        node.set(qn("w:sz"), "3")
+        node.set(qn("w:color"), "D9E2EC")
+    return table
 
 
 def build():
@@ -324,13 +377,15 @@ def build():
     bottom.set(qn("w:color"), BLUE)
     p_bdr.append(bottom)
     shade_box.append(p_bdr)
-    add_para(doc, "ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק שהתרחשה אי-מענה בזמן הריצה.", size=8.0, color="263238", after=4)
-    add_para(doc, "כללי טענה: ניתן להפיק alerts אוטומטיים, ספירות, התפלגויות, reproducibility וניתוח תיאורי. לא ניתן לקבוע true/false alerts, accuracy, precision, recall או נחיצות אובייקטיבית של התערבות אנושית ללא labels עצמאיים.", size=8.0, color=RED, bold=True, after=4)
+    add_para(doc, "מצב Q&A מאומת: ה-snapshot הקפוא מכיל 12 שאלות Agent 2 → Agent 1, ללא תשובה תואמת שנשמרה, ללא answer confidence/evidence וללא מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא ANSWER_NOT_PERSISTED; אין להסיק מהתרחשות בזמן הריצה.", size=8.0, color="263238", after=3)
+    add_para(doc, "בהיעדר מקור ייחוס עצמאי וללא תיוג ידני בשלב הנוכחי, ניתן למדוד באופן מלא את מספר ההתראות, התפלגותן והאותות שהפעילו אותן, אך לא ניתן לקבוע באופן אמפירי בשלב זה אילו מהן True/False.", size=8.0, color=RED, bold=True, after=3)
     add_para(doc, "רמות עדיפות: P0 — תנאי אפשרות; P1 — תוצאה תיאורית מקדימה; P2 — אימות עתידי שנדחה.", size=7.8, color=MUTED, after=3)
+    add_summary_table(doc)
+    add_para(doc, "פירוט המשימות", size=9.2, bold=True, color=NAVY, before=4, after=1)
     for i, (name, priority, fields) in enumerate(TASKS, 1):
         add_task(doc, i, name, priority, fields)
-    add_para(doc, "סה\"כ עבודת Ali נטו: כ-13–20 שעות לכל שמונה המשימות. מכונה/API: כ-1–3 שעות, רובן בהרצה מבוקרת של setting אחד; עלות API תימדד לאחר בדיקת inputs. חסמים: קלטים, הרשאות runtime ועלות אפשרית. אין חסם של תיוג אנושי בשלב זה.", size=8.2, bold=True, color=NAVY, before=5, after=2)
-    add_para(doc, "החלטה יחידה המבוקשת מאיריס וארנון: האם תוצאה תיאורית של feasibility מקובלת לאבן-הדרך, כאשר true/false validation נדחה? אין בקשה לתייג או לבדוק אירועים.", size=8.3, bold=True, color=RED, after=0)
+    add_para(doc, "סה\"כ עבודת Ali נטו: כ-14–23 שעות לכל שמונה המשימות. זמן ריצה/API: כ-1–6 שעות להרצה מבוקרת אחת, בתוספת פחות משעה לבדיקות ולניתוח מקומי. זמן חסום/המתנה תלוי ב-interaction_log, inputs, הרשאות ועלות אפשרית ואינו נכלל בזמן העבודה.", size=8.2, bold=True, color=NAVY, before=5, after=2)
+    add_para(doc, "מה נדרש מאיריס וארנון: רק להעביר interaction_log.jsonl אם הוא קיים, או לאשר controlled run אחד ועלות API אם שחזור הראיות נכשל. אין בקשה לתייג, לקרוא שורות או לאשר כללי detector.", size=8.3, bold=True, color=RED, after=0)
     doc.core_properties.title = "תכנית עבודה אופרטיבית — Q&A escalation ב-VEGO-AI"
     doc.core_properties.subject = "Supervisor-facing operational task list"
     doc.core_properties.author = "VEGO-AI Research"

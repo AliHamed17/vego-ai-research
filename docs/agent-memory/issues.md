@@ -64,6 +64,14 @@ Track project issues here. Keep active issues near the top.
 **Impact:** Alerts can be reported only as `ANSWER_NOT_PERSISTED` candidate signals; no true/false validation or detector performance claim is permitted.
 **Next action:** Add complete episode instrumentation before the next corpus run; keep manual labeling deferred.
 
+### ISS-055 — Original interaction log availability is unresolved
+
+**Opened:** 2026-09-03
+**Status:** Open / recovery step pending
+**Summary:** `eval_config.json` names `interaction_log.jsonl` and `llm_client.py` can persist `response_raw`, but the original log was not included in the frozen package.
+**Impact:** Additional raw model-call provenance may be recoverable at zero API cost, but advisor answers cannot be reconstructed if the answering loop never ran.
+**Next action:** Search local archives first; request the file from Iris/Arnon only if Ali cannot locate it.
+
 | ID | Opened | Resolved | Source | Summary | Resolution |
 | --- | --- | --- | --- | --- | --- |
 | ISS-039 | 2026-08-24 | 2026-08-24 | Claude (CI push) | `main` was CI-red before this session's own push (confirmed via the weekly security-audit run on the prior commit): `pip-audit` flagged `pip 26.1.2` (PYSEC-2026-3721), pinned as a transitive `pip_api` dependency in `uv.lock`. Bumping it cascaded through the whole BigUI/thesis-evidence build chain, breaking the Python test matrix and the manifest/catalog freshness checks too. | Bumped pip to 26.2.1 (`uv lock --upgrade-package pip --native-tls`, commit `41810e0`), regenerated the hardening manifests (commit `2e725f9`), then iteratively regenerated the full dependent build chain to a verified fixed point across 3 stable passes (commit `e44a308`). CI confirmed green (all jobs incl. `merge-gate`) via `gh run view --json jobs`. See the "Build-Chain Hash-Cascade Fix Pattern" row (2026-08-24) in `decisions.md` for the reusable fix pattern. |

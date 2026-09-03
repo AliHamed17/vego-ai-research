@@ -261,3 +261,14 @@ Record file changes and rollback notes here.
   - scripts/tests/test_qa_escalation_task_plan.py
 - Rollback note: Remove the four new source/build/test files; ignored output/docx and output/pdf artifacts remain local.
 - Git commit: none recorded by script.
+
+## 2026-09-03 23:30 +03:00 - Codex - Final revision of supervisor Q&A task plan
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-task-plan.he.md
+  - scripts/qa_task_plan_data.py
+  - scripts/build_qa_escalation_task_plan.py
+  - scripts/build_qa_escalation_task_plan_pdf.py
+  - scripts/tests/test_qa_escalation_task_plan.py
+- Rollback note: Revert the focused task-plan/data/builder/test changes; generated DOCX/PDF remain ignored local outputs.
+- Git commit: none recorded by script.

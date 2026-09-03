@@ -2,221 +2,232 @@
 
 **נמען:** פרופ' Iris Reinhartz-Berger ופרופ' Arnon Sturm
 **סטטוס:** תכנית לביצוע; ללא תיוג או בדיקה ידנית בשלב הנוכחי
+**בסיס פנימי:** main מסונכרן לפני תיקון זה; הגרסה הסופית מתועדת ב-Git
 
 בהתאם להנחיה שלא יבוצעו תיוגים או בדיקות ידניות, התכנית מתמקדת בשלב זה באיסוף מלא של תקשורת ה-Q&A, בזיהוי אוטומטי של התראות ובניתוח תיאורי. בדיקת נכונות/שגיאות ההתראות תידחה לשלב שבו יהיה מקור תיוג עצמאי.
 
-## גבול הראיות הנוכחי
+## תמונת מצב מאומתת
 
-ה-snapshot הקפוא מכיל 12 רשומות שאלה שנשמרו (כולן Agent 2 → Agent 1, שפה), אך **לא נמצאה תשובת Q&A תואמת שנשמרה**. אין בו answer confidence, answer evidence או מידע בר-שחזור על follow-up, rounds או convergence. לכן המונח המדויק הוא `ANSWER_NOT_PERSISTED` / “לא נשמרה תשובה תואמת בנתונים הקיימים”, ללא קביעה לגבי מה שהתרחש בזמן הריצה. מנגנון ההתרעה מספק מועמדים לבדיקה בלבד; אין עדיין אמת-מידה אנושית או תוצאת ביצועים.
+ה-snapshot הקפוא מכיל 12 שאלות שנשמרו (כולן Agent 2 → Agent 1), אך **לא נמצאה תשובת Q&A תואמת שנשמרה**. אין בו answer confidence, answer evidence או מידע בר-שחזור על follow-up, rounds או convergence. המונח המחייב הוא `ANSWER_NOT_PERSISTED`; אין להסיק מכך מה התרחש בזמן הריצה.
 
-## רשימת המשימות
+| # | משימה | עדיפות | מקור | Dataset | תוצר | נדרש מאיריס/ארנון | זמן Ali |
+|---:|---|:---:|---|---|---|---|---:|
+| 1 | איתור ושחזור `interaction_log.jsonl` | P0 | `eval_config.json`, `llm_client.py`, ארכיונים | הרצת ההערכה המקורית | דוח זמינות, hash ומצאי שדות | רק אם לא נמצא: להעביר את הקובץ | 0.5–1 ש' |
+| 2 | קיבוע מצב Q&A קיים | P0 | snapshots, `eval_state.json`, היסטוריות | 4 settings + 30 רשומות | דוח observability קפוא | לא נדרש דבר | 0.5–1 ש' |
+| 3 | הגדרת אירוע Q&A מלא | P0 | runtime state וה-schema | fixtures בטוחים | `qa-communication-event-v1` | לא נדרש דבר | 1–2 ש' |
+| 4 | instrumentation פסיבי | P0 | `orchestrator.py`, `qa_registry.py`, `state.py` | fixtures מקומיים | אירועים חתומים | לא נדרש דבר | 4–6 ש' |
+| 5 | אימות instrumentation | P0 | hashes, manifests, tests | fixture + controlled run | verification receipt | לא נדרש דבר | 2–3 ש' |
+| 6 | הרצה מבוקרת של setting אחד | P1 | runtime logs ואירועי Q&A | setting שייבחר לפי inputs | corpus + עלות/זמן | רק אם נדרשת עלות/API | 2–4 ש' |
+| 7 | חילוץ אותות אוטומטי | P1 | event features ו-termination | corpus ממשימה 6 | feature table | לא נדרש דבר | 2–3 ש' |
+| 8 | Detector + ניתוח תיאורי | P1 | feature table ו-manifest | אותו corpus | ALERT/NO ALERT + דוח | לא נדרש דבר | 2–3 ש' |
 
-### משימה 1 — תיקון והקפאת מצאי תקשורת ה-Q&A **[P0 | הושלם טכנית; נדרש קיבוע תיעודי]**
+## פירוט המשימות
 
-**מטרה:** לקבע בדיוק איזו ראיית תקשורת קיימת כיום ומה אינה זמינה.
+### משימה 1 — איתור ושחזור לוג האינטראקציות מההרצה המקורית **[P0]**
 
-**מה אני אבצע:** ראשית אחפש בכל החבילות, במאגר ובחומרי הניסוי המקומיים את `interaction_log.jsonl` המקורי של הרצת ההערכה — זהו צעד בעלות אפס לפני כל הרצה מחדש. לאחר מכן אריץ את המחלץ הקריא-בלבד על ה-artifacts הקפואים, אאמת 12 שאלות Agent 2 → Agent 1, את היעדר התשובות השמורות ואת המסלולים הנתמכים-בקוד אך לא נצפו, ואחליף את הסימון `UNANSWERED` ב-`ANSWER_NOT_PERSISTED`.
+**מטרה:** לבדוק אם `interaction_log.jsonl` המקורי עדיין קיים לפני שינוי קוד או תשלום עבור הרצה חדשה.
 
-**המקור לזיהוי האוטומטי:** `agentB_best_guidelines.json`, `eval_state.json`, היסטוריות `state.lang_qa_history`/`state.dom_qa_history`, קוד ה-orchestrator וה-hash manifest; ובנוסף הגדרת `"interaction_log": "interaction_log.jsonl"` ב-`eval_config.json` והכתיבה של `response_raw` ב-`llm_client.py`.
+**מה אני אבצע:** אחפש בכל ZIP, archive, תיקיית evaluation ו-artifact מקומי; אם אמצא, אחשב SHA-256, אמפה סוגי רשומות ותוויות model-call, ואבדוק אם ניתן לשחזר פלטים גולמיים ו-provenance עשירים יותר.
 
-**ה-Dataset:** ארבע הגדרות `ucd_ch`, `ucd_pw`, `cd_ch`, `cd_pw`; snapshot סופי קפוא, ובנפרד 30 רשומות snapshot של הרצות Agent B.
+**המקור לזיהוי האוטומטי:** `VEGO-AI/eval/eval_config.json` (`"interaction_log": "interaction_log.jsonl"`) וכתיבת `response_raw` ב-`llm_client.py`.
 
-**הפלט:** דוח observability קפוא עם מטריצת תקשורת, ספירות, hash וגבול טענה; ולגבי ה-interaction log — תוצאת זמינות (נמצא / לא נמצא), hash ומצאי שדות.
+**ה-Dataset:** הרצת Cheers/ParkWise המקורית וכל הארכיונים שסופקו.
 
-**קריטריון השלמה:** כל רשומה מזוהה, מקושרת ל-source hash, ומסומנת “תשובה לא נשמרה” ללא טענה שהתרחשה אי-מענה בזמן הריצה.
+**הפלט:** interaction-log recovery/availability report עם found/not found, hash ומצאי שדות.
 
-**מה נדרש ממני:** קיבוע המסמך והדוח בגרסה נשלטת.
+**קריטריון השלמה:** מתועד במפורש מה נמצא ומה לא. הלוג עשוי לשחזר רק קריאות שבוצעו בפועל; הוא אינו יכול להכיל תשובות יועץ שמעולם לא נוצרו, ובפרט לא צפוי לשחזר answer confidence אם לולאת המענה לא הופעלה.
 
-**מה נדרש מאיריס וארנון:** רק אם לא אאתר את הקובץ בעצמי — לשלוח את `interaction_log.jsonl` המקורי אם הוא עדיין שמור אצלם. **זו אינה בקשה לתיוג, לבדיקה ידנית או לקריאת שורות.**
+**מה נדרש ממני:** חיפוש, hash, inventory ותיעוד גבול השחזור.
 
-**מה חסר / מאתגר:** ה-artifacts אינם משמרים את מלוא פרק התקשורת, ולכן אי אפשר להסיק אם תשובה נוצרה אך לא יוצאה. חשוב לדייק: גם אם ה-interaction log יימצא, הוא עשוי להחזיר פלטים גולמיים ומידע provenance עשירים יותר, אך **אינו יכול להכיל תשובות יועץ שמעולם לא נוצרו**. מאחר שה-evaluator לא הריץ את לולאת מענה ה-Q&A, לא צפויות בו קריאות מענה, ולכן אין לצפות לשחזור של answer confidence משם.
+**מה נדרש מאיריס וארנון:** רק אם לא אמצא בעצמי: “אם קובץ `interaction_log.jsonl` מההרצה המקורית נשמר אצלכם, אבקש לקבל אותו.” ללא תיוג או בדיקה ידנית.
 
-**תלויות:** קבצי ה-evaluation הקפואים וה-hash manifest.
+**מה חסר / מאתגר:** ייתכן שהקובץ לא נמסר או שההרצה המקורית לא יצרה את לולאת תשובות ה-Q&A.
 
-**הערכת זמן:** 0.5–1 שעה נטו; ריצת מכונה פחות מ-5 דקות.
+**תלויות:** גישה לחבילות ולארכיונים המקומיים.
 
-### משימה 2 — הוספת observability מלאה ל-Q&A **[P0]**
+**הערכת זמן:** Ali: 0.5–1 שעה; API: אין עלות.
 
-**מטרה:** לשמר בעתיד כל פרק Q&A שלם בלי לשנות את החלטות הסוכנים.
+### משימה 2 — קיבוע מצב Q&A הקיים **[P0]**
 
-**מה אני אבצע:** אוסיף אירועי schema-versioned עם question ID, סוכן ומקטע מקור, סוכן יעד, נוסח שאלה ותשובה, answer confidence, answer evidence, episode ID, מספר round, קשר follow-up, convergence/termination ו-context של case/guideline/pattern כאשר הוא קיים.
+**מטרה:** לקבע את המצאי הקיים בלי לטעון טענת אי-מענה.
 
-**המקור לזיהוי האוטומטי:** נקודות היצירה וההשבה ב-`orchestrator.py`, `qa_registry.py` ו-`state.py`.
+**מה אני אבצע:** אאמת 12 שאלות Agent 2 → Agent 1, 0 תשובות תואמות שנשמרו, היעדר confidence/evidence, והמסלולים הנתמכים-בקוד אך לא נצפו; אשתמש רק ב-`ANSWER_NOT_PERSISTED`.
 
-**ה-Dataset:** fixtures בטוחים והרצה מבוקרת מקומית; לא יועלו טקסטים פרטיים או נתוני סטודנטים לענן.
+**המקור לזיהוי האוטומטי:** `agentB_best_guidelines.json`, `eval_state.json`, `state.lang_qa_history`, `state.dom_qa_history`, orchestrator ו-hash manifest.
 
-**הפלט:** רשומות `qa-communication-event-v1` חתומות ומקושרות ל-run manifest.
+**ה-Dataset:** `ucd_ch`, `ucd_pw`, `cd_ch`, `cd_pw`; snapshot סופי ו-30 רשומות snapshot נפרדות.
 
-**קריטריון השלמה:** בכל אירוע קיימים כל שדות החובה, episode/round ניתנים לשחזור, והשינוי אינו משנה את פלט ה-baseline.
+**הפלט:** דוח observability קפוא עם מטריצת תקשורת, ספירות וגבול טענה.
 
-**מה נדרש ממני:** מימוש instrumentation, schema ובדיקות.
+**קריטריון השלמה:** לכל רשומה source hash; אין ניסוח שמסיק שהשאלה לא נענתה בזמן הריצה.
 
-**מה נדרש מאיריס וארנון:** לא נדרש דבר, אלא אם שינוי התנהגות runtime מחייב אישור governance מפורש.
-
-**מה חסר / מאתגר:** שמירה מלאה מגדילה artifact volume; יש להימנע מהשפעה על prompts ועל אי-דטרמיניזם של LLM.
-
-**תלויות:** אישור repository לשינוי instrumentation בלבד וקיום שדות runtime.
-
-**הערכת זמן:** 4–6 שעות נטו; בדיקות מקומיות 15–30 דקות.
-
-### משימה 3 — אימות שה-instrumentation אינו משנה את המערכת **[P0]**
-
-**מטרה:** להוכיח שהתקשורת מתועדת נכון ושפלט VEGO-AI נשאר זהה.
-
-**מה אני אבצע:** אוסיף unit/integration tests, schema validation, בדיקת mandatory-field coverage והשוואת hashes של baseline לפני ואחרי instrumentation.
-
-**המקור לזיהוי האוטומטי:** event schema, run manifests, canonical JSON hashes ו-diff של baseline outputs.
-
-**ה-Dataset:** fixtures בטוחים והרצה מבוקרת מינימלית אחת.
-
-**הפלט:** verification receipt הכולל pass/fail, coverage והשוואת hashes.
-
-**קריטריון השלמה:** שתי ריצות זהות מחזירות artifacts קנוניים זהים; אין שדות חובה חסרים ואין שינוי בפלט baseline.
-
-**מה נדרש ממני:** כתיבת והרצת הבדיקות ותיעוד חריגות.
+**מה נדרש ממני:** קיבוע דוח וטרמינולוגיה.
 
 **מה נדרש מאיריס וארנון:** לא נדרש דבר.
 
-**מה חסר / מאתגר:** LLM runtime אינו דטרמיניסטי בהכרח, ולכן ההשוואה תיעשה על fixture/controlled run ולא כהבטחה כללית לכל API.
+**מה חסר / מאתגר:** אין episode מלא או תשובה שמורה ב-artifact הנוכחי.
 
-**תלויות:** משימה 2 והגדרת baseline קפואה.
+**תלויות:** תוצאת משימה 1 וה-artifacts הקפואים.
 
-**הערכת זמן:** 2–3 שעות נטו; ריצה 15–45 דקות.
+**הערכת זמן:** Ali: 0.5–1 שעה; מכונה: פחות מ-5 דקות.
 
-### משימה 4 — הרצת VEGO-AI עם observability מועשר **[P1]**
+### משימה 3 — הגדרת אירוע Q&A מלא **[P0]**
 
-**מטרה:** לאסוף corpus שמיש של פרקי Q&A בפועל.
+**מטרה:** להגדיר יחידת observability מינימלית שניתנת לשחזור ולבדיקה.
 
-**מה אני אבצע:** אבדוק תחילה לאילו settings יש קלטים שלמים, אבחר **setting אחד בלבד** בעל הסיכוי הטוב ביותר להפיק תקשורת Q&A, אתעד את נימוקי הבחירה ואריץ רק אותו. הרחבה ל-settings נוספים תישקל רק אם ההרצה הראשונה מפיקה פרקי Q&A מלאים ושימושיים.
+**מה אני אבצע:** אקבע schema versioned הכולל question ID, source/target agent, stage, question, answer, answer confidence/evidence, episode ID, round, follow-up, convergence/termination ו-case/guideline/pattern context.
 
-**המקור לזיהוי האוטומטי:** runtime logs, run manifest ורשומות `qa-communication-event-v1`.
+**המקור לזיהוי האוטומטי:** runtime state, `qa_registry.py`, `state.py` ו-contract של האירוע.
 
-**ה-Dataset:** datasets קיימים של Cheers ו-ParkWise, בכפוף להרשאות, קלטים ומשאבי runtime.
+**ה-Dataset:** fixtures בטוחים ללא טקסטי סטודנטים.
 
-**הפלט:** corpus Q&A חתום, דוח כיסוי והודעת reproducibility.
+**הפלט:** מפרט `qa-communication-event-v1` ו-validator.
 
-**קריטריון השלמה:** ה-setting שנבחר מתועד עם נימוק הבחירה, input hash, מספר קריאות מודל, זמן ריצה, עלות API, מספר פרקי Q&A, תשובות, confidence/evidence ו-rounds/convergence; setting שלא ניתן להריץ מסומן חסום.
+**קריטריון השלמה:** כל שדה חובה מוגדר עם provenance, nullable policy ו-rule; אין ערבוב בין Q&A answer confidence לבין mapping certainty או Agent 4 classification confidence.
 
-**מה נדרש ממני:** בדיקת קלטים, dry-run, הרצה ותיעוד עלויות/זמנים.
-
-**מה נדרש מאיריס וארנון:** רק אישור מראש אם יש עלות API, החלטת פרסום או שינוי baseline.
-
-**מה חסר / מאתגר:** זמינות קלטים, עלות API, אי-דטרמיניזם וזמן ריצה ממושך.
-
-**תלויות:** משימות 2–3, קלטים תקינים והרשאות runtime.
-
-**הערכת זמן:** 2–3 שעות נטו ל-setting אחד; כ-0.5–2 שעות machine/API; עלות API תימדד ותדווח.
-
-### משימה 5 — חילוץ אוטומטי של אותות תקשורת **[P1]**
-
-**מטרה:** לגזור מן ה-corpus רק אותות escalation שניתנים למדידה בפועל.
-
-**מה אני אבצע:** אחשב per-episode features: confidence נמוך/בינוני, `ANSWER_NOT_PERSISTED`, evidence חסר, חזרה על שאלה, follow-up, מספר rounds, non-convergence, MAX_QA_ROUNDS וספירת שאלות גבוהה; `mapping_certainty` ו-Agent 4 classification confidence יישארו עמודות הקשר נפרדות.
-
-**המקור לזיהוי האוטומטי:** שדות event v1, היסטוריית episode וה-runtime termination record.
-
-**ה-Dataset:** corpus המועשר ממשימה 4, וכן ה-snapshot הקיים לצורך sanity check בלבד.
-
-**הפלט:** feature table קנונית עם זמינות, count ו-limitation לכל signal.
-
-**קריטריון השלמה:** לכל feature יש rule, source field, availability status ו-count; שום proxy אינו מסומן כ-ground truth.
-
-**מה נדרש ממני:** מימוש חישוב features ובדיקות determinism.
+**מה נדרש ממני:** הגדרת חוזה האירוע ובדיקת schema.
 
 **מה נדרש מאיריס וארנון:** לא נדרש דבר.
 
-**מה חסר / מאתגר:** אותות שאינם נשמרים כיום יישארו `unavailable` ולא יומצאו בדיעבד.
+**מה חסר / מאתגר:** חלק מהשדות אינם קיימים ב-runtime הנוכחי ויישארו unavailable עד instrumentation.
 
-**תלויות:** משימה 4 ושדות observability מלאים.
+**תלויות:** משימות 1–2 והגבלות privacy/governance.
 
-**הערכת זמן:** 2–3 שעות נטו; פחות מ-10 דקות ריצה.
+**הערכת זמן:** Ali: 1–2 שעות; מכונה: פחות מ-10 דקות.
 
-### משימה 6 — בנייה והקפאה של Detector v1 **[P1]**
+### משימה 4 — instrumentation פסיבי של Q&A **[P0]**
 
-**מטרה:** להפיק `ALERT` או `NO ALERT` באופן שקוף, דטרמיניסטי וניתן להסבר.
+**מטרה:** לשמור את פרקי Q&A בלי לשנות prompts, החלטות או התנהגות סוכנים.
 
-**מה אני אבצע:** אגדיר rule-based OR עם reason codes מפורשים, ללא machine learning, ללא tuning לפי labels וללא שינוי prompts או החלטות סוכנים.
+**מה אני אבצע:** אוסיף כתיבה פסיבית של אירועי v1 בנקודות יצירה/השבה/סיום; אוסיף hash ומניפסט; לא אוסיף labels ולא אכוון את detector לפי תוצאות.
 
-**המקור לזיהוי האוטומטי:** feature table ממשימה 5.
+**המקור לזיהוי האוטומטי:** `orchestrator.py`, `qa_registry.py`, `state.py` ו-event writer.
 
-**ה-Dataset:** כל episodes שנאספו; אותה טבלת קלט לכל הפעלה.
+**ה-Dataset:** fixtures והרצה מקומית מבוקרת.
 
-**הפלט:** detector manifest, event-level decisions ו-reason-code inventory.
+**הפלט:** event records חתומים ומקושרים ל-run manifest.
 
-**קריטריון השלמה:** אותה קלט/גרסה/seed מפיקה אותו decision hash; כל ALERT ניתן למעקב אל feature ול-source event.
+**קריטריון השלמה:** כל episode מכיל את שדות החובה והשינוי אינו משנה את פלט ה-baseline.
 
-**מה נדרש ממני:** קביעת rules, מימוש, versioning ובדיקת reproducibility.
+**מה נדרש ממני:** מימוש instrumentation ובדיקות unit.
 
-**מה נדרש מאיריס וארנון:** לא נדרש דבר בשלב הביצוע; כללי Detector v1 יתועדו במפורש ויוצגו לעיון.
+**מה נדרש מאיריס וארנון:** לא נדרש דבר, אלא אם governance מחייב אישור לשינוי runtime.
 
-**מה חסר / מאתגר:** ALERT הוא מועמד להתערבות, לא הוכחה שנדרשה התערבות.
+**מה חסר / מאתגר:** artifact volume, אי-דטרמיניזם של LLM וסיכון לשינוי עקיף; לכן השינוי מוגבל ל-passive logging.
 
-**תלויות:** משימה 5; אין שימוש ב-labels אנושיים.
+**תלויות:** משימה 3 ואישור טכני לשינוי instrumentation בלבד.
 
-**הערכת זמן:** 2–3 שעות נטו; פחות מ-10 דקות ריצה.
+**הערכת זמן:** Ali: 4–6 שעות; בדיקות: 15–30 דקות.
 
-### משימה 7 — ניתוח תיאורי אוטומטי **[P1]**
+### משימה 5 — אימות instrumentation ושימור baseline **[P0]**
 
-**מטרה:** לדווח את מה שניתן למדוד ללא תיוג ידני.
+**מטרה:** להראות שהאירועים נשמרים ושפלט VEGO-AI לא השתנה.
 
-**מה אני אבצע:** אחשב episodes, מספר ושיעור alerts, חלוקה לפי agent/stage/target, signal distributions, confidence distributions, `ANSWER_NOT_PERSISTED`, rounds/follow-up ו-repeatability; אייצר טבלת תוצאות ותרשים סיכום.
+**מה אני אבצע:** אריץ unit/integration tests, schema validation, mandatory-field coverage, baseline hash comparison ושתי ריצות זהות על fixture/controlled run.
 
-**המקור לזיהוי האוטומטי:** detector outputs, feature table ו-run manifests.
+**המקור לזיהוי האוטומטי:** schema, manifests, canonical JSON hashes ו-baseline diff.
 
-**ה-Dataset:** כל corpus Q&A המאומת ממשימה 4.
+**ה-Dataset:** fixture בטוח והרצה מבוקרת מינימלית.
 
-**הפלט:** descriptive-results JSON/CSV, תרשים ו-report קנוני.
+**הפלט:** verification receipt עם pass/fail, coverage ו-hash comparison.
 
-**קריטריון השלמה:** כל מספר ניתן לשחזור מן event IDs וה-hashes; אין מדדים של true/false, precision, recall או accuracy.
+**קריטריון השלמה:** אין שדה חובה חסר; אותה קלט/גרסה מפיקה אותם artifacts קנוניים; אין שינוי baseline.
 
-**מה נדרש ממני:** הפקת הדוח, QA של מספרים ופרשנות תיאורית מוגבלת.
-
-**מה נדרש מאיריס וארנון:** לא נדרש דבר.
-
-**מה חסר / מאתגר:** ללא ground truth אי אפשר למדוד איכות זיהוי או missed intervention.
-
-**תלויות:** משימות 5–6.
-
-**הערכת זמן:** 2–3 שעות נטו; פחות מ-15 דקות ריצה.
-
-### משימה 8 — תיעוד גבול הראיות והשלב העתידי **[P2 | נדחה]**
-
-**מטרה:** לתעד מה המחקר האוטומטי הנוכחי יכול לבסס ומה אינו יכול.
-
-**מה אני אבצע:** אנסח limitation ברור: ללא labels עצמאיים אין דרך לקבוע true/false alerts, accuracy, recall, precision או נחיצות התערבות אנושית; אשמור את reviewer sheets ככלי לשלב עתידי בלבד ולא אפעילם.
-
-**המקור לזיהוי האוטומטי:** claim register, descriptive report ו-evidence boundary.
-
-**ה-Dataset:** כל תוצרי משימות 1–7; אין dataset חדש.
-
-**הפלט:** תיעוד גבול ראיות קצר: **כעת** — אותות אוטומטיים, ספירות התראות, התפלגויות, היתכנות טכנית ו-reproducibility; **נדחה** — אימות true/false, precision, recall, F1, accuracy, missed interventions ותועלת לאדם.
-
-**קריטריון השלמה:** התכנית הנוכחית אינה מבקשת מאיריס או מארנון לתייג או לבדוק אירועים.
-
-**מה נדרש ממני:** שמירת גבול הטענה ועדכון התיעוד.
+**מה נדרש ממני:** כתיבת והרצת בדיקות ותיעוד חריגות.
 
 **מה נדרש מאיריס וארנון:** לא נדרש דבר.
 
-**מה חסר / מאתגר:** אין ground truth אוטומטי לגיטימי; אין להמיר proxy טכני לתווית מדעית.
+**מה חסר / מאתגר:** ריצה מול API כללי אינה בהכרח דטרמיניסטית; ההוכחה תוגבל ל-fixture ול-controlled run.
 
-**תלויות:** תוצאות משימה 7.
+**תלויות:** משימה 4.
 
-**הערכת זמן:** 0.5–1 שעה נטו; אין runtime.
+**הערכת זמן:** Ali: 2–3 שעות; ריצה: 15–45 דקות.
 
-## סיכום מאמץ ותלויות
+### משימה 6 — הרצה מבוקרת של setting אחד **[P1]**
 
-**סה"כ עבודת Ali נטו:** כ-13–20 שעות לכל שמונה המשימות (לאחר צמצום משימה 4 ל-setting אחד).
-**סה"כ machine/API:** כ-1–3 שעות, רובן בהרצה המבוקרת של setting אחד; עלות API תימדד לאחר בדיקת הקלטים.
-**חסמים:** קלטים זמינים, הרשאות runtime ועלות API אם תחול. אין חסם של תיוג אנושי בשלב זה.
+**מטרה:** להוכיח שה-instrumentation יוצר episodes מלאים לפני הרחבה לארבעת ה-settings.
 
-## מה לא ניתן לבצע כעת
+**מה אני אבצע:** אבחר setting יחיד רק לאחר בדיקת input availability, אתעד את סיבת הבחירה, אפעיל dry-run ולאחריו הרצה מבוקרת, ואמדוד call count, runtime, failures ועלות API.
 
-לא ניתן לקבוע כמה התראות נכונות או שגויות, לחשב precision/recall/accuracy, למדוד missed interventions, להראות שיפור לאדם, או לטעון שהמערכת ידעה שההתערבות נדרשת. 12 האירועים הקיימים הם אירועים שבהם **לא נמצאה תשובה תואמת שנשמרה**; הם אינם 12 מקרים מוכחים של אי-מענה.
+**המקור לזיהוי האוטומטי:** runtime logs, run manifest ואירועי `qa-communication-event-v1`.
 
-Reviewer sheets נשמרים כ-**Prepared for a future validation stage — not part of the current execution plan**. לא יישלחו לאיריס או לארנון ולא תתבקש מהם בדיקת שורות.
+**ה-Dataset:** Cheers או ParkWise עם UCD או CD, לפי ה-setting הזמין והמתאים ביותר; לא מובטחת הרצה של כל ארבעת ה-settings בשלב הראשון.
 
-## סטטוס עבודה מיידי
+**הפלט:** corpus Q&A חתום, דוח כיסוי, call/runtime/cost receipt והחלטה אם יש הצדקה להרחבה.
 
-1. לקבע את משימה 1, כולל חיפוש `interaction_log.jsonl`.
-2. לבצע את משימות 2–7 בכפוף לזמינות קלטים והרשאות runtime.
-3. אם לאחר הניתוח התיאורי יידרש אימות True/False, שלב זה יידחה למחקר עתידי שבו יהיה מקור ייחוס עצמאי.
+**קריטריון השלמה:** נוצר לפחות controlled run אחד מתועד; setting שלא ניתן להריץ מסומן חסום; הרחבה מותנית בהצלחת completeness של ה-one-setting run.
+
+**מה נדרש ממני:** בדיקת inputs, בחירת setting, dry-run, הרצה ותיעוד.
+
+**מה נדרש מאיריס וארנון:** רק אם אין חלופה מקומית ונדרשת עלות: אישור הרצה מבוקרת אחת ועלות API אפשרית.
+
+**מה חסר / מאתגר:** inputs חסרים, עלות, אי-דטרמיניזם וזמן ריצה; אין להבטיח corpus מלא מראש.
+
+**תלויות:** משימות 4–5, inputs והרשאות runtime.
+
+**הערכת זמן:** Ali: 2–4 שעות; machine/API: כ-1–6 שעות לפי setting ועלות.
+
+### משימה 7 — חילוץ אותות תקשורת אוטומטיים **[P1]**
+
+**מטרה:** לגזור רק אותות escalation שניתנים למדידה מן ה-corpus המועשר.
+
+**מה אני אבצע:** אחשב confidence נמוך/בינוני, `ANSWER_NOT_PERSISTED`, evidence חסר, repeated question, follow-up, multiple rounds, non-convergence, MAX_QA_ROUNDS ו-high question count; mapping certainty ו-Agent 4 confidence יישארו context נפרד.
+
+**המקור לזיהוי האוטומטי:** event fields, episode history ו-termination record.
+
+**ה-Dataset:** corpus ממשימה 6; snapshot קיים ישמש sanity check בלבד.
+
+**הפלט:** feature table קנונית עם source field, rule, availability, count ו-limitation.
+
+**קריטריון השלמה:** שום proxy אינו מסומן כ-ground truth וכל unavailable נשמר כ-unavailable.
+
+**מה נדרש ממני:** מימוש features ובדיקות determinism.
+
+**מה נדרש מאיריס וארנון:** לא נדרש דבר.
+
+**מה חסר / מאתגר:** אות שלא נשמר אינו ניתן לשחזור אמין בדיעבד.
+
+**תלויות:** משימה 6.
+
+**הערכת זמן:** Ali: 2–3 שעות; ריצה: פחות מ-10 דקות.
+
+### משימה 8 — Detector שקוף וניתוח תיאורי **[P1]**
+
+**מטרה:** להפיק ALERT/NO ALERT וסטטיסטיקה תיאורית ללא machine learning או labels.
+
+**מה אני אבצע:** אבנה rule-based detector עם reason codes, אריץ אותו על אותה טבלת episodes, ואדווח episodes, alert counts/rates, agent/stage/target, signal distributions, confidence, `ANSWER_NOT_PERSISTED`, rounds/follow-up ו-repeatability.
+
+**המקור לזיהוי האוטומטי:** feature table, detector manifest ו-run manifest.
+
+**ה-Dataset:** corpus המאומת ממשימה 6.
+
+**הפלט:** event-level decisions, descriptive-results JSON/CSV, תרשים ו-report קנוני.
+
+**קריטריון השלמה:** כל decision מקושר ל-feature ול-event ID; אותה קלט/גרסה/seed מפיקה אותו hash.
+
+**מה נדרש ממני:** rules, versioning, analysis ו-QA מספרי.
+
+**מה נדרש מאיריס וארנון:** לא נדרש דבר.
+
+**מה חסר / מאתגר:** ללא מקור ייחוס עצמאי וללא תיוג ידני בשלב הנוכחי, ניתן למדוד באופן מלא את מספר ההתראות, התפלגותן והאותות שהפעילו אותן, אך לא ניתן לקבוע באופן אמפירי בשלב זה אילו מהן True/False.
+
+**תלויות:** משימה 7; אין tuning לפי labels.
+
+**הערכת זמן:** Ali: 2–3 שעות; ריצה: פחות מ-15 דקות.
+
+## גבול טענה ושלב עתידי
+
+אין לחשב או להבטיח accuracy, precision, recall, F1, true-alert rate, false-alert rate או נחיצות אובייקטיבית של התערבות. אין להמציא ground truth אוטומטי. Reviewer sheets, true/false validation, adjudication וכל בדיקה ידנית מסומנים **P2 — DEFERRED / מחוץ לתכנית הביצוע הנוכחית**.
+
+## סיכום זמן
+
+**זמן עבודה שלי:** כ-14–23 שעות לכל שמונה המשימות.
+**זמן ריצה/API:** כ-1–6 שעות להרצה המבוקרת, בתוספת פחות משעה לבדיקות ולניתוח מקומי; עלות API תימדד רק אם נדרשת הרצה.
+**זמן חסום/המתנה:** תלוי בזמינות `interaction_log.jsonl`, inputs, הרשאות runtime ואישור עלות חד-פעמי; אינו נכלל בזמן העבודה.
+**שלב עתידי שאינו כלול:** תיוג עצמאי, בדיקה ידנית, adjudication והערכת ביצועים.
+## מה נדרש מאיריס וארנון
+
+1. אם קיים אצלם `interaction_log.jsonl` המקורי — להעביר אותו.
+2. רק אם שחזור הראיות נכשל ונדרשת הרצה חדשה — לאשר controlled run אחד ועלות API אפשרית.
+
+אין בקשה לתייג, לקרוא שורות, לבדוק alerts, לבצע adjudication או לאשר כעת את כללי Detector v1.

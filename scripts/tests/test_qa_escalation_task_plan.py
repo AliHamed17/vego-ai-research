@@ -10,6 +10,8 @@ SOURCE = ROOT / "docs/research/phd-proposal/2026-09-03-qa-escalation-task-plan.h
 def test_operational_plan_has_eight_filled_tasks_and_required_fields():
     text = SOURCE.read_text(encoding="utf-8")
     assert len(TASKS) == 8
+    assert TASKS[0][0] == "איתור ושחזור לוג האינטראקציות מההרצה המקורית"
+    assert "הרצה מבוקרת של setting אחד" in text
     for label in (
         "מטרה",
         "מה אני אבצע",
@@ -29,7 +31,8 @@ def test_operational_plan_has_eight_filled_tasks_and_required_fields():
 def test_plan_uses_correct_evidence_boundary_and_defers_manual_validation():
     text = SOURCE.read_text(encoding="utf-8")
     assert "ANSWER_NOT_PERSISTED" in text
-    assert "לא נמצאה תשובה תואמת שנשמרה" in text
-    assert "לא ניתן לקבוע כמה התראות נכונות או שגויות" in text
-    assert "לא יישלחו לאיריס או לארנון" in text
-    assert "השאלה לא נענתה" not in text
+    assert "לא נמצאה תשובת Q&A תואמת שנשמרה" in text
+    assert "לא ניתן לקבוע באופן אמפירי בשלב זה אילו מהן True/False" in text
+    assert "ללא תיוג או בדיקה ידנית" in text
+    assert "true/false validation" in text
+    assert "main מסונכרן" in text

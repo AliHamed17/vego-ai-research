@@ -269,3 +269,24 @@ Chronological prompt history for Codex and Claude.
   - pdftoppm/pdfinfo and visual inspection (3 A4 pages)
 - Status: completed; ready for supervisor review
 - Next steps: Supervisor decides whether descriptive feasibility is acceptable; instrumentation and rerun remain pending.
+
+## 2026-09-03 23:30 +03:00 - Codex - Final revision of supervisor Q&A task plan
+
+- Request: Refine the operational plan with interaction-log recovery first, one-setting rerun, minimal supervisor requests, and no internal SHA in supervisor artifacts.
+- Actions taken:
+  - Added interaction-log recovery as Task 1
+  - Re-sequenced eight operational tasks and narrowed first rerun to one setting
+  - Removed internal revision SHA from DOCX/PDF and regenerated artifacts
+- Files changed:
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-task-plan.he.md
+  - scripts/qa_task_plan_data.py
+  - scripts/build_qa_escalation_task_plan.py
+  - scripts/build_qa_escalation_task_plan_pdf.py
+  - scripts/tests/test_qa_escalation_task_plan.py
+- Commands/checks:
+  - python -m pytest -q scripts/tests/test_qa_escalation_task_plan.py (2 passed)
+  - python scripts/build_qa_escalation_task_plan.py
+  - python scripts/build_qa_escalation_task_plan_pdf.py
+  - pdftoppm/pdfinfo and visual inspection (3 A4 pages)
+- Status: completed; pending final push and CI
+- Next steps: Push the focused revision; no study execution until interaction-log recovery and one-setting approval gate.

@@ -457,3 +457,10 @@ Durable decisions for this project.
 - Decision: Replace any definitive `UNANSWERED` interpretation with `ANSWER_NOT_PERSISTED` / “לא נשמרה תשובה תואמת בנתונים הקיימים” unless direct runtime evidence proves non-response.
 - Decision: Reviewer sheets remain prepared for a future validation stage and are not sent or used in the current execution plan. True/false alert quality, precision, recall, accuracy, and intervention necessity remain unmeasurable without independent labels.
 - Reason: The frozen snapshot has 12 questions and no persisted matching answers, confidence, evidence, or reconstructable episode metadata; the supervisor constraint explicitly rules out manual labeling now.
+
+## 2026-09-03 - Interaction-log-first supervisor plan revision
+
+- Decision: Recover the original `interaction_log.jsonl` before changing instrumentation or spending API budget. The log can recover only model calls that actually occurred; it cannot supply advisor answers that were never generated.
+- Decision: The first new runtime should be one controlled setting selected after input-availability checks. Expansion to four settings is conditional on complete answered-Q&A episodes and recorded runtime/cost evidence.
+- Decision: Remove commit SHA/base-revision details from the supervisor-facing DOCX/PDF; retain repository provenance in Git and internal Markdown/audit records.
+- Decision: Iris/Arnon are not asked to approve detector rules or descriptive sufficiency now. Their only possible actions are providing the original log or approving one controlled run/API cost if recovery fails.
