@@ -50,7 +50,8 @@ def test_read_csv_counts_only_nonblank_human_labels(tmp_path: pathlib.Path) -> N
 def test_local_frozen_evidence_audit_is_fail_closed_and_expected() -> None:
     report = verifier.audit(ROOT, VEGO)
 
-    assert report["status"] == "PASS"
+    assert report["status"] == "TECHNICAL EVIDENCE AUDIT: PASS"
+    assert report["scientific_pilot_status"] == "SCIENTIFIC PILOT EXECUTION: NOT YET AUTHORIZED"
     assert report["claim_boundary"] == "descriptive_mechanism_evidence_only"
     assert report["baseline_integrity"]["official_tag"] == "official-vego-ai-baseline"
     assert report["baseline_integrity"]["checked_files"] == 250
@@ -86,7 +87,7 @@ def test_local_frozen_evidence_audit_is_fail_closed_and_expected() -> None:
 
     candidates = report["pilot_candidates"]
     assert candidates["C1"]["status"] == "FOUND"
-    assert candidates["C2"]["status"] == "NOT FOUND"
+    assert candidates["C2"]["status"] == "LOCAL_EXTERNAL_FOUND_PUBLIC_NOT_TRACKED"
     assert candidates["C3"]["status"] == "FOUND"
     assert candidates["C3"]["path"].startswith("VEGO-AI/eval_output/")
     assert len(candidates["C3"]["source_sha256"]) == 64
@@ -99,9 +100,9 @@ def test_cli_json_shape(
     monkeypatch.setattr(
         verifier,
         "audit",
-        lambda repo, vego: {"status": "PASS", "read_only": True, "repository": str(repo)},
+        lambda repo, vego: {"status": "TECHNICAL EVIDENCE AUDIT: PASS", "read_only": True, "repository": str(repo)},
     )
     assert verifier.main(["--repo-root", str(ROOT), "--vego-root", str(ROOT / "VEGO-AI")]) == 0
     payload = json.loads(capsys.readouterr().out)
-    assert payload["status"] == "PASS"
+    assert payload["status"] == "TECHNICAL EVIDENCE AUDIT: PASS"
     assert payload["read_only"] is True

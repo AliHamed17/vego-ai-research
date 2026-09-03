@@ -4,7 +4,8 @@
 
 **Scope:** repository evidence, integrity, deterministic replay feasibility, and claim boundaries only
 
-**Status:** ready for human review; not supervisor-approved and not an outcome evaluation
+**Status:** **TECHNICAL EVIDENCE AUDIT: PASS**<br>
+**Scientific pilot status:** **SCIENTIFIC PILOT EXECUTION: NOT YET AUTHORIZED**
 
 Run the fail-closed local audit from repository root:
 
@@ -77,6 +78,97 @@ The reviewed paper snapshot in
 reports 179/27. The one-row/one-pattern difference is contextual, not an accuracy
 or quality improvement.
 
+## 3A. Frozen Agent-C score reconstruction
+
+The read-only reconstruction in `scripts/iris_score_reconstruction.py` sums the
+stored `compliance_contributions.score` values and
+`fragment_contributions.total_contribution` values for every frozen per-case
+JSON. It does not re-run an agent, open a holdout, or modify a baseline artifact.
+
+| Measure | All 165 reports |
+| --- | ---: |
+| Exact stored/reconstructed totals | 27 |
+| Mismatched totals | 138 |
+| Signed delta (`stored - reconstructed`) | -3.5 to +11.5 |
+| Mean absolute delta | 1.3985 |
+| Median absolute delta | 1.0 |
+| Contribution rows | 4,852 |
+
+| Setting | Reports | Exact | Mismatch | Min signed Δ | Max signed Δ | Mean | Median |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `ucd_ch` | 45 | 7 | 38 | -3.0 | 2.0 | 0.9778 | 1.0 |
+| `ucd_pw` | 37 | 8 | 29 | -1.5 | 11.5 | 2.2568 | 1.5 |
+| `cd_ch` | 46 | 8 | 38 | -3.5 | 4.0 | 1.1413 | 1.0 |
+| `cd_pw` | 37 | 4 | 33 | -3.5 | 2.5 | 1.3716 | 1.0 |
+| **Total** | **165** | **27** | **138** | **-3.5** | **11.5** | **1.3985** | **1.0** |
+
+Label reconciliation distinguishes two checks: 78 status disagreements among
+common guideline keys across 36 cases, and one additional key-set disagreement
+(`cd_ch/68061`, `G25` present only in `existing_mapping`). This is a technical
+inconsistency inventory, not a corrected scientific score. Preserve both the
+original reported total and the reconstructed frozen total until Claude or the
+supervisor selects a condition-A representation.
+
+## 3B. External C2 evidence bridge (private)
+
+The four local ignored workbooks `scores_{setting}.xlsx` are present and
+hash-bound by the reconstruction receipt; they are not tracked in Git. Their
+`compliance_vectors` sheets contain 915 row-level judgments and 120 `Score=0`
+expert-rejected rows after aggregate rows are excluded. Each bridge row records
+workbook SHA-256, sheet, row number, setting, case, guideline, original status,
+comment, and a conservative correction class in the private receipt. No browser,
+network, model, or holdout access occurs.
+
+| Setting | Workbook SHA-256 (local receipt) |
+| --- | --- |
+| `cd_ch` | `556cb6a89b976c15d295fcb268cd586cd6b68937d55f25236e6f51ccff5de6d0` |
+| `cd_pw` | `9d1cc4bc13649191d502b2dacbb1c32383b29bf6730b58410e8a50c5b7cff070` |
+| `ucd_ch` | `02bb76e1d62c290c317a25d306e309b240dcf76ab97c6101ea6b610bb421dba9` |
+| `ucd_pw` | `0eed7f225bd48bbd44beb3cdd30a8c0e3f02403c68d7c46431ac28f232c8e126` |
+
+The 120 rejected-row audit is: A (exact existing-schema status) = 96, B
+(deterministic normalization/short form) = 15, C (textually suggestive but not a
+schema-verdict) = 6, D (no usable comment) = 3. These are development-evidence
+classifications, not independent labels.
+
+Technical candidates are limited to the hash-bound external rows identified in
+the private receipt: P-A (`cd_ch`, three explicit corrections; arithmetic exact),
+P-B (`ucd_pw`, six explicit corrections; arithmetic exact), and P-C (`cd_ch`,
+secondary candidate blocked by a score/max inconsistency). They remain
+counterfactual candidates pending scientific admission and supervisor approval.
+
+| Candidate | External locator | Deterministic effect on contribution sum |
+| --- | --- | ---: |
+| P-A | `scores_cd_ch.xlsx`, `compliance_vectors` rows 58, 60, 78 | +1.50 |
+| P-B | `scores_ucd_pw.xlsx`, `compliance_vectors` rows 389, 391, 399, 411, 424, 425 | -3.00 |
+| P-C | `scores_cd_ch.xlsx`, secondary row set in private receipt | blocked: printed total/max inconsistency |
+
+## 3C. Two trigger universes
+
+Keep these denominators separate:
+
+1. **Corpus-wide AI trigger prevalence:** the 165-case Agent 3/Agent 2 inventory
+   (for example Not-Satisfied 496, Partially-Satisfied 743, Alternative 491,
+   Domain Mistake 79, Language Mistake 37).
+2. **Recorded-expert development subset:** 915 workbook judgments, 120
+   `Score=0` rows, 257 `status != Satisfied` rows, and 108/120 rejected rows
+   captured by that status trigger. This is not accuracy or held-out validation.
+
+## 3D. M1–M4B wiring matrix
+
+| Component | Implemented | Tested | Executed on frozen run | Automatically chained | Original baseline path |
+| --- | --- | --- | --- | --- | --- |
+| M1 queue creation | yes | yes | 11 rows | yes, extension queue | no |
+| M1.2 stable review identity | yes | yes | 11 identities | yes, with M1 | no |
+| M2 feedback-to-memory | yes | yes | 4 resolved rows | no, sidecar input | no |
+| M3 governed judgment memory | yes | yes | 3 memory rows | no, sidecar input | no |
+| M4A memory advice | yes | yes | 27 advice rows | no, advisory sidecar | no |
+| M4B-1 deterministic comparison | yes | yes | 27 comparisons | no, non-destructive sidecar | no |
+
+“Implemented” and “tested” refer to code/tests and the frozen extension receipt;
+“automatically chained” does not mean the component was part of the original
+Agent 1–4 baseline execution.
+
 ## 4. Agent 4 ground-truth audit
 
 Direct SHA-256 comparison found every `VEGO-AI/analysis/agentD_variability_classes_*`
@@ -138,7 +230,7 @@ contract names the signal but the frozen baseline does not observe it.
 | Candidate | Evidence status | Exact source | What is established | Boundary |
 | --- | --- | --- | --- | --- |
 | C1 — domain-guideline coverage | FOUND | `VEGO-AI/eval_output/ucd_ch/agentB_guideline_mapping.json`, cluster `C1` | No base assignment; minimum mapping certainty 0.7. | Candidate escalation only; no independent outcome. |
-| C2 — compliance disagreement | **NOT FOUND** at row level | `experiments/EXP-046-recorded-review-analysis/README.md` | Tracked evidence is aggregate; source workbooks with row identifiers remain outside Git. | Do not invent a case or call an aggregate an exact pilot item. |
+| C2 — compliance disagreement | **LOCAL EXTERNAL FOUND; PUBLIC ROW-LEVEL EVIDENCE NOT TRACKED** | `VEGO-AI/analysis/scores_<setting>.xlsx` (ignored) plus private reconstruction receipt | Four local workbooks are hash-bound; raw rows/comments remain outside Git. | Do not treat external development rows as independent truth or execute a correction without approval. |
 | C3 — uncovered fragment | FOUND locally | Exact private per-case path and item index are emitted by the verifier. | A real frozen Agent 3 item labeled `Alternative`. | Student/case locator is intentionally not copied into public Git; no independent outcome. |
 | C4 — Agent 4 uncertainty/update flag | FOUND | `VEGO-AI/human_review_output/cd_ch/human_review_queue.jsonl`, `HRQ-cd_ch-P2` | Medium confidence plus guideline-update trigger; 7 affected cases. | The original `requires_human_review` value is false; the extension queue supplies the review point. |
 

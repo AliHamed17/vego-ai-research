@@ -22,6 +22,8 @@ import zipfile
 from collections.abc import Iterable
 from typing import Any
 
+from iris_score_reconstruction import audit_external_c2
+
 SETTINGS = ("ucd_ch", "ucd_pw", "cd_ch", "cd_pw")
 OFFICIAL_BASELINE_TAG = "official-vego-ai-baseline"
 EXPECTED_BASELINE_COMMIT = "2eeccb1cbb2d01faa3e8ceb43466a52e0fee23cf"
@@ -616,10 +618,12 @@ def _pilot_candidates(repo: pathlib.Path, vego: pathlib.Path) -> dict[str, Any]:
             "independent_outcome": False,
         },
         "C2": {
-            "status": "NOT FOUND",
+            "status": "LOCAL_EXTERNAL_FOUND_PUBLIC_NOT_TRACKED"
+            if all((vego / "analysis" / f"scores_{setting}.xlsx").is_file() for setting in SETTINGS)
+            else "NOT_FOUND",
             "stage": "Agent 3 compliance disagreement",
-            "path": "experiments/EXP-046-recorded-review-analysis/README.md",
-            "reason": "Only aggregate recorded-review evidence is tracked; source workbooks with row identifiers remain outside the repository.",
+            "path": "VEGO-AI/analysis/scores_<setting>.xlsx (local ignored evidence)",
+            "reason": "External row-level workbooks are hash-bound locally; no row-level workbook or private comments are tracked in Git.",
             "independent_outcome": False,
         },
         "C3": {
@@ -797,10 +801,15 @@ def audit(repo_root: pathlib.Path, vego_root: pathlib.Path) -> dict[str, Any]:
     gate = _exp005_gate(repo)
     triggers = _triggers(vego, compliance, fragments, human)
     candidates = _pilot_candidates(repo, vego)
+    external_c2 = audit_external_c2(vego / "analysis")
+    # The verifier is safe to print or attach as a public receipt: row-level
+    # comments and identifiers stay in the separate ignored reconstruction report.
+    external_c2.pop("rejected_rows_detail", None)
 
     return {
         "schema_version": "IrisPreliminaryPilotEvidenceAudit-v1",
-        "status": "PASS",
+        "status": "TECHNICAL EVIDENCE AUDIT: PASS",
+        "scientific_pilot_status": "SCIENTIFIC PILOT EXECUTION: NOT YET AUTHORIZED",
         "read_only": True,
         "repository": {"branch": branch, "head": head},
         "claim_boundary": "descriptive_mechanism_evidence_only",
@@ -812,6 +821,7 @@ def audit(repo_root: pathlib.Path, vego_root: pathlib.Path) -> dict[str, Any]:
         "exp005_gate": gate,
         "trigger_inventory": triggers,
         "pilot_candidates": candidates,
+        "external_c2_bridge": external_c2,
         "replay_feasibility": _replay_feasibility(),
         "evidence_map": _evidence_map(repo, vego),
         "must_not_be_claimed": [

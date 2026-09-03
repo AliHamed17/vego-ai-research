@@ -1,6 +1,7 @@
 # Iris preliminary pilot — technical boundary note
 
-**Status:** ready for human review; no supervisor approval or outcome claim is implied.
+**Status:** **TECHNICAL EVIDENCE AUDIT: PASS**<br>
+**Scientific pilot status:** **SCIENTIFIC PILOT EXECUTION: NOT YET AUTHORIZED**
 
 ## WHAT EXISTS NOW
 
@@ -9,7 +10,8 @@
 - A verified M1/M1.2/M2/M3/M4A/M4B-1 extension: 11 queue rows, 4 resolved
   feedback rows, 3 memory rows, 27 advice rows, and 27 deterministic comparison rows.
 - EXP-045 descriptive escalation inventory and EXP-046 aggregate recorded-review
-  analysis. The latter's row-level source workbooks remain outside the repository.
+  analysis. Four row-level C2 source workbooks are available locally, hash-bound,
+  and ignored; their raw rows/comments remain outside the repository.
 - A read-only verifier and evidence map that fail closed on baseline, count,
   ground-truth, milestone, or EXP-005 gate drift.
 
@@ -42,7 +44,8 @@
   EXP-005 remains 0/24 generalization-safe labels, with 0 reviewer-1, 0 reviewer-2,
   and 0 adjudicated labels.
 - C1 end-to-end downstream replay without an LLM or a newly approved bounded adapter.
-- Exact public C2 row selection because only aggregate evidence is tracked.
+- Scientific C2 row admission and correction execution pending supervisor approval;
+  local row-level evidence is not public Git evidence.
 - Any use of the sealed holdout before the development policy is frozen and approved.
 
 ## WHAT MUST NOT BE CLAIMED
