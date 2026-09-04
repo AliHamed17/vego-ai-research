@@ -140,6 +140,18 @@ def verify_airtravel_archive(archive: Path | None, manifest: Path | None) -> dic
     return result
 
 
+def _fetched_claude_manifest() -> dict[str, Any]:
+    """Read only the pushed branch's JSON manifest; never materialize source bytes."""
+    try:
+        raw = subprocess.check_output(["git", "show", f"{CLAUDE_BRANCH}:{CLAUDE_MANIFEST_PATH}"])
+        if _sha(raw) != CLAUDE_MANIFEST_SHA256:
+            return {"status": "FAIL", "reason": "fetched Claude manifest hash mismatch"}
+        payload = json.loads(raw.decode("utf-8"))
+        return {"status": "PASS", "manifest_sha256": CLAUDE_MANIFEST_SHA256, "runtime_files": payload.get("runtime_files", []), "excluded_references": payload.get("excluded_references", [])}
+    except (OSError, subprocess.CalledProcessError, json.JSONDecodeError, UnicodeDecodeError) as exc:
+        return {"status": "BLOCKED", "reason": str(exc)}
+
+
 def _instrumentation_receipt() -> dict[str, Any]:
     code = "from qa_instrumented_runner import run_parity_fixture; import json; r=run_parity_fixture(); ev=r['on']['events']; print(json.dumps({'prompt_parity':r['prompt_label_parity'],'scientific_state_parity':r['scientific_state_parity'],'event_count':len(ev),'route_pairs':sorted({(e['source_agent'],e['target_agent']) for e in ev if e.get('source_agent') and e.get('target_agent')}),'terminal_count':sum(e['event_type']=='EPISODE_TERMINATED' for e in ev),'termination_reasons':sorted({e.get('termination_reason') for e in ev if e['event_type']=='EPISODE_TERMINATED'}),'question_count':sum(e['event_type']=='QUESTION_EMITTED' for e in ev),'answer_count':sum(e['event_type']=='ANSWER_RECEIVED' for e in ev)}))"
     env = dict(**__import__("os").environ, PYTHONPATH=str(ROOT / "VEGO-AI" / "framework"))
@@ -161,7 +173,7 @@ def audit_v31(backup: Path, v2_manifest: Path | None, *, airtravel_archive: Path
     for _setting, row in result["per_setting"].items():
         row["duplicate_id_excess_rows"] = row.pop("duplicate_version_rows")
     result["executability_by_setting"] = _executability(backup)
-    result["airtravel_manifest_provenance"] = {"branch": CLAUDE_BRANCH, "commit": CLAUDE_COMMIT, "path": CLAUDE_MANIFEST_PATH, "manifest_sha256": CLAUDE_MANIFEST_SHA256}
+    result["airtravel_manifest_provenance"] = {"branch": CLAUDE_BRANCH, "commit": CLAUDE_COMMIT, "path": CLAUDE_MANIFEST_PATH, "manifest_sha256": CLAUDE_MANIFEST_SHA256, "verification": _fetched_claude_manifest()}
     result["airtravel_runtime_verification"] = verify_airtravel_archive(airtravel_archive, airtravel_manifest)
     result["instrumentation"] = _instrumentation_receipt()
     result["call_bound"] = {"N": 4, "minimum": 16, "retained_worst_case": 326, "status": "STATIC_ONLY"}

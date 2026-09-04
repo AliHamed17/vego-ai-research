@@ -34,7 +34,63 @@
     "branch": "origin/review/study1-airtravel-v102",
     "commit": "8561aa0b9e241255f0f2346ac85180758f3ccb53",
     "manifest_sha256": "a4097902494f313594ab0b24e843280f6a1041889d72ddd2c53412353191c791",
-    "path": "docs/research/phd-proposal/text2uml-airtravel/amendment-manifest-v1.0.2.json"
+    "path": "docs/research/phd-proposal/text2uml-airtravel/amendment-manifest-v1.0.2.json",
+    "verification": {
+      "excluded_references": [
+        {
+          "bytes": 1300,
+          "classification": "REFERENCE_MODEL",
+          "path": "reference_only/plantuml.txt",
+          "sha256": "01448d859c916a4229a2becec2e3675614ab6f00495d9049ace30b7c82bb7b98"
+        },
+        {
+          "bytes": 1328,
+          "classification": "DERIVED_DUPLICATE",
+          "path": "reference_only/plantuml_adjusted.txt",
+          "sha256": "17c4179653fcfea5b2bfd306cb1382d1b93bc5dc946419f85e8fc5e4b480f3ff"
+        },
+        {
+          "bytes": 1452,
+          "classification": "REFERENCE_MODEL",
+          "path": "reference_only/extramaterial/AirTravel.cd4a",
+          "sha256": "51a73df36663ab70e251e365266cc51d9a3f2c41ddf2dcf2a3cc106246ce61df"
+        }
+      ],
+      "manifest_sha256": "a4097902494f313594ab0b24e843280f6a1041889d72ddd2c53412353191c791",
+      "runtime_files": [
+        {
+          "bytes": 1477,
+          "path": "domain_description/description.md",
+          "role": "domain_description",
+          "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2"
+        },
+        {
+          "bytes": 1248,
+          "path": "candidate_models/01_result_one_claude-sonnet-4-6.txt",
+          "role": "candidate_model",
+          "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91"
+        },
+        {
+          "bytes": 1272,
+          "path": "candidate_models/02_result_one_codestral-2508.txt",
+          "role": "candidate_model",
+          "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6"
+        },
+        {
+          "bytes": 1324,
+          "path": "candidate_models/03_result_one_deepseek-chat.txt",
+          "role": "candidate_model",
+          "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a"
+        },
+        {
+          "bytes": 1231,
+          "path": "candidate_models/04_result_one_gemini-2.5-flash.txt",
+          "role": "candidate_model",
+          "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
+        }
+      ],
+      "status": "PASS"
+    }
   },
   "airtravel_runtime_verification": {
     "matched_count": 0,
