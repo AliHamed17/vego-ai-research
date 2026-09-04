@@ -1,0 +1,217 @@
+{
+  "duplicate_id_groups": {
+    "cd_ch": [
+      {
+        "case_id": "68092",
+        "logged_lengths": [
+          596,
+          4421
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "68111",
+        "logged_lengths": [
+          2635,
+          3376
+        ],
+        "row_count": 2
+      }
+    ],
+    "cd_pw": [
+      {
+        "case_id": "70229",
+        "logged_lengths": [
+          506,
+          4576
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70248",
+        "logged_lengths": [
+          3822,
+          3822
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70278",
+        "logged_lengths": [
+          471,
+          3995
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70279",
+        "logged_lengths": [
+          278,
+          6649
+        ],
+        "row_count": 2
+      }
+    ],
+    "ucd_ch": [
+      {
+        "case_id": "68092",
+        "logged_lengths": [
+          596,
+          2371
+        ],
+        "row_count": 2
+      }
+    ],
+    "ucd_pw": [
+      {
+        "case_id": "70197",
+        "logged_lengths": [
+          656,
+          2749
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70229",
+        "logged_lengths": [
+          506,
+          4055
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70248",
+        "logged_lengths": [
+          2719,
+          2719
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70251",
+        "logged_lengths": [
+          3530,
+          4807
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70252",
+        "logged_lengths": [
+          4538,
+          45154
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70278",
+        "logged_lengths": [
+          733,
+          1852
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70279",
+        "logged_lengths": [
+          278,
+          3656
+        ],
+        "row_count": 2
+      }
+    ]
+  },
+  "per_setting": {
+    "cd_ch": {
+      "duplicate_version_rows": 2,
+      "load_rows": 48,
+      "ranking_length": 48,
+      "unique_load_ids": 46
+    },
+    "cd_pw": {
+      "duplicate_version_rows": 4,
+      "load_rows": 41,
+      "ranking_length": 41,
+      "unique_load_ids": 37
+    },
+    "ucd_ch": {
+      "duplicate_version_rows": 1,
+      "load_rows": 46,
+      "ranking_length": 46,
+      "unique_load_ids": 45
+    },
+    "ucd_pw": {
+      "duplicate_version_rows": 7,
+      "load_rows": 44,
+      "ranking_length": 44,
+      "unique_load_ids": 37
+    }
+  },
+  "published_score_workbook": {
+    "duplicate_stable_keys": [
+      [
+        "cd_ch",
+        "68092"
+      ],
+      [
+        "cd_ch",
+        "68111"
+      ],
+      [
+        "cd_pw",
+        "70248"
+      ],
+      [
+        "cd_pw",
+        "70278"
+      ],
+      [
+        "cd_pw",
+        "70279"
+      ],
+      [
+        "ucd_ch",
+        "68092"
+      ],
+      [
+        "ucd_pw",
+        "70197"
+      ],
+      [
+        "ucd_pw",
+        "70248"
+      ],
+      [
+        "ucd_pw",
+        "70251"
+      ],
+      [
+        "ucd_pw",
+        "70252"
+      ],
+      [
+        "ucd_pw",
+        "70278"
+      ],
+      [
+        "ucd_pw",
+        "70279"
+      ]
+    ],
+    "row_count": 164,
+    "rows_by_setting": {
+      "cd_ch": 44,
+      "cd_pw": 37,
+      "ucd_ch": 43,
+      "ucd_pw": 40
+    },
+    "stable_key_count": 164,
+    "unique_stable_key_count": 152
+  },
+  "ranking_lengths": {
+    "cd_ch": 48,
+    "cd_pw": 41,
+    "ucd_ch": 46,
+    "ucd_pw": 44
+  }
+}

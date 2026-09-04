@@ -1,0 +1,14 @@
+{
+  "archive_entry_count": 632,
+  "audit_version": "historical-case-recovery-v3",
+  "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+  "detector_v1_runs": 0,
+  "experiment_calls": 0,
+  "file_level_match": {
+    "expected": 165,
+    "matched": 165,
+    "status": "PASS"
+  },
+  "normalized_model_count": 165,
+  "provider_calls": 0
+}
