@@ -2,7 +2,7 @@
 
 **Status: DATA NO-GO / TECHNICAL NO-GO for any provider-backed run**
 **Backup SHA-256:** `8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384`
-**Current main:** `36602e41a3a7ccec52a300d9244f3afe4702153f`
+**Current main:** `bc81cf0b2f86326473dc9e75b26d6f61e1dc58bb`
 **Provider, experiment, Detector-v1, and synthetic calls:** 0
 
 ## Scope and preservation
@@ -101,7 +101,7 @@ not frozen or executed by this audit.
 ## Verification and blockers
 
 Focused and full local tests passed; no provider-backed activity occurred.
-GitHub Actions run [33889856322](https://github.com/AliHamed17/vego-ai-research/actions/runs/33889856322)
+GitHub Actions run [33890423134](https://github.com/AliHamed17/vego-ai-research/actions/runs/33890423134)
 passed all four Python matrix jobs. The source/security/documents job failed
 on the pre-existing stale `release-manifest-v3.json`, and the merge gate failed
 consequently. Refreshing that manifest requires the repository-controlled Agent
