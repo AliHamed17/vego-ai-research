@@ -1,0 +1,204 @@
+{
+  "airtravel_fake_preflight": {
+    "provider_calls": 0,
+    "reason": "exact five-file runtime verification did not pass",
+    "status": "BLOCKED_NOT_RUN"
+  },
+  "airtravel_manifest_verification": {
+    "manifest_sha256": "3cc5867366a9af7b531ff19eed57167dfacd8eab130f2cc243300ba50700bbac",
+    "resolved_commit": "cb1099c214418f8ef39a98bc7e81395a444c2082",
+    "status": "PASS"
+  },
+  "airtravel_runtime_pack_verification": {
+    "expected_count": 5,
+    "reason": "exact runtime archive unavailable",
+    "status": "BLOCKED"
+  },
+  "airtravel_source_runtime_mapping": {
+    "reason": "upstream bytes and runtime archive are required for source-to-runtime mapping",
+    "status": "BLOCKED"
+  },
+  "airtravel_source_verification": {
+    "expected_archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+    "expected_upstream_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+    "reason": "pinned Text2UML archive or source manifest unavailable",
+    "status": "BLOCKED"
+  },
+  "archive_entry_count": 632,
+  "audit_base_sha": "8765af49fd9d15544e17371102881b88447dac46",
+  "audit_version": "historical-case-recovery-v3.2-airtravel-erratum",
+  "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+  "detector_v1_runs": 0,
+  "duplicate_id_excess": {
+    "groups": {
+      "cd_ch": [
+        {
+          "case_id": "68092",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            596,
+            4421
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "68111",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            2635,
+            3376
+          ],
+          "row_count": 2
+        }
+      ],
+      "cd_pw": [
+        {
+          "case_id": "70229",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            506,
+            4576
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70248",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "same_length_excess",
+          "logged_lengths": [
+            3822,
+            3822
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70278",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            471,
+            3995
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70279",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            278,
+            6649
+          ],
+          "row_count": 2
+        }
+      ],
+      "ucd_ch": [
+        {
+          "case_id": "68092",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            596,
+            2371
+          ],
+          "row_count": 2
+        }
+      ],
+      "ucd_pw": [
+        {
+          "case_id": "70197",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            656,
+            2749
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70229",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            506,
+            4055
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70248",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "same_length_excess",
+          "logged_lengths": [
+            2719,
+            2719
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70251",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            3530,
+            4807
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70252",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            4538,
+            45154
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70278",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            733,
+            1852
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70279",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            278,
+            3656
+          ],
+          "row_count": 2
+        }
+      ]
+    },
+    "total_duplicate_id_excess_rows": 14,
+    "totals": {
+      "differing_length_excess": 12,
+      "same_length_excess": 2
+    }
+  },
+  "evidence_parent_sha": "36602e41a3a7ccec52a300d9244f3afe4702153f",
+  "experiment_calls": 0,
+  "file_level_match": {
+    "expected": 165,
+    "matched": 165,
+    "status": "PASS"
+  },
+  "gate_tracks": {
+    "airtravel_public_external": "BLOCKED",
+    "historical_cheers_parkwise": "DATA_NO_GO",
+    "synthetic_gap_fill": "ZERO_AUTHORIZED"
+  },
+  "normalized_model_count": 165,
+  "paid_run_authorization": "ABSENT",
+  "provider_calls": 0
+}
