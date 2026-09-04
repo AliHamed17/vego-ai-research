@@ -154,6 +154,11 @@ class InstrumentedLLMClientProxy:
             # Prompts may include prior Q&A history.  The producer's pending
             # list identifies the current suffix; never correlate historical IDs.
             ids = all_ids[-len(pending):]
+            if len(ids) != len(pending):
+                raise QACommunicationValidationError(
+                    "Q&A question IDs cannot be correlated to producer metadata; "
+                    "episode is technical-incomplete"
+                )
             questions = []
             for index, question_id in enumerate(ids):
                 meta = (pending[index] if index < len(pending) else {}) | (context or {})
