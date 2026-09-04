@@ -43,8 +43,9 @@ consumed.
 2. **Source-to-runtime mapping:** blocked. PR #36 does not provide a
    `source_path`/`runtime_path` mapping object, and upstream bytes are absent.
 3. **Runtime pack:** blocked. The exact five runtime files cannot be verified
-   without the pinned archive. Reference-only files are not exposed to the
-   runtime configuration; byte-level separation remains pending archive access.
+   without the pinned archive. Reference-file exclusion and runtime
+   configuration separation are not asserted until that archive is available;
+   byte-level separation remains pending archive access.
 
 The intended identities remain separate: `setting_id=cd_airtravel`,
 `corpus_id=text2uml_airtravel_253b26dc`. GPL-3.0 attribution and redistribution
@@ -71,7 +72,7 @@ selection, protected authorization, green CI, GPL redistribution scope, and
 explicit paid-run authorization. Static N=4 call bounds remain 16 minimum and
 326 retained worst-case; API cost is TO BE MEASURED.
 
-CI run [33910965782](https://github.com/AliHamed17/vego-ai-research/actions/runs/33910965782)
+CI run [33914685395](https://github.com/AliHamed17/vego-ai-research/actions/runs/33914685395)
 passes Python 3.10–3.13 and fails the stale `release-manifest-v3.json` source
 gate; merge-gate fails consequently. No release-manifest authorization was
 bypassed.
