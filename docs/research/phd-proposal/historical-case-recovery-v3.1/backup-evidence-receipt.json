@@ -1,0 +1,76 @@
+{
+  "airtravel_manifest_provenance": {
+    "branch": "origin/review/study1-airtravel-v102",
+    "commit": "8561aa0b9e241255f0f2346ac85180758f3ccb53",
+    "manifest_sha256": "a4097902494f313594ab0b24e843280f6a1041889d72ddd2c53412353191c791",
+    "path": "docs/research/phd-proposal/text2uml-airtravel/amendment-manifest-v1.0.2.json"
+  },
+  "airtravel_runtime_verification": {
+    "matched_count": 0,
+    "mismatch_count": 0,
+    "provider_call_made": false,
+    "reason": "pinned AirTravel archive or v1.0.2 amendment manifest unavailable",
+    "status": "BLOCKED"
+  },
+  "api_cost": "TO BE MEASURED",
+  "archive_entry_count": 632,
+  "audit_base_sha": "cbc2fb5e3c05471cf37c0eef55a48857e2066403",
+  "audit_version": "historical-case-recovery-v3.1-erratum",
+  "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+  "call_bound": {
+    "N": 4,
+    "minimum": 16,
+    "retained_worst_case": 326,
+    "status": "STATIC_ONLY"
+  },
+  "detector_v1_runs": 0,
+  "evidence_parent_sha": "36602e41a3a7ccec52a300d9244f3afe4702153f",
+  "experiment_calls": 0,
+  "file_level_match": {
+    "expected": 165,
+    "matched": 165,
+    "status": "PASS"
+  },
+  "instrumentation": {
+    "airtravel_exact_config": "NOT_EXERCISED_ARCHIVE_UNAVAILABLE",
+    "answer_count": 7,
+    "event_count": 21,
+    "prompt_parity": true,
+    "question_count": 7,
+    "route_pairs": [
+      [
+        "agent2",
+        "agent1"
+      ],
+      [
+        "agent2",
+        "agent2"
+      ],
+      [
+        "agent3",
+        "agent1"
+      ],
+      [
+        "agent3",
+        "agent2"
+      ],
+      [
+        "agent4",
+        "agent1"
+      ],
+      [
+        "agent4",
+        "agent2"
+      ]
+    ],
+    "scientific_state_parity": true,
+    "status": "FIXTURE_ONLY_PASS",
+    "terminal_count": 7,
+    "termination_reasons": [
+      "CONVERGED"
+    ]
+  },
+  "normalized_model_count": 165,
+  "protected_authorization": "NOT_SELF_AUTHORIZED",
+  "provider_calls": 0
+}
