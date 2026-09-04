@@ -310,3 +310,14 @@ Record file changes and rollback notes here.
   - tracking memory updates
 - Rollback note: Revert observer/schema/extractor/docs/tests and tracking-memory entries; protected runtime files remain unchanged.
 - Git commit: none recorded by script.
+
+## 2026-09-04 23:45 +03:00 - Codex - AirTravel v3.2.1 materialization and verifier hardening
+
+- Files changed:
+  - scripts/audit_historical_case_recovery_v3_2.py
+  - scripts/materialize_airtravel_runtime_v3_2_1.py
+  - scripts/tests/test_audit_historical_case_recovery_v3_2.py
+  - docs/research/phd-proposal/2026-09-04-historical-case-recovery-audit-v3.2.1-airtravel-materialization.md
+  - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
+- Rollback note: Revert commit 93bd2c7 to remove v3.2.1 artifacts; ignored external_data remains local-only
+- Git commit: none recorded by script.

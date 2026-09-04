@@ -357,3 +357,27 @@ Chronological prompt history for Codex and Claude.
   - offline focused tests: 14 passed; VEGO-AI tests: 120 passed; full tests: 237 passed, 10 skipped, 1 pre-existing merge-base hardening failure; ruff: PASS; compileall: PASS; privacy: PASS; evidence consistency: 18/18 PASS
 - Status: Tasks 2–5 partial: observer contract and offline verification pass; protected orchestrator wiring remains pending; all four settings blocked by missing case-model directories; no live LLM/API run.
 - Next steps: Obtain reviewed runtime integration authorization and complete case-model inputs before one-setting dry-run/live decision; do not execute real LLM run yet.
+
+## 2026-09-04 23:45 +03:00 - Codex - AirTravel v3.2.1 materialization and verifier hardening
+
+- Request: Final AirTravel materialization and v3.2 verifier hardening
+- Actions taken:
+  - Downloaded pinned Text2UML codeload archive and verified SHA
+  - Materialized ignored five-file runtime pack and provider-disabled config
+  - Refactored historical-only audit path and added strict adversarial tests
+  - Ran local suites and CI without provider calls
+- Files changed:
+  - scripts/audit_historical_case_recovery_v3_2.py
+  - scripts/materialize_airtravel_runtime_v3_2_1.py
+  - scripts/tests/test_audit_historical_case_recovery_v3_2.py
+  - docs/research/phd-proposal/2026-09-04-historical-case-recovery-audit-v3.2.1-airtravel-materialization.md
+  - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
+- Commands/checks:
+  - pytest scripts/tests -q (346 passed, 22 skipped)
+  - pytest VEGO-AI/tests -q (134 passed)
+  - pytest -q (46 passed)
+  - ruff and compileall pass
+  - evidence consistency, security, privacy pass
+  - GitHub Actions 33917630552 (source gate red; Python matrix pass)
+- Status: TECHNICAL NO-GO: protected preflight authorization and CI stale manifest gate remain
+- Next steps: Resolve release-manifest gate; obtain protected observer authorization; then rerun offline protected fake preflight before any paid authorization
