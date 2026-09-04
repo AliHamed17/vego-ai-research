@@ -429,3 +429,15 @@ Chronological prompt history for Codex and Claude.
   - gh run watch 33919262015; gh run view --json jobs
 - Status: TECHNICAL NO-GO; no provider calls
 - Next steps: Human policy remediation remains required before any paid run.
+
+## 2026-09-05 00:06 +03:00 - Codex - AirTravel v3.2.1 receipt completeness finalized
+
+- Request: Finalize machine receipt completeness and preserve no-go status.
+- Actions taken:
+  - Added call bound, API cost, instrumentation and protected authorization fields to backup evidence receipt; regenerated and pushed.
+- Files changed:
+  - scripts/audit_historical_case_recovery_v3_2.py and backup receipt
+- Commands/checks:
+  - offline CLI re-run exit 2 as blocked; git pull rebase and push
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: No further execution; await policy, observer authorization, CI freshness gate and paid-run approval.
