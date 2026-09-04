@@ -131,13 +131,18 @@ only, required by the protected loader's directory-and-numbering convention — 
 change any file's bytes.** This mapping is a documentation cross-reference, not itself proof that the
 `source_path` bytes match the live upstream repository (see the verification-tier limitation above).
 
-| `source_path` (in `dataset/AirTravel`) | `runtime_path` | Bytes | SHA-256 | `transformation` |
-|---|---|---:|---|---|
-| `description.md` | `domain_description/description.md` | 1,477 | `96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
-| `result_one_claude-sonnet-4-6.txt` | `candidate_models/01_result_one_claude-sonnet-4-6.txt` | 1,248 | `240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
-| `result_one_codestral-2508.txt` | `candidate_models/02_result_one_codestral-2508.txt` | 1,272 | `08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
-| `result_one_deepseek-chat.txt` | `candidate_models/03_result_one_deepseek-chat.txt` | 1,324 | `ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
-| `result_one_gemini-2.5-flash.txt` | `candidate_models/04_result_one_gemini-2.5-flash.txt` | 1,231 | `1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
+| `source_path` (in `dataset/AirTravel`) | `runtime_path` | Bytes | SHA-256 | `transformation` | `byte_transformation` |
+|---|---|---:|---|---|---|
+| `description.md` | `domain_description/description.md` | 1,477 | `96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2` | `BYTE_IDENTICAL_RELOCATION` | `NONE` |
+| `result_one_claude-sonnet-4-6.txt` | `candidate_models/01_result_one_claude-sonnet-4-6.txt` | 1,248 | `240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91` | `BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX` | `NONE` |
+| `result_one_codestral-2508.txt` | `candidate_models/02_result_one_codestral-2508.txt` | 1,272 | `08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6` | `BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX` | `NONE` |
+| `result_one_deepseek-chat.txt` | `candidate_models/03_result_one_deepseek-chat.txt` | 1,324 | `ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a` | `BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX` | `NONE` |
+| `result_one_gemini-2.5-flash.txt` | `candidate_models/04_result_one_gemini-2.5-flash.txt` | 1,231 | `1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a` | `BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX` | `NONE` |
+
+Note the label correction from an earlier turn: the description file receives no filename prefix (only
+directory relocation), so its `transformation` is `BYTE_IDENTICAL_RELOCATION`, not the candidates' compound
+label. `byte_transformation: NONE` is stated explicitly for all five rows: no row's file bytes are altered
+by this relocation, regardless of which `transformation` label applies to its path/filename.
 
 `source_path` values for the four candidates are taken directly from `source-manifest.json`'s recorded
 `path` field for each (classification `GENERATED_CANDIDATE_MODEL`, `source: "Text2UML pinned upstream

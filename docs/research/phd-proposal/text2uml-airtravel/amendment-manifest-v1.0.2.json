@@ -74,38 +74,43 @@
       "runtime_path": "domain_description/description.md",
       "bytes": 1477,
       "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2",
-      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+      "transformation": "BYTE_IDENTICAL_RELOCATION",
+      "byte_transformation": "NONE"
     },
     {
       "source_path": "result_one_claude-sonnet-4-6.txt",
       "runtime_path": "candidate_models/01_result_one_claude-sonnet-4-6.txt",
       "bytes": 1248,
       "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
-      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX",
+      "byte_transformation": "NONE"
     },
     {
       "source_path": "result_one_codestral-2508.txt",
       "runtime_path": "candidate_models/02_result_one_codestral-2508.txt",
       "bytes": 1272,
       "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
-      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX",
+      "byte_transformation": "NONE"
     },
     {
       "source_path": "result_one_deepseek-chat.txt",
       "runtime_path": "candidate_models/03_result_one_deepseek-chat.txt",
       "bytes": 1324,
       "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
-      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX",
+      "byte_transformation": "NONE"
     },
     {
       "source_path": "result_one_gemini-2.5-flash.txt",
       "runtime_path": "candidate_models/04_result_one_gemini-2.5-flash.txt",
       "bytes": 1231,
       "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
-      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX",
+      "byte_transformation": "NONE"
     }
   ],
-  "source_to_runtime_mapping_note": "runtime_path is a filesystem relocation and filename-prefix addition required by the protected loader only. It must never change bytes; the sha256 values above are identical to the runtime_files entries, not a second independent computation. source_path values are taken from source-manifest.json, not independently rehashed from the live Text2UML upstream repository -- see source_byte_verification_status.",
+  "source_to_runtime_mapping_note": "runtime_path is a filesystem relocation required by the protected loader; the four candidates additionally receive a case-ID filename prefix (transformation=BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX), while description.md is relocated only, with no prefix (transformation=BYTE_IDENTICAL_RELOCATION). byte_transformation is NONE for all five rows: no row's bytes are altered. The sha256 values above are identical to the runtime_files entries, not a second independent computation. source_path values are taken from source-manifest.json, not independently rehashed from the live Text2UML upstream repository -- see source_byte_verification_status.",
   "source_byte_verification_status": "PENDING_CODEX_INDEPENDENT_VERIFICATION_AGAINST_LIVE_UPSTREAM",
   "excluded_references": [
     {
