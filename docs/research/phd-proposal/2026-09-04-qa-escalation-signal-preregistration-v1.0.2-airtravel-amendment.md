@@ -10,17 +10,31 @@ amended in place for such changes; a dated addendum or successor section records
 a **separate successor document**. Not one line of the v1.0.1 file is modified by this amendment; its full
 text, including its own §0 revision block, remains in force unchanged.
 
-**Repository state at authoring time:** `main` at `2d38e378caa1c3eae15c72afdf55aad8a17a4e21`. No provider run,
-no Detector-v1 result, and no VEGO-AI experimental output was inspected before or during the authoring of
-this amendment.
+**`audit_base_sha` (the `main` commit this document was authored/last rebased against — a fixed historical
+reference point, never this commit's own hash):** `cbc2fb5e3c05471cf37c0eef55a48857e2066403`. This field is
+deliberately named to avoid the self-reference defect found in the historical-case-recovery-v3 audit's
+"Current main" field (commit `cbc2fb5`, which records its own parent `fbd7541` rather than itself — a commit
+cannot contain its own resulting hash, since editing the field changes the commit). No provider run, no
+Detector-v1 result, and no VEGO-AI experimental output was inspected before or during the authoring of this
+amendment.
 
-**Rebase note (2026-09-04, second freeze):** this commit was rebased, unpushed, onto `main` at
-`36602e41a3a7ccec52a300d9244f3afe4702153f` ("Audit historical recovery from project backup," the
-historical-case-recovery-v3 audit) after independently re-verifying that no commit between the original
-authoring SHA and this one touches any AirTravel path, this document, or v1.0.1. No content in this
-amendment changed as a result — the rebase updates only this document's stated base commit and adds this
-note. The intervening historical-case-recovery work is a wholly separate track (Cheers/ParkWise byte
-recovery), adjudicated on its own terms elsewhere, and does not alter anything frozen below.
+**Rebase history (unpushed until this freeze):** originally authored against `2d38e378` (`ff0a61a`); rebased
+against `36602e41a3a7ccec52a300d9244f3afe4702153f` (`91ccee4`); rebased again against `cbc2fb5e3c05471cf37c0eef55a48857e2066403`
+(this commit), after independently re-verifying that no intervening commit touches any AirTravel path, this
+document, or v1.0.1. No content in this amendment changed at either rebase beyond this header — the
+intervening historical-case-recovery work is a wholly separate track (Cheers/ParkWise byte recovery),
+adjudicated on its own terms elsewhere, and does not alter anything frozen below. Confirmed independently:
+historical-inventory issues in that track, including the case-`68065` cross-directory content swap, do not
+block or bear on this AirTravel feasibility setting in any way — the two tracks share no data, code path, or
+identifier.
+
+**Dataset-choice, approval, and execution-authorization record (frozen at this freeze):**
+
+| Field | Value |
+|---|---|
+| Dataset choice | `USER_AUTHORIZED_PUBLIC_EXTERNAL_FEASIBILITY` — Ali authorized `cd_airtravel` as a public-external feasibility setting; this is documented user authorization for that dataset choice only |
+| Supervisor approval | `NOT_DOCUMENTED` — no exact Iris/Arnon wording approving this setting, candidate selection, or any run has been supplied |
+| Paid provider execution | `NOT_AUTHORIZED` — this record authorizes neither spend nor a provider call; that remains a separate, explicit decision |
 
 **Scope of this amendment.** v1.0.1 governs four settings — `ucd_pw`, `cd_pw`, `ucd_ch`, `cd_ch` — all
 reported `BLOCKED` on missing historical case-model inputs (v1.0.1 §8). This amendment adds exactly one new
@@ -74,8 +88,9 @@ authorship/process classification rather than leaving that implication open.
 | Upstream repository | `https://github.com/IlKaiser/text2uml` |
 | Upstream scenario path | `dataset/AirTravel` |
 | Pinned upstream commit | `253b26dc704d523209a5cba79686f8f7fab57d63` |
-| Declared license | `GPL-3.0` (redistribution/attribution review pending; raw source remains local and unpublished until that review closes) |
+| Declared license | `GPL-3.0`. **Scope stated precisely, not inferred:** the project's own license-attribution receipt states redistribution/attribution review is required before *source publication*; it does not itself establish that GPL-3.0 review blocks a private, unpublished local execution. No document available to the author of this amendment asserts a broader restriction, and none is invented here — if a broader restriction exists, it must be documented before being enforced as such. |
 | Acquisition/staging date | 2026-09-04 (per the preparation pack committed in `ed37d77`) |
+| **Technical readiness** | **`TECHNICAL NO-GO`**, not conditional-GO — see the complete blocker list in §11. |
 
 `setting_id` and `corpus_id` are distinct fields by design (per this project's identity model): `setting_id`
 names the language/domain configuration axis; `corpus_id` names the data-generating process. Neither may be
@@ -188,11 +203,13 @@ statistical observation; any claim before a provider run is actually authorized 
 
 ## 9. Zero-Q&A handling
 
-A `cd_airtravel` run producing zero Q&A episodes is a valid, reportable result under v1.0.1 §9's
-`VALID ZERO-Q&A RUN` criterion. It must be reported as such and the process must stop there. No fallback
-setting or corpus may be selected in response to that outcome, or to any other observed AirTravel result —
-consistent with v1.0.1 §10.D and with this amendment's own §4 sample characterization, which forecloses any
-outcome-dependent justification for expansion.
+A `cd_airtravel` run producing zero Q&A episodes is a **valid, reportable scientific result** under v1.0.1
+§9's `VALID ZERO-Q&A RUN` criterion — not a failure, not an instrumentation defect, and not a reason to
+retry. It must be reported as such and the process must stop there. **It does not trigger an
+outcome-dependent fallback**: no fallback setting, corpus, or expanded run may be selected in response to a
+zero-Q&A result, or to any other observed AirTravel result — consistent with v1.0.1 §10.D and with this
+amendment's own §4 sample characterization, which forecloses any outcome-dependent justification for
+expansion.
 
 ## 10. Supervisor-approval status
 
@@ -202,14 +219,26 @@ amendment does not state or imply such approval; it is a pre-data scientific fre
 methodological lead, and remains subject to the same supervisor review as any other artifact in this
 project.
 
-## 11. What this amendment does not authorize
+## 11. What this amendment does not authorize, and the complete `TECHNICAL NO-GO` blocker list
 
 This amendment freezes dataset identity, provenance, denominators, and claim boundaries. It does **not**:
 run VEGO-AI, Detector-v1, a provider, an API, or an external model; inspect any VEGO-AI or Detector-v1
-result; resolve the GPL-3.0 redistribution/attribution review noted in §3; resolve the protected-path
-authorization or CI status noted in `2026-09-04-airtravel-v102-pre-run-technical-gate.md`; or authorize a
-provider-backed run, which remains a separate, explicit human decision per
-`2026-09-04-airtravel-v102-protected-authorization-packet.md`.
+result; resolve the GPL-3.0 review scope noted in §3; resolve CI or protected-path authorization; or
+authorize a provider-backed run, which remains a separate, explicit human decision.
+
+**AirTravel execution status is `TECHNICAL NO-GO`, not conditional-GO, for the following complete set of
+reasons** (narrowing this to only license/CI, as an earlier session turn did, understated the actual
+blocker list):
+
+1. This v1.0.2 amendment itself is, as of this freeze, unpushed and unavailable to Codex on GitHub.
+2. Exact runtime bytes have not yet passed the fail-closed verifier (`scripts/verify_text2uml_airtravel_runtime.py`) against this amendment's manifest on `main`.
+3. Production-observed Q&A routes remain at zero.
+4. Model/provider selection remains unspecified.
+5. CI is red (source/security/documents job and merge gate failing on a stale release manifest, per
+   `2026-09-04-airtravel-v102-pre-run-technical-gate.md`).
+6. Paid-run authorization has not been given.
+
+Each of these is independent; resolving GPL-review scope and CI alone does not clear items 1–4 and 6.
 
 ## 12. Change control
 
