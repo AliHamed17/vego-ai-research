@@ -50,6 +50,7 @@ class QACommunicationRecorder:
         self.source_sha256 = source_sha256
         self.events: list[dict[str, Any]] = []
         self._active_episodes: set[str] = set()
+        self._terminated_episodes: set[str] = set()
         if path and path.exists():
             raise QACommunicationValidationError("event log already exists; append-only runs require a new path")
 
@@ -65,6 +66,8 @@ class QACommunicationRecorder:
              converged: bool | None = None) -> dict[str, Any]:
         if event_type not in EVENT_TYPES:
             raise QACommunicationValidationError(f"unsupported event_type: {event_type}")
+        if episode_id in self._terminated_episodes:
+            raise QACommunicationValidationError("events after episode termination are not permitted")
         if event_type == "EPISODE_TERMINATED":
             termination_reason = (termination_reason or "").upper()
             if termination_reason not in TERMINATION_REASONS:
@@ -106,6 +109,7 @@ class QACommunicationRecorder:
             self._active_episodes.add(episode_id)
         elif event_type == "EPISODE_TERMINATED":
             self._active_episodes.discard(episode_id)
+            self._terminated_episodes.add(episode_id)
         if self.path:
             self.path.parent.mkdir(parents=True, exist_ok=True)
             with self.path.open("a", encoding="utf-8") as handle:
@@ -192,6 +196,9 @@ def validate_event(event: dict[str, Any]) -> None:
 
 def validate_event_stream(events: list[dict[str, Any]]) -> None:
     seen: set[str] = set()
+    run_ids = {event.get("run_id") for event in events}
+    if len(run_ids) > 1:
+        raise QACommunicationValidationError("event stream contains multiple run_id values")
     expected_sequence = 1
     for event in events:
         validate_event(event)
@@ -210,9 +217,18 @@ def validate_event_stream(events: list[dict[str, Any]]) -> None:
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for event in events:
         grouped[event["episode_id"]].append(event)
+    question_by_id = {event["question_id"]: event for event in question_events}
+    answered: dict[str, int] = defaultdict(int)
     for event in events:
-        if event["event_type"] == "ANSWER_RECEIVED" and event["question_id"] not in questions:
-            raise QACommunicationValidationError("answer references unknown question_id")
+        if event["event_type"] == "ANSWER_RECEIVED":
+            question = question_by_id.get(event["question_id"])
+            if question is None or question["episode_id"] != event["episode_id"]:
+                raise QACommunicationValidationError("answer references an unknown or cross-episode question")
+            if question["sequence"] >= event["sequence"]:
+                raise QACommunicationValidationError("answer must occur after its question")
+            answered[event["question_id"]] += 1
+    if any(count != 1 for count in answered.values()):
+        raise QACommunicationValidationError("every answered question must have exactly one answer")
     for episode_id, rows in grouped.items():
         terminations = [row for row in rows if row["event_type"] == "EPISODE_TERMINATED"]
         if len(terminations) > 1:
@@ -224,6 +240,8 @@ def validate_event_stream(events: list[dict[str, Any]]) -> None:
             raise QACommunicationValidationError(f"episode {episode_id} has duplicate answers")
         by_id = {row["event_id"]: row for row in rows}
         episode_questions = {row["question_id"] for row in rows if row["event_type"] == "QUESTION_EMITTED"}
+        if terminations and terminations[0]["termination_reason"] in {"CONVERGED", "TERMINATED_MAX_ROUNDS"} and not episode_questions:
+            raise QACommunicationValidationError(f"scientific episode {episode_id} has no question")
         if terminations and terminations[0]["termination_reason"] in {"CONVERGED", "TERMINATED_MAX_ROUNDS"}:
             if episode_questions - set(answer_ids):
                 raise QACommunicationValidationError(f"scientific episode {episode_id} has missing answers")
@@ -244,6 +262,11 @@ def build_episode_projection(events: list[dict[str, Any]]) -> list[dict[str, Any
     for episode_id in sorted(grouped):
         rows = grouped[episode_id]
         questions = [row for row in rows if row["event_type"] == "QUESTION_EMITTED"]
+        # A termination-only record is a technical journal entry, not a
+        # scientific episode.  Zero-question runs therefore project to zero
+        # episodes while still remaining auditable in the raw event stream.
+        if not questions:
+            continue
         answers = [row for row in rows if row["event_type"] == "ANSWER_RECEIVED"]
         continued = [row for row in rows if row["event_type"] == "EPISODE_CONTINUED"]
         terminated = [row for row in rows if row["event_type"] == "EPISODE_TERMINATED"]

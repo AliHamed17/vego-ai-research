@@ -25,7 +25,7 @@ is not a scientific study result and is not approval for a live LLM run.
 The adapter writes append-only `QUESTION_EMITTED`, `ANSWER_RECEIVED`,
 `EPISODE_CONTINUED`, and `EPISODE_TERMINATED` events. Each event contains a
 stable `event_id`, sequence, episode/question identifiers, source/target/stage,
-round, termination/convergence fields, and source provenance. Text is represented
+round, `termination_reason`/convergence fields, and source provenance. Text is represented
 by UTF-8 SHA-256 and character length; raw prompts and responses are not written.
 `build_episode_projection` deterministically derives episode-level counts,
 confidence values, evidence presence, follow-up state, convergence, termination,
@@ -35,7 +35,7 @@ and source/target pairs.
 
 The offline runner executes the protected `orchestrator.run` path and then
 synthetic protected Q&A helper-route fixtures against a deterministic fake. One
-route is naturally emitted by the full fixture; the helper fixtures cover the
+route is naturally emitted by the full fixture; six helper fixtures cover the
 declared combinations:
 
 | Route | Runtime support |
@@ -51,8 +51,9 @@ No production route was observed and no provider/model client was invoked by ver
 
 ## Verification results
 
-- Synthetic episodes: 8 deterministic episode paths (baseline, six route
-  representations, and one follow-up/`MAX_QA_ROUNDS` episode).
+- Synthetic episodes: deterministic baseline, six route representations, and
+  concurrent two-case/two-round identity paths; a follow-up/`MAX_QA_ROUNDS`
+  lifecycle path is covered by the communication tests.
 - Prompt/scientific-state parity: instrumented and non-instrumented protected
   fixture runs match exactly; the proxy is post-call and pass-through.
 - Concurrent route context: separate async tasks retain their own source/target

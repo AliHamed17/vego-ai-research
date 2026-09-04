@@ -122,8 +122,7 @@ def test_explicit_incomplete_technical_termination_is_projected(tmp_path: Path) 
     recorder.emit_termination(
         episode_id="ep", termination_reason="INCOMPLETE_TECHNICAL",
     )
-    projection = build_episode_projection(recorder.events)[0]
-    assert projection["termination_reason"] == "INCOMPLETE_TECHNICAL"
+    assert build_episode_projection(recorder.events) == []
 
 
 def test_lifecycle_invariants_fail_closed(tmp_path: Path) -> None:
@@ -152,6 +151,60 @@ def test_unterminated_episode_is_not_scientifically_complete(tmp_path: Path) -> 
     projection = build_episode_projection(recorder.events)[0]
     assert projection["scientific_complete"] is False
     assert projection["exclusion_reason"] == "UNTERMINATED"
+
+
+def test_mixed_run_and_cross_episode_answer_fail_closed(tmp_path: Path) -> None:
+    recorder = QACommunicationRecorder(tmp_path / "mixed.jsonl", run_id="run-a")
+    first = recorder.emit_question(question_id="Q_001", episode_id="ep-a", source_agent="agent2",
+                                   source_stage="phase2", source_skill="qa", target_agent="agent1",
+                                   scope="language", question_text="q", round_index=1)
+    recorder.emit_answer(question=first, answer_text="a", answer_confidence="High")
+    recorder.emit_termination(episode_id="ep-a", termination_reason="CONVERGED", converged=True)
+    cross = dict(recorder.events[1])
+    cross["episode_id"] = "ep-b"
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(recorder.events + [cross])
+    mixed = dict(recorder.events[0])
+    mixed["run_id"] = "run-b"
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream([mixed])
+
+
+def test_empty_scientific_episode_fails_closed(tmp_path: Path) -> None:
+    recorder = QACommunicationRecorder(tmp_path / "empty.jsonl", run_id="empty")
+    recorder.emit_termination(episode_id="ep", termination_reason="CONVERGED", converged=True)
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(recorder.events)
+
+
+def test_events_after_termination_and_duplicate_terminal_fail_closed(tmp_path: Path) -> None:
+    events = _events(tmp_path)
+    after = dict(events[0])
+    after["sequence"] = 4
+    after["event_id"] = "tampered"
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(events + [after])
+    duplicate = dict(events[-1])
+    duplicate["sequence"] = 4
+    duplicate["event_id"] = "tampered-terminal"
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(events + [duplicate])
+
+
+def test_answer_before_question_and_cross_run_stream_fail_closed(tmp_path: Path) -> None:
+    events = _events(tmp_path)
+    answer, question = events[1], events[0]
+    reordered = [answer, question, events[2]]
+    for index, event in enumerate(reordered, start=1):
+        event = dict(event)
+        event["sequence"] = index
+        reordered[index - 1] = event
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(reordered)
+    mixed = [dict(event) for event in events]
+    mixed[-1]["run_id"] = "other-run"
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(mixed)
 
 
 def test_instrumentation_off_on_preserves_prompt_and_answer(tmp_path: Path) -> None:

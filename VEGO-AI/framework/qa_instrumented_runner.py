@@ -17,18 +17,62 @@ from pathlib import Path
 from typing import Any
 
 import orchestrator
-from qa_communication import QACommunicationRecorder
+from qa_communication import QACommunicationRecorder, QACommunicationValidationError
 from qa_registry import QARegistry
 from state import PipelineState
 
 _ROUTE_CONTEXT: contextvars.ContextVar[dict[str, str] | None] = contextvars.ContextVar(
     "qa_route_context", default=None
 )
+_CURRENT_PRODUCER: contextvars.ContextVar[str | None] = contextvars.ContextVar(
+    "qa_current_producer", default=None
+)
+
+
+def _correlation_token(context: dict[str, Any] | None, label: str, run_id: str,
+                       setting_id: str) -> str:
+    """Choose a deterministic pending-Q&A key without leaking task identity.
+
+    Explicit route contexts are authoritative.  Synthetic helper fixtures carry
+    question text and therefore must not accidentally consume a stale producer
+    token left by a previous route in the same asyncio task.
+    """
+    if context:
+        explicit = context.get("correlation_key")
+        if explicit:
+            return str(explicit)
+        if context.get("question_texts"):
+            return "helper-" + stable_episode_id(context)
+    return (_CURRENT_PRODUCER.get()
+            or f"{run_id}|{setting_id}|{label}")
 
 
 def _sha(value: Any) -> str:
     payload = json.dumps(value, sort_keys=True, ensure_ascii=False, default=str).encode()
     return hashlib.sha256(payload).hexdigest()
+
+
+def stable_episode_id(context: dict[str, Any]) -> str:
+    """Derive an episode ID from frozen scientific context, excluding round."""
+    fields = ("run_id", "setting_id", "source_stage", "source_agent", "source_skill",
+              "target_agent", "scope", "case_id", "guideline_id", "pattern_id", "episode_key")
+    identity = "|".join(str(context.get(field) or "") for field in fields)
+    if not any(identity.split("|")):
+        raise ValueError("stable episode identity requires declared scientific context")
+    return "EP-" + hashlib.sha256(identity.encode()).hexdigest()[:24]
+
+
+def _producer_metadata(label: str, run_id: str, setting_id: str) -> dict[str, Any]:
+    match = re.match(r"agent(?P<agent>[234])/(?:(?P<case>[^/]+)/)?(?P<skill>[^/]+)", label)
+    agent = f"agent{match.group('agent')}" if match else "UNKNOWN"
+    case_id = match.group("case") if match else None
+    skill = match.group("skill") if match else "UNKNOWN"
+    stage = {"agent2": "guideline_construction", "agent3": "case_inspection",
+             "agent4": "variability_classification"}.get(agent, "UNKNOWN")
+    round_match = re.search(r"(?:round|_r)(\d+)", label)
+    return {"run_id": run_id, "setting_id": setting_id, "source_agent": agent,
+            "source_stage": stage, "source_skill": skill, "case_id": case_id,
+            "round_index": int(round_match.group(1)) if round_match else 1}
 
 
 class DeterministicFixtureClient:
@@ -82,46 +126,67 @@ class InstrumentedLLMClientProxy:
         self._pending: dict[str, list[dict[str, Any]]] = {}
 
     async def call(self, prompt: dict[str, Any], *, label: str) -> dict[str, Any]:
-        token = f"{self.run_id}|{self.setting_id}|{label}"
+        context = _ROUTE_CONTEXT.get()
+        token = _correlation_token(context, label, self.run_id, self.setting_id)
         self.calls.append({"label": label, "prompt_sha256": _sha(prompt),
                            "prompt_length": len(json.dumps(prompt, ensure_ascii=False))})
         result = await self.fake.call(prompt, label=label)
         if self.recorder and (result.get("questions_to_language_advisor") or result.get("questions_to_domain_advisor")):
             pending = []
+            producer = _producer_metadata(label, self.run_id, self.setting_id)
             for scope, key, target in (("language", "questions_to_language_advisor", "agent1"),
                                        ("domain", "questions_to_domain_advisor", "agent2")):
                 for q in result.get(key, []):
-                    pending.append({"question": q.get("question", ""), "scope": scope, "target": target,
-                                    "source_agent": "agent2", "source_stage": "guideline_construction",
-                                    "source_skill": "qa_route"})
+                    pending.append({"question": q.get("question"), "scope": scope, "target_agent": target,
+                                    **producer})
             self._pending[token] = pending
+            _CURRENT_PRODUCER.set(token)
         self.calls[-1]["answer_sha256"] = _sha(result)
         self.calls[-1]["answer_length"] = len(json.dumps(result, ensure_ascii=False))
         if self.recorder and label in {"agent1/answer_language_questions", "agent2/answer_domain_questions"}:
-            ids = list(dict.fromkeys(re.findall(r"Q_(?:lang|dom)_\d{3}", json.dumps(prompt, ensure_ascii=False))))
+            all_ids = list(dict.fromkeys(re.findall(r"Q_(?:lang|dom)_\d{3}", json.dumps(prompt, ensure_ascii=False))))
             context = _ROUTE_CONTEXT.get()
             pending = self._pending.pop(token, [])
+            if not pending and context and context.get("question_texts"):
+                pending = [{**context, "question": text} for text in context["question_texts"]]
+            if not pending:
+                raise QACommunicationValidationError("Q&A answer cannot be correlated to producer metadata")
+            # Prompts may include prior Q&A history.  The producer's pending
+            # list identifies the current suffix; never correlate historical IDs.
+            ids = all_ids[-len(pending):]
             questions = []
             for index, question_id in enumerate(ids):
                 meta = (pending[index] if index < len(pending) else {}) | (context or {})
-                questions.append({"question_id": question_id, "question": meta.get("question", "fixture question")})
-            answers = result.get("questions_answers", [])
+                if not meta.get("question"):
+                    raise QACommunicationValidationError(
+                        f"Q&A producer text is unavailable; episode is technical-incomplete "
+                        f"(pending={pending!r}, context={context!r}, ids={ids!r})"
+                    )
+                questions.append({"question_id": question_id, "question": meta["question"],
+                                  "case_id": meta.get("case_id"), "round_index": int(meta.get("round_index", 1))})
+            answer_by_id = {answer.get("question_id"): answer
+                            for answer in result.get("questions_answers", [])}
+            if any(question_id not in answer_by_id for question_id in ids):
+                raise QACommunicationValidationError(
+                    "Q&A answer is missing for a correlated producer question; "
+                    "episode is technical-incomplete"
+                )
+            answers = [answer_by_id[question_id] for question_id in ids
+                       if question_id in answer_by_id]
             if questions and answers:
                 source = context or {"source_agent": "agent2", "source_stage": "guideline_construction",
                                      "source_skill": "qa_route", "target_agent": questions[0].get("target", "agent1"),
                                      "scope": "language" if "language" in label else "domain"}
-                identity = "|".join((self.run_id, self.setting_id,
-                    source.get("source_stage", "fixture"), source.get("source_agent", "UNKNOWN"),
-                    source.get("source_skill", "qa_route"), source.get("target_agent", "UNKNOWN"),
-                    source.get("scope", "unknown")))
-                episode_id = "EP-" + hashlib.sha256(identity.encode()).hexdigest()[:24]
+                source = {"run_id": self.run_id, "setting_id": self.setting_id, **source}
+                episode_id = stable_episode_id(source)
+                round_index = int(source.get("round_index") or questions[0].get("round_index") or 1)
                 self.recorder.observe_exchange(
                     questions=questions, answers=answers,
                     source_agent=source.get("source_agent", "UNKNOWN"),
                     source_stage=source.get("source_stage", "fixture"),
                     source_skill=source.get("source_skill", "qa_route"),
                     target_agent=source.get("target_agent", "agent1"),
-                    scope=source.get("scope", "language"), episode_id=episode_id, round_index=1,
+                    scope=source.get("scope", "language"), episode_id=episode_id, round_index=round_index,
                 )
         return result
 
@@ -137,8 +202,10 @@ async def run_protected_route_fixtures(recorder: QACommunicationRecorder) -> Non
          ("agent4", "agent1", "language"), ("agent4", "agent2", "domain")), start=1):
         proxy = InstrumentedLLMClientProxy(DeterministicFixtureClient(), recorder,
                                            run_id=recorder.run_id)
-        ctx = _ROUTE_CONTEXT.set({"source_agent": source, "source_stage": "protected_helper_fixture",
-                                  "source_skill": "qa_route", "target_agent": target, "scope": scope})
+        ctx = _ROUTE_CONTEXT.set({"run_id": recorder.run_id, "setting_id": "fixture", "source_agent": source,
+                                  "source_stage": "protected_helper_fixture", "source_skill": "qa_route",
+                                  "target_agent": target, "scope": scope, "case_id": f"route-{index}",
+                                  "round_index": "1", "question_texts": [f"Route fixture {index}"]})
         try:
             questions = [{"question": f"Route fixture {index}"}]
             if target == "agent1":

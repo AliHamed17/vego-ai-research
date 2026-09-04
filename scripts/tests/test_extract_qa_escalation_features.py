@@ -80,6 +80,10 @@ def test_detector_v1_strong_precedes_weak_and_excludes_incomplete() -> None:
     result = extractor.detect_detector_v1(strong)
     assert result["classification"] == "STRONG_ALERT"
     assert "S2_MEDIUM_ANSWER_CONFIDENCE" not in result["reason_codes"]
+    assert {"S1_LOW_ANSWER_CONFIDENCE", "S7_TERMINATED_MAX_ROUNDS",
+            "S6_MULTIPLE_QA_ROUNDS"}.issubset(
+                result["all_signals_fired"]
+            )
     incomplete = _episode_with_evidence(None)
     incomplete["scientific_complete"] = False
     incomplete["exclusion_reason"] = "INCOMPLETE_TECHNICAL"

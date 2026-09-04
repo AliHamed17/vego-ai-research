@@ -14,13 +14,13 @@ The configured model directories are absent. One unbound ParkWise use-case candi
 
 ## C. Offline instrumentation design (production wiring pending)
 
-`VEGO-AI/framework/qa_instrumented_runner.py` provides an additive client-boundary proxy. It imports the protected orchestrator unchanged, supplies a deterministic local fake client, records prompt/answer hashes and lengths, and observes Q&A metadata through `qa_communication.py`. A task-local context variable is used for route fixtures; no global “current episode” is used. The proxy is pass-through and cannot change prompts, answers, policy decisions, or scientific state.
+`VEGO-AI/framework/qa_instrumented_runner.py` provides an additive client-boundary proxy. It imports the protected orchestrator unchanged, supplies a deterministic local fake client, records prompt/answer hashes and lengths, and observes Q&A metadata through `qa_communication.py`. A task-local context variable is used for route fixtures; no global “current episode” is used. The proxy is pass-through and cannot change prompts, answers, policy decisions, or scientific state. Producer question text is required for correlation; missing text fails closed as `INCOMPLETE_TECHNICAL`.
 
 This is an execution harness and readiness proof, not a claim that the protected production runtime is wired to persist events. The protected `orchestrator.py`, `qa_registry.py`, and `state.py` remain hash-locked and unmodified.
 
 ## D. Offline protected-path proof
 
-The deterministic fixture executes the actual protected `orchestrator.run` path and naturally emits one Agent 2 → Agent 1 route. Five additional declared combinations (and a repeated Agent 2 → Agent 1 control) are synthetic protected-helper route fixtures. No production route has been observed. The instrumented and non-instrumented runs have identical prompt/label traces and identical serialized scientific state. A concurrent task test confirms route context separation. These are offline structural tests; they are not provider results and do not create human labels.
+The deterministic fixture executes the actual protected `orchestrator.run` path and naturally emits one Agent 2 → Agent 1 route. Six declared combinations are then exercised as synthetic protected-helper route fixtures. No production route has been observed. The instrumented and non-instrumented runs have identical prompt/label traces and identical serialized scientific state. Concurrent case/round tests confirm route context separation and stable episode identity. These are offline structural tests; they are not provider results and do not create human labels.
 
 ## E. Termination states and claims
 
@@ -30,10 +30,9 @@ The communication schema now makes termination explicit: `CONVERGED`, `TERMINATE
 
 **INCOMPLETE_TECHNICAL / BLOCKED_INPUTS.** The code path, schema, strict C1 boundary, and offline parity harness are ready for human review. The actual one-setting run is blocked by missing/binding-unverified inputs and protected-change authorization. No API call, model invocation, spend, or external side effect was performed.
 
-GitHub Actions run `33865519369` is red: the source job reports stale
-`docs/research/hardening/release-manifest-v3.json`, while every Python matrix
-job reports the protected-change authorization failure for the new
-instrumentation paths. Reproduction at trusted ancestor `462c4e4` also failed,
-but stopped earlier because its detached checkout had no distinct Git merge
-base (`merge base resolves to HEAD`); therefore the current authorization
-failure is unresolved, not labelled pre-existing.
+GitHub Actions run `33865645852` is the current run: all four Python inventory
+jobs passed (Python 3.10, 3.11, 3.12, and 3.13). The source job failed because
+`docs/research/hardening/release-manifest-v3.json` is stale, and the merge gate
+therefore failed. The earlier run `33865519369` had authorization failures in
+the Python jobs; those are not the outcome of the current run. The stale
+release manifest remains an unresolved release blocker and is not changed here.

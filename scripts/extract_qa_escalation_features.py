@@ -311,26 +311,32 @@ def detect_detector_v1(episode: dict[str, Any]) -> dict[str, Any]:
     if not episode.get("scientific_complete"):
         return {"episode_id": episode["episode_id"], "classification": "EXCLUDED",
                 "candidate_alert": False, "reason_codes": [],
+                "all_signals_fired": [],
                 "exclusion_reason": episode.get("exclusion_reason")}
     answers = episode.get("answers", [])
-    reasons: list[str] = []
+    strong: list[str] = []
+    weak: list[str] = []
     if any(row.get("answer_confidence") == "Low" for row in answers):
-        reasons.append("S1_LOW_ANSWER_CONFIDENCE")
+        strong.append("S1_LOW_ANSWER_CONFIDENCE")
     if any((ref := row.get("answer_evidence_ref")) is None or ref.get("length", 0) == 0 for row in answers):
-        reasons.append("S3_MISSING_ANSWER_EVIDENCE")
+        strong.append("S3_MISSING_ANSWER_EVIDENCE")
     if episode.get("termination_reason") == "TERMINATED_MAX_ROUNDS":
-        reasons.append("S7_TERMINATED_MAX_ROUNDS")
-    if reasons:
+        strong.append("S7_TERMINATED_MAX_ROUNDS")
+    if any(row.get("answer_confidence") == "Medium" for row in answers):
+        weak.append("S2_MEDIUM_ANSWER_CONFIDENCE")
+    if episode.get("round_count", 0) > 1:
+        weak.append("S6_MULTIPLE_QA_ROUNDS")
+    all_signals_fired = strong + weak
+    if strong:
         classification = "STRONG_ALERT"
+        reason_codes = strong
     else:
-        if any(row.get("answer_confidence") == "Medium" for row in answers):
-            reasons.append("S2_MEDIUM_ANSWER_CONFIDENCE")
-        if episode.get("round_count", 0) > 1:
-            reasons.append("S6_MULTIPLE_QA_ROUNDS")
-        classification = "WEAK_ALERT" if reasons else "NO_ALERT"
+        classification = "WEAK_ALERT" if weak else "NO_ALERT"
+        reason_codes = weak
     return {"episode_id": episode["episode_id"], "classification": classification,
             "candidate_alert": classification in {"STRONG_ALERT", "WEAK_ALERT"},
-            "reason_codes": reasons, "exclusion_reason": None}
+            "reason_codes": reason_codes, "all_signals_fired": all_signals_fired,
+            "exclusion_reason": None}
 
 
 def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
