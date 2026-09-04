@@ -381,3 +381,75 @@ Chronological prompt history for Codex and Claude.
   - GitHub Actions 33917630552 (source gate red; Python matrix pass)
 - Status: TECHNICAL NO-GO: protected preflight authorization and CI stale manifest gate remain
 - Next steps: Resolve release-manifest gate; obtain protected observer authorization; then rerun offline protected fake preflight before any paid authorization
+
+## 2026-09-04 23:55 +03:00 - Codex - AirTravel v3.2.1 verifier hardening
+
+- Request: Complete final offline AirTravel materialization and v3.2.1 technical gate without provider execution.
+- Actions taken:
+  - Harden normalized path collision checks; regenerate receipts; run offline checks
+- Files changed:
+  - v3.2.1 verifier, tests, report and receipts
+- Commands/checks:
+  - 349 scripts tests; 46 root; 134 VEGO-AI; ruff/compile/privacy/security/evidence pass
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: Resolve protected observer authorization, CI stale release gate, model/budget selection and paid-run authorization before provider execution.
+
+## 2026-09-05 00:00 +03:00 - Codex - AirTravel v3.2.1 adversarial test completion
+
+- Request: Complete offline adversarial coverage and final verification without provider execution.
+- Actions taken:
+  - Add strict adversarial tests for wrong manifests, mappings, runtime files and configuration
+- Files changed:
+  - scripts/tests/test_audit_historical_case_recovery_v3_2.py and audit report
+- Commands/checks:
+  - 353 scripts tests; focused 16; root 46; VEGO-AI 134; ruff compile privacy security evidence pass
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: Synchronize, commit and push; await protected authorization, green CI and explicit paid-run authorization.
+
+## 2026-09-05 00:03 +03:00 - Codex - AirTravel v3.2.1 CI gate recorded
+
+- Request: Record final CI outcomes after pushing the hardened verifier.
+- Actions taken:
+  - Pushed c9c674e; reproduced CI run 33919095658; source gate stale release manifest and merge gate failed while all four Python jobs passed.
+- Files changed:
+  - AirTravel v3.2.1 report
+- Commands/checks:
+  - gh run watch 33919095658; gh run view --log-failed
+- Status: TECHNICAL NO-GO; CI red; no provider calls
+- Next steps: Human policy process must resolve stale manifest, protected observer authorization, model/budget and paid-run authorization.
+
+## 2026-09-05 00:04 +03:00 - Codex - AirTravel v3.2.1 final CI run recorded
+
+- Request: Record the final reproduced CI outcome and preserve the technical no-go gate.
+- Actions taken:
+  - Reproduced CI run 33919262015; all Python jobs passed; source freshness gate and merge gate failed.
+- Files changed:
+  - Final AirTravel materialization report
+- Commands/checks:
+  - gh run watch 33919262015; gh run view --json jobs
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: Human policy remediation remains required before any paid run.
+
+## 2026-09-05 00:06 +03:00 - Codex - AirTravel v3.2.1 receipt completeness finalized
+
+- Request: Finalize machine receipt completeness and preserve no-go status.
+- Actions taken:
+  - Added call bound, API cost, instrumentation and protected authorization fields to backup evidence receipt; regenerated and pushed.
+- Files changed:
+  - scripts/audit_historical_case_recovery_v3_2.py and backup receipt
+- Commands/checks:
+  - offline CLI re-run exit 2 as blocked; git pull rebase and push
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: No further execution; await policy, observer authorization, CI freshness gate and paid-run approval.
+
+## 2026-09-05 00:32 +03:00 - Codex - Final pre-authorization consistency correction
+
+- Request: Remove obsolete current-receipt status token while preserving superseded evidence and keep the gate blocked.
+- Actions taken:
+  - Current v3.2.1 report now states source/runtime/config PASS and fake preflight BLOCKED_PENDING_AUTHORIZATION without obsolete status wording.
+- Files changed:
+  - v3.2.1 report
+- Commands/checks:
+  - git diff check; no provider call
+- Status: TECHNICAL NO-GO; final correction pending push
+- Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.

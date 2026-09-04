@@ -1,7 +1,7 @@
 # Historical recovery v3.2.1 — AirTravel materialization and verifier hardening
 
 **Status: TECHNICAL NO-GO**  
-**Audit base SHA:** `b2275c34755352b2caefe3a2cdd3a72903b16a1d`  
+**Audit base SHA:** `11cbe0413884624469867afa7aba66a0050a6442`
 **Provider, external-model, Detector-v1, and paid-experiment calls:** `0`
 
 This is a successor/erratum to v3.2. Earlier v3/v3.1/v3.2 files remain
@@ -10,7 +10,7 @@ the obsolete AirTravel branch and does not call `v3.1.audit_v31()`.
 
 ## Authority and source receipt
 
-- PR #36 head consumed: `3c2eb4494c89fbbd0d6ac05c3ff4aeaaeff78bee`
+- PR #36 head consumed: `cae51a5d7df5fe5b81256d904ff0ba47e669e44b`
 - v1.0.2 manifest SHA-256: `bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2`
 - Upstream commit: `253b26dc704d523209a5cba79686f8f7fab57d63`
 - Codeload archive SHA-256: `8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701`
@@ -43,18 +43,21 @@ mismatched lists are empty.
 
 The ignored deterministic pack is
 `external_data/airtravel-v3.2.1/cd_airtravel-runtime-v1.0.2.zip` (SHA-256
-`fb4f0d4b2be76aa25665af972c0491829f4310cd30db5e10b46f718c80da1933`). It has
+`e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f`). It has
 exactly five observed/expected files, no extras, duplicates, missing files,
 mismatches, or reference paths. The mandatory configuration passes with
 `setting_id=cd_airtravel`, `corpus_id=text2uml_airtravel_253b26dc`, description
 path `domain_description/description.md`, candidate directory
 `candidate_models`, and `provider_execution_enabled=false`.
+Two independent materializations produced the same archive SHA; see
+`historical-case-recovery-v3.2.1/airtravel-deterministic-materialization-receipt.json`.
 
 ## Fake-provider preflight and gates
 
 The exact protected `cd_airtravel`, N=4 orchestrator preflight is
-`BLOCKED_PROTECTED_CONFIG`; it was not executed because protected observer
-authorization is absent. Provider calls remain 0. Production-observed routes
+`BLOCKED_PENDING_AUTHORIZATION`; it was not executed because explicit protected
+fake-preflight authorization is absent. Source/runtime/config verification is
+PASS. Provider calls remain 0. Production-observed routes
 remain 0; fixture-only routes are not substituted. Static bound is `4 + 3N`:
 N=4 gives minimum 16 and retained worst-case 326. API cost remains **TO BE
 MEASURED**. GPL-3.0 redistribution review, model/budget selection, and paid-run
@@ -62,15 +65,16 @@ authorization remain pending.
 
 ## Verification and CI
 
-Focused v3.2.1 tests pass (`9 passed`, one expected duplicate-ZIP warning),
-ruff and compilation pass. The latest full local suites are `346 passed,
+Focused verifier/materializer/call-bound tests pass (`23 passed`, one expected duplicate-ZIP warning),
+ruff and compilation pass. The latest full local suites are `357 passed,
 22 skipped` in `scripts/tests`, `134 passed` in `VEGO-AI/tests`, and `46 passed`
 in the root suite; evidence consistency, security, and privacy checks pass.
 
-CI run [33915362487](https://github.com/AliHamed17/vego-ai-research/actions/runs/33915362487)
-is not green: Python 3.10–3.12 passed, Python 3.13 remained incomplete in the
-final API state, the source job failed on the stale `release-manifest-v3.json`,
-and merge-gate failed. The stale authorization gate was not bypassed.
+CI run [33919262015](https://github.com/AliHamed17/vego-ai-research/actions/runs/33919262015)
+is not green: Python 3.10, 3.11, 3.12, and 3.13 inventory jobs passed; the
+source/security/browser/documents job failed at the stale
+`release-manifest-v3.json` validation; and merge-gate failed because a hardening
+job was not green. The stale authorization gate was not bypassed.
 
 **Final verdict:** source/mapping/runtime preparation is PASS, but the overall
 technical gate is **TECHNICAL NO-GO** while CI is red, protected observer
@@ -78,3 +82,8 @@ authorization is absent, and model/budget/paid-run authorization remain open.
 If those gates later pass, the next stopping state is **TECHNICAL GO — AWAITING
 MODEL/BUDGET AND EXPLICIT PAID-RUN AUTHORIZATION**. No real provider run is
 authorized or performed.
+
+The replacement request packet is
+`2026-09-05-airtravel-protected-fake-preflight-authorization-packet.md`.
+Superseded v3/v3.1 receipts remain historical evidence; their old
+archive-unavailable wording is not the current v3.2.1 status.

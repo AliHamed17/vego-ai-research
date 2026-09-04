@@ -22,18 +22,18 @@
   },
   "airtravel_fake_preflight": {
     "provider_calls": 0,
-    "reason": "exact cd_airtravel orchestration requires protected runtime authorization",
-    "status": "BLOCKED_PROTECTED_CONFIG"
+    "reason": "exact cd_airtravel orchestration requires explicit protected fake-preflight authorization",
+    "status": "BLOCKED_PENDING_AUTHORIZATION"
   },
   "airtravel_manifest_verification": {
     "manifest_sha256": "bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2",
-    "resolved_commit": "3c2eb4494c89fbbd0d6ac05c3ff4aeaaeff78bee",
+    "resolved_commit": "cae51a5d7df5fe5b81256d904ff0ba47e669e44b",
     "status": "PASS"
   },
   "airtravel_materialization": {
     "classification": "DERIVED_BYTE_IDENTICAL_RUNTIME_PREPARATION",
-    "runtime_archive_sha256": "fb4f0d4b2be76aa25665af972c0491829f4310cd30db5e10b46f718c80da1933",
-    "runtime_config_sha256": "ddfda45bbf7e6c80efeedcb44caad8dcc4396a899f2d1e0c28ff8679bd717b4b",
+    "runtime_archive_sha256": "e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f",
+    "runtime_config_sha256": "a01fb68434618940f2f83a05b9630d6b17e0abf27adc16019b3e5c27b351ce77",
     "upstream_archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701"
   },
   "airtravel_runtime_pack_verification": {
@@ -44,6 +44,7 @@
     "matched_count": 5,
     "mismatched": [],
     "missing": [],
+    "normalized_path_collisions": [],
     "observed_runtime_count": 5,
     "reference_files_visible": [],
     "status": "PASS"
@@ -53,7 +54,9 @@
     "mapping_count": 5,
     "mismatched": [],
     "missing": [],
+    "runtime_path_collisions": [],
     "runtime_path_count": 5,
+    "source_path_collisions": [],
     "source_path_count": 5,
     "status": "PASS"
   },
@@ -348,6 +351,7 @@
       "text2uml-253b26dc704d523209a5cba79686f8f7fab57d63/dataset/AirTravel/result_tiiuae_Falcon-H1-7B-Base.txt",
       "text2uml-253b26dc704d523209a5cba79686f8f7fab57d63/dataset/AirTravel/result_tiiuae_Falcon-H1-7B-Instruct.txt"
     ],
+    "archive_path_collisions": [],
     "archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
     "archive_url": "https://github.com/IlKaiser/text2uml/archive/253b26dc704d523209a5cba79686f8f7fab57d63.zip",
     "commit_identity_status": "PASS",
@@ -357,6 +361,7 @@
     "expected_upstream_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
     "extra": [],
     "extra_count": 0,
+    "manifest_path_collisions": [],
     "manifest_sha256": "82f0a14a577f3d5cdb8d0b1de774e4201990dbd6f032002db5d09abea3a500c3",
     "matched_count": 143,
     "mismatched": [],
@@ -369,7 +374,7 @@
   },
   "api_cost": "TO BE MEASURED",
   "archive_entry_count": 632,
-  "audit_base_sha": "b2275c34755352b2caefe3a2cdd3a72903b16a1d",
+  "audit_base_sha": "11cbe0413884624469867afa7aba66a0050a6442",
   "audit_version": "historical-case-recovery-v3.2.1-erratum",
   "authorized_synthetic_gap_fill": 0,
   "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
@@ -745,7 +750,7 @@
     "synthetic_gap_fill": "ZERO_AUTHORIZED"
   },
   "instrumentation": {
-    "airtravel_exact_config": "NOT_EXERCISED_ARCHIVE_UNAVAILABLE",
+    "airtravel_exact_config": "BLOCKED_PENDING_AUTHORIZATION",
     "answer_count": 7,
     "event_count": 21,
     "prompt_parity": true,
