@@ -1,0 +1,11 @@
+{
+  "archive_model_member_count": 165,
+  "archive_sha256": "bce905ff4a1af274f106fd052692f7b1c6b47a7614b65877152a9ed74225a2c9",
+  "audit_version": "historical-case-recovery-v2",
+  "completeness_verdict": "COMPLETENESS_UNRESOLVED",
+  "content_emitted": false,
+  "manifest_sha256": "cc9403157dccae175a1a9f82c46372d0b3ccb2f979e769fe3c8568d52033a9c7",
+  "observed_local_count": 165,
+  "provider_calls": 0,
+  "synthetic_models_generated": 0
+}

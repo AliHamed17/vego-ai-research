@@ -1,8 +1,9 @@
-"""Audit recoverability of the historical VEGO-AI case-model bytes.
+"""Fail-closed, independent inventory of historical VEGO-AI model bytes.
 
-This is an offline provenance audit.  It never invokes a provider, parses model
-content into a report, or creates replacement models.  The supplied archive is
-compared byte-for-byte with the local ignored model inventory.
+The audit compares three separately enumerated units (local files, archive
+members, and evaluation case identifiers).  A matching archive entry proves
+only byte identity with that named archive; it does not prove historical-run
+consumption or completeness of the historical corpus.
 """
 
 from __future__ import annotations
@@ -13,17 +14,21 @@ import json
 import re
 import zipfile
 from collections import Counter, defaultdict
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
-AUDIT_VERSION = "historical-case-recovery-v1"
+AUDIT_VERSION = "historical-case-recovery-v2"
 SETTING_DIRS = {
     "ucd_pw": "UCD_PW_models",
     "cd_pw": "CD_PW_models",
     "ucd_ch": "UCD_Ch_models",
     "cd_ch": "CD_Ch_models",
 }
+PAPER_HISTORICAL_COUNT = {"ucd_ch": 46, "cd_ch": 47, "ucd_pw": 44, "cd_pw": 41}
 CASE_ID_RE = re.compile(r"^(?P<id>[^_]+)_")
+EVAL_CASE_RE = re.compile(r"(?:agentC_)?case_(?P<id>[^.]+)\.json$")
+SETTING_HINT_RE = re.compile(r"_(?P<setting>UCD_PW|CD_PW|UCD_Ch|CD_Ch)(?:\.[^.]+)?$", re.IGNORECASE)
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -42,261 +47,257 @@ def canonical_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
 
 
-def _encoding_and_wrapper(data: bytes) -> tuple[str, str]:
-    try:
-        text = data.decode("utf-8")
-    except UnicodeDecodeError:
-        return "unknown", "not_checked"
-    has_start = "@startuml" in text
-    has_end = "@enduml" in text
-    if not data:
-        wrapper = "empty"
-    elif has_start and has_end:
-        wrapper = "present"
-    else:
-        wrapper = "missing_or_partial"
-    return "utf-8", wrapper
-
-
 def _case_id(filename: str) -> str:
     match = CASE_ID_RE.match(filename)
     return match.group("id") if match else Path(filename).stem
 
 
-def _zip_bytes(zf: zipfile.ZipFile, member: str) -> bytes | None:
-    try:
-        with zf.open(member, "r") as handle:
-            return handle.read()
-    except KeyError:
+def _setting_hint(filename: str) -> str | None:
+    match = SETTING_HINT_RE.search(Path(filename).stem)
+    if not match:
         return None
+    token = match.group("setting").lower()
+    return next((setting for setting, directory in SETTING_DIRS.items() if directory.lower().replace("_models", "") == token.replace("_models", "")), None)
 
 
-def _relative_model_files(repo_root: Path, setting_dir: str) -> list[Path]:
-    root = repo_root / "VEGO-AI" / "models" / setting_dir
-    if not root.is_dir():
-        return []
-    return sorted((path for path in root.iterdir() if path.is_file()), key=lambda p: p.name)
+def _validate(data: bytes, setting_id: str, filename: str) -> str:
+    if not data:
+        return "EMPTY_MODEL"
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return "NON_UTF8_INPUT"
+    if "@startuml" not in text or "@enduml" not in text:
+        return "MISSING_PLANTUML_WRAPPER"
+    hint = _setting_hint(filename)
+    if hint is not None and hint != setting_id:
+        return "SETTING_DIRECTORY_MISMATCH"
+    return "VALID"
 
 
-def build_audit(repo_root: Path, archive: Path) -> dict[str, Any]:
+def _relative_model_files(repo_root: Path) -> dict[str, Path]:
+    result: dict[str, Path] = {}
+    for _setting_id, setting_dir in SETTING_DIRS.items():
+        root = repo_root / "VEGO-AI" / "models" / setting_dir
+        if not root.is_dir():
+            continue
+        for path in sorted((p for p in root.iterdir() if p.is_file()), key=lambda p: p.name):
+            result[(Path("VEGO-AI") / "models" / setting_dir / path.name).as_posix()] = path
+    return result
+
+
+def _archive_model_members(archive: Path) -> tuple[str, dict[str, bytes], list[str], int]:
     archive_hash = sha256_file(archive)
-    manifests: list[dict[str, Any]] = []
-    duplicate_hashes: dict[str, list[str]] = defaultdict(list)
-    duplicate_case_ids: dict[str, list[str]] = defaultdict(list)
-    per_setting: dict[str, dict[str, int]] = {}
+    members: dict[str, bytes] = {}
+    duplicate_names: list[str] = []
+    unrelated = 0
     with zipfile.ZipFile(archive, "r") as zf:
-        for setting_id, setting_dir in SETTING_DIRS.items():
-            files = _relative_model_files(repo_root, setting_dir)
-            counts = Counter(
-                {
-                    "original_verified": 0,
-                    "recovered_verbatim": 0,
-                    "derived_exact_copy": 0,
-                    "partial_recovery": 0,
-                    "missing": 0,
-                    "ambiguous": 0,
-                }
-            )
-            for index, path in enumerate(files, start=1):
-                relative = Path("VEGO-AI") / "models" / setting_dir / path.name
-                member = relative.as_posix()
-                local_bytes = path.read_bytes()
-                local_hash = sha256_bytes(local_bytes)
-                archive_bytes = _zip_bytes(zf, member)
-                archive_entry_hash = (
-                    sha256_bytes(archive_bytes) if archive_bytes is not None else None
-                )
-                encoding, wrapper = _encoding_and_wrapper(local_bytes)
-                case_id = _case_id(path.name)
-                eval_path = (
-                    repo_root
-                    / "VEGO-AI"
-                    / "eval_output"
-                    / setting_id
-                    / f"agentC_case_{case_id}.json"
-                )
-                if archive_bytes is not None and archive_bytes == local_bytes:
-                    status = "RECOVERED_VERBATIM"
-                    counts["recovered_verbatim"] += 1
-                    method = "zip-entry-byte-comparison"
-                elif archive_bytes is not None:
-                    status = "PARTIAL_RECOVERY"
-                    counts["partial_recovery"] += 1
-                    method = "zip-entry-present-but-byte-mismatch"
-                else:
-                    status = "PARTIAL_RECOVERY"
-                    counts["partial_recovery"] += 1
-                    method = "local-byte-inventory-without-matching-archive-entry"
-                slot = f"{setting_id}-{index:04d}"
-                evidence = [
-                    f"archive member {member} exists and is byte-identical"
-                    if archive_bytes == local_bytes and archive_bytes is not None
-                    else f"archive member {member} was compared",
-                    f"deterministic filename case identifier {case_id}",
-                ]
-                if eval_path.is_file():
-                    evidence.append("matching ignored Agent-C case artifact exists")
-                row = {
-                    "expected_case_slot": slot,
-                    "historical_setting": setting_id,
-                    "historical_case_id": case_id,
-                    "provenance_status": status,
-                    "source_path": member,
-                    "source_artifact_sha256": archive_hash,
-                    "source_entry_sha256": archive_entry_hash,
-                    "recovered_file_sha256": local_hash,
-                    "byte_identical": archive_bytes is not None and archive_bytes == local_bytes,
-                    "byte_length": len(local_bytes),
-                    "encoding": encoding,
-                    "extraction_method": method,
-                    "evidence_supporting_identity": evidence,
-                    "ambiguity": (
-                        "Historical run binding is not independently signed; archive and matching "
-                        "evaluation artifact support identity but do not prove supervisor acceptance."
-                    ),
-                    "admissibility_pending_claude": True,
-                    "notes": "No model text is emitted; exact bytes are retained locally and hashed.",
-                    "wrapper_status": wrapper,
-                    "truncation_detected": archive_bytes is not None and archive_bytes != local_bytes,
-                    "prefix_suffix_comparison": "identical" if archive_bytes == local_bytes and archive_bytes is not None else "not_identical",
-                    "historical_hash_comparison": "not_available",
-                }
-                manifests.append(row)
-                duplicate_hashes[local_hash].append(slot)
-                duplicate_case_ids[f"{setting_id}:{case_id}"].append(slot)
-            per_setting[setting_id] = {
-                "expected_count": len(files),
-                **dict(counts),
-                "recoverable_percent": round(
-                    100 * (counts["original_verified"] + counts["recovered_verbatim"] + counts["derived_exact_copy"])
-                    / len(files),
-                    2,
-                )
-                if files
-                else 0.0,
-                "historical_executability": (
-                    "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES" if files and counts["missing"] == 0 else "NOT_EXECUTABLE"
-                ),
-            }
-    duplicate_hashes = {key: value for key, value in duplicate_hashes.items() if len(value) > 1}
-    duplicate_case_ids = {key: value for key, value in duplicate_case_ids.items() if len(value) > 1}
-    total = len(manifests)
-    counts = Counter(row["provenance_status"].lower() for row in manifests)
-    return {
+        names = zf.namelist()
+        for name in names:
+            normalized = name.replace("\\", "/")
+            parts = normalized.split("/")
+            is_model = len(parts) == 4 and parts[:2] == ["VEGO-AI", "models"] and parts[2] in SETTING_DIRS.values() and parts[3] and not normalized.endswith("/")
+            if not is_model:
+                if not normalized.endswith("/"):
+                    unrelated += 1
+                continue
+            if normalized in members:
+                duplicate_names.append(normalized)
+                continue
+            members[normalized] = zf.read(name)
+    return archive_hash, members, sorted(duplicate_names), unrelated
+
+
+def _evaluation_ids(repo_root: Path) -> dict[str, set[str]]:
+    result = {setting: set() for setting in SETTING_DIRS}
+    for setting_id in SETTING_DIRS:
+        root = repo_root / "VEGO-AI" / "eval_output" / setting_id
+        if not root.is_dir():
+            continue
+        for path in root.rglob("*.json"):
+            match = EVAL_CASE_RE.search(path.name)
+            if match:
+                result[setting_id].add(match.group("id"))
+    return result
+
+
+def _setting_from_path(relative: str) -> str:
+    parts = Path(relative).parts
+    directory = parts[2] if len(parts) >= 4 else ""
+    return next((setting for setting, value in SETTING_DIRS.items() if value == directory), "unknown")
+
+
+def _expected_members(expected_universe: Mapping[str, list[str]] | None) -> set[str] | None:
+    if expected_universe is None:
+        return None
+    return {path.replace("\\", "/") for paths in expected_universe.values() for path in paths}
+
+
+def build_audit(
+    repo_root: Path,
+    archive: Path,
+    *,
+    expected_universe: Mapping[str, list[str]] | None = None,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    archive_hash, archive_members, duplicate_archive_names, unrelated_archive_count = _archive_model_members(archive)
+    local_members = _relative_model_files(repo_root)
+    local_paths = set(local_members)
+    archive_paths = set(archive_members)
+    intersection = sorted(local_paths & archive_paths)
+    archive_only = sorted(archive_paths - local_paths)
+    local_only = sorted(local_paths - archive_paths)
+    expected_paths = _expected_members(expected_universe)
+
+    duplicate_case_ids: dict[str, list[str]] = defaultdict(list)
+    content_slots: dict[str, list[str]] = defaultdict(list)
+    rows: list[dict[str, Any]] = []
+
+    for relative in sorted(local_paths | archive_paths):
+        setting_id = _setting_from_path(relative)
+        filename = Path(relative).name
+        local_data = local_members[relative].read_bytes() if relative in local_members else None
+        archive_data = archive_members.get(relative)
+        selected = local_data if local_data is not None else archive_data
+        local_hash = sha256_bytes(local_data) if local_data is not None else None
+        archive_entry_hash = sha256_bytes(archive_data) if archive_data is not None else None
+        byte_identical = local_data is not None and archive_data is not None and local_data == archive_data
+        if relative in local_members and relative in archive_members:
+            status = "RECOVERED_VERBATIM" if byte_identical else "BYTE_MISMATCH"
+        elif relative in local_members:
+            status = "LOCAL_ONLY"
+        else:
+            status = "ARCHIVE_ONLY"
+        validation = _validate(selected or b"", setting_id, filename)
+        case_id = _case_id(filename)
+        if relative in local_members:
+            duplicate_case_ids[f"{setting_id}:{case_id}"].append(f"{setting_id}:{filename}")
+            content_slots[local_hash or ""].append(f"{setting_id}:{filename}")
+        rows.append({
+            "expected_case_slot": None,
+            "historical_setting": setting_id,
+            "historical_case_id": case_id,
+            "provenance_status": status,
+            "source_path": relative,
+            "source_artifact_sha256": archive_hash if archive_data is not None else None,
+            "source_entry_sha256": archive_entry_hash,
+            "recovered_file_sha256": local_hash,
+            "byte_identical": byte_identical,
+            "byte_length": len(selected or b""),
+            "encoding": "utf-8" if validation not in {"NON_UTF8_INPUT"} else "unknown",
+            "validation_status": validation,
+            "extraction_method": "zip-entry-byte-comparison" if archive_data is not None else "local-byte-inventory-only",
+            "evidence_supporting_identity": [
+                "named archive member is byte-identical to local file" if byte_identical else "archive/local membership was independently enumerated",
+                "filename-derived case identifier is descriptive only",
+            ],
+            "ambiguity": "Archive byte identity does not prove historical-run consumption or slot identity.",
+            "admissibility_pending_claude": True,
+            "notes": "Metadata only; no model text is emitted.",
+        })
+
+    duplicate_case_ids = {key: sorted(value) for key, value in duplicate_case_ids.items() if len(value) > 1}
+    duplicate_content = {key: sorted(value) for key, value in content_slots.items() if key and len(value) > 1}
+    recovered_ids = {f"{_setting_from_path(path)}:{_case_id(Path(path).name)}" for path in intersection}
+    eval_ids = {f"{setting}:{case}" for setting, cases in _evaluation_ids(repo_root).items() for case in cases}
+    expected_minus_recovered = sorted((expected_paths or set()) - set(intersection)) if expected_paths is not None else []
+    recovered_minus_expected = sorted(set(intersection) - (expected_paths or set())) if expected_paths is not None else []
+    completeness = (
+        "COMPLETENESS_UNRESOLVED" if expected_paths is None else
+        "COMPLETE_EXPECTED_UNIVERSE_BUT_HISTORICAL_BINDING_UNPROVEN" if not expected_minus_recovered and not local_only and not archive_only else
+        "INCOMPLETE_EXPECTED_UNIVERSE"
+    )
+    evaluation_ids_by_setting = _evaluation_ids(repo_root)
+    per_setting: dict[str, dict[str, Any]] = {}
+    for setting_id, _setting_dir in SETTING_DIRS.items():
+        local_count = sum(_setting_from_path(path) == setting_id for path in local_paths)
+        archive_count = sum(_setting_from_path(path) == setting_id for path in archive_paths)
+        exact_count = sum(_setting_from_path(path) == setting_id for path in intersection)
+        invalid_count = sum(row["validation_status"] != "VALID" and row["historical_setting"] == setting_id for row in rows)
+        per_setting[setting_id] = {
+            "documented_historical_count": PAPER_HISTORICAL_COUNT[setting_id],
+            "observed_local_count": local_count,
+            "observed_archive_member_count": archive_count,
+            "byte_identical_intersection_count": exact_count,
+            "evaluation_case_id_count": len(evaluation_ids_by_setting[setting_id]),
+            "invalid_or_unsafe_record_count": invalid_count,
+            "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED",
+        }
+    inventory = {
         "audit_version": AUDIT_VERSION,
         "archive_sha256": archive_hash,
         "archive_relative_name": archive.name,
-        "archive_member_model_count": sum(
-            1 for row in manifests if row["source_entry_sha256"] is not None
-        ),
-        "raw_model_inventory": {
-            "total": total,
-            "per_setting": per_setting,
-            "source": "VEGO-AI/models (ignored local inventory), compared to the supplied archive",
+        "observed_local_count": len(local_paths),
+        "archive_model_member_count": len(archive_paths),
+        "unrelated_archive_member_count": unrelated_archive_count,
+        "duplicate_archive_member_names": duplicate_archive_names,
+        "raw_model_inventory": {"total": len(local_paths), "per_setting": per_setting, "source": "ignored local model inventory"},
+        "archive_inventory": {"total": len(archive_paths), "source": "all archive members under VEGO-AI/models/<setting-directory>"},
+        "configuration_evaluation_inventory": {
+            "configuration_case_ids": [],
+            "configuration_source": "No independent configuration-bound case-ID manifest was supplied",
+            "evaluation_case_ids_total": len(eval_ids),
+            "per_setting": {setting: sorted(cases) for setting, cases in evaluation_ids_by_setting.items()},
         },
-        "provenance_counts": {
-            "ORIGINAL_VERIFIED": counts["original_verified"],
-            "RECOVERED_VERBATIM": counts["recovered_verbatim"],
-            "DERIVED_EXACT_COPY": counts["derived_exact_copy"],
-            "PARTIAL_RECOVERY": counts["partial_recovery"],
-            "MISSING": counts["missing"],
-            # Identical bytes in distinct named slots are retained as a
-            # duplicate-content finding, not silently reclassified as an
-            # identity ambiguity.  The filename/setting binding remains
-            # deterministic and each slot is independently traceable.
-            "AMBIGUOUS": 0,
+        "set_differences": {
+            "archive_intersection_local": intersection,
+            "archive_minus_local": archive_only,
+            "local_minus_archive": local_only,
+            "expected_minus_recovered": expected_minus_recovered,
+            "recovered_minus_expected": recovered_minus_expected,
+            "evaluation_ids_minus_recovered_ids": sorted(eval_ids - recovered_ids),
+            "recovered_ids_minus_evaluation_ids": sorted(recovered_ids - eval_ids),
         },
-        "duplicate_recovered_hashes": duplicate_hashes,
-        "duplicate_content_group_count": len(duplicate_hashes),
-        "duplicate_content_slot_count": sum(len(value) for value in duplicate_hashes.values()),
         "duplicate_case_ids": duplicate_case_ids,
-        "paper_historical_count": {
-            "count": 178,
-            "evidence": [
-                "docs/agent-memory/issues.md (ISS-041)",
-                "docs/research/bigui/baseline-comparison-results-v1.json",
-                "docs/research/governance/vego-ai-foundation-paper-record.md",
-            ],
-            "per_setting": {
-                "ucd_ch": 46,
-                "cd_ch": 47,
-                "ucd_pw": 44,
-                "cd_pw": 41,
-            },
-            "per_setting_order": "Cheers use-case, Cheers class, ParkWise use-case, ParkWise class",
-        },
-        "current_scored_row_count": {
-            "count": 179,
-            "evidence": [
-                "experiments/EXP-045-escalation-point-demonstration/README.md",
-                "docs/research/bigui/baseline-comparison-results-v1.json",
-            ],
-            "unit": "scored evaluation rows, not equivalent to raw model-file count",
-        },
-    }, manifests
+        "duplicate_content_groups": duplicate_content,
+        "duplicate_content_group_count": len(duplicate_content),
+        "provenance_counts": dict(Counter(row["provenance_status"] for row in rows)),
+        "paper_historical_count": {"count": 178, "per_setting": PAPER_HISTORICAL_COUNT, "unit": "documented aggregate records; not file identity"},
+        "current_scored_row_count": {"count": 179, "unit": "scored evaluation rows; not raw model-file count"},
+        "completeness_verdict": completeness,
+        "historical_executability": "NOT_EXECUTABLE",
+        "scientifically_admissible_settings": [],
+        "interpretation": "RECOVERED_VERBATIM is limited to byte identity with the named archive entry. No historical-run, expected-universe, or supervisor binding is inferred.",
+        "provider_calls": 0,
+        "synthetic_models_generated": 0,
+    }
+    return inventory, rows
 
 
-def write_outputs(repo_root: Path, output_root: Path, archive: Path) -> dict[str, Any]:
-    inventory, manifest = build_audit(repo_root, archive)
+def write_outputs(
+    repo_root: Path,
+    output_root: Path,
+    archive: Path,
+    *,
+    expected_universe: Mapping[str, list[str]] | None = None,
+) -> dict[str, Any]:
+    inventory, manifest = build_audit(repo_root, archive, expected_universe=expected_universe)
     output_root.mkdir(parents=True, exist_ok=True)
     manifest_hash = sha256_bytes(canonical_json(manifest).encode("utf-8"))
-    recovered = inventory["provenance_counts"]["RECOVERED_VERBATIM"]
-    total = inventory["raw_model_inventory"]["total"]
     missingness = {
         "audit_version": AUDIT_VERSION,
-        "expected_inventory_unit": "raw model files in the current ignored inventory",
-        "total_expected": total,
-        "per_setting": inventory["raw_model_inventory"]["per_setting"],
-        "aggregate": inventory["provenance_counts"],
-        "recoverable_percent": round(100 * recovered / total, 2) if total else 0.0,
-        "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
-        "unresolved_alternate_counts": {
-            "paper_178_minus_raw_165": 13,
-            "scored_179_minus_raw_165": 14,
-        },
-        "interpretation": "The 178 and 179 figures are different historical units/version snapshots; no missing files are inferred from them.",
-    }
-    synthetic = {
-        "audit_version": AUDIT_VERSION,
-        "recommended_option": "A_verified_recovered_only",
-        "exact_proposed_gap_count": 0,
-        "raw_inventory_gap_count": total - recovered,
-        "alternate_count_gaps_not_to_synthesize": {
-            "paper_178": 13,
-            "scored_rows_179": 14,
-        },
-        "proposals": [
-            {"id": "SYN-GAP-000", "status": "NOT_PROPOSED", "reason": "No gap exists relative to the byte-recoverable raw inventory."},
-            {"id": "SYN-GAP-ALTERNATE-178", "status": "REJECTED", "reason": "Aggregate count disagreement is not evidence of missing model bytes."},
-            {"id": "SYN-GAP-ALTERNATE-179", "status": "REJECTED", "reason": "Scored-row surplus is a unit/version difference, not a synthesis target."},
-        ],
-        "execution_status": "NOT_EXECUTED",
-    }
-    text2uml = {
-        "status": "SEPARATE_CORPUS_NOT_MIXED",
-        "observed_candidate_count": 4,
-        "frozen_for_this_audit": False,
-        "comparison": "Text2UML/AirTravel is an external feasibility corpus and cannot resolve the historical VEGO-AI 178/179 disagreement.",
+        "expected_inventory_unit": "independently enumerated members; no local count is called expected",
+        "observed_local_count": inventory["observed_local_count"],
+        "archive_model_member_count": inventory["archive_model_member_count"],
+        "set_differences": inventory["set_differences"],
+        "completeness_verdict": inventory["completeness_verdict"],
+        "historical_executability": inventory["historical_executability"],
+        "interpretation": inventory["interpretation"],
     }
     receipt = {
         "audit_version": AUDIT_VERSION,
         "archive_sha256": inventory["archive_sha256"],
         "manifest_sha256": manifest_hash,
-        "raw_model_file_count": total,
-        "archive_member_model_count": inventory["archive_member_model_count"],
-        "byte_identical_count": recovered,
-        "byte_mismatch_count": inventory["provenance_counts"]["PARTIAL_RECOVERY"],
-        "deterministic_reproduction": "PASS (canonical manifest has stable ordering and no timestamps)",
+        "observed_local_count": inventory["observed_local_count"],
+        "archive_model_member_count": inventory["archive_model_member_count"],
         "provider_calls": 0,
         "synthetic_models_generated": 0,
         "content_emitted": False,
+        "completeness_verdict": inventory["completeness_verdict"],
     }
     files = {
         "expected-case-inventory.json": inventory,
         "provenance-manifest.json": manifest,
         "missingness-report.json": missingness,
-        "synthetic-gap-fill-proposal.json": synthetic,
-        "text2uml-comparison.json": text2uml,
         "recovery-evidence-receipt.json": receipt,
     }
     for name, value in files.items():
@@ -308,13 +309,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--archive", type=Path, required=True)
-    parser.add_argument(
-        "--output-root",
-        type=Path,
-        default=Path("docs/research/phd-proposal/historical-case-recovery"),
-    )
+    parser.add_argument("--output-root", type=Path, default=Path("docs/research/phd-proposal/historical-case-recovery-v2"))
+    parser.add_argument("--expected-universe", type=Path, help="Optional JSON mapping setting IDs to independently documented member paths")
     args = parser.parse_args()
-    result = write_outputs(args.repo_root.resolve(), args.output_root.resolve(), args.archive.resolve())
+    expected = json.loads(args.expected_universe.read_text(encoding="utf-8")) if args.expected_universe else None
+    result = write_outputs(args.repo_root.resolve(), args.output_root.resolve(), args.archive.resolve(), expected_universe=expected)
     print(json.dumps(result["receipt"], sort_keys=True))
     return 0
 
