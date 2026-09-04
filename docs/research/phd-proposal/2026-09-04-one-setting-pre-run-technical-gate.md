@@ -29,3 +29,11 @@ The communication schema now makes termination explicit: `CONVERGED`, `TERMINATE
 ## F. Release verdict
 
 **INCOMPLETE_TECHNICAL / BLOCKED_INPUTS.** The code path, schema, strict C1 boundary, and offline parity harness are ready for human review. The actual one-setting run is blocked by missing/binding-unverified inputs and protected-change authorization. No API call, model invocation, spend, or external side effect was performed.
+
+GitHub Actions run `33865519369` is red: the source job reports stale
+`docs/research/hardening/release-manifest-v3.json`, while every Python matrix
+job reports the protected-change authorization failure for the new
+instrumentation paths. Reproduction at trusted ancestor `462c4e4` also failed,
+but stopped earlier because its detached checkout had no distinct Git merge
+base (`merge base resolves to HEAD`); therefore the current authorization
+failure is unresolved, not labelled pre-existing.
