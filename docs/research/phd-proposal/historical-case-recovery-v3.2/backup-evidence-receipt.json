@@ -5,8 +5,8 @@
     "status": "BLOCKED_NOT_RUN"
   },
   "airtravel_manifest_verification": {
-    "manifest_sha256": "3cc5867366a9af7b531ff19eed57167dfacd8eab130f2cc243300ba50700bbac",
-    "resolved_commit": "cb1099c214418f8ef39a98bc7e81395a444c2082",
+    "manifest_sha256": "bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2",
+    "resolved_commit": "3c2eb4494c89fbbd0d6ac05c3ff4aeaaeff78bee",
     "status": "PASS"
   },
   "airtravel_runtime_pack_verification": {
@@ -25,7 +25,7 @@
     "status": "BLOCKED"
   },
   "archive_entry_count": 632,
-  "audit_base_sha": "8765af49fd9d15544e17371102881b88447dac46",
+  "audit_base_sha": "d4a9a3b702cfa95075ba45729a103d40edbeb6c1",
   "audit_version": "historical-case-recovery-v3.2-airtravel-erratum",
   "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
   "detector_v1_runs": 0,

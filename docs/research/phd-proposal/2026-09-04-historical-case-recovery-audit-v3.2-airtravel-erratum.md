@@ -1,7 +1,7 @@
 # Historical recovery v3.2 — AirTravel evidence reconciliation and technical preflight
 
 **Status: TECHNICAL NO-GO**  
-**Audit base SHA:** `8765af49fd9d15544e17371102881b88447dac46`  
+**Audit base SHA:** `d4a9a3b702cfa95075ba45729a103d40edbeb6c1`  
 **Provider, experiment, Detector-v1, and synthetic calls:** 0
 
 This is a successor/erratum to v3 and v3.1. Earlier reports remain preserved
@@ -27,8 +27,8 @@ DATA NO-GO; synthetic gap fill remains zero authorized.
 ## PR #36 manifest authority
 
 PR #36 is the sole consumed scientific authority for this preflight. Its exact
-head is `cb1099c214418f8ef39a98bc7e81395a444c2082`; its manifest SHA-256 is
-`3cc5867366a9af7b531ff19eed57167dfacd8eab130f2cc243300ba50700bbac`.
+head is `3c2eb4494c89fbbd0d6ac05c3ff4aeaaeff78bee`; its manifest SHA-256 is
+`bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2`.
 The verifier resolves the supplied ref with `git rev-parse` and fails closed on
 any mismatch. No `origin/review/study1-airtravel-v102` or commit `8561aa0` was
 consumed.
