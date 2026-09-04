@@ -14,6 +14,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import zipfile
 from collections import Counter
 from pathlib import Path
@@ -72,25 +73,45 @@ def _read_runtime_bytes(raw: bytes) -> tuple[str, str, str]:
 
 def _executability(backup: Path) -> dict[str, Any]:
     by_setting: dict[str, Counter[str]] = {setting: Counter() for setting in SETTING_DIRS}
+    model_bytes: dict[str, list[tuple[str, bytes]]] = {setting: [] for setting in SETTING_DIRS}
     with zipfile.ZipFile(backup) as zf:
         for name in zf.namelist():
             normalized = _normalized(name)
             if normalized is None:
                 continue
             setting, _ = normalized
+            model_bytes[setting].append((name, zf.read(name)))
             decode, wrapper, loader = _read_runtime_bytes(zf.read(name))
             by_setting[setting]["files"] += 1
             by_setting[setting]["decode_read_pass"] += decode == "PASS"
             by_setting[setting]["wrapper_pass"] += wrapper == "PASS"
             by_setting[setting]["offline_loader_pass"] += loader == "PASS"
+    # Exercise the repository's real offline input loader against temporary,
+    # metadata-only materializations; no provider or model client is involved.
+    try:
+        sys.path.insert(0, str(ROOT / "VEGO-AI" / "framework"))
+        from orchestrator import load_inputs
+        with tempfile.TemporaryDirectory(prefix="vego-audit-loader-") as temp:
+            base = Path(temp)
+            for setting, rows in model_bytes.items():
+                cases = base / setting
+                cases.mkdir()
+                for index, (name, data) in enumerate(rows):
+                    cases.joinpath(f"{index + 1}_{Path(name).name}").write_bytes(data)
+                cfg = {"domain_description": "offline loader fixture", "case_models_dir": str(cases)}
+                load_inputs(cfg, base)
+                by_setting[setting]["offline_loader_pass_files"] = len(cfg.get("case_models", []))
+    except Exception:
+        for counts in by_setting.values():
+            counts["offline_loader_pass_files"] = 0
     return {
         setting: {
             "decode_read_status": "PASS" if counts["decode_read_pass"] == counts["files"] else "PARTIAL",
             "decode_read_pass_files": counts["decode_read_pass"],
             "plantuml_wrapper_status": "PASS" if counts["wrapper_pass"] == counts["files"] else "PARTIAL",
             "plantuml_wrapper_pass_files": counts["wrapper_pass"],
-            "offline_input_loader_acceptance": "PASS" if counts["offline_loader_pass"] == counts["files"] else "PARTIAL",
-            "offline_input_loader_pass_files": counts["offline_loader_pass"],
+            "offline_input_loader_acceptance": "PASS" if counts["offline_loader_pass_files"] == counts["files"] else "PARTIAL",
+            "offline_input_loader_pass_files": counts["offline_loader_pass_files"],
             "syntactic_validation_status": "NOT_INVOKED",
             "scientific_admissibility": "NO",
         }

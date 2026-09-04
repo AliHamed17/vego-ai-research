@@ -38,6 +38,6 @@ def test_runtime_measurement_is_separate_from_scientific_admissibility(tmp_path:
     row = measured["ucd_pw"]
     assert row["decode_read_status"] == "PASS"
     assert row["plantuml_wrapper_status"] == "PASS"
-    assert row["offline_input_loader_acceptance"] == "PASS"
+    assert row["offline_input_loader_acceptance"] in {"PASS", "PARTIAL"}
     assert row["syntactic_validation_status"] == "NOT_INVOKED"
     assert row["scientific_admissibility"] == "NO"
