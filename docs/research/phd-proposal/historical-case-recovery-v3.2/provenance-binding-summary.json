@@ -1,0 +1,569 @@
+{
+  "68065_content_binding": {
+    "paths": {
+      "VEGO-AI/Dataset_Cheers/ClassDiagram/Cases/68065_CD_Ch.txt": {
+        "bytes": 4491,
+        "sha256": "e692f3b24c7fc791fb1f54d5ee56d7b2fea1104c28eef1a8939051b8e3900e6e"
+      },
+      "VEGO-AI/Dataset_Cheers/UseCaseDiagram/Cases/68065_UCD_Ch.txt": {
+        "bytes": 2232,
+        "sha256": "a4a3ba658aefec312ca390f5eaaf34fc8e2d031c72068d72dcdf5a1ca66e5ebc"
+      },
+      "VEGO-AI/System/models/CD_Ch_models/68065_CD_Ch.txt": {
+        "bytes": 2232,
+        "sha256": "a4a3ba658aefec312ca390f5eaaf34fc8e2d031c72068d72dcdf5a1ca66e5ebc"
+      },
+      "VEGO-AI/System/models/UCD_Ch_models/68065_UCD_Ch.txt": {
+        "bytes": 4491,
+        "sha256": "e692f3b24c7fc791fb1f54d5ee56d7b2fea1104c28eef1a8939051b8e3900e6e"
+      }
+    },
+    "status": "CONTENT_SWAPPED"
+  },
+  "airtravel_fake_preflight": {
+    "provider_calls": 0,
+    "reason": "exact five-file runtime verification did not pass",
+    "status": "BLOCKED_NOT_RUN"
+  },
+  "airtravel_manifest_verification": {
+    "manifest_sha256": "bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2",
+    "resolved_commit": "3c2eb4494c89fbbd0d6ac05c3ff4aeaaeff78bee",
+    "status": "PASS"
+  },
+  "airtravel_runtime_pack_verification": {
+    "expected_count": 5,
+    "reason": "exact runtime archive unavailable",
+    "status": "BLOCKED"
+  },
+  "airtravel_source_runtime_mapping": {
+    "reason": "upstream bytes and runtime archive are required for source-to-runtime mapping",
+    "status": "BLOCKED"
+  },
+  "airtravel_source_verification": {
+    "expected_archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+    "expected_upstream_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+    "reason": "pinned Text2UML archive or source manifest unavailable",
+    "status": "BLOCKED"
+  },
+  "api_cost": "TO BE MEASURED",
+  "archive_entry_count": 632,
+  "audit_base_sha": "25b60197706f7725571bd32c2d4a258dd5014035",
+  "audit_version": "historical-case-recovery-v3.2-airtravel-erratum",
+  "authorized_synthetic_gap_fill": 0,
+  "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+  "call_bound": {
+    "N": 4,
+    "minimum": 16,
+    "retained_worst_case": 326,
+    "status": "STATIC_ONLY"
+  },
+  "cd_ch_48_vs_47": "CD_CH_48_VS_47_UNRESOLVED",
+  "confirmed_missing_slots": 0,
+  "content_binding": {
+    "matched_id_and_stripped_length": 159,
+    "per_setting": {
+      "cd_ch": {
+        "matched": 45,
+        "unmatched_or_invalid": 1
+      },
+      "cd_pw": {
+        "matched": 34,
+        "unmatched_or_invalid": 3
+      },
+      "ucd_ch": {
+        "matched": 45,
+        "unmatched_or_invalid": 0
+      },
+      "ucd_pw": {
+        "matched": 35,
+        "unmatched_or_invalid": 2
+      }
+    },
+    "unmatched_or_invalid": 6
+  },
+  "detector_v1_runs": 0,
+  "duplicate_content_groups": {
+    "count": 2,
+    "hashes": {
+      "2d37233f4c26a11e8b66655d66f5a4aafb436fe8b06da4ef0f796399d69cdd9e": 2,
+      "b28402ba4062da6bbc2a5fa5ce1380bd58380ea30b12cde27066cc7f2e4887df": 2
+    }
+  },
+  "duplicate_id_excess": {
+    "groups": {
+      "cd_ch": [
+        {
+          "case_id": "68092",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            596,
+            4421
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "68111",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            2635,
+            3376
+          ],
+          "row_count": 2
+        }
+      ],
+      "cd_pw": [
+        {
+          "case_id": "70229",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            506,
+            4576
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70248",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "same_length_excess",
+          "logged_lengths": [
+            3822,
+            3822
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70278",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            471,
+            3995
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70279",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            278,
+            6649
+          ],
+          "row_count": 2
+        }
+      ],
+      "ucd_ch": [
+        {
+          "case_id": "68092",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            596,
+            2371
+          ],
+          "row_count": 2
+        }
+      ],
+      "ucd_pw": [
+        {
+          "case_id": "70197",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            656,
+            2749
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70229",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            506,
+            4055
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70248",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "same_length_excess",
+          "logged_lengths": [
+            2719,
+            2719
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70251",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            3530,
+            4807
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70252",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            4538,
+            45154
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70278",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            733,
+            1852
+          ],
+          "row_count": 2
+        },
+        {
+          "case_id": "70279",
+          "duplicate_id_excess_rows": 1,
+          "length_observation": "differing_length_excess",
+          "logged_lengths": [
+            278,
+            3656
+          ],
+          "row_count": 2
+        }
+      ]
+    },
+    "total_duplicate_id_excess_rows": 14,
+    "totals": {
+      "differing_length_excess": 12,
+      "same_length_excess": 2
+    }
+  },
+  "duplicate_id_groups": {
+    "cd_ch": [
+      {
+        "case_id": "68092",
+        "logged_lengths": [
+          596,
+          4421
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "68111",
+        "logged_lengths": [
+          2635,
+          3376
+        ],
+        "row_count": 2
+      }
+    ],
+    "cd_pw": [
+      {
+        "case_id": "70229",
+        "logged_lengths": [
+          506,
+          4576
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70248",
+        "logged_lengths": [
+          3822,
+          3822
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70278",
+        "logged_lengths": [
+          471,
+          3995
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70279",
+        "logged_lengths": [
+          278,
+          6649
+        ],
+        "row_count": 2
+      }
+    ],
+    "ucd_ch": [
+      {
+        "case_id": "68092",
+        "logged_lengths": [
+          596,
+          2371
+        ],
+        "row_count": 2
+      }
+    ],
+    "ucd_pw": [
+      {
+        "case_id": "70197",
+        "logged_lengths": [
+          656,
+          2749
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70229",
+        "logged_lengths": [
+          506,
+          4055
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70248",
+        "logged_lengths": [
+          2719,
+          2719
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70251",
+        "logged_lengths": [
+          3530,
+          4807
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70252",
+        "logged_lengths": [
+          4538,
+          45154
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70278",
+        "logged_lengths": [
+          733,
+          1852
+        ],
+        "row_count": 2
+      },
+      {
+        "case_id": "70279",
+        "logged_lengths": [
+          278,
+          3656
+        ],
+        "row_count": 2
+      }
+    ]
+  },
+  "evidence_parent_sha": "36602e41a3a7ccec52a300d9244f3afe4702153f",
+  "executability_by_setting": {
+    "cd_ch": {
+      "decode_read_pass_files": 46,
+      "decode_read_status": "PASS",
+      "offline_input_loader_acceptance": "PASS",
+      "offline_input_loader_pass_files": 46,
+      "plantuml_wrapper_pass_files": 40,
+      "plantuml_wrapper_status": "PARTIAL",
+      "scientific_admissibility": "NO",
+      "syntactic_validation_status": "NOT_INVOKED"
+    },
+    "cd_pw": {
+      "decode_read_pass_files": 37,
+      "decode_read_status": "PASS",
+      "offline_input_loader_acceptance": "PASS",
+      "offline_input_loader_pass_files": 37,
+      "plantuml_wrapper_pass_files": 33,
+      "plantuml_wrapper_status": "PARTIAL",
+      "scientific_admissibility": "NO",
+      "syntactic_validation_status": "NOT_INVOKED"
+    },
+    "ucd_ch": {
+      "decode_read_pass_files": 45,
+      "decode_read_status": "PASS",
+      "offline_input_loader_acceptance": "PASS",
+      "offline_input_loader_pass_files": 45,
+      "plantuml_wrapper_pass_files": 39,
+      "plantuml_wrapper_status": "PARTIAL",
+      "scientific_admissibility": "NO",
+      "syntactic_validation_status": "NOT_INVOKED"
+    },
+    "ucd_pw": {
+      "decode_read_pass_files": 37,
+      "decode_read_status": "PASS",
+      "offline_input_loader_acceptance": "PASS",
+      "offline_input_loader_pass_files": 37,
+      "plantuml_wrapper_pass_files": 31,
+      "plantuml_wrapper_status": "PARTIAL",
+      "scientific_admissibility": "NO",
+      "syntactic_validation_status": "NOT_INVOKED"
+    }
+  },
+  "experiment_calls": 0,
+  "file_level_match": {
+    "expected": 165,
+    "matched": 165,
+    "status": "PASS"
+  },
+  "gate_tracks": {
+    "airtravel_public_external": "BLOCKED",
+    "historical_cheers_parkwise": "DATA_NO_GO",
+    "synthetic_gap_fill": "ZERO_AUTHORIZED"
+  },
+  "instrumentation": {
+    "airtravel_exact_config": "NOT_EXERCISED_ARCHIVE_UNAVAILABLE",
+    "answer_count": 7,
+    "event_count": 21,
+    "prompt_parity": true,
+    "question_count": 7,
+    "route_pairs": [
+      [
+        "agent2",
+        "agent1"
+      ],
+      [
+        "agent2",
+        "agent2"
+      ],
+      [
+        "agent3",
+        "agent1"
+      ],
+      [
+        "agent3",
+        "agent2"
+      ],
+      [
+        "agent4",
+        "agent1"
+      ],
+      [
+        "agent4",
+        "agent2"
+      ]
+    ],
+    "scientific_state_parity": true,
+    "status": "FIXTURE_ONLY_PASS",
+    "terminal_count": 7,
+    "termination_reasons": [
+      "CONVERGED"
+    ]
+  },
+  "matching_archive_subset": 165,
+  "normalized_model_count": 165,
+  "paid_run_authorization": "ABSENT",
+  "per_setting": {
+    "cd_ch": {
+      "duplicate_id_excess_rows": 2,
+      "load_rows": 48,
+      "ranking_length": 48,
+      "unique_load_ids": 46
+    },
+    "cd_pw": {
+      "duplicate_id_excess_rows": 4,
+      "load_rows": 41,
+      "ranking_length": 41,
+      "unique_load_ids": 37
+    },
+    "ucd_ch": {
+      "duplicate_id_excess_rows": 1,
+      "load_rows": 46,
+      "ranking_length": 46,
+      "unique_load_ids": 45
+    },
+    "ucd_pw": {
+      "duplicate_id_excess_rows": 7,
+      "load_rows": 44,
+      "ranking_length": 44,
+      "unique_load_ids": 37
+    }
+  },
+  "protected_authorization": "NOT_SELF_AUTHORIZED",
+  "provenance_categories": {
+    "HISTORICAL_RUN_BOUND": 0,
+    "ORIGINAL_VERIFIED": 0,
+    "RECOVERED_VERBATIM": 165,
+    "SCIENTIFICALLY_ADMISSIBLE": 0
+  },
+  "provider_calls": 0,
+  "published_count_discrepancy": 13,
+  "published_score_workbook": {
+    "duplicate_stable_keys": [
+      [
+        "cd_ch",
+        "68092"
+      ],
+      [
+        "cd_ch",
+        "68111"
+      ],
+      [
+        "cd_pw",
+        "70248"
+      ],
+      [
+        "cd_pw",
+        "70278"
+      ],
+      [
+        "cd_pw",
+        "70279"
+      ],
+      [
+        "ucd_ch",
+        "68092"
+      ],
+      [
+        "ucd_pw",
+        "70197"
+      ],
+      [
+        "ucd_pw",
+        "70248"
+      ],
+      [
+        "ucd_pw",
+        "70251"
+      ],
+      [
+        "ucd_pw",
+        "70252"
+      ],
+      [
+        "ucd_pw",
+        "70278"
+      ],
+      [
+        "ucd_pw",
+        "70279"
+      ]
+    ],
+    "row_count": 164,
+    "rows_by_setting": {
+      "cd_ch": 44,
+      "cd_pw": 37,
+      "ucd_ch": 43,
+      "ucd_pw": 40
+    },
+    "stable_key_count": 164,
+    "unique_stable_key_count": 152
+  },
+  "ranking_lengths": {
+    "cd_ch": 48,
+    "cd_pw": 41,
+    "ucd_ch": 46,
+    "ucd_pw": 44
+  }
+}
