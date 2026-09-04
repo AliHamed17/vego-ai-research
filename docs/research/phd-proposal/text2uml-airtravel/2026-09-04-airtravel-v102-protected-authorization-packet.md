@@ -16,7 +16,7 @@ issuance**, or earlier on any manifest/configuration drift. API cost remains
 ## Hash-bound evidence
 
 - Base SHA before this receipt: `ed37d77ccad6022185cd73e539d63abd11ca290b`.
-- Proposed head SHA: `12c27e1ef27ec91d3452d6c7afdb99d5040ef7e3`; a human must
+- Proposed head SHA: `a7d06a93529174d400fb0611c47ef8ee1d0eeb0b`; a human must
   verify it before authorizing.
 - Upstream Text2UML commit: `253b26dc704d523209a5cba79686f8f7fab57d63`.
 - Input manifest: `source-manifest.json` SHA-256
