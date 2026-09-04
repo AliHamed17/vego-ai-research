@@ -44,6 +44,7 @@ def test_append_only_events_project_to_complete_episode(tmp_path: Path) -> None:
     assert projection[0]["question_count"] == 1
     assert projection[0]["answer_count"] == 1
     assert projection[0]["converged"] is True
+    assert projection[0]["termination_state"] == "CONVERGED"
     assert projection[0]["round_count"] == 1
     assert projection[0]["answers"][0]["answer_confidence"] == "High"
 
@@ -113,6 +114,17 @@ def test_follow_up_and_max_round_termination_are_projected(tmp_path: Path) -> No
     assert projection["follow_up_present"] is True
     assert projection["termination_reason"] == "MAX_QA_ROUNDS"
     assert projection["converged"] is False
+    assert projection["termination_state"] == "TERMINATED_MAX_ROUNDS"
+
+
+def test_explicit_incomplete_technical_termination_is_projected(tmp_path: Path) -> None:
+    recorder = QACommunicationRecorder(tmp_path / "incomplete.jsonl", run_id="incomplete")
+    recorder.emit_termination(
+        episode_id="ep", termination_reason="fixture_missing_route",
+        termination_state="INCOMPLETE_TECHNICAL",
+    )
+    projection = build_episode_projection(recorder.events)[0]
+    assert projection["termination_state"] == "INCOMPLETE_TECHNICAL"
 
 
 def test_instrumentation_off_on_preserves_prompt_and_answer(tmp_path: Path) -> None:

@@ -1,13 +1,15 @@
 # Q&A Instrumentation Verification — 2026-09-04
 
-**Technical verdict:** PARTIAL — the offline observer and contract pass; wiring
-into the protected production orchestrator remains a reviewed follow-up. This
+**Technical verdict:** PARTIAL — the offline observer, v1.0.1 contract, and protected
+orchestrator fixture pass; production persistence wiring remains a reviewed follow-up. This
 is not a scientific study result and is not approval for a live LLM run.
 
 ## Touched runtime paths
 
 - `VEGO-AI/framework/qa_communication.py` — append-only event writer, schema
   validation, deterministic IDs, route observer, and episode projection.
+- `VEGO-AI/framework/qa_instrumented_runner.py` — pass-through deterministic
+  client proxy and offline protected-path parity harness; not a provider client.
 - `VEGO-AI/framework/qa_registry.py`, `VEGO-AI/framework/orchestrator.py`, and
   `VEGO-AI/framework/state.py` were inspected but not modified: their protected
   runtime hashes are locked by the evidence guard. The observer is therefore
@@ -31,8 +33,9 @@ and source/target pairs.
 
 ## Offline routes and fixtures
 
-The fixture contract exercises Agent 2 → Agent 1 and the projection layer. The
-adapter can represent all existing advisor routes through the shared helpers:
+The offline runner executes the protected `orchestrator.run` path and then each
+protected Q&A helper route against a deterministic fake. The adapter can
+represent all existing advisor routes through the shared helpers:
 
 | Route | Runtime support |
 |---|---|
@@ -43,14 +46,16 @@ adapter can represent all existing advisor routes through the shared helpers:
 | Agent 4 → Agent 1 | adapter-supported |
 | Agent 4 → Agent 2 | adapter-supported |
 
-No route was invented and no model client was invoked by verification.
+No route was invented and no provider/model client was invoked by verification.
 
 ## Verification results
 
 - Synthetic episodes: 8 deterministic episode paths (baseline, six route
   representations, and one follow-up/`MAX_QA_ROUNDS` episode).
-- Prompt parity: the adapter is post-call and does not alter prompt payloads;
-  direct runner wiring is pending because the orchestrator hash is protected.
+- Prompt/scientific-state parity: instrumented and non-instrumented protected
+  fixture runs match exactly; the proxy is post-call and pass-through.
+- Concurrent route context: separate async tasks retain their own source/target
+  metadata; no global current-episode state is used.
 - Decision parity: no decision object is read or changed by the observer.
 - Deterministic repeatability: event IDs and sequence values are stable for the
   same run ID and fixture order.

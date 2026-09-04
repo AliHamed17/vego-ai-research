@@ -205,14 +205,19 @@ def _round_snapshot_summary(root: pathlib.Path) -> dict[str, Any]:
     }
 
 
-def _mapping_certainty_count(root: pathlib.Path, threshold: float = 0.75) -> int:
+def _is_new_corpus_c1(value: float, threshold: float = 0.7) -> bool:
+    """Return the preregistered strict C1 condition for the new corpus."""
+    return value < threshold
+
+
+def _mapping_certainty_count(root: pathlib.Path, threshold: float = 0.7) -> int:
     count = 0
     for path in sorted((root / "eval_output").glob("*/agentB_best_guidelines.json")):
         def walk(value: Any) -> None:
             nonlocal count
             if isinstance(value, dict):
                 for key, child in value.items():
-                    if key == "mapping_certainty" and isinstance(child, (int, float)) and child <= threshold:
+                    if key == "mapping_certainty" and isinstance(child, (int, float)) and _is_new_corpus_c1(child, threshold):
                         count += 1
                     walk(child)
             elif isinstance(value, list):
@@ -253,7 +258,7 @@ def build_feature_inventory(root: pathlib.Path, events: list[dict[str, Any]]) ->
         "F8_follow_up_clarification": {"available": False, "count": 0, "deterministic": True, "rule": "follow_up_observed == true", "limitation": "follow-up linkage is not persisted"},
         "F9_high_question_count": {"available": False, "count": 0, "deterministic": True, "rule": "declared per-case/claim count threshold", "limitation": "case/claim scope unavailable on Q&A rows"},
         "F10_max_round_or_unresolved": {"available": False, "count": 0, "deterministic": True, "rule": "MAX_QA_ROUNDS or unresolved episode", "limitation": "round termination is not persisted"},
-        "F11_low_mapping_certainty": {"available": True, "count": _mapping_certainty_count(root), "deterministic": True, "rule": "Agent-2 mapping_certainty <= 0.75", "limitation": "separate Agent-2 feature, not answer confidence"},
+        "F11_low_mapping_certainty": {"available": True, "count": _mapping_certainty_count(root), "deterministic": True, "rule": "new corpus Agent-2 mapping_certainty < 0.7", "supersedes_legacy_rule": "mapping_certainty <= 0.75", "limitation": "separate Agent-2 feature, not answer confidence; legacy scaffold is not C1"},
     }
 
 
@@ -274,7 +279,7 @@ def detect_event(event: dict[str, Any]) -> dict[str, Any]:
         reasons.append("F8_FOLLOW_UP_CLARIFICATION")
     if event.get("unresolved"):
         reasons.append("F10_UNRESOLVED")
-    if event.get("mapping_certainty") is not None and event["mapping_certainty"] <= 0.75:
+    if event.get("mapping_certainty") is not None and _is_new_corpus_c1(event["mapping_certainty"]):
         reasons.append("F11_LOW_MAPPING_CERTAINTY")
     decision = "ALERT" if reasons else "NO_ALERT"
     return {
@@ -323,6 +328,7 @@ def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
             "follow_up_present": episode["follow_up_present"],
             "converged": episode["converged"],
             "termination_reason": episode["termination_reason"],
+            "termination_state": episode["termination_state"],
             "source_target_pairs": episode["source_target_pairs"],
         })
     return {
@@ -338,6 +344,8 @@ def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
             "questions": sum(row["question_count"] for row in features),
             "answers": sum(row["answer_count"] for row in features),
             "max_round_termination": sum(row["termination_reason"] == "MAX_QA_ROUNDS" for row in features),
+            "technical_incomplete_episodes": sum(row["termination_state"] == "INCOMPLETE_TECHNICAL" for row in features),
+            "scientific_episode_count": sum(row["termination_state"] != "INCOMPLETE_TECHNICAL" for row in features),
         },
         "claim_boundary": "live_communication_observability_only",
     }

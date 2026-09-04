@@ -37,6 +37,12 @@ def test_detector_is_transparent_and_non_optimizing() -> None:
     assert alert["answer_confidence"] is None
 
 
+def test_new_corpus_c1_uses_strict_boundary() -> None:
+    assert extractor._is_new_corpus_c1(0.699999) is True
+    assert extractor._is_new_corpus_c1(0.7) is False
+    assert extractor._is_new_corpus_c1(0.700001) is False
+
+
 def test_answer_confidence_and_evidence_are_not_merged() -> None:
     event = extractor.make_event(
         source_path="fixture.json",

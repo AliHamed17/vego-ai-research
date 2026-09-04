@@ -35,7 +35,7 @@ merged with the 12 final rows.
 | Concept | Producer / field | Semantics | Frozen observation | Escalation use |
 |---|---|---|---:|---|
 | Q&A answer confidence | Agent 1/2 answer `confidence` | `High`, `Medium`, or `Low` confidence in an answer | 0 answers; unavailable | Primary planned feature; not observed yet |
-| Agent-2 mapping certainty | Agent-2 `mapping_certainty` | Numeric 0–1 certainty of guideline/template mapping | 48 values ≤ 0.75 | Separate deterministic feature; not Q&A answer confidence |
+| Agent-2 mapping certainty | Agent-2 `mapping_certainty` | Numeric 0–1 certainty of guideline/template mapping | 48 values ≤ 0.75 (legacy scaffold) | Separate deterministic feature; not Q&A answer confidence |
 | Agent-4 classification confidence | Agent-4 `confidence` | Confidence in variability classification | 24 High, 3 Medium, 0 Low | Context feature only; not answer confidence |
 | Question-generation uncertainty | No persisted field | Would describe why a question was generated | Not available | Cannot be used without instrumentation |
 
@@ -61,7 +61,12 @@ computable from the frozen evidence. The deterministic feature inventory is:
 | F8 | follow-up clarification | 0 | Not reconstructable |
 | F9 | unusually high case/claim count | 0 | Scope unavailable |
 | F10 | MAX_QA_ROUNDS or unresolved | 0 | Not reconstructable |
-| F11 | Agent-2 mapping certainty ≤ 0.75 | 48 | Observed separately |
+| F11 (legacy diagnostic) | Agent-2 mapping certainty ≤ 0.75 | 48 | Historical scaffold only; superseded for the new corpus |
+
+**C1 correction (2026-09-04):** the preregistered new-corpus condition is strict
+`mapping_certainty < 0.7`. Values exactly `0.7` are not C1 events. The extractor
+implements and tests this boundary; the historical `≤ 0.75` count above is not
+used as the new-corpus detector.
 
 ## Detector and validation scaffold
 
