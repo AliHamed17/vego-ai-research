@@ -211,8 +211,10 @@
     "scripts/tests/test_iris_zoom_review_batches.py",
     "scripts/tests/test_policy_arms.py",
     "scripts/tests/test_preliminary_human_intervention_one_page.py",
+    "scripts/tests/test_prepare_airtravel_protected_fake_preflight.py",
     "scripts/tests/test_prepare_text2uml_airtravel.py",
     "scripts/tests/test_qa_escalation_task_plan.py",
+    "scripts/tests/test_render_airtravel_results.py",
     "scripts/tests/test_reuse_gates.py",
     "scripts/tests/test_security_audit.py",
     "scripts/tests/test_study1_call_bound.py",
@@ -247,7 +249,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "b9d4c75bc7077290f1cf0accc2d22ca5ee708620d299e6b2bd5ccdd1f0c54f58",
+  "sourceTreeSha256": "28d7fd6156b20061626ab7b6c3eabf2d081c246a12990d05d257b50104819008",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
