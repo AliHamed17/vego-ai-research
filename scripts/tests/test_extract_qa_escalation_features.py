@@ -31,8 +31,9 @@ def test_detector_is_transparent_and_non_optimizing() -> None:
         source_hash="0" * 64,
     )
     alert = extractor.detect_event(event)
-    assert alert["decision"] == "ALERT"
-    assert alert["reason_codes"] == ["F5_UNANSWERED_QUESTION"]
+    assert alert["decision"] == "NO_ALERT"
+    assert alert["reason_codes"] == []
+    assert alert["answer_status"] == "ANSWER_NOT_PERSISTED"
     assert alert["answer_confidence"] is None
 
 

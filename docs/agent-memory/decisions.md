@@ -478,3 +478,11 @@ Durable decisions for this project.
 - Decision: Treat the archived evaluator configuration/log initialization and archived client implementation as evidence for conditional historical `full_content` logging, but never treat that capability as recovered interaction records.
 - Reason: No `interaction_log.jsonl` bytes or credible variant were found in the repository, supplied archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive folder, or Codex attachments. The historical G-drive shortcut target remains inaccessible locally.
 - Consequence: The frozen 12 canonical questions / 30 snapshot records baseline remains unchanged; contacting Iris/Arnon is a separate human decision only if the inaccessible original source is still needed.
+
+## 2026-09-04 - Tasks 2–5 Q&A communication observer
+
+- Decision: Add a dedicated `qa-communication-event-v1` contract and privacy-safe append-only observer with deterministic episode projection; preserve the historical `qa-escalation-event-v1` semantics.
+- Decision: Do not alter protected `VEGO-AI/framework/orchestrator.py`, `qa_registry.py`, or `state.py` when the runtime hash guard rejects direct edits. Treat runner wiring as a separate reviewed change.
+- Decision: Retire F5 as a human-escalation trigger for the frozen corpus; expose `ANSWER_NOT_PERSISTED` only as a data-availability status.
+- Reason: Offline parity, schema, ordering, duplicate-ID, follow-up, termination, privacy, and route-representation checks pass. A direct production edit would weaken the protected-runtime evidence boundary.
+- Consequence: The technical verification is `PARTIAL`; no one-setting run can proceed until case-model inputs and a reviewed runtime integration are available.

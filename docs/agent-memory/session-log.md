@@ -337,3 +337,23 @@ Chronological prompt history for Codex and Claude.
   - evidence consistency: 18/18 PASS
 - Status: Task 1 complete: local search exhausted; original interaction log not found; historical mode conditionally full_content; Q&A baseline unchanged; no experiment, rerun, or API call.
 - Next steps: Human decision whether to request the inaccessible original interaction log from Iris/Arnon; do not proceed to instrumentation or rerun.
+
+## 2026-09-04 13:05 +03:00 - Codex - Implement passive Q&A communication contract and offline verification
+
+- Request: Tasks 2–5: freeze baseline terminology, define live contract, implement privacy-safe observer/extractor, verify offline, and prepare one-setting run without live API execution.
+- Actions taken:
+  - Added qa-communication-event-v1 schema and deterministic append-only observer/projection; corrected frozen extractor F5 semantics to ANSWER_NOT_PERSISTED; documented blocked inputs, cost boundary, and protected-runtime integration gate; ran offline route/parity fixtures.
+- Files changed:
+  - schemas/qa-communication-event-v1.schema.json
+  - VEGO-AI/framework/qa_communication.py
+  - VEGO-AI/tests/test_qa_communication.py
+  - scripts/extract_qa_escalation_features.py
+  - scripts/tests/test_extract_qa_escalation_features.py
+  - docs/research/phd-proposal/2026-09-04-qa-baseline-freeze.md
+  - docs/research/phd-proposal/2026-09-04-qa-instrumentation-verification.md
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-observability.md
+  - tracking memory updates
+- Commands/checks:
+  - offline focused tests: 14 passed; VEGO-AI tests: 120 passed; full tests: 237 passed, 10 skipped, 1 pre-existing merge-base hardening failure; ruff: PASS; compileall: PASS; privacy: PASS; evidence consistency: 18/18 PASS
+- Status: Tasks 2–5 partial: observer contract and offline verification pass; protected orchestrator wiring remains pending; all four settings blocked by missing case-model directories; no live LLM/API run.
+- Next steps: Obtain reviewed runtime integration authorization and complete case-model inputs before one-setting dry-run/live decision; do not execute real LLM run yet.

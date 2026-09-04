@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/qa-communication-event-v1.schema.json",
+  "title": "VEGO-AI live Q&A communication event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "run_id", "event_id", "episode_id", "event_type",
+    "sequence", "timestamp", "question_id", "source_agent", "source_stage",
+    "source_skill", "target_agent", "scope", "question_text_ref",
+    "answer_text_ref", "answer_confidence", "answer_evidence_ref",
+    "answer_source_tier", "round_index", "follow_up_to_event_id",
+    "termination_reason", "converged", "case_id", "guideline_id",
+    "pattern_id", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "qa-communication-event-v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "event_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "episode_id": {"type": "string", "minLength": 1},
+    "event_type": {"enum": ["QUESTION_EMITTED", "ANSWER_RECEIVED", "EPISODE_CONTINUED", "EPISODE_TERMINATED"]},
+    "sequence": {"type": "integer", "minimum": 1},
+    "timestamp": {"type": ["string", "null"]},
+    "question_id": {"type": ["string", "null"]},
+    "source_agent": {"type": ["string", "null"]},
+    "source_stage": {"type": ["string", "null"]},
+    "source_skill": {"type": ["string", "null"]},
+    "target_agent": {"type": ["string", "null"]},
+    "scope": {"type": ["string", "null"]},
+    "case_id": {"type": ["string", "null"]},
+    "guideline_id": {"type": ["string", "null"]},
+    "pattern_id": {"type": ["string", "null"]},
+    "question_text_ref": {"$ref": "#/$defs/contentRef"},
+    "answer_text_ref": {"$ref": "#/$defs/contentRef"},
+    "answer_confidence": {"enum": ["High", "Medium", "Low", "UNKNOWN", null]},
+    "answer_evidence_ref": {"$ref": "#/$defs/contentRef"},
+    "answer_source_tier": {"type": ["string", "null"]},
+    "round_index": {"type": ["integer", "null"], "minimum": 1},
+    "follow_up_to_event_id": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "termination_reason": {"type": ["string", "null"]},
+    "converged": {"type": ["boolean", "null"]},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_artifact", "source_sha256"],
+      "properties": {
+        "source_artifact": {"type": ["string", "null"]},
+        "source_sha256": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "contentRef": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["sha256", "length"],
+      "properties": {
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "length": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

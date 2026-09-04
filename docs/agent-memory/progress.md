@@ -8,6 +8,8 @@ Track milestones, current work, and next steps here.
 
 ## Milestones
 
+| 2026-09-04 | Tasks 2–5 Q&A communication contract and offline observer | PARTIAL / pre-run review required | Added `qa-communication-event-v1`, privacy-safe append-only recorder, deterministic episode projection, live extractor support, baseline terminology freeze, and offline route/parity tests. Protected orchestrator wiring remains unmodified; all four settings are blocked by absent case-model directories; no live LLM/API run. |
+
 | 2026-09-04 | Task 1 original interaction-log recovery audit | NOT FOUND locally / contact decision pending | Deterministic read-only inventory covered repository, ignored/untracked material, supplied archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive, and Codex attachments. No original/probable log; historical code/logs indicate conditional full-content logging. Q&A baseline 12/30 unchanged; no rerun or API call. |
 
 | 2026-09-04 | Iris Q&A task-plan source and RTL verification hardening | Implemented / push and CI pending | Canonical JSON now drives Markdown/DOCX/PDF; equality tests cover all eight tasks and summary rows; send-gate and interaction-log semantic guards added. Approved supervisor wording unchanged; no experiment executed. |

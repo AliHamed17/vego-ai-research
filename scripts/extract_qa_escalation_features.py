@@ -13,8 +13,15 @@ import hashlib
 import json
 import pathlib
 import re
+import sys
 from collections import Counter
 from typing import Any
+
+try:
+    from qa_communication import build_episode_projection, load_event_stream
+except ImportError:  # pragma: no cover - direct script execution without repo path
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "VEGO-AI" / "framework"))
+    from qa_communication import build_episode_projection, load_event_stream
 
 SETTINGS = ("ucd_ch", "ucd_pw", "cd_ch", "cd_pw")
 MAX_QA_ROUNDS = 10
@@ -96,6 +103,7 @@ def make_event(
         "evidence_present": (bool(answer_evidence) if answer else None),
         "round_index": round_index,
         "answered": answer is not None,
+        "answer_status": "ANSWER_PERSISTED" if answer is not None else "ANSWER_NOT_PERSISTED",
         "follow_up_observed": None,
         "repeated_question": None,
         "converged": None,
@@ -239,7 +247,7 @@ def build_feature_inventory(root: pathlib.Path, events: list[dict[str, Any]]) ->
         "F2_low_or_medium_answer_confidence": {"available": False, "count": confidence["Low"] + confidence["Medium"], "deterministic": True, "rule": "answer_confidence in {Low, Medium}", "limitation": "answer confidence absent from frozen Q&A records"},
         "F3_answer_evidence_missing": {"available": False, "count": sum(event.get("answered") and event.get("evidence_present") is False for event in events), "deterministic": True, "rule": "answered and evidence_present == false", "limitation": "answers are not persisted"},
         "F4_lower_priority_source": {"available": False, "count": 0, "deterministic": True, "rule": "explicit source-priority field", "limitation": "no source-priority field"},
-        "F5_unanswered_question": {"available": True, "count": sum(not event["answered"] for event in events), "deterministic": True, "rule": "answered == false", "limitation": "absence from frozen history is not proof no live answer occurred"},
+        "F5_answer_not_persisted": {"available": True, "count": sum(not event["answered"] for event in events), "deterministic": True, "rule": "answer_status == ANSWER_NOT_PERSISTED", "escalation_signal": False, "limitation": "data-availability condition only; not evidence of agent uncertainty or a human-escalation need"},
         "F6_multiple_rounds": {"available": False, "count": 0, "deterministic": True, "rule": "same episode has round_index > 1", "limitation": "episode linkage is not persisted"},
         "F7_repeated_question": {"available": True, "count": sum(event["repeated_question"] for event in events), "deterministic": True, "rule": "normalized question text repeats", "limitation": "canonical final snapshot has no repeats"},
         "F8_follow_up_clarification": {"available": False, "count": 0, "deterministic": True, "rule": "follow_up_observed == true", "limitation": "follow-up linkage is not persisted"},
@@ -258,8 +266,8 @@ def detect_event(event: dict[str, Any]) -> dict[str, Any]:
         reasons.append("F2_LOW_OR_MEDIUM_ANSWER_CONFIDENCE")
     if event.get("answered") and event.get("evidence_present") is False:
         reasons.append("F3_MISSING_ANSWER_EVIDENCE")
-    if event.get("answered") is False:
-        reasons.append("F5_UNANSWERED_QUESTION")
+    # Missing historical answers are a data-availability status, not a
+    # behavioral escalation signal.  Keep the status visible without alerting.
     if event.get("repeated_question"):
         reasons.append("F7_REPEATED_NORMALIZED_QUESTION")
     if event.get("follow_up_observed"):
@@ -285,10 +293,53 @@ def detect_event(event: dict[str, Any]) -> dict[str, Any]:
         "decision": decision,
         "reason_codes": reasons,
         "answer_confidence": event.get("answer_confidence"),
+        "answer_status": event.get("answer_status", "UNKNOWN"),
         "evidence_present": event.get("evidence_present"),
         "explanation": "; ".join(reasons) if reasons else "No declared Q&A escalation rule fired.",
         "source_artifact_path": event["source_artifact_path"],
         "source_artifact_sha256": event["source_artifact_sha256"],
+    }
+
+
+def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
+    """Project a versioned live communication stream into safe episode features."""
+    if load_event_stream is None or build_episode_projection is None:
+        raise ExtractionError("qa communication module is unavailable")
+    try:
+        events = load_event_stream(path)
+        episodes = build_episode_projection(events)
+    except Exception as exc:  # noqa: BLE001 - fail closed at the script boundary
+        raise ExtractionError(f"invalid live communication stream: {exc}") from exc
+    features: list[dict[str, Any]] = []
+    for episode in episodes:
+        features.append({
+            "episode_id": episode["episode_id"],
+            "run_id": episode["run_id"],
+            "question_count": episode["question_count"],
+            "answer_count": episode["answer_count"],
+            "answer_confidence": [row.get("answer_confidence") for row in episode["answers"]],
+            "evidence_present": [bool(row.get("answer_evidence_ref")) for row in episode["answers"]],
+            "round_count": episode["round_count"],
+            "follow_up_present": episode["follow_up_present"],
+            "converged": episode["converged"],
+            "termination_reason": episode["termination_reason"],
+            "source_target_pairs": episode["source_target_pairs"],
+        })
+    return {
+        "schema": "qa-live-communication-features-v1",
+        "read_only": True,
+        "network": "not_used",
+        "baseline_modified": False,
+        "events": events,
+        "episodes": features,
+        "summary": {
+            "events": len(events),
+            "episodes": len(features),
+            "questions": sum(row["question_count"] for row in features),
+            "answers": sum(row["answer_count"] for row in features),
+            "max_round_termination": sum(row["termination_reason"] == "MAX_QA_ROUNDS" for row in features),
+        },
+        "claim_boundary": "live_communication_observability_only",
     }
 
 

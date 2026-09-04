@@ -295,3 +295,18 @@ Record file changes and rollback notes here.
   - tracking memory updates
 - Rollback note: Revert the receipt, recovery utility, tests, and tracking-memory entries; private generated inventories remain ignored.
 - Git commit: none recorded by script.
+
+## 2026-09-04 13:05 +03:00 - Codex - Implement passive Q&A communication contract and offline verification
+
+- Files changed:
+  - schemas/qa-communication-event-v1.schema.json
+  - VEGO-AI/framework/qa_communication.py
+  - VEGO-AI/tests/test_qa_communication.py
+  - scripts/extract_qa_escalation_features.py
+  - scripts/tests/test_extract_qa_escalation_features.py
+  - docs/research/phd-proposal/2026-09-04-qa-baseline-freeze.md
+  - docs/research/phd-proposal/2026-09-04-qa-instrumentation-verification.md
+  - docs/research/phd-proposal/2026-09-03-qa-escalation-observability.md
+  - tracking memory updates
+- Rollback note: Revert observer/schema/extractor/docs/tests and tracking-memory entries; protected runtime files remain unchanged.
+- Git commit: none recorded by script.

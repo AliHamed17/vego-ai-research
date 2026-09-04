@@ -41,8 +41,10 @@ merged with the 12 final rows.
 
 ## Frozen counts and features
 
-The canonical final snapshot contains 12 questions, 0 answers, and 12 unanswered
-questions. There are 12 language questions, 0 domain questions, 0 answers without
+The canonical final snapshot contains 12 persisted question records and no
+persisted matching answer records. This is reported as `ANSWER_NOT_PERSISTED`,
+not as a behavioral claim that the agent failed to answer. There are 12 language
+questions, 0 domain questions, and no persisted answer records without
 evidence, and 0 repeated normalized questions. Multiple-round episodes, cases with
 multiple questions, MAX_QA_ROUNDS episodes, and unresolved episode counts are not
 computable from the frozen evidence. The deterministic feature inventory is:
@@ -53,7 +55,7 @@ computable from the frozen evidence. The deterministic feature inventory is:
 | F2 | answer confidence ∈ {Low, Medium} | 0 | Not observed |
 | F3 | answered and answer evidence missing | 0 | Not observed |
 | F4 | explicit lower-priority source | 0 | Field unavailable |
-| F5 | unanswered question | 12 | Observed in frozen history |
+| F5 | answer not persisted | 12 | Data-availability status only; not a human-escalation signal |
 | F6 | multiple rounds | 0 | Not reconstructable |
 | F7 | repeated normalized question | 0 | Observed |
 | F8 | follow-up clarification | 0 | Not reconstructable |
@@ -64,7 +66,8 @@ computable from the frozen evidence. The deterministic feature inventory is:
 ## Detector and validation scaffold
 
 `extract_qa_escalation_features.py` emits source-hashed events and applies a
-transparent OR-rule. In the current snapshot, F5 produces 12 `ALERT` records. The
+transparent OR-rule. F5 is retained only as a visible data-availability status and
+does not produce an escalation alert. The
 alerts are candidate alerts only; no correctness is inferred. The detector stores
 reason codes, confidence, evidence presence, and provenance for auditability.
 
