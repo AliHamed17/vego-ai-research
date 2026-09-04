@@ -103,7 +103,7 @@ def sha256_file(path: Path) -> str:
 class network_disabled:
     """Context manager that makes any socket creation a hard failure."""
 
-    def __enter__(self) -> "network_disabled":
+    def __enter__(self) -> network_disabled:
         self._socket = socket.socket
         self._create = socket.create_connection
 
