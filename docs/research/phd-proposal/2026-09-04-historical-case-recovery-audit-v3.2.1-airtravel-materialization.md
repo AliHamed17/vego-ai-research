@@ -86,4 +86,4 @@ authorized or performed.
 The replacement request packet is
 `2026-09-05-airtravel-protected-fake-preflight-authorization-packet.md`.
 Superseded v3/v3.1 receipts remain historical evidence; their old
-`NOT_EXERCISED_ARCHIVE_UNAVAILABLE` wording is not the current v3.2.1 status.
+archive-unavailable wording is not the current v3.2.1 status.

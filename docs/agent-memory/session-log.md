@@ -441,3 +441,15 @@ Chronological prompt history for Codex and Claude.
   - offline CLI re-run exit 2 as blocked; git pull rebase and push
 - Status: TECHNICAL NO-GO; no provider calls
 - Next steps: No further execution; await policy, observer authorization, CI freshness gate and paid-run approval.
+
+## 2026-09-05 00:32 +03:00 - Codex - Final pre-authorization consistency correction
+
+- Request: Remove obsolete current-receipt status token while preserving superseded evidence and keep the gate blocked.
+- Actions taken:
+  - Current v3.2.1 report now states source/runtime/config PASS and fake preflight BLOCKED_PENDING_AUTHORIZATION without obsolete status wording.
+- Files changed:
+  - v3.2.1 report
+- Commands/checks:
+  - git diff check; no provider call
+- Status: TECHNICAL NO-GO; final correction pending push
+- Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.
