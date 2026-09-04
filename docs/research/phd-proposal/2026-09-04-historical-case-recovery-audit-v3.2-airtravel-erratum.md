@@ -1,7 +1,7 @@
 # Historical recovery v3.2 — AirTravel evidence reconciliation and technical preflight
 
 **Status: TECHNICAL NO-GO**  
-**Audit base SHA:** `d4a9a3b702cfa95075ba45729a103d40edbeb6c1`  
+**Audit base SHA:** `25b60197706f7725571bd32c2d4a258dd5014035`  
 **Provider, experiment, Detector-v1, and synthetic calls:** 0
 
 This is a successor/erratum to v3 and v3.1. Earlier reports remain preserved
@@ -40,8 +40,9 @@ consumed.
    `253b26dc704d523209a5cba79686f8f7fab57d63`; expected archive SHA-256 is
    `8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701`.
    Matched, missing, extra, and mismatched counts are therefore not asserted.
-2. **Source-to-runtime mapping:** blocked. PR #36 does not provide a
-   `source_path`/`runtime_path` mapping object, and upstream bytes are absent.
+2. **Source-to-runtime mapping:** blocked. PR #36 supplies a
+   `source_to_runtime_mapping` with five byte-identical relocation entries, but
+   upstream/runtime bytes are absent, so no equality result is asserted.
 3. **Runtime pack:** blocked. The exact five runtime files cannot be verified
    without the pinned archive. Reference-file exclusion and runtime
    configuration separation are not asserted until that archive is available;

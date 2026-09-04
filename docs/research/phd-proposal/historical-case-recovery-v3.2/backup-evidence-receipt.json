@@ -25,7 +25,7 @@
     "status": "BLOCKED"
   },
   "archive_entry_count": 632,
-  "audit_base_sha": "d4a9a3b702cfa95075ba45729a103d40edbeb6c1",
+  "audit_base_sha": "25b60197706f7725571bd32c2d4a258dd5014035",
   "audit_version": "historical-case-recovery-v3.2-airtravel-erratum",
   "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
   "detector_v1_runs": 0,

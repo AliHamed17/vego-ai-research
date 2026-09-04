@@ -65,7 +65,7 @@ def verify_upstream(archive: Path | None, source_manifest: Path | None) -> dict[
             missing = sorted(set(expected) - set(observed_paths))
             extra = sorted(set(observed_paths) - set(expected))
             mismatched = sorted(path for path, item in expected.items() if path in observed_paths and sha256_bytes(zf.read(observed_paths[path])) != item.get("sha256", "").lower())
-            result.update({"status": "PASS" if not missing and not extra and not mismatched and sha256_bytes(archive.read_bytes()) == UPSTREAM_SHA256 else "FAIL", "archive_sha256": sha256_bytes(archive.read_bytes()), "manifest_sha256": sha256_bytes(source_manifest.read_bytes()), "matched_count": len(expected) - len(missing) - len(mismatched), "missing_count": len(missing), "extra_count": len(extra), "mismatched_count": len(mismatched), "missing": missing, "extra": extra, "mismatched": mismatched})
+            result.update({"status": "PASS" if not missing and not extra and not mismatched and sha256_bytes(archive.read_bytes()) == UPSTREAM_SHA256 else "FAIL", "archive_sha256": sha256_bytes(archive.read_bytes()), "manifest_sha256": sha256_bytes(source_manifest.read_bytes()), "matched_count": len(expected) - len(missing) - len(mismatched), "missing_count": len(missing), "extra_count": len(extra), "mismatched_count": len(mismatched), "missing": missing, "extra": extra, "mismatched": mismatched, "archive_members": sorted(observed_paths.values()), "archive_bytes": {name: sha256_bytes(zf.read(name)) for name in observed_paths.values()}})
     except (OSError, json.JSONDecodeError, zipfile.BadZipFile) as exc:
         result["reason"] = str(exc)
     return result
@@ -74,10 +74,32 @@ def verify_upstream(archive: Path | None, source_manifest: Path | None) -> dict[
 def verify_mapping(upstream: dict[str, Any], amendment: dict[str, Any], runtime_archive: Path | None) -> dict[str, Any]:
     if upstream.get("status") != "PASS" or runtime_archive is None or not runtime_archive.is_file():
         return {"status": "BLOCKED", "reason": "upstream bytes and runtime archive are required for source-to-runtime mapping"}
-    mapping = amendment.get("source_runtime_mapping")
+    mapping = amendment.get("source_to_runtime_mapping") or amendment.get("source_runtime_mapping")
     if not mapping:
-        return {"status": "BLOCKED", "reason": "PR #36 manifest has no source_path/runtime_path mapping"}
-    return {"status": "NOT_EXECUTED", "reason": "mapping schema present but verifier requires an explicit approved mapping implementation"}
+        return {"status": "BLOCKED", "reason": "amendment manifest has no source_path/runtime_path mapping"}
+    try:
+        with zipfile.ZipFile(runtime_archive) as runtime_zip:
+            runtime_names = [n for n in runtime_zip.namelist() if not n.endswith("/")]
+            missing: list[str] = []
+            mismatched: list[str] = []
+            for item in mapping:
+                source = str(item["source_path"])
+                target = str(item["runtime_path"])
+                source_name = next((n for n in upstream.get("archive_members", []) if n.endswith("/" + source) or n == source), None)
+                if source_name is None:
+                    missing.append(source)
+                    continue
+                target_name = next((n for n in runtime_names if n == target or n.endswith("/" + target)), None)
+                if target_name is None:
+                    missing.append(target)
+                    continue
+                source_hash = upstream["archive_bytes"][source_name]
+                target_hash = sha256_bytes(runtime_zip.read(target_name))
+                if source_hash != target_hash or target_hash != str(item.get("sha256", "")).lower():
+                    mismatched.append(source)
+            return {"status": "PASS" if not missing and not mismatched else "FAIL", "mapping_count": len(mapping), "missing": sorted(missing), "mismatched": sorted(mismatched), "byte_identical": not mismatched}
+    except (OSError, zipfile.BadZipFile, KeyError, TypeError) as exc:
+        return {"status": "FAIL", "reason": str(exc)}
 
 
 def verify_runtime_pack(runtime_archive: Path | None, amendment: dict[str, Any], config: Path | None = None) -> dict[str, Any]:
