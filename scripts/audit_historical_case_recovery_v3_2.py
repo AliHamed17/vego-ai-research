@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import posixpath
 import subprocess
 import zipfile
 from pathlib import Path
@@ -32,6 +33,15 @@ def _load_v31():
 
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _normalized_collisions(paths: list[str]) -> list[list[str]]:
+    """Return case-insensitive POSIX path collisions without changing inputs."""
+    groups: dict[str, list[str]] = {}
+    for path in paths:
+        key = posixpath.normpath(path).casefold()
+        groups.setdefault(key, []).append(path)
+    return sorted((sorted(values) for values in groups.values() if len(values) > 1), key=lambda v: v[0])
 
 
 def resolve_manifest(ref: str, manifest_path: str, expected_sha256: str) -> dict[str, Any]:
@@ -61,15 +71,18 @@ def verify_upstream(archive: Path | None, source_manifest: Path | None) -> dict[
             all_names = zf.namelist()
             names = set(all_names)
             prefix = next((n[: n.rfind("dataset/AirTravel/") + len("dataset/AirTravel/")] for n in names if "dataset/AirTravel/" in n), "")
-            expected = {item["path"]: item for item in source.get("files", [])}
+            source_rows = [item for item in source.get("files", []) if isinstance(item, dict) and isinstance(item.get("path"), str)]
+            manifest_path_collisions = _normalized_collisions([item["path"] for item in source_rows])
+            expected = {item["path"]: item for item in source_rows}
             observed_paths = {n[len(prefix):]: n for n in names if prefix and n.startswith(prefix) and not n.endswith("/")}
+            archive_path_collisions = _normalized_collisions(list(observed_paths))
             missing = sorted(set(expected) - set(observed_paths))
             extra = sorted(set(observed_paths) - set(expected))
             mismatched = sorted(path for path, item in expected.items() if path in observed_paths and sha256_bytes(zf.read(observed_paths[path])) != item.get("sha256", "").lower())
-            duplicate_members = sorted(name for name in set(all_names) if all_names.count(name) > 1 and prefix and name.startswith(prefix))
+            duplicate_members = sorted(name for name in set(all_names) if all_names.count(name) > 1)
             archive_sha = sha256_bytes(archive.read_bytes())
             commit_identity = prefix.startswith(f"text2uml-{UPSTREAM_COMMIT}/")
-            result.update({"status": "PASS" if len(expected) == 143 and len(observed_paths) == 143 and commit_identity and not duplicate_members and not missing and not extra and not mismatched and archive_sha == UPSTREAM_SHA256 else "FAIL", "archive_sha256": archive_sha, "archive_url": f"https://github.com/IlKaiser/text2uml/archive/{UPSTREAM_COMMIT}.zip", "upstream_repository": "https://github.com/IlKaiser/text2uml", "commit_identity_status": "PASS" if commit_identity else "FAIL", "manifest_sha256": sha256_bytes(source_manifest.read_bytes()), "expected_file_count": 143, "observed_file_count": len(observed_paths), "matched_count": len(expected) - len(missing) - len(mismatched), "missing_count": len(missing), "extra_count": len(extra), "mismatched_count": len(mismatched), "duplicate_members": duplicate_members, "missing": missing, "extra": extra, "mismatched": mismatched, "archive_members": sorted(observed_paths.values()), "archive_bytes": {name: sha256_bytes(zf.read(name)) for name in observed_paths.values()}})
+            result.update({"status": "PASS" if len(expected) == 143 and len(observed_paths) == 143 and commit_identity and not duplicate_members and not manifest_path_collisions and not archive_path_collisions and not missing and not extra and not mismatched and archive_sha == UPSTREAM_SHA256 else "FAIL", "archive_sha256": archive_sha, "archive_url": f"https://github.com/IlKaiser/text2uml/archive/{UPSTREAM_COMMIT}.zip", "upstream_repository": "https://github.com/IlKaiser/text2uml", "commit_identity_status": "PASS" if commit_identity else "FAIL", "manifest_sha256": sha256_bytes(source_manifest.read_bytes()), "expected_file_count": 143, "observed_file_count": len(observed_paths), "matched_count": len(expected) - len(missing) - len(mismatched), "missing_count": len(missing), "extra_count": len(extra), "mismatched_count": len(mismatched), "duplicate_members": duplicate_members, "manifest_path_collisions": manifest_path_collisions, "archive_path_collisions": archive_path_collisions, "missing": missing, "extra": extra, "mismatched": mismatched, "archive_members": sorted(observed_paths.values()), "archive_bytes": {name: sha256_bytes(zf.read(name)) for name in observed_paths.values()}})
     except (OSError, json.JSONDecodeError, zipfile.BadZipFile) as exc:
         result["reason"] = str(exc)
     return result
@@ -118,7 +131,10 @@ def verify_mapping(upstream: dict[str, Any], amendment: dict[str, Any], runtime_
                 target_hash = sha256_bytes(runtime_zip.read(target_name))
                 if source_hash != target_hash or target_hash != str(item.get("sha256", "")).lower() or len(runtime_zip.read(target_name)) != int(item.get("bytes", -1)):
                     mismatched.append(source)
-            return {"status": "PASS" if not missing and not mismatched else "FAIL", "mapping_count": len(mapping), "source_path_count": len(set(source_paths)), "runtime_path_count": len(set(runtime_paths)), "missing": sorted(missing), "mismatched": sorted(mismatched), "byte_identical": not missing and not mismatched}
+            source_collisions = _normalized_collisions(source_paths)
+            runtime_collisions = _normalized_collisions(runtime_paths)
+            status = "PASS" if len(mapping) == 5 and len(set(source_paths)) == 5 and len(set(runtime_paths)) == 5 and not source_collisions and not runtime_collisions and not missing and not mismatched else "FAIL"
+            return {"status": status, "mapping_count": len(mapping), "source_path_count": len(set(source_paths)), "runtime_path_count": len(set(runtime_paths)), "source_path_collisions": source_collisions, "runtime_path_collisions": runtime_collisions, "missing": sorted(missing), "mismatched": sorted(mismatched), "byte_identical": status == "PASS"}
     except (OSError, zipfile.BadZipFile, KeyError, TypeError) as exc:
         return {"status": "FAIL", "reason": str(exc)}
 
@@ -136,6 +152,7 @@ def verify_runtime_pack(runtime_archive: Path | None, amendment: dict[str, Any],
             names = set(all_names)
             expected = {item["path"]: item for item in amendment.get("runtime_files", [])}
             observed = {name.split("runtime_input/", 1)[-1]: name for name in all_names}
+            observed_collisions = _normalized_collisions(list(observed))
             missing = sorted(set(expected) - set(observed))
             extra = sorted(set(observed) - set(expected))
             duplicate_members = sorted(name for name in set(all_names) if all_names.count(name) > 1)
@@ -149,10 +166,11 @@ def verify_runtime_pack(runtime_archive: Path | None, amendment: dict[str, Any],
                 and cfg.get("description_path") == "domain_description/description.md"
                 and cfg.get("candidate_models_dir") == "candidate_models"
                 and "reference_only" not in json.dumps(cfg)
-                and all(path in cfg.get("runtime_files", []) for path in expected)
+                and sorted(cfg.get("runtime_files", [])) == sorted(expected)
+                and not any(str(path).startswith("reference_only/") for path in cfg.get("runtime_files", []))
             ) else "FAIL"
-            status = "PASS" if len(expected) == 5 and len(observed) == 5 and not missing and not extra and not duplicate_members and not mismatched and not references_visible and config_status == "PASS" else "FAIL"
-            return {"status": status, "expected_count": len(expected), "observed_runtime_count": len(observed), "matched_count": len(expected) - len(missing) - len(mismatched), "missing": missing, "extra": extra, "duplicate_members": duplicate_members, "mismatched": mismatched, "reference_files_visible": references_visible, "configuration_status": config_status}
+            status = "PASS" if len(expected) == 5 and len(observed) == 5 and not observed_collisions and not missing and not extra and not duplicate_members and not mismatched and not references_visible and config_status == "PASS" else "FAIL"
+            return {"status": status, "expected_count": len(expected), "observed_runtime_count": len(observed), "matched_count": len(expected) - len(missing) - len(mismatched), "missing": missing, "extra": extra, "duplicate_members": duplicate_members, "normalized_path_collisions": observed_collisions, "mismatched": mismatched, "reference_files_visible": references_visible, "configuration_status": config_status}
     except (OSError, zipfile.BadZipFile, json.JSONDecodeError) as exc:
         return {"status": "FAIL", "reason": str(exc)}
 
@@ -222,6 +240,12 @@ def write_outputs(result: dict[str, Any], output_root: Path) -> None:
     (output_root / "provenance-binding-summary.json").write_text(json.dumps(binding, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def gate_exit_code(result: dict[str, Any]) -> int:
+    """Non-zero for any failed/blocked preflight gate; never authorizes execution."""
+    required = ("airtravel_manifest_verification", "airtravel_source_verification", "airtravel_source_runtime_mapping", "airtravel_runtime_pack_verification", "airtravel_fake_preflight")
+    return 0 if all(result.get(key, {}).get("status") == "PASS" for key in required) else 2
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--backup", type=Path, required=True)
@@ -239,7 +263,7 @@ def main() -> int:
     result = audit_v32(args.backup, args.v2_manifest, amendment_ref=args.amendment_ref, amendment_manifest_path=args.amendment_manifest_path, amendment_sha256=args.amendment_manifest_sha256, upstream_archive=args.upstream_archive, source_manifest=args.source_manifest, runtime_archive=args.runtime_archive, runtime_config=args.runtime_config, audit_base_sha=args.audit_base_sha)
     write_outputs(result, args.output_root)
     print(json.dumps({"audit_version": result["audit_version"], "file_level_match": result["file_level_match"], "manifest_status": result["airtravel_manifest_verification"]["status"], "source_status": result["airtravel_source_verification"]["status"], "runtime_status": result["airtravel_runtime_pack_verification"]["status"]}, sort_keys=True))
-    return 0
+    return gate_exit_code(result)
 
 
 if __name__ == "__main__":

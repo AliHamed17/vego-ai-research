@@ -381,3 +381,27 @@ Chronological prompt history for Codex and Claude.
   - GitHub Actions 33917630552 (source gate red; Python matrix pass)
 - Status: TECHNICAL NO-GO: protected preflight authorization and CI stale manifest gate remain
 - Next steps: Resolve release-manifest gate; obtain protected observer authorization; then rerun offline protected fake preflight before any paid authorization
+
+## 2026-09-04 23:55 +03:00 - Codex - AirTravel v3.2.1 verifier hardening
+
+- Request: Complete final offline AirTravel materialization and v3.2.1 technical gate without provider execution.
+- Actions taken:
+  - Harden normalized path collision checks; regenerate receipts; run offline checks
+- Files changed:
+  - v3.2.1 verifier, tests, report and receipts
+- Commands/checks:
+  - 349 scripts tests; 46 root; 134 VEGO-AI; ruff/compile/privacy/security/evidence pass
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: Resolve protected observer authorization, CI stale release gate, model/budget selection and paid-run authorization before provider execution.
+
+## 2026-09-05 00:00 +03:00 - Codex - AirTravel v3.2.1 adversarial test completion
+
+- Request: Complete offline adversarial coverage and final verification without provider execution.
+- Actions taken:
+  - Add strict adversarial tests for wrong manifests, mappings, runtime files and configuration
+- Files changed:
+  - scripts/tests/test_audit_historical_case_recovery_v3_2.py and audit report
+- Commands/checks:
+  - 353 scripts tests; focused 16; root 46; VEGO-AI 134; ruff compile privacy security evidence pass
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: Synchronize, commit and push; await protected authorization, green CI and explicit paid-run authorization.

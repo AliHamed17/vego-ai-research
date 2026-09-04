@@ -10,7 +10,7 @@ the obsolete AirTravel branch and does not call `v3.1.audit_v31()`.
 
 ## Authority and source receipt
 
-- PR #36 head consumed: `3c2eb4494c89fbbd0d6ac05c3ff4aeaaeff78bee`
+- PR #36 head consumed: `cae51a5d7df5fe5b81256d904ff0ba47e669e44b`
 - v1.0.2 manifest SHA-256: `bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2`
 - Upstream commit: `253b26dc704d523209a5cba79686f8f7fab57d63`
 - Codeload archive SHA-256: `8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701`
@@ -62,8 +62,8 @@ authorization remain pending.
 
 ## Verification and CI
 
-Focused v3.2.1 tests pass (`9 passed`, one expected duplicate-ZIP warning),
-ruff and compilation pass. The latest full local suites are `346 passed,
+Focused v3.2.1 tests pass (`16 passed`, one expected duplicate-ZIP warning),
+ruff and compilation pass. The latest full local suites are `353 passed,
 22 skipped` in `scripts/tests`, `134 passed` in `VEGO-AI/tests`, and `46 passed`
 in the root suite; evidence consistency, security, and privacy checks pass.
 
