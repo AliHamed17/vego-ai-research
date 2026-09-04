@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import asyncio
+import json
+import os
+import subprocess
+import sys
 
 from qa_communication import QACommunicationRecorder
 from qa_instrumented_runner import (
@@ -53,3 +57,11 @@ def test_concurrent_proxy_tasks_keep_route_context_separate(tmp_path) -> None:
     events = asyncio.run(scenario())
     assert {(event["source_agent"], event["target_agent"]) for event in events
             if event["event_type"] == "QUESTION_EMITTED"} == {("agent3", "agent1"), ("agent4", "agent2")}
+
+
+def test_episode_event_ids_repeat_across_processes() -> None:
+    code = "from qa_instrumented_runner import run_parity_fixture; import json; print(json.dumps([e['event_id'] for e in run_parity_fixture()['on']['events']]))"
+    env = {**os.environ, "PYTHONPATH": str(__file__).split("VEGO-AI")[0] + "VEGO-AI/framework"}
+    first = subprocess.check_output([sys.executable, "-c", code], env=env, text=True)
+    second = subprocess.check_output([sys.executable, "-c", code], env=env, text=True)
+    assert json.loads(first.strip().splitlines()[-1]) == json.loads(second.strip().splitlines()[-1])

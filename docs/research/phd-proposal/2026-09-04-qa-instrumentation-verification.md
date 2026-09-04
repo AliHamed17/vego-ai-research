@@ -33,9 +33,10 @@ and source/target pairs.
 
 ## Offline routes and fixtures
 
-The offline runner executes the protected `orchestrator.run` path and then each
-protected Q&A helper route against a deterministic fake. The adapter can
-represent all existing advisor routes through the shared helpers:
+The offline runner executes the protected `orchestrator.run` path and then
+synthetic protected Q&A helper-route fixtures against a deterministic fake. One
+route is naturally emitted by the full fixture; the helper fixtures cover the
+declared combinations:
 
 | Route | Runtime support |
 |---|---|
@@ -46,7 +47,7 @@ represent all existing advisor routes through the shared helpers:
 | Agent 4 → Agent 1 | adapter-supported |
 | Agent 4 → Agent 2 | adapter-supported |
 
-No route was invented and no provider/model client was invoked by verification.
+No production route was observed and no provider/model client was invoked by verification.
 
 ## Verification results
 

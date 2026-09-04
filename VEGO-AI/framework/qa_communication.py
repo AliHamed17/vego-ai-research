@@ -17,6 +17,7 @@ import jsonschema
 
 SCHEMA_VERSION = "qa-communication-event-v1"
 EVENT_TYPES = frozenset({"QUESTION_EMITTED", "ANSWER_RECEIVED", "EPISODE_CONTINUED", "EPISODE_TERMINATED"})
+TERMINATION_REASONS = frozenset({"CONVERGED", "TERMINATED_MAX_ROUNDS", "INCOMPLETE_TECHNICAL"})
 _SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schemas" / "qa-communication-event-v1.schema.json"
 _SCHEMA = json.loads(_SCHEMA_PATH.read_text(encoding="utf-8"))
 
@@ -61,16 +62,15 @@ class QACommunicationRecorder:
              answer_confidence: str | None = None, answer_evidence: str | None = None,
              answer_source_tier: str | None = None, round_index: int | None = None,
              follow_up_to_event_id: str | None = None, termination_reason: str | None = None,
-             termination_state: str | None = None, converged: bool | None = None) -> dict[str, Any]:
+             converged: bool | None = None) -> dict[str, Any]:
         if event_type not in EVENT_TYPES:
             raise QACommunicationValidationError(f"unsupported event_type: {event_type}")
-        if event_type == "EPISODE_TERMINATED" and termination_state is None:
-            if converged is True or (termination_reason or "").casefold() in {"converged", "convergence"}:
-                termination_state = "CONVERGED"
-            elif (termination_reason or "").upper() == "MAX_QA_ROUNDS":
-                termination_state = "TERMINATED_MAX_ROUNDS"
-            else:
-                termination_state = "INCOMPLETE_TECHNICAL"
+        if event_type == "EPISODE_TERMINATED":
+            termination_reason = (termination_reason or "").upper()
+            if termination_reason not in TERMINATION_REASONS:
+                raise QACommunicationValidationError("termination_reason must be a permitted scientific state")
+        elif termination_reason is not None or converged is not None:
+            raise QACommunicationValidationError("non-termination events cannot carry termination fields")
         event: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
             "run_id": self.run_id,
@@ -96,7 +96,6 @@ class QACommunicationRecorder:
             "round_index": round_index,
             "follow_up_to_event_id": follow_up_to_event_id,
             "termination_reason": termination_reason,
-            "termination_state": termination_state if event_type == "EPISODE_TERMINATED" else None,
             "converged": converged,
             "provenance": {"source_artifact": self.source_artifact, "source_sha256": self.source_sha256},
         }
@@ -164,15 +163,13 @@ class QACommunicationRecorder:
                 source_tier=answer.get("source_tier"),
             )
 
-    def close_open_episodes(self, *, termination_reason: str,
-                            termination_state: str = "INCOMPLETE_TECHNICAL",
+    def close_open_episodes(self, *, termination_reason: str = "INCOMPLETE_TECHNICAL",
                             converged: bool | None = None) -> None:
         """Close observed episodes without changing any scientific output."""
         for episode_id in sorted(self._active_episodes):
             self.emit_termination(
                 episode_id=episode_id, question_id=None, round_index=None,
                 termination_reason=termination_reason, converged=converged,
-                termination_state=termination_state,
             )
 
 
@@ -181,6 +178,16 @@ def validate_event(event: dict[str, Any]) -> None:
         jsonschema.validate(event, _SCHEMA)
     except jsonschema.ValidationError as exc:
         raise QACommunicationValidationError(exc.message) from exc
+    if event["event_type"] == "EPISODE_TERMINATED":
+        reason = event["termination_reason"]
+        if reason not in TERMINATION_REASONS:
+            raise QACommunicationValidationError("invalid termination_reason")
+        expected = {"CONVERGED": True, "TERMINATED_MAX_ROUNDS": False,
+                    "INCOMPLETE_TECHNICAL": None}[reason]
+        if event["converged"] is not expected:
+            raise QACommunicationValidationError("termination_reason/converged invariant failed")
+    elif event["termination_reason"] is not None or event["converged"] is not None:
+        raise QACommunicationValidationError("termination fields are only valid on termination events")
 
 
 def validate_event_stream(events: list[dict[str, Any]]) -> None:
@@ -196,10 +203,36 @@ def validate_event_stream(events: list[dict[str, Any]]) -> None:
             raise QACommunicationValidationError("event_id does not match canonical event")
         seen.add(event["event_id"])
         expected_sequence += 1
-    questions = {event["question_id"] for event in events if event["event_type"] == "QUESTION_EMITTED"}
+    question_events = [event for event in events if event["event_type"] == "QUESTION_EMITTED"]
+    questions = {event["question_id"] for event in question_events}
+    if len(questions) != len(question_events):
+        raise QACommunicationValidationError("duplicate question_id in run")
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for event in events:
+        grouped[event["episode_id"]].append(event)
     for event in events:
         if event["event_type"] == "ANSWER_RECEIVED" and event["question_id"] not in questions:
             raise QACommunicationValidationError("answer references unknown question_id")
+    for episode_id, rows in grouped.items():
+        terminations = [row for row in rows if row["event_type"] == "EPISODE_TERMINATED"]
+        if len(terminations) > 1:
+            raise QACommunicationValidationError(f"episode {episode_id} has multiple terminations")
+        if terminations and rows[-1]["event_type"] != "EPISODE_TERMINATED":
+            raise QACommunicationValidationError(f"episode {episode_id} has events after termination")
+        answer_ids = [row["question_id"] for row in rows if row["event_type"] == "ANSWER_RECEIVED"]
+        if len(answer_ids) != len(set(answer_ids)):
+            raise QACommunicationValidationError(f"episode {episode_id} has duplicate answers")
+        by_id = {row["event_id"]: row for row in rows}
+        episode_questions = {row["question_id"] for row in rows if row["event_type"] == "QUESTION_EMITTED"}
+        if terminations and terminations[0]["termination_reason"] in {"CONVERGED", "TERMINATED_MAX_ROUNDS"}:
+            if episode_questions - set(answer_ids):
+                raise QACommunicationValidationError(f"scientific episode {episode_id} has missing answers")
+        for row in rows:
+            pointer = row["follow_up_to_event_id"]
+            if pointer:
+                prior = by_id.get(pointer)
+                if prior is None or prior["event_type"] != "QUESTION_EMITTED" or prior["sequence"] >= row["sequence"]:
+                    raise QACommunicationValidationError("invalid follow-up pointer")
 
 
 def build_episode_projection(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -224,7 +257,8 @@ def build_episode_projection(events: list[dict[str, Any]]) -> list[dict[str, Any
             "continued": bool(continued),
             "converged": any(row["converged"] is True for row in terminated),
             "termination_reason": terminated[-1]["termination_reason"] if terminated else None,
-            "termination_state": terminated[-1]["termination_state"] if terminated else None,
+            "scientific_complete": bool(terminated and terminated[-1]["termination_reason"] in {"CONVERGED", "TERMINATED_MAX_ROUNDS"}),
+            "exclusion_reason": None if terminated and terminated[-1]["termination_reason"] in {"CONVERGED", "TERMINATED_MAX_ROUNDS"} else (terminated[-1]["termination_reason"] if terminated else "UNTERMINATED"),
             "source_target_pairs": sorted({
                 (row["source_agent"], row["target_agent"])
                 for row in rows if row["source_agent"] or row["target_agent"]

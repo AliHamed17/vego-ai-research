@@ -33,7 +33,7 @@ def _events(tmp_path: Path) -> list[dict]:
     )
     recorder.emit_termination(
         episode_id="episode-1", question_id="Q_lang_001", round_index=1,
-        termination_reason="converged", converged=True,
+        termination_reason="CONVERGED", converged=True,
     )
     return recorder.events
 
@@ -44,7 +44,7 @@ def test_append_only_events_project_to_complete_episode(tmp_path: Path) -> None:
     assert projection[0]["question_count"] == 1
     assert projection[0]["answer_count"] == 1
     assert projection[0]["converged"] is True
-    assert projection[0]["termination_state"] == "CONVERGED"
+    assert projection[0]["termination_reason"] == "CONVERGED"
     assert projection[0]["round_count"] == 1
     assert projection[0]["answers"][0]["answer_confidence"] == "High"
 
@@ -87,7 +87,7 @@ def test_all_supported_routes_are_representable(tmp_path: Path) -> None:
         )
         recorder.emit_answer(question=question, answer_text="a", answer_confidence="Low")
         recorder.emit_termination(episode_id=f"ep-{index}", question_id=f"Q_{index:03d}",
-                                  termination_reason="converged", converged=True, round_index=1)
+                                  termination_reason="CONVERGED", converged=True, round_index=1)
     projections = build_episode_projection(recorder.events)
     assert len(projections) == len(routes)
     assert sorted(projections[0]["source_target_pairs"]) == [("agent2", "agent1")]
@@ -108,23 +108,50 @@ def test_follow_up_and_max_round_termination_are_projected(tmp_path: Path) -> No
     )
     recorder.emit_answer(question=second, answer_text="a2", answer_confidence="Medium")
     recorder.emit_termination(episode_id="ep", question_id="Q_002", round_index=2,
-                              termination_reason="MAX_QA_ROUNDS", converged=False)
+        termination_reason="TERMINATED_MAX_ROUNDS", converged=False)
     projection = build_episode_projection(recorder.events)[0]
     assert projection["round_count"] == 2
     assert projection["follow_up_present"] is True
-    assert projection["termination_reason"] == "MAX_QA_ROUNDS"
+    assert projection["termination_reason"] == "TERMINATED_MAX_ROUNDS"
     assert projection["converged"] is False
-    assert projection["termination_state"] == "TERMINATED_MAX_ROUNDS"
+    assert projection["termination_reason"] == "TERMINATED_MAX_ROUNDS"
 
 
 def test_explicit_incomplete_technical_termination_is_projected(tmp_path: Path) -> None:
     recorder = QACommunicationRecorder(tmp_path / "incomplete.jsonl", run_id="incomplete")
     recorder.emit_termination(
-        episode_id="ep", termination_reason="fixture_missing_route",
-        termination_state="INCOMPLETE_TECHNICAL",
+        episode_id="ep", termination_reason="INCOMPLETE_TECHNICAL",
     )
     projection = build_episode_projection(recorder.events)[0]
-    assert projection["termination_state"] == "INCOMPLETE_TECHNICAL"
+    assert projection["termination_reason"] == "INCOMPLETE_TECHNICAL"
+
+
+def test_lifecycle_invariants_fail_closed(tmp_path: Path) -> None:
+    recorder = QACommunicationRecorder(tmp_path / "lifecycle.jsonl", run_id="lifecycle")
+    question = recorder.emit_question(
+        question_id="Q_001", episode_id="ep", source_agent="agent2", source_stage="phase2",
+        source_skill="qa", target_agent="agent1", scope="language", question_text="q", round_index=1,
+    )
+    with pytest.raises(QACommunicationValidationError):
+        recorder.emit_termination(episode_id="ep", termination_reason="OTHER", converged=True)
+    with pytest.raises(QACommunicationValidationError):
+        recorder.emit_termination(episode_id="ep", termination_reason="CONVERGED", converged=False)
+    recorder.emit_answer(question=question, answer_text="a", answer_confidence="High")
+    recorder.emit_termination(episode_id="ep", termination_reason="CONVERGED", converged=True)
+    duplicate = dict(recorder.events[1])
+    duplicate["sequence"] = 4
+    with pytest.raises(QACommunicationValidationError):
+        validate_event_stream(recorder.events + [duplicate])
+
+
+def test_unterminated_episode_is_not_scientifically_complete(tmp_path: Path) -> None:
+    recorder = QACommunicationRecorder(tmp_path / "open.jsonl", run_id="open")
+    recorder.emit_question(question_id="Q_001", episode_id="ep", source_agent="agent2",
+                           source_stage="phase2", source_skill="qa", target_agent="agent1",
+                           scope="language", question_text="q", round_index=1)
+    projection = build_episode_projection(recorder.events)[0]
+    assert projection["scientific_complete"] is False
+    assert projection["exclusion_reason"] == "UNTERMINATED"
 
 
 def test_instrumentation_off_on_preserves_prompt_and_answer(tmp_path: Path) -> None:

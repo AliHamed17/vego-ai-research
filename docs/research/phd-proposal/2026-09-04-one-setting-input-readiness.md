@@ -7,7 +7,7 @@
 
 The current `VEGO-AI/eval/eval_config.json` references four external case-model directories (`ucd_pw`, `cd_pw`, `ucd_ch`, `cd_ch`). None of those configured directories exists in the current checkout. A metadata-only inventory across the repository, Downloads, OneDrive Documents, Claude workspaces, and Codex attachments found two byte-identical copies of one ParkWise use-case model candidate (SHA-256 `cd90fc1d1b4ba57428ae10f97ebdf233acf13bfe1c5a13082c8da326c6481a1f`, 45,430 bytes). The candidate is not bound to a setting, is not a complete four-setting corpus, and is not promoted into the frozen baseline.
 
-The private inventory receipt is generated at `reports/generated/case_model_recovery/2026-09-04-input-recovery.json` and is intentionally ignored by Git. It records absolute paths and hashes for local recovery only. No case-model content was copied into tracked artifacts.
+The private inventory receipt is generated at `reports/generated/case_model_recovery/2026-09-04-input-recovery.json` and is intentionally ignored by Git. It records absolute paths, hashes, and archive-member metadata for local recovery only (12 relevant archives; member names were inspected without extraction). No case-model content was copied into tracked artifacts.
 
 ## Readiness matrix
 

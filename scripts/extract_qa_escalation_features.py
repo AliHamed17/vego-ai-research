@@ -306,6 +306,33 @@ def detect_event(event: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def detect_detector_v1(episode: dict[str, Any]) -> dict[str, Any]:
+    """Apply the preregistered strong/weak detector to a complete episode."""
+    if not episode.get("scientific_complete"):
+        return {"episode_id": episode["episode_id"], "classification": "EXCLUDED",
+                "candidate_alert": False, "reason_codes": [],
+                "exclusion_reason": episode.get("exclusion_reason")}
+    answers = episode.get("answers", [])
+    reasons: list[str] = []
+    if any(row.get("answer_confidence") == "Low" for row in answers):
+        reasons.append("S1_LOW_ANSWER_CONFIDENCE")
+    if any((ref := row.get("answer_evidence_ref")) is None or ref.get("length", 0) == 0 for row in answers):
+        reasons.append("S3_MISSING_ANSWER_EVIDENCE")
+    if episode.get("termination_reason") == "TERMINATED_MAX_ROUNDS":
+        reasons.append("S7_TERMINATED_MAX_ROUNDS")
+    if reasons:
+        classification = "STRONG_ALERT"
+    else:
+        if any(row.get("answer_confidence") == "Medium" for row in answers):
+            reasons.append("S2_MEDIUM_ANSWER_CONFIDENCE")
+        if episode.get("round_count", 0) > 1:
+            reasons.append("S6_MULTIPLE_QA_ROUNDS")
+        classification = "WEAK_ALERT" if reasons else "NO_ALERT"
+    return {"episode_id": episode["episode_id"], "classification": classification,
+            "candidate_alert": classification in {"STRONG_ALERT", "WEAK_ALERT"},
+            "reason_codes": reasons, "exclusion_reason": None}
+
+
 def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
     """Project a versioned live communication stream into safe episode features."""
     if load_event_stream is None or build_episode_projection is None:
@@ -323,14 +350,20 @@ def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
             "question_count": episode["question_count"],
             "answer_count": episode["answer_count"],
             "answer_confidence": [row.get("answer_confidence") for row in episode["answers"]],
-            "evidence_present": [bool(row.get("answer_evidence_ref")) for row in episode["answers"]],
+            "evidence_present": [
+                (ref := row.get("answer_evidence_ref")) is not None and ref.get("length", 0) > 0
+                for row in episode["answers"]
+            ],
             "round_count": episode["round_count"],
             "follow_up_present": episode["follow_up_present"],
             "converged": episode["converged"],
             "termination_reason": episode["termination_reason"],
-            "termination_state": episode["termination_state"],
+            "scientific_complete": episode["scientific_complete"],
+            "exclusion_reason": episode["exclusion_reason"],
             "source_target_pairs": episode["source_target_pairs"],
+            "answers": episode["answers"],
         })
+    detector_v1 = [detect_detector_v1(row) for row in features]
     return {
         "schema": "qa-live-communication-features-v1",
         "read_only": True,
@@ -338,14 +371,16 @@ def extract_live_corpus(path: pathlib.Path) -> dict[str, Any]:
         "baseline_modified": False,
         "events": events,
         "episodes": features,
+        "detector_v1": detector_v1,
         "summary": {
             "events": len(events),
             "episodes": len(features),
             "questions": sum(row["question_count"] for row in features),
             "answers": sum(row["answer_count"] for row in features),
-            "max_round_termination": sum(row["termination_reason"] == "MAX_QA_ROUNDS" for row in features),
-            "technical_incomplete_episodes": sum(row["termination_state"] == "INCOMPLETE_TECHNICAL" for row in features),
-            "scientific_episode_count": sum(row["termination_state"] != "INCOMPLETE_TECHNICAL" for row in features),
+            "max_round_termination": sum(row["termination_reason"] == "TERMINATED_MAX_ROUNDS" for row in features),
+            "excluded_unterminated": sum(row["exclusion_reason"] == "UNTERMINATED" for row in features),
+            "excluded_incomplete_technical": sum(row["exclusion_reason"] == "INCOMPLETE_TECHNICAL" for row in features),
+            "scientific_episode_count": sum(row["scientific_complete"] for row in features),
         },
         "claim_boundary": "live_communication_observability_only",
     }

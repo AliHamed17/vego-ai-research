@@ -72,20 +72,17 @@ class DeterministicFixtureClient:
 class InstrumentedLLMClientProxy:
     """Pass-through proxy that cannot alter prompts, answers, or decisions."""
 
-    def __init__(self, fake: DeterministicFixtureClient, recorder: QACommunicationRecorder | None = None) -> None:
+    def __init__(self, fake: DeterministicFixtureClient, recorder: QACommunicationRecorder | None = None,
+                 *, run_id: str = "study1-fixture", setting_id: str = "fixture") -> None:
         self.fake = fake
         self.recorder = recorder
+        self.run_id = run_id
+        self.setting_id = setting_id
         self.calls: list[dict[str, Any]] = []
         self._pending: dict[str, list[dict[str, Any]]] = {}
-        self._task_tokens: dict[int, str] = {}
-
-    def _task_token(self) -> str:
-        task = asyncio.current_task()
-        key = id(task) if task else 0
-        return self._task_tokens.setdefault(key, f"task-{key:x}")
 
     async def call(self, prompt: dict[str, Any], *, label: str) -> dict[str, Any]:
-        token = self._task_token()
+        token = f"{self.run_id}|{self.setting_id}|{label}"
         self.calls.append({"label": label, "prompt_sha256": _sha(prompt),
                            "prompt_length": len(json.dumps(prompt, ensure_ascii=False))})
         result = await self.fake.call(prompt, label=label)
@@ -113,7 +110,11 @@ class InstrumentedLLMClientProxy:
                 source = context or {"source_agent": "agent2", "source_stage": "guideline_construction",
                                      "source_skill": "qa_route", "target_agent": questions[0].get("target", "agent1"),
                                      "scope": "language" if "language" in label else "domain"}
-                episode_id = f"{token}:{source.get('source_agent', 'UNKNOWN')}:{source.get('scope', 'unknown')}"
+                identity = "|".join((self.run_id, self.setting_id,
+                    source.get("source_stage", "fixture"), source.get("source_agent", "UNKNOWN"),
+                    source.get("source_skill", "qa_route"), source.get("target_agent", "UNKNOWN"),
+                    source.get("scope", "unknown")))
+                episode_id = "EP-" + hashlib.sha256(identity.encode()).hexdigest()[:24]
                 self.recorder.observe_exchange(
                     questions=questions, answers=answers,
                     source_agent=source.get("source_agent", "UNKNOWN"),
@@ -134,7 +135,8 @@ async def run_protected_route_fixtures(recorder: QACommunicationRecorder) -> Non
         (("agent2", "agent1", "language"), ("agent2", "agent2", "domain"),
          ("agent3", "agent1", "language"), ("agent3", "agent2", "domain"),
          ("agent4", "agent1", "language"), ("agent4", "agent2", "domain")), start=1):
-        proxy = InstrumentedLLMClientProxy(DeterministicFixtureClient(), recorder)
+        proxy = InstrumentedLLMClientProxy(DeterministicFixtureClient(), recorder,
+                                           run_id=recorder.run_id)
         ctx = _ROUTE_CONTEXT.set({"source_agent": source, "source_stage": "protected_helper_fixture",
                                   "source_skill": "qa_route", "target_agent": target, "scope": scope})
         try:
@@ -146,8 +148,7 @@ async def run_protected_route_fixtures(recorder: QACommunicationRecorder) -> Non
         finally:
             _ROUTE_CONTEXT.reset(ctx)
     for episode in sorted({event["episode_id"] for event in recorder.events}):
-        recorder.emit_termination(episode_id=episode, termination_reason="fixture_converged",
-                                  termination_state="CONVERGED", converged=True)
+        recorder.emit_termination(episode_id=episode, termination_reason="CONVERGED", converged=True)
 
 
 async def run_protected_orchestrator_fixture(*, instrument: bool, root: Path | None = None) -> dict[str, Any]:
@@ -165,7 +166,8 @@ async def run_protected_orchestrator_fixture(*, instrument: bool, root: Path | N
         "domain_description_file": "domain.txt", "case_models_dir": "cases",
         "output_dir": str(output), "max_concurrent_cases": 2}]}, indent=2), encoding="utf-8")
     recorder = QACommunicationRecorder(work / "qa_events.jsonl", run_id="study1-fixture") if instrument else None
-    proxy = InstrumentedLLMClientProxy(DeterministicFixtureClient(), recorder)
+    proxy = InstrumentedLLMClientProxy(DeterministicFixtureClient(), recorder,
+                                       run_id="study1-fixture", setting_id="fixture")
     original = orchestrator.LLMClient
     orchestrator.LLMClient = lambda **_: proxy  # type: ignore[assignment]
     try:

@@ -59,6 +59,33 @@ def test_answer_confidence_and_evidence_are_not_merged() -> None:
     assert extractor.detect_event(event)["reason_codes"] == ["F1_LOW_ANSWER_CONFIDENCE", "F2_LOW_OR_MEDIUM_ANSWER_CONFIDENCE"]
 
 
+def _episode_with_evidence(ref):
+    return {"episode_id": "ep", "scientific_complete": True,
+            "exclusion_reason": None, "termination_reason": "CONVERGED",
+            "round_count": 1, "answers": [{"answer_confidence": "High",
+            "answer_evidence_ref": ref}]}
+
+
+def test_detector_v1_s3_presence_rule_null_empty_and_nonempty() -> None:
+    assert "S3_MISSING_ANSWER_EVIDENCE" in extractor.detect_detector_v1(_episode_with_evidence(None))["reason_codes"]
+    assert "S3_MISSING_ANSWER_EVIDENCE" in extractor.detect_detector_v1(_episode_with_evidence({"sha256": "0" * 64, "length": 0}))["reason_codes"]
+    assert "S3_MISSING_ANSWER_EVIDENCE" not in extractor.detect_detector_v1(_episode_with_evidence({"sha256": "0" * 64, "length": 3}))["reason_codes"]
+
+
+def test_detector_v1_strong_precedes_weak_and_excludes_incomplete() -> None:
+    strong = _episode_with_evidence({"sha256": "0" * 64, "length": 2})
+    strong["answers"][0]["answer_confidence"] = "Low"
+    strong["termination_reason"] = "TERMINATED_MAX_ROUNDS"
+    strong["round_count"] = 2
+    result = extractor.detect_detector_v1(strong)
+    assert result["classification"] == "STRONG_ALERT"
+    assert "S2_MEDIUM_ANSWER_CONFIDENCE" not in result["reason_codes"]
+    incomplete = _episode_with_evidence(None)
+    incomplete["scientific_complete"] = False
+    incomplete["exclusion_reason"] = "INCOMPLETE_TECHNICAL"
+    assert extractor.detect_detector_v1(incomplete)["classification"] == "EXCLUDED"
+
+
 def test_alert_only_evaluation_cannot_compute_recall() -> None:
     with pytest.raises(extractor.EvaluationError, match="recall"):
         extractor.evaluate_alerts(

@@ -12,7 +12,7 @@
 
 The configured model directories are absent. One unbound ParkWise use-case candidate was found by a metadata-only, read-only inventory; no complete setting is recoverable and no candidate is promoted. See the companion [input-readiness receipt](2026-09-04-one-setting-input-readiness.md). A private manifest is required before any provider call.
 
-## C. Production instrumentation design
+## C. Offline instrumentation design (production wiring pending)
 
 `VEGO-AI/framework/qa_instrumented_runner.py` provides an additive client-boundary proxy. It imports the protected orchestrator unchanged, supplies a deterministic local fake client, records prompt/answer hashes and lengths, and observes Q&A metadata through `qa_communication.py`. A task-local context variable is used for route fixtures; no global “current episode” is used. The proxy is pass-through and cannot change prompts, answers, policy decisions, or scientific state.
 
@@ -20,7 +20,7 @@ This is an execution harness and readiness proof, not a claim that the protected
 
 ## D. Offline protected-path proof
 
-The deterministic fixture executes the actual protected `orchestrator.run` path and the six protected Q&A helper routes. The instrumented and non-instrumented runs have identical prompt/label traces and identical serialized scientific state. The fixture exercises `agent2→agent1`, `agent2→agent2`, `agent3→agent1`, `agent3→agent2`, `agent4→agent1`, and `agent4→agent2`. A concurrent task test confirms route context separation. These are offline structural tests; they are not provider results and do not create human labels.
+The deterministic fixture executes the actual protected `orchestrator.run` path and naturally emits one Agent 2 → Agent 1 route. Five additional declared combinations (and a repeated Agent 2 → Agent 1 control) are synthetic protected-helper route fixtures. No production route has been observed. The instrumented and non-instrumented runs have identical prompt/label traces and identical serialized scientific state. A concurrent task test confirms route context separation. These are offline structural tests; they are not provider results and do not create human labels.
 
 ## E. Termination states and claims
 
@@ -28,4 +28,4 @@ The communication schema now makes termination explicit: `CONVERGED`, `TERMINATE
 
 ## F. Release verdict
 
-**INCOMPLETE_TECHNICAL / BLOCKED_INPUTS.** The code path, schema, strict C1 boundary, and offline parity harness are ready for human review. The actual one-setting run is blocked by missing/binding-unverified inputs and the absence of Claude preregistration v1.0.1. No API call, model invocation, spend, or external side effect was performed.
+**INCOMPLETE_TECHNICAL / BLOCKED_INPUTS.** The code path, schema, strict C1 boundary, and offline parity harness are ready for human review. The actual one-setting run is blocked by missing/binding-unverified inputs and protected-change authorization. No API call, model invocation, spend, or external side effect was performed.

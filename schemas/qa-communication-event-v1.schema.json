@@ -10,7 +10,7 @@
     "source_skill", "target_agent", "scope", "question_text_ref",
     "answer_text_ref", "answer_confidence", "answer_evidence_ref",
     "answer_source_tier", "round_index", "follow_up_to_event_id",
-    "termination_reason", "termination_state", "converged", "case_id", "guideline_id",
+    "termination_reason", "converged", "case_id", "guideline_id",
     "pattern_id", "provenance"
   ],
   "properties": {
@@ -37,8 +37,7 @@
     "answer_source_tier": {"type": ["string", "null"]},
     "round_index": {"type": ["integer", "null"], "minimum": 1},
     "follow_up_to_event_id": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
-    "termination_reason": {"type": ["string", "null"]},
-    "termination_state": {"enum": ["CONVERGED", "TERMINATED_MAX_ROUNDS", "INCOMPLETE_TECHNICAL", null]},
+    "termination_reason": {"enum": ["CONVERGED", "TERMINATED_MAX_ROUNDS", "INCOMPLETE_TECHNICAL", null]},
     "converged": {"type": ["boolean", "null"]},
     "provenance": {
       "type": "object",
