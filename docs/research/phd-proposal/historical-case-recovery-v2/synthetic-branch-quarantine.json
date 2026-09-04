@@ -1,0 +1,1807 @@
+{
+  "branch": "study1/synthetic-corpus",
+  "raw_content_inspected": false,
+  "record_count": 180,
+  "records": [
+    {
+      "byte_size": 52304,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/SYNTHETIC_DATASET_MANIFEST.json",
+      "sha256": "7d93eb952214bcfb8919ef128111cc2c13d488bc2678f0c3910c22be03b9a83c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 29675,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/SYNTHETIC_FILE_HASHES.csv",
+      "sha256": "2cf6ef8719aecd91d999b93a16d343d3c08829e68cbe61def6abbe8691d02cbd",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0001_model.txt",
+      "sha256": "f04ae2a5d80212d4be2e88259998c8d59e7368e17a39e5b1e5eff503bd80cbc9",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1663,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0002_model.txt",
+      "sha256": "bbb671882219d226bc85d81a2bfd503285b3728dc212f4347e76fe125e68d8f8",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0003_model.txt",
+      "sha256": "a8cb088fc70d8a5ab08c14141ece0d1fc11fd9db2efe604edd5c80c518551a41",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1723,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0004_model.txt",
+      "sha256": "f5a17d0633ff76a84a5d235869b92cdc8ca14f2963183deb62b3a8732688c75e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0005_model.txt",
+      "sha256": "3c41deba3ff4a3ae0a3d74d6fbea10f4dac8bc94df6b8845d9506334e60142fc",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1743,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0006_model.txt",
+      "sha256": "15e6de3ae1013c6e5c8529e2dd503533bc39f9d1d88a0639de819d0059c016ac",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1987,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0007_model.txt",
+      "sha256": "d124473e82bb918bbfb799be46540ff7d4c958c556a0c7fe817730a6e246c5e2",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0008_model.txt",
+      "sha256": "337adeed0cdb55497031af1a39f0ab0f602ce51964cdbd70cad7be7020675ca5",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1733,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0009_model.txt",
+      "sha256": "89c0776e6acd382211c9cdd8886cbde45143c0537e79d17cbc9280bb49817eeb",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0010_model.txt",
+      "sha256": "ad019780f70ad7afc2a5e5eea77de5fa555b7b93b68119209b92b0c5bf03f569",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1745,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0011_model.txt",
+      "sha256": "ae636819270d93159e54790b1c53eb22532fc3830e3f157d0e69d9d8142dd05a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1809,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0012_model.txt",
+      "sha256": "8011b4013a9b776b2ebb6179e6e739224e7e8164537e0812efe15fcc0f63d4cd",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0013_model.txt",
+      "sha256": "b3ac289ae05590a91cbb970896f750dbba2d59bb46267c9a48c60f1221f5ad17",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0014_model.txt",
+      "sha256": "44b1b3f04f5f999732fef51c67327759b26b5fca1d895d08a69611d2da09381e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1808,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0015_model.txt",
+      "sha256": "25796322b5c3b8f9f928da2fa1debf97f99c157963b96fa74612388b6d74eff6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1070,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0016_model.txt",
+      "sha256": "ba967e3908dae70a7b2e8fbce8df7d2a1870710427fd0dc544195170197da56f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0017_model.txt",
+      "sha256": "e47f153becc9000f299938eec09d5eb279d9b2827234579ba87fad113935eec7",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1798,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0018_model.txt",
+      "sha256": "ebc7e9d93b3c7e6e85c47114f7af3eacb7204ebb25ab32cd273e4558c30c65cf",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1735,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0019_model.txt",
+      "sha256": "8b82148d8c4cc6147bcfd6be1267c2f99551870693926b70c459550fab766788",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0020_model.txt",
+      "sha256": "8828069b92e4bbf504f5e05570a7ece6d7723be2199ab794b8a1d39edd26e0c6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1684,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0021_model.txt",
+      "sha256": "f94f1c051f3d1b3972927c99d492319a162a5cf71c45eb0daae3ed15c85c37ef",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1737,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0022_model.txt",
+      "sha256": "5c56107b038e2829c74cba7fba1a23486ddfb803768ec299d1dc9e7d6186e280",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1752,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0023_model.txt",
+      "sha256": "43de214410d36926b4bf7b239e8a15735401ec2a4ae935f67311cb74514ac5c3",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1702,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0024_model.txt",
+      "sha256": "e22086d2c396afc2f8ddaabe79f3b7c1dcb19bca959ca70eb6ee1d5745ae7995",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0025_model.txt",
+      "sha256": "ae5aa74b37e055953db57a91d921c6880c35fac8277c751ddcf8612a23b18216",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1737,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0026_model.txt",
+      "sha256": "7ad6f26d09725cab79ff04c9efb8eed0cf73b344d30f7714c40c479d74e7194d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0027_model.txt",
+      "sha256": "4f213dbce762127751fa4a32bee497475e553e927f818c5c4bde0532380e648c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1808,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0028_model.txt",
+      "sha256": "65c3d0580ed09f450d20c616a8ee76eebdbf5bc3eeb412db9f242af5c77f694f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1874,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0029_model.txt",
+      "sha256": "6a8a0f6b5fd4f1b276fff0f141204a85b2cca812cfe9c76e2625d653e05955bf",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0030_model.txt",
+      "sha256": "7f24539ca3c929264f0491838f2817aa6c2a06c6ab5892fa18d74078d837885e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0031_model.txt",
+      "sha256": "8bd35b1af9469fa883d7f46b07b46e67e9eef0a592aef9657a8dfbfa22285dc0",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1808,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0032_model.txt",
+      "sha256": "a9e6935f6431e8c9f2d2b749d5b335ee1295a7b47ac38c54488352fb9070d3e7",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1808,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0033_model.txt",
+      "sha256": "80e79522675f83fc07a42226c35d1d4d59722d33b0eef447e06d022813d1ab21",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1591,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0034_model.txt",
+      "sha256": "1deb323e155ce8fd56463ce284f4d0474dea5b734c7a8c05f75fc2cc92e0a1ec",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0035_model.txt",
+      "sha256": "78f6f11f7e7fc15f10a61a005d44ffd48601e4609062403520bf8fdce9e28047",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1208,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0036_model.txt",
+      "sha256": "42b1ca6d7768e88e5d208f486b252f7410cacf7bb07cf59ad00adbc5469bcc24",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0037_model.txt",
+      "sha256": "a92d6dbd99f37a06aff4231893494ee2369a0b431c6307f719257d7104e46d37",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1735,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0038_model.txt",
+      "sha256": "a4151c9fd875fced1260eea0d6d7b66850f33f7ed7f5209c7851044282b686a9",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0039_model.txt",
+      "sha256": "129d9fb2080f63432954d01cd0f71ad8d1262a92d0a7efd5c7f2f8bf8d1482c9",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0040_model.txt",
+      "sha256": "bc7c19d8c2598f7e16fee20d1d6dd45e83db3d8a859c4a18a37258ea1a0994fc",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1738,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0041_model.txt",
+      "sha256": "3646f9199f8987bb647dcc7665597ccecfd94934ec7cefaf26f2ad50fd710170",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1687,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0042_model.txt",
+      "sha256": "c3cd764ad2f262051bc1c3728df1cf38c8c9409673e00815962c14b47e787647",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1823,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0043_model.txt",
+      "sha256": "2557436afb87a18195613bc1757427ce1f54ff8a3c2da4a23a7248b1e43c8b27",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1874,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0044_model.txt",
+      "sha256": "95b8c50b550c1473bd9cece53cd5ecd83073d80cae9f4c05a647ff1cdff5eec5",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1845,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0045_model.txt",
+      "sha256": "8cce59e5dfbb6823560f4f9039ac747fde4a64e2a0d64aa47c2d32500bde0a13",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1968,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0046_model.txt",
+      "sha256": "f0e79c62b3a004b73b3e076ecfa47bb1c697b3edd9ac391d097374e11ce8a884",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1729,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-ClassDiagram/Cases/SYN-CD-CH-0047_model.txt",
+      "sha256": "e4f79ba594b35a8edde691cc011ee5b6851ed6c2067c6babb25d29d46ef87053",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0001_model.txt",
+      "sha256": "c01ad72137b2ad2d23781b9dd159d17c56b229e462862acc42813a569f18c328",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0002_model.txt",
+      "sha256": "54e23ca8526f3cdef0d4e5bce1e079462b66357eda51cf1da392fd7e98e85d97",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1498,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0003_model.txt",
+      "sha256": "95b1519db9e53ee2c31e8dd99a8073f4cc74a6baf9eabff9f81f01ea8588702f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1140,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0004_model.txt",
+      "sha256": "783be41ddfc3c5da1c91c3be86efede4f82c80bc9ef60d1b27397df0de185043",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1573,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0005_model.txt",
+      "sha256": "a26b9545513be8c4f0adc16d85bc09cab2865980bc4a68e507b1dd391fcde314",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1573,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0006_model.txt",
+      "sha256": "b5faa9aedd6ad1d4289382322ef33304f82afde904020b53b51b6ad8dcd00ff9",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1723,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0007_model.txt",
+      "sha256": "314f08aff8369ea9b6180d9aff3133e3d2c04de6c3cd0e84bd29f8f0b28857e0",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1506,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0008_model.txt",
+      "sha256": "1044df3d50b0a7b77fc5671bb233376b8d19f3c8910c0044d8c51fe37757a372",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0009_model.txt",
+      "sha256": "6745455f3b9c7001eee2caeca49e85564273a92e04e9429b2bbfcef17fba8647",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1609,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0010_model.txt",
+      "sha256": "df32d2dd5665d2e2f96a2aae329f33b50e6d9f3deb742fcf07cb415e76915496",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1573,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0011_model.txt",
+      "sha256": "f47e73fc8fa79a6132088168e50ce2287133cc9ded90c58e8d3f06418da8f570",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1552,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0012_model.txt",
+      "sha256": "0a057d369672983c48287231fd3e108e54b9b19d259ed9e485f904da33408837",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0013_model.txt",
+      "sha256": "f50d08ae57d59c09f0a25025e7cf7d6061b26536405b5473d4e8ed974a9979dc",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0014_model.txt",
+      "sha256": "4cc27a783c51d8798995c6b06c4eb69b2b333e395f8a376daf44623e686057b6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1758,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0015_model.txt",
+      "sha256": "170e86c8dda33202233268610d79ecd8d96f64b338ac100645f77bf31f5e0cde",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1690,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0016_model.txt",
+      "sha256": "b89ed6e4e7faa04f9af8e99ecc37d91773cdc799495e6e14041d7fd3f75dfa8a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1572,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0017_model.txt",
+      "sha256": "97b95494b300ab58bc6e8c612bb29e86ccc519274721298424d1a340d5838ac3",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0018_model.txt",
+      "sha256": "da2e681fa05c6bc7e3496b78c885af37be5877d64e4525dc4a4c1eaa6c277c9c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1619,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0019_model.txt",
+      "sha256": "cc584a137febad5b78b0d1300e9c21548a143dd73f194b2503b268d05159f893",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0020_model.txt",
+      "sha256": "8f9f626858ad29af83620b4fe7a82ba5d079d39490a906017df84fa89f71cd7f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0021_model.txt",
+      "sha256": "2a1d328be6b66d79ff46ffb29ec505de8d9c292d9cf9359a8c81ef6f37c92a88",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0022_model.txt",
+      "sha256": "da818c6a7135b6e3e41607376664164c2bb09267a1a9a407c76b3d8bfdf87a2e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1451,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0023_model.txt",
+      "sha256": "e16a87d8f98962e0610513232dd6d3b2d854214a2a4138cd4dc52a836a4690e0",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0024_model.txt",
+      "sha256": "ee7b4b42fc90f4406a1ac2252f83c881fae698877b5ac47849e07f765b254d47",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1573,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0025_model.txt",
+      "sha256": "d64d429b4c0d0d30ffd10edd84831c2c04ab3cbd04209bc7e5ab526d603dd0f6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0026_model.txt",
+      "sha256": "1788e21a7bfc7edf6f0200d21a25ce625d3ec6a4c3b8320748eb3867aa42f5e6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1520,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0027_model.txt",
+      "sha256": "25e6f7d68140003c9ec30ae2bbd6d0c56814dbd2562f84607e76ee47aff706dd",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0028_model.txt",
+      "sha256": "eaad7203908f3e25f5eefb3465192cb9e878b056835f6194a7c9856a317e4d7c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1453,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0029_model.txt",
+      "sha256": "6971301268c79b72dd1684302bfc3bc30e3aa188c4a14d0634c9bc657e338206",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1510,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0030_model.txt",
+      "sha256": "d7eb9541b128e58874607562b6c3246e128a9e85108874a9f5d79e43308a83b6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1239,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0031_model.txt",
+      "sha256": "f4006700cb09a5cdb8d1ba1f1ad6efa04faf6b95c8eafbe6206e14e0882afb8e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0032_model.txt",
+      "sha256": "a031fe7df2e7ca4e97c743212f7b035c466f70863e7b5ba5f3ef3a89e236e4a0",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0033_model.txt",
+      "sha256": "c4635010b4c02b65b6c03c50ad7b3def5a307ae3ff321d7b576a3f6b421366ea",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0034_model.txt",
+      "sha256": "2ded481f0517fc30473eb87d5c4329b230a25320a806803042f128a4218b23cb",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0035_model.txt",
+      "sha256": "583a8c314edbbbc09106d3a89abe16a732b4161000080f26cedcc8a693b9168c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1398,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0036_model.txt",
+      "sha256": "b1c339ae2f7072dba2ff6cdd0aabcef8ee962c7a85351002f03610cbd039f4ad",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1419,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0037_model.txt",
+      "sha256": "f96cd659ee4ccf23c288c2db769c9cc8e37a8a4848693d7e11585384d0b39c9f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1460,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0038_model.txt",
+      "sha256": "948356835983519ac09ba4752c7a2231b287500ed7e0ac74107b122d25db5c0a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1615,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0039_model.txt",
+      "sha256": "1f820aa51170819309ec190f4d68e07a6a076d91d158a71c8d52a3f9c37232c4",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1846,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0040_model.txt",
+      "sha256": "79eaa5285123087b65a195e17884ffbca2e0d5d3b16b547802af78e7cc08a098",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1532,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0041_model.txt",
+      "sha256": "0a31d1fa395f6f64376178a501bbcc941dfd70e2088b6a01028fd624714383be",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1573,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0042_model.txt",
+      "sha256": "62c8726317861c5558deccdd9f76065da46edc3bf21076fca0f7fcb9bb6dc8a1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1498,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0043_model.txt",
+      "sha256": "542c7e8eb9e14c70f78bb96f74767b343e84979598162eb38ea17d65c3b27ec1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1674,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0044_model.txt",
+      "sha256": "7946745ce264bbd35a9a226affd79b96c625ad3fef3618336200ce54b9b461bb",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0045_model.txt",
+      "sha256": "c8d1849f7ddd7b8a5f3335bfbb42a92bde7ed00ad0aa0284771ccf2f7627d8d5",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1450,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/vvCheers_SYNTHETIC/Cheers-UseCaseDiagram/Cases/SYN-UCD-CH-0046_model.txt",
+      "sha256": "f278c9f195327d23b3e3872613c06d8b7e1f03f115bbb36b63ead7042bf202b4",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1576,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0001_model.txt",
+      "sha256": "6997125f9244555e266df3cc46940f0bc7dc408f090ecc6ee5e66dc44afda9be",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1204,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0002_model.txt",
+      "sha256": "53ec8d67430ee4110daf04c4a21277254c99c6e4def405265db31cb5c77caf92",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1434,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0003_model.txt",
+      "sha256": "5502e5ed0461876f19f4b97aeb090a3780c2cd988b45178b55cd5d048e7e49b1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1507,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0004_model.txt",
+      "sha256": "2c27a04b886c9859560842ee3f9a768c4873d0ec941ac80b2795f8e19d2527ad",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1510,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0005_model.txt",
+      "sha256": "dec1bf133518198061183a0c1eb1a906a7f5ca72b05801f836219315b58d55e0",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1545,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0006_model.txt",
+      "sha256": "7f1999f3fd57da9bcc6ffc1dbd713f54ef43a60c0f2face4579c026ba26f7af7",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1190,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0007_model.txt",
+      "sha256": "f90ecf8c64c05a6a5f48c1f22d4feba1dd1fc380be8bba7f83f699b3a68d834d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1260,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0008_model.txt",
+      "sha256": "90dfae86f664b75aab974b5abba48f1994b33b5ee8b3a6a08ec931d11d57489b",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1822,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0009_model.txt",
+      "sha256": "1f369741e77caedaccd660109f53a72c3ba24619c19b83ad2c91071fbfb4a048",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0010_model.txt",
+      "sha256": "5b00e28b86ac1f9960126b9d3be341384c641ca87e59c5c62c542bd920822e01",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1625,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0011_model.txt",
+      "sha256": "1884845b1c1207455f50f1db124695c9284538c79965145bf38f3de3e44c9a4c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1464,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0012_model.txt",
+      "sha256": "188d43f964c015cc1811afae67166f4d6036e5d7e8d423ea3dced0cd5954d354",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1215,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0013_model.txt",
+      "sha256": "3c36c6e63438b8010f43fc1b61bf6b5d8161c9c2544562fb631c11124bb298ef",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0014_model.txt",
+      "sha256": "4628a23fb11280ba1ecd1b53ec76d98790ed807e79ac096d5f7b182220d5db5f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1622,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0015_model.txt",
+      "sha256": "a9ad6bddcafc632dc148e488a6e4345bd397ccd0bafc64d3371de7190f22ae9c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1601,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0016_model.txt",
+      "sha256": "bf2aa0f0f5124b260bbd0133680f666af0957d1b4d38df0517571213299929df",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1501,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0017_model.txt",
+      "sha256": "284dd586605f0c9ae8bc0a6dcd7328ac1ab41a1c0673c4dca6307f56a62fc0ff",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0018_model.txt",
+      "sha256": "47dc398a83a5dac55775a62b10a204cc9bea4c0ad18ba645656f5925aa416d0b",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1071,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0019_model.txt",
+      "sha256": "f7583f68ef5986610c5c55105dc3750c9005a7568b750513b01db8d5e060175d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1511,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0020_model.txt",
+      "sha256": "29baf5aa8236043840f67febf32284cf09e151239b5a2b2ece9ac14c96c7e009",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1179,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0021_model.txt",
+      "sha256": "5e125177fb3cf40eeec65b573e88ded282ec652766de0b7cf3e1096b7f402707",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1576,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0022_model.txt",
+      "sha256": "48c2b16373b26e2059663b1f1fe69e7435db7131eec34b98576cba00e8d9974c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0023_model.txt",
+      "sha256": "a8218b499ceca771f32a20e127ab5f92f7ef147357fc096bbb586f7ccd8f768a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1625,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0024_model.txt",
+      "sha256": "090107f764d7bb3b2b365db8c344f960e9095fa0298ef759cde5969298891bab",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1506,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0025_model.txt",
+      "sha256": "706d092bce38bebb29d124419f2ca9cf65d30f4ced6354db09e5a76b1d32317d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1510,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0026_model.txt",
+      "sha256": "ad1d2e1911c59ad79655bf6c90bcc4c07005fc0ee2063cd5969c10eb17e37e5a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0027_model.txt",
+      "sha256": "03650b942fea92a68281909b6517cc75f0d7b6076e96cc6c60ec9eb3eda82e14",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0028_model.txt",
+      "sha256": "4a84b36dbb05161d458e8ae49a0edbb9bde772cf7eb5086442007c131ea8b1d8",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0029_model.txt",
+      "sha256": "67768f8303f2d972b340635023804915c587d02b1a15a8c6ce1134645c78187c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1523,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0030_model.txt",
+      "sha256": "9fda3585359185d2a0cef06ffa8e499272f521b11f48ce54300d7a1cbe3cb4bf",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0031_model.txt",
+      "sha256": "cf96fd16452b6baf5d1350d74e829f6937370a2eae44bebd36d24f5c57c85f6a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1490,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0032_model.txt",
+      "sha256": "1be1de961bb81dcd40938202d42a6598980d198dc4ec24ce8820e48421d95867",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1495,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0033_model.txt",
+      "sha256": "f35ca4a41f9b5ba45494484919764bceabad0c1c25e948627df2714845f90ab1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1037,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0034_model.txt",
+      "sha256": "b10ec408c2ea5c7ca8add6c4d95c3121b88c3abc39a212849fa983e94a5f783e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0035_model.txt",
+      "sha256": "74449b56b2eba8ff271e2573dd01c8cfad92224858745a440c835176462f4d52",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1588,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0036_model.txt",
+      "sha256": "741bd5fa2fa90094ec2944b6178c2db174e0b02d44f46a91621dd9eaad4c370a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1349,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0037_model.txt",
+      "sha256": "1cb7f7b2f0229543a9d049fe083cd1693a68e1a9ade27473d82357a4694bbe9d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0038_model.txt",
+      "sha256": "56cdb7ba6804a5fe41497b04b2b8b2d1eb2e1e93c5b93337b60d163e403d151e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1133,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0039_model.txt",
+      "sha256": "7fcc67dbb0fceeba527b32d615b36daa26fb5f151a60b40f9feca9e68f409a1d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1455,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0040_model.txt",
+      "sha256": "a5fb8cd994648d617959bf5fe51c2a116359ea2c322d3eb740dd284e88f51e15",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1674,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-ClassDiagram/Cases/SYN-CD-PW-0041_model.txt",
+      "sha256": "f39b793d68b5da804f2522cebdbc63118cf248cfee4faad9c8d2ee3f646f3bbe",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1741,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0001_model.txt",
+      "sha256": "6d971f7de67e8a26564c16997e69c5723e8c9c568e244cf997e97ceafce50fde",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1813,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0002_model.txt",
+      "sha256": "f3432a50f180e34ed18ec6c883e0acc2ffe8050dc5e036c931e62e86b91e116e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0003_model.txt",
+      "sha256": "04b26bbe50674aad8bce5d0e5e55b917a56938590d7bf57b29d2786d2b164a9f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1837,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0004_model.txt",
+      "sha256": "8bb764f2af70b129c51cd119d5b1cc073c249ca2dfe0a78f1c0a8765f8151f66",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1858,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0005_model.txt",
+      "sha256": "675c4ebc5b7e869956f8ae8cd8ea44295dde59462b80cd01f8364931e62b1e9a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1741,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0006_model.txt",
+      "sha256": "19a626bf2f3a25405e3064c95c1ff6cd7bf3a0bf34972412fa104b19848f79a4",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1661,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0007_model.txt",
+      "sha256": "81f3c9362806649bafde79e70d226ea0a5856d10ab797187f4bf114d31a7c952",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0008_model.txt",
+      "sha256": "954b37cb29c0d6c2752dd111d46ac62f80be9bd4a7aa6ed1f09391906f684eb4",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0009_model.txt",
+      "sha256": "a89951618d8c41834d0a137a77ea846385e39e3d6bd2df60c51ac48d800fac0b",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 2270,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0010_model.txt",
+      "sha256": "5572cecbb876b420619cd5e678ad7660990e39349f9eab2b41da78e995706481",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1863,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0011_model.txt",
+      "sha256": "d118f7ae52bbd945a2a390f3e0b1531ed7cd1edeb8f27344c1283f48042159f2",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1744,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0012_model.txt",
+      "sha256": "63eaae61fbe9f6b5c3979b9378f231997086d2e04946eefe064ca973ae7e5ddd",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1950,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0013_model.txt",
+      "sha256": "776af712d78cfba9351f6e3116bd780ecb0ac45497cc7aa2c364b7e1eee23e35",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0014_model.txt",
+      "sha256": "b74d45308905bc36680c5ab54bfd175e50d6c4f2ce96a5720284fe6de1269f08",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0015_model.txt",
+      "sha256": "ef593494ff16695b4107624f504213226b8941509ce808d1187ed7ba7cff2963",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0016_model.txt",
+      "sha256": "61c3d754eccab494396b5816a931ee2985661fee43a5cb8d6679e8cf9b27639a",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1911,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0017_model.txt",
+      "sha256": "21adea9715e51d6bd8ec162515a1b84fe53dd78147c6970fae0fa2cc2dc868ea",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1806,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0018_model.txt",
+      "sha256": "bd09b6b11cb251d5ed439fd7686eecf7f2369774f5ede81a36e61205303199a6",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1417,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0019_model.txt",
+      "sha256": "e4b91e9e5f968a1964079e09343f40980157bcb6696d94b510c2d0400055b6d2",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1761,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0020_model.txt",
+      "sha256": "a68c9f73f1433a868966f1226f6fc1140cdb11dad305a83311c821e1415d89b2",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1792,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0021_model.txt",
+      "sha256": "fb87e3dd037b0a94a9957b2348433b827606ca06f394c874801b910d14c21dc2",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1759,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0022_model.txt",
+      "sha256": "1e66417768530570c3f743def3c06563938d0fb961baeb3d0d8b4cb8a8087aaf",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1797,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0023_model.txt",
+      "sha256": "13226438410d3a02c2a5df04941185e787c3e96a992ade092a147e07c0abac2c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1759,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0024_model.txt",
+      "sha256": "2a81af3245b39113dd4181c52f4b92f9047dd35e93a024ac78a044eaf2334015",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0025_model.txt",
+      "sha256": "1b33f78b7a063d64c0d8979bfd3738717fdcc98c61aca18af3c6ae44b0d3455d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 2094,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0026_model.txt",
+      "sha256": "08dd23b7ab6ffdef6bf14c1f15ae23d474002b36edd4e633ca93354bd9972181",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1806,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0027_model.txt",
+      "sha256": "f85f8d0afb9c4805f7803c2bb08ca9dfc0c83db3ab1a47bca26784faab932af1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0028_model.txt",
+      "sha256": "3c4d6d78a25a1c653732235e06f60772af86c7e06bc0767849bf7c840164fbb7",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0029_model.txt",
+      "sha256": "6e816ac05cd96632999bedb3d80dfc472ec3cb302e26b46e10bbc851b91bf976",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0030_model.txt",
+      "sha256": "5a5d93b51ce1a1f22a8568c230c8b775a73167d536a751186b6dcc5614e2f3af",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0031_model.txt",
+      "sha256": "f238394a9712704daa485795d7c27fba1141eb0ecc198b6d25ccfe66af27799e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1757,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0032_model.txt",
+      "sha256": "202e053e199acdfa39dbc174b3e6b6e4be1f6afdc90d1463c9140468d6fdec40",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1729,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0033_model.txt",
+      "sha256": "af6c337eeb4c5b3b7980d50dcd2bb5c94a82b175b5e648bb1f016236f509d7ca",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1798,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0034_model.txt",
+      "sha256": "e97e57320d23091b7bc9ce7b2bf59aa642c60b96c1c5dd32c478f8cba63be01f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0035_model.txt",
+      "sha256": "3224d2a665de3fbdd17eda9e2f535b87e39f6d72bab20f71d0a913db04859c2c",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1452,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0036_model.txt",
+      "sha256": "b22fdcb7ef6e100fbdc52fb748eead9395a2dced36e92f9be9bba5ca955b6f0d",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0037_model.txt",
+      "sha256": "5b9fc1cd405616652bbf773b9e5bd5a21de34cd3423b00ea325577c89b1dc3a1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1721,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0038_model.txt",
+      "sha256": "3abb1ecef3a45c064095201da1605cfe6badf333f291db3978fbbd3a2673ef4e",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0039_model.txt",
+      "sha256": "197b005250b96bb3ece16fe02f9ce834d68eb1f1226e1d0f4171fab372bf8ba9",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0040_model.txt",
+      "sha256": "e3e022f748a25e287c22baf3075f1eec02c3234cad113148555efc5baca85d3f",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1436,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0041_model.txt",
+      "sha256": "54bbde11f41f199b0efdb89632efb3170e84ab3a723bc1f8b29fd3a102ed5b16",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1742,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0042_model.txt",
+      "sha256": "b7d1750b56279d1ddc4c3966a8da40546ef0053869000b8235377ee5fda24617",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1789,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0043_model.txt",
+      "sha256": "e2f53c190bb538803ec8e38252897b600ee52f1aed49fbe9561145e14c30b492",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    },
+    {
+      "byte_size": 1850,
+      "content_inspected": false,
+      "notes": "Metadata only; do not merge, rename, delete, execute, or use.",
+      "provenance_status": "QUARANTINED_UNADJUDICATED_SYNTHETIC",
+      "relative_path": "Dataset1_ModelEval_SYNTHETIC/xxParkWise_SYNTHETIC/ParkWise-UseCaseDiagram/Cases/SYN-UCD-PW-0044_model.txt",
+      "sha256": "825f88418cb7eb6f25da7a4ff35d25d16bfab84f57b89db84d996fdd46fafdf1",
+      "source_branch": "study1/synthetic-corpus",
+      "synthesis_eligibility": "NO"
+    }
+  ]
+}

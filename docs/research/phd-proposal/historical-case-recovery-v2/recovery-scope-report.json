@@ -1,0 +1,12 @@
+{
+  "audit_date": "2026-09-04",
+  "audit_version": "historical-slot-audit-v2",
+  "historical_expected_count": 178,
+  "interpretation": "No slot is eligible for gap-fill until identity is established, the declared scope is closed, and the owner accepts closure.",
+  "not_yet_searched_count": 178,
+  "raw_discovered_count": 165,
+  "scoped_not_found_count": 0,
+  "search_closed": false,
+  "search_closure_owner": "human owner / Claude review required",
+  "synthesis_eligible_count": 0
+}
