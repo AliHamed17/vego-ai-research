@@ -178,7 +178,7 @@ def verify_runtime_pack(runtime_archive: Path | None, amendment: dict[str, Any],
 def fake_preflight(runtime_status: str) -> dict[str, Any]:
     if runtime_status != "PASS":
         return {"status": "BLOCKED_NOT_RUN", "reason": "exact five-file runtime verification did not pass", "provider_calls": 0}
-    return {"status": "BLOCKED_PROTECTED_CONFIG", "reason": "exact cd_airtravel orchestration requires protected runtime authorization", "provider_calls": 0}
+    return {"status": "BLOCKED_PENDING_AUTHORIZATION", "reason": "exact cd_airtravel orchestration requires explicit protected fake-preflight authorization", "provider_calls": 0}
 
 
 def historical_only(backup: Path, v2_manifest: Path | None, audit_base_sha: str) -> dict[str, Any]:
@@ -196,6 +196,7 @@ def historical_only(backup: Path, v2_manifest: Path | None, audit_base_sha: str)
         row["duplicate_id_excess_rows"] = row.pop("duplicate_version_rows")
     result["executability_by_setting"] = v31._executability(backup)
     result["instrumentation"] = v31._instrumentation_receipt()
+    result["instrumentation"]["airtravel_exact_config"] = "BLOCKED_PENDING_AUTHORIZATION"
     result["call_bound"] = {"N": 4, "minimum": 16, "retained_worst_case": 326, "status": "STATIC_ONLY"}
     result["api_cost"] = "TO BE MEASURED"
     result["protected_authorization"] = "NOT_SELF_AUTHORIZED"

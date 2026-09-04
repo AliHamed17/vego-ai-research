@@ -22,6 +22,12 @@ def test_fake_preflight_does_not_run_when_runtime_gate_is_blocked() -> None:
     assert result == {"status": "BLOCKED_NOT_RUN", "reason": "exact five-file runtime verification did not pass", "provider_calls": 0}
 
 
+def test_fake_preflight_uses_pending_authorization_status_after_runtime_pass() -> None:
+    result = MOD.fake_preflight("PASS")
+    assert result["status"] == "BLOCKED_PENDING_AUTHORIZATION"
+    assert result["provider_calls"] == 0
+
+
 def test_upstream_verification_requires_real_archive(tmp_path: Path) -> None:
     result = MOD.verify_upstream(tmp_path / "missing.zip", tmp_path / "missing.json")
     assert result["status"] == "BLOCKED"
@@ -159,7 +165,7 @@ def test_normalized_mapping_collision_fails_closed(tmp_path: Path) -> None:
 
 def test_gate_exit_is_nonzero_for_blocked_preflight() -> None:
     result = {key: {"status": "PASS"} for key in ("airtravel_manifest_verification", "airtravel_source_verification", "airtravel_source_runtime_mapping", "airtravel_runtime_pack_verification")}
-    result["airtravel_fake_preflight"] = {"status": "BLOCKED_PROTECTED_CONFIG"}
+    result["airtravel_fake_preflight"] = {"status": "BLOCKED_PENDING_AUTHORIZATION"}
     assert MOD.gate_exit_code(result) == 2
 
 
@@ -172,3 +178,25 @@ def test_historical_path_does_not_invoke_obsolete_airtravel_audit() -> None:
     source = (ROOT / "scripts" / "audit_historical_case_recovery_v3_2.py").read_text(encoding="utf-8")
     assert "audit_v31(" not in source
     assert "origin/review/study1-airtravel-v102" not in source
+
+
+def test_materializer_produces_identical_canonical_archives(tmp_path: Path) -> None:
+    spec = importlib.util.spec_from_file_location("materializer", ROOT / "scripts" / "materialize_airtravel_runtime_v3_2_1.py")
+    assert spec and spec.loader
+    materializer = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(materializer)
+    source_archive = tmp_path / "source.zip"
+    prefix = "text2uml-253b26dc704d523209a5cba79686f8f7fab57d63/dataset/AirTravel/"
+    with zipfile.ZipFile(source_archive, "w") as zf:
+        zf.writestr(prefix + "description.md", b"description")
+        for name in materializer.MODELS:
+            zf.writestr(prefix + name, name.encode())
+    first = tmp_path / "one"
+    second = tmp_path / "two"
+    archive_one = materializer.materialize_runtime(source_archive, first)
+    archive_two = materializer.materialize_runtime(source_archive, second)
+    assert hashlib.sha256(archive_one.read_bytes()).hexdigest() == hashlib.sha256(archive_two.read_bytes()).hexdigest()
+    with zipfile.ZipFile(archive_one) as zf:
+        assert zf.namelist() == sorted(zf.namelist())
+        assert all(info.date_time == (1980, 1, 1, 0, 0, 0) for info in zf.infolist())
+        assert all(info.external_attr == 0o100644 << 16 for info in zf.infolist())
