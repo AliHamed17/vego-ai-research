@@ -67,7 +67,7 @@ ruff and compilation pass. The latest full local suites are `353 passed,
 22 skipped` in `scripts/tests`, `134 passed` in `VEGO-AI/tests`, and `46 passed`
 in the root suite; evidence consistency, security, and privacy checks pass.
 
-CI run [33919095658](https://github.com/AliHamed17/vego-ai-research/actions/runs/33919095658)
+CI run [33919262015](https://github.com/AliHamed17/vego-ai-research/actions/runs/33919262015)
 is not green: Python 3.10, 3.11, 3.12, and 3.13 inventory jobs passed; the
 source/security/browser/documents job failed at the stale
 `release-manifest-v3.json` validation; and merge-gate failed because a hardening

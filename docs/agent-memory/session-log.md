@@ -417,3 +417,15 @@ Chronological prompt history for Codex and Claude.
   - gh run watch 33919095658; gh run view --log-failed
 - Status: TECHNICAL NO-GO; CI red; no provider calls
 - Next steps: Human policy process must resolve stale manifest, protected observer authorization, model/budget and paid-run authorization.
+
+## 2026-09-05 00:04 +03:00 - Codex - AirTravel v3.2.1 final CI run recorded
+
+- Request: Record the final reproduced CI outcome and preserve the technical no-go gate.
+- Actions taken:
+  - Reproduced CI run 33919262015; all Python jobs passed; source freshness gate and merge gate failed.
+- Files changed:
+  - Final AirTravel materialization report
+- Commands/checks:
+  - gh run watch 33919262015; gh run view --json jobs
+- Status: TECHNICAL NO-GO; no provider calls
+- Next steps: Human policy remediation remains required before any paid run.
