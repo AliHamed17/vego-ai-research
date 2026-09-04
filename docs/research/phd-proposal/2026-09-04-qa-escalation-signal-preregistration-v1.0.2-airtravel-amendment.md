@@ -14,6 +14,14 @@ text, including its own §0 revision block, remains in force unchanged.
 no Detector-v1 result, and no VEGO-AI experimental output was inspected before or during the authoring of
 this amendment.
 
+**Rebase note (2026-09-04, second freeze):** this commit was rebased, unpushed, onto `main` at
+`36602e41a3a7ccec52a300d9244f3afe4702153f` ("Audit historical recovery from project backup," the
+historical-case-recovery-v3 audit) after independently re-verifying that no commit between the original
+authoring SHA and this one touches any AirTravel path, this document, or v1.0.1. No content in this
+amendment changed as a result — the rebase updates only this document's stated base commit and adds this
+note. The intervening historical-case-recovery work is a wholly separate track (Cheers/ParkWise byte
+recovery), adjudicated on its own terms elsewhere, and does not alter anything frozen below.
+
 **Scope of this amendment.** v1.0.1 governs four settings — `ucd_pw`, `cd_pw`, `ucd_ch`, `cd_ch` — all
 reported `BLOCKED` on missing historical case-model inputs (v1.0.1 §8). This amendment adds exactly one new
 setting, `cd_airtravel`, built on a public external dataset, without touching v1.0.1's policy for the four
