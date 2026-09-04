@@ -13,7 +13,7 @@ reported as an observed preparation pack, not silently promoted to v1.0.2.
 
 | Item | Evidence-bound result |
 |---|---|
-| A. Current `main` SHA | `ed37d77ccad6022185cd73e539d63abd11ca290b` at gate start; this receipt is prepared on top of that SHA. |
+| A. Current `main` SHA | `e242c83c4a767ff9e092d24888f6649a0b3d3ff0` (pushed to `origin/main`). |
 | B. Claude v1.0.2 commit | **NOT SUPPLIED / NOT FOUND**. Known prior preregistration is v1.0.1 at `917f1089b4e8d19fdc39d5f80a59e3663ab664cd`; it is not substituted. |
 | C. Text2UML upstream SHA | `253b26dc704d523209a5cba79686f8f7fab57d63` (`IlKaiser/text2uml`). Archive SHA-256: `8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701`. |
 | D. Input-manifest hash | `source-manifest.json` SHA-256 `f13f4172f05422971c3d049d9be672b5befb9f49a1ab5f4589dda3587aa2910c`. |
@@ -30,7 +30,7 @@ reported as an observed preparation pack, not silently promoted to v1.0.2.
 | O. API cost | **TO BE MEASURED** after explicit authorization and a provider run; current cost is not estimated. |
 | P. Protected authorization | No protected authorization was self-issued. Full hash-bound request packet: `2026-09-04-airtravel-v102-protected-authorization-packet.md`. |
 | Q. Full tests | Root `46 passed`; VEGO-AI `134 passed`; scripts `331 passed, 10 skipped, 7 subtests passed`; focused AirTravel/Q&A `28 passed`; detector/policy `20 passed`; compileall passed; privacy, security, evidence consistency, and research-record validation passed. Full-repository Ruff is **FAIL** on 116 pre-existing findings; touched files pass Ruff. |
-| R. CI | Latest pushed run `33878521205` (head `ed37d77…`): Python 3.10/3.11/3.12/3.13 **SUCCESS**; Source/security/documents **FAIL** at stale `docs/research/hardening/release-manifest-v3.json`; merge-gate **FAIL**. CI is not green. |
+| R. CI | Latest pushed run `33879580478` (head `e242c83…`): Python 3.10/3.11/3.12/3.13 **SUCCESS**; Source/security/documents **FAIL** at stale `docs/research/hardening/release-manifest-v3.json`; merge-gate **FAIL**. CI is not green. |
 | S. Remaining blockers | (1) obtain and hash-bind Claude v1.0.2 amendment; (2) verify every runtime byte against that manifest; (3) resolve stale release manifest under authorized change; (4) rerun CI to green; (5) obtain explicit human authorization before any provider call. |
 | T. Final verdict | **TECHNICAL NO-GO**. When blockers clear, the permitted stopping state is **TECHNICAL GO — AWAITING EXPLICIT HUMAN AUTHORIZATION TO RUN**. |
 
