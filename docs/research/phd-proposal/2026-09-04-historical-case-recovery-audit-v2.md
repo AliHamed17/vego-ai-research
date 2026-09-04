@@ -65,6 +65,9 @@ The exact lists and row-level validation statuses are machine-readable in
 member universe is absent, the completeness verdict is
 `COMPLETENESS_UNRESOLVED`, not `MISSING=0`, `100% complete`, or executable.
 
+The v2 inventory is recursive for both archive and local setting directories;
+nested relevant members are not hidden by a local-path query.
+
 ## Reconciliation and admissibility
 
 The 165 raw files, 178 paper aggregate records, and 179 scored rows are
@@ -74,6 +77,19 @@ four settings `NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED` and exposes an
 empty scientifically admissible-settings list. A future closure requires an
 independent expected member/slot universe plus authoritative historical-run
 binding; it must not be inferred from local counts.
+
+## Disputed duplicate-content slots
+
+The superseded v1 ordinal references identify the following byte facts:
+
+- `cd_pw-0019` and `cd_pw-0030` point to case IDs `70240` and `70271` and have
+  the same recovered SHA-256;
+- `ucd_pw-0019` and `ucd_pw-0030` point to case IDs `70240` and `70271` and
+  have the same recovered SHA-256.
+
+The current bytes match the v1 hashes. This is duplicate content only; it does
+not establish independent student submissions, historical slot identity, or
+permission to collapse records.
 
 ## Verification
 

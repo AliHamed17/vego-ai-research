@@ -67,8 +67,14 @@ def _validate(data: bytes, setting_id: str, filename: str) -> str:
         text = data.decode("utf-8")
     except UnicodeDecodeError:
         return "NON_UTF8_INPUT"
-    if "@startuml" not in text or "@enduml" not in text:
+    has_start = "@startuml" in text
+    has_end = "@enduml" in text
+    if not has_start and not has_end:
         return "MISSING_PLANTUML_WRAPPER"
+    if not has_start:
+        return "MISSING_STARTUML"
+    if not has_end:
+        return "MISSING_ENDUML"
     hint = _setting_hint(filename)
     if hint is not None and hint != setting_id:
         return "SETTING_DIRECTORY_MISMATCH"
@@ -81,8 +87,8 @@ def _relative_model_files(repo_root: Path) -> dict[str, Path]:
         root = repo_root / "VEGO-AI" / "models" / setting_dir
         if not root.is_dir():
             continue
-        for path in sorted((p for p in root.iterdir() if p.is_file()), key=lambda p: p.name):
-            result[(Path("VEGO-AI") / "models" / setting_dir / path.name).as_posix()] = path
+        for path in sorted((p for p in root.rglob("*") if p.is_file()), key=lambda p: p.relative_to(root).as_posix()):
+            result[(Path("VEGO-AI") / "models" / setting_dir / path.relative_to(root)).as_posix()] = path
     return result
 
 
@@ -96,7 +102,7 @@ def _archive_model_members(archive: Path) -> tuple[str, dict[str, bytes], list[s
         for name in names:
             normalized = name.replace("\\", "/")
             parts = normalized.split("/")
-            is_model = len(parts) == 4 and parts[:2] == ["VEGO-AI", "models"] and parts[2] in SETTING_DIRS.values() and parts[3] and not normalized.endswith("/")
+            is_model = len(parts) >= 4 and parts[:2] == ["VEGO-AI", "models"] and parts[2] in SETTING_DIRS.values() and parts[3] and not normalized.endswith("/")
             if not is_model:
                 if not normalized.endswith("/"):
                     unrelated += 1
@@ -131,6 +137,28 @@ def _expected_members(expected_universe: Mapping[str, list[str]] | None) -> set[
     if expected_universe is None:
         return None
     return {path.replace("\\", "/") for paths in expected_universe.values() for path in paths}
+
+
+def _legacy_slot_reference(repo_root: Path) -> dict[str, dict[str, Any]]:
+    """Read only the four disputed ordinal rows from the superseded v1 record."""
+    path = repo_root / "docs" / "research" / "phd-proposal" / "historical-case-recovery" / "provenance-manifest.json"
+    if not path.is_file():
+        return {}
+    try:
+        rows = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    wanted = {"cd_pw-0019", "cd_pw-0030", "ucd_pw-0019", "ucd_pw-0030"}
+    return {
+        row["expected_case_slot"]: {
+            "source_path": row.get("source_path"),
+            "historical_case_id": row.get("historical_case_id"),
+            "v1_hash": row.get("recovered_file_sha256"),
+            "note": "Superseded ordinal reference; not an authoritative slot identity.",
+        }
+        for row in rows
+        if row.get("expected_case_slot") in wanted
+    }
 
 
 def build_audit(
@@ -220,8 +248,21 @@ def build_audit(
             "byte_identical_intersection_count": exact_count,
             "evaluation_case_id_count": len(evaluation_ids_by_setting[setting_id]),
             "invalid_or_unsafe_record_count": invalid_count,
+            "directory_populated": local_count > 0,
+            "parser_compatible": invalid_count == 0 and local_count > 0,
+            "technically_executable": False,
+            "complete_relative_to_archive": local_count == archive_count == exact_count,
+            "complete_relative_to_published_count": "UNRESOLVED_NO_EXPECTED_FILE_UNIVERSE",
+            "bound_to_historical_run": "UNPROVEN",
+            "scientifically_admissible": False,
             "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED",
         }
+    legacy_slots = _legacy_slot_reference(repo_root)
+    for _slot, record in legacy_slots.items():
+        current_path = record.get("source_path")
+        current_hash = next((row.get("recovered_file_sha256") for row in rows if row.get("source_path") == current_path), None)
+        record["current_hash"] = current_hash
+        record["byte_match_to_current_inventory"] = current_hash == record.get("v1_hash")
     inventory = {
         "audit_version": AUDIT_VERSION,
         "archive_sha256": archive_hash,
@@ -252,7 +293,11 @@ def build_audit(
         "duplicate_content_group_count": len(duplicate_content),
         "provenance_counts": dict(Counter(row["provenance_status"] for row in rows)),
         "paper_historical_count": {"count": 178, "per_setting": PAPER_HISTORICAL_COUNT, "unit": "documented aggregate records; not file identity"},
+        "published_count_reference": {"ucd_ch": 46, "cd_ch": 47, "ucd_pw": 44, "cd_pw": 41, "total": 178},
+        "matching_archive_subset": len(intersection),
+        "published_count_discrepancy": 178 - len(intersection),
         "current_scored_row_count": {"count": 179, "unit": "scored evaluation rows; not raw model-file count"},
+        "legacy_slot_duplicate_review": legacy_slots,
         "completeness_verdict": completeness,
         "historical_executability": "NOT_EXECUTABLE",
         "scientifically_admissible_settings": [],

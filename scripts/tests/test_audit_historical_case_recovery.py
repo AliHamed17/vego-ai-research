@@ -45,6 +45,16 @@ def test_independent_inventories_and_set_differences(tmp_path: Path) -> None:
     assert {row["provenance_status"] for row in manifest} == {"RECOVERED_VERBATIM", "LOCAL_ONLY", "ARCHIVE_ONLY"}
 
 
+def test_nested_archive_member_is_independently_enumerated(tmp_path: Path) -> None:
+    member, data = _model("UCD_PW_models", "nested/103_UCD_PW.txt")
+    repo = _make_repo(tmp_path, {})
+    archive = _archive(tmp_path, {member: data})
+    inventory, manifest = build_audit(repo, archive)
+    assert inventory["archive_model_member_count"] == 1
+    assert inventory["set_differences"]["archive_minus_local"] == [member]
+    assert manifest[0]["provenance_status"] == "ARCHIVE_ONLY"
+
+
 def test_expected_but_absent_is_explicit_when_independent_universe_is_supplied(tmp_path: Path) -> None:
     member, data = _model("UCD_PW_models", "100_UCD_PW.txt")
     repo = _make_repo(tmp_path, {member: data})
@@ -83,6 +93,30 @@ def test_validation_fail_closed_for_empty_non_utf8_wrapper_and_setting_mismatch(
     assert by_name["102_UCD_PW.txt"]["validation_status"] == "NON_UTF8_INPUT"
     assert by_name["103_UCD_PW.txt"]["validation_status"] == "SETTING_DIRECTORY_MISMATCH"
     assert inventory["completeness_verdict"] == "COMPLETENESS_UNRESOLVED"
+
+
+def test_missing_start_and_end_wrappers_are_distinguished(tmp_path: Path) -> None:
+    files = {
+        "VEGO-AI/models/UCD_PW_models/100_UCD_PW.txt": b"A\n@enduml\n",
+        "VEGO-AI/models/UCD_PW_models/101_UCD_PW.txt": b"@startuml\nA\n",
+    }
+    repo = _make_repo(tmp_path, files)
+    archive = _archive(tmp_path, files)
+    _, manifest = build_audit(repo, archive)
+    by_name = {Path(row["source_path"]).name: row for row in manifest}
+    assert by_name["100_UCD_PW.txt"]["validation_status"] == "MISSING_STARTUML"
+    assert by_name["101_UCD_PW.txt"]["validation_status"] == "MISSING_ENDUML"
+
+
+def test_archive_and_local_superset_cases_are_not_collapsed(tmp_path: Path) -> None:
+    first, data = _model("UCD_PW_models", "100_UCD_PW.txt")
+    local_more, local_data = _model("UCD_PW_models", "101_UCD_PW.txt")
+    archive_more, archive_data = _model("UCD_PW_models", "102_UCD_PW.txt")
+    repo = _make_repo(tmp_path, {first: data, local_more: local_data})
+    archive = _archive(tmp_path, {first: data, archive_more: archive_data})
+    inventory, _ = build_audit(repo, archive)
+    assert inventory["set_differences"]["archive_minus_local"] == [archive_more]
+    assert inventory["set_differences"]["local_minus_archive"] == [local_more]
 
 
 def test_byte_mismatch_and_duplicate_case_and_content_are_reported(tmp_path: Path) -> None:

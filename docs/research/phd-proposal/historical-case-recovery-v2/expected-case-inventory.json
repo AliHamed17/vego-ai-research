@@ -207,6 +207,41 @@
   },
   "historical_executability": "NOT_EXECUTABLE",
   "interpretation": "RECOVERED_VERBATIM is limited to byte identity with the named archive entry. No historical-run, expected-universe, or supervisor binding is inferred.",
+  "legacy_slot_duplicate_review": {
+    "cd_pw-0019": {
+      "byte_match_to_current_inventory": true,
+      "current_hash": "2d37233f4c26a11e8b66655d66f5a4aafb436fe8b06da4ef0f796399d69cdd9e",
+      "historical_case_id": "70240",
+      "note": "Superseded ordinal reference; not an authoritative slot identity.",
+      "source_path": "VEGO-AI/models/CD_PW_models/70240_CD_Pa.txt",
+      "v1_hash": "2d37233f4c26a11e8b66655d66f5a4aafb436fe8b06da4ef0f796399d69cdd9e"
+    },
+    "cd_pw-0030": {
+      "byte_match_to_current_inventory": true,
+      "current_hash": "2d37233f4c26a11e8b66655d66f5a4aafb436fe8b06da4ef0f796399d69cdd9e",
+      "historical_case_id": "70271",
+      "note": "Superseded ordinal reference; not an authoritative slot identity.",
+      "source_path": "VEGO-AI/models/CD_PW_models/70271_CD_Pa.txt",
+      "v1_hash": "2d37233f4c26a11e8b66655d66f5a4aafb436fe8b06da4ef0f796399d69cdd9e"
+    },
+    "ucd_pw-0019": {
+      "byte_match_to_current_inventory": true,
+      "current_hash": "b28402ba4062da6bbc2a5fa5ce1380bd58380ea30b12cde27066cc7f2e4887df",
+      "historical_case_id": "70240",
+      "note": "Superseded ordinal reference; not an authoritative slot identity.",
+      "source_path": "VEGO-AI/models/UCD_PW_models/70240_UCD_Pa.txt",
+      "v1_hash": "b28402ba4062da6bbc2a5fa5ce1380bd58380ea30b12cde27066cc7f2e4887df"
+    },
+    "ucd_pw-0030": {
+      "byte_match_to_current_inventory": true,
+      "current_hash": "b28402ba4062da6bbc2a5fa5ce1380bd58380ea30b12cde27066cc7f2e4887df",
+      "historical_case_id": "70271",
+      "note": "Superseded ordinal reference; not an authoritative slot identity.",
+      "source_path": "VEGO-AI/models/UCD_PW_models/70271_UCD_Pa.txt",
+      "v1_hash": "b28402ba4062da6bbc2a5fa5ce1380bd58380ea30b12cde27066cc7f2e4887df"
+    }
+  },
+  "matching_archive_subset": 165,
   "observed_local_count": 165,
   "paper_historical_count": {
     "count": 178,
@@ -222,43 +257,79 @@
     "RECOVERED_VERBATIM": 165
   },
   "provider_calls": 0,
+  "published_count_discrepancy": 13,
+  "published_count_reference": {
+    "cd_ch": 47,
+    "cd_pw": 41,
+    "total": 178,
+    "ucd_ch": 46,
+    "ucd_pw": 44
+  },
   "raw_model_inventory": {
     "per_setting": {
       "cd_ch": {
+        "bound_to_historical_run": "UNPROVEN",
         "byte_identical_intersection_count": 46,
+        "complete_relative_to_archive": true,
+        "complete_relative_to_published_count": "UNRESOLVED_NO_EXPECTED_FILE_UNIVERSE",
+        "directory_populated": true,
         "documented_historical_count": 47,
         "evaluation_case_id_count": 46,
         "invalid_or_unsafe_record_count": 1,
         "observed_archive_member_count": 46,
         "observed_local_count": 46,
-        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED"
+        "parser_compatible": false,
+        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED",
+        "scientifically_admissible": false,
+        "technically_executable": false
       },
       "cd_pw": {
+        "bound_to_historical_run": "UNPROVEN",
         "byte_identical_intersection_count": 37,
+        "complete_relative_to_archive": true,
+        "complete_relative_to_published_count": "UNRESOLVED_NO_EXPECTED_FILE_UNIVERSE",
+        "directory_populated": true,
         "documented_historical_count": 41,
         "evaluation_case_id_count": 37,
         "invalid_or_unsafe_record_count": 3,
         "observed_archive_member_count": 37,
         "observed_local_count": 37,
-        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED"
+        "parser_compatible": false,
+        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED",
+        "scientifically_admissible": false,
+        "technically_executable": false
       },
       "ucd_ch": {
+        "bound_to_historical_run": "UNPROVEN",
         "byte_identical_intersection_count": 45,
+        "complete_relative_to_archive": true,
+        "complete_relative_to_published_count": "UNRESOLVED_NO_EXPECTED_FILE_UNIVERSE",
+        "directory_populated": true,
         "documented_historical_count": 46,
         "evaluation_case_id_count": 45,
         "invalid_or_unsafe_record_count": 1,
         "observed_archive_member_count": 45,
         "observed_local_count": 45,
-        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED"
+        "parser_compatible": false,
+        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED",
+        "scientifically_admissible": false,
+        "technically_executable": false
       },
       "ucd_pw": {
+        "bound_to_historical_run": "UNPROVEN",
         "byte_identical_intersection_count": 37,
+        "complete_relative_to_archive": true,
+        "complete_relative_to_published_count": "UNRESOLVED_NO_EXPECTED_FILE_UNIVERSE",
+        "directory_populated": true,
         "documented_historical_count": 44,
         "evaluation_case_id_count": 37,
         "invalid_or_unsafe_record_count": 2,
         "observed_archive_member_count": 37,
         "observed_local_count": 37,
-        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED"
+        "parser_compatible": false,
+        "readiness": "NOT_EXECUTABLE_HISTORICAL_BINDING_UNRESOLVED",
+        "scientifically_admissible": false,
+        "technically_executable": false
       }
     },
     "source": "ignored local model inventory",
