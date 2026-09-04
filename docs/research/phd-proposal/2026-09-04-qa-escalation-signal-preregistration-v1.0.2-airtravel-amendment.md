@@ -98,15 +98,16 @@ renamed to, nor pooled under, any of the four historical `setting_id` values.
 
 ## 4. Exact runtime manifest and authorship/process classification
 
-All values below were cross-verified across five independently authored sources on `main` at
+All values below were cross-checked across five independently authored sources on `main` at
 `2d38e378`: `source-manifest.json`, `airtravel-inventory.json`, `staging-hash-check.json`,
 `2026-09-04-airtravel-v102-pre-run-technical-gate.md`, and
 `2026-09-04-airtravel-v102-protected-authorization-packet.md`. All five agree exactly with each other and
-with the values supplied for this amendment. **Verification-tier limitation, stated plainly**: the actual
-downloaded external bytes (expected under `external_data/text2uml/253b26dc.../...`) are not present
-anywhere in this checkout — confirmed absent by direct filesystem search — so this is cross-document
-consistency verification, not independent recomputation from raw source bytes. No disagreement was found
-across any source checked.
+with the values supplied for this amendment. **This is cross-document consistency, not source-byte
+verification, and it must not be described as the latter.** The actual downloaded external bytes (expected
+under `external_data/text2uml/253b26dc.../...`) are not present anywhere in this checkout — confirmed absent
+by direct filesystem search. **Actual verification of these bytes against the live Text2UML upstream commit
+remains an open Codex dependency**, not something this amendment or its cross-document check discharges. No
+disagreement was found among the five documents checked, which is the only claim made here.
 
 **Domain description (runtime-visible):**
 
@@ -122,6 +123,28 @@ across any source checked.
 | `candidate_models/02_result_one_codestral-2508.txt` | 1,272 | `08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6` |
 | `candidate_models/03_result_one_deepseek-chat.txt` | 1,324 | `ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a` |
 | `candidate_models/04_result_one_gemini-2.5-flash.txt` | 1,231 | `1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a` |
+
+**Exact source-to-runtime mapping.** `source_path` is the file's path inside the Text2UML repository's
+`dataset/AirTravel` directory at the pinned commit, as recorded by `source-manifest.json`; `runtime_path` is
+its relocated path under this setting's runtime input tree. The rename/relocation is filesystem identity
+only, required by the protected loader's directory-and-numbering convention — **it does not, and must not,
+change any file's bytes.** This mapping is a documentation cross-reference, not itself proof that the
+`source_path` bytes match the live upstream repository (see the verification-tier limitation above).
+
+| `source_path` (in `dataset/AirTravel`) | `runtime_path` | Bytes | SHA-256 | `transformation` |
+|---|---|---:|---|---|
+| `description.md` | `domain_description/description.md` | 1,477 | `96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
+| `result_one_claude-sonnet-4-6.txt` | `candidate_models/01_result_one_claude-sonnet-4-6.txt` | 1,248 | `240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
+| `result_one_codestral-2508.txt` | `candidate_models/02_result_one_codestral-2508.txt` | 1,272 | `08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
+| `result_one_deepseek-chat.txt` | `candidate_models/03_result_one_deepseek-chat.txt` | 1,324 | `ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
+| `result_one_gemini-2.5-flash.txt` | `candidate_models/04_result_one_gemini-2.5-flash.txt` | 1,231 | `1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a` | `BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY` |
+
+`source_path` values for the four candidates are taken directly from `source-manifest.json`'s recorded
+`path` field for each (classification `GENERATED_CANDIDATE_MODEL`, `source: "Text2UML pinned upstream
+commit"`); the `description.md` mapping is taken from the same manifest's `DOMAIN_DESCRIPTION_CANDIDATE`
+entry. The hashes in this table are unchanged from, and identical to, those already frozen above — the
+mapping documents *where* each byte-identical file came from, it does not introduce a second, independent
+hash computation.
 
 Selection basis (frozen, matches `candidate-subset-proposal.md`): filename/documented output provenance
 only — one-shot, non-empty, non-stripped, mutually distinct-hash outputs. Selection did not use, and may
@@ -219,26 +242,32 @@ amendment does not state or imply such approval; it is a pre-data scientific fre
 methodological lead, and remains subject to the same supervisor review as any other artifact in this
 project.
 
-## 11. What this amendment does not authorize, and the complete `TECHNICAL NO-GO` blocker list
+## 11. What this amendment does not authorize, and the `technical_blockers_at_freeze_time` list
 
 This amendment freezes dataset identity, provenance, denominators, and claim boundaries. It does **not**:
 run VEGO-AI, Detector-v1, a provider, an API, or an external model; inspect any VEGO-AI or Detector-v1
 result; resolve the GPL-3.0 review scope noted in §3; resolve CI or protected-path authorization; or
 authorize a provider-backed run, which remains a separate, explicit human decision.
 
-**AirTravel execution status is `TECHNICAL NO-GO`, not conditional-GO, for the following complete set of
-reasons** (narrowing this to only license/CI, as an earlier session turn did, understated the actual
-blocker list):
+**AirTravel execution status is `TECHNICAL_NO_GO`, not conditional-GO, for the following complete
+`technical_blockers_at_freeze_time` list** (narrowing this to only license/CI, as an earlier session turn
+did, understated the actual blocker list; this list is named "at freeze time" because item 1 is expected to
+change independently of this document's content, per its own note):
 
-1. This v1.0.2 amendment itself is, as of this freeze, unpushed and unavailable to Codex on GitHub.
-2. Exact runtime bytes have not yet passed the fail-closed verifier (`scripts/verify_text2uml_airtravel_runtime.py`) against this amendment's manifest on `main`.
+1. `amendment_not_merged_into_main` — this v1.0.2 amendment is open as PR #36 (branch
+   `study1/airtravel-v1.0.2-amendment`) but not yet merged into `main`, so Codex's tooling on `main` cannot
+   yet read it as the authoritative amendment. It is no longer accurate to call it "unpushed" once pushed;
+   "not merged" is the precise current state and is tracked separately from the other five items below,
+   which are not resolved merely by merging this PR.
+2. Exact runtime bytes have not yet passed the fail-closed verifier (`scripts/verify_text2uml_airtravel_runtime.py`) against this amendment's manifest — this remains a Codex dependency per §4's verification-tier limitation, not something cross-document consistency discharges.
 3. Production-observed Q&A routes remain at zero.
 4. Model/provider selection remains unspecified.
 5. CI is red (source/security/documents job and merge gate failing on a stale release manifest, per
    `2026-09-04-airtravel-v102-pre-run-technical-gate.md`).
 6. Paid-run authorization has not been given.
 
-Each of these is independent; resolving GPL-review scope and CI alone does not clear items 1–4 and 6.
+Each of these is independent; resolving GPL-review scope and CI alone does not clear items 1–4 and 6, and
+merging this PR alone does not clear items 2–6.
 
 ## 12. Change control
 

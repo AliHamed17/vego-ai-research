@@ -12,8 +12,8 @@
   "supervisor_approval": "NOT_DOCUMENTED",
   "paid_provider_execution_authorized": false,
   "technical_readiness": "TECHNICAL_NO_GO",
-  "technical_blockers": [
-    "amendment_unpushed_and_unavailable_to_codex_on_github",
+  "technical_blockers_at_freeze_time": [
+    "amendment_not_merged_into_main",
     "runtime_bytes_not_yet_verified_against_this_manifest_on_main",
     "production_observed_qa_routes_zero",
     "model_provider_unspecified",
@@ -68,6 +68,45 @@
       "role": "candidate_model"
     }
   ],
+  "source_to_runtime_mapping": [
+    {
+      "source_path": "description.md",
+      "runtime_path": "domain_description/description.md",
+      "bytes": 1477,
+      "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2",
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+    },
+    {
+      "source_path": "result_one_claude-sonnet-4-6.txt",
+      "runtime_path": "candidate_models/01_result_one_claude-sonnet-4-6.txt",
+      "bytes": 1248,
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+    },
+    {
+      "source_path": "result_one_codestral-2508.txt",
+      "runtime_path": "candidate_models/02_result_one_codestral-2508.txt",
+      "bytes": 1272,
+      "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+    },
+    {
+      "source_path": "result_one_deepseek-chat.txt",
+      "runtime_path": "candidate_models/03_result_one_deepseek-chat.txt",
+      "bytes": 1324,
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+    },
+    {
+      "source_path": "result_one_gemini-2.5-flash.txt",
+      "runtime_path": "candidate_models/04_result_one_gemini-2.5-flash.txt",
+      "bytes": 1231,
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "transformation": "BYTE_IDENTICAL_RELOCATION_AND_FILENAME_PREFIX_ONLY"
+    }
+  ],
+  "source_to_runtime_mapping_note": "runtime_path is a filesystem relocation and filename-prefix addition required by the protected loader only. It must never change bytes; the sha256 values above are identical to the runtime_files entries, not a second independent computation. source_path values are taken from source-manifest.json, not independently rehashed from the live Text2UML upstream repository -- see source_byte_verification_status.",
+  "source_byte_verification_status": "PENDING_CODEX_INDEPENDENT_VERIFICATION_AGAINST_LIVE_UPSTREAM",
   "excluded_references": [
     {
       "path": "reference_only/plantuml.txt",
@@ -103,7 +142,8 @@
   "prior_synthetic_178_corpus_authorized_for_this_setting": false,
   "supervisor_approval_status": "NOT_DOCUMENTED",
   "verification_basis": "cross-document consistency across source-manifest.json, airtravel-inventory.json, staging-hash-check.json, 2026-09-04-airtravel-v102-pre-run-technical-gate.md, and 2026-09-04-airtravel-v102-protected-authorization-packet.md; raw external bytes under external_data/text2uml/ were not present in this checkout and were not independently rehashed from source",
-  "verified_no_disagreement": true,
+  "cross_document_consistency_no_disagreement_found": true,
+  "source_byte_verification_claimed": false,
   "allowed_claims": [
     "empirical observation of VEGO-AI's own Q&A communication, episode structure, and Detector-v1 classification on this exact corpus, once a run is authorized and executed"
   ],
