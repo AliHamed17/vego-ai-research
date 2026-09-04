@@ -47,7 +47,8 @@ No route was invented and no model client was invoked by verification.
 
 ## Verification results
 
-- Synthetic episodes: 1 deterministic episode fixture plus route-boundary test.
+- Synthetic episodes: 8 deterministic episode paths (baseline, six route
+  representations, and one follow-up/`MAX_QA_ROUNDS` episode).
 - Prompt parity: the adapter is post-call and does not alter prompt payloads;
   direct runner wiring is pending because the orchestrator hash is protected.
 - Decision parity: no decision object is read or changed by the observer.
