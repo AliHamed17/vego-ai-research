@@ -405,3 +405,15 @@ Chronological prompt history for Codex and Claude.
   - 353 scripts tests; focused 16; root 46; VEGO-AI 134; ruff compile privacy security evidence pass
 - Status: TECHNICAL NO-GO; no provider calls
 - Next steps: Synchronize, commit and push; await protected authorization, green CI and explicit paid-run authorization.
+
+## 2026-09-05 00:03 +03:00 - Codex - AirTravel v3.2.1 CI gate recorded
+
+- Request: Record final CI outcomes after pushing the hardened verifier.
+- Actions taken:
+  - Pushed c9c674e; reproduced CI run 33919095658; source gate stale release manifest and merge gate failed while all four Python jobs passed.
+- Files changed:
+  - AirTravel v3.2.1 report
+- Commands/checks:
+  - gh run watch 33919095658; gh run view --log-failed
+- Status: TECHNICAL NO-GO; CI red; no provider calls
+- Next steps: Human policy process must resolve stale manifest, protected observer authorization, model/budget and paid-run authorization.
