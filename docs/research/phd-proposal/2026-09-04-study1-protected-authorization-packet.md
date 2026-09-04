@@ -8,8 +8,8 @@ document. No provider, API, external model, or real experiment was invoked.
 - Repository: `AliHamed17/vego-ai-research`
 - Local checkout: `C:\Users\ahamed\vego-ai`
 - Base SHA: `cab11051d7af7347540c32440bb068ae2c6333b1`
-- Proposed implementation head SHA: `e45ee35b3cc0d5a64b55d3cfa1f1431006770e88`
-  (the commit containing the technical correction)
+- Proposed implementation head SHA: `abc251900f083e996ef60c7d7a999e4c762ab0c9`
+  (the final correction commit; includes `e45ee35b3cc0d5a64b55d3cfa1f1431006770e88`)
 - Scientific interpretation: Claude's immediately preceding episode-semantics
   clarification and the preregistered v1.0.1 termination contract control.
 
@@ -23,7 +23,7 @@ commit.
 | Repository-relative path | Full local path | Old SHA-256 (base) | New SHA-256 (proposed head) |
 |---|---|---|---|
 | `VEGO-AI/framework/qa_communication.py` | `C:\Users\ahamed\vego-ai\VEGO-AI\framework\qa_communication.py` | `e46f03a53fdba17b2669c32882d56853a71a0e26684cd4534093caa0222738da` | `9f2cda1dc52fe919be22ac2ea42d61dce3ed22d3fae7ae27077b3db821594236` |
-| `VEGO-AI/framework/qa_instrumented_runner.py` | `C:\Users\ahamed\vego-ai\VEGO-AI\framework\qa_instrumented_runner.py` | `7b3c811ca702f30e2b0536ac5f8163764658b0fcc21db309b5e5133cea318393` | `2176830dea96f6e467d7feb544c715c20cd6bd1ae97cbd73cb4ca2c48608d73d` |
+| `VEGO-AI/framework/qa_instrumented_runner.py` | `C:\Users\ahamed\vego-ai\VEGO-AI\framework\qa_instrumented_runner.py` | `7b3c811ca702f30e2b0536ac5f8163764658b0fcc21db309b5e5133cea318393` | `d187f8e8113a86caf24e55720e227f9a5f9b3466126969166bcefb83625a215f` |
 | `VEGO-AI/tests/test_qa_communication.py` | `C:\Users\ahamed\vego-ai\VEGO-AI\tests\test_qa_communication.py` | `0fb35d63a9d65dd0f44517c10756eb0f161eecd2ae7032c93a7d92d2f1b9e919` | `ebd8b6dd133a617063f104056e6bce61310306ba0ba0a74e83abd4b8335b3c2d` |
 | `VEGO-AI/tests/test_qa_instrumented_runner.py` | `C:\Users\ahamed\vego-ai\VEGO-AI\tests\test_qa_instrumented_runner.py` | `d9b4b75acaa45d8cbccee21e12d826fbbeccbead26c02b9e1943bfc668a0991b` | `4e6c88fec0802a7caae67bf77a37d07384014330b9646478bc795f6ebbfe7c7f` |
 | `scripts/extract_qa_escalation_features.py` | `C:\Users\ahamed\vego-ai\scripts\extract_qa_escalation_features.py` | `eb801df32dfbbbdfef63c7451d7f8a804dd1c0e9c67eb8d7d7ab7793f94817f8` | `8723f8f7cb75df51d5c82bda2b604bfaa2b72c230ce580090f7ba06cf3457974` |
