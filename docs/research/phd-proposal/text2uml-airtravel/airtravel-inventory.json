@@ -1,0 +1,1149 @@
+{
+  "files": [
+    {
+      "bytes": 1477,
+      "classification": "DOMAIN_DESCRIPTION_CANDIDATE",
+      "path": "description.md",
+      "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "NOT_APPLICABLE"
+    },
+    {
+      "bytes": 1452,
+      "classification": "REFERENCE_MODEL",
+      "path": "extramaterial/AirTravel.cd4a",
+      "sha256": "51a73df36663ab70e251e365266cc51d9a3f2c41ddf2dcf2a3cc106246ce61df",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 156,
+      "classification": "METADATA",
+      "path": "metadata.txt",
+      "sha256": "64b4cbf5a85c2409d0876cc1c0662d201f02dedeac1a568a232475069e2e84a2",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "NOT_APPLICABLE"
+    },
+    {
+      "bytes": 69162,
+      "classification": "VISUALIZATION_ONLY",
+      "path": "plantuml.png",
+      "sha256": "81c386935100f273ed0dacc5a445b53cc4a93558b03c37154a3a9d7908b7c1e8",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "NOT_APPLICABLE"
+    },
+    {
+      "bytes": 32115,
+      "classification": "VISUALIZATION_ONLY",
+      "path": "plantuml.svg",
+      "sha256": "535e031d65fa3743eeed6ebc0039a9345ba23775fc792243837a4acf32aa8bee",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "NOT_APPLICABLE"
+    },
+    {
+      "bytes": 1300,
+      "classification": "REFERENCE_MODEL",
+      "path": "plantuml.txt",
+      "sha256": "01448d859c916a4229a2becec2e3675614ab6f00495d9049ace30b7c82bb7b98",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1328,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "plantuml_adjusted.txt",
+      "sha256": "17c4179653fcfea5b2bfd306cb1382d1b93bc5dc946419f85e8fc5e4b480f3ff",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1224,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_claude-sonnet-4-6.txt",
+      "sha256": "1e354cd6ae52c4026df126b5b9c956e9d89ea594e541ea6fac9b067397d70f87",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1217,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_codestral-2508.txt",
+      "sha256": "36e5d7c6ba47b19ee9a62bf0bca27cab39f23ce83692caa38bf38549577f0f93",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1309,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_claude-sonnet-4-6.txt",
+      "sha256": "6373cb5724923bd9b5bdbe6f5c503a6ef6bedb6630122d2a288058926421ef2f",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1299,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_codestral-2508.txt",
+      "sha256": "77dc37ebd5b85e2fe444f551d96220dd122ca21152fb802082bc32b92d5c688e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1282,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_deepseek-chat.txt",
+      "sha256": "bfa8da54e54491dd9ee488ca678b3e06a462e1f0b0fd96c16f896263a266c98e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1260,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_gemini-2.5-flash.txt",
+      "sha256": "a2c3316603bf1e023ecf1c98dad6ee54c1b7d981f3294baaa7ca938eaf47025e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 26323,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_google_gemma-3-4b-it.txt",
+      "sha256": "c392208dfe23c449492ead788719b4986905efdea6f73faeefa4340bfbe0c2b0",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1696,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot2_google_gemma-3-4b-it_stripped.txt",
+      "sha256": "db550ecb62d81a23fb1fd412d99a8718709081eec810569475a63a74265cb8be",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1181,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_gpt-3.5-turbo.txt",
+      "sha256": "e2f1162bf4c4af1985cc945e6c0ef72c6cb1ee517ef90926ee41124add22b525",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1170,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_gpt-4o-mini.txt",
+      "sha256": "5ad31965b50b63186d34ef114d7fef8b866c8926627432cd255d49127877c725",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1223,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_gpt-5-mini.txt",
+      "sha256": "766e85c47cef0ded9aec893998608254308a066c7d7da0eb6dd289bc8ee8bc58",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1336,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_gpt-5-nano.txt",
+      "sha256": "44aaeb9261964949de9d9c7a6254d71f24c2470d27ecaaa70572f8cd06d05f3d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1257,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_gpt-5.2.txt",
+      "sha256": "67d84f4ad0219e32e927aa93d132c07dd71c2844ceebe51df73f6fd1bfe980b0",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 25672,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "sha256": "25839b7730babc29e96457a89179629770689d545321d4e42cbf6a8d11d8eee3",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1218,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot2_meta-llama_Llama-3.2-3B-Instruct_stripped.txt",
+      "sha256": "1d7862d60462af9b2b96c60bc9477ef1dfb5b728387ca8e7a5f034a65fd36865",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1456,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_microsoft_phi-4.txt",
+      "sha256": "3ba585d2d7c19c061bb69d04f5da72f01ec769f4e240f8eae093ed082ac1d3e6",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1269,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_mistral-large-2411.txt",
+      "sha256": "1d033e55c264954d129ec122b88a5f29bd566989375c233e7411a171bb4db580",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1232,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_mistral-small-2506.txt",
+      "sha256": "a0f97a4bccbdc67dfb1bb908a328cf0bf410aaad44f30e131ea4d950f344d2e3",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1255,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_o3-mini.txt",
+      "sha256": "fdba98980be40605927a624a260a8e2240ff32ad65bb96deac8209d37010477d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 27692,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "3f024309108b8ca2cf24e2dc1a4254e07b028c73c37d5cd08e6acff047a2e432",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1665,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot2_Qwen_Qwen2.5-3B-Instruct_stripped.txt",
+      "sha256": "071860666b2155a757e688a21daf37f6ae5335f187757d26bd506ec9da347ff4",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 2296,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_Qwen_Qwen3.5-4B.txt",
+      "sha256": "955d31507eef9aa45aeeb8ee2f4dd951be9a410778ecb45455b4944b21a8b8ed",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_tiiuae_Falcon-H1-7B-Base.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot2_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1194,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_claude-sonnet-4-6.txt",
+      "sha256": "4cd3533fb3dfce9f6ad46e79b76d622c48394ab6f871d2919ca68e8ff25ff592",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1196,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_codestral-2508.txt",
+      "sha256": "43a82dcd620515e745a19e461ac6228aea6eda33b69bfc7bc07b097bc4ea25c9",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 0,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B_stripped.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1264,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_deepseek-chat.txt",
+      "sha256": "38673323f0de7817625f703492d0240993198131c4885dec6d6489084f497316",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1248,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_gemini-2.5-flash.txt",
+      "sha256": "914038230f5365ce6383b4301f4ea9b209ccca05a4e725529f9996003ec29dcc",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 16809,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_google_gemma-3-4b-it.txt",
+      "sha256": "2ad4a70ef3476a0948a9ec40100bb1b254484e23d74d203fa9731f8738b4d3e2",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 869,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot_google_gemma-3-4b-it_stripped.txt",
+      "sha256": "711a6b9d31de7bb8f103314968688543b9a8e7e0442686756c9220fc5464e3d8",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1066,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_gpt-3.5-turbo.txt",
+      "sha256": "6de3b908062e93217bcdd7ca72b0507212c5d42b641f0324f5715fffccd2204a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1248,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_gpt-4o-mini.txt",
+      "sha256": "904b723dbffd94a3142b9bfad0ea293af6b278fb88b8b7934ffc49a9c0c0e0ae",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1218,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_gpt-5-mini.txt",
+      "sha256": "68b315ac08c29cad217c79b67a9e9f052d6a2e2ad0d4f56b6ad3bafb41d478b7",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1126,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_gpt-5-nano.txt",
+      "sha256": "0ff53a0e44a2d1910906b4e8a003c3fcab1c3cb2f44996f03672ede9e2496bc6",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1240,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_gpt-5.2.txt",
+      "sha256": "25c547d352f05c56fcb6aff923417ef40b1e41b46b08980b85c96543e885ced0",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 78500,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "sha256": "0f1130c55f188997be43d4e00d5edf5f0204552a67ac96006c061ce8328ac023",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 432,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot_meta-llama_Llama-3.2-3B-Instruct_stripped.txt",
+      "sha256": "d36209e4281975ec2223cb6691cf285b07e771ac7f72269748d0f0702c17dd8d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 17130,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "475b143a890c25e1bfafc2355ae00f5a11f7f2fd5d44582a7f16c8bbb7bd1e0b",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1282,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_microsoft_phi-4.txt",
+      "sha256": "c9dee4b906f2e363f25ccc439343dbd0224d938fa5b0729d4980e6f0c7941093",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1321,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_mistral-large-2411.txt",
+      "sha256": "c3890092446d5965a8f82fb56965df0851dcc34e5b982b5dfcb9e361fe24038e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1195,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_mistral-small-2506.txt",
+      "sha256": "4b682179ec685be29f40764e82637bfbef8c71c9de1e28e1da3ac32093b504ea",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 16083,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "sha256": "66b3f6f9e5b0e941682feab35c1ff3021560e0d04c4cc99b00bae420cbbbbb64",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 449,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot_mistralai_Mistral-7B-Instruct-v0.3_stripped.txt",
+      "sha256": "f831ad1abdf946c007002e3c7c2cfc6e92901f00077e4805a15b457308d9d568",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1233,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_o3-mini.txt",
+      "sha256": "8e793ae6ba711096ed469451fa21575fc5236e14a70b3edbc01a4cc332add144",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 243,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "dc9fc7ae2973db47866b0bbd8a50e1f3357fd29527b2194f3c3eeb1297e1321d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 1266,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_cot_Qwen_Qwen2.5-3B-Instruct_stripped.txt",
+      "sha256": "6cfb9438768c47ed9f5f5d6b9a6a32491ca27d79f70b257a0f41877bfd66da78",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 2642,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_Qwen_Qwen3.5-4B.txt",
+      "sha256": "fd0af342c0dd23fad21437d4642dbb0bee3d2ac52f15d5b0d70c41eea29da8e5",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_tiiuae_Falcon-H1-7B-Base.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 2658,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_cot_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "14d6b60a4a0091e140cbcf0feb518b5f6308b45a6aa8b6670e9ed9a3ed7262db",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 7744,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "01098956641fc205d3db6efee4cd262e41f7b4542ba1c9bce2afbf11215168df",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 7744,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B_stripped.txt",
+      "sha256": "01098956641fc205d3db6efee4cd262e41f7b4542ba1c9bce2afbf11215168df",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1390,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_deepseek-chat.txt",
+      "sha256": "69e9ab5eae0b1e701389fcfe67ec4434f14bc468e271012de1bd99fbc82cc20d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1230,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_claude-sonnet-4-6.txt",
+      "sha256": "795005e4f818be7350149b2213b389aa75425adeb63675786771d4835eef3c40",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1177,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_codestral-2508.txt",
+      "sha256": "46ac7103aa3d44e3d46f3b6a2763cb2d5d302ab74c65be4bfbe9f1dae1f9cf8d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 13435,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "70845f1be7069e62dc51eecb3987aa0bb590bd7107f49bbff84119dfd686af54",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 13435,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_few_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B_stripped.txt",
+      "sha256": "70845f1be7069e62dc51eecb3987aa0bb590bd7107f49bbff84119dfd686af54",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1324,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_deepseek-chat.txt",
+      "sha256": "2da965affb0360a23a56ee578a28a1d06c4a9a1cc7025a73b40ba98a047f59db",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1285,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_gemini-2.5-flash.txt",
+      "sha256": "62abb4351125da879062ad907fcc61c0f4e3bfc3e79717d68a8a66432170ab9d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 10428,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_google_gemma-3-4b-it.txt",
+      "sha256": "0a557b44c7b40257eb6f4acbc49d42b00f5e7a334d57b905424d3f27891eee58",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1091,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_few_google_gemma-3-4b-it_stripped.txt",
+      "sha256": "3ec84a23c8e6fbe11e0da02306cc1a101611e47e2f060066cc5dbb9953a2c144",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1133,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_gpt-3.5-turbo.txt",
+      "sha256": "b0ea29e4dc2ae272d1ebd03e8343549db6d5f36becf8ca61d34d62e29083d37c",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1080,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_gpt-4o-mini.txt",
+      "sha256": "d2ff729175676238591ae3d276bff69f8a830c5850b08adcfb122046fdbec760",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1304,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_gpt-5-mini.txt",
+      "sha256": "e4351be74b48176d243d920fb6f44a1dea33bcfa25152beea41a131faac087af",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1265,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_gpt-5-nano.txt",
+      "sha256": "d03eae272a42d3136d0f8b95bb09e4527168bac21943ba37ae57ae2c3bd353a7",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1221,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_gpt-5.2.txt",
+      "sha256": "ed95a888bb88d971b8ac4ebbcf1b80a2a9738623573caf85846f04ae59f767fb",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 65524,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "sha256": "707bbd7e4c31a1c6be948fe490d24900b9b5c1fe83895673332ad11fc5144c1b",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 56014,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_few_meta-llama_Llama-3.2-3B-Instruct_stripped.txt",
+      "sha256": "1e87e62987273785c67873255e4413ec346e93c23528fc46a9b7e806a57acb8d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "MISSING_PLANTUML_WRAPPERS"
+    },
+    {
+      "bytes": 95994,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "03e473acd7d5febc08ac40a71a09680466caecf535c92b20c41c4f5d911b39f0",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1307,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_microsoft_phi-4.txt",
+      "sha256": "e517b04f3efad584574ea7c2e3689001e8f1496946e585a4e9b9e79cf8e0811e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1285,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_mistral-large-2411.txt",
+      "sha256": "489ce9b0541311e831a71b542242cd20df826d0563bc0f8c1c06a58ba6ef70fd",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1337,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_mistral-small-2506.txt",
+      "sha256": "aae9136539311d4f879e109aed626ae263b5c36614139500634f2e0f7fee558d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 10468,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "sha256": "ccc99886c7c7f11b5de16dbfc148d548e60243d78042250c1a83ae75f0b4fe3a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1172,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_few_mistralai_Mistral-7B-Instruct-v0.3_stripped.txt",
+      "sha256": "fb108b396191af486bc14ae63aee3a256833fb03853ab3754d4b821917f7b724",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1183,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_o3-mini.txt",
+      "sha256": "0c7b0244a1325a7c39f87820b71a39639ec76ed69d572d0cb2e3f7c6ad47df94",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1369,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "78323ed153a038160495ca8fd9c20dc340d30cc865dae0d89f1cc089c75b856c",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1369,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_few_Qwen_Qwen2.5-3B-Instruct_stripped.txt",
+      "sha256": "78323ed153a038160495ca8fd9c20dc340d30cc865dae0d89f1cc089c75b856c",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1260,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_Qwen_Qwen3.5-4B.txt",
+      "sha256": "6bf49af1ccdd5bc7379117c2a5be01a64644151fb89f28656abfab9f1cf379e2",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1260,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_few_Qwen_Qwen3.5-4B_stripped.txt",
+      "sha256": "6bf49af1ccdd5bc7379117c2a5be01a64644151fb89f28656abfab9f1cf379e2",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_tiiuae_Falcon-H1-7B-Base.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1102,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_few_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "67d98caefb679b9cd72d85784db9212b7f66e84383b8475d48016665acd195da",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1230,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_gemini-2.5-flash.txt",
+      "sha256": "ca2c80bf4a30b2f426f17a68556a0634b08868ca6269fff6ff3d223a6e03e292",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 3921,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_google_gemma-3-4b-it.txt",
+      "sha256": "a49afd050f7eb62773939143b8c1c6880c6554f0dd6604ad78461c54c1a84b91",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1023,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_google_gemma-3-4b-it_stripped.txt",
+      "sha256": "c51d15f1bf2bf34f871879258058e149690be6c6fb1ab034601efa77584a3a63",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1182,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_gpt-3.5-turbo.txt",
+      "sha256": "bb58a8c6121450d3aa710c39772f0aad5cd55df2d65e5985b8e127e45ba35901",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1055,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_gpt-4o-mini.txt",
+      "sha256": "e7e3c711967450cd6ea55b2c55181c40fce6b32221edf332b271c388d15a0330",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1235,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_gpt-5-mini.txt",
+      "sha256": "5ea47f60ef4cead66678e646f585e180451bb855d9a6d07ec07aefdbc4688414",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1075,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_gpt-5-nano.txt",
+      "sha256": "9fe14f7e2381381eb76eaa32d87df263da47e2d4b041a595065c9e290dbe50e1",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1214,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_gpt-5.2.txt",
+      "sha256": "c35adc0b493fac50e0ba546fa344c05aa10b3f24ab89c9f60b3de0a98fcdd9fc",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 4308,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "sha256": "abdcc413754d4a6528b0b3b397cd7632f1de7502feba9ad18073d13f6234f6d6",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1240,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_meta-llama_Llama-3.2-3B-Instruct_stripped.txt",
+      "sha256": "d8450ca80ffcbfddfbb4ace80a3f1882dc3e4134bc37075d2e1e104a5ee5b3a4",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 91758,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "b4c0f87496c32a0d6334f0c24f8f2a6bba19dcdc88d916648101fe7bdd8eed14",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1394,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_microsoft_phi-4.txt",
+      "sha256": "9de82c2338b081949e3afb14fb17f2602aa8a5e72d5aba4fadff7fc8ff4ea82d",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1166,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_mistral-large-2411.txt",
+      "sha256": "985f6306bb0269d789fa500b17799ac3615a1ff53e125dc59fdcc9ec05c4fa8e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1186,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_mistral-small-2506.txt",
+      "sha256": "f9497d2b791b5328b80c5e193034801361ba7313ef23dafed176868b9ae73c16",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 3887,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "sha256": "09c8ebf159b48d4e880770cfd73c22918ef305275b1a4d8fb32cc23505dbf778",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1031,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_mistralai_Mistral-7B-Instruct-v0.3_stripped.txt",
+      "sha256": "fec4e45846b456ebbcaba92d0a2fb2d26fe01d17013f2ad41d1166314a173fdc",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1228,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_o3-mini.txt",
+      "sha256": "97dc12e0050294d1989ef074b60d2f27d3b03825345f542c923b27d13392673f",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1248,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_claude-sonnet-4-6.txt",
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1272,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_codestral-2508.txt",
+      "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 10461,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 10461,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_one_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B_stripped.txt",
+      "sha256": "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1324,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_deepseek-chat.txt",
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1231,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gemini-2.5-flash.txt",
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 7042,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_google_gemma-3-4b-it.txt",
+      "sha256": "b72fc5eaa682ce27912086dd2dcb3ea192c7fbe14285457cdcea23b0b6222f0b",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1041,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_one_google_gemma-3-4b-it_stripped.txt",
+      "sha256": "df9490de90b7d734e24a4f366b5a7d29fb63c5a5b5eef3f140a9e23b277560c4",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1255,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gpt-3.5-turbo.txt",
+      "sha256": "81abd4b6b848b9e9102418d023d2af4656931fe162358f336f6132ab11a817c5",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1240,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gpt-4o-mini.txt",
+      "sha256": "49e3989e341eba1414f6366b50d12b946ab3ceb16884e8faf1c0f6945ea8d4e9",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1299,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gpt-5-mini.txt",
+      "sha256": "4590b62dc0ea047e9a7789739a6482b5221e0deaa0fd5dc8004643863911ba36",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1185,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gpt-5-nano.txt",
+      "sha256": "6fad455a7d4831a5baba0cb7f4336f24fa338f4cd0c14f02236305664aebdfab",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1288,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gpt-5.2.txt",
+      "sha256": "559769d3653cd690966e7873a5647da7834532148fa4ec64ee34e3bc8e056d18",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 7161,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "sha256": "7e65f088e45f47a1eb0c39c7b1e70eb05b77ec6a6836e9454f89babf81bba26e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 987,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_one_meta-llama_Llama-3.2-3B-Instruct_stripped.txt",
+      "sha256": "7ffbeba9168471cd2f418ed421850039d6f49340f508b6d67ec35d50a60da12a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 7466,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "06ea010da3a8e4f21e38a4cb5c3b279cc036d3f0a1af5e15f8363efad5e4a36f",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1327,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_microsoft_phi-4.txt",
+      "sha256": "9d1a6cb2d9113e0425d0a69d8dd483cb403b0db89c2052cd621fd4728373248a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1255,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_mistral-large-2411.txt",
+      "sha256": "70ccdd6576d3c15d3215b946b23cf1ed0c40d463a05a7a4fbe0956f27dfba266",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1208,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_mistral-small-2506.txt",
+      "sha256": "77cdd113ce541a0bfffed798cbbfe3000d92d23fca88e41a344806373d551b1e",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 7182,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "sha256": "3d8bb9c8564e086f0ba9e948b101def6c1fb50eefb1f2d20d71e591a491b1819",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1222,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_one_mistralai_Mistral-7B-Instruct-v0.3_stripped.txt",
+      "sha256": "c5fc7f4c0a5c9d454fe48a23f4f7b070f0a1c19d8d8b8bb92ebe1ba232c137ff",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1207,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_o3-mini.txt",
+      "sha256": "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1686,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1686,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_one_Qwen_Qwen2.5-3B-Instruct_stripped.txt",
+      "sha256": "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1096,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_Qwen_Qwen3.5-4B.txt",
+      "sha256": "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1096,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_one_Qwen_Qwen3.5-4B_stripped.txt",
+      "sha256": "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_tiiuae_Falcon-H1-7B-Base.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1177,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "7e3fccfff40f578aa80ab5aec866e5842bae6009cc4c8fd6c580f90a5f623d35",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1367,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "5e73998ff02a52b17a04ea0fec699abadb1afce9b90f6f2cae28105b4d0c4d01",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1367,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_Qwen_Qwen2.5-3B-Instruct_stripped.txt",
+      "sha256": "5e73998ff02a52b17a04ea0fec699abadb1afce9b90f6f2cae28105b4d0c4d01",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1269,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_Qwen_Qwen3.5-4B.txt",
+      "sha256": "5cdfb200358c1932db66b61c5c77b63f2f8b3edc311e7143bf341fe90a8ff437",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1269,
+      "classification": "DERIVED_DUPLICATE",
+      "path": "result_Qwen_Qwen3.5-4B_stripped.txt",
+      "sha256": "5cdfb200358c1932db66b61c5c77b63f2f8b3edc311e7143bf341fe90a8ff437",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 0,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_tiiuae_Falcon-H1-7B-Base.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "EMPTY"
+    },
+    {
+      "bytes": 1175,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "a73f11448ad4afa1399acc3e638b3554a4ff950b193f01ca8563d7d341b84b21",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    }
+  ],
+  "scenario": "AirTravel"
+}

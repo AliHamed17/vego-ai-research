@@ -1,0 +1,16 @@
+{
+  "provider_run_permitted": false,
+  "settings": [
+    {
+      "candidate_count_N": 4,
+      "case_models_dir": "../../../../external_data/text2uml/253b26dc704d523209a5cba79686f8f7fab57d63/prepared/AirTravel/runtime_input/candidate_models",
+      "corpus_id": "text2uml_airtravel_253b26dc",
+      "domain_description_file": "../../../../external_data/text2uml/253b26dc704d523209a5cba79686f8f7fab57d63/prepared/AirTravel/runtime_input/domain_description/description.md",
+      "language_name": "UML",
+      "provider_run_permitted": false,
+      "reference_only_dir": "../../../../external_data/text2uml/253b26dc704d523209a5cba79686f8f7fab57d63/prepared/AirTravel/reference_only",
+      "setting_id": "cd_airtravel",
+      "source_commit": "253b26dc704d523209a5cba79686f8f7fab57d63"
+    }
+  ]
+}

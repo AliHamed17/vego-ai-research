@@ -1,0 +1,34 @@
+[
+  {
+    "byte_identical": true,
+    "case_id": "01",
+    "path": "result_one_claude-sonnet-4-6.txt",
+    "source_sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+    "staged_path": "01_result_one_claude-sonnet-4-6.txt",
+    "staged_sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91"
+  },
+  {
+    "byte_identical": true,
+    "case_id": "02",
+    "path": "result_one_codestral-2508.txt",
+    "source_sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+    "staged_path": "02_result_one_codestral-2508.txt",
+    "staged_sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6"
+  },
+  {
+    "byte_identical": true,
+    "case_id": "03",
+    "path": "result_one_deepseek-chat.txt",
+    "source_sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+    "staged_path": "03_result_one_deepseek-chat.txt",
+    "staged_sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a"
+  },
+  {
+    "byte_identical": true,
+    "case_id": "04",
+    "path": "result_one_gemini-2.5-flash.txt",
+    "source_sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+    "staged_path": "04_result_one_gemini-2.5-flash.txt",
+    "staged_sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
+  }
+]

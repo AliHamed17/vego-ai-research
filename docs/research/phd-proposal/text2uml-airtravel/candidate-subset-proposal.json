@@ -1,0 +1,48 @@
+{
+  "actual_proposed_n": 4,
+  "candidates": [
+    {
+      "bytes": 1248,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_claude-sonnet-4-6.txt",
+      "proposal_status": "PROPOSED_NOT_FROZEN",
+      "selection_reason": "nonempty, non-stripped, distinct filename/model output; pending Claude freeze",
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1272,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_codestral-2508.txt",
+      "proposal_status": "PROPOSED_NOT_FROZEN",
+      "selection_reason": "nonempty, non-stripped, distinct filename/model output; pending Claude freeze",
+      "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1324,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_deepseek-chat.txt",
+      "proposal_status": "PROPOSED_NOT_FROZEN",
+      "selection_reason": "nonempty, non-stripped, distinct filename/model output; pending Claude freeze",
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    },
+    {
+      "bytes": 1231,
+      "classification": "GENERATED_CANDIDATE_MODEL",
+      "path": "result_one_gemini-2.5-flash.txt",
+      "proposal_status": "PROPOSED_NOT_FROZEN",
+      "selection_reason": "nonempty, non-stripped, distinct filename/model output; pending Claude freeze",
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "source": "Text2UML pinned upstream commit",
+      "syntax_validation": "WRAPPER_PRESENT"
+    }
+  ],
+  "freeze_owner": "Claude/human owner",
+  "status": "PROPOSED_NOT_FROZEN",
+  "target_n": 4
+}

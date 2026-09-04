@@ -102,6 +102,9 @@ literature/hitl-resource-pack/downloads/**
 *.7z
 *.rar
 
+# Locally acquired external datasets (never tracked or published)
+external_data/**
+
 # Generated memory bundle
 docs/agent-memory/compiled-memory.md
 docs/agent-memory/compiled-memory-t*.md
