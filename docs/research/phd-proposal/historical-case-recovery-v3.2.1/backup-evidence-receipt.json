@@ -9,6 +9,12 @@
     "resolved_commit": "cae51a5d7df5fe5b81256d904ff0ba47e669e44b",
     "status": "PASS"
   },
+  "airtravel_materialization": {
+    "classification": "DERIVED_BYTE_IDENTICAL_RUNTIME_PREPARATION",
+    "runtime_archive_sha256": "fb4f0d4b2be76aa25665af972c0491829f4310cd30db5e10b46f718c80da1933",
+    "runtime_config_sha256": "ddfda45bbf7e6c80efeedcb44caad8dcc4396a899f2d1e0c28ff8679bd717b4b",
+    "upstream_archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701"
+  },
   "airtravel_runtime_pack_verification": {
     "configuration_status": "PASS",
     "duplicate_members": [],
@@ -345,10 +351,17 @@
     "status": "PASS",
     "upstream_repository": "https://github.com/IlKaiser/text2uml"
   },
+  "api_cost": "TO BE MEASURED",
   "archive_entry_count": 632,
   "audit_base_sha": "b2275c34755352b2caefe3a2cdd3a72903b16a1d",
   "audit_version": "historical-case-recovery-v3.2.1-erratum",
   "backup_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+  "call_bound": {
+    "N": 4,
+    "minimum": 16,
+    "retained_worst_case": 326,
+    "status": "STATIC_ONLY"
+  },
   "detector_v1_runs": 0,
   "duplicate_id_excess": {
     "groups": {
@@ -519,7 +532,47 @@
     "historical_cheers_parkwise": "DATA_NO_GO",
     "synthetic_gap_fill": "ZERO_AUTHORIZED"
   },
+  "instrumentation": {
+    "airtravel_exact_config": "NOT_EXERCISED_ARCHIVE_UNAVAILABLE",
+    "answer_count": 7,
+    "event_count": 21,
+    "prompt_parity": true,
+    "question_count": 7,
+    "route_pairs": [
+      [
+        "agent2",
+        "agent1"
+      ],
+      [
+        "agent2",
+        "agent2"
+      ],
+      [
+        "agent3",
+        "agent1"
+      ],
+      [
+        "agent3",
+        "agent2"
+      ],
+      [
+        "agent4",
+        "agent1"
+      ],
+      [
+        "agent4",
+        "agent2"
+      ]
+    ],
+    "scientific_state_parity": true,
+    "status": "FIXTURE_ONLY_PASS",
+    "terminal_count": 7,
+    "termination_reasons": [
+      "CONVERGED"
+    ]
+  },
   "normalized_model_count": 165,
   "paid_run_authorization": "ABSENT",
+  "protected_authorization": "NOT_SELF_AUTHORIZED",
   "provider_calls": 0
 }
