@@ -10,7 +10,7 @@ The supplied archive `VEGO-AI-20260611T112722Z-3-001.zip` was hashed as `bce905f
 
 The defensible file-level inventory is **165** raw model files: `ucd_pw=37`, `cd_pw=37`, `ucd_ch=45`, and `cd_ch=46`. The archive contains the same 165 model members, and all 165 local files match their corresponding archive members byte-for-byte.
 
-Two other controlled records use different units or snapshots: the paper historical aggregate is **178** (`46+47+44+41`, with no unambiguous setting binding in the recovered evidence), while the current evaluation record reports **179 scored rows**. The unexplained arithmetic differences are therefore **13** and **14**, respectively; they are not evidence of missing model bytes and are not filled synthetically.
+Two other controlled records use different units or snapshots: the paper historical aggregate is **178** (`ucd_ch=46`, `cd_ch=47`, `ucd_pw=44`, `cd_pw=41`), while the current evaluation record reports **179 scored rows**. The unexplained arithmetic differences are therefore **13** and **14**, respectively; they are not evidence of missing model bytes and are not filled synthetically.
 
 ## Provenance and readiness
 

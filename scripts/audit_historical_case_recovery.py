@@ -215,8 +215,15 @@ def build_audit(repo_root: Path, archive: Path) -> dict[str, Any]:
             "evidence": [
                 "docs/agent-memory/issues.md (ISS-041)",
                 "docs/research/bigui/baseline-comparison-results-v1.json",
+                "docs/research/governance/vego-ai-foundation-paper-record.md",
             ],
-            "per_setting_mapping": "not unambiguously bound in the recovered local evidence",
+            "per_setting": {
+                "ucd_ch": 46,
+                "cd_ch": 47,
+                "ucd_pw": 44,
+                "cd_pw": 41,
+            },
+            "per_setting_order": "Cheers use-case, Cheers class, ParkWise use-case, ParkWise class",
         },
         "current_scored_row_count": {
             "count": 179,
