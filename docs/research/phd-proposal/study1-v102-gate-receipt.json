@@ -1,0 +1,55 @@
+{
+  "authorization_sha256": null,
+  "checks": [
+    {
+      "name": "setting_and_corpus_identity",
+      "status": "PASS"
+    },
+    {
+      "expected_count": 5,
+      "name": "runtime_bytes",
+      "observed_count": 5,
+      "status": "PASS"
+    },
+    {
+      "name": "reference_separation",
+      "status": "PASS"
+    },
+    {
+      "name": "provider_disabled",
+      "status": "PASS"
+    },
+    {
+      "name": "runtime_pack",
+      "status": "PASS"
+    },
+    {
+      "name": "exact_model_configured",
+      "status": "BLOCKED"
+    },
+    {
+      "name": "max_concurrent_cases_frozen",
+      "status": "BLOCKED"
+    },
+    {
+      "name": "provider_call_cap_configured",
+      "status": "BLOCKED"
+    },
+    {
+      "name": "ci_green",
+      "status": "BLOCKED"
+    },
+    {
+      "name": "hash_bound_human_authorization",
+      "status": "BLOCKED"
+    },
+    {
+      "name": "current_code_commit",
+      "status": "PASS"
+    }
+  ],
+  "current_commit": "db996584e109a770d453d2d09ae16081b2fb8f4a",
+  "provider_call_permitted": false,
+  "provider_client_constructed": false,
+  "status": "BLOCKED"
+}

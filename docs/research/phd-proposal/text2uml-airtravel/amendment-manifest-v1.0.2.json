@@ -1,0 +1,105 @@
+{
+  "amendment_version": "1.0.2",
+  "amendment_document": "docs/research/phd-proposal/2026-09-04-qa-escalation-signal-preregistration-v1.0.2-airtravel-amendment.md",
+  "parent_preregistration_version": "1.0.1",
+  "parent_preregistration_commit": "917f1089b4e8d19fdc39d5f80a59e3663ab664cd",
+  "frozen_before_provider_run": true,
+  "frozen_before_detector_v1_inspection": true,
+  "frozen_date": "2026-09-04",
+  "setting_id": "cd_airtravel",
+  "corpus_id": "text2uml_airtravel_253b26dc",
+  "upstream_repository": "https://github.com/IlKaiser/text2uml",
+  "upstream_scenario_path": "dataset/AirTravel",
+  "upstream_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+  "license": "GPL-3.0",
+  "license_redistribution_cleared": false,
+  "license_file_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+  "N": 4,
+  "sample_type": "EXACT_PRE_DATA_PURPOSIVE_FEASIBILITY_SAMPLE",
+  "statistically_representative": false,
+  "independence_assumed": false,
+  "authorship_classification": ["PUBLIC_EXTERNAL", "EXTERNAL_LLM_GENERATED"],
+  "human_or_student_evidence": false,
+  "correctness_ground_truth": false,
+  "runtime_files": [
+    {
+      "path": "domain_description/description.md",
+      "bytes": 1477,
+      "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2",
+      "role": "domain_description"
+    },
+    {
+      "path": "candidate_models/01_result_one_claude-sonnet-4-6.txt",
+      "bytes": 1248,
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "role": "candidate_model"
+    },
+    {
+      "path": "candidate_models/02_result_one_codestral-2508.txt",
+      "bytes": 1272,
+      "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+      "role": "candidate_model"
+    },
+    {
+      "path": "candidate_models/03_result_one_deepseek-chat.txt",
+      "bytes": 1324,
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "role": "candidate_model"
+    },
+    {
+      "path": "candidate_models/04_result_one_gemini-2.5-flash.txt",
+      "bytes": 1231,
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "role": "candidate_model"
+    }
+  ],
+  "excluded_references": [
+    {
+      "path": "reference_only/plantuml.txt",
+      "bytes": 1300,
+      "sha256": "01448d859c916a4229a2becec2e3675614ab6f00495d9049ace30b7c82bb7b98",
+      "classification": "REFERENCE_MODEL"
+    },
+    {
+      "path": "reference_only/plantuml_adjusted.txt",
+      "bytes": 1328,
+      "sha256": "17c4179653fcfea5b2bfd306cb1382d1b93bc5dc946419f85e8fc5e4b480f3ff",
+      "classification": "DERIVED_DUPLICATE"
+    },
+    {
+      "path": "reference_only/extramaterial/AirTravel.cd4a",
+      "bytes": 1452,
+      "sha256": "51a73df36663ab70e251e365266cc51d9a3f2c41ddf2dcf2a3cc106246ce61df",
+      "classification": "REFERENCE_MODEL"
+    }
+  ],
+  "detector_v1": {
+    "strong_alert": "S1_LOW_CONFIDENCE OR S3_MISSING_EVIDENCE OR S7_NON_CONVERGENCE",
+    "weak_alert": "NOT STRONG_ALERT AND (S2_MEDIUM_CONFIDENCE OR S6_MULTI_ROUND)",
+    "no_alert": "neither tier fired",
+    "incomplete_technical": "excluded from all tiers, reported separately",
+    "non_triggering": ["C1_MAPPING_CERTAINTY", "S5_REPEATED_CLARIFICATION", "S8_FOLLOW_UP", "S9_QUESTION_DENSITY"],
+    "modified_by_this_amendment": false
+  },
+  "separate_denominators_required": true,
+  "combined_denominator_permitted_as": "operational_throughput_only",
+  "zero_qa_result_valid": true,
+  "fallback_after_zero_qa_permitted": false,
+  "prior_synthetic_178_corpus_authorized_for_this_setting": false,
+  "supervisor_approval_status": "NOT_DOCUMENTED",
+  "verification_basis": "cross-document consistency across source-manifest.json, airtravel-inventory.json, staging-hash-check.json, 2026-09-04-airtravel-v102-pre-run-technical-gate.md, and 2026-09-04-airtravel-v102-protected-authorization-packet.md; raw external bytes under external_data/text2uml/ were not present in this checkout and were not independently rehashed from source",
+  "verified_no_disagreement": true,
+  "allowed_claims": [
+    "empirical observation of VEGO-AI's own Q&A communication, episode structure, and Detector-v1 classification on this exact corpus, once a run is authorized and executed"
+  ],
+  "forbidden_claims": [
+    "real student representativeness",
+    "historical Cheers/ParkWise corpus reproduction or representativeness",
+    "alert correctness (true/false alerts)",
+    "accuracy, precision, recall, or F1",
+    "generalization to real educational data",
+    "human benefit or intervention effectiveness",
+    "independent human or statistical observation status for any candidate",
+    "any claim before a provider run is authorized and executed"
+  ]
+}
