@@ -2,7 +2,7 @@
 
 **Status: DATA NO-GO / TECHNICAL NO-GO for any provider-backed run**
 **Backup SHA-256:** `8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384`
-**Current main:** `bc81cf0b2f86326473dc9e75b26d6f61e1dc58bb`
+**Current main:** `6064d1dd3e0e35dbbd84a75a7ad7c2bd64c8b12a`
 **Provider, experiment, Detector-v1, and synthetic calls:** 0
 
 ## Scope and preservation
@@ -11,6 +11,11 @@ This is a v3 successor audit. The v1 audit and commits `3f036350` and
 `e999c480` remain preserved as superseded evidence; they were not rewritten.
 The supplied backup hash matches the expected hash. Claude's unpushed
 AirTravel commit `ff0a61a` was not modified or consumed.
+
+The requested `(1)` filename was not present in the local Downloads folder at
+audit time. The original `VEGO-AI-20260902T172951Z-1-001.zip` was present and
+matched the exact expected SHA-256 above; no copy or byte transformation was
+performed.
 
 ## Independent archive and file comparison
 
