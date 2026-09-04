@@ -1,0 +1,28 @@
+{
+  "alternate_count_gaps_not_to_synthesize": {
+    "paper_178": 13,
+    "scored_rows_179": 14
+  },
+  "audit_version": "historical-case-recovery-v1",
+  "exact_proposed_gap_count": 0,
+  "execution_status": "NOT_EXECUTED",
+  "proposals": [
+    {
+      "id": "SYN-GAP-000",
+      "reason": "No gap exists relative to the byte-recoverable raw inventory.",
+      "status": "NOT_PROPOSED"
+    },
+    {
+      "id": "SYN-GAP-ALTERNATE-178",
+      "reason": "Aggregate count disagreement is not evidence of missing model bytes.",
+      "status": "REJECTED"
+    },
+    {
+      "id": "SYN-GAP-ALTERNATE-179",
+      "reason": "Scored-row surplus is a unit/version difference, not a synthesis target.",
+      "status": "REJECTED"
+    }
+  ],
+  "raw_inventory_gap_count": 0,
+  "recommended_option": "A_verified_recovered_only"
+}

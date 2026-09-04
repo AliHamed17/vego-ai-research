@@ -1,0 +1,66 @@
+{
+  "aggregate": {
+    "AMBIGUOUS": 0,
+    "DERIVED_EXACT_COPY": 0,
+    "MISSING": 0,
+    "ORIGINAL_VERIFIED": 0,
+    "PARTIAL_RECOVERY": 0,
+    "RECOVERED_VERBATIM": 165
+  },
+  "audit_version": "historical-case-recovery-v1",
+  "expected_inventory_unit": "raw model files in the current ignored inventory",
+  "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+  "interpretation": "The 178 and 179 figures are different historical units/version snapshots; no missing files are inferred from them.",
+  "per_setting": {
+    "cd_ch": {
+      "ambiguous": 0,
+      "derived_exact_copy": 0,
+      "expected_count": 46,
+      "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+      "missing": 0,
+      "original_verified": 0,
+      "partial_recovery": 0,
+      "recoverable_percent": 100.0,
+      "recovered_verbatim": 46
+    },
+    "cd_pw": {
+      "ambiguous": 0,
+      "derived_exact_copy": 0,
+      "expected_count": 37,
+      "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+      "missing": 0,
+      "original_verified": 0,
+      "partial_recovery": 0,
+      "recoverable_percent": 100.0,
+      "recovered_verbatim": 37
+    },
+    "ucd_ch": {
+      "ambiguous": 0,
+      "derived_exact_copy": 0,
+      "expected_count": 45,
+      "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+      "missing": 0,
+      "original_verified": 0,
+      "partial_recovery": 0,
+      "recoverable_percent": 100.0,
+      "recovered_verbatim": 45
+    },
+    "ucd_pw": {
+      "ambiguous": 0,
+      "derived_exact_copy": 0,
+      "expected_count": 37,
+      "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+      "missing": 0,
+      "original_verified": 0,
+      "partial_recovery": 0,
+      "recoverable_percent": 100.0,
+      "recovered_verbatim": 37
+    }
+  },
+  "recoverable_percent": 100.0,
+  "total_expected": 165,
+  "unresolved_alternate_counts": {
+    "paper_178_minus_raw_165": 13,
+    "scored_179_minus_raw_165": 14
+  }
+}

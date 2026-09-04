@@ -1,0 +1,93 @@
+{
+  "archive_member_model_count": 165,
+  "archive_relative_name": "VEGO-AI-20260611T112722Z-3-001.zip",
+  "archive_sha256": "bce905ff4a1af274f106fd052692f7b1c6b47a7614b65877152a9ed74225a2c9",
+  "audit_version": "historical-case-recovery-v1",
+  "current_scored_row_count": {
+    "count": 179,
+    "evidence": [
+      "experiments/EXP-045-escalation-point-demonstration/README.md",
+      "docs/research/bigui/baseline-comparison-results-v1.json"
+    ],
+    "unit": "scored evaluation rows, not equivalent to raw model-file count"
+  },
+  "duplicate_case_ids": {},
+  "duplicate_content_group_count": 2,
+  "duplicate_content_slot_count": 4,
+  "duplicate_recovered_hashes": {
+    "2d37233f4c26a11e8b66655d66f5a4aafb436fe8b06da4ef0f796399d69cdd9e": [
+      "cd_pw-0019",
+      "cd_pw-0030"
+    ],
+    "b28402ba4062da6bbc2a5fa5ce1380bd58380ea30b12cde27066cc7f2e4887df": [
+      "ucd_pw-0019",
+      "ucd_pw-0030"
+    ]
+  },
+  "paper_historical_count": {
+    "count": 178,
+    "evidence": [
+      "docs/agent-memory/issues.md (ISS-041)",
+      "docs/research/bigui/baseline-comparison-results-v1.json"
+    ],
+    "per_setting_mapping": "not unambiguously bound in the recovered local evidence"
+  },
+  "provenance_counts": {
+    "AMBIGUOUS": 0,
+    "DERIVED_EXACT_COPY": 0,
+    "MISSING": 0,
+    "ORIGINAL_VERIFIED": 0,
+    "PARTIAL_RECOVERY": 0,
+    "RECOVERED_VERBATIM": 165
+  },
+  "raw_model_inventory": {
+    "per_setting": {
+      "cd_ch": {
+        "ambiguous": 0,
+        "derived_exact_copy": 0,
+        "expected_count": 46,
+        "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+        "missing": 0,
+        "original_verified": 0,
+        "partial_recovery": 0,
+        "recoverable_percent": 100.0,
+        "recovered_verbatim": 46
+      },
+      "cd_pw": {
+        "ambiguous": 0,
+        "derived_exact_copy": 0,
+        "expected_count": 37,
+        "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+        "missing": 0,
+        "original_verified": 0,
+        "partial_recovery": 0,
+        "recoverable_percent": 100.0,
+        "recovered_verbatim": 37
+      },
+      "ucd_ch": {
+        "ambiguous": 0,
+        "derived_exact_copy": 0,
+        "expected_count": 45,
+        "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+        "missing": 0,
+        "original_verified": 0,
+        "partial_recovery": 0,
+        "recoverable_percent": 100.0,
+        "recovered_verbatim": 45
+      },
+      "ucd_pw": {
+        "ambiguous": 0,
+        "derived_exact_copy": 0,
+        "expected_count": 37,
+        "historical_executability": "TECHNICALLY_EXECUTABLE_FROM_RECOVERED_BYTES",
+        "missing": 0,
+        "original_verified": 0,
+        "partial_recovery": 0,
+        "recoverable_percent": 100.0,
+        "recovered_verbatim": 37
+      }
+    },
+    "source": "VEGO-AI/models (ignored local inventory), compared to the supplied archive",
+    "total": 165
+  }
+}

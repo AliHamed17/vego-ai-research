@@ -1,0 +1,13 @@
+{
+  "archive_member_model_count": 165,
+  "archive_sha256": "bce905ff4a1af274f106fd052692f7b1c6b47a7614b65877152a9ed74225a2c9",
+  "audit_version": "historical-case-recovery-v1",
+  "byte_identical_count": 165,
+  "byte_mismatch_count": 0,
+  "content_emitted": false,
+  "deterministic_reproduction": "PASS (canonical manifest has stable ordering and no timestamps)",
+  "manifest_sha256": "a70cc41938787ca434b87f4861d7c37d9eaf0557cba96338d8aa9732199824c6",
+  "provider_calls": 0,
+  "raw_model_file_count": 165,
+  "synthetic_models_generated": 0
+}
