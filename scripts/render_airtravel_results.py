@@ -1,5 +1,5 @@
 """Receipt-bound descriptive rendering. Frozen Detector-v1 is the only signal source.
-CLI accepts no findings/conclusions. All eight outputs are deterministic and hashed.
+CLI accepts no findings/conclusions. Nine outputs include the nonrecursive hash manifest.
 Execution on experimental evidence needs separate human authorization.
 """
 
@@ -121,6 +121,15 @@ def render_report(template_text: str, fields: dict[str, str]) -> str:
 def zero_qa_status(events, receipt):
     if events:
         return "NOT_ZERO_QA"
+    try:
+        validate_receipt_shape(receipt)
+    except ValueError:
+        return "INVALID_OR_INCOMPLETE_ZERO_QA"
+    if (
+        receipt.get("fixture_only")
+        or receipt.get("event_log_sha256") != __import__("hashlib").sha256(b"").hexdigest()
+    ):
+        return "INVALID_OR_INCOMPLETE_ZERO_QA"
     required = {
         "status": "TECHNICAL_SUCCESS",
         "orchestrator_completed": True,
@@ -139,8 +148,29 @@ def zero_qa_status(events, receipt):
     return (
         "VALID_ZERO_QA_RUN"
         if all(k in receipt and receipt[k] == v for k, v in required.items())
-        else "ZERO_EVENTS_TECHNICAL_FAILURE"
+        else "INVALID_OR_INCOMPLETE_ZERO_QA"
     )
+
+
+def validate_receipt_shape(receipt):
+    from jsonschema import Draft202012Validator
+    from prepare_airtravel_protected_fake_preflight import FROZEN
+
+    schema = json.loads(
+        (REPO_ROOT / "schemas/airtravel-technical-receipt-v1.schema.json").read_text()
+    )
+    if list(Draft202012Validator(schema).iter_errors(receipt)):
+        raise ValueError("successful receipt schema rejected")
+    if (
+        receipt["runtime_file_hashes"] != {p: v[0] for p, v in FROZEN["runtime_files"].items()}
+        or receipt["runtime_archive_sha256"] != FROZEN["runtime_archive_sha256"]
+    ):
+        raise ValueError("frozen runtime binding mismatch")
+    contract.check_counts(
+        receipt["direct_fake_call_count"], receipt["instrumented_fake_call_count"]
+    )
+    if receipt["direct_fake_call_count"] != receipt["baseline_fake_call_count"]:
+        raise ValueError("direct/baseline alias disagreement")
 
 
 def canonical_totals(corpus):
@@ -172,6 +202,7 @@ def verify_run_receipt(events_path, receipt_path, receipt_hash, commit, model):
     if contract.digest(receipt_path) != receipt_hash:
         raise ValueError("run receipt hash mismatch")
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    validate_receipt_shape(receipt)
     import math
 
     elapsed = receipt.get("elapsed_seconds")
@@ -246,6 +277,12 @@ def verify_run_receipt(events_path, receipt_path, receipt_hash, commit, model):
     from airtravel_local_observer import validate_final_stream
 
     validate_final_stream(events)
+    for event in events:
+        if event["event_type"] in {"QUESTION_EMITTED", "ANSWER_RECEIVED"}:
+            if event.get("source_agent") not in {"agent2", "agent3", "agent4"} or event.get(
+                "target_agent"
+            ) not in {"agent1", "agent2"}:
+                raise ValueError("agent identity outside closed AirTravel report vocabulary")
     if receipt.get("event_count") != len(events) or receipt.get("question_count") != sum(
         e["event_type"] == "QUESTION_EMITTED" for e in events
     ):
@@ -284,7 +321,7 @@ def write_outputs(corpus, report, output_root, receipt, receipt_hash):
                 )
 
     write_json(
-        "validated-run-receipt.json",
+        "airtravel-analysis-receipt.json",
         {
             "verified_run_receipt_sha256": receipt_hash,
             "commit": receipt["commit"],
@@ -342,7 +379,7 @@ def write_outputs(corpus, report, output_root, receipt, receipt_hash):
     ) as handle:
         handle.write(report)
     hashes = {p.name: contract.digest(p) for p in sorted(output_root.iterdir())}
-    write_json("output-hashes.json", hashes)
+    write_json("airtravel-output-hashes.json", hashes)
     return hashes
 
 
@@ -366,7 +403,9 @@ def main():
         json.dumps(
             {
                 "output_hashes": hashes,
-                "manifest_sha256": contract.digest(args.output_root / "output-hashes.json"),
+                "manifest_sha256": contract.digest(
+                    args.output_root / "airtravel-output-hashes.json"
+                ),
             },
             sort_keys=True,
         )

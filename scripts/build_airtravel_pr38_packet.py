@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -28,6 +29,8 @@ CODE = [
     "scripts/airtravel_execution_safety.py",
     "scripts/airtravel_local_observer.py",
     "scripts/airtravel_preflight_execution.py",
+    "scripts/render_airtravel_results.py",
+    "schemas/airtravel-technical-receipt-v1.schema.json",
     "scripts/study1_call_bound.py",
     "schemas/airtravel-fake-grant-v1.schema.json",
     "schemas/qa-communication-event-v1.schema.json",
@@ -40,7 +43,10 @@ def write(path, value):
     path.write_bytes(c.canonical(value) if not isinstance(value, str) else value.encode("utf-8"))
 
 
-def build(upstream, *, materialize=False):
+def build(upstream, *, implementation_commit, materialize=False):
+    implementation = c.git(c.ROOT, "rev-parse", implementation_commit + "^{commit}")
+    if c.git(c.ROOT, "merge-base", implementation, "HEAD") != implementation:
+        raise ValueError("implementation must be a checked-out ancestor")
     if c.digest(upstream) != UPSTREAM_SHA256:
         raise ValueError("upstream archive hash mismatch")
     if c.digest(MANIFEST) != MANIFEST_HASH:
@@ -68,9 +74,19 @@ def build(upstream, *, materialize=False):
         raise ValueError("mapping/runtime verification failed")
     protected = c.protected_hashes(c.ROOT)
     code = {p: c.digest(c.ROOT / p) for p in CODE}
+    for path, sha in code.items():
+        frozen = subprocess.run(
+            [shutil.which("git"), "show", f"{implementation}:{path}"],
+            cwd=c.ROOT,
+            check=True,
+            capture_output=True,
+        ).stdout
+        if hashlib.sha256(frozen).hexdigest() != sha:
+            raise ValueError("implementation commit does not bind current executable bytes")
     payload = {
         "status": "AUTHORIZATION_REQUESTED_NOT_GRANTED",
         "base_sha": c.BASE,
+        "implementation_commit": implementation,
         "correction_parent_sha": c.PARENT,
         "pr": 38,
         "protected_hashes": protected,
@@ -122,7 +138,7 @@ def build(upstream, *, materialize=False):
 
 Status: **AUTHORIZATION_REQUESTED_NOT_GRANTED**. Packet v2 is SUPERSEDED_NOT_AUTHORIZABLE.
 PR: [38](https://github.com/AliHamed17/vego-ai-research/pull/38); do not merge or execute.
-Green base: `{c.BASE}`. Correction parent: `{c.PARENT}`.
+Green base: `{c.BASE}`. Correction parent: `{c.PARENT}`. Implementation commit: `{implementation}`.
 The later owner-issued grant must bind the **full final corrected PR head**, independently compared to `git rev-parse HEAD`, this packet hash, harness hash, archive, command fingerprint, output directory and all protected hashes. A PR body or an assertion flag is not a grant. This immutable request plus a separate matching grant are both required; the request alone always fails. No grant is issued by this task.
 
 ## Future command and scope
@@ -134,6 +150,8 @@ python scripts/prepare_airtravel_protected_fake_preflight.py --execute --authori
 ```
 
 DO NOT RUN this command now. The private request records its fully resolved executable/arguments and SHA-256 fingerprint. The grant file does not exist. The sole tracked example is `TEST_FIXTURE_ONLY` and is rejected.
+
+The owner must separately supply `authorization-grant.message.txt` beside the grant, containing the exact human authorization message. Its SHA-256 is mandatory and compared independently. No message or grant is created here. This local owner-controlled receipt protocol is not cryptographic proof of authorship against a malicious user with filesystem write access. Grant type must be OFFLINE_FAKE_PREFLIGHT_ONLY; grantor Ali Hamed; current issue/expiry, final HEAD, implementation commit, packet/harness/call-bound/protected-manifest/archive/five runtime hashes, exact command/output, timeout 1800, cap 326, network prohibition and paid_execution_authorized=false must all match. A missing or changed binding fails before protected imports.
 
 Allowed reads: clean tracked checkout files (including the protected table), exact five runtime files below, the runtime configuration/archive, packet and grant during validation. Provider credentials, browser profiles, key stores, subprocesses and dynamic native/provider imports are forbidden during orchestration. Allowed writes: **only** `external_data/airtravel-pr38/authorized-fake-run/`, initially absent/empty, symlink-free and Git-ignored. Fixed children: `baseline/`, `instrumented/`, `preflight-receipt.json`. Full private resolved paths are fingerprint-bound in the grant.
 
@@ -149,7 +167,9 @@ Timeout: {c.TIMEOUT} seconds around the complete two-pass coroutine, with cancel
 
 Lifecycle: actual source/skill/case/round labels and registry-assigned IDs bind exact pre-hash questions to answers. One loop invocation retains its episode across rounds and targets. A questionless next round closes CONVERGED; answered final round closes TERMINATED_MAX_ROUNDS; exception/missing answer/correlation failure closes INCOMPLETE_TECHNICAL. Never label every open episode converged. Unresolved/cross-run/cross-episode/duplicate/post-terminal evidence is rejected. No helper-only routes are counted as provider observations.
 
-Counters: protected_orchestrator_fake_route_count counts distinct directed (source_agent,target_agent) QUESTION_EMITTED pairs only after execution; before then NOT_EXECUTED. Episode/question/answer counts are separate. Baseline/instrumented/combined fake-call counts are separate. Provider-backed production routes, external provider calls, network attempts and Detector-v1 experimental runs remain zero before execution. Detector-v1 is not invoked by preflight.
+Counters: protected_orchestrator_fake_episode_count counts episodes; protected_orchestrator_fake_route_pair_count and protected_orchestrator_fake_route_pairs count/list distinct ordered source_agent→target_agent pairs. Before execution counts are NOT_EXECUTED and the list is empty. direct_fake_call_count and instrumented_fake_call_count are separate; compatibility baseline/route aliases retain the same semantics. provider_backed_production_route_pair_count, external_provider_call_count and detector_v1_experimental_run_count remain zero. Detector-v1 is not invoked by preflight.
+
+Parity includes ordered labels, source-bound branch inventory and per-phase/per-case counts, complete return-value decision hashes, full unmodified state, scientific file hashes and final completed-phase result. No scientific field is normalized away. Run identity derives from grant hash, command hash and commit; a different grant/command has a different identity, and the same output cannot be overwritten. Before/after inventories accompany the receipt.
 
 ## Privacy, failure, rollback and expiry
 
@@ -208,5 +228,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--upstream-archive", type=Path, required=True)
     parser.add_argument("--materialize", action="store_true")
+    parser.add_argument("--implementation-commit", required=True)
     args = parser.parse_args()
-    print(json.dumps(build(args.upstream_archive, materialize=args.materialize), sort_keys=True))
+    print(
+        json.dumps(
+            build(
+                args.upstream_archive,
+                implementation_commit=args.implementation_commit,
+                materialize=args.materialize,
+            ),
+            sort_keys=True,
+        )
+    )

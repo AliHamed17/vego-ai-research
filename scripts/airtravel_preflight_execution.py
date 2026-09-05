@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import logging
+from collections import Counter
 from pathlib import Path
 
 import airtravel_preflight_contract as contract
@@ -27,6 +29,33 @@ ALLOWED_FILES = {f"{side}/{name}" for side in ("baseline", "instrumented") for n
 ALLOWED_FILES |= {"instrumented/qa_events.jsonl", "preflight-receipt.json"}
 
 
+def assert_pair_parity(a: dict, b: dict) -> dict:
+    from study1_call_bound import validate_call_inventory
+
+    for run in (a, b):
+        validate_call_inventory(run["calls"])
+
+    def counts(run):
+        return Counter((r["phase"], r["case_id"], r["inventory_row"]) for r in run["calls"])
+
+    parity = {
+        "call_label_parity": [r["label"] for r in a["calls"]] == [r["label"] for r in b["calls"]],
+        "phase_case_count_parity": counts(a) == counts(b),
+        "prompt_parity": [r["prompt_sha256"] for r in a["calls"]]
+        == [r["prompt_sha256"] for r in b["calls"]],
+        "answer_parity": [r["answer_sha256"] for r in a["calls"]]
+        == [r["answer_sha256"] for r in b["calls"]],
+        "decision_parity": [r["decision_sha256"] for r in a["calls"]]
+        == [r["decision_sha256"] for r in b["calls"]],
+        "state_parity": a["state"] == b["state"],
+        "output_parity": a["outputs"] == b["outputs"],
+        "termination_parity": a["termination_result"] == b["termination_result"],
+    }
+    if not all(parity.values()):
+        raise ValueError("baseline/instrumented parity difference")
+    return parity
+
+
 def scientific_outputs(root):
     if {p.name for p in root.iterdir() if p.is_file()} - (PASS_FILES | {"qa_events.jsonl"}):
         raise ValueError("unexpected protected output")
@@ -35,7 +64,16 @@ def scientific_outputs(root):
     return {name: contract.digest(root / name) for name in sorted(SCIENTIFIC_FILES)}
 
 
-async def run_pair(cfg, output, module, *, mode="two_rounds", fixture_only=False, progress=None):
+async def run_pair(
+    cfg,
+    output,
+    module,
+    *,
+    mode="two_rounds",
+    fixture_only=False,
+    progress=None,
+    run_id="fixture-pair",
+):
     """Private control-flow routine; unit tests use inline non-AirTravel two-case fixtures."""
     from airtravel_local_observer import (
         Observer,
@@ -58,18 +96,14 @@ async def run_pair(cfg, output, module, *, mode="two_rounds", fixture_only=False
             subdir.mkdir()
             current = {**cfg, "output_dir": str(subdir)}
             recorder = (
-                QACommunicationRecorder(subdir / "qa_events.jsonl", run_id="airtravel-fake-v3")
+                QACommunicationRecorder(subdir / "qa_events.jsonl", run_id=run_id)
                 if observed
                 else None
             )
             observer = Observer(recorder)
             fake = RecordingFake(mode)
             progress[side] = fake.calls
-            client = (
-                Proxy(fake, observer, count, cfg["setting_id"], "airtravel-fake-v3")
-                if observed
-                else fake
-            )
+            client = Proxy(fake, observer, count, cfg["setting_id"], run_id) if observed else fake
             module.LLMClient = lambda _client=client, **_: _client
             module.QARegistry = observer.registry(QARegistry) if observed else QARegistry
             await module.run_setting(
@@ -83,19 +117,19 @@ async def run_pair(cfg, output, module, *, mode="two_rounds", fixture_only=False
                 if not (subdir / "qa_events.jsonl").exists():
                     (subdir / "qa_events.jsonl").touch(exist_ok=False)
             results.append(
-                {"calls": fake.calls, "state": state, "outputs": outputs, "events": events}
+                {
+                    "calls": fake.calls,
+                    "state": state,
+                    "outputs": outputs,
+                    "events": events,
+                    "termination_result": {
+                        "returned": True,
+                        "completed_phases": state["completed_phases"],
+                    },
+                }
             )
         a, b = results
-        parity = {
-            "prompt_parity": [(r["label"], r["prompt_sha256"]) for r in a["calls"]]
-            == [(r["label"], r["prompt_sha256"]) for r in b["calls"]],
-            "answer_parity": [r["answer_sha256"] for r in a["calls"]]
-            == [r["answer_sha256"] for r in b["calls"]],
-            "state_parity": a["state"] == b["state"],
-            "output_parity": a["outputs"] == b["outputs"],
-        }
-        if not all(parity.values()):
-            raise ValueError("baseline/instrumented parity difference")
+        parity = assert_pair_parity(a, b)
         state = b["state"]
         expected = (
             {c["case_id"] for c in cfg["case_models"]} if fixture_only else {"01", "02", "03", "04"}
@@ -126,6 +160,8 @@ async def run_pair(cfg, output, module, *, mode="two_rounds", fixture_only=False
             "expected_outputs_exist": True,
             "event_recorder_completed": True,
             "event_count": len(b["events"]),
+            "lifecycle_status": "PASS",
+            "call_inventory_status": "PASS",
             "technical_exception": None,
             "outputs": {
                 side: results[i]["outputs"] for i, side in enumerate(("baseline", "instrumented"))
@@ -166,6 +202,29 @@ def execute_verified(runtime_root, archive, output, packet, grant, root):
     reads = {root / p for p in tracked} | {
         runtime_root / p for p in harness.FROZEN["runtime_files"]
     }
+    inventory_before = (
+        {
+            p.relative_to(output).as_posix(): contract.digest(p)
+            for p in output.rglob("*")
+            if p.is_file()
+        }
+        if output.exists()
+        else {}
+    )
+    if inventory_before:
+        raise ValueError("output changed after authorization")
+    run_id = (
+        "FAKE-"
+        + hashlib.sha256(
+            contract.canonical(
+                {
+                    "grant": bindings["grant_sha256"],
+                    "command": bindings["command_sha256"],
+                    "commit": bindings["commit"],
+                }
+            )
+        ).hexdigest()[:24]
+    )
     # Schema/framework templates are tracked. No browser profiles or credential stores are readable.
     output.mkdir(parents=True, exist_ok=True)
     cfg = {
@@ -192,7 +251,7 @@ def execute_verified(runtime_root, archive, output, packet, grant, root):
 
         async def operation():
             with guard:
-                return await run_pair(cfg, output, module, progress=progress)
+                return await run_pair(cfg, output, module, progress=progress, run_id=run_id)
 
         result = loop.run_until_complete(timed_operation(operation, module))
     finally:
@@ -204,15 +263,21 @@ def execute_verified(runtime_root, archive, output, packet, grant, root):
         loop.close()
     receipt = {
         "schema_version": "airtravel-technical-receipt-v1",
+        "run_id": run_id,
+        "provider": "LOCAL_ONLY",
+        "filesystem_inventory_before": inventory_before,
+        "filesystem_containment": "PASS",
         **contract.counters(),
         **bindings,
         **result,
         "network_attempt_count": guard.network_attempt_count,
         "detector_v1_run_count": 0,
+        "detector_v1_experimental_run_count": 0,
         "runtime_archive_sha256": contract.digest(archive),
         "api_cost": "TO BE MEASURED",
     }
     receipt.update(
+        direct_fake_call_count=len(progress.get("baseline", [])),
         baseline_fake_call_count=len(progress.get("baseline", [])),
         instrumented_fake_call_count=len(progress.get("instrumented", [])),
         combined_fake_call_count=sum(len(v) for v in progress.values()),
@@ -222,7 +287,11 @@ def execute_verified(runtime_root, archive, output, packet, grant, root):
         or guard.violations
         or any(contract.digest(root / p) != h for p, h in tracked.items())
     ):
-        receipt.update(status="TECHNICAL_FAILED", technical_exception="SafetyInvariantFailure")
+        receipt.update(
+            status="TECHNICAL_FAILED",
+            technical_exception="SafetyInvariantFailure",
+            filesystem_containment="FAIL",
+        )
     if any(contract.digest(root / p) != h for p, h in protected.items()):
         receipt.update(status="TECHNICAL_FAILED", technical_exception="ProtectedHashDrift")
     events = output / "instrumented/qa_events.jsonl"
@@ -233,7 +302,12 @@ def execute_verified(runtime_root, archive, output, packet, grant, root):
         if p.is_file()
     }
     if set(receipt["files"]) - ALLOWED_FILES or len(receipt["files"]) + 1 > contract.MAX_FILES:
-        receipt.update(status="TECHNICAL_FAILED", technical_exception="OutputInvariantFailure")
+        receipt.update(
+            status="TECHNICAL_FAILED",
+            technical_exception="OutputInvariantFailure",
+            filesystem_containment="FAIL",
+        )
+    receipt["filesystem_inventory_after"] = receipt["files"]
     data = contract.canonical(receipt)
     if (
         sum(p.stat().st_size for p in output.rglob("*") if p.is_file()) + len(data)

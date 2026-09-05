@@ -12,33 +12,24 @@ def test_empty_untrusted_stream_is_technical_failure():
     import render_airtravel_results as r
 
     assert hasattr(r, "zero_qa_status")
-    assert r.zero_qa_status([], {"status": "FIXTURE_ONLY"}) == "ZERO_EVENTS_TECHNICAL_FAILURE"
+    assert r.zero_qa_status([], {"status": "FIXTURE_ONLY"}) == "INVALID_OR_INCOMPLETE_ZERO_QA"
 
 
-def test_successful_zero_qa_requires_every_completion_proof():
+def test_successful_zero_qa_requires_every_completion_proof(tmp_path):
     import render_airtravel_results as r
 
     assert hasattr(r, "zero_qa_status")
-    receipt = {
-        "status": "TECHNICAL_SUCCESS",
-        "orchestrator_completed": True,
-        "processed_case_ids": ["01", "02", "03", "04"],
-        "expected_outputs_exist": True,
-        "technical_exception": None,
-        "timeout": False,
-        "prompt_parity": True,
-        "state_parity": True,
-        "answer_parity": True,
-        "output_parity": True,
-        "event_recorder_completed": True,
-        "event_count": 0,
-        "question_count": 0,
-    }
+    from test_render_airtravel_results import _technical_fixture
+
+    events = tmp_path / "events.jsonl"
+    events.write_text("")
+    receipt = _technical_fixture(events)
+    receipt.pop("fixture_only")
     assert r.zero_qa_status([], receipt) == "VALID_ZERO_QA_RUN"
     for field in receipt:
         changed = {**receipt}
         changed.pop(field)
-        assert r.zero_qa_status([], changed) == "ZERO_EVENTS_TECHNICAL_FAILURE"
+        assert r.zero_qa_status([], changed) == "INVALID_OR_INCOMPLETE_ZERO_QA"
 
 
 def test_canonical_signal_totals_and_forward_route():

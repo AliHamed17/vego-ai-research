@@ -111,6 +111,19 @@ def _technical_fixture(events):
         "N": 4,
         "commit": "1" * 40,
         "model": "LOCAL_DETERMINISTIC_FAKE_V3",
+        "provider": "LOCAL_ONLY",
+        "runtime_file_hashes": {p: v[0] for p, v in FROZEN["runtime_files"].items()},
+        "timeout_seconds": 1800,
+        "direct_fake_call_count": 16,
+        "decision_parity": True,
+        "call_label_parity": True,
+        "phase_case_count_parity": True,
+        "termination_parity": True,
+        "lifecycle_status": "PASS",
+        "call_inventory_status": "PASS",
+        "filesystem_containment": "PASS",
+        "provider_backed_production_route_pair_count": 0,
+        "detector_v1_experimental_run_count": 0,
         "runtime_archive_sha256": FROZEN["runtime_archive_sha256"],
         "event_log_sha256": digest(events),
         "event_count": len(rows),
@@ -204,9 +217,13 @@ def test_zero_qa_stream_requires_successful_verified_technical_receipt(tmp_path)
     events = tmp_path / "events.jsonl"
     events.write_text("", encoding="utf-8")
     assert (
-        renderer.zero_qa_status([], {"status": "FIXTURE_ONLY"}) == "ZERO_EVENTS_TECHNICAL_FAILURE"
+        renderer.zero_qa_status([], {"status": "FIXTURE_ONLY"}) == "INVALID_OR_INCOMPLETE_ZERO_QA"
     )
-    assert renderer.zero_qa_status([], _technical_fixture(events)) == "VALID_ZERO_QA_RUN"
+    fixture = _technical_fixture(events)
+    assert renderer.zero_qa_status([], fixture) == "INVALID_OR_INCOMPLETE_ZERO_QA"
+    # An in-memory successful-shape test, not a receipt for an actual run.
+    fixture["fixture_only"] = False
+    assert renderer.zero_qa_status([], fixture) == "VALID_ZERO_QA_RUN"
 
 
 def test_residual_token_fails_closed() -> None:
@@ -229,7 +246,7 @@ def test_all_eight_output_hashes_are_recorded_and_repeatable(tmp_path, monkeypat
     from airtravel_preflight_contract import digest
 
     names = {
-        "validated-run-receipt.json",
+        "airtravel-analysis-receipt.json",
         "airtravel-results-machine.json",
         "airtravel-episodes.csv",
         "airtravel-detector.csv",
@@ -238,7 +255,7 @@ def test_all_eight_output_hashes_are_recorded_and_repeatable(tmp_path, monkeypat
         "airtravel-terminations.csv",
         "airtravel-preliminary-results-he.md",
     }
-    hashes = json.loads((outputs[0] / "output-hashes.json").read_text())
+    hashes = json.loads((outputs[0] / "airtravel-output-hashes.json").read_text())
     assert set(hashes) == names
     for name in names:
         assert digest(outputs[0] / name) == hashes[name] == digest(outputs[1] / name)

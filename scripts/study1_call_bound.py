@@ -26,6 +26,8 @@ No provider is accessed.  Token counts and monetary cost are TO BE MEASURED.
 from __future__ import annotations
 
 import hashlib
+import inspect
+import re
 from pathlib import Path
 
 MAX_QA_ROUNDS = 10  # VEGO-AI/framework/orchestrator.py:36
@@ -250,6 +252,74 @@ def minimum_calls(case_count: int) -> int:
 def worst_case_calls(case_count: int) -> int:
     verify_source()
     return WORST_BASE + WORST_PER_CASE * _require_case_count(case_count)
+
+
+def capture_call_inventory(label: str) -> dict:
+    """Bind the awaited protected frame/branch to its frozen accounting row.
+
+    Read only code position and case_id, never arbitrary frame locals or data.
+    Shared answer labels alone cannot distinguish their invoking loop.
+    """
+    source = (Path(__file__).resolve().parents[1] / ORCHESTRATOR_PATH).resolve()
+    frame = inspect.currentframe()
+    frames = []
+    try:
+        while frame:
+            if Path(frame.f_code.co_filename).resolve() == source:
+                frames.append((frame.f_lineno, frame.f_locals.get("case_id")))
+            frame = frame.f_back
+    finally:
+        del frame
+    sites = {
+        59: "P1_TEMPLATE",
+        149: "P2_GUIDELINES_PRODUCER",
+        210: "P3_MAP",
+        225: "P3_RESOLVE_PRODUCER",
+        258: "P3_AUDIT_PRODUCER",
+        356: "P4_IDENTIFY",
+        372: "P4_CLASSIFY_PRODUCER",
+        419: "P4_FEEDBACK_PRODUCER",
+    }
+    answer_branches = {
+        164: "P2_LANG_ANSWERS",
+        167: "P2_DOM_ANSWERS",
+        236: "P3_RESOLVE_LANG_ANSWERS",
+        239: "P3_RESOLVE_DOM_ANSWERS",
+        267: "P3_AUDIT_LANG_ANSWERS",
+        269: "P3_AUDIT_DOM_ANSWERS",
+        381: "P4_CLASSIFY_LANG_ANSWERS",
+        383: "P4_CLASSIFY_DOM_ANSWERS",
+        428: "P4_FEEDBACK_LANG_ANSWERS",
+    }
+    if not frames:
+        raise ValueError("call is not on protected orchestrator path")
+    line, case = frames[0]
+    if line in (87, 110):
+        if len(frames) < 2:
+            raise ValueError("answer caller missing")
+        row = answer_branches.get(frames[1][0])
+        case = frames[1][1]
+    else:
+        row = sites.get(line)
+    site = next((s for s in CALL_SITES if s["row"] == row), None)
+    if site is None:
+        raise ValueError("unmapped protected call branch")
+    result = {"label": label, "inventory_row": row, "phase": site["phase"], "case_id": case}
+    validate_call_inventory([result])
+    return {k: v for k, v in result.items() if k != "label"}
+
+
+def validate_call_inventory(calls: list[dict]) -> None:
+    for call in calls:
+        site = next((s for s in CALL_SITES if s["row"] == call.get("inventory_row")), None)
+        if site is None or call.get("phase") != site["phase"]:
+            raise ValueError("unknown call inventory row/phase")
+        pattern = re.escape(str(site["label"])).replace(r"\{n\}", r"(?:[1-9]|10)")
+        pattern = pattern.replace(r"\{case\}", re.escape(str(call.get("case_id"))))
+        if not re.fullmatch(pattern, call.get("label", "")):
+            raise ValueError("call label differs from frozen inventory")
+        if site["scope"] == "per_case" and call.get("case_id") is None:
+            raise ValueError("per-case call lacks case identity")
 
 
 def call_bound_breakdown(case_count: int) -> dict[str, object]:

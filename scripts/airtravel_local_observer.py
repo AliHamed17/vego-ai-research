@@ -16,7 +16,7 @@ import sys
 import types
 
 from airtravel_preflight_contract import ROOT
-from study1_call_bound import MAX_QA_ROUNDS, worst_case_calls
+from study1_call_bound import MAX_QA_ROUNDS, capture_call_inventory, worst_case_calls
 
 CURRENT = contextvars.ContextVar("airtravel_loop_context", default=None)
 
@@ -293,10 +293,13 @@ class RecordingFake(FakeClient):
     async def call(self, prompt, *, label):
         if len(self.calls) >= worst_case_calls(4):
             raise ValueError("individual fake-run maximum exceeded")
-        record = {"label": label, "prompt_sha256": digest(prompt)}
+        record = {"label": label, "prompt_sha256": digest(prompt), **capture_call_inventory(label)}
         self.calls.append(record)
         result = await super().call(prompt, label=label)
         record["answer_sha256"] = digest(result)
+        # Compare the complete deterministic return value as the decision surface;
+        # no scientific fields are removed to obtain parity.
+        record["decision_sha256"] = digest(result)
         return result
 
 
@@ -309,6 +312,11 @@ def route_metrics(events):
         if e["event_type"] == "QUESTION_EMITTED"
     )
     return {
+        "protected_orchestrator_fake_episode_count": len({e["episode_id"] for e in events}),
+        "protected_orchestrator_fake_route_pair_count": len(pairs),
+        "protected_orchestrator_fake_route_pairs": [
+            {"source_agent": s, "target_agent": t} for s, t in sorted(pairs)
+        ],
         "protected_orchestrator_fake_route_count": len(pairs),
         "routes": [
             {"source_agent": s, "target_agent": t, "question_count": n}
