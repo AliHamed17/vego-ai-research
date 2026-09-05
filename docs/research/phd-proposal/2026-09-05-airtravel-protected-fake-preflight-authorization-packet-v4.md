@@ -36,7 +36,7 @@ The controlling machine manifest is
 docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json.
 
 Manifest SHA-256:
-6287e592dda3298b6e0006c22807fde03d868430f4755e88aca6600b6e36b6cb
+c9447a9d038afcc2e244098c1e08b61ec24c626c98aed19f3c38fbf93d3d1a7b
 
 It binds the packet version, base SHA
 c34d3954b5e080d090017d2ea655d454d75a6b92, implementation ancestor
@@ -88,8 +88,9 @@ that fingerprint into the future grant. Any path, token, executable, output,
 packet, or grant change invalidates the grant.
 
 Preparation may create only the private request/template and preparation
-receipt. It must end with AUTHORIZATION_REQUESTED_NOT_GRANTED; it never
-executes.
+receipt. Execution is a separate command that requires a fresh, hash-bound
+owner grant. When granted, it consumes the grant once, executes the two local
+fake passes, and emits the v2 receipt; it never reaches an external provider.
 
 ## Durable one-time consumption
 

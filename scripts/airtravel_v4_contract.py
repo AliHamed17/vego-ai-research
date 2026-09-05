@@ -582,6 +582,26 @@ def validate_private_layout(root: Path, *, preparation: bool = True) -> None:
             "output/instrumented/qa_events.jsonl",
         }
     )
+    scientific_outputs = {
+        "pipeline_state.json",
+        "language_template.json",
+        "reference_guidelines.json",
+        "compliance_vectors.json",
+        "uncovered_fragments.json",
+        "deviation_patterns.json",
+        "variability_classifications.json",
+        "lang_qa_history.json",
+        "dom_qa_history.json",
+        "human_review_queue.jsonl",
+        "pipeline.log",
+    }
+    allowed_execution_files.update(
+        {
+            f"output/{side}/{name}"
+            for side in ("baseline", "instrumented")
+            for name in scientific_outputs
+        }
+    )
     allowed_execution_files.update(
         {"verification/" + name for name in _layout()["verification"]}
     )

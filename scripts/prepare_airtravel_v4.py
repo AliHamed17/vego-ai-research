@@ -29,7 +29,7 @@ from airtravel_v4_contract import (
 DEFAULT_RUNTIME_ROOT = ROOT / "external_data/airtravel-pr38/runtime_input"
 DEFAULT_RUNTIME_ARCHIVE = ROOT / "external_data/airtravel-pr38/cd_airtravel-runtime-v1.0.2.zip"
 PRIVATE_ROOT = ROOT / RUN_ROOT
-EXPECTED_MANIFEST_SHA256 = "6287e592dda3298b6e0006c22807fde03d868430f4755e88aca6600b6e36b6cb"
+EXPECTED_MANIFEST_SHA256 = "c9447a9d038afcc2e244098c1e08b61ec24c626c98aed19f3c38fbf93d3d1a7b"
 
 
 class V4PreparationError(RuntimeError):
@@ -185,10 +185,32 @@ def main() -> int:
     parser.add_argument("--grant", type=Path)
     parser.add_argument("--runtime-root", type=Path, default=DEFAULT_RUNTIME_ROOT)
     parser.add_argument("--runtime-archive", type=Path, default=DEFAULT_RUNTIME_ARCHIVE)
+    parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--receipt", type=Path)
     args = parser.parse_args()
     if args.execute:
-        print(json.dumps({"status": "PREFLIGHT_V4_NOT_READY", "error": "execution is not part of preparation"}))
-        return 2
+        try:
+            if not args.packet or not args.grant or not args.output_dir or not args.receipt:
+                raise V4PreparationError("execute requires packet, grant, output-dir and receipt")
+            manifest, manifest_sha = _load_manifest()
+            if args.packet.resolve() != (ROOT / PACKET_PATH).resolve():
+                raise V4PreparationError("packet path differs from machine manifest")
+            _runtime_checks(args.runtime_root, args.runtime_archive)
+            from airtravel_v4_execution import execute_authorized
+
+            receipt = execute_authorized(
+                runtime_root=args.runtime_root,
+                archive=args.runtime_archive,
+                output=args.output_dir,
+                receipt_path=args.receipt,
+                packet=args.packet,
+                grant=args.grant,
+                root=ROOT,
+            )
+            return print(json.dumps(receipt, ensure_ascii=False, sort_keys=True, indent=2)) or 0
+        except (OSError, ValueError, V4PreparationError) as exc:
+            print(json.dumps({"status": "PREFLIGHT_V4_FAILED", "error": str(exc)}))
+            return 2
     try:
         result = prepare_only(runtime_root=args.runtime_root, runtime_archive=args.runtime_archive)
     except (OSError, ValueError, V4PreparationError) as exc:
