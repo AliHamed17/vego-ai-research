@@ -159,6 +159,7 @@ class Observer:
         self.pending = {}
         self.expected = {}
         self.active = set()
+        self.closed = set()
         self.last = {}
 
     def producer(self, meta, response):
@@ -180,7 +181,8 @@ class Observer:
             self.finish(meta, "CONVERGED")
 
     def finish(self, meta, reason):
-        if meta["episode_id"] in self.active:
+        if meta["episode_id"] in self.active and meta["episode_id"] not in self.closed:
+            self.closed.add(meta["episode_id"])
             self.recorder.emit_termination(
                 episode_id=meta["episode_id"],
                 round_index=meta["round_index"],
@@ -229,18 +231,26 @@ class Observer:
                     key = (meta["episode_id"], scope)
                     pending = observer.pending.get(key, {})
                     ids = [a.get("question_id") for a in answers]
-                    if len(ids) != len(set(ids)) or set(ids) != set(pending):
-                        raise ValueError("unknown, duplicate or missing answer")
+                    correspondent = len(ids) == len(set(ids)) and set(ids) == set(pending)
                     for answer in answers:
+                        question = pending.get(answer.get("question_id"))
+                        if question is None:
+                            continue
                         observer.recorder.emit_answer(
-                            question=pending[answer["question_id"]],
+                            question=question,
                             answer_text=answer.get("answer"),
                             answer_confidence=answer.get("confidence"),
                             answer_evidence=answer.get("evidence"),
                         )
                     observer.pending[key] = {}
                     observer.expected[meta["episode_id"]][scope] = []
-                    if meta["round_index"] == MAX_QA_ROUNDS and not any(
+                    if not correspondent:
+                        # A provider may answer with duplicate, unknown or
+                        # missing identifiers. That episode is technically
+                        # incomplete; it is excluded from every Detector-v1
+                        # denominator rather than aborting the whole run.
+                        observer.finish(meta, "INCOMPLETE_TECHNICAL")
+                    elif meta["round_index"] == MAX_QA_ROUNDS and not any(
                         observer.expected[meta["episode_id"]].values()
                     ):
                         observer.finish(meta, "TERMINATED_MAX_ROUNDS")

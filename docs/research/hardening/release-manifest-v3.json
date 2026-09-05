@@ -182,6 +182,7 @@
     "scripts/tests/fixtures/pass_then_fail_protected_guard.py",
     "scripts/tests/supervisor_package_browser_smoke.mjs",
     "scripts/tests/test_agent_contribution_report.py",
+    "scripts/tests/test_airtravel_observer_incomplete.py",
     "scripts/tests/test_airtravel_pr38_authorization.py",
     "scripts/tests/test_airtravel_pr38_hardening.py",
     "scripts/tests/test_airtravel_pr38_lifecycle.py",
@@ -263,7 +264,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "0f77f91429cdeed127fc38e10bbba45f1694619e5ebcb924e25a99b69f078d1b",
+  "sourceTreeSha256": "adf46ea5031adbc24f92ec3b1a5539e9a407356f8c78c2362125892ce2c36ae7",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
