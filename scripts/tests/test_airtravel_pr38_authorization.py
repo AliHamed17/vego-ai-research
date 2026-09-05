@@ -64,6 +64,9 @@ def test_grant_mismatch_refused(field, value):
         "protected_hashes": {"fixture.py": "6" * 64},
     }
     grant = {
+        **json.loads(
+            (ROOT / "schemas/airtravel-fixtures/airtravel-fake-grant.test-only.json").read_text()
+        ),
         **expected,
         "schema_version": "airtravel-fake-grant-v1",
         "status": "GRANTED",

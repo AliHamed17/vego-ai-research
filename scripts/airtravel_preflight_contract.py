@@ -23,6 +23,7 @@ MAX_FILES = 40
 MAX_BYTES = 16 * 1024 * 1024
 PACKET = "docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v3.md"
 GRANT_SCHEMA = "schemas/airtravel-fake-grant-v1.schema.json"
+PROTECTED_MANIFEST = "docs/research/phd-proposal/airtravel-pr38-correction/protected-hashes.json"
 
 
 def digest(path: Path) -> str:
@@ -78,6 +79,8 @@ def no_links(path: Path) -> None:
 
 
 def output_path(path: Path, root: Path, *, empty: bool = True) -> Path:
+    if ".." in path.parts:
+        raise ValueError("path traversal forbidden")
     no_links(path)
     output = path.resolve()
     relative = output.relative_to((root / "external_data").resolve())
@@ -97,6 +100,12 @@ def receipt_path(path: Path, output: Path) -> Path:
 
 def counters() -> dict:
     return {
+        "protected_orchestrator_fake_episode_count": "NOT_EXECUTED",
+        "protected_orchestrator_fake_route_pair_count": "NOT_EXECUTED",
+        "protected_orchestrator_fake_route_pairs": [],
+        "provider_backed_production_route_pair_count": 0,
+        "detector_v1_experimental_run_count": 0,
+        "direct_fake_call_count": 0,
         "protected_orchestrator_fake_route_count": "NOT_EXECUTED",
         "provider_backed_production_route_count": 0,
         "external_provider_call_count": 0,
@@ -114,7 +123,10 @@ def check_counts(baseline: int, instrumented: int) -> dict:
     low, high = minimum_calls(4), worst_case_calls(4)
     if any(type(n) is not int or not low <= n <= high for n in (baseline, instrumented)):
         raise ValueError("each baseline/instrumented count must be within 16..326")
+    if baseline != instrumented:
+        raise ValueError("baseline/instrumented counts differ")
     return {
+        "direct_fake_call_count": baseline,
         "baseline_fake_call_count": baseline,
         "instrumented_fake_call_count": instrumented,
         "combined_fake_call_count": baseline + instrumented,
@@ -198,8 +210,36 @@ def authorize(runtime_root, archive, output, packet_path, grant_path, root=ROOT)
     commit = git(root, "rev-parse", "HEAD")
     if git(root, "merge-base", PARENT, commit) != PARENT:
         raise ValueError("not a PR38 descendant")
+    implementation = packet.get("implementation_commit", "")
+    if (
+        not re.fullmatch(r"[a-f0-9]{40}", implementation)
+        or git(root, "merge-base", implementation, commit) != implementation
+    ):
+        raise ValueError("implementation commit absent or not an ancestor")
+    # This is an owner-controlled local receipt workflow, not a digital signature.
+    # The owner supplies the message independently; this task never creates it.
+    message = grant_path.with_suffix(".message.txt")
+    no_links(message)
+    if not message.is_file() or message.stat().st_size == 0:
+        raise ValueError("separate owner authorization message required")
+    from prepare_airtravel_protected_fake_preflight import FROZEN
+
+    runtime_hashes = {p: digest(runtime_root / p) for p in FROZEN["runtime_files"]}
+    if runtime_hashes != {p: v[0] for p, v in FROZEN["runtime_files"].items()}:
+        raise ValueError("runtime hash drift")
     tokens = execution_tokens(runtime_root, archive, output, packet_path, grant_path, root)
     expected = {
+        "grant_type": "OFFLINE_FAKE_PREFLIGHT_ONLY",
+        "granted_by": "Ali Hamed",
+        "authorization_message_sha256": digest(message),
+        "implementation_commit": implementation,
+        "call_bound_sha256": digest(root / "scripts/study1_call_bound.py"),
+        "protected_manifest_sha256": digest(root / PROTECTED_MANIFEST),
+        "runtime_file_hashes": runtime_hashes,
+        "timeout_seconds": TIMEOUT,
+        "maximum_calls_per_run": 326,
+        "network_forbidden": True,
+        "paid_execution_authorized": False,
         "commit": commit,
         "packet_sha256": digest(packet_path),
         "harness_sha256": digest(root / "scripts/prepare_airtravel_protected_fake_preflight.py"),
