@@ -318,6 +318,8 @@ def test_v4_cli_execute_flag_is_fail_closed_without_importing_runtime():
 
 def test_prepared_fixed_root_is_valid_on_idempotent_second_read():
     c = v4()
+    if (c.ROOT / c.RUN_ROOT / "control/attempt-start.json").exists():
+        pytest.skip("private v4 attempt has been consumed; preparation layout no longer applies")
     c.validate_private_layout(c.ROOT / c.RUN_ROOT, preparation=True)
 
 
