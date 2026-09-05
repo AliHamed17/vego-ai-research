@@ -39,10 +39,11 @@ Local verification at the correction freeze:
 
 | Command/check | Observed result |
 |---|---|
-| `python -m pytest -q` with the seven focused PR38 test files | 84 passed |
-| `python -m pytest -q scripts/tests` | 436 passed, 22 skipped, 7 subtests passed; two expected duplicate-ZIP fixture warnings |
+| `python -m pytest -q` with the seven focused PR38 test files | 85 passed |
+| `python -m pytest -q scripts/tests` in the isolated locked Python 3.10 environment | 437 passed, 22 skipped, 7 subtests passed; two expected duplicate-ZIP fixture warnings |
 | `python -m pytest -q VEGO-AI/tests` | 134 passed |
 | `python -m pytest -q tests` | 46 passed |
+| `python -m pytest -q VEGO-AI/tests tests` after the quota fix, locked Python 3.10 | 180 passed |
 | Protected phase-function call counters, N=0/1/4 | Minimum 4/7/16; maximum 82/143/326; literal fixtures only |
 | `python scripts/check_evidence_consistency.py --check` | Three present checks passed; five skipped because their ignored reports are absent, not newly validated |
 | `python scripts/check_repository_privacy.py` | PASS |
@@ -55,6 +56,8 @@ Local verification at the correction freeze:
 Fresh corrected-head CI is still a separate release gate; these local results do not claim that CI ran, that a grant exists, or that the exact AirTravel preflight succeeded. Test fixtures verify all eight renderer outputs and their hashes twice. They are not experimental deliverables.
 
 Final review also caught the legacy CLI success label: a future `TECHNICAL_SUCCESS` receipt would have incorrectly exited 2. A dispatch-only regression first failed, then passed after mapping that status to exit 0; `TECHNICAL_FAILED` still exits 2. The execution function is entirely replaced in that test, so no runtime or grant is constructed.
+
+CI run `33959245561` on correction commit `1518fbd40745acaaf5d7b30d4b1c1f2375b056ca` passed source/security/documents and Python 3.11–3.13, but Python 3.10 failed a byte-quota regression, so merge-gate failed. This was not an authorization or release-manifest failure. The failure was reproduced in an isolated locked Python 3.10 environment: its pathlib caches an opener and bypassed the io.open wrapper. The follow-up guards Path.open explicitly, avoids double wrapping on newer Python versions, and restores it on exit. The original failing regression plus a new exact-byte/restoration test pass in both Python 3.10 and 3.13. No protected file or threshold was changed; packet v3 content hashes were refreshed and remain ungranted.
 
 Release condition: PREFLIGHT_READY_AWAITING_EXPLICIT_AUTHORIZATION only after every local check and every corrected-head CI job passes. Until those checks finish: TECHNICAL_NO_GO. GPL publication/redistribution review does not block private local preflight, but publication is not authorized. Ali still must review packet v3 and issue a separate matching grant. A paid run requires another provider/model/budget/commit/corpus/command authorization.
 

@@ -68,6 +68,19 @@ def test_file_and_byte_limits_are_enforced_before_write(tmp_path):
     assert (tmp_path / "a.json").read_text() == "1234"
 
 
+def test_path_open_counts_bytes_once_and_restores_on_exit(tmp_path):
+    m = safety()
+    original_open = Path.open
+    with m.ExecutionGuard(tmp_path, {"a.json"}, set(), max_bytes=4) as guard:
+        (tmp_path / "a.json").write_text("1234", encoding="utf-8")
+        assert guard.written == 4
+        with pytest.raises(PermissionError):
+            with (tmp_path / "a.json").open("a", encoding="utf-8") as handle:
+                handle.write("5")
+    assert Path.open is original_open
+    assert (tmp_path / "a.json").read_bytes() == b"1234"
+
+
 def test_receipt_escape_and_broad_execution_roots_fail(tmp_path):
     from airtravel_preflight_contract import output_path, receipt_path
 

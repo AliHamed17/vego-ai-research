@@ -57,7 +57,7 @@ Archive SHA-256: `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd3
 |---|---|
 | `scripts/prepare_airtravel_protected_fake_preflight.py` | `ec4c0aa4b948e4c5ee33244470da9d6a7b436ce85cc57c940fb4389a4024c997` |
 | `scripts/airtravel_preflight_contract.py` | `377fea865f61b733ecd680a036bb4bac5ecb18838d309a91a6fe67b605f45b8a` |
-| `scripts/airtravel_execution_safety.py` | `77796c56e26563b03f4f1f00cdefc45a4e154eff035cd02af2530d51569566cc` |
+| `scripts/airtravel_execution_safety.py` | `8c4cb6814311aee4d5b8a328aa117881daf3186bdcc6b86782f1b02a752bd203` |
 | `scripts/airtravel_local_observer.py` | `86ca95464560b1ca7425a33f9afb676f4f6ca94d35c60fe417d64c079687b25d` |
 | `scripts/airtravel_preflight_execution.py` | `04b13c773c00a300e27cbac0c2d57e71977d855f90e468794839fc6f6931dba8` |
 | `scripts/study1_call_bound.py` | `0ee54e4147ac8f32d6f5e4cd0d0aa4cb4d517178d0993f3aa87aed21f737a1da` |
@@ -161,7 +161,7 @@ Archive SHA-256: `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd3
   "code_hashes": {
     "schemas/airtravel-fake-grant-v1.schema.json": "885f3e8d79ff63c444e1b5ae457d8e8d21d22193f0fceb116aa183be5cc96ad3",
     "schemas/qa-communication-event-v1.schema.json": "7df773a6a141a656b32012abd35c34aab25002f2a873c84e61c9ade06af670b2",
-    "scripts/airtravel_execution_safety.py": "77796c56e26563b03f4f1f00cdefc45a4e154eff035cd02af2530d51569566cc",
+    "scripts/airtravel_execution_safety.py": "8c4cb6814311aee4d5b8a328aa117881daf3186bdcc6b86782f1b02a752bd203",
     "scripts/airtravel_local_observer.py": "86ca95464560b1ca7425a33f9afb676f4f6ca94d35c60fe417d64c079687b25d",
     "scripts/airtravel_preflight_contract.py": "377fea865f61b733ecd680a036bb4bac5ecb18838d309a91a6fe67b605f45b8a",
     "scripts/airtravel_preflight_execution.py": "04b13c773c00a300e27cbac0c2d57e71977d855f90e468794839fc6f6931dba8",

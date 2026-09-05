@@ -105,6 +105,7 @@ class ExecutionGuard:
         if _ACTIVE is not None:
             raise PermissionError("nested execution guard")
         self.old_open, self.old_io = builtins.open, io.open
+        self.old_path_open = Path.open
         self.old_connect = socket.create_connection
         self.old_bytecode = sys.dont_write_bytecode
 
@@ -147,11 +148,18 @@ class ExecutionGuard:
         def wrap(original):
             def opening(file, mode="r", *args, **kwargs):
                 handle = original(file, mode, *args, **kwargs)
-                return Writer(handle) if any(c in mode for c in "wax+") else handle
+                return (
+                    Writer(handle)
+                    if any(c in mode for c in "wax+") and not isinstance(handle, Writer)
+                    else handle
+                )
 
             return opening
 
         builtins.open, io.open = wrap(self.old_open), wrap(self.old_io)
+        # Python 3.10 pathlib caches its opener rather than looking up io.open.
+        # Newer pathlib delegates to wrapped io.open; avoid nesting Writer twice.
+        Path.open = wrap(self.old_path_open)
         sys.dont_write_bytecode = True
         _ACTIVE = self
         return self
@@ -160,6 +168,7 @@ class ExecutionGuard:
         global _ACTIVE
         _ACTIVE = None
         builtins.open, io.open = self.old_open, self.old_io
+        Path.open = self.old_path_open
         socket.create_connection = self.old_connect
         sys.dont_write_bytecode = self.old_bytecode
 

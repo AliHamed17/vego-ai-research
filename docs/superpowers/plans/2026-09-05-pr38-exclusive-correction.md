@@ -14,6 +14,7 @@ Ali confirms Claude has stopped. No parallel writers are permitted.
 8. Fetch and verify unmoved main/PR head before normal correction commits and push HEAD to the existing PR38 branch. Wait for all six fresh CI jobs. Never merge.
 
 Commit boundary: one consolidated correction commit covering authorization/source safety, observer/parity/output and renderer corrections, final packet/evidence and the mechanically generated release manifest.
+CI follow-up: a normal fast-forward compatibility fix is permitted in this same PR after reproducing the Python 3.10 pathlib quota failure; it includes code/tests and refreshed bindings, not a receipt-only commit.
 Stop on main/head drift, protected modifications, provider access, unavailable source archive or missing human authority. Final exact execution remains unperformed.
 
 WIP comparison: retain PR38 frozen runtime/check structure and call-site table. Reuse only independently tested question/answer correlation and lifecycle logic from the local checkpoint; do not copy its execution guard, grant format, renderer, provider guard, evidence receipts or unrelated documents wholesale. Those interfaces do not satisfy this correction's exact grant/output/receipt requirements.
