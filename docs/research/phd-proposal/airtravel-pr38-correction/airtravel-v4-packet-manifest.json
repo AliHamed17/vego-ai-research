@@ -27,7 +27,7 @@
   "external_provider_calls_allowed": 0,
   "harness_code_hashes": {
     "scripts/airtravel_v4_contract.py": "cd27f7eaafc859152e6b334aabff03656ac5cec0aac67b69b11955a20031d1d1",
-    "scripts/airtravel_v4_execution.py": "1f46a321bade976f49a419a3c2c1b8caee2de787a332f4c302e17eaee196060a"
+    "scripts/airtravel_v4_execution.py": "fd6d2d678d9dabcf84d87992fe741c316ff653705462901ae57803c815ef4619"
   },
   "implementation_commit_ancestor": "28a1d95f39058e5b9dd3e7601584e2393311d405",
   "manifest_version": "airtravel-v4-packet-manifest-v1",

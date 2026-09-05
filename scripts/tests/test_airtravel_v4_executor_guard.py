@@ -136,3 +136,21 @@ def test_manifest_is_not_stale_against_contract():
     from build_airtravel_v4_manifest import main
 
     assert main(["--check"]) == 0
+
+
+def test_consume_grant_returns_bindings_and_attempt_identity():
+    """Receipt construction needs grant bindings, not only the attempt row."""
+    import inspect
+
+    source = inspect.getsource(runner().consume_grant)
+    assert "{**bindings, **start}" in source
+
+
+def test_failure_handler_covers_receipt_construction():
+    """Any post-run failure must still write a terminal attempt marker."""
+    import inspect
+
+    source = inspect.getsource(runner().execute_authorized)
+    tail = source[source.index("except BaseException:"):]
+    assert "attempt-end.json" in tail
+    assert source.index("validate_receipt_v2") < source.index("except BaseException:")

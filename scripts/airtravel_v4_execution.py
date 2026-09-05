@@ -170,12 +170,15 @@ def consume_grant(
     assert_not_consumed(control, output)
     if invocation_id != grant["invocation_id"] or nonce != grant["nonce"]:
         raise ValueError("caller identity differs from grant")
-    return create_attempt_start(
+    start = create_attempt_start(
         control,
         bindings,
         invocation_id=grant["invocation_id"],
         nonce=grant["nonce"],
     )
+    # Callers need the validated grant bindings and the durable attempt
+    # identity together; the overlapping keys carry identical values.
+    return {**bindings, **start}
 
 
 def finish_grant(
@@ -589,109 +592,110 @@ def execute_authorized(
                 "offline protected execution failed: "
                 f"{result.get('technical_exception', 'unknown failure')}"
             )
+
+        # _run_pair_v4 populates its own progress only when passed; recover the
+        # lists from the returned call counts is not possible, so use persisted
+        # records as the authoritative counters below.
+        call_paths = {
+            "baseline": output / "baseline/call-records.jsonl",
+            "instrumented": output / "instrumented/call-records.jsonl",
+        }
+        call_counts = {side: len(__import__("airtravel_v4_contract").load_call_records(path)) for side, path in call_paths.items()}
+        from qa_communication import build_episode_projection
+
+        event_path = output / "instrumented/qa_events.jsonl"
+        events = [json.loads(line) for line in event_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        validate_event_stream(events)
+        projections = build_episode_projection(events)
+        terminations = [event for event in events if event["event_type"] == "EPISODE_TERMINATED"]
+        parity = compare_call_records(call_paths["baseline"], call_paths["instrumented"])
+        output_hashes = output_inventory(output)
+        verification = root / RUN_ROOT / "verification"
+        _canonical_write(verification / "final-output-inventory.json", output_hashes)
+        _canonical_write(verification / "parity-verification.json", {"status": "PASS", **parity, "pipeline_state_parity": result["state_parity"], "scientific_artifact_parity": result["output_parity"]})
+        _canonical_write(verification / "lifecycle-verification.json", {"status": "PASS", "run_id": run_id, "event_count": len(events), "question_count": sum(e["event_type"] == "QUESTION_EMITTED" for e in events), "answer_count": sum(e["event_type"] == "ANSWER_RECEIVED" for e in events), "termination_count": len(terminations), "episodes": len(projections), "termination_reasons": sorted({e["termination_reason"] for e in terminations})})
+        output_inventory_sha = digest(verification / "final-output-inventory.json")
+        completed = datetime.now(timezone.utc).replace(microsecond=0)
+        # run_pair reports directed pairs under its protected-orchestrator key.
+        route_pairs = result.get("protected_orchestrator_fake_route_pairs", [])
+        # Containment and counters are measured from the guard, never asserted.
+        measured_counters = {
+            **zero_safety_counters(),
+            "network_socket_attempt_count": guard.network_attempt_count,
+            "external_provider_call_count": int(result.get("external_provider_call_count", 0)),
+        }
+        if guard.violations or guard.network_attempt_count:
+            raise ValueError(
+                f"containment failed: {guard.violations} violations, "
+                f"{guard.network_attempt_count} network attempts"
+            )
+        receipt = {
+            "schema_version": "airtravel-technical-receipt-v2",
+            "mode": "execute",
+            "status": "TECHNICAL_SUCCESS",
+            "reviewed_head": bindings["reviewed_head"],
+            "packet_manifest_sha256": bindings["packet_manifest_sha256"],
+            "request_sha256": digest(root / RUN_ROOT / "control/private-execution-request.json"),
+            "authorization_message_sha256": bindings["authorization_message_sha256"],
+            "grant_sha256": bindings["grant_sha256"],
+            "command_sha256": bindings["command_sha256"],
+            "invocation_id": bindings["invocation_id"],
+            "nonce": bindings["nonce"],
+            "attempt_number": 1,
+            "started_at": attempt_start["started_at"],
+            "completed_at": completed.isoformat().replace("+00:00", "Z"),
+            "grant_evaluated_at": bindings["grant_evaluated_at"],
+            "grant_valid_at_start": bindings["grant_valid_at_start"],
+            "timeout": bool(result.get("timeout", False)),
+            "retry_count": 0,
+            "replay_count": 0,
+            "direct_fake_call_count": call_counts["baseline"],
+            "instrumented_fake_call_count": call_counts["instrumented"],
+            "combined_fake_call_count": call_counts["baseline"] + call_counts["instrumented"],
+            "call_count_equal": call_counts["baseline"] == call_counts["instrumented"],
+            "prompt_parity": parity["ordered_prompt_parity"],
+            "answer_parity": parity["ordered_answer_parity"],
+            "decision_parity": parity["decision_parity"],
+            "pipeline_state_parity": result["state_parity"],
+            "scientific_artifact_parity": result["output_parity"],
+            "completed_cases": result["processed_case_ids"],
+            "completed_phases": ["phase1", "phase2", "phase3", "phase4"],
+            "event_log_sha256": digest(event_path),
+            "event_count": len(events),
+            "question_count": sum(e["event_type"] == "QUESTION_EMITTED" for e in events),
+            "answer_count": sum(e["event_type"] == "ANSWER_RECEIVED" for e in events),
+            "termination_count": len(terminations),
+            "termination_counts": {reason: sum(e["termination_reason"] == reason for e in terminations) for reason in sorted({e["termination_reason"] for e in terminations})},
+            "route_pairs": route_pairs,
+            "protected_manifest_hash_before": protected_before,
+            "protected_manifest_hash_after": _protected_manifest_hash(root),
+            "tracked_manifest_hash_before": tracked_before,
+            "tracked_manifest_hash_after": _tracked_manifest(root)[0],
+            "output_inventory_sha256": output_inventory_sha,
+            "containment_status": "PASS",
+            "privacy_status": "PASS",
+            "call_record_hashes": {side: digest(path) for side, path in call_paths.items()},
+            "safety_counters": measured_counters,
+            "grant_consumption_status": "CONSUMED",
+        }
+        validate_receipt_v2(receipt, root=root, require_evidence=False)
+        _canonical_write(receipt_path, receipt)
+        receipt_sha = digest(receipt_path)
+        finish_grant(root=root, attempt_start=attempt_start, status="TECHNICAL_SUCCESS", output_receipt_sha256=receipt_sha)
+        _canonical_write(verification / "post-verification-receipt.json", {"status": "PASS", "receipt_sha256": receipt_sha, "attempt_end_sha256": digest(root / RUN_ROOT / "control/attempt-end.json"), "provider_calls": 0, "network_attempts": 0, "detector_runs": 0, "renderer_runs": 0})
+        # Full evidence validation runs last: attempt-end and the post-verification
+        # receipt are themselves required evidence, so they must exist first.
+        validate_receipt_v2(receipt, root=root, require_evidence=True)
+        validate_private_layout(root / RUN_ROOT, preparation=False)
+        return receipt
     except BaseException:
         # Close the ledger before surfacing any failure so a consumed
         # invocation can never look unterminated or replayable.
-        finish_grant(
-            root=root,
-            attempt_start=attempt_start,
-            status="TECHNICAL_FAILED",
-            output_receipt_sha256=None,
-        )
+        if not (root / RUN_ROOT / "control/attempt-end.json").exists():
+            finish_grant(
+                root=root,
+                attempt_start=attempt_start,
+                status="TECHNICAL_FAILED",
+                output_receipt_sha256=None,
+            )
         raise
-
-    # _run_pair_v4 populates its own progress only when passed; recover the
-    # lists from the returned call counts is not possible, so use persisted
-    # records as the authoritative counters below.
-    call_paths = {
-        "baseline": output / "baseline/call-records.jsonl",
-        "instrumented": output / "instrumented/call-records.jsonl",
-    }
-    call_counts = {side: len(__import__("airtravel_v4_contract").load_call_records(path)) for side, path in call_paths.items()}
-    from qa_communication import build_episode_projection
-
-    event_path = output / "instrumented/qa_events.jsonl"
-    events = [json.loads(line) for line in event_path.read_text(encoding="utf-8").splitlines() if line.strip()]
-    validate_event_stream(events)
-    projections = build_episode_projection(events)
-    terminations = [event for event in events if event["event_type"] == "EPISODE_TERMINATED"]
-    parity = compare_call_records(call_paths["baseline"], call_paths["instrumented"])
-    output_hashes = output_inventory(output)
-    verification = root / RUN_ROOT / "verification"
-    _canonical_write(verification / "final-output-inventory.json", output_hashes)
-    _canonical_write(verification / "parity-verification.json", {"status": "PASS", **parity, "pipeline_state_parity": result["state_parity"], "scientific_artifact_parity": result["output_parity"]})
-    _canonical_write(verification / "lifecycle-verification.json", {"status": "PASS", "run_id": run_id, "event_count": len(events), "question_count": sum(e["event_type"] == "QUESTION_EMITTED" for e in events), "answer_count": sum(e["event_type"] == "ANSWER_RECEIVED" for e in events), "termination_count": len(terminations), "episodes": len(projections), "termination_reasons": sorted({e["termination_reason"] for e in terminations})})
-    output_inventory_sha = digest(verification / "final-output-inventory.json")
-    completed = datetime.now(timezone.utc).replace(microsecond=0)
-    # run_pair reports directed pairs under its protected-orchestrator key.
-    route_pairs = result.get("protected_orchestrator_fake_route_pairs", [])
-    # Containment and counters are measured from the guard, never asserted.
-    measured_counters = {
-        **zero_safety_counters(),
-        "network_socket_attempt_count": guard.network_attempt_count,
-        "external_provider_call_count": int(result.get("external_provider_call_count", 0)),
-    }
-    if guard.violations or guard.network_attempt_count:
-        raise ValueError(
-            f"containment failed: {guard.violations} violations, "
-            f"{guard.network_attempt_count} network attempts"
-        )
-    receipt = {
-        "schema_version": "airtravel-technical-receipt-v2",
-        "mode": "execute",
-        "status": "TECHNICAL_SUCCESS",
-        "reviewed_head": bindings["reviewed_head"],
-        "packet_manifest_sha256": bindings["packet_manifest_sha256"],
-        "request_sha256": digest(root / RUN_ROOT / "control/private-execution-request.json"),
-        "authorization_message_sha256": bindings["authorization_message_sha256"],
-        "grant_sha256": bindings["grant_sha256"],
-        "command_sha256": bindings["command_sha256"],
-        "invocation_id": bindings["invocation_id"],
-        "nonce": bindings["nonce"],
-        "attempt_number": 1,
-        "started_at": attempt_start["started_at"],
-        "completed_at": completed.isoformat().replace("+00:00", "Z"),
-        "grant_evaluated_at": bindings["grant_evaluated_at"],
-        "grant_valid_at_start": bindings["grant_valid_at_start"],
-        "timeout": bool(result.get("timeout", False)),
-        "retry_count": 0,
-        "replay_count": 0,
-        "direct_fake_call_count": call_counts["baseline"],
-        "instrumented_fake_call_count": call_counts["instrumented"],
-        "combined_fake_call_count": call_counts["baseline"] + call_counts["instrumented"],
-        "call_count_equal": call_counts["baseline"] == call_counts["instrumented"],
-        "prompt_parity": parity["ordered_prompt_parity"],
-        "answer_parity": parity["ordered_answer_parity"],
-        "decision_parity": parity["decision_parity"],
-        "pipeline_state_parity": result["state_parity"],
-        "scientific_artifact_parity": result["output_parity"],
-        "completed_cases": result["processed_case_ids"],
-        "completed_phases": ["phase1", "phase2", "phase3", "phase4"],
-        "event_log_sha256": digest(event_path),
-        "event_count": len(events),
-        "question_count": sum(e["event_type"] == "QUESTION_EMITTED" for e in events),
-        "answer_count": sum(e["event_type"] == "ANSWER_RECEIVED" for e in events),
-        "termination_count": len(terminations),
-        "termination_counts": {reason: sum(e["termination_reason"] == reason for e in terminations) for reason in sorted({e["termination_reason"] for e in terminations})},
-        "route_pairs": route_pairs,
-        "protected_manifest_hash_before": protected_before,
-        "protected_manifest_hash_after": _protected_manifest_hash(root),
-        "tracked_manifest_hash_before": tracked_before,
-        "tracked_manifest_hash_after": _tracked_manifest(root)[0],
-        "output_inventory_sha256": output_inventory_sha,
-        "containment_status": "PASS",
-        "privacy_status": "PASS",
-        "call_record_hashes": {side: digest(path) for side, path in call_paths.items()},
-        "safety_counters": measured_counters,
-        "grant_consumption_status": "CONSUMED",
-    }
-    validate_receipt_v2(receipt, root=root, require_evidence=False)
-    _canonical_write(receipt_path, receipt)
-    receipt_sha = digest(receipt_path)
-    finish_grant(root=root, attempt_start=attempt_start, status="TECHNICAL_SUCCESS", output_receipt_sha256=receipt_sha)
-    _canonical_write(verification / "post-verification-receipt.json", {"status": "PASS", "receipt_sha256": receipt_sha, "attempt_end_sha256": digest(root / RUN_ROOT / "control/attempt-end.json"), "provider_calls": 0, "network_attempts": 0, "detector_runs": 0, "renderer_runs": 0})
-    # Full evidence validation runs last: attempt-end and the post-verification
-    # receipt are themselves required evidence, so they must exist first.
-    validate_receipt_v2(receipt, root=root, require_evidence=True)
-    validate_private_layout(root / RUN_ROOT, preparation=False)
-    return receipt
