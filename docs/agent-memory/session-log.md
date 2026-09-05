@@ -515,3 +515,27 @@ Chronological prompt history for Codex and Claude.
   - python scripts/build_hardening_manifests.py --check
 - Status: Authorization repair prepared; awaiting independent review.
 - Next steps: Independent review and CI on the consolidated PR head; do not create or consume a grant.
+
+## 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+
+- Request: Complete the authorized AirTravel Study 1 evidence package, reconcile the offline fake preflight and the single recorded provider-backed run, and publish truthful Hebrew reports.
+- Actions taken:
+  - Revalidated final-head fake preflight and private receipt
+  - Reconciled provider-run receipts and corrected Hebrew report claims
+  - Added six-slide outline and execution-analysis receipt
+  - Updated PR #38 description to current truthful status
+- Files changed:
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-presentation-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+- Commands/checks:
+  - python -m pytest -q scripts/tests (547 passed, 23 skipped)
+  - python -m pytest -q VEGO-AI/tests (134 passed)
+  - python -m pytest -q tests (46 passed)
+  - ruff check (PASS)
+  - python -m compileall -q scripts VEGO-AI (PASS)
+  - privacy/security/evidence/manifests (PASS)
+  - CI 33997099007 (all six jobs green)
+- Status: TECHNICAL_NO_GO: one provider run incomplete; no scientific denominator
+- Next steps: Repair answer-correlation instrumentation, validate with malformed-answer fake fixtures, and seek a fresh human decision before any additional provider run.

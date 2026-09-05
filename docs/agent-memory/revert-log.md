@@ -353,3 +353,13 @@ Record file changes and rollback notes here.
   - docs/research/hardening/release-manifest-v3.json
 - Rollback note: Revert the repair commit only; preserve the rejected v3 run and all prior evidence.
 - Git commit: none recorded by script.
+
+## 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-presentation-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+- Rollback note: Revert commit 89495c2 to remove the report reconciliation and receipt additions.
+- Git commit: none recorded by script.
