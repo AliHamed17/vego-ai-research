@@ -460,8 +460,11 @@ async def _run_pair_v4(
 
     class LengthRecordingFake(original_fake):
         async def call(self, prompt, *, label):
+            record_index = len(self.calls)
             result = await super().call(prompt, label=label)
-            row = self.calls[-1]
+            # Calls for separate cases are concurrent.  ``self.calls[-1]`` is
+            # not stable after the await; retain the append position instead.
+            row = self.calls[record_index]
             row["prompt_length"] = len(json.dumps(prompt, ensure_ascii=False, sort_keys=True).encode("utf-8"))
             row["answer_length"] = len(json.dumps(result, ensure_ascii=False, sort_keys=True).encode("utf-8"))
             return result
@@ -529,6 +532,8 @@ def execute_authorized(
 
     allowed_files = {
         *ALLOWED_FILES,
+        "baseline/call-records.jsonl",
+        "instrumented/call-records.jsonl",
         *(f"{side}/{name}" for side in ("baseline", "instrumented") for name in _SCIENTIFIC_OUTPUTS),
     }
     reads = {root / relative for relative in tracked_values} | {
@@ -565,6 +570,11 @@ def execute_authorized(
                 return result
 
         result = asyncio.run(timed_operation(operation, module, timeout=TIMEOUT_SECONDS))
+        if result.get("status") != "TECHNICAL_SUCCESS":
+            raise ValueError(
+                "offline protected execution failed: "
+                f"{result.get('technical_exception', 'unknown failure')}"
+            )
     except BaseException:
         raise
 
