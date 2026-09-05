@@ -1,118 +1,112 @@
-# Study 1 AirTravel — execution and analysis receipt
+# Study 1 — AirTravel execution and analysis receipt
 
-## Verdict
+Machine-verifiable record for one authorized offline preflight and one
+authorized provider-backed run. Every value below is derived from a persisted
+artifact; none is narrated.
 
-`TECHNICAL_NO_GO`: the engineering-only fake preflight passed, but the one
-authorized provider-backed run ended `INCOMPLETE_TECHNICAL` before any complete
-Q&A episode existed. Detector-v1 and the renderer were not run.
+## Binding
 
-## Binding and provenance
-
-| Field | Value |
+| Item | Value |
 |---|---|
-| PR head with reports | `baca488e4f1137c80aefb8e91c097c1b547a3a03` |
-| Head used by the provider run | `12f3faa0b3a3a5269349ce7132d49ff532248bfb` |
-| Setting | `cd_airtravel` |
-| Corpus | `text2uml_airtravel_253b26dc` |
-| N | 4 |
-| Classification | `PUBLIC_EXTERNAL + EXTERNAL_LLM_GENERATED` |
-| Source verification | 143/143 matched; 0 missing, extra, or mismatched |
-| Runtime pack | 5/5 files matched; configuration PASS; references not visible |
-| Runtime archive | `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f` |
-| Source/runtime receipt | `docs/research/phd-proposal/airtravel-pr38-correction/source-runtime-receipt.json` |
+| Reviewed head | `efe686ac0b13c6e17695b816da7eb0cdd3eadcc1` |
+| PR | #38 (open, draft, unmerged) |
+| Preflight reviewed_head | `efe686ac0b13c6e17695b816da7eb0cdd3eadcc1` |
+| Grant nonce / invocation | `ROBNRnnTeW0O-T2ufFITz_I36mEXBvg0` / `airtravel-v4-d2cf0854c4c068db` |
+| Grant window | `2026-09-05T23:02:14Z` → `2026-09-05T23:32:14Z` |
+| Packet SHA-256 | `e2f6a4416e7ce3ca9154e5ea51d1f88b87f724d73b35d775bd263b7a753b32b1` |
+| Machine manifest SHA-256 | `3db072dd221e9465e06dfac4be2a26f38277945c8e50de8f408d7aee3191dcfc` |
+| Command fingerprint | `a2ef88358f19d2918cddaeba1eead45ee8c2f5a284b7d99557209d6a15e6a7ba` |
+| Runtime archive SHA-256 | `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f` |
+| Source verification | 143/143 source files, 5/5 runtime files |
 
-The source receipt is retained as the source-verification record. The raw
-archive, runtime bytes, and all run outputs remain outside Git and are not
-redistributed here.
+## Offline fake preflight — engineering evidence only
 
-## Offline fake preflight (engineering evidence only)
-
-The final-head preflight was executed once with a fresh one-time grant in an
-isolated checkout. A separate read-only validation pass revalidated the receipt
-and private layout.
-
-| Metric | Result |
+| Item | Value |
 |---|---|
-| Receipt | `TECHNICAL_SUCCESS` |
-| Direct / instrumented calls | 46 / 46 |
-| Combined fake calls | 92 |
+| Status | `TECHNICAL_SUCCESS` |
+| Direct / instrumented calls | 46 / 46 (equal: True) |
+| Prompt / answer / decision parity | True / True / True |
+| PipelineState / artifact parity | True / True |
 | Events / questions / answers | 50 / 20 / 20 |
-| Episodes / terminations | 10 / 10 |
-| Termination states | 10 `CONVERGED` |
+| Terminations | {"CONVERGED": 10} |
 | Route pairs | 6 |
-| Prompt, answer, decision parity | PASS / PASS / PASS |
-| Pipeline/scientific-artifact parity | PASS / PASS |
-| Containment/privacy | PASS / PASS |
-| Network, provider, credential, Detector, renderer counters | all 0 |
-| Private receipt SHA-256 | `d951a7baefaf0733282b4f81a82fb815f609d03a68bfa32caa832d6fe795a2fb` |
-| Event-log SHA-256 | `fccac69b565fc278301b7a7fa7ba3f95131229002b8b81e5c7acf616756cc788` |
+| Containment / privacy | PASS / PASS |
+| Safety counters all zero | True |
+| Protected manifest before = after | True |
+| Tracked manifest before = after | True |
 
-This is mechanism and safety evidence only. It is not a scientific result and
-does not establish accuracy, alert correctness, human benefit, or
-generalization.
+This is technical readiness. It is not a scientific result.
 
-## Provider-backed run (one authorized run; no retry of the experiment)
+## Real provider-backed run — exactly one
 
-Private receipts show one authorized run with two technical attempts. The
-first request was rejected by the API parameter validator before model output;
-the second reached the model but failed closed in the answer-correlation
-instrumentation. No whole-experiment retry, setting substitution, model
-switch, or outcome-dependent expansion occurred.
+| Item | Value |
+|---|---|
+| Run ID | `REAL-efe686a-20260905T2303Z` |
+| Status | `TECHNICAL_SUCCESS` |
+| Provider / model | openai / `gpt-5.6-luna` |
+| API mode | `chat.completions` |
+| max_tokens | 16384 |
+| Request / run timeout | 180s / 3600s |
+| Concurrency | 2 |
+| Started / completed | 2026-09-05T23:03:01Z → 2026-09-05T23:12:38Z |
+| Outbound requests | **43** of 326 |
+| Prompt / completion tokens | 186,558 / 81,384 |
+| Total tokens | 267,942 |
+| Actual cost | **USD 0.134972** of 10.0 |
+| Within budget | True |
+| Blocked egress attempts | 0 |
+| Credential | process environment variable, value never read |
 
-| Attempt | Status | Requests | Tokens | Estimated cost |
-|---|---|---:|---:|---:|
-| 1 | `INCOMPLETE_TECHNICAL` (legacy `max_tokens` rejected) | 1 | 0 | $0.000000 |
-| 2 | `INCOMPLETE_TECHNICAL` (`unknown, duplicate or missing answer`) | 3 | 17,148 | $0.010293 |
-| **Total** | `INCOMPLETE_TECHNICAL` | **4** | **17,148** | **$0.010293** |
+Call bounds: minimum 4 + 3N = 16, maximum 82 + 61N = 326. Observed
+43 outbound requests, inside both bounds.
 
-Frozen configuration: provider `openai`; model `gpt-5.6-luna`; `chat.completions`;
-output ceiling 16,384; request timeout 180 seconds; run timeout 3,600 seconds;
-concurrency 2; request cap 326; hard budget $10; no fallback or model switch.
-The Luna prices used by the harness are $0.20/M input and $1.20/M output,
-verified against [OpenAI model documentation](https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4)
-and the [OpenAI July 30, 2026 pricing announcement](https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6/).
+## Detector-v1 — frozen, byte-identical to main
 
-Private artifact hashes:
+| Item | Value |
+|---|---|
+| Total episodes observed | 3 |
+| Complete episodes (denominator) | **3** |
+| INCOMPLETE_TECHNICAL (excluded) | 0 |
+| Questions / answers | 44 / 44 |
+| Max round index | 10 |
+| Directed route pairs | 3 |
+| Termination states | {"CONVERGED": 2, "TERMINATED_MAX_ROUNDS": 1} |
+| STRONG_ALERT | **3** |
+| WEAK_ALERT | 0 |
+| NO_ALERT | 0 |
+| Signals fired | {"S1_LOW_ANSWER_CONFIDENCE": 3, "S2_MEDIUM_ANSWER_CONFIDENCE": 2, "S6_MULTIPLE_QA_ROUNDS": 2, "S7_TERMINATED_MAX_ROUNDS": 1} |
+
+Classification rule applied unchanged: `STRONG_ALERT = S1 ∨ S3 ∨ S7`;
+`WEAK_ALERT = ¬STRONG ∧ (S2 ∨ S6)`; otherwise `NO_ALERT`.
+C1/C2/C3 are context only, C1 strictly `mapping_certainty < 0.7`.
+S5/S8/S9 remain non-triggering or descriptive as preregistered.
+
+## Private evidence hashes
 
 | Artifact | SHA-256 |
 |---|---|
-| Attempt 1 receipt | `fa43912aa546ce86f56892c33c7a149e6e64808ab928a5fb423a156d2a711df8` |
-| Attempt 2 receipt | `42101727ee97543b9e8a21e8843e409e205545f771c383f6ae5abec083079ccd` |
-| Analysis summary | `879ad25e84781747e53da531912a221041ade3f0e7f4af6bcfcb679c0404ae05` |
-| Episodes CSV | `f7a6b7abd960086c9abb942fa57d2d52e0a288c6b6c9a3753e04e7c922bf3b70` |
-| Detector CSV | `497a2d7b739b5b3da8f986c6c1717ed4554df2999d3c1c051f4e84188b181860` |
+| Real-run event log | `55ea9361304482033a5b6fed83697a748dbd89b8d951e80c211eba69d117cac4` |
+| Real-run receipt | `7bb234a6dee79860ce007027d2f8ebcdd24489dc9c5436a3a683fe477eeb2438` |
+| Detector summary | `c6a5f058b9b994448002f5b06d503140ea6c6a15106e624a68ceaa051ec46fd8` |
+| Episode CSV | `219f73f22b9b6ad91dc46e67474e9637a45ade78709337a6f9cdfd818814e8da` |
+| Detector CSV | `616b9f93a6114ae07661c53f872e4d7edea09db97fd5812a37fe52dfa2a1d23c` |
+| Preflight receipt | `20d90f28adc44ba2467b0d895bf0b2173a22c6d3278cc5e2f175946f1e45afaa` |
+| Preflight output inventory | `3151f72da1e097dae651b93f4f857d28561984f2e7f1b32e9d6317f20ba6e112` |
 
-## Scientific-state accounting
+## Privacy and claim boundary
 
-| Denominator / measure | Value |
-|---|---:|
-| Questions emitted | 1 |
-| Answers recorded | 0 |
-| Total observed episodes | 1 |
-| Complete episodes | 0 |
-| `INCOMPLETE_TECHNICAL` episodes | 1 |
-| Detector-v1 denominator | 0 |
-| Detector-v1 run count | 0 |
-| Renderer run count | 0 |
+Raw prompts, raw answers, pipeline artifacts and corpus bytes are stored only
+outside version control. Committed material carries hashes, aggregate counts
+and receipts. The API credential was read only by the provider SDK from a local
+environment variable; its value was never read, printed, logged, hashed or
+persisted. Network egress was restricted to the provider API host.
 
-Because the scientific denominator is zero, STRONG/WEAK/NO_ALERT and context
-signals were not computed. The run is not a `VALID_ZERO_QA_RUN`; it is a
-technical incompleteness.
+No accuracy, precision, recall, F1, alert-correctness, human-benefit,
+intervention-effectiveness, representativeness or generalization claim is made
+or computed. The corpus is public-external and LLM-generated: not student data,
+not Cheers/ParkWise, not synthetic.
 
-## Safety and claim boundary
+## Verdict
 
-No raw corpus bytes, prompts, answers, credentials, private paths, or provider
-secrets are committed. Protected VEGO-AI runtime files and the frozen Detector
-and preregistration files were unchanged. No synthetic cases were created.
-The only supported claims are that the offline authorization/containment and
-parity controls passed, and that the provider run failed technically under the
-recorded configuration. No claim is made about correctness, precision, recall,
-F1, human benefit, intervention effectiveness, representativeness, or
-generalization.
-
-## Private artifact roots
-
-The validated fake bundle is retained under the ignored local path
-`external_data/airtravel-pr38/fresh-fake-run-baca488/`. The provider-run and
-analysis artifacts remain in the ignored execution checkout. This receipt
-contains hashes and counts only; it does not publish those files.
+`AIRTRAVEL_PRELIMINARY_RESULTS_ACCEPTED` — a descriptive observation on this
+exact four-case corpus under the recorded model and configuration.
