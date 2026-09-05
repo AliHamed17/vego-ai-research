@@ -75,8 +75,11 @@
     "requirements-thesis.txt",
     "schemas/accepted-experiment-run-bundle-v1.schema.json",
     "schemas/airtravel-fake-grant-v1.schema.json",
+    "schemas/airtravel-fake-grant-v2.schema.json",
     "schemas/airtravel-fixtures/airtravel-fake-grant.test-only.json",
     "schemas/airtravel-technical-receipt-v1.schema.json",
+    "schemas/airtravel-technical-receipt-v2.schema.json",
+    "schemas/airtravel-v4-packet-manifest-v1.schema.json",
     "schemas/architecture-run-manifest-v1.schema.json",
     "schemas/architecture-variant-v1.schema.json",
     "schemas/baseline-comparison-results-v1.schema.json",
@@ -184,6 +187,7 @@
     "scripts/tests/test_airtravel_pr38_lifecycle.py",
     "scripts/tests/test_airtravel_pr38_reporting.py",
     "scripts/tests/test_airtravel_pr38_safety.py",
+    "scripts/tests/test_airtravel_v4_contract.py",
     "scripts/tests/test_audit_historical_case_recovery.py",
     "scripts/tests/test_audit_historical_case_recovery_v3.py",
     "scripts/tests/test_audit_historical_case_recovery_v3_1.py",
@@ -257,7 +261,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "fd4501c253289c5a33a5df4667981fbe8fec32a102de2903bf8796fd19a323b8",
+  "sourceTreeSha256": "bccdc6f1bd75410528c80b3910a7ea8968fd664e8b98ac3af941f1a3dc4668af",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
