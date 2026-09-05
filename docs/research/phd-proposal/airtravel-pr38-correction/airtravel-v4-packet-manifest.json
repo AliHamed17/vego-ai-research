@@ -1,0 +1,119 @@
+{
+  "N": 4,
+  "allowed_write_roots": [
+    "external_data/airtravel-pr38/v4-authorized-fake-run"
+  ],
+  "base_sha": "c34d3954b5e080d090017d2ea655d454d75a6b92",
+  "command_template": [
+    "python",
+    "scripts/prepare_airtravel_v4.py",
+    "--execute",
+    "--packet",
+    "docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md",
+    "--grant",
+    "external_data/airtravel-pr38/v4-authorized-fake-run/control/authorization-grant.json",
+    "--runtime-root",
+    "external_data/airtravel-pr38/runtime_input",
+    "--runtime-archive",
+    "external_data/airtravel-pr38/cd_airtravel-runtime-v1.0.2.zip",
+    "--output-dir",
+    "external_data/airtravel-pr38/v4-authorized-fake-run/output",
+    "--receipt",
+    "external_data/airtravel-pr38/v4-authorized-fake-run/output/preflight-receipt.json"
+  ],
+  "control_root": "external_data/airtravel-pr38/v4-authorized-fake-run/control",
+  "corpus_id": "text2uml_airtravel_253b26dc",
+  "detector_v1_forbidden": true,
+  "external_provider_calls_allowed": 0,
+  "harness_code_hashes": {
+    "scripts/airtravel_v4_contract.py": "b3e884d62997fe242be0991a5c548dccb846c60d905705e4cfd8ee35cc9885fb",
+    "scripts/airtravel_v4_execution.py": "35f4c37ba59d94faf6bcf8f5d1acb069288bc292357487d8a59ea1beea846d38"
+  },
+  "implementation_commit_ancestor": "28a1d95f39058e5b9dd3e7601584e2393311d405",
+  "manifest_version": "airtravel-v4-packet-manifest-v1",
+  "maximum_calls_per_pass": 326,
+  "maximum_invocations": 1,
+  "minimum_calls_per_pass": 16,
+  "network_forbidden": true,
+  "output_root": "external_data/airtravel-pr38/v4-authorized-fake-run/output",
+  "packet_path": "docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md",
+  "packet_version": "v4",
+  "prohibited_write_roots": [
+    "VEGO-AI/",
+    "scripts/",
+    "schemas/",
+    "docs/research/",
+    "reports/"
+  ],
+  "protected_manifest_path": "docs/research/phd-proposal/airtravel-pr38-correction/protected-hashes.json",
+  "protected_manifest_sha256": "e1f622dd186da696f41cc83fbdaae341b3e97aad24e31d43561a8128b41ee215",
+  "provider_execution_enabled": false,
+  "renderer_forbidden": true,
+  "required_evidence_files": [
+    "output/baseline/call-records.jsonl",
+    "output/instrumented/call-records.jsonl",
+    "output/instrumented/qa_events.jsonl",
+    "output/preflight-receipt.json",
+    "verification/final-output-inventory.json",
+    "verification/parity-verification.json",
+    "verification/lifecycle-verification.json",
+    "verification/post-verification-receipt.json",
+    "control/attempt-start.json",
+    "control/attempt-end.json"
+  ],
+  "required_layout": {
+    "control": [
+      "private-execution-request.json",
+      "authorization-grant.message.txt",
+      "authorization-grant.json",
+      "execution-command.json",
+      "preparation-receipt.json",
+      "attempt-start.json",
+      "attempt-end.json"
+    ],
+    "output": [
+      "baseline",
+      "instrumented",
+      "preflight-receipt.json"
+    ],
+    "verification": [
+      "final-output-inventory.json",
+      "parity-verification.json",
+      "lifecycle-verification.json",
+      "post-verification-receipt.json"
+    ]
+  },
+  "reviewed_head": "GRANT_BOUND_REVIEWED_HEAD",
+  "run_root": "external_data/airtravel-pr38/v4-authorized-fake-run",
+  "runtime_archive_sha256": "e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f",
+  "runtime_files": {
+    "candidate_models/01_result_one_claude-sonnet-4-6.txt": {
+      "bytes": 1248,
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91"
+    },
+    "candidate_models/02_result_one_codestral-2508.txt": {
+      "bytes": 1272,
+      "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6"
+    },
+    "candidate_models/03_result_one_deepseek-chat.txt": {
+      "bytes": 1324,
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a"
+    },
+    "candidate_models/04_result_one_gemini-2.5-flash.txt": {
+      "bytes": 1231,
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
+    },
+    "domain_description/description.md": {
+      "bytes": 1477,
+      "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2"
+    }
+  },
+  "schema_hashes": {
+    "schemas/airtravel-fake-grant-v2.schema.json": "0c8cffb7ef98fe1e84529dc5228ecccd09e70d49eb84c8d3af0d7954e14bc667",
+    "schemas/airtravel-technical-receipt-v2.schema.json": "5a64d35356616929f2a2727c121f031ab7bad241a7be2cd54554b512035893fb",
+    "schemas/airtravel-v4-packet-manifest-v1.schema.json": "fea76197a300f4e8ed9a0f4285d2de3eae9cd2727ac1c9ac8146e329c8515078"
+  },
+  "setting_id": "cd_airtravel",
+  "timeout_seconds": 1800,
+  "verification_root": "external_data/airtravel-pr38/v4-authorized-fake-run/verification"
+}
