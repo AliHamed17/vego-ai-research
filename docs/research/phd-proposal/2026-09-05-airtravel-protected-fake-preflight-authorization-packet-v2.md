@@ -1,5 +1,10 @@
 # Protected authorization packet v2 — AirTravel fake-provider preflight
 
+**SUPERSEDED_NOT_AUTHORIZABLE.** Retained only as historical evidence. Its harness
+binding was stale and its execution gate insufficient. All instructions below
+are superseded by packet v3, which itself remains an ungranted request. Do not
+approve or execute v2. A separate owner-issued machine grant is mandatory for v3.
+
 **Status: AUTHORIZATION REQUESTED — NOT GRANTED.**
 This packet contains no self-approval language; only the owner (Ali Hamed) may grant it, in chat, after
 review. It supersedes `2026-09-05-airtravel-protected-fake-preflight-authorization-packet.md`, which was

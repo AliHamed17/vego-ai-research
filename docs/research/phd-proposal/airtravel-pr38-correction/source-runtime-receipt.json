@@ -1,0 +1,51 @@
+{
+  "amendment_manifest_sha256": "bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2",
+  "audit_base_sha": "c34d3954b5e080d090017d2ea655d454d75a6b92",
+  "baseline_fake_call_count": 0,
+  "combined_fake_call_count": 0,
+  "derivation": "DERIVED_BYTE_IDENTICAL_RUNTIME_PREPARATION",
+  "detector_v1_run_count": 0,
+  "exact_fake_preflight": "NOT_EXECUTED",
+  "external_provider_call_count": 0,
+  "instrumented_fake_call_count": 0,
+  "mapping": {
+    "byte_identical": true,
+    "mapping_count": 5,
+    "mismatched": [],
+    "missing": [],
+    "runtime_path_collisions": [],
+    "runtime_path_count": 5,
+    "source_path_collisions": [],
+    "source_path_count": 5,
+    "status": "PASS"
+  },
+  "network_attempt_count": 0,
+  "protected_orchestrator_fake_route_count": "NOT_EXECUTED",
+  "provider_backed_production_route_count": 0,
+  "runtime": {
+    "configuration_status": "PASS",
+    "duplicate_members": [],
+    "expected_count": 5,
+    "extra": [],
+    "matched_count": 5,
+    "mismatched": [],
+    "missing": [],
+    "normalized_path_collisions": [],
+    "observed_runtime_count": 5,
+    "reference_files_visible": [],
+    "status": "PASS"
+  },
+  "source": {
+    "archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+    "commit_identity_status": "PASS",
+    "duplicate_members": [],
+    "expected_file_count": 143,
+    "extra_count": 0,
+    "manifest_sha256": "82f0a14a577f3d5cdb8d0b1de774e4201990dbd6f032002db5d09abea3a500c3",
+    "matched_count": 143,
+    "mismatched_count": 0,
+    "missing_count": 0,
+    "observed_file_count": 143,
+    "status": "PASS"
+  }
+}

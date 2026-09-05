@@ -74,6 +74,8 @@
     "requirements-dev.txt",
     "requirements-thesis.txt",
     "schemas/accepted-experiment-run-bundle-v1.schema.json",
+    "schemas/airtravel-fake-grant-v1.schema.json",
+    "schemas/airtravel-fixtures/airtravel-fake-grant.test-only.json",
     "schemas/architecture-run-manifest-v1.schema.json",
     "schemas/architecture-variant-v1.schema.json",
     "schemas/baseline-comparison-results-v1.schema.json",
@@ -176,6 +178,10 @@
     "scripts/tests/fixtures/pass_then_fail_protected_guard.py",
     "scripts/tests/supervisor_package_browser_smoke.mjs",
     "scripts/tests/test_agent_contribution_report.py",
+    "scripts/tests/test_airtravel_pr38_authorization.py",
+    "scripts/tests/test_airtravel_pr38_lifecycle.py",
+    "scripts/tests/test_airtravel_pr38_reporting.py",
+    "scripts/tests/test_airtravel_pr38_safety.py",
     "scripts/tests/test_audit_historical_case_recovery.py",
     "scripts/tests/test_audit_historical_case_recovery_v3.py",
     "scripts/tests/test_audit_historical_case_recovery_v3_1.py",
@@ -249,7 +255,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "28d7fd6156b20061626ab7b6c3eabf2d081c246a12990d05d257b50104819008",
+  "sourceTreeSha256": "355187db71a6b506a263b34d2dae6659f97e85ca7972b6575f3f84d36c9fff09",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

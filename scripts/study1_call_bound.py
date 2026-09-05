@@ -25,113 +25,193 @@ No provider is accessed.  Token counts and monetary cost are TO BE MEASURED.
 
 from __future__ import annotations
 
+import hashlib
+from pathlib import Path
+
 MAX_QA_ROUNDS = 10  # VEGO-AI/framework/orchestrator.py:36
 
 ORCHESTRATOR_PATH = "VEGO-AI/framework/orchestrator.py"
 ORCHESTRATOR_SHA256 = "fca4b885ee07381db0f02e558b1aebf25bdc7c27da1c471fd3103d7e0e2d5b88"
+
+
+def verify_source(path: Path | None = None) -> None:
+    source = path or Path(__file__).resolve().parents[1] / ORCHESTRATOR_PATH
+    if hashlib.sha256(source.read_bytes()).hexdigest() != ORCHESTRATOR_SHA256:
+        raise ValueError("protected orchestrator changed; call inventory is invalid")
+
+
+verify_source()
 FORBIDDEN_LEGACY_FORMULA = "22 + 61N"
 
 CALL_SITES: tuple[dict[str, object], ...] = (
     {
-        "row": "P1_TEMPLATE", "phase": "phase1", "scope": "fixed",
-        "label": "agent1/build_language_template", "conditional": False,
-        "min_calls": 1, "max_calls": 1,
+        "row": "P1_TEMPLATE",
+        "phase": "phase1",
+        "scope": "fixed",
+        "label": "agent1/build_language_template",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": 1,
         "evidence": "orchestrator.py:59",
     },
     {
-        "row": "P2_GUIDELINES_PRODUCER", "phase": "phase2", "scope": "fixed",
-        "label": "agent2/guidelines_round{n}", "conditional": False,
-        "min_calls": 1, "max_calls": MAX_QA_ROUNDS,
+        "row": "P2_GUIDELINES_PRODUCER",
+        "phase": "phase2",
+        "scope": "fixed",
+        "label": "agent2/guidelines_round{n}",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "loop orchestrator.py:135; call :149; break :158-160",
     },
     {
-        "row": "P2_LANG_ANSWERS", "phase": "phase2", "scope": "fixed",
-        "label": "agent1/answer_language_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P2_LANG_ANSWERS",
+        "phase": "phase2",
+        "scope": "fixed",
+        "label": "agent1/answer_language_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:162; call :87",
     },
     {
-        "row": "P2_DOM_ANSWERS", "phase": "phase2", "scope": "fixed",
-        "label": "agent2/answer_domain_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P2_DOM_ANSWERS",
+        "phase": "phase2",
+        "scope": "fixed",
+        "label": "agent2/answer_domain_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:165; call :110",
     },
     {
-        "row": "P4_IDENTIFY", "phase": "phase4", "scope": "fixed",
-        "label": "agent4/identify_patterns", "conditional": False,
-        "min_calls": 1, "max_calls": 1,
+        "row": "P4_IDENTIFY",
+        "phase": "phase4",
+        "scope": "fixed",
+        "label": "agent4/identify_patterns",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": 1,
         "evidence": "orchestrator.py:356",
     },
     {
-        "row": "P4_CLASSIFY_PRODUCER", "phase": "phase4", "scope": "fixed",
-        "label": "agent4/classify_r{n}", "conditional": False,
-        "min_calls": 1, "max_calls": MAX_QA_ROUNDS,
+        "row": "P4_CLASSIFY_PRODUCER",
+        "phase": "phase4",
+        "scope": "fixed",
+        "label": "agent4/classify_r{n}",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "loop orchestrator.py:362; call :372; break :377-378",
     },
     {
-        "row": "P4_CLASSIFY_LANG_ANSWERS", "phase": "phase4", "scope": "fixed",
-        "label": "agent1/answer_language_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P4_CLASSIFY_LANG_ANSWERS",
+        "phase": "phase4",
+        "scope": "fixed",
+        "label": "agent1/answer_language_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:380; call :87",
     },
     {
-        "row": "P4_CLASSIFY_DOM_ANSWERS", "phase": "phase4", "scope": "fixed",
-        "label": "agent2/answer_domain_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P4_CLASSIFY_DOM_ANSWERS",
+        "phase": "phase4",
+        "scope": "fixed",
+        "label": "agent2/answer_domain_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:382; call :110",
     },
     {
-        "row": "P4_FEEDBACK_PRODUCER", "phase": "phase4_feedback", "scope": "fixed",
-        "label": "agent2/guidelines_feedback_r{n}", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P4_FEEDBACK_PRODUCER",
+        "phase": "phase4_feedback",
+        "scope": "fixed",
+        "label": "agent2/guidelines_feedback_r{n}",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "gate orchestrator.py:395 (if flagged); loop :408; call :419",
     },
     {
-        "row": "P4_FEEDBACK_LANG_ANSWERS", "phase": "phase4_feedback", "scope": "fixed",
-        "label": "agent1/answer_language_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P4_FEEDBACK_LANG_ANSWERS",
+        "phase": "phase4_feedback",
+        "scope": "fixed",
+        "label": "agent1/answer_language_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:425 (only q_lang); call :87 via :428",
     },
     {
-        "row": "P3_MAP", "phase": "phase3", "scope": "per_case",
-        "label": "agent3/{case}/map", "conditional": False,
-        "min_calls": 1, "max_calls": 1,
+        "row": "P3_MAP",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent3/{case}/map",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": 1,
         "evidence": "orchestrator.py:210",
     },
     {
-        "row": "P3_RESOLVE_PRODUCER", "phase": "phase3", "scope": "per_case",
-        "label": "agent3/{case}/resolve_r{n}", "conditional": False,
-        "min_calls": 1, "max_calls": MAX_QA_ROUNDS,
+        "row": "P3_RESOLVE_PRODUCER",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent3/{case}/resolve_r{n}",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "loop orchestrator.py:213; call :225; break :230",
     },
     {
-        "row": "P3_RESOLVE_LANG_ANSWERS", "phase": "phase3", "scope": "per_case",
-        "label": "agent1/answer_language_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P3_RESOLVE_LANG_ANSWERS",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent1/answer_language_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:234; call :87",
     },
     {
-        "row": "P3_RESOLVE_DOM_ANSWERS", "phase": "phase3", "scope": "per_case",
-        "label": "agent2/answer_domain_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P3_RESOLVE_DOM_ANSWERS",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent2/answer_domain_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:237; call :110",
     },
     {
-        "row": "P3_AUDIT_PRODUCER", "phase": "phase3", "scope": "per_case",
-        "label": "agent3/{case}/audit_r{n}", "conditional": False,
-        "min_calls": 1, "max_calls": MAX_QA_ROUNDS,
+        "row": "P3_AUDIT_PRODUCER",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent3/{case}/audit_r{n}",
+        "conditional": False,
+        "min_calls": 1,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "loop orchestrator.py:246; call :258; break :263",
     },
     {
-        "row": "P3_AUDIT_LANG_ANSWERS", "phase": "phase3", "scope": "per_case",
-        "label": "agent1/answer_language_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P3_AUDIT_LANG_ANSWERS",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent1/answer_language_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:266; call :87",
     },
     {
-        "row": "P3_AUDIT_DOM_ANSWERS", "phase": "phase3", "scope": "per_case",
-        "label": "agent2/answer_domain_questions", "conditional": True,
-        "min_calls": 0, "max_calls": MAX_QA_ROUNDS,
+        "row": "P3_AUDIT_DOM_ANSWERS",
+        "phase": "phase3",
+        "scope": "per_case",
+        "label": "agent2/answer_domain_questions",
+        "conditional": True,
+        "min_calls": 0,
+        "max_calls": MAX_QA_ROUNDS,
         "evidence": "branch orchestrator.py:268; call :110",
     },
 )
@@ -163,10 +243,12 @@ def _require_case_count(case_count: int) -> int:
 
 
 def minimum_calls(case_count: int) -> int:
+    verify_source()
     return MIN_BASE + MIN_PER_CASE * _require_case_count(case_count)
 
 
 def worst_case_calls(case_count: int) -> int:
+    verify_source()
     return WORST_BASE + WORST_PER_CASE * _require_case_count(case_count)
 
 
@@ -181,7 +263,12 @@ def call_bound_breakdown(case_count: int) -> dict[str, object]:
         "per_case_calls": MIN_PER_CASE * case_count,
         "qa_dependent_minimum": 0,
         "qa_dependent_worst_case": QA_DEPENDENT_WORST_CASE,
-        "maximum_calls_per_round": {"phase2": 3, "phase3_each_skill": 3, "phase4_classify": 3, "phase4_feedback": 2},
+        "maximum_calls_per_round": {
+            "phase2": 3,
+            "phase3_each_skill": 3,
+            "phase4_classify": 3,
+            "phase4_feedback": 2,
+        },
         "minimum_formula": f"{MIN_BASE} + {MIN_PER_CASE}N",
         "worst_case_formula": f"{WORST_BASE} + {WORST_PER_CASE}N",
         "minimum_calls": minimum_calls(case_count),
@@ -198,7 +285,11 @@ def call_bound_breakdown(case_count: int) -> dict[str, object]:
 def fake_client_call_counter(case_count: int, qa_dependent_calls: int = 0) -> dict[str, int]:
     """Count deterministic baseline calls without constructing provider clients."""
     _require_case_count(case_count)
-    if isinstance(qa_dependent_calls, bool) or not isinstance(qa_dependent_calls, int) or qa_dependent_calls < 0:
+    if (
+        isinstance(qa_dependent_calls, bool)
+        or not isinstance(qa_dependent_calls, int)
+        or qa_dependent_calls < 0
+    ):
         raise ValueError("qa_dependent_calls must be a non-negative integer")
     per_case = MIN_PER_CASE * case_count
     return {

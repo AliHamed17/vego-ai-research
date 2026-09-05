@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Owner-issued AirTravel local fake preflight grant; examples confer no authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "granted_by",
+    "commit",
+    "packet_sha256",
+    "harness_sha256",
+    "runtime_archive_sha256",
+    "corpus_id",
+    "setting_id",
+    "N",
+    "output_dir",
+    "command_sha256",
+    "protected_hashes",
+    "granted_at",
+    "expires_at",
+    "expiry_condition",
+    "provider_execution_forbidden",
+    "external_provider_calls_allowed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "airtravel-fake-grant-v1"
+    },
+    "status": {
+      "enum": [
+        "GRANTED",
+        "TEST_FIXTURE_ONLY"
+      ]
+    },
+    "granted_by": {
+      "const": "Ali Hamed"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "packet_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "harness_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtime_archive_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "corpus_id": {
+      "const": "text2uml_airtravel_253b26dc"
+    },
+    "setting_id": {
+      "const": "cd_airtravel"
+    },
+    "N": {
+      "type": "integer",
+      "const": 4
+    },
+    "output_dir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "protected_hashes": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "granted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiry_condition": {
+      "const": "ANY_BOUND_HASH_COMMIT_COMMAND_OR_PATH_CHANGE"
+    },
+    "provider_execution_forbidden": {
+      "const": true
+    },
+    "external_provider_calls_allowed": {
+      "type": "integer",
+      "const": 0
+    }
+  }
+}
