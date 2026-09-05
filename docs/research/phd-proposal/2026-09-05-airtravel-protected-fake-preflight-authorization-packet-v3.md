@@ -2,7 +2,7 @@
 
 Status: **AUTHORIZATION_REQUESTED_NOT_GRANTED**. Packet v2 is SUPERSEDED_NOT_AUTHORIZABLE.
 PR: [38](https://github.com/AliHamed17/vego-ai-research/pull/38); do not merge or execute.
-Green base: `c34d3954b5e080d090017d2ea655d454d75a6b92`. Correction parent: `3727acfe2130863ab6b737824a1718e7b3648b92`.
+Green base: `c34d3954b5e080d090017d2ea655d454d75a6b92`. Correction parent: `3727acfe2130863ab6b737824a1718e7b3648b92`. Implementation commit: `28a1d95f39058e5b9dd3e7601584e2393311d405`.
 The later owner-issued grant must bind the **full final corrected PR head**, independently compared to `git rev-parse HEAD`, this packet hash, harness hash, archive, command fingerprint, output directory and all protected hashes. A PR body or an assertion flag is not a grant. This immutable request plus a separate matching grant are both required; the request alone always fails. No grant is issued by this task.
 
 ## Future command and scope
@@ -14,6 +14,8 @@ python scripts/prepare_airtravel_protected_fake_preflight.py --execute --authori
 ```
 
 DO NOT RUN this command now. The private request records its fully resolved executable/arguments and SHA-256 fingerprint. The grant file does not exist. The sole tracked example is `TEST_FIXTURE_ONLY` and is rejected.
+
+The owner must separately supply `authorization-grant.message.txt` beside the grant, containing the exact human authorization message. Its SHA-256 is mandatory and compared independently. No message or grant is created here. This local owner-controlled receipt protocol is not cryptographic proof of authorship against a malicious user with filesystem write access. Grant type must be OFFLINE_FAKE_PREFLIGHT_ONLY; grantor Ali Hamed; current issue/expiry, final HEAD, implementation commit, packet/harness/call-bound/protected-manifest/archive/five runtime hashes, exact command/output, timeout 1800, cap 326, network prohibition and paid_execution_authorized=false must all match. A missing or changed binding fails before protected imports.
 
 Allowed reads: clean tracked checkout files (including the protected table), exact five runtime files below, the runtime configuration/archive, packet and grant during validation. Provider credentials, browser profiles, key stores, subprocesses and dynamic native/provider imports are forbidden during orchestration. Allowed writes: **only** `external_data/airtravel-pr38/authorized-fake-run/`, initially absent/empty, symlink-free and Git-ignored. Fixed children: `baseline/`, `instrumented/`, `preflight-receipt.json`. Full private resolved paths are fingerprint-bound in the grant.
 
@@ -29,7 +31,9 @@ Timeout: 1800 seconds around the complete two-pass coroutine, with cancellation,
 
 Lifecycle: actual source/skill/case/round labels and registry-assigned IDs bind exact pre-hash questions to answers. One loop invocation retains its episode across rounds and targets. A questionless next round closes CONVERGED; answered final round closes TERMINATED_MAX_ROUNDS; exception/missing answer/correlation failure closes INCOMPLETE_TECHNICAL. Never label every open episode converged. Unresolved/cross-run/cross-episode/duplicate/post-terminal evidence is rejected. No helper-only routes are counted as provider observations.
 
-Counters: protected_orchestrator_fake_route_count counts distinct directed (source_agent,target_agent) QUESTION_EMITTED pairs only after execution; before then NOT_EXECUTED. Episode/question/answer counts are separate. Baseline/instrumented/combined fake-call counts are separate. Provider-backed production routes, external provider calls, network attempts and Detector-v1 experimental runs remain zero before execution. Detector-v1 is not invoked by preflight.
+Counters: protected_orchestrator_fake_episode_count counts episodes; protected_orchestrator_fake_route_pair_count and protected_orchestrator_fake_route_pairs count/list distinct ordered source_agent→target_agent pairs. Before execution counts are NOT_EXECUTED and the list is empty. direct_fake_call_count and instrumented_fake_call_count are separate; compatibility baseline/route aliases retain the same semantics. provider_backed_production_route_pair_count, external_provider_call_count and detector_v1_experimental_run_count remain zero. Detector-v1 is not invoked by preflight.
+
+Parity includes ordered labels, source-bound branch inventory and per-phase/per-case counts, complete return-value decision hashes, full unmodified state, scientific file hashes and final completed-phase result. No scientific field is normalized away. Run identity derives from grant hash, command hash and commit; a different grant/command has a different identity, and the same output cannot be overwritten. Before/after inventories accompany the receipt.
 
 ## Privacy, failure, rollback and expiry
 
@@ -56,12 +60,14 @@ Archive SHA-256: `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd3
 | Path | SHA-256 |
 |---|---|
 | `scripts/prepare_airtravel_protected_fake_preflight.py` | `ec4c0aa4b948e4c5ee33244470da9d6a7b436ce85cc57c940fb4389a4024c997` |
-| `scripts/airtravel_preflight_contract.py` | `377fea865f61b733ecd680a036bb4bac5ecb18838d309a91a6fe67b605f45b8a` |
+| `scripts/airtravel_preflight_contract.py` | `f6bedbd904907656b0af929c0aa133481f6ad6f289ed4c8e9b913bb1a3dc6db8` |
 | `scripts/airtravel_execution_safety.py` | `8c4cb6814311aee4d5b8a328aa117881daf3186bdcc6b86782f1b02a752bd203` |
-| `scripts/airtravel_local_observer.py` | `86ca95464560b1ca7425a33f9afb676f4f6ca94d35c60fe417d64c079687b25d` |
-| `scripts/airtravel_preflight_execution.py` | `04b13c773c00a300e27cbac0c2d57e71977d855f90e468794839fc6f6931dba8` |
-| `scripts/study1_call_bound.py` | `0ee54e4147ac8f32d6f5e4cd0d0aa4cb4d517178d0993f3aa87aed21f737a1da` |
-| `schemas/airtravel-fake-grant-v1.schema.json` | `885f3e8d79ff63c444e1b5ae457d8e8d21d22193f0fceb116aa183be5cc96ad3` |
+| `scripts/airtravel_local_observer.py` | `e60db39e7ad52ac789372db592d91d2c9a3a81d8193c09346e39a09107e25228` |
+| `scripts/airtravel_preflight_execution.py` | `879d7d99c33dddaf319527a85273d40a6402e9480bdeb65742c367623f5a2da9` |
+| `scripts/render_airtravel_results.py` | `4174e114c1aa67f06f911d0377c0d18d0cdcce085965403ea9b846356d25da88` |
+| `schemas/airtravel-technical-receipt-v1.schema.json` | `4a6ab510230e8288c5cd111c2796a8f24849c88db7808cbeaf30b74fe6a5060d` |
+| `scripts/study1_call_bound.py` | `82d059aab17da87b9bd0c4d121b2daa7717c8b5167c68df2cddba4f72b96936c` |
+| `schemas/airtravel-fake-grant-v1.schema.json` | `0f426c3f1d8c7791127481ba7714eb0e009fc4a2dcecfdfe7b7c5ca9ecdc396a` |
 | `schemas/qa-communication-event-v1.schema.json` | `7df773a6a141a656b32012abd35c34aab25002f2a873c84e61c9ade06af670b2` |
 | `scripts/extract_qa_escalation_features.py` | `8723f8f7cb75df51d5c82bda2b604bfaa2b72c230ce580090f7ba06cf3457974` |
 
@@ -159,18 +165,21 @@ Archive SHA-256: `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd3
   "amendment_manifest_sha256": "bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2",
   "base_sha": "c34d3954b5e080d090017d2ea655d454d75a6b92",
   "code_hashes": {
-    "schemas/airtravel-fake-grant-v1.schema.json": "885f3e8d79ff63c444e1b5ae457d8e8d21d22193f0fceb116aa183be5cc96ad3",
+    "schemas/airtravel-fake-grant-v1.schema.json": "0f426c3f1d8c7791127481ba7714eb0e009fc4a2dcecfdfe7b7c5ca9ecdc396a",
+    "schemas/airtravel-technical-receipt-v1.schema.json": "4a6ab510230e8288c5cd111c2796a8f24849c88db7808cbeaf30b74fe6a5060d",
     "schemas/qa-communication-event-v1.schema.json": "7df773a6a141a656b32012abd35c34aab25002f2a873c84e61c9ade06af670b2",
     "scripts/airtravel_execution_safety.py": "8c4cb6814311aee4d5b8a328aa117881daf3186bdcc6b86782f1b02a752bd203",
-    "scripts/airtravel_local_observer.py": "86ca95464560b1ca7425a33f9afb676f4f6ca94d35c60fe417d64c079687b25d",
-    "scripts/airtravel_preflight_contract.py": "377fea865f61b733ecd680a036bb4bac5ecb18838d309a91a6fe67b605f45b8a",
-    "scripts/airtravel_preflight_execution.py": "04b13c773c00a300e27cbac0c2d57e71977d855f90e468794839fc6f6931dba8",
+    "scripts/airtravel_local_observer.py": "e60db39e7ad52ac789372db592d91d2c9a3a81d8193c09346e39a09107e25228",
+    "scripts/airtravel_preflight_contract.py": "f6bedbd904907656b0af929c0aa133481f6ad6f289ed4c8e9b913bb1a3dc6db8",
+    "scripts/airtravel_preflight_execution.py": "879d7d99c33dddaf319527a85273d40a6402e9480bdeb65742c367623f5a2da9",
     "scripts/extract_qa_escalation_features.py": "8723f8f7cb75df51d5c82bda2b604bfaa2b72c230ce580090f7ba06cf3457974",
     "scripts/prepare_airtravel_protected_fake_preflight.py": "ec4c0aa4b948e4c5ee33244470da9d6a7b436ce85cc57c940fb4389a4024c997",
-    "scripts/study1_call_bound.py": "0ee54e4147ac8f32d6f5e4cd0d0aa4cb4d517178d0993f3aa87aed21f737a1da"
+    "scripts/render_airtravel_results.py": "4174e114c1aa67f06f911d0377c0d18d0cdcce085965403ea9b846356d25da88",
+    "scripts/study1_call_bound.py": "82d059aab17da87b9bd0c4d121b2daa7717c8b5167c68df2cddba4f72b96936c"
   },
   "corpus_id": "text2uml_airtravel_253b26dc",
   "correction_parent_sha": "3727acfe2130863ab6b737824a1718e7b3648b92",
+  "implementation_commit": "28a1d95f39058e5b9dd3e7601584e2393311d405",
   "pr": 38,
   "protected_hashes": {
     "VEGO-AI/eval/README_EVALUATOR.md": "b24280599b799a121d4758f9d9eb81b1451cb9b178ce1c60fb0ebdfe9ac20832",

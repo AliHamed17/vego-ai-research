@@ -4,7 +4,9 @@
   "baseline_fake_call_count": 0,
   "combined_fake_call_count": 0,
   "derivation": "DERIVED_BYTE_IDENTICAL_RUNTIME_PREPARATION",
+  "detector_v1_experimental_run_count": 0,
   "detector_v1_run_count": 0,
+  "direct_fake_call_count": 0,
   "exact_fake_preflight": "NOT_EXECUTED",
   "external_provider_call_count": 0,
   "instrumented_fake_call_count": 0,
@@ -20,8 +22,12 @@
     "status": "PASS"
   },
   "network_attempt_count": 0,
+  "protected_orchestrator_fake_episode_count": "NOT_EXECUTED",
   "protected_orchestrator_fake_route_count": "NOT_EXECUTED",
+  "protected_orchestrator_fake_route_pair_count": "NOT_EXECUTED",
+  "protected_orchestrator_fake_route_pairs": [],
   "provider_backed_production_route_count": 0,
+  "provider_backed_production_route_pair_count": 0,
   "runtime": {
     "configuration_status": "PASS",
     "duplicate_members": [],
