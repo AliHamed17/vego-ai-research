@@ -453,3 +453,65 @@ Chronological prompt history for Codex and Claude.
   - git diff check; no provider call
 - Status: TECHNICAL NO-GO; final correction pending push
 - Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.
+
+## 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Request: Repair v4 authorization freshness, nonce/invocation binding, exact command and root enforcement, and receipt validation without executing.
+- Actions taken:
+  - Added test-first negative coverage for grant windows and identities
+  - Hardened manifest, command, layout, attempt and receipt validators
+  - Regenerated v4 manifest, preparation records, packet documentation and release manifest
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python -m pytest scripts/tests/test_airtravel_v4_contract.py -q
+  - python -m pytest scripts/tests -q
+  - python -m pytest VEGO-AI/tests -q
+  - python -m pytest tests -q
+  - ruff check ...
+  - python scripts/security_audit.py --json
+  - python scripts/check_repository_privacy.py
+- Status: Authorization repair prepared; no execution authorized or performed.
+- Next steps: Independent Claude review; do not create or consume a grant; do not execute preflight.
+
+## 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Request: Repair the v4 authorization contract and stop before any preflight or provider call.
+- Actions taken:
+  - Implemented fail-closed grant freshness, identity binding, exact command and private-layout validation, and receipt evidence checks.
+  - Regenerated the v4 machine manifest and prepare-only request after code and packet changes.
+  - No provider, preflight, Detector-v1, renderer, synthetic generation, or protected runtime modification.
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-05-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python -m pytest scripts/tests/test_airtravel_v4_contract.py -q
+  - python -m pytest scripts/tests -q
+  - python -m pytest VEGO-AI/tests -q
+  - python -m pytest tests -q
+  - ruff check changed AirTravel files
+  - python -m compileall -q changed AirTravel files
+  - python scripts/check_repository_privacy.py
+  - python scripts/security_audit.py --json
+  - python scripts/check_evidence_consistency.py --check
+  - python scripts/build_airtravel_v4_manifest.py --check
+  - python scripts/build_hardening_manifests.py --check
+- Status: Authorization repair prepared; awaiting independent review.
+- Next steps: Independent review and CI on the consolidated PR head; do not create or consume a grant.

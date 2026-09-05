@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +17,7 @@ from airtravel_v4_contract import (
     RUNTIME_FILES,
     digest,
     request_template,
+    resolved_command_tokens,
     validate_command_record,
     validate_manifest,
     validate_private_layout,
@@ -29,7 +29,7 @@ from airtravel_v4_contract import (
 DEFAULT_RUNTIME_ROOT = ROOT / "external_data/airtravel-pr38/runtime_input"
 DEFAULT_RUNTIME_ARCHIVE = ROOT / "external_data/airtravel-pr38/cd_airtravel-runtime-v1.0.2.zip"
 PRIVATE_ROOT = ROOT / RUN_ROOT
-EXPECTED_MANIFEST_SHA256 = "0416bcd332bcf7cbab8f34e737433b1b03ea864355407f40f32aeb6ed0faa6f6"
+EXPECTED_MANIFEST_SHA256 = "6287e592dda3298b6e0006c22807fde03d868430f4755e88aca6600b6e36b6cb"
 
 
 class V4PreparationError(RuntimeError):
@@ -102,23 +102,7 @@ def _runtime_checks(runtime_root: Path, archive: Path) -> dict[str, Any]:
 
 
 def _resolved_command(runtime_root: Path, archive: Path, output_root: Path) -> list[str]:
-    return [
-        str(Path(sys.executable).resolve()),
-        str((ROOT / "scripts/prepare_airtravel_v4.py").resolve()),
-        "--execute",
-        "--packet",
-        str((ROOT / PACKET_PATH).resolve()),
-        "--grant",
-        str((PRIVATE_ROOT / "control/authorization-grant.json").resolve()),
-        "--runtime-root",
-        str(runtime_root.resolve()),
-        "--runtime-archive",
-        str(archive.resolve()),
-        "--output-dir",
-        str(output_root.resolve()),
-        "--receipt",
-        str((output_root / "preflight-receipt.json").resolve()),
-    ]
+    return resolved_command_tokens(runtime_root, archive, output_root)
 
 
 def prepare_only(

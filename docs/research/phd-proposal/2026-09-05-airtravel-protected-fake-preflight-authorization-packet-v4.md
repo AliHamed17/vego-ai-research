@@ -1,6 +1,6 @@
 # AirTravel offline fake-preflight authorization packet v4
 
-Status: **PREFLIGHT_V4_PREPARED_AWAITING_INDEPENDENT_REVIEW_AND_FRESH_USER_GRANT**.
+Status: **AUTHORIZATION_V4_REPAIRED_AWAITING_INDEPENDENT_REVIEW**.
 
 This packet supersedes packet v3 for future execution. The v3 execution remains
 **OFFLINE_FAKE_PREFLIGHT_EVIDENCE_REJECTED** and is preserved byte-for-byte as
@@ -22,6 +22,9 @@ technical preflight only:
 - maximum invocations: one
 - status before a fresh owner grant: AUTHORIZATION_REQUESTED_NOT_GRANTED
 
+Current verification state: source/runtime/config verification **PASS**;
+exact protected fake-provider preflight **BLOCKED_PENDING_AUTHORIZATION**.
+
 No protected orchestrator, external provider, model, Detector-v1, renderer, or
 scientific analysis is run by preparation. The future grant must be issued
 separately by the human owner after independent review. A grant is not a
@@ -33,7 +36,7 @@ The controlling machine manifest is
 docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json.
 
 Manifest SHA-256:
-0416bcd332bcf7cbab8f34e737433b1b03ea864355407f40f32aeb6ed0faa6f6
+6287e592dda3298b6e0006c22807fde03d868430f4755e88aca6600b6e36b6cb
 
 It binds the packet version, base SHA
 c34d3954b5e080d090017d2ea655d454d75a6b92, implementation ancestor
@@ -41,6 +44,10 @@ c34d3954b5e080d090017d2ea655d454d75a6b92, implementation ancestor
 archive and five runtime hashes, fixed run root, layout, command template,
 bounds, prohibitions, and required evidence. The validator must compare the
 future grant and request directly to this manifest before any protected import.
+The persisted request also binds the SHA-256 of this packet. The grant must
+repeat that packet hash, the manifest hash, and the exact command fingerprint;
+changing the packet bytes, command tokens, interpreter, or any bound path is a
+fail-closed condition.
 
 ## Fixed private root and layout
 
@@ -97,7 +104,10 @@ removed automatically, including after a failed run.
 Completion or failure creates control/attempt-end.json exclusively, bound to
 the same invocation, with status, exit classification, UTC completion time,
 grant_consumption_status=CONSUMED, retry_count=0, replay_count=0, and the
-output receipt hash when present. Deleting only output/ cannot permit replay.
+output receipt hash when present. The grant carries the nonce and invocation ID;
+the attempt-start marker must match both values exactly. Grants are valid only
+when `granted_at <= evaluated_at < expires_at`, with an aware timestamp and a
+window no longer than 24 hours. Deleting only output/ cannot permit replay.
 
 ## Persisted parity evidence
 
@@ -123,6 +133,12 @@ consumption/retry/replay state, both call counts, all parity results, completed
 cases/phases, event and route counts, before/after protected and tracked
 manifest hashes, output inventory and containment, privacy status, call-record
 hashes, and every safety counter.
+
+Receipt validation derives `grant_valid_at_start` from the evaluated grant
+window and records `grant_evaluated_at`. It also checks direct plus
+instrumented call-count equality, the two persisted call-record hashes, the
+event-log hash, the output-inventory hash, and the presence of every required
+evidence file before accepting a receipt.
 
 The following counters must be persisted and zero:
 
@@ -159,4 +175,4 @@ preparation package.
 
 The stopping state is:
 
-PREFLIGHT_V4_PREPARED_AWAITING_INDEPENDENT_REVIEW_AND_FRESH_USER_GRANT
+AUTHORIZATION_V4_REPAIRED_AWAITING_INDEPENDENT_REVIEW

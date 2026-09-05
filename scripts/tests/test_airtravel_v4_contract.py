@@ -6,8 +6,11 @@ or the renderer.  They exercise only pure path, ledger, and parity contracts.
 
 from __future__ import annotations
 
+import hashlib
 import json
+import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -141,12 +144,18 @@ def test_attempt_start_is_exclusive_and_bound(tmp_path):
         "authorization_message_sha256": "b" * 64,
         "command_sha256": "c" * 64,
         "reviewed_head": "d" * 40,
+        "nonce": "nonce-0123456789",
+        "invocation_id": "invocation-01",
     }
-    first = c.create_attempt_start(control, bindings, invocation_id="inv-1", nonce="n-1")
+    first = c.create_attempt_start(
+        control, bindings, invocation_id="invocation-01", nonce="nonce-0123456789"
+    )
     assert first["attempt_number"] == 1
-    assert first["invocation_id"] == "inv-1"
+    assert first["invocation_id"] == "invocation-01"
     with pytest.raises(ValueError, match="already"):
-        c.create_attempt_start(control, bindings, invocation_id="inv-2", nonce="n-2")
+        c.create_attempt_start(
+            control, bindings, invocation_id="invocation-02", nonce="nonce-0123456789-reused"
+        )
 
 
 def test_attempt_end_is_exclusive_and_requires_matching_invocation(tmp_path):
@@ -154,9 +163,15 @@ def test_attempt_end_is_exclusive_and_requires_matching_invocation(tmp_path):
     control = tmp_path / "control"
     start = c.create_attempt_start(
         control,
-        {"grant_sha256": "a" * 64, "command_sha256": "c" * 64, "reviewed_head": "d" * 40},
-        invocation_id="inv-1",
-        nonce="n-1",
+        {
+            "grant_sha256": "a" * 64,
+            "command_sha256": "c" * 64,
+            "reviewed_head": "d" * 40,
+            "nonce": "nonce-0123456789",
+            "invocation_id": "invocation-01",
+        },
+        invocation_id="invocation-01",
+        nonce="nonce-0123456789",
     )
     end = c.create_attempt_end(control, start, status="TECHNICAL_SUCCESS", output_receipt_sha256="e" * 64)
     assert end["retry_count"] == 0 and end["replay_count"] == 0
@@ -167,8 +182,14 @@ def test_attempt_end_is_exclusive_and_requires_matching_invocation(tmp_path):
 def test_deleting_output_does_not_allow_replay(tmp_path):
     c = v4()
     control = tmp_path / "control"
-    bindings = {"grant_sha256": "a" * 64, "command_sha256": "c" * 64, "reviewed_head": "d" * 40}
-    c.create_attempt_start(control, bindings, invocation_id="inv-1", nonce="n-1")
+    bindings = {
+        "grant_sha256": "a" * 64,
+        "command_sha256": "c" * 64,
+        "reviewed_head": "d" * 40,
+        "nonce": "nonce-0123456789",
+        "invocation_id": "invocation-01",
+    }
+    c.create_attempt_start(control, bindings, invocation_id="invocation-01", nonce="nonce-0123456789")
     (tmp_path / "output").mkdir()
     (tmp_path / "output" / "preflight-receipt.json").write_text("receipt")
     (tmp_path / "output" / "preflight-receipt.json").unlink()
@@ -320,5 +341,247 @@ def test_command_record_binds_every_resolved_path():
     record["tokens"] = list(tokens)
     record["tokens"][record["tokens"].index("--output-dir") + 1] = str(Path("C:/outside").resolve())
     record["command_sha256"] = hashlib.sha256(v4().canonical(record["tokens"])).hexdigest()
-    with pytest.raises(ValueError, match="output binding"):
+    with pytest.raises(ValueError, match="command|output binding"):
         v4().validate_command_record(record, m)
+
+
+@pytest.mark.parametrize("mutation", ["extra", "executable", "missing_execute"])
+def test_command_record_rejects_any_command_mutation(mutation):
+    import prepare_airtravel_v4
+
+    c = v4()
+    m = manifest()
+    tokens = prepare_airtravel_v4._resolved_command(
+        prepare_airtravel_v4.DEFAULT_RUNTIME_ROOT,
+        prepare_airtravel_v4.DEFAULT_RUNTIME_ARCHIVE,
+        prepare_airtravel_v4.PRIVATE_ROOT / "output",
+    )
+    if mutation == "extra":
+        tokens = [*tokens, "--unexpected"]
+    elif mutation == "executable":
+        tokens = ["C:/unapproved/python.exe", *tokens[1:]]
+    else:
+        tokens = [token for token in tokens if token != "--execute"]
+    record = {
+        "tokens": tokens,
+        "command_sha256": hashlib.sha256(c.canonical(tokens)).hexdigest(),
+        "max_invocations": 1,
+    }
+    with pytest.raises(ValueError, match="command"):
+        c.validate_command_record(record, m)
+
+
+def test_request_packet_hash_is_bound_to_packet_bytes():
+    c = v4()
+    bad = request()
+    bad["packet_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="packet hash"):
+        c.validate_request_against_manifest(bad, manifest())
+
+
+def _schema_valid_grant():
+    c = v4()
+    grant = c.grant_template()
+    grant.pop("grant_sha256", None)
+    grant.update(
+        {
+            "status": "GRANTED",
+            "packet_manifest_sha256": "a" * 64,
+            "authorization_message_sha256": "b" * 64,
+            "command_sha256": "c" * 64,
+            "reviewed_head": "d" * 40,
+            "nonce": "nonce-0123456789",
+            "invocation_id": "invocation-01",
+            "granted_at": "2026-01-01T00:00:00Z",
+            "expires_at": "2026-01-01T01:00:00Z",
+            "expiry_condition": "ANY_BOUND_HASH_COMMIT_COMMAND_OR_PATH_CHANGE",
+        }
+    )
+    return grant
+
+
+@pytest.mark.parametrize(
+    "granted_at,expires_at,now",
+    [
+        ("2026-01-01T00:00:00Z", "2026-01-01T01:00:00Z", "2026-01-01T02:00:00Z"),
+        ("2026-01-01T01:00:00Z", "2026-01-01T02:00:00Z", "2026-01-01T00:00:00Z"),
+    ],
+)
+def test_grant_expired_or_not_yet_valid_is_rejected(granted_at, expires_at, now):
+    from airtravel_v4_execution import validate_grant_freshness
+
+    grant = _schema_valid_grant()
+    grant["granted_at"], grant["expires_at"] = granted_at, expires_at
+    with pytest.raises(ValueError, match="valid|expired|window"):
+        validate_grant_freshness(grant, now=datetime.fromisoformat(now.replace("Z", "+00:00")))
+
+
+@pytest.mark.parametrize(
+    "granted_at,expires_at",
+    [
+        ("2026-01-01T00:00:00", "2026-01-01T01:00:00Z"),
+        ("not-a-time", "2026-01-01T01:00:00Z"),
+        ("2026-01-01T02:00:00Z", "2026-01-01T01:00:00Z"),
+        ("2026-01-01T00:00:00Z", "2026-01-01T00:00:00Z"),
+        ("2026-01-01T00:00:00Z", "2026-01-02T00:00:01Z"),
+    ],
+)
+def test_grant_timestamp_window_is_strictly_validated(granted_at, expires_at):
+    from airtravel_v4_execution import validate_grant_freshness
+
+    grant = _schema_valid_grant()
+    grant["granted_at"], grant["expires_at"] = granted_at, expires_at
+    with pytest.raises(ValueError):
+        validate_grant_freshness(grant, now=datetime(2026, 1, 1, 0, 30, tzinfo=timezone.utc))
+
+
+@pytest.mark.parametrize("field", ["nonce", "invocation_id"])
+def test_grant_schema_requires_nonce_and_invocation_id(field):
+    from jsonschema import Draft202012Validator, FormatChecker
+    from jsonschema.exceptions import ValidationError
+
+    grant = _schema_valid_grant()
+    del grant[field]
+    schema = json.loads((ROOT / "schemas/airtravel-fake-grant-v2.schema.json").read_text())
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema, format_checker=FormatChecker()).validate(grant)
+
+
+def test_attempt_start_nonce_and_invocation_must_match_grant():
+    c = v4()
+    grant = _schema_valid_grant()
+    start = {
+        "attempt_number": 1,
+        "invocation_id": "wrong-id",
+        "nonce": "wrong-nonce-1234",
+    }
+    with pytest.raises(ValueError, match="nonce|invocation"):
+        c.validate_attempt_start_matches_grant(start, grant)
+
+
+@pytest.mark.parametrize("field", ["nonce", "invocation_id"])
+def test_nonce_or_invocation_reuse_is_rejected(tmp_path, field):
+    c = v4()
+    control = tmp_path / "control"
+    bindings = {
+        "grant_sha256": "a" * 64,
+        "command_sha256": "b" * 64,
+        "reviewed_head": "c" * 40,
+        "nonce": "nonce-0123456789",
+        "invocation_id": "invocation-01",
+    }
+    c.create_attempt_start(control, bindings, invocation_id=bindings["invocation_id"], nonce=bindings["nonce"])
+    reused = dict(bindings)
+    reused[field] = reused[field] + "-reused"
+    with pytest.raises(ValueError, match="already|consum"):
+        c.create_attempt_start(control, reused, invocation_id=reused["invocation_id"], nonce=reused["nonce"])
+
+
+def test_manifest_write_roots_are_frozen_and_non_overlapping():
+    c = v4()
+    widened = json.loads(json.dumps(manifest()))
+    widened["allowed_write_roots"] = [c.RUN_ROOT, "external_data/other"]
+    with pytest.raises(ValueError, match="allowed_write_roots"):
+        c.validate_manifest(widened)
+    overlap = json.loads(json.dumps(manifest()))
+    overlap["prohibited_write_roots"] = [c.RUN_ROOT]
+    with pytest.raises(ValueError, match="overlap|prohibited_write_roots"):
+        c.validate_manifest(overlap)
+
+
+def test_execution_layout_rejects_post_verification_sibling(tmp_path, monkeypatch):
+    c = v4()
+    root = tmp_path / c.RUN_ROOT
+    (root / "control").mkdir(parents=True)
+    (root / "output" / "baseline").mkdir(parents=True)
+    (root / "output" / "instrumented").mkdir(parents=True)
+    (root / "verification").mkdir(parents=True)
+    (root / "post-verification").mkdir()
+    monkeypatch.setattr(c, "ROOT", tmp_path)
+    with pytest.raises(ValueError, match="undeclared|layout"):
+        c.validate_private_layout(root, preparation=False)
+
+
+def test_symlink_run_root_is_rejected(tmp_path, monkeypatch):
+    c = v4()
+    expected = tmp_path / c.RUN_ROOT
+    expected.parent.mkdir(parents=True)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    try:
+        os.symlink(outside, expected, target_is_directory=True)
+    except (OSError, NotImplementedError):
+        pytest.skip("symlink creation is unavailable on this Windows host")
+    monkeypatch.setattr(c, "ROOT", tmp_path)
+    with pytest.raises(ValueError, match="symlink|reparse|fixed"):
+        c.validate_private_layout(expected, preparation=False)
+
+
+def test_receipt_grant_validity_is_measured_not_a_schema_constant():
+    from airtravel_v4_execution import validate_grant_freshness
+
+    grant = _schema_valid_grant()
+    valid = validate_grant_freshness(grant, now=datetime(2026, 1, 1, 0, 30, tzinfo=timezone.utc))
+    assert valid is True
+    grant["expires_at"] = "2026-01-01T00:15:00Z"
+    with pytest.raises(ValueError):
+        validate_grant_freshness(grant, now=datetime(2026, 1, 1, 0, 30, tzinfo=timezone.utc))
+
+
+def test_receipt_cross_field_call_counts_are_validated(tmp_path):
+    from airtravel_v4_execution import validate_receipt_v2
+
+    # Schema-valid fields are deliberately inconsistent; evidence files are
+    # not needed because cross-field validation must fail first.
+    z = "0" * 64
+    receipt = {
+        "schema_version": "airtravel-technical-receipt-v2",
+        "mode": "execute",
+        "status": "TECHNICAL_SUCCESS",
+        "reviewed_head": "a" * 40,
+        "packet_manifest_sha256": z,
+        "request_sha256": z,
+        "authorization_message_sha256": z,
+        "grant_sha256": z,
+        "command_sha256": z,
+        "invocation_id": "invocation-01",
+        "nonce": "nonce-0123456789",
+        "attempt_number": 1,
+        "started_at": "2026-01-01T00:00:00Z",
+        "completed_at": "2026-01-01T00:00:01Z",
+        "grant_evaluated_at": "2026-01-01T00:00:00Z",
+        "grant_valid_at_start": True,
+        "timeout": False,
+        "retry_count": 0,
+        "replay_count": 0,
+        "direct_fake_call_count": 16,
+        "instrumented_fake_call_count": 16,
+        "combined_fake_call_count": 33,
+        "call_count_equal": True,
+        "prompt_parity": True,
+        "answer_parity": True,
+        "decision_parity": True,
+        "pipeline_state_parity": True,
+        "scientific_artifact_parity": True,
+        "completed_cases": ["01", "02", "03", "04"],
+        "completed_phases": ["phase1", "phase2", "phase3", "phase4"],
+        "event_log_sha256": z,
+        "event_count": 1,
+        "question_count": 1,
+        "answer_count": 1,
+        "termination_count": 1,
+        "termination_counts": {},
+        "route_pairs": [],
+        "protected_manifest_hash_before": z,
+        "protected_manifest_hash_after": z,
+        "tracked_manifest_hash_before": z,
+        "tracked_manifest_hash_after": z,
+        "output_inventory_sha256": z,
+        "containment_status": "PASS",
+        "privacy_status": "PASS",
+        "call_record_hashes": {"baseline": z, "instrumented": z},
+        "safety_counters": v4().zero_safety_counters(),
+        "grant_consumption_status": "CONSUMED",
+    }
+    with pytest.raises(ValueError, match="combined call count"):
+        validate_receipt_v2(receipt, root=ROOT)

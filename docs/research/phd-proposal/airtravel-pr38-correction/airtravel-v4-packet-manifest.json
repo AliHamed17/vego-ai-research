@@ -26,8 +26,8 @@
   "detector_v1_forbidden": true,
   "external_provider_calls_allowed": 0,
   "harness_code_hashes": {
-    "scripts/airtravel_v4_contract.py": "b3e884d62997fe242be0991a5c548dccb846c60d905705e4cfd8ee35cc9885fb",
-    "scripts/airtravel_v4_execution.py": "35f4c37ba59d94faf6bcf8f5d1acb069288bc292357487d8a59ea1beea846d38"
+    "scripts/airtravel_v4_contract.py": "eec29ad58747ba0ce73c3690a9c936ef42d542db9a47c01b90a44d409d73050d",
+    "scripts/airtravel_v4_execution.py": "d0000a903d01fa3759e91fb2ec0306aa97a783e466c2b193a5a988957dba6818"
   },
   "implementation_commit_ancestor": "28a1d95f39058e5b9dd3e7601584e2393311d405",
   "manifest_version": "airtravel-v4-packet-manifest-v1",
@@ -109,8 +109,8 @@
     }
   },
   "schema_hashes": {
-    "schemas/airtravel-fake-grant-v2.schema.json": "0c8cffb7ef98fe1e84529dc5228ecccd09e70d49eb84c8d3af0d7954e14bc667",
-    "schemas/airtravel-technical-receipt-v2.schema.json": "5a64d35356616929f2a2727c121f031ab7bad241a7be2cd54554b512035893fb",
+    "schemas/airtravel-fake-grant-v2.schema.json": "af922fbbf06902c66e71e2ff9f6d08f89e88a2d3a7c8674bc2ec53f3b06f98a9",
+    "schemas/airtravel-technical-receipt-v2.schema.json": "5fa45d1705d15b6931e1242c7efccbd6244e1d5f3c819066e91ab24ea3df6dd1",
     "schemas/airtravel-v4-packet-manifest-v1.schema.json": "fea76197a300f4e8ed9a0f4285d2de3eae9cd2727ac1c9ac8146e329c8515078"
   },
   "setting_id": "cd_airtravel",

@@ -7,7 +7,7 @@
     "schema_version", "mode", "status", "reviewed_head",
     "packet_manifest_sha256", "request_sha256", "authorization_message_sha256",
     "grant_sha256", "command_sha256", "invocation_id", "nonce", "attempt_number",
-    "started_at", "completed_at", "grant_valid_at_start", "timeout",
+    "started_at", "completed_at", "grant_evaluated_at", "grant_valid_at_start", "timeout",
     "retry_count", "replay_count", "direct_fake_call_count",
     "instrumented_fake_call_count", "combined_fake_call_count", "call_count_equal",
     "prompt_parity", "answer_parity", "decision_parity",
@@ -29,12 +29,13 @@
     "authorization_message_sha256": {"$ref": "#/$defs/hash"},
     "grant_sha256": {"$ref": "#/$defs/hash"},
     "command_sha256": {"$ref": "#/$defs/hash"},
-    "invocation_id": {"type": "string", "minLength": 1},
-    "nonce": {"type": "string", "minLength": 1},
+    "invocation_id": {"type": "string", "minLength": 8},
+    "nonce": {"type": "string", "minLength": 16},
     "attempt_number": {"const": 1},
     "started_at": {"type": "string", "format": "date-time"},
     "completed_at": {"type": "string", "format": "date-time"},
-    "grant_valid_at_start": {"const": true},
+    "grant_evaluated_at": {"type": "string", "format": "date-time"},
+    "grant_valid_at_start": {"type": "boolean"},
     "timeout": {"type": "boolean"},
     "retry_count": {"const": 0},
     "replay_count": {"const": 0},
@@ -63,7 +64,15 @@
     "output_inventory_sha256": {"$ref": "#/$defs/hash"},
     "containment_status": {"const": "PASS"},
     "privacy_status": {"const": "PASS"},
-    "call_record_hashes": {"type": "object", "minProperties": 2},
+    "call_record_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline", "instrumented"],
+      "properties": {
+        "baseline": {"$ref": "#/$defs/hash"},
+        "instrumented": {"$ref": "#/$defs/hash"}
+      }
+    },
     "safety_counters": {"type": "object"},
     "grant_consumption_status": {"const": "CONSUMED"}
   },

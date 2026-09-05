@@ -12,7 +12,7 @@ import hashlib
 import json
 import os
 import re
-import secrets
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
@@ -50,6 +50,14 @@ TIMEOUT_SECONDS = 1800
 MIN_CALLS = 16
 MAX_CALLS = 326
 MAX_INVOCATIONS = 1
+ALLOWED_WRITE_ROOTS = (RUN_ROOT,)
+PROHIBITED_WRITE_ROOTS = (
+    "VEGO-AI/",
+    "scripts/",
+    "schemas/",
+    "docs/research/",
+    "reports/",
+)
 RUNTIME_ARCHIVE_SHA256 = "e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f"
 RUNTIME_FILES = {
     "domain_description/description.md": {
@@ -95,6 +103,19 @@ def canonical(value: Any) -> bytes:
     )
 
 
+def parse_utc_timestamp(value: Any, field: str) -> datetime:
+    """Parse an ISO-8601 timestamp and require an explicit timezone."""
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{field} timestamp is missing")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"{field} timestamp is malformed") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError(f"{field} timestamp must be timezone-aware")
+    return parsed.astimezone(timezone.utc)
+
+
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -118,6 +139,16 @@ def _under(value: str, root: str, field: str) -> None:
     root_path = _path(root, "run_root")
     if parsed != root_path and root_path not in parsed.parents:
         raise ValueError(f"{field} escapes run_root")
+
+
+def _policy_path(value: str, field: str) -> PurePosixPath:
+    """Normalize a policy root without permitting lexical widening."""
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{field} must be a non-empty relative path")
+    trimmed = value.rstrip("/")
+    if not trimmed:
+        raise ValueError(f"{field} must not be the repository root")
+    return _path(trimmed, field)
 
 
 def _layout() -> dict[str, list[str]]:
@@ -210,14 +241,8 @@ def frozen_manifest() -> dict[str, Any]:
         "external_provider_calls_allowed": 0,
         "detector_v1_forbidden": True,
         "renderer_forbidden": True,
-        "allowed_write_roots": [RUN_ROOT],
-        "prohibited_write_roots": [
-            "VEGO-AI/",
-            "scripts/",
-            "schemas/",
-            "docs/research/",
-            "reports/",
-        ],
+        "allowed_write_roots": list(ALLOWED_WRITE_ROOTS),
+        "prohibited_write_roots": list(PROHIBITED_WRITE_ROOTS),
         "provider_execution_enabled": False,
     }
 
@@ -229,6 +254,7 @@ def request_template() -> dict[str, Any]:
         "status": "AUTHORIZATION_REQUESTED_NOT_GRANTED",
         "packet_version": PACKET_VERSION,
         "packet_manifest_path": MANIFEST_PATH,
+        "packet_sha256": digest(ROOT / PACKET_PATH),
         "run_root": manifest["run_root"],
         "control_root": manifest["control_root"],
         "output_root": manifest["output_root"],
@@ -273,9 +299,12 @@ def grant_template() -> dict[str, Any]:
         "reviewed_head": "GRANT_BOUND_REVIEWED_HEAD",
         "implementation_commit_ancestor": IMPLEMENTATION_ANCESTOR,
         "packet_manifest_sha256": "0" * 64,
+        "packet_sha256": request["packet_sha256"],
         "authorization_message_sha256": "0" * 64,
         "grant_sha256": "GRANT_SELF_HASH_EXCLUDED",
         "command_sha256": "0" * 64,
+        "nonce": "GRANT_NONCE_NOT_SET",
+        "invocation_id": "GRANT_INVOCATION_NOT_SET",
         "run_root": manifest["run_root"],
         "control_root": request["control_root"],
         "output_root": request["output_root"],
@@ -313,6 +342,19 @@ def validate_manifest(manifest: dict[str, Any]) -> None:
         raise ValueError("packet version rejected")
     if manifest.get("run_root") != RUN_ROOT:
         raise ValueError("run_root is not the fixed v4 root")
+    if manifest.get("allowed_write_roots") != list(ALLOWED_WRITE_ROOTS):
+        raise ValueError("allowed_write_roots differs from the frozen root")
+    if manifest.get("prohibited_write_roots") != list(PROHIBITED_WRITE_ROOTS):
+        raise ValueError("prohibited_write_roots differs from the frozen list")
+    allowed = [_policy_path(value, "allowed_write_root") for value in manifest["allowed_write_roots"]]
+    prohibited = [_policy_path(value, "prohibited_write_root") for value in manifest["prohibited_write_roots"]]
+    normalized = [path.as_posix().casefold() for path in [*allowed, *prohibited]]
+    if len(normalized) != len(set(normalized)):
+        raise ValueError("write-root case-fold collision")
+    for allow in allowed:
+        for deny in prohibited:
+            if allow == deny or allow in deny.parents or deny in allow.parents:
+                raise ValueError("allowed/prohibited write-root overlap")
     if manifest.get("required_layout") != _layout():
         raise ValueError("required layout differs")
     required = manifest.get("required_evidence_files")
@@ -416,6 +458,9 @@ def validate_request_against_manifest(
     for field in ("protected_manifest_path", "protected_manifest_sha256", "harness_code_hashes", "schema_hashes"):
         if field in request and request[field] != manifest[field]:
             raise ValueError(f"{field} differs from machine manifest")
+    packet = ROOT / PACKET_PATH
+    if request.get("packet_sha256") != digest(packet):
+        raise ValueError("packet hash differs from the reviewed packet")
 
 
 def validate_grant_bindings(
@@ -441,6 +486,7 @@ def validate_grant_bindings(
         "required_evidence_files",
         "runtime_archive_sha256",
         "runtime_file_hashes",
+        "packet_sha256",
         "command_template",
         "protected_manifest_path",
         "protected_manifest_sha256",
@@ -465,6 +511,31 @@ def validate_grant_bindings(
         raise ValueError("analysis/renderer permissions must be forbidden")
 
 
+def resolved_command_tokens(
+    runtime_root: Path,
+    runtime_archive: Path,
+    output_root: Path,
+) -> list[str]:
+    """Return the one command form permitted by the machine manifest."""
+    return [
+        str(Path(sys.executable).resolve()),
+        str((ROOT / "scripts/prepare_airtravel_v4.py").resolve()),
+        "--execute",
+        "--packet",
+        str((ROOT / PACKET_PATH).resolve()),
+        "--grant",
+        str((ROOT / RUN_ROOT / "control/authorization-grant.json").resolve()),
+        "--runtime-root",
+        str(runtime_root.resolve()),
+        "--runtime-archive",
+        str(runtime_archive.resolve()),
+        "--output-dir",
+        str(output_root.resolve()),
+        "--receipt",
+        str((output_root / "preflight-receipt.json").resolve()),
+    ]
+
+
 def validate_command_record(record: dict[str, Any], manifest: dict[str, Any]) -> None:
     """Validate a resolved command fingerprint before any protected import."""
     validate_manifest(manifest)
@@ -475,26 +546,13 @@ def validate_command_record(record: dict[str, Any], manifest: dict[str, Any]) ->
         raise ValueError("command fingerprint mismatch")
     if record.get("max_invocations") != MAX_INVOCATIONS:
         raise ValueError("maximum invocation binding differs")
-    expected_flags = {"--packet", "--grant", "--runtime-root", "--runtime-archive", "--output-dir", "--receipt"}
-    if not expected_flags.issubset(set(tokens)):
-        raise ValueError("command is missing a required binding")
-    values = {tokens[index]: tokens[index + 1] for index, token in enumerate(tokens[:-1]) if token in expected_flags}
-    packet = Path(values["--packet"]).resolve()
-    grant = Path(values["--grant"]).resolve()
-    runtime_root = Path(values["--runtime-root"]).resolve()
-    runtime_archive = Path(values["--runtime-archive"]).resolve()
-    output = Path(values["--output-dir"]).resolve()
-    receipt = Path(values["--receipt"]).resolve()
-    if packet != (ROOT / PACKET_PATH).resolve():
-        raise ValueError("command packet path differs")
-    if grant.parent != (ROOT / RUN_ROOT / "control").resolve() or grant.name != "authorization-grant.json":
-        raise ValueError("command grant path differs")
-    if runtime_root != (ROOT / "external_data/airtravel-pr38/runtime_input").resolve():
-        raise ValueError("command runtime root differs")
-    if runtime_archive != (ROOT / "external_data/airtravel-pr38/cd_airtravel-runtime-v1.0.2.zip").resolve():
-        raise ValueError("command runtime archive differs")
-    if output != (ROOT / RUN_ROOT / "output").resolve() or receipt != output / "preflight-receipt.json":
-        raise ValueError("command output binding differs")
+    expected = resolved_command_tokens(
+        ROOT / "external_data/airtravel-pr38/runtime_input",
+        ROOT / "external_data/airtravel-pr38/cd_airtravel-runtime-v1.0.2.zip",
+        ROOT / RUN_ROOT / "output",
+    )
+    if tokens != expected:
+        raise ValueError("command tokens differ from the frozen command")
 
 
 def validate_private_layout(root: Path, *, preparation: bool = True) -> None:
@@ -508,6 +566,25 @@ def validate_private_layout(root: Path, *, preparation: bool = True) -> None:
         raise ValueError("private root is not the fixed v4 root")
     if not root.exists():
         return
+    allowed_execution_dirs = {
+        "control",
+        "output",
+        "output/baseline",
+        "output/instrumented",
+        "verification",
+    }
+    allowed_execution_files = {"control/" + name for name in _layout()["control"]}
+    allowed_execution_files.update(
+        {
+            "output/preflight-receipt.json",
+            "output/baseline/call-records.jsonl",
+            "output/instrumented/call-records.jsonl",
+            "output/instrumented/qa_events.jsonl",
+        }
+    )
+    allowed_execution_files.update(
+        {"verification/" + name for name in _layout()["verification"]}
+    )
     for path in root.rglob("*"):
         stat = path.lstat()
         if path.is_symlink() or getattr(stat, "st_file_attributes", 0) & 0x400:
@@ -523,6 +600,11 @@ def validate_private_layout(root: Path, *, preparation: bool = True) -> None:
             "control/preparation-receipt.json",
         }:
             raise ValueError("undeclared pre-authorization file in private root")
+        if not preparation:
+            if path.is_dir() and relative not in allowed_execution_dirs:
+                raise ValueError("undeclared execution directory in private root")
+            if path.is_file() and relative not in allowed_execution_files:
+                raise ValueError("undeclared execution file in private root")
 
 
 def _exclusive_json(path: Path, value: dict[str, Any]) -> None:
@@ -543,16 +625,20 @@ def create_attempt_start(
     bindings: dict[str, Any],
     *,
     invocation_id: str,
-    nonce: str | None = None,
+    nonce: str,
 ) -> dict[str, Any]:
     """Create the one-time consumption marker using exclusive creation."""
-    if not invocation_id or not isinstance(invocation_id, str):
+    if not isinstance(invocation_id, str) or len(invocation_id) < 8:
         raise ValueError("invocation_id required")
+    if not isinstance(nonce, str) or len(nonce) < 16:
+        raise ValueError("nonce required")
+    if (control_dir / "attempt-start.json").exists():
+        raise ValueError("attempt-start already exists; invocation consumed")
     start = {
         "schema_version": "airtravel-v4-attempt-start-v1",
         "attempt_number": 1,
         "invocation_id": invocation_id,
-        "nonce": nonce or secrets.token_urlsafe(24),
+        "nonce": nonce,
         "grant_sha256": bindings.get("grant_sha256"),
         "authorization_message_sha256": bindings.get("authorization_message_sha256"),
         "command_sha256": bindings.get("command_sha256"),
@@ -563,6 +649,10 @@ def create_attempt_start(
     }
     if not all(start.get(key) for key in ("grant_sha256", "command_sha256", "reviewed_head")):
         raise ValueError("attempt binding incomplete")
+    if not bindings.get("nonce") or not bindings.get("invocation_id"):
+        raise ValueError("grant identity binding incomplete")
+    if bindings["nonce"] != nonce or bindings["invocation_id"] != invocation_id:
+        raise ValueError("attempt identity differs from grant")
     _exclusive_json(control_dir / "attempt-start.json", start)
     return start
 
@@ -587,8 +677,15 @@ def create_attempt_end(
         raise ValueError("attempt-start is required")
     if (control_dir / "attempt-end.json").exists():
         raise ValueError("attempt-end already exists")
-    if start.get("attempt_number") != 1 or not start.get("invocation_id"):
+    if start.get("attempt_number") != 1 or not start.get("invocation_id") or not start.get("nonce"):
         raise ValueError("invalid attempt-start binding")
+    try:
+        persisted = json.loads((control_dir / "attempt-start.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError("invalid persisted attempt-start") from exc
+    for field in ("attempt_number", "invocation_id", "nonce", "grant_sha256", "command_sha256", "reviewed_head"):
+        if persisted.get(field) != start.get(field):
+            raise ValueError("attempt-start binding differs from persisted marker")
     end = {
         "schema_version": "airtravel-v4-attempt-end-v1",
         "attempt_number": 1,
@@ -603,6 +700,15 @@ def create_attempt_end(
     }
     _exclusive_json(control_dir / "attempt-end.json", end)
     return end
+
+
+def validate_attempt_start_matches_grant(
+    start: dict[str, Any], grant: dict[str, Any]
+) -> None:
+    """Require the durable attempt identity to be the identity in the grant."""
+    for field in ("nonce", "invocation_id"):
+        if start.get(field) != grant.get(field):
+            raise ValueError(f"attempt {field} differs from grant")
 
 
 CALL_FIELDS = {
@@ -716,6 +822,7 @@ def receipt_v2_required_fields() -> tuple[str, ...]:
         "attempt_number",
         "started_at",
         "completed_at",
+        "grant_evaluated_at",
         "grant_valid_at_start",
         "timeout",
         "retry_count",
