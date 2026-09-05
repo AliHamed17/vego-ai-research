@@ -29,7 +29,7 @@ from airtravel_v4_contract import (
 DEFAULT_RUNTIME_ROOT = ROOT / "external_data/airtravel-pr38/runtime_input"
 DEFAULT_RUNTIME_ARCHIVE = ROOT / "external_data/airtravel-pr38/cd_airtravel-runtime-v1.0.2.zip"
 PRIVATE_ROOT = ROOT / RUN_ROOT
-EXPECTED_MANIFEST_SHA256 = "b10b6685f3c75023141ffe92a13c4c7a871c86de7367f744dbe984feee8441fe"
+EXPECTED_MANIFEST_SHA256 = "9d39f0023cf15d0879bfb404739feefe457324a909acc66c0499f5e8afbd61ea"
 
 
 class V4PreparationError(RuntimeError):

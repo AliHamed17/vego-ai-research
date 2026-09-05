@@ -465,6 +465,8 @@ async def _run_pair_v4(
             # Calls for separate cases are concurrent.  ``self.calls[-1]`` is
             # not stable after the await; retain the append position instead.
             row = self.calls[record_index]
+            if row["label"] != label:
+                raise ValueError("call-record row/label correlation failed")
             row["prompt_length"] = len(json.dumps(prompt, ensure_ascii=False, sort_keys=True).encode("utf-8"))
             row["answer_length"] = len(json.dumps(result, ensure_ascii=False, sort_keys=True).encode("utf-8"))
             return result
@@ -528,6 +530,14 @@ def execute_authorized(
     from qa_communication import validate_event_stream
 
     validate_event_stream([])
+    # Preload lazily imported modules so the active read allowlist never sees
+    # a bytecode cache read attempt from inside the guarded operation.
+    import airtravel_local_observer
+    import study1_call_bound
+    from qa_communication import build_episode_projection
+
+    _preloaded = (airtravel_local_observer, study1_call_bound, build_episode_projection)
+
     from airtravel_preflight_execution import ALLOWED_FILES
 
     allowed_files = {
@@ -535,6 +545,10 @@ def execute_authorized(
         "baseline/call-records.jsonl",
         "instrumented/call-records.jsonl",
         *(f"{side}/{name}" for side in ("baseline", "instrumented") for name in _SCIENTIFIC_OUTPUTS),
+        # The privacy-safe parity records are written inside the guarded
+        # operation, so they must be declared writable alongside the
+        # protected outputs or the guard fails the run closed.
+        *(f"{side}/call-records.jsonl" for side in ("baseline", "instrumented")),
     }
     reads = {root / relative for relative in tracked_values} | {
         runtime_root / relative for relative in frozen_manifest()["runtime_files"]
@@ -576,6 +590,14 @@ def execute_authorized(
                 f"{result.get('technical_exception', 'unknown failure')}"
             )
     except BaseException:
+        # Close the ledger before surfacing any failure so a consumed
+        # invocation can never look unterminated or replayable.
+        finish_grant(
+            root=root,
+            attempt_start=attempt_start,
+            status="TECHNICAL_FAILED",
+            output_receipt_sha256=None,
+        )
         raise
 
     # _run_pair_v4 populates its own progress only when passed; recover the
@@ -601,7 +623,19 @@ def execute_authorized(
     _canonical_write(verification / "lifecycle-verification.json", {"status": "PASS", "run_id": run_id, "event_count": len(events), "question_count": sum(e["event_type"] == "QUESTION_EMITTED" for e in events), "answer_count": sum(e["event_type"] == "ANSWER_RECEIVED" for e in events), "termination_count": len(terminations), "episodes": len(projections), "termination_reasons": sorted({e["termination_reason"] for e in terminations})})
     output_inventory_sha = digest(verification / "final-output-inventory.json")
     completed = datetime.now(timezone.utc).replace(microsecond=0)
-    route_pairs = result.get("route_pairs", [])
+    # run_pair reports directed pairs under its protected-orchestrator key.
+    route_pairs = result.get("protected_orchestrator_fake_route_pairs", [])
+    # Containment and counters are measured from the guard, never asserted.
+    measured_counters = {
+        **zero_safety_counters(),
+        "network_socket_attempt_count": guard.network_attempt_count,
+        "external_provider_call_count": int(result.get("external_provider_call_count", 0)),
+    }
+    if guard.violations or guard.network_attempt_count:
+        raise ValueError(
+            f"containment failed: {guard.violations} violations, "
+            f"{guard.network_attempt_count} network attempts"
+        )
     receipt = {
         "schema_version": "airtravel-technical-receipt-v2",
         "mode": "execute",
@@ -648,14 +682,16 @@ def execute_authorized(
         "containment_status": "PASS",
         "privacy_status": "PASS",
         "call_record_hashes": {side: digest(path) for side, path in call_paths.items()},
-        "safety_counters": zero_safety_counters(),
+        "safety_counters": measured_counters,
         "grant_consumption_status": "CONSUMED",
     }
     validate_receipt_v2(receipt, root=root, require_evidence=False)
     _canonical_write(receipt_path, receipt)
-    validate_receipt_v2(receipt, root=root, require_evidence=True)
     receipt_sha = digest(receipt_path)
     finish_grant(root=root, attempt_start=attempt_start, status="TECHNICAL_SUCCESS", output_receipt_sha256=receipt_sha)
     _canonical_write(verification / "post-verification-receipt.json", {"status": "PASS", "receipt_sha256": receipt_sha, "attempt_end_sha256": digest(root / RUN_ROOT / "control/attempt-end.json"), "provider_calls": 0, "network_attempts": 0, "detector_runs": 0, "renderer_runs": 0})
+    # Full evidence validation runs last: attempt-end and the post-verification
+    # receipt are themselves required evidence, so they must exist first.
+    validate_receipt_v2(receipt, root=root, require_evidence=True)
     validate_private_layout(root / RUN_ROOT, preparation=False)
     return receipt

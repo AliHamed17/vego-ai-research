@@ -188,6 +188,8 @@
     "scripts/tests/test_airtravel_pr38_reporting.py",
     "scripts/tests/test_airtravel_pr38_safety.py",
     "scripts/tests/test_airtravel_v4_contract.py",
+    "scripts/tests/test_airtravel_v4_executor_guard.py",
+    "scripts/tests/test_airtravel_v4_offline_runner.py",
     "scripts/tests/test_audit_historical_case_recovery.py",
     "scripts/tests/test_audit_historical_case_recovery_v3.py",
     "scripts/tests/test_audit_historical_case_recovery_v3_1.py",
@@ -261,7 +263,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "9b2f24f0bec2d5dd00aa27e5e7e0b128e28adb0a9b8354610c86759d063896dd",
+  "sourceTreeSha256": "4f5fabd03ec19c7e5b79c0e2a4fd9700deabab03052a82879a2f2a2c9317a529",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

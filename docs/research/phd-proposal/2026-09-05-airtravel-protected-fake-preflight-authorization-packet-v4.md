@@ -36,7 +36,7 @@ The controlling machine manifest is
 docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json.
 
 Manifest SHA-256:
-b10b6685f3c75023141ffe92a13c4c7a871c86de7367f744dbe984feee8441fe
+9d39f0023cf15d0879bfb404739feefe457324a909acc66c0499f5e8afbd61ea
 
 It binds the packet version, base SHA
 c34d3954b5e080d090017d2ea655d454d75a6b92, implementation ancestor
