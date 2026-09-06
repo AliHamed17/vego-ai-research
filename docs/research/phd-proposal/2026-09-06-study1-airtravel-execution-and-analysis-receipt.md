@@ -25,6 +25,7 @@ artifact; none is narrated.
 | Source verification | 143/143 source files, 5/5 runtime files |
 
 *[Retrospective provenance — see the controlling caveat at the top of this document.]*
+
 ## Offline fake preflight — engineering evidence only
 
 | Item | Value |
@@ -42,6 +43,7 @@ artifact; none is narrated.
 | Tracked manifest before = after | True |
 
 *[Retrospective provenance — see the controlling caveat at the top of this document.]*
+
 This is technical readiness. It is not a scientific result.
 
 ## Real provider-backed run — exactly one
@@ -65,6 +67,7 @@ This is technical readiness. It is not a scientific result.
 | Credential | process environment variable, value never read |
 
 *[Retrospective provenance — see the controlling caveat at the top of this document.]*
+
 Call bounds: minimum 4 + 3N = 16, maximum 82 + 61N = 326. Observed
 43 outbound requests, inside both bounds.
 
@@ -85,6 +88,7 @@ Call bounds: minimum 4 + 3N = 16, maximum 82 + 61N = 326. Observed
 | Signals fired | {"S1_LOW_ANSWER_CONFIDENCE": 3, "S2_MEDIUM_ANSWER_CONFIDENCE": 2, "S6_MULTIPLE_QA_ROUNDS": 2, "S7_TERMINATED_MAX_ROUNDS": 1} |
 
 *[Retrospective provenance — see the controlling caveat at the top of this document.]*
+
 Classification rule applied unchanged: `STRONG_ALERT = S1 ∨ S3 ∨ S7`;
 `WEAK_ALERT = ¬STRONG ∧ (S2 ∨ S6)`; otherwise `NO_ALERT`.
 C1/C2/C3 are context only, C1 strictly `mapping_certainty < 0.7`.
@@ -103,6 +107,7 @@ S5/S8/S9 remain non-triggering or descriptive as preregistered.
 | Preflight output inventory | `3151f72da1e097dae651b93f4f857d28561984f2e7f1b32e9d6317f20ba6e112` |
 
 *[Retrospective provenance — see the controlling caveat at the top of this document.]*
+
 ## Privacy and claim boundary
 
 Raw prompts, raw answers, pipeline artifacts and corpus bytes are stored only
