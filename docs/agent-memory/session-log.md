@@ -453,3 +453,36 @@ Chronological prompt history for Codex and Claude.
   - git diff check; no provider call
 - Status: TECHNICAL NO-GO; final correction pending push
 - Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.
+
+## 2026-09-06 03:07 +03:00 - Codex - Study 2A ON/OFF preparation
+
+- Request: Prepare a separately preregistered descriptive comparison of full VEGO-AI orchestration against a non-VEGO baseline, with separate Llama feasibility documentation.
+- Actions taken:
+  - Prepared separate Study 2A VEGO-AI_ON versus VEGO-AI_OFF preregistration and disabled-by-default harness.
+  - Added independent Study 2B Llama feasibility record without downloading or running a model.
+  - Generated deterministic manifest and refreshed the supported release manifest.
+  - Validated privacy, schema, lifecycle, parity, determinism, and offline-only boundaries.
+- Files changed:
+  - configs/study2/off_prompt.md
+  - configs/study2/vego_ai_on.json
+  - configs/study2/vego_ai_off.json
+  - schemas/study2a-vego-ai-on-off-v1.schema.json
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/phd-proposal/2026-09-06-study2-llama-feasibility-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-preregistration-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python scripts/study2_vego_ai_on_off.py --write-manifest
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py
+  - python -m pytest scripts/tests
+  - python -m pytest tests
+  - python -m pytest VEGO-AI/tests
+  - ruff check changed Python files
+  - python -m compileall changed Python files
+  - security/privacy/evidence consistency checks
+  - GitHub Actions run 34000338373 (all six jobs green)
+- Status: completed; preparation only; no provider or experiment
+- Next steps: Independent review and explicit run authorization remain required.

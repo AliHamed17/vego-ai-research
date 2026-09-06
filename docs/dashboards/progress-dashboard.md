@@ -1,6 +1,6 @@
 # Progress Dashboard
 
-Last curated update: 2026-08-01.
+Last curated update: 2026-09-06 by Codex.
 
 ## Executive Snapshot
 
@@ -12,6 +12,7 @@ Run `.\scripts\build-e2e-progress-report.ps1` for the full E2E progress report a
 | Area | Status | Evidence | Next Action |
 | --- | --- | --- | --- |
 | July 29 doctoral control package | Yellow / awaiting supervisor decisions | `docs/research/phd-proposal/`: 19/15/10 master register, exact one-plus-three RQ recommendation, three-study contract, legacy crosswalk, claim/RACI/RAID registers, proposal `v0.1`, and August 5 pre-read. | Ali reviews the exact package; Iris and Arnon decide the RQs, studies, Plan A/B, owners, literature categories, and dates. |
+| Study 2A ON/OFF preparation | Ready for independent review; run authorization pending | Draft PR #40 (`3deb8b4`) contains the separate ON/OFF configs, schema, deterministic preparation manifest, Hebrew preregistration/readiness docs, and disabled-by-default offline harness. CI run `34000338373` passed all six jobs. | Review the baseline definition and parity contract; issue a fresh explicit authorization before any provider-backed condition run. |
 | July 29 call extraction and assurance | Structure green / human gates blocked | S-0001–S-1195 preliminary CSV/JSON and review workbook; 910 machine-linked rows, 285 human-review placeholders; separate Reviewer A/B and third-person merge interface; IRIS-EXP-01–10 validator. | Complete both 1,195-segment reviews plus one full-media record per reviewer and adjudicate every disagreement; readiness/closure remain non-zero meanwhile. |
 | August 5 supervisor presentation | Local construction and automated/render QA green; human delivery readiness yellow | 21-slide PPTX/PDF, 21/21 source-note sections, 44/44 control reachability, 21/21 PowerPoint-native renders inspected; previous backup invalidated. | Ali reviews the exact package; run timed and adversarial human rehearsals; rebuild/freeze the backup; then authorize delivery and record Iris/Arnon access tests. |
 | Private Drive and literature workbook | Green for initial structure; sharing/search pending | Ali-owned nine-folder Drive and native six-tab Sheet are recorded in `drive-workspace-manifest.md`; no external share or completed search is claimed. | Ali authorizes exact recipients, then execute and log database searches and screening. |

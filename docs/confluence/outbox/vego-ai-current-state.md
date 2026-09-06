@@ -1,20 +1,27 @@
 # VEGO-AI Current State
 
-Generated from repository memory on 2026-09-02 20:49 +03:00.
+Generated from repository memory on 2026-09-06 03:09 +03:00.
 
 # Current State
 
 Fast orientation for Codex and Claude. Update this whenever the project state changes.
 
-**Last Updated:** 2026-09-02 by Claude (the 2026-09-02 supervisor call narrowed the preliminary work to ONE descriptive study, WHEN to escalate to a human in the frozen Cheers/ParkWise run; registered as EXP-045 with a read-only inventory script; the Thursday 2026-09-03 one-page design (EN/HE) and the 115-item call checklist are in `docs/research/phd-proposal/`; Sunday 2026-09-06 two-page results and Wednesday 2026-09-09 proposal v2 follow; `main` was red twice today, stale visualization catalog and pypdf CVEs, both fixed, see ISS-050..052). Earlier: 2026-08-24 by Claude (delivered a strict scored review, 75/100, of the 2026-08-23 consolidated doctoral proposal PDF — `docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md`; separately found and fixed a pre-existing CI-red `main`, pip 26.1.2 flagged PYSEC-2026-3721, whose fix cascaded through the whole BigUI/thesis-evidence build chain — see ISS-039/040/041 in `docs/agent-memory/issues.md` and the "Build-Chain Hash-Cascade Fix Pattern" row in `docs/agent-memory/decisions.md`). Earlier: 2026-08-19 by Claude (CI-only fix pass; no project-state facts below changed — see `docs/agent-memory/issues.md` and `docs/agent-memory/decisions.md` for the `packageRevision` self-reference root cause and the two-commit regenerate-then-rebind pattern now used to close it). Earlier still: 2026-08-14, transcribed and analyzed the 2026-08-12 Iris/Arnon supervisor call; see the August 12 checkpoint bullet in 1a below and `docs/agent-memory/session-log.md`. Earlier still: 2026-08-04, merged the Iris workstream into `main` via PR #16, resolving conflicts with the already-merged evaluation-phase PR #15, plus a CI-hardening fix pass. The separate VEGO-AI H-layer evaluation-phase workstream below was last updated 2026-07-28 by Claude.
+**Last Updated:** 2026-09-04 by Codex (Tasks 2–5 technical lane: added the versioned privacy-safe Q&A communication contract, deterministic append-only observer/episode projection, live-event extractor support, and baseline terminology freeze. Offline observer verification passes, but direct wiring into protected `orchestrator.py` remains partial by design; the full suite has one unrelated merge-base hardening-test failure. No live LLM run, API call, human label, frozen-output mutation, or supervisor-document change was made). Earlier the same day, Task 1 local recovery found no original `interaction_log.jsonl`; archived code/logs support conditional historical full-content logging and the 12/30 Q&A baseline remains unchanged. The Q&A escalation detection study remains descriptive and human-validation pending. Earlier: 2026-09-03 by Codex (new supervisor direction makes **Q&A ESCALATION DETECTION STUDY** the active milestone: read-only extraction of inter-agent questions, confidence/evidence observability, transparent alert scaffold, and blind human-review materials; no validation run or performance claim). The Agent-C score reconstruction/C2 bridge remains valid later-stage technical evidence and the 111-versus-114 C2 discrepancy is deferred. The supervisor-facing operational plan now starts with zero-cost `interaction_log.jsonl` recovery, uses a one-setting feasibility rerun, and keeps `ANSWER_NOT_PERSISTED` terminology with no manual labeling in the current plan. Earlier: 2026-09-03 by Codex (strict one-page paired-condition human-intervention experiment). Earlier: 2026-09-02 by Claude (the supervisor call narrowed the preliminary study to ONE descriptive WHEN/WHERE escalation study over the frozen run; EXP-045/046 provide its descriptive basis). Earlier: 2026-08-24 by Claude (delivered the strict proposal review and repaired the pre-existing CI-red build chain; see ISS-039/040/041). Earlier still: 2026-08-14, transcribed and analyzed the 2026-08-12 Iris/Arnon call; see the August 12 checkpoint below and `docs/agent-memory/session-log.md`.
 
 Both workstreams below are now merged into `main` (PR #15, then PR #16). Sections are still grouped by original workstream for orientation, since they cover distinct parts of the repo, but there is no longer a pending merge between them; `main` is the single current state for both. Feature branch `docs/iris-july29-phd-execution` is retained (not deleted) at commit `20b04fc` for reference.
+
+### 1c. Study 2A VEGO-AI_ON versus VEGO-AI_OFF (2026-09-06)
+* A separate preparation branch `study2/vego-ai-on-off-preparation` and draft PR #40 define a preregistered descriptive comparison on the frozen public AirTravel corpus (`cd_airtravel` / `text2uml_airtravel_253b26dc`, N=4). The branch head is `3deb8b4977e622a96733f80fb7a8ab26ebd3df57`; PR #40 is open, draft, and unmerged.
+* `VEGO-AI_ON` is the current full orchestration contract; `VEGO-AI_OFF` is a newly constructed single-model, no-delegation/no-Q&A/no-feedback/no-Detector baseline. Both conditions keep the same corpus, cases, model configuration, limits, schema, validation, privacy, and retention; roots, logs, IDs, and denominators remain separate.
+* The tracked manifest and configs are preparation-only and disabled by default. The deterministic fake mode is an engineering fixture only; no provider/API call, Llama download, scientific experiment, Detector-v1 run, synthetic scientific data, or Study 1 mutation occurred. No accuracy, human-benefit, superiority, or generalization claim is permitted.
+* Study 2B records `meta-llama/Llama-3.2-3B-Instruct` as a separate feasibility candidate only; license, hardware, cost, structured-output, and tool-support checks remain pending. Independent review and explicit run authorization are required before either condition is executed.
 
 ---
 
 ## 1. Quick Status
 
 ### 1a. Iris / PhD-proposal supervisor-closure workstream
+* **September 3 strict one-page experiment design (pending supervisor review):** `docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md` maps the provisional SQ1 to three bounded paired cases. The local PDF is one A4 page, visually inspected, and hash-verified. It deliberately reports no intervention outcome because independent evaluation is still absent; EXP-005 remains 0/24.
 * **September 2 checkpoint (2026-09-02, from the recording, machine transcript):** Iris ranked the gaps (preliminary results first, study detail second, presentation last) and narrowed the preliminary study to a descriptive demonstration of WHERE/WHEN a human could have been asked in the frozen run, identified automatically from existing per-stage signals; no accuracy comparison, no users this month, course data not synthetic data; the three supervisors stand in as humans. Her open question (agent 2 vs agent 3) must be settled in writing by measurement. Deliverables: Thu 09-03 one page (done: `2026-09-03-preliminary-study-design.en.md`/`.he.md`), Sun 09-06 two pages with results, Wed 09-09 proposal v2. EXP-045 inventory: Stage 2 misses 59/80 reference domain guidelines and has 12 unanswered advisor questions, 150/165 case files carry an Alternative fragment, Agent 4 queues 11/27 patterns; only Agent 4 has an escalation hook. Arnon: borderline but acceptable. Nothing approved.
 * Branch `docs/iris-july29-phd-execution` preserves the ten July 29 evidence artifacts in `3d0beca`, the initial assurance tranche in `28ece6e`, the enhanced closure package in `18c0f2b`, and the next-step execution snapshot in `9a9279f`; production VEGO-AI behavior is unchanged.
 * The bilingual-review-pending July 29 registers control all 19 requirements, 15 actions, and 10 questions; the closure audit has `44/44` locators, with **2 verified complete, 6 awaiting human acceptance, 22 partial, 5 open, and 9 blocked**.
@@ -163,6 +170,14 @@ Track milestones, current work, and next steps here.
 > the full chronological detail behind it.
 
 ## Milestones
+
+| 2026-09-04 | Tasks 2–5 Q&A communication contract and offline observer | PARTIAL / pre-run review required | Added `qa-communication-event-v1`, privacy-safe append-only recorder, deterministic episode projection, live extractor support, baseline terminology freeze, and offline route/parity tests. Protected orchestrator wiring remains unmodified; all four settings are blocked by absent case-model directories; no live LLM/API run. |
+
+| 2026-09-04 | Task 1 original interaction-log recovery audit | NOT FOUND locally / contact decision pending | Deterministic read-only inventory covered repository, ignored/untracked material, supplied archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive, and Codex attachments. No original/probable log; historical code/logs indicate conditional full-content logging. Q&A baseline 12/30 unchanged; no rerun or API call. |
+
+| 2026-09-04 | Iris Q&A task-plan source and RTL verification hardening | Implemented / push and CI pending | Canonical JSON now drives Markdown/DOCX/PDF; equality tests cover all eight tasks and summary rows; send-gate and interaction-log semantic guards added. Approved supervisor wording unchanged; no experiment executed. |
+
+| 2026-09-03 | Q&A escalation detection observability scaffold | Implemented / human validation pending | Added a read-only frozen Q&A extractor, confidence-separated feature inventory, transparent alert scaffold, and three blind reviewer-sheet generators. Canonical snapshot: 12 final questions, 0 persisted answers, 12 unanswered; 30 round-snapshot questions. No detector performance or intervention result is claimed. |
 
 | Date | Milestone | Status | Notes |
 | --- | --- | --- | --- |
@@ -313,6 +328,7 @@ Track milestones, current work, and next steps here.
 
 | Date | Summary | Files |
 | --- | --- | --- |
+| 2026-09-03 | Created and validated the strict one-page preliminary human-intervention experiment for Iris. It uses three frozen cases, explicit autonomous/human-assisted conditions, bounded controlled inputs, and `To be measured` outcomes; the local PDF is exactly one A4 page and is not an effectiveness result. | `docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md`, `scripts/build_paper.py`, `scripts/tests/test_preliminary_human_intervention_one_page.py`, ignored local PDF |
 | 2026-06-11 | Created shared memory foundation for Codex and Claude. | `AGENTS.md`, `CLAUDE.md`, `docs/agent-memory/*` |
 | 2026-06-11 | Added clearer current-state and progress tracking requirements. | `AGENTS.md`, `CLAUDE.md`, `docs/agent-memory/README.md`, `docs/agent-memory/current-state.md`, `docs/agent-memory/progress.md` |
 | 2026-06-11 | Added scripted memory automation for prompt start/end. | `scripts/agent-memory-start.ps1`, `scripts/agent-memory-finish.ps1`, `docs/agent-memory/automation.md` |
@@ -370,6 +386,12 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
+- **2026-09-06 (Codex):** prepared separate Study 2A `VEGO-AI_ON` versus `VEGO-AI_OFF` descriptive comparison on the frozen public AirTravel corpus, with a newly constructed single-model no-VEGO baseline, exact parity controls, disabled-by-default local harness, JSON Schema, bilingual Hebrew preregistration/readiness documents, and a separate Study 2B Llama feasibility record. PR #40 (`3deb8b4`) is open/draft/unmerged; CI run `34000338373` passed all six jobs. No provider/model call, Llama download, scientific experiment, or Study 1 mutation occurred. Independent review and explicit run authorization remain required.
+
+- **2026-09-03 (Codex):** produced the filled Hebrew supervisor-facing Q&A task plan (8 tasks, P0/P1/P2, no manual labeling), plus ignored local RTL DOCX/PDF deliverables. Current 12 Q&A records are documented as `ANSWER_NOT_PERSISTED`; only a descriptive feasibility result is permitted until complete observability is available.
+- **2026-09-03 (Codex):** refined the plan after Claude/GitHub evidence: interaction-log recovery is now Task 1, the first rerun is one setting only, supervisor requests are limited to log transfer or one-run/API-cost approval, and the PDF/DOCX omit internal commit SHAs.
+
+- **2026-09-03 (Codex):** Ali reviews and sends the strict one-page experiment design to Iris. Obtain explicit approval of the case/review unit and independent-review protocol before replacing any `To be measured` outcome or making a benefit claim.
 - **2026-09-02 (Claude):** send the one-page study design to Iris and Arnon before Thu 09-03 13:00; request the Cheers domain-base files / TA exercise index; run EXP-045 to a per-row CSV on Fri 09-04; collect the three marking sheets by Sat 09-05 (fallback: report m1, m2, m5 and Ali's marks on Sunday); write the Sun 09-06 two-pager; integrate as Chapter 5 preliminary results in the Wed 09-09 proposal v2.
 Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor package was delivered and the August 12 meeting happened; see [`2026-08-12-supervisor-meeting.md`](../research/meetings/2026-08-12-supervisor-meeting.md) (evidence matrix `F1`-`F17`) and its bilingual companion [`2026-08-12-post-meeting-plan.md`](../research/meetings/2026-08-12-post-meeting-plan.md) for the current, live next-step list. Medical work remains blocked at 0/6 gates and EXP-005 remains 0/24 — unchanged by this call.
 
@@ -388,7 +410,7 @@ Note (2026-08-14): superseded by the August 12 call. The August 5 supervisor pac
 ## Open Issues
 
 <!--
-last_updated: 2026-08-20
+last_updated: 2026-09-03
 staleness_threshold_days: 7
 -->
 
@@ -397,6 +419,8 @@ staleness_threshold_days: 7
 Track project issues here. Keep active issues near the top.
 
 ## Open
+
+| ISS-053 | 2026-09-03 | Supervisor feedback / Q&A escalation tranche | High | High | Medium | Open, supervisor validation pending | The immediate study is now Q&A escalation detection: the frozen final snapshot exposes 12 Agent-2→Agent-1 questions but 0 persisted answers, so answer-confidence, answer-evidence, round linkage, and true/false alert validation are not yet observable. Claude/Codex disagreement on usable C2 corrections (114 vs 111) is deferred and does not block this study. | Capture or supply approved answer-level Q&A histories and blind human labels covering alerts and non-alerts; do not run intervention or score-effect replay. |
 
 | ID | Date | Source | Severity | Impact | Effort | Status | Summary | Next Step |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -443,6 +467,22 @@ Track project issues here. Keep active issues near the top.
 
 ## Resolved
 
+### ISS-054 — Current Q&A artifacts do not preserve complete episodes
+
+**Opened:** 2026-09-03
+**Status:** Open / observability gap
+**Summary:** The frozen Q&A snapshot contains 12 persisted Agent 2 → Agent 1 questions but no persisted matching answers, answer confidence, answer evidence, or reconstructable round/follow-up/convergence metadata.
+**Impact:** Alerts can be reported only as `ANSWER_NOT_PERSISTED` candidate signals; no true/false validation or detector performance claim is permitted.
+**Next action:** Add complete episode instrumentation before the next corpus run; keep manual labeling deferred.
+
+### ISS-055 — Original interaction log availability is unresolved
+
+**Opened:** 2026-09-03
+**Status:** Open / recovery step pending
+**Summary:** `eval_config.json` names `interaction_log.jsonl` and `llm_client.py` can persist `response_raw`, but the original log was not included in the frozen package.
+**Impact:** Additional raw model-call provenance may be recoverable at zero API cost, but advisor answers cannot be reconstructed if the answering loop never ran.
+**Next action:** Search local archives first; request the file from Iris/Arnon only if Ali cannot locate it.
+
 | ID | Opened | Resolved | Source | Summary | Resolution |
 | --- | --- | --- | --- | --- | --- |
 | ISS-039 | 2026-08-24 | 2026-08-24 | Claude (CI push) | `main` was CI-red before this session's own push (confirmed via the weekly security-audit run on the prior commit): `pip-audit` flagged `pip 26.1.2` (PYSEC-2026-3721), pinned as a transitive `pip_api` dependency in `uv.lock`. Bumping it cascaded through the whole BigUI/thesis-evidence build chain, breaking the Python test matrix and the manifest/catalog freshness checks too. | Bumped pip to 26.2.1 (`uv lock --upgrade-package pip --native-tls`, commit `41810e0`), regenerated the hardening manifests (commit `2e725f9`), then iteratively regenerated the full dependent build chain to a verified fixed point across 3 stable passes (commit `e44a308`). CI confirmed green (all jobs incl. `merge-gate`) via `gh run view --json jobs`. See the "Build-Chain Hash-Cascade Fix Pattern" row (2026-08-24) in `decisions.md` for the reusable fix pattern. |
@@ -461,6 +501,10 @@ Track project issues here. Keep active issues near the top.
 | ISS-021 | 2026-07-28 | 2026-08-18 | Claude (deck fact-check / gap fill) | Tracked docs described the corpus as "179 student models," but 179 is scored evaluation rows (83 distinct student models, 165 model x setting evaluations). | Corrected `scripts/build_thesis_evidence_package.py` to "179 scored evaluations across 4 settings (83 distinct student models), aggregated into 27 Agent 4 patterns," cross-verified against `docs/research/governance/vego-ai-foundation-paper-record.md`. |
 | ISS-050 | 2026-09-02 | 2026-09-02 | Claude (proposal Rev. 19 memory log) | Untracking the four `docs/dashboards/*.generated.*` files in 5d757f7 (required by `dashboard-health.ps1`) left `docs/visualizations/catalog.generated.md` stale, so `visualization_agent.py --check` failed and `main` went red on 5d757f7 and 1e462c3. Fixed by running the write-mode regeneration chain to a fixed point with the EXP-045 registration. | Regenerated `docs/visualizations/catalog.generated.md` and the dependent snapshots to a fixed point in 63e9418; Run `visualization_agent.py --check` (and the full CI check list) locally before any push that changes tracked generated files; the recorded hash-cascade pattern applies to untracking as well as editing. |
 | ISS-051 | 2026-09-02 | 2026-09-02 | Claude (EXP-045 registration push) | pip-audit in CI flagged pypdf 6.15.0 (CVE-2026-84309/84310/84311, fixed in 6.16.1); after the locked bump, `vego_doctor.py` failed because its `EXPECTED_PACKAGES` pin still said 6.15.0. Bumped the lock and projection, aligned the doctor pin, regenerated hardening/SBOM/security-posture snapshots to a fixed point. | Commits 910754c, 6b1d448, 3fa4c4e, a671543; `vego_doctor.py` pins must move with `pyproject.toml`; add `uv run python scripts/vego_doctor.py` to the local pre-push check list. |
+| ISS-056 | 2026-09-04 |  | Codex (artifact QA) | DOCX visual rendering could not run in this Windows environment because the bundled renderer lacks `pdf2image` and LibreOffice is unavailable. | Structural DOCX checks passed; PDF rendered and all three pages were visually inspected. Re-run DOCX page rendering in an environment with the missing dependencies before external release. |
+| ISS-057 | 2026-09-04 |  | Codex (Task 1 recovery audit) | The historical evaluator logs point to an interaction log on an unavailable Google-Drive shortcut target; no corresponding log bytes are present in accessible local material. | Local search is exhausted and documented in `docs/research/phd-proposal/2026-09-04-interaction-log-recovery-receipt.md`. Human decision required before requesting the original from Iris/Arnon; no instrumentation or rerun is authorized. |
+| ISS-058 | 2026-09-04 |  | Codex (Tasks 2–5 observer lane) | Direct instrumentation hooks into protected `VEGO-AI/framework/orchestrator.py` would fail the runtime hash guard and invalidate the evidence boundary. | Keep the additive observer/contract offline-verifiable and obtain a separately reviewed authorization/runner integration before any live one-setting run. |
+| ISS-059 | 2026-09-06 |  | Codex (Study 2A preparation) | The ON/OFF comparison and separate Llama feasibility interface are prepared, but no condition has an authorized provider-backed run and no valid non-VEGO AirTravel baseline existed before this preparation. | Obtain independent review and a fresh explicit authorization; preserve separate condition roots/denominators and keep all claims descriptive until a later approved run. |
 
 
 ## Durable Decisions
@@ -475,6 +519,8 @@ staleness_threshold_days: 14
 Durable decisions for this project.
 
 ## Decision Lifecycle Registry
+
+| 2026-09-03 | Q&A Escalation Detection as Active Milestone | Active, supervisor-directed | The immediate technical path is read-only Q&A communication observability → transparent candidate alert rules → blind human validation sheets. Prior Agent-C score reconstruction/C2 bridge remains valid later-stage evidence; P-A/P-B/P-C replay, correction injection, and Condition-A selection are deferred. |
 
 | Date | Title | Status | Notes / Superseded By |
 |---|---|---|---|
@@ -915,4 +961,48 @@ Durable decisions for this project.
 - Decision: Cite only the chapter's own methodological framework (Peffers et al. 2007 DSRM; Wieringa 2014), both already `VERIFIED_ONLINE` in `literature/verified-research-corpus-2026-08-12.json`, and cite no substantive related-work literature — that stays out of scope for this chapter, consistent with skipping the literature-review track.
 - Reason: `sections-2-and-4-thinking-notes.md` Part 3 lists 14 open questions that block a fully-decided Chapter 4, and the 2026-08-12 call did not resolve them (it reaffirmed the three-study structure at a high level only). Writing a chapter with no artifact choice would not be reviewable; writing one that silently picks an artifact without flagging it as provisional would repeat the exact solution-first framing Arnon's `E4` criticism targeted on 2026-08-05.
 - Consequence: `docs/research/phd-proposal/chapter-4-research-methodology.md` (new) states the three recommended artifacts and their validation models, and carries forward eight specific open items in its own §4.7 (artifact/abstraction confirmation, the SQ2/SQ3 boundary, instrument-reliability admissibility, offline-replay wording, EXP-009/010 gating, Plan A placement, two unnamed resourcing gaps — an independent implementer for Study 2 and two raters for Study 3). None of it should be read as supervisor-approved.
+
+## 2026-09-03 - Supervisor-facing Q&A task plan
+
+- Decision: Current execution is limited to complete Q&A observability, deterministic candidate-alert extraction, and automated descriptive analysis. No manual labeling or row-by-row review is requested from Iris or Arnon.
+- Decision: Replace any definitive `UNANSWERED` interpretation with `ANSWER_NOT_PERSISTED` / “לא נשמרה תשובה תואמת בנתונים הקיימים” unless direct runtime evidence proves non-response.
+- Decision: Reviewer sheets remain prepared for a future validation stage and are not sent or used in the current execution plan. True/false alert quality, precision, recall, accuracy, and intervention necessity remain unmeasurable without independent labels.
+- Reason: The frozen snapshot has 12 questions and no persisted matching answers, confidence, evidence, or reconstructable episode metadata; the supervisor constraint explicitly rules out manual labeling now.
+
+## 2026-09-03 - Interaction-log-first supervisor plan revision
+
+- Decision: Recover the original `interaction_log.jsonl` before changing instrumentation or spending API budget. The log can recover only model calls that actually occurred; it cannot supply advisor answers that were never generated.
+- Decision: The first new runtime should be one controlled setting selected after input-availability checks. Expansion to four settings is conditional on complete answered-Q&A episodes and recorded runtime/cost evidence.
+- Decision: Remove commit SHA/base-revision details from the supervisor-facing DOCX/PDF; retain repository provenance in Git and internal Markdown/audit records.
+- Decision: Iris/Arnon are not asked to approve detector rules or descriptive sufficiency now. Their only possible actions are providing the original log or approving one controlled run/API cost if recovery fails.
+
+## 2026-09-04 - Canonical Q&A task-plan source and verification hardening
+
+- Decision: Keep the approved supervisor-facing Hebrew Markdown byte-equivalent while moving task, summary, metadata, and effort content into `scripts/data/qa_task_plan.json`; Markdown, DOCX, and PDF builders consume that source through one loader.
+- Decision: Add deterministic RTL/control-character normalization and a non-aborting multi-pattern send-gate scanner, plus a semantic interaction-log guard that distinguishes `metadata_only` from full-content logging and forbids reconstructing answers that were never generated.
+- Reason: Engineering consistency and privacy verification require one source of truth and complete diagnostics without changing Iris-facing scientific wording or executing the study.
+- Consequence: Generated local derivatives are ready for human review; DOCX rendering remains structurally checked because the environment lacks `pdf2image`/LibreOffice.
+
+## 2026-09-04 - Task 1 interaction-log recovery
+
+- Decision: Classify the accessible local search as `NOT FOUND — LOCAL SEARCH EXHAUSTED`; do not instrument, rerun VEGO-AI, call an API, or alter the approved supervisor PDF/DOCX.
+- Decision: Treat the archived evaluator configuration/log initialization and archived client implementation as evidence for conditional historical `full_content` logging, but never treat that capability as recovered interaction records.
+- Reason: No `interaction_log.jsonl` bytes or credible variant were found in the repository, supplied archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive folder, or Codex attachments. The historical G-drive shortcut target remains inaccessible locally.
+- Consequence: The frozen 12 canonical questions / 30 snapshot records baseline remains unchanged; contacting Iris/Arnon is a separate human decision only if the inaccessible original source is still needed.
+
+## 2026-09-04 - Tasks 2–5 Q&A communication observer
+
+- Decision: Add a dedicated `qa-communication-event-v1` contract and privacy-safe append-only observer with deterministic episode projection; preserve the historical `qa-escalation-event-v1` semantics.
+- Decision: Do not alter protected `VEGO-AI/framework/orchestrator.py`, `qa_registry.py`, or `state.py` when the runtime hash guard rejects direct edits. Treat runner wiring as a separate reviewed change.
+- Decision: Retire F5 as a human-escalation trigger for the frozen corpus; expose `ANSWER_NOT_PERSISTED` only as a data-availability status.
+- Reason: Offline parity, schema, ordering, duplicate-ID, follow-up, termination, privacy, and route-representation checks pass. A direct production edit would weaken the protected-runtime evidence boundary.
+- Consequence: The technical verification is `PARTIAL`; no one-setting run can proceed until case-model inputs and a reviewed runtime integration are available.
+
+## 2026-09-06 - Study 2A ON/OFF preparation and Study 2B Llama feasibility
+
+- Decision: Register a separately preregistered descriptive comparison using `VEGO-AI_ON` (full current orchestration) and `VEGO-AI_OFF` (new single-model, no-delegation/no-Q&A/no-feedback/no-Detector baseline) on the same frozen AirTravel corpus and N=4 cases. The OFF condition is not historical evidence and is never pooled with Study 1 or the ON condition.
+- Decision: Freeze identical provider/model/corpus/objective/token/cost/timeout/retry/concurrency/schema/validation/privacy/retention controls while keeping condition identifiers, roots, event logs, denominators, and claim boundaries separate. Preparation remains disabled by default and supports only deterministic in-memory engineering fixtures.
+- Decision: Record `meta-llama/Llama-3.2-3B-Instruct` as a separate feasibility candidate only; do not download, run, or combine it with Study 2A. License, hardware, cost, structured-output, and tool-support checks remain pending.
+- Reason: The requested study tests observable orchestration and communication behavior, not accuracy, human benefit, or policy superiority. A meaningful no-VEGO comparator must be explicit and independently reproducible before any later provider-backed run.
+- Consequence: PR #40 is preparation-only and remains open/draft/unmerged pending independent review and fresh run authorization; no provider/API call or scientific result exists.
 

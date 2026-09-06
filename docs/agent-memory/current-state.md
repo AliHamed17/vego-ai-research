@@ -6,6 +6,12 @@ Fast orientation for Codex and Claude. Update this whenever the project state ch
 
 Both workstreams below are now merged into `main` (PR #15, then PR #16). Sections are still grouped by original workstream for orientation, since they cover distinct parts of the repo, but there is no longer a pending merge between them; `main` is the single current state for both. Feature branch `docs/iris-july29-phd-execution` is retained (not deleted) at commit `20b04fc` for reference.
 
+### 1c. Study 2A VEGO-AI_ON versus VEGO-AI_OFF (2026-09-06)
+* A separate preparation branch `study2/vego-ai-on-off-preparation` and draft PR #40 define a preregistered descriptive comparison on the frozen public AirTravel corpus (`cd_airtravel` / `text2uml_airtravel_253b26dc`, N=4). The branch head is `3deb8b4977e622a96733f80fb7a8ab26ebd3df57`; PR #40 is open, draft, and unmerged.
+* `VEGO-AI_ON` is the current full orchestration contract; `VEGO-AI_OFF` is a newly constructed single-model, no-delegation/no-Q&A/no-feedback/no-Detector baseline. Both conditions keep the same corpus, cases, model configuration, limits, schema, validation, privacy, and retention; roots, logs, IDs, and denominators remain separate.
+* The tracked manifest and configs are preparation-only and disabled by default. The deterministic fake mode is an engineering fixture only; no provider/API call, Llama download, scientific experiment, Detector-v1 run, synthetic scientific data, or Study 1 mutation occurred. No accuracy, human-benefit, superiority, or generalization claim is permitted.
+* Study 2B records `meta-llama/Llama-3.2-3B-Instruct` as a separate feasibility candidate only; license, hardware, cost, structured-output, and tool-support checks remain pending. Independent review and explicit run authorization are required before either condition is executed.
+
 ---
 
 ## 1. Quick Status

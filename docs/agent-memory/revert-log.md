@@ -321,3 +321,27 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
 - Rollback note: Revert commit 93bd2c7 to remove v3.2.1 artifacts; ignored external_data remains local-only
 - Git commit: none recorded by script.
+
+## 2026-09-06 03:07 +03:00 - Codex - Study 2A ON/OFF preparation and tracking update
+
+- Files changed:
+  - configs/study2/off_prompt.md
+  - configs/study2/vego_ai_on.json
+  - configs/study2/vego_ai_off.json
+  - schemas/study2a-vego-ai-on-off-v1.schema.json
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/phd-proposal/2026-09-06-study2-llama-feasibility-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-preregistration-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+  - docs/agent-memory/session-log.md
+  - docs/PROGRESS_TRACKER.md
+- Rollback note: Revert the Study 2 preparation and associated tracking entries as one reviewed change; leave ignored local outputs and provider-disabled boundaries intact.
+- Git commit: follow-up tracking commit after the Study 2 feature commits; see Git history for the exact SHA.
