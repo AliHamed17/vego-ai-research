@@ -1,0 +1,108 @@
+{
+  "analysis": {
+    "inference": "none",
+    "reason": "four cases; descriptive counts only",
+    "significance_tests": "none"
+  },
+  "authorization_gates": [
+    "preregistration review",
+    "implementation review at immutable head with green CI",
+    "fresh one-time offline preflight grant",
+    "preflight evidence audit",
+    "separate fresh authorization per paid condition"
+  ],
+  "conditions": {
+    "VEGO_AI_OFF": {
+      "agents": [],
+      "calls_per_case": 1,
+      "detector_v1": "NOT_APPLICABLE",
+      "detector_v1_reason": "no inter-agent episodes exist; absence of a measuring unit is not a zero-alert observation",
+      "inter_agent_qa": false,
+      "max_qa_rounds": null,
+      "orchestration": false,
+      "round_loop": false
+    },
+    "VEGO_AI_ON": {
+      "agents": [
+        "agent1",
+        "agent2",
+        "agent3",
+        "agent4"
+      ],
+      "detector_v1": "APPLICABLE",
+      "inter_agent_qa": true,
+      "max_qa_rounds": 10,
+      "orchestration": true,
+      "round_loop": true
+    }
+  },
+  "forbidden_claims": [
+    "accuracy",
+    "precision",
+    "recall",
+    "F1",
+    "alert correctness",
+    "human benefit",
+    "intervention effectiveness",
+    "representativeness",
+    "generalization",
+    "which condition is better",
+    "student behaviour",
+    "historical recovery"
+  ],
+  "frozen": {
+    "budget_usd_cap": 10.0,
+    "case_ids": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "concurrency": 2,
+    "corpus_id": "text2uml_airtravel_253b26dc",
+    "max_output_tokens": "identical across conditions",
+    "model": "TO_BE_FROZEN_BEFORE_FIRST_CALL",
+    "output_contract": [
+      "existing_mapping",
+      "coverage_summary",
+      "uncovered_fragments"
+    ],
+    "request_cap_per_condition": 326,
+    "request_timeout_seconds": 180,
+    "retries": 3,
+    "run_timeout_seconds": 3600,
+    "seed": "not set by either condition",
+    "setting_id": "cd_airtravel",
+    "temperature": "provider default, not overridden"
+  },
+  "non_shared_outcomes": {
+    "detector_v1": "ON only; OFF denominator is NOT_APPLICABLE"
+  },
+  "offline_preflight": {
+    "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+    "executed_against": "deterministic fixtures only",
+    "harness": "scripts/study2_on_off_experiment.py",
+    "provider_calls": 0
+  },
+  "prepared_at_head": "a976494a624391efb0fb96e8f769512f52f52af0",
+  "requires": "separate independent review and fresh authorization per paid condition",
+  "schema_version": "study2-frozen-config-v1",
+  "shared_outcomes": [
+    "completed_cases",
+    "schema_validity",
+    "mapping_rows",
+    "uncovered_fragments",
+    "calls",
+    "tokens",
+    "cost_usd",
+    "elapsed_seconds",
+    "technical_failures"
+  ],
+  "status": "PREPARED_NOT_EXECUTED",
+  "study_separation": {
+    "note": "Study 1 counts are never combined with Study 2 counts.",
+    "pooled_with_study1": false,
+    "shared_denominators": false
+  },
+  "varying_factor": "VEGO-AI orchestration only"
+}

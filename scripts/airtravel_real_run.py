@@ -11,10 +11,13 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import json
 import os
 import socket
+import subprocess
 import sys
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -202,6 +205,10 @@ async def run(output: Path, runtime_root: Path, run_id: str) -> dict[str, Any]:
         recorder.close_open_episodes()
 
     events = recorder.events
+    event_log = output / "qa_events.jsonl"
+    terminations = Counter(
+        e.get("termination_reason") for e in events if e["event_type"] == "EPISODE_TERMINATED"
+    )
     if status == "TECHNICAL_SUCCESS":
         validate_final_stream(events)
     completed = datetime.now(timezone.utc).replace(microsecond=0)
@@ -225,6 +232,13 @@ async def run(output: Path, runtime_root: Path, run_id: str) -> dict[str, Any]:
         "usage": guard.summary(),
         "blocked_egress_attempts": egress["blocked_hosts"],
         "credential_source": "process environment variable, value never read",
+        "event_log_sha256": hashlib.sha256(event_log.read_bytes()).hexdigest()
+        if event_log.is_file()
+        else None,
+        "termination_counts": dict(terminations),
+        "reviewed_head": subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=False
+        ).stdout.strip(),
         **route_metrics(events),
     }
 

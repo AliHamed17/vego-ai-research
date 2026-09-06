@@ -233,6 +233,8 @@
     "scripts/tests/test_reuse_gates.py",
     "scripts/tests/test_security_audit.py",
     "scripts/tests/test_study1_call_bound.py",
+    "scripts/tests/test_study1_detector_robustness.py",
+    "scripts/tests/test_study1_forbidden_claims.py",
     "scripts/tests/test_supervisor_source_manifest.py",
     "scripts/tests/test_thesis_evidence_package.py",
     "scripts/tests/test_validate_hlayer_program_portability.py",
@@ -264,7 +266,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "adf46ea5031adbc24f92ec3b1a5539e9a407356f8c78c2362125892ce2c36ae7",
+  "sourceTreeSha256": "6506a13ca79257233c70467a78e158b453465e43b06b3c8c0d8e0f294446ea28",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
