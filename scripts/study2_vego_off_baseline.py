@@ -21,9 +21,19 @@ from __future__ import annotations
 
 import asyncio
 import json
+from pathlib import Path
 from typing import Any
 
+import jsonschema
+
 SKILL_VERSION = "off-baseline-v1"
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT_SCHEMA_PATH = ROOT / "schemas" / "study2-condition-output-v1.schema.json"
+OUTPUT_SCHEMA = json.loads(OUTPUT_SCHEMA_PATH.read_text(encoding="utf-8"))
+
+
+class OutputSchemaError(ValueError):
+    """Raised when a condition response cannot enter the shared comparison."""
 
 OFF_SYSTEM_PROMPT = """You are evaluating one candidate model against a domain description.
 
@@ -45,6 +55,8 @@ RULES:
 
 OUTPUT FORMAT:
 {
+  "schema_version": "study2-condition-output-v1",
+  "condition": "VEGO_AI_OFF",
   "skill_version": "%(skill_version)s",
   "case_id": "%(case_id)s",
   "existing_mapping": [
@@ -81,17 +93,25 @@ def off_prompt(case_id: str, case_model: str, domain_description: str, language_
 
 
 def normalise(case_id: str, payload: Any) -> dict[str, Any]:
-    """Coerce a baseline response into the shared comparison shape."""
-    payload = payload if isinstance(payload, dict) else {}
-    mapping = payload.get("existing_mapping")
-    fragments = payload.get("uncovered_fragments")
-    summary = payload.get("coverage_summary")
+    """Validate a response strictly; malformed output must stop the condition."""
+    if not isinstance(payload, dict):
+        raise OutputSchemaError("condition response must be a JSON object")
+    try:
+        jsonschema.Draft202012Validator(OUTPUT_SCHEMA).validate(payload)
+    except jsonschema.ValidationError as exc:
+        raise OutputSchemaError(f"condition response schema invalid: {exc.message}") from exc
+    if payload["case_id"] != case_id:
+        raise OutputSchemaError("condition response case_id differs from requested case")
+    if payload["condition"] != "VEGO_AI_OFF":
+        raise OutputSchemaError("OFF baseline received a non-OFF condition response")
     return {
         "case_id": case_id,
-        "existing_mapping": mapping if isinstance(mapping, list) else [],
-        "uncovered_fragments": fragments if isinstance(fragments, list) else [],
-        "coverage_summary": summary if isinstance(summary, dict) else {},
-        "schema_complete": isinstance(mapping, list) and isinstance(fragments, list),
+        "condition": payload["condition"],
+        "skill_version": payload["skill_version"],
+        "existing_mapping": payload["existing_mapping"],
+        "uncovered_fragments": payload["uncovered_fragments"],
+        "coverage_summary": payload["coverage_summary"],
+        "schema_complete": True,
     }
 
 
@@ -103,6 +123,14 @@ async def run_off_baseline(
     max_concurrent: int = 2,
 ) -> dict[str, Any]:
     """Run one direct call per case with the ON condition's concurrency limit."""
+    case_ids = [case.get("case_id") for case in cases]
+    if (
+        any(not isinstance(case_id, str) or not case_id for case_id in case_ids)
+        or len(case_ids) != len(set(case_ids))
+    ):
+        raise OutputSchemaError("OFF baseline case identifiers must be unique and non-empty")
+    if not isinstance(domain_description, str) or not isinstance(language_name, str):
+        raise OutputSchemaError("OFF baseline context must be text")
     semaphore = asyncio.Semaphore(max_concurrent)
     calls: list[dict[str, Any]] = []
 

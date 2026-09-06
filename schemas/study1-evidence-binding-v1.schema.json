@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study1-evidence-binding-v1.schema.json",
+  "title": "Private accepted Study 1 evidence binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "accepted_run",
+    "run_identity",
+    "setting_id",
+    "corpus_id",
+    "execution_code_sha256",
+    "config_sha256",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {"const": "study1-evidence-binding-v1"},
+    "accepted_run": {"const": true},
+    "run_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "run_class", "accepted_replacement", "fake_preflight", "status"],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "run_class": {"const": "accepted_replacement_real_run"},
+        "accepted_replacement": {"const": true},
+        "fake_preflight": {"const": false},
+        "status": {"const": "ACCEPTED_REPLACEMENT"}
+      }
+    },
+    "setting_id": {"const": "cd_airtravel"},
+    "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+    "execution_code_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "config_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/artifact"
+      },
+      "required": ["qa_events_jsonl", "run_receipt", "pipeline_output_manifest"]
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

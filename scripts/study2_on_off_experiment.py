@@ -23,6 +23,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+import jsonschema
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "VEGO-AI/framework"))
@@ -30,6 +32,9 @@ sys.path.insert(0, str(ROOT / "VEGO-AI/framework"))
 SETTING_ID = "cd_airtravel"
 CORPUS_ID = "text2uml_airtravel_253b26dc"
 FIXTURE_IDENTITY = "LOCAL_DETERMINISTIC_FAKE_V4"
+COMPARISON_SCHEMA = json.loads(
+    (ROOT / "schemas/study2-on-off-comparison-v1.schema.json").read_text(encoding="utf-8")
+)
 
 
 def load_corpus(runtime_root: Path) -> dict[str, Any]:
@@ -55,19 +60,50 @@ def load_corpus(runtime_root: Path) -> dict[str, Any]:
 
 
 def summarise_on(output: Path) -> dict[str, Any]:
-    """Per-case artifact counts produced by the orchestrated pipeline."""
+    """Validate and summarise ON artifacts without coercing malformed values.
+
+    The protected pipeline stores the two shared output parts separately.  A
+    missing list is a schema failure, not an empty scientific result.
+    """
     def load(name: str) -> Any:
         path = output / name
-        return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+        if not path.is_file():
+            raise ValueError(f"ON output schema failure: {name} is missing")
+        value = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError(f"ON output schema failure: {name} must be an object")
+        return value
 
     compliance = load("compliance_vectors.json")
     uncovered = load("uncovered_fragments.json")
     per_case = {}
-    for case_id in sorted(set(compliance) | set(uncovered)):
-        vector = compliance.get(case_id) or {}
-        fragments = uncovered.get(case_id) or {}
-        mapping = vector.get("existing_mapping") if isinstance(vector, dict) else None
-        frags = fragments.get("uncovered_fragments") if isinstance(fragments, dict) else None
+    case_ids = sorted(set(compliance) | set(uncovered))
+    if not case_ids:
+        raise ValueError("ON output schema failure: no case records")
+    for case_id in case_ids:
+        vector = compliance.get(case_id)
+        fragments = uncovered.get(case_id)
+        if not isinstance(vector, dict) or not isinstance(fragments, dict):
+            raise ValueError(f"ON output schema failure: case {case_id} is not an object pair")
+        mapping = vector.get("existing_mapping")
+        summary = vector.get("coverage_summary")
+        frags = fragments.get("uncovered_fragments")
+        if not isinstance(mapping, list) or not isinstance(frags, list):
+            raise ValueError(f"ON output schema failure: case {case_id} requires mapping and fragment arrays")
+        if not isinstance(summary, dict) or set(summary) != {"satisfied", "partially_satisfied", "not_satisfied"}:
+            raise ValueError(f"ON output schema failure: case {case_id} has invalid coverage summary")
+        if any(type(summary[key]) is not int or summary[key] < 0 for key in summary):
+            raise ValueError(f"ON output schema failure: case {case_id} has invalid summary counts")
+        for row in mapping:
+            if not isinstance(row, dict) or set(row) - {"guideline_id", "evidence", "compliance_status", "notes"} or not {"guideline_id", "evidence", "compliance_status", "notes"} <= set(row):
+                raise ValueError(f"ON output schema failure: case {case_id} has invalid mapping row")
+            if row["compliance_status"] not in {"Satisfied", "Partially-Satisfied", "Not-Satisfied"}:
+                raise ValueError(f"ON output schema failure: case {case_id} has invalid compliance status")
+        for row in frags:
+            if not isinstance(row, dict) or set(row) - {"fragment", "label", "severity", "reason"} or not {"fragment", "label", "severity", "reason"} <= set(row):
+                raise ValueError(f"ON output schema failure: case {case_id} has invalid uncovered fragment")
+            if row["label"] not in {"Alternative", "Domain Mistake", "Language Mistake"} or row["severity"] not in {"High", "Medium", "Low", "N/A"}:
+                raise ValueError(f"ON output schema failure: case {case_id} has invalid fragment label/severity")
         per_case[case_id] = {
             "mapping_rows": len(mapping) if isinstance(mapping, list) else 0,
             "uncovered_fragments": len(frags) if isinstance(frags, list) else 0,
@@ -154,6 +190,8 @@ async def run_off(corpus: dict[str, Any], mode: str) -> dict[str, Any]:
             self.calls.append({"label": label})
             await asyncio.sleep(0)
             return {
+                "schema_version": "study2-condition-output-v1",
+                "condition": "VEGO_AI_OFF",
                 "skill_version": "off-baseline-v1",
                 "case_id": label.split("/")[1],
                 "existing_mapping": [],
@@ -256,6 +294,10 @@ def main() -> int:
         "pooling": "Study 1 results are not pooled with this comparison.",
         "forbidden_metrics_computed": [],
     }
+    try:
+        jsonschema.Draft202012Validator(COMPARISON_SCHEMA).validate(payload)
+    except jsonschema.ValidationError as exc:
+        raise ValueError(f"Study 2 comparison receipt schema invalid: {exc.message}") from exc
     target = args.output_dir / "on-off-comparison.json"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes((json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8"))

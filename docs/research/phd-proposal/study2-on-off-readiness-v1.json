@@ -1,0 +1,49 @@
+{
+  "schema_version": "study2-on-off-readiness-v1",
+  "status": "PREPARED_NOT_EXECUTED",
+  "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+  "research_question": "Describe per-case artifact, call, token, cost and elapsed-time differences when VEGO-AI orchestration is enabled versus a defined direct baseline.",
+  "conditions": {
+    "VEGO_AI_ON": {
+      "orchestration": true,
+      "agent_decomposition": true,
+      "inter_agent_qa": true,
+      "detector_v1": "APPLICABLE"
+    },
+    "VEGO_AI_OFF": {
+      "orchestration": false,
+      "agent_decomposition": false,
+      "inter_agent_qa": false,
+      "round_loop": false,
+      "detector_v1": "NOT_APPLICABLE"
+    }
+  },
+  "held_identical": [
+    "corpus and case identifiers",
+    "provider/model parameters when a future run is authorized",
+    "token, retry, timeout, concurrency, privacy and cost/call policies",
+    "shared per-case output contract"
+  ],
+  "strict_contract": {
+    "schema": "schemas/study2-condition-output-v1.schema.json",
+    "malformed_output": "fail_closed",
+    "off_detector_denominator": "NOT_APPLICABLE",
+    "study1_pooling": false
+  },
+  "fixture_policy": {
+    "allowed": true,
+    "tag": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+    "excluded_from_scientific_reports": true,
+    "provider_calls": 0
+  },
+  "claim_boundary": [
+    "No accuracy, correctness, benefit, effectiveness, superiority or generalization claim.",
+    "No alert-rate comparison across ON and OFF.",
+    "No Study 1 denominator or artifact is pooled with Study 2."
+  ],
+  "future_gates": [
+    "independent preregistration and implementation review",
+    "fresh one-time offline preflight authorization",
+    "separate authorization for any provider-backed condition"
+  ]
+}
