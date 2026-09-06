@@ -1,8 +1,8 @@
 # Historical case-recovery audit v3.1 — correction and AirTravel technical gate
 
-**Status: DATA NO-GO / TECHNICAL NO-GO for any provider-backed run**  
-**Audit base SHA:** `cbc2fb5e3c05471cf37c0eef55a48857e2066403`  
-**Evidence parent SHA:** `36602e41a3a7ccec52a300d9244f3afe4702153f`  
+**Status: DATA NO-GO / TECHNICAL NO-GO for any provider-backed run**
+**Audit base SHA:** `cbc2fb5e3c05471cf37c0eef55a48857e2066403`
+**Evidence parent SHA:** `36602e41a3a7ccec52a300d9244f3afe4702153f`
 **Provider, experiment, Detector-v1, and synthetic calls:** 0
 
 This is an explicit successor/erratum to v3. The v3 report and history remain

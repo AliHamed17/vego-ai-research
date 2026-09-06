@@ -10,7 +10,7 @@
 
 ## Decisions
 
-- 
+-
 
 ## Action Items
 
@@ -19,5 +19,5 @@
 
 ## Open Questions
 
-- 
+-
 
