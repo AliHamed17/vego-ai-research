@@ -1,6 +1,6 @@
 # VEGO-AI Current State
 
-Generated from repository memory on 2026-09-06 03:09 +03:00.
+Generated from repository memory on 2026-09-06 03:18 +03:00.
 
 # Current State
 
@@ -11,7 +11,7 @@ Fast orientation for Codex and Claude. Update this whenever the project state ch
 Both workstreams below are now merged into `main` (PR #15, then PR #16). Sections are still grouped by original workstream for orientation, since they cover distinct parts of the repo, but there is no longer a pending merge between them; `main` is the single current state for both. Feature branch `docs/iris-july29-phd-execution` is retained (not deleted) at commit `20b04fc` for reference.
 
 ### 1c. Study 2A VEGO-AI_ON versus VEGO-AI_OFF (2026-09-06)
-* A separate preparation branch `study2/vego-ai-on-off-preparation` and draft PR #40 define a preregistered descriptive comparison on the frozen public AirTravel corpus (`cd_airtravel` / `text2uml_airtravel_253b26dc`, N=4). The branch head is `3deb8b4977e622a96733f80fb7a8ab26ebd3df57`; PR #40 is open, draft, and unmerged.
+* A separate preparation branch `study2/vego-ai-on-off-preparation` and draft PR #40 define a preregistered descriptive comparison on the frozen public AirTravel corpus (`cd_airtravel` / `text2uml_airtravel_253b26dc`, N=4). PR #40 is open, draft, and unmerged; its live head is kept in GitHub rather than pinned in durable memory.
 * `VEGO-AI_ON` is the current full orchestration contract; `VEGO-AI_OFF` is a newly constructed single-model, no-delegation/no-Q&A/no-feedback/no-Detector baseline. Both conditions keep the same corpus, cases, model configuration, limits, schema, validation, privacy, and retention; roots, logs, IDs, and denominators remain separate.
 * The tracked manifest and configs are preparation-only and disabled by default. The deterministic fake mode is an engineering fixture only; no provider/API call, Llama download, scientific experiment, Detector-v1 run, synthetic scientific data, or Study 1 mutation occurred. No accuracy, human-benefit, superiority, or generalization claim is permitted.
 * Study 2B records `meta-llama/Llama-3.2-3B-Instruct` as a separate feasibility candidate only; license, hardware, cost, structured-output, and tool-support checks remain pending. Independent review and explicit run authorization are required before either condition is executed.
@@ -386,7 +386,7 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
-- **2026-09-06 (Codex):** prepared separate Study 2A `VEGO-AI_ON` versus `VEGO-AI_OFF` descriptive comparison on the frozen public AirTravel corpus, with a newly constructed single-model no-VEGO baseline, exact parity controls, disabled-by-default local harness, JSON Schema, bilingual Hebrew preregistration/readiness documents, and a separate Study 2B Llama feasibility record. PR #40 (`3deb8b4`) is open/draft/unmerged; CI run `34000338373` passed all six jobs. No provider/model call, Llama download, scientific experiment, or Study 1 mutation occurred. Independent review and explicit run authorization remain required.
+- **2026-09-06 (Codex):** prepared separate Study 2A `VEGO-AI_ON` versus `VEGO-AI_OFF` descriptive comparison on the frozen public AirTravel corpus, with a newly constructed single-model no-VEGO baseline, exact parity controls, disabled-by-default local harness, JSON Schema, bilingual Hebrew preregistration/readiness documents, and a separate Study 2B Llama feasibility record. PR #40 is open/draft/unmerged; its latest CI run passed all six jobs. No provider/model call, Llama download, scientific experiment, or Study 1 mutation occurred. Independent review and explicit run authorization remain required.
 
 - **2026-09-03 (Codex):** produced the filled Hebrew supervisor-facing Q&A task plan (8 tasks, P0/P1/P2, no manual labeling), plus ignored local RTL DOCX/PDF deliverables. Current 12 Q&A records are documented as `ANSWER_NOT_PERSISTED`; only a descriptive feasibility result is permitted until complete observability is available.
 - **2026-09-03 (Codex):** refined the plan after Claude/GitHub evidence: interaction-log recovery is now Task 1, the first rerun is one setting only, supervisor requests are limited to log transfer or one-run/API-cost approval, and the PDF/DOCX omit internal commit SHAs.

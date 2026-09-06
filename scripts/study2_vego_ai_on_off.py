@@ -760,7 +760,12 @@ def main() -> int:
     if args.write_manifest:
         MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
         temp = MANIFEST_PATH.with_suffix(".tmp")
-        temp.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        # Path.write_text uses the host newline convention on Windows.  Open
+        # with an explicit LF newline so the generated manifest has identical
+        # bytes across platforms (Git normalization is not part of the
+        # reproducibility contract).
+        with temp.open("w", encoding="utf-8", newline="\n") as handle:
+            handle.write(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
         os.replace(temp, MANIFEST_PATH)
     result: dict[str, Any] = {"status": manifest["status"], "manifest_path": MANIFEST_PATH.as_posix()}
     if args.fake_run:

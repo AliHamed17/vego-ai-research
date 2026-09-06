@@ -1,29 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-06 03:09 +03:00.
+Generated from repository memory on 2026-09-06 03:18 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
-
-- Request: Attached the same proposal PDF alongside the delivered strict review; verified the review against the actual document.
-- Actions taken:
-  - Re-verified every falsifiable claim in the 2026-08-23 strict proposal review against the same PDF (sha256 a4c9739..., confirmed 21 pages; the harness reported 24, which is harness metadata not the document).
-  - WITHDREW my own reference [45] finding: DBLP canonical form is 'Khaled E. Ahmed', so 'K. E. Ahmed' is correct as written. Earlier sources (arXiv/ORCID/GitHub) render the name without the middle initial, which misled the original check.
-  - CORRECTED the 'Chapter 2 duplicates Chapter 4' claim as unsupported (only 14 shared 5-grams, nearly all page boilerplate); the 'move it to Chapter 4' recommendation rested on a false premise and was replaced.
-  - STRENGTHENED the solution-world finding: Chapter 2 names the author's own Studies five times and issues design orders in two Research implication lines (p.8 Study 2 must test, p.9 Study 3 must treat).
-  - Widened the bibliography check from 13 refs to all 57 via a 12-agent adversarially-adjudicated workflow: 54 exact, 0 unverifiable, 3 real defects, 0 overturned.
-  - Newly found [35] GLIF3 cites the wrong journal entirely (JAMIA 11(4) 375-385 -> Journal of Biomedical Informatics 37(3) 147-161); independent proof the cited locus cannot exist since JAMIA 11(4) spans pp. 235-338.
-  - New finding B2: Chapter 2 requires a review policy to combine eight named signals; Chapter 4 never enumerates them and three (novelty, evidence quality, reviewer competence) appear nowhere in the methodology chapter.
-  - Score adjusted 75 to 73; delivered corrected review to Ali and pushed as 118570b.
-- Files changed:
-  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
-- Commands/checks:
-  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
-  - pypdf page/footer check -> 21 pages, all footers Page N of 21
-  - Workflow verify-proposal-bibliography -> 57 refs, 54 exact, 3 defects, 0 overturned
-- Status: Completed
-- Next steps: Ali to apply the three verified citation fixes ([35] venue, [20] and [27] titles) and leave [45] unchanged.
 
 ## 2026-09-02 09:28 +03:00 - Claude - Proposal Revision 19: committee + supervisor review closure
 
@@ -416,5 +395,34 @@ Showing the latest 20 session entries.
   - python -m compileall changed Python files
   - security/privacy/evidence consistency checks
   - GitHub Actions run 34000338373 (all six jobs green)
+- Status: completed; preparation only; no provider or experiment
+- Next steps: Independent review and explicit run authorization remain required.
+
+## 2026-09-06 03:18 +03:00 - Codex - Study 2 manifest byte determinism hardening
+
+- Request: Ensure the Study 2 machine manifest writer produces identical canonical bytes on Windows and add a regression guard.
+- Actions taken:
+  - Made Study 2 manifest generation explicitly LF-stable across Windows and other platforms.
+  - Added a regression test that rejects CRLF and requires a final LF.
+  - Refreshed the supported hardening release manifest and removed volatile PR/head references from durable tracking.
+  - Revalidated the preparation CLI, targeted tests, lint, compile, privacy, evidence, and manifest checks.
+- Files changed:
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/dashboards/progress-dashboard.md
+  - docs/dashboards/kpi-register.md
+- Commands/checks:
+  - python scripts/study2_vego_ai_on_off.py --write-manifest
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py -q (32 passed)
+  - ruff check scripts/study2_vego_ai_on_off.py scripts/tests/test_study2_vego_ai_on_off.py
+  - python -m compileall -q scripts/study2_vego_ai_on_off.py scripts/tests/test_study2_vego_ai_on_off.py
+  - python scripts/check_repository_privacy.py (PASS)
+  - python scripts/security_audit.py --history (PASS; 1364 files)
+  - python scripts/check_evidence_consistency.py --check (PASS)
+  - python scripts/build_hardening_manifests.py --check (PASS)
 - Status: completed; preparation only; no provider or experiment
 - Next steps: Independent review and explicit run authorization remain required.

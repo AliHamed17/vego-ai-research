@@ -345,3 +345,17 @@ Record file changes and rollback notes here.
   - docs/PROGRESS_TRACKER.md
 - Rollback note: Revert the Study 2 preparation and associated tracking entries as one reviewed change; leave ignored local outputs and provider-disabled boundaries intact.
 - Git commit: follow-up tracking commit after the Study 2 feature commits; see Git history for the exact SHA.
+
+## 2026-09-06 03:18 +03:00 - Codex - Study 2 manifest byte determinism hardening
+
+- Files changed:
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/dashboards/progress-dashboard.md
+  - docs/dashboards/kpi-register.md
+- Rollback note: Revert the deterministic manifest-writer/test/release-manifest and associated tracking-reference changes as one reviewed follow-up.
+- Git commit: none recorded by script.

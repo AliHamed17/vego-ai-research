@@ -281,3 +281,9 @@ def test_cli_dry_run_and_fake_mode_are_explicitly_non_executing() -> None:
     )
     assert rejected.returncode != 0
     assert "not part" in rejected.stderr
+
+
+def test_tracked_manifest_uses_canonical_lf_bytes() -> None:
+    manifest_bytes = (ROOT / "docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json").read_bytes()
+    assert b"\r\n" not in manifest_bytes
+    assert manifest_bytes.endswith(b"\n")

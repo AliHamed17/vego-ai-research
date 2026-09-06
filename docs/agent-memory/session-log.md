@@ -486,3 +486,32 @@ Chronological prompt history for Codex and Claude.
   - GitHub Actions run 34000338373 (all six jobs green)
 - Status: completed; preparation only; no provider or experiment
 - Next steps: Independent review and explicit run authorization remain required.
+
+## 2026-09-06 03:18 +03:00 - Codex - Study 2 manifest byte determinism hardening
+
+- Request: Ensure the Study 2 machine manifest writer produces identical canonical bytes on Windows and add a regression guard.
+- Actions taken:
+  - Made Study 2 manifest generation explicitly LF-stable across Windows and other platforms.
+  - Added a regression test that rejects CRLF and requires a final LF.
+  - Refreshed the supported hardening release manifest and removed volatile PR/head references from durable tracking.
+  - Revalidated the preparation CLI, targeted tests, lint, compile, privacy, evidence, and manifest checks.
+- Files changed:
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/dashboards/progress-dashboard.md
+  - docs/dashboards/kpi-register.md
+- Commands/checks:
+  - python scripts/study2_vego_ai_on_off.py --write-manifest
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py -q (32 passed)
+  - ruff check scripts/study2_vego_ai_on_off.py scripts/tests/test_study2_vego_ai_on_off.py
+  - python -m compileall -q scripts/study2_vego_ai_on_off.py scripts/tests/test_study2_vego_ai_on_off.py
+  - python scripts/check_repository_privacy.py (PASS)
+  - python scripts/security_audit.py --history (PASS; 1364 files)
+  - python scripts/check_evidence_consistency.py --check (PASS)
+  - python scripts/build_hardening_manifests.py --check (PASS)
+- Status: completed; preparation only; no provider or experiment
+- Next steps: Independent review and explicit run authorization remain required.
