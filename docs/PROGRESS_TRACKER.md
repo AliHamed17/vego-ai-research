@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
 - 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
 - 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
 - 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
 - 2026-09-05 00:32 +03:00 - Codex - Final pre-authorization consistency correction
 - 2026-09-05 00:06 +03:00 - Codex - AirTravel v3.2.1 receipt completeness finalized
-- 2026-09-05 00:04 +03:00 - Codex - AirTravel v3.2.1 final CI run recorded
 <!-- AUTO:activity:end -->
 
 ---

@@ -539,3 +539,32 @@ Chronological prompt history for Codex and Claude.
   - CI 33997099007 (all six jobs green)
 - Status: TECHNICAL_NO_GO: one provider run incomplete; no scientific denominator
 - Next steps: Repair answer-correlation instrumentation, validate with malformed-answer fake fixtures, and seek a fresh human decision before any additional provider run.
+
+## 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
+
+- Request: Set the controlling verdict PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE everywhere, publish the provenance caveat beside every numeric result and figure, keep Study 2 PREPARED_NOT_EXECUTED and unpooled, replace ambiguous RTL route arrows with explicit asking/answering columns, update PR 38 with a superseding note pointing to PR 41, and run the claim scanner and document validation.
+- Actions taken:
+  - Set the controlling verdict PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE in all five Study 1 supervisor documents and all three print sources.
+  - Published the provenance caveat as a banner at document top, as a marker under every table (zero-height CSS marker in print sources), and inline on every figure caption.
+  - Replaced arrow route notation with explicit asking-agent / answering-agent columns in the Hebrew results report, study1-results-source.html and fig2-routes.svg.
+  - Revoked the supervisor-acknowledgement route to removing the caveat in 2026-09-06-study1-evidence-status-he.md section 6; only a new self-binding receipt can remove it.
+  - Documented reporting_code_sha as a generation stamp outside the evidence chain, resolving the mismatch between documents generated at different commits.
+  - Regenerated the three Hebrew PDFs via headless Chrome and verified every page image for overlap, clipping and orphan pages; removed an orphan page in the supervisor report.
+  - Added a superseding status note to PR 38 pointing reviewers to PR 41 and the provenance caveat, and prepended the controlling verdict to PR 41.
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/agent-memory/decisions.md
+- Commands/checks:
+  - py -3.13 scripts/study1_validate_evidence.py --run-root external_data/airtravel-pr38/v4-real-run --manifest .../output-inventory.json -> PASS_WITH_PROVENANCE_GAPS, 17 PASS, 0 value failures, 3 gaps
+  - py -3.13 -m pytest scripts/tests -q -> 596 passed, 23 skipped
+  - py -3.13 scripts/check_thesis_citations.py / validate_thesis_content.py / check_repository_privacy.py / check_evidence_consistency.py --check / build_hardening_manifests.py --check / visualization_agent.py --check -> all PASS
+- Status: completed
+- Next steps: Await CI on head ffe8fc0; Study 2 requires independent preregistration review and fresh authorization before any paid run.

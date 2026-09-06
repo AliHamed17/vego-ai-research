@@ -363,3 +363,19 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
 - Rollback note: Revert commit 89495c2 to remove the report reconciliation and receipt additions.
 - Git commit: none recorded by script.
+
+## 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/agent-memory/decisions.md
+- Rollback note: git revert ffe8fc0 restores the previous Study 1 document wording; the PDFs are gitignored artifacts and would need regeneration from the reverted HTML sources.
+- Git commit: none recorded by script.
