@@ -18,7 +18,7 @@
     "docs/research/hardening/sbom.cdx.json",
     "docs/research/hardening/security-posture-snapshot-v1.json"
   ],
-  "packageTreeSha256": "a2a916a36f5fe594abc6afc4045a880132ff7852c45229642aad1b66559e8358",
+  "packageTreeSha256": "eea5fb0c7ebc58d19f59a8f4de31b7b24adabdd6940e60ffb4460e3a208ade7b",
   "releaseId": "unified-runtime-security-hardening-v1",
   "sbom": {
     "format": "CycloneDX-1.5",
@@ -147,6 +147,12 @@
     "schemas/run-acceptance-record-v1.schema.json",
     "schemas/run-log-event-v1.schema.json",
     "schemas/security-posture-snapshot-v1.schema.json",
+    "schemas/study1-evidence-binding-v1.schema.json",
+    "schemas/study2-condition-output-v1.schema.json",
+    "schemas/study2-frozen-config-v1.schema.json",
+    "schemas/study2-on-off-comparison-v1.schema.json",
+    "schemas/study2-result-v1.schema.json",
+    "schemas/study2-run-receipt-v1.schema.json",
     "schemas/thesis-evidence-snapshot-v1.schema.json",
     "schemas/thesis-review-package-manifest-v1.schema.json",
     "scripts/build-hlayer-experiments.ps1",
@@ -234,8 +240,11 @@
     "scripts/tests/test_security_audit.py",
     "scripts/tests/test_study1_call_bound.py",
     "scripts/tests/test_study1_detector_robustness.py",
+    "scripts/tests/test_study1_evidence_recovery.py",
     "scripts/tests/test_study1_forbidden_claims.py",
+    "scripts/tests/test_study1_signal_traceability.py",
     "scripts/tests/test_study1_validate_evidence.py",
+    "scripts/tests/test_study2_contract.py",
     "scripts/tests/test_supervisor_source_manifest.py",
     "scripts/tests/test_thesis_evidence_package.py",
     "scripts/tests/test_validate_hlayer_program_portability.py",
@@ -267,7 +276,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "9d1a1dd03a4dd630905df315b772a09303f2a46f4ba04ec5c85a1f7294836f34",
+  "sourceTreeSha256": "fd5a86544cdb3b8469add317b77a56e5a15c58cf041c3a0d7f7685789b1f568f",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
@@ -282,6 +291,6 @@
     "docs/research/hardening/baseline-lock-manifest-v2.json": "9d383969fd3e5fe0ae6583f82285fbfa3aef096e6dbac9ac25cbf6fcfe2179fd",
     "docs/research/hardening/iteration-015-manifest.json": "eebbe9492dece86a7ff5a02f3d55b5ca457032937c76576e62fc21d0fe885807",
     "docs/research/hardening/sbom.cdx.json": "8b09e5fa3ae3d0da354c628caee74d0a356d910195333412ab47136f627d9586",
-    "docs/research/hardening/security-posture-snapshot-v1.json": "9737a9b5469592e9f779ac739de95587b08ed664a1764b9363687bb720d47633"
+    "docs/research/hardening/security-posture-snapshot-v1.json": "f4700913b64a2596ed378310a70dedb9a51982fe2fc8223a997264b7d14fe43a"
   }
 }

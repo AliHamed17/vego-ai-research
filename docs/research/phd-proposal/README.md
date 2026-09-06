@@ -20,6 +20,11 @@ This directory turns the requirements from the 29 July 2026 supervisor call into
 12. [`2026-09-03-preliminary-human-intervention-experiment.en.md`](./2026-09-03-preliminary-human-intervention-experiment.en.md) — the strict one-page paired-condition experiment design for Iris: three frozen cases, explicit trigger status, bounded controlled human input, credible reference evidence, and no fabricated outcome.
 13. [`2026-09-03-preliminary-study-two-page-backup.en.md`](./2026-09-03-preliminary-study-two-page-backup.en.md) — a two-page backup with more detail, if Iris asks for it; requests the course grading index by name.
 14. [`2026-09-03-preliminary-study-comprehensive-paper.en.md`](./2026-09-03-preliminary-study-comprehensive-paper.en.md) — the full deep-research write-up (three pages, four figures) behind the one-pager, with the negative results stated explicitly.
+15. [`study1-evidence-recovery-status-v1.json`](./study1-evidence-recovery-status-v1.json) — safe, aggregate-only recovery status; the accepted private event log is not mounted in this worktree, so no Study 1 values are emitted here.
+16. [`study2-on-off-readiness-v1.json`](./study2-on-off-readiness-v1.json) and [`2026-09-06-study2-readiness-note.he.md`](./2026-09-06-study2-readiness-note.he.md) — strict ON/OFF output contract and fixture-only readiness boundary; no Study 2 result.
+17. [`2026-09-06-study2-future-run-authorization-template.md`](./2026-09-06-study2-future-run-authorization-template.md) — one-time future-run binding template; `NOT_AUTHORIZED` and never a provider grant.
+18. [`2026-09-06-study1-study2-canonical-draft-selection.md`](./2026-09-06-study1-study2-canonical-draft-selection.md) — fetched PR ancestry/divergence audit and canonical draft decision.
+19. [`2026-09-06-study1-study2-implementation-handoff.md`](./2026-09-06-study1-study2-implementation-handoff.md) — combined evidence status, implementation controls, validation results, and remaining human gates.
 
 ## Canonical working research architecture
 

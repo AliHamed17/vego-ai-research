@@ -611,3 +611,34 @@ Chronological prompt history for Codex and Claude.
   - citations / thesis content / privacy / evidence consistency / hardening manifest / visualization catalog / gallery --check -> all PASS
 - Status: completed
 - Next steps: Study 2 requires Codex to bind six controls and correct the single-factor claim before any paid authorization; the overwritten analysis/output-inventory.json remains unrecovered and is disclosed.
+
+## 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+
+- Request: Implement and validate the combined Study 1 signal/evidence recovery and Study 2 ON/OFF engineering package without provider execution.
+- Actions taken:
+  - Implemented fail-closed Study 1 accepted-run recovery and signal traceability with explicit unavailable-evidence status.
+  - Added Study 2 ON/OFF system-comparison fixture runner with strict schemas, caps, timeout, privacy, path, retry and no-Q&A controls.
+  - Added explicit Study 1 producing-agent/phase and rounds-per-episode aggregate tables; no numeric values generated without a bound private event log.
+  - Selected PR #41 descendant as canonical draft and ported only the Study 2 contract from divergent PR #42.
+- Files changed:
+  - scripts/study1_evidence_recovery.py
+  - scripts/study1_validate_evidence.py
+  - scripts/build_study1_signal_traceability.py
+  - src/vego_study2/
+  - scripts/study2_on_off_experiment.py
+  - schemas/study1-evidence-binding-v1.schema.json
+  - schemas/study2-*.schema.json
+  - docs/research/phd-proposal/study1-*
+  - docs/research/phd-proposal/study2-*
+  - scripts/tests/test_study1_*.py
+  - scripts/tests/test_study2_contract.py
+  - tests/test_study2_*.py
+- Commands/checks:
+  - focused pytest: 66 passed
+  - root pytest: 71 passed
+  - VEGO-AI pytest: 134 passed
+  - scripts pytest: 654 passed, 22 skipped, 2 warnings, 7 subtests
+  - scoped Ruff: PASS; full Ruff baseline: 159 pre-existing findings
+  - privacy/evidence/security/compile/schema checks: PASS
+- Status: Implemented and locally validated; Study 1 accepted private evidence unavailable in reviewed worktree; Study 2 fixture prepared but not executed as science.
+- Next steps: Independent review of the canonical branch; supply the explicitly mounted accepted-run binding/event log if descriptive numeric reporting is required; separately authorize any future provider run.

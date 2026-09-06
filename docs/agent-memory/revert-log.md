@@ -404,3 +404,21 @@ Record file changes and rollback notes here.
   - docs/agent-memory/current-state.md
 - Rollback note: git revert d075cf8 restores the previous document wording; 08d9549 and f25ca5d restore the earlier validator and analytics behaviour. PDFs are gitignored and regenerate from the HTML sources.
 - Git commit: none recorded by script.
+
+## 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+
+- Files changed:
+  - scripts/study1_evidence_recovery.py
+  - scripts/study1_validate_evidence.py
+  - scripts/build_study1_signal_traceability.py
+  - src/vego_study2/
+  - scripts/study2_on_off_experiment.py
+  - schemas/study1-evidence-binding-v1.schema.json
+  - schemas/study2-*.schema.json
+  - docs/research/phd-proposal/study1-*
+  - docs/research/phd-proposal/study2-*
+  - scripts/tests/test_study1_*.py
+  - scripts/tests/test_study2_contract.py
+  - tests/test_study2_*.py
+- Rollback note: Revert commit b7c13fe and prior focused commits on this isolated branch; no protected runtime or Detector-v1 file was modified.
+- Git commit: none recorded by script.

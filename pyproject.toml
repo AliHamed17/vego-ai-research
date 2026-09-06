@@ -27,7 +27,7 @@ package = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["VEGO-AI/framework", "VEGO-AI/eval", "src"]
+pythonpath = ["VEGO-AI/framework", "VEGO-AI/eval", "src", "scripts"]
 markers = [
     "slow: long-running subprocess/integration tests; deselect with -m \"not slow\" for the fast dev lane",
 ]
@@ -50,4 +50,3 @@ ignore = ["E501"]
 "VEGO-AI/tests/**/*.py" = ["S101"]
 "scripts/tests/**/*.py" = ["S101"]
 "tests/**/*.py" = ["S101"]
-

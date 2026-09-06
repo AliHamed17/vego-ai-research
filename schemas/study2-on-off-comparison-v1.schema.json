@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study2-on-off-comparison-v1.schema.json",
+  "title": "Study 2 ON/OFF comparison receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_class",
+    "provider_calls",
+    "fixture_mode",
+    "setting_id",
+    "corpus_id",
+    "cases",
+    "conditions",
+    "per_case_comparison",
+    "detector_v1",
+    "prompt_difference_receipt",
+    "pooling",
+    "forbidden_metrics_computed"
+  ],
+  "properties": {
+    "schema_version": {"const": "study2-on-off-comparison-v1"},
+    "evidence_class": {"const": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC"},
+    "provider_calls": {"const": 0},
+    "fixture_mode": {"enum": ["no_questions", "two_rounds", "max_rounds"]},
+    "setting_id": {"const": "cd_airtravel"},
+    "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+    "cases": {"type": "integer", "minimum": 1},
+    "conditions": {
+      "type": "object",
+      "required": ["VEGO_AI_ON", "VEGO_AI_OFF"],
+      "additionalProperties": true,
+      "properties": {
+        "VEGO_AI_ON": {"type": "object"},
+        "VEGO_AI_OFF": {"type": "object"}
+      }
+    },
+    "per_case_comparison": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "on_mapping_rows",
+          "off_mapping_rows",
+          "on_uncovered_fragments",
+          "off_uncovered_fragments",
+          "on_schema_complete",
+          "off_schema_complete"
+        ],
+        "properties": {
+          "case_id": {"type": "string"},
+          "on_mapping_rows": {"type": "integer", "minimum": 0},
+          "off_mapping_rows": {"type": "integer", "minimum": 0},
+          "on_uncovered_fragments": {"type": "integer", "minimum": 0},
+          "off_uncovered_fragments": {"type": "integer", "minimum": 0},
+          "on_schema_complete": {"type": "boolean"},
+          "off_schema_complete": {"type": "boolean"}
+        }
+      }
+    },
+    "detector_v1": {
+      "type": "object",
+      "required": ["applied_to", "off_denominator", "reason"],
+      "properties": {
+        "applied_to": {"const": "VEGO_AI_ON only"},
+        "off_denominator": {"const": "NOT_APPLICABLE"},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "prompt_difference_receipt": {"type": "object"},
+    "pooling": {"const": "Study 1 results are not pooled with this comparison."},
+    "forbidden_metrics_computed": {"const": []}
+  }
+}
