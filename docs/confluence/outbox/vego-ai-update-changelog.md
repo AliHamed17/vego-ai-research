@@ -1,35 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-06 16:19 +03:00.
+Generated from repository memory on 2026-09-06 17:04 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-03 12:07 +03:00 - Codex - Strict one-page human-intervention experiment for Iris
-
-- Request: Create one A4 page only with the paired baseline and controlled human-intervention experiment, preserve evidence boundaries, validate it, and publish the sanitized change to main.
-- Actions taken:
-  - Created a ten-section one-page experiment design tied to provisional SQ1.
-  - Defined three frozen Cheers/ParkWise cases with explicit Condition A and Condition B.
-  - Separated automatic, reference-dependent, and manually identified triggers.
-  - Kept every evaluative outcome To be measured and removed an exact rehearsal number not yet present on main.
-  - Rendered with Microsoft Word, visually inspected the full page, and verified A4 geometry, embedded fonts, content, and hash.
-- Files changed:
-  - docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md
-  - docs/research/phd-proposal/README.md
-  - scripts/build_paper.py
-  - scripts/tests/test_preliminary_human_intervention_one_page.py
-  - docs/agent-memory/current-state.md
-  - docs/agent-memory/progress.md
-  - docs/agent-memory/resource-memory.md
-- Commands/checks:
-  - uv run pytest targeted Study 1 suite: 6 passed, 10 dataset-dependent skips
-  - uv run ruff check targeted files: passed
-  - PDF semantic QA: one A4 page, 16 required markers, no private path or unsupported rehearsal numbers
-  - PDF font embedding: three Calibri subsets embedded
-  - repository privacy scan: passed
-  - git diff --check: passed
-- Status: Ready for Iris review; no human-effectiveness result or supervisor approval is claimed.
-- Next steps: Ali sends the one-page PDF; Iris confirms the case/review unit and independent evaluation protocol before any outcome is filled.
 
 ## 2026-09-03 12:55 +03:00 - Codex - Iris preliminary-pilot technical evidence audit
 
@@ -440,3 +413,34 @@ Showing the latest 20 session entries.
   - citations / thesis content / privacy / evidence consistency / hardening manifest / visualization catalog / gallery --check -> all PASS
 - Status: completed
 - Next steps: Study 2 requires Codex to bind six controls and correct the single-factor claim before any paid authorization; the overwritten analysis/output-inventory.json remains unrecovered and is disclosed.
+
+## 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+
+- Request: Implement and validate the combined Study 1 signal/evidence recovery and Study 2 ON/OFF engineering package without provider execution.
+- Actions taken:
+  - Implemented fail-closed Study 1 accepted-run recovery and signal traceability with explicit unavailable-evidence status.
+  - Added Study 2 ON/OFF system-comparison fixture runner with strict schemas, caps, timeout, privacy, path, retry and no-Q&A controls.
+  - Added explicit Study 1 producing-agent/phase and rounds-per-episode aggregate tables; no numeric values generated without a bound private event log.
+  - Selected PR #41 descendant as canonical draft and ported only the Study 2 contract from divergent PR #42.
+- Files changed:
+  - scripts/study1_evidence_recovery.py
+  - scripts/study1_validate_evidence.py
+  - scripts/build_study1_signal_traceability.py
+  - src/vego_study2/
+  - scripts/study2_on_off_experiment.py
+  - schemas/study1-evidence-binding-v1.schema.json
+  - schemas/study2-*.schema.json
+  - docs/research/phd-proposal/study1-*
+  - docs/research/phd-proposal/study2-*
+  - scripts/tests/test_study1_*.py
+  - scripts/tests/test_study2_contract.py
+  - tests/test_study2_*.py
+- Commands/checks:
+  - focused pytest: 66 passed
+  - root pytest: 71 passed
+  - VEGO-AI pytest: 134 passed
+  - scripts pytest: 654 passed, 22 skipped, 2 warnings, 7 subtests
+  - scoped Ruff: PASS; full Ruff baseline: 159 pre-existing findings
+  - privacy/evidence/security/compile/schema checks: PASS
+- Status: Implemented and locally validated; Study 1 accepted private evidence unavailable in reviewed worktree; Study 2 fixture prepared but not executed as science.
+- Next steps: Independent review of the canonical branch; supply the explicitly mounted accepted-run binding/event log if descriptive numeric reporting is required; separately authorize any future provider run.
