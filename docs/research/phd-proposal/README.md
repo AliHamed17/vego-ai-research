@@ -23,6 +23,7 @@ This directory turns the requirements from the 29 July 2026 supervisor call into
 15. [`study1-evidence-recovery-status-v1.json`](./study1-evidence-recovery-status-v1.json) — safe, aggregate-only recovery status; the accepted private event log is not mounted in this worktree, so no Study 1 values are emitted here.
 16. [`study2-on-off-readiness-v1.json`](./study2-on-off-readiness-v1.json) and [`2026-09-06-study2-readiness-note.he.md`](./2026-09-06-study2-readiness-note.he.md) — strict ON/OFF output contract and fixture-only readiness boundary; no Study 2 result.
 17. [`2026-09-06-study2-future-run-authorization-template.md`](./2026-09-06-study2-future-run-authorization-template.md) — one-time future-run binding template; `NOT_AUTHORIZED` and never a provider grant.
+18. [`2026-09-06-study1-study2-canonical-draft-selection.md`](./2026-09-06-study1-study2-canonical-draft-selection.md) — fetched PR ancestry/divergence audit and canonical draft decision.
 
 ## Canonical working research architecture
 

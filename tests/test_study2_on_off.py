@@ -12,7 +12,7 @@ import pytest
 from vego_study2.config import load_config
 from vego_study2.fixtures import DeterministicFixtureClient, fixture_cases
 from vego_study2.paths import UnsafeOutputPathError, ensure_safe_output_root
-from vego_study2.runner import Study2Runner
+from vego_study2.runner import Study2RunError, Study2Runner
 
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "docs/research/phd-proposal/study2-frozen-config.json"
 
@@ -209,6 +209,20 @@ def test_runner_rejects_output_root_outside_approved_root(tmp_path: Path) -> Non
         code_sha="fixture-code-sha",
     )
     with pytest.raises(UnsafeOutputPathError):
+        asyncio.run(runner.run_off())
+
+
+def test_run_timeout_is_enforced_before_fixture_completion(tmp_path: Path) -> None:
+    config = load_config(CONFIG_PATH)
+    config["execution"]["run_timeout_seconds"] = 0.001
+    runner = Study2Runner(
+        config=config,
+        cases=fixture_cases(config),
+        client=DeterministicFixtureClient(delay_seconds=0.05),
+        output_root=tmp_path / "study2-output",
+        code_sha="fixture-code-sha",
+    )
+    with pytest.raises(Study2RunError, match="RUN_TIMEOUT"):
         asyncio.run(runner.run_off())
 
 
