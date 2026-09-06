@@ -88,27 +88,26 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
   <div class="kpi"><div class="v">43</div><div class="l">קריאות ספק (תקרה 326)</div></div>
   <div class="kpi"><div class="v">$0.135</div><div class="l">עלות בפועל (תקרה $10)</div></div>
 </div>
+<p class="note" style="margin:0 0 1.8mm">כל ערכי אריחי המדדים שלעיל אומתו <b>בדיעבד</b> מיומן האירועים ומקבלת ההרצה; הסטטוס הקובע מופיע בראש העמוד הראשון. "התראה חזקה" משמעה מועמדות לבדיקה אנושית בלבד (סעיף 2).</p>
 
 <h2>4. התוצאות</h2>
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 1 — סיום שיחות וסיווג ההתראות</div>
-  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> מספר שיחות · <b>מונה:</b> שיחות בכל מצב · <b>מכנה:</b> 3 שיחות שהושלמו · ספירות בלבד</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> מצב הסיום והסיווג של כל שיחה · <b>מונה:</b> שיחות בכל קטגוריה · <b>מכנה:</b> 3 שיחות שהושלמו (ספירות בלבד; N קטן מדי לאחוזים) · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> שההתראות נכונות, מועילות, מייצגות או ניתנות להכללה</div>
   <div class="row"><span class="lbl w">הסתיימו בהסכמה</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div>
   <div class="row"><span class="lbl w">הגיעו למגבלת הסבבים</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div>
   <div class="row"><span class="lbl w">הופסקו טכנית (מוחרגות)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
   <div class="row"><span class="lbl w">התראה חזקה</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">3</span></span></div>
   <div class="row"><span class="lbl w">התראה חלשה</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
   <div class="row"><span class="lbl w">ללא התראה</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
-  <div class="note"><b>מה אינו מוכיח:</b> אינו מוכיח שההתראות נכונות או מועילות — לא נבדק.</div>
 </div>
 <div class="chart">
   <div class="ct">איור 2 — רמת הביטחון של התשובות</div>
-  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> תשובות · <b>מונה:</b> תשובות בכל רמה · <b>מכנה:</b> 44 תשובות</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> רמת הביטחון שהמודל דיווח על תשובותיו · <b>מונה:</b> תשובות בכל רמה · <b>מכנה:</b> 44 תשובות · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> נכונות התשובה או איכותה — הביטחון מדווח על-ידי המודל ואינו אמת-מידה חיצונית</div>
   <div class="row"><span class="lbl">נמוך</span><span class="track"><span class="bar" style="width:64%"></span><span class="val">16</span></span></div>
   <div class="row"><span class="lbl">בינוני</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">25</span></span></div>
   <div class="row"><span class="lbl">גבוה</span><span class="track"><span class="bar" style="width:12%"></span><span class="val">3</span></span></div>
-  <div class="note">הביטחון מדווח על-ידי המודל עצמו ואינו מדד חיצוני. <b>מה אינו מוכיח:</b> אינו מעיד על נכונות התשובה.</div>
 </div>
 </div>
 
@@ -120,15 +119,18 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 3 — שיעור תשובות בביטחון נמוך, לפי סבב</div>
-  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> אחוז · <b>מונה:</b> תשובות בביטחון נמוך בסבב · <b>מכנה:</b> כל התשובות באותו סבב</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> שיעור התשובות שדווח עליהן ביטחון נמוך, בכל סבב · <b>מונה:</b> תשובות בביטחון נמוך באותו סבב · <b>מכנה:</b> כל התשובות באותו סבב; עשרת הסבבים יחד מכסים את כל 44 התשובות · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> נכונות תשובה, מגמה או יכולת הכללה — הביטחון מדווח על-ידי המודל</div>
   <div class="row"><span class="lbl">סבב 1 (מתוך 7)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
   <div class="row"><span class="lbl">סבב 2 (מתוך 7)</span><span class="track"><span class="bar" style="width:28.6%"></span><span class="val">29%</span></span></div>
   <div class="row"><span class="lbl">סבב 3 (מתוך 5)</span><span class="track"><span class="bar" style="width:20%"></span><span class="val">20%</span></span></div>
   <div class="row"><span class="lbl">סבב 4 (מתוך 5)</span><span class="track"><span class="bar" style="width:40%"></span><span class="val">40%</span></span></div>
-  <div class="row"><span class="lbl">סבבים 5–7</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0%</span></span></div>
+  <div class="row"><span class="lbl">סבב 5 (מתוך 4)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0%</span></span></div>
+  <div class="row"><span class="lbl">סבב 6 (מתוך 4)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0%</span></span></div>
+  <div class="row"><span class="lbl">סבב 7 (מתוך 3)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0%</span></span></div>
   <div class="row"><span class="lbl">סבב 8 (מתוך 2)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
+  <div class="row"><span class="lbl">סבב 9 (מתוך 3)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0%</span></span></div>
   <div class="row"><span class="lbl">סבב 10 (מתוך 4)</span><span class="track"><span class="bar" style="width:50%"></span><span class="val">50%</span></span></div>
-  <div class="note">סבב 8 נשען על שתי תשובות בלבד — אין להסיק ממנו מגמה.</div>
+  <div class="note">עשרת הסבבים מכסים את כל 44 התשובות (7·7·5·5·4·4·3·2·3·4); תשובות בביטחון נמוך לפי סבב: 7·2·1·2·0·0·0·2·0·2 = 16. סבב 8 נשען על שתי תשובות בלבד — אין להסיק ממנו מגמה.</div>
 </div>
 <div>
 <p style="margin:0 0 2mm"><b>תצפית:</b> בסבב הראשון כל שבע התשובות היו בביטחון נמוך. מהסבב השני ואילך השיעור יורד ל-29% ומטה.</p>
@@ -143,15 +145,15 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 </div>
 </div>
 
-<h2>6. האם המנגנון בכלל מסוגל להבחין?</h2>
-<div class="warn"><span class="tag">בדיקת הנדסה בלבד — אינה תוצאה מדעית</span> &nbsp; בדיקה דטרמיניסטית ללא ספק וללא עלות, על תרחישים מלאכותיים, כדי לוודא שהמנגנון אינו מסמן הכול תמיד. <b>אין להשוות את המספרים כאן למספרים המדעיים</b> — המכנים שונים לחלוטין.</div>
+<h2>6. בדיקת מכשור דטרמיניסטית</h2>
+<div class="warn"><span class="tag">בדיקת הנדסה / מכשור בלבד — אינה תוצאה מדעית</span> &nbsp; בדיקה דטרמיניסטית ללא ספק וללא עלות, על תרחישים מלאכותיים, כדי לוודא שהמנגנון אינו מסמן הכול תמיד. <b>אין זו השוואת ביצועי ספקים ואין זו השוואה בין <code>VEGO_AI_ON</code> ל-<code>VEGO_AI_OFF</code>; הפיקסצ׳ר אינו קבוצת ביקורת.</b> שני המכנים נפרדים לחלוטין — 20 תשובות בפיקסצ׳ר מול 44 תשובות בריצה האמיתית — ואין לאחדם או להציגם כיחס אחד.</div>
 <table>
 <tr><th>תרחיש מלאכותי</th><th class="n">שיחות</th><th class="n">חזקה</th><th class="n">חלשה</th><th class="n">ללא התראה</th></tr>
 <tr><td>ללא שאלות כלל</td><td class="n">0</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
 <tr class="hi"><td>שיחות שמסתיימות בהסכמה</td><td class="n">10</td><td class="n">0</td><td class="n">0</td><td class="n">10</td></tr>
 <tr class="hi"><td>שיחות שממצות את הסבבים</td><td class="n">11</td><td class="n">11</td><td class="n">0</td><td class="n">0</td></tr>
 </table>
-<p class="note"><b>מסקנת הבדיקה:</b> המנגנון <b>אינו</b> מסמן הכול: בתרחיש אחד הוא החזיר "ללא התראה" ב-10 מתוך 10, ובאחר "התראה חזקה" ב-11 מתוך 11. <b>מה אינו מוכיח:</b> בדיקה זו מוכיחה התנהגות קוד בלבד. היא <b>אינה</b> מוכיחה רגישות, סגוליות, נכונות, תועלת או יכולת הכללה.</p>
+<p class="note"><b>מסקנת הבדיקה:</b> המנגנון <b>אינו</b> מסמן הכול: בתרחיש אחד הוא החזיר "ללא התראה" ב-10 מתוך 10, ובאחר "התראה חזקה" ב-11 מתוך 11. <b>ניסוח קובע:</b> על קורפוס זה כל שלוש השיחות נופלות באותו צד של הסף, ואילו בדיקת הפיקסצ׳ר הדטרמיניסטית מראה שהכלל הקפוא <b>כן</b> מקצה סיווגים שונים לקלטים שונים. <b>מה אינו מוכיח:</b> בדיקה זו מוכיחה התנהגות קוד בלבד. היא <b>אינה</b> מוכיחה רגישות, סגוליות, נכונות, תועלת או יכולת הכללה.</p>
 
 <h2>7. מה הוכח ומה לא</h2>
 <div class="grid2">
@@ -160,8 +162,9 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><th>תצפית — מה נמדד</th></tr>
 <tr><td>נלכדו 44 שאלות ו-44 תשובות בשלוש שיחות</td></tr>
 <tr><td>שלוש שיחות הושלמו; אפס הופסקו טכנית</td></tr>
-<tr><td>שלושתן סווגו התראה חזקה</td></tr>
-<tr><td>ארבעת המקרים הפיקו תוצר מלא</td></tr>
+<tr><td>שלושתן סווגו התראה חזקה (מועמדות לבדיקה אנושית)</td></tr>
+<tr><td>ארבעת המקרים הפיקו תוצר מלא, וכולם בתוצאת מיפוי <code>Satisfied</code> (4/4)</td></tr>
+<tr><td>לכידה מקצה לקצה של התקשורת הבין-סוכנית תחת ספק אמיתי</td></tr>
 <tr><td>עלות ההרצה: 0.135 דולר</td></tr>
 </table>
 </div>
@@ -183,6 +186,14 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 
 <h2>8. מסקנה</h2>
 <div class="banner">במחקר היתכנות תיאורי על ארבעה מקרים ציבוריים-חיצוניים נלכדו שלוש שיחות שלמות בין הסוכנים. כולן סומנו כמועמדות לבדיקה אנושית, ואחת מהן הגיעה למגבלת הסבבים. <b>הממצא מדגים שניתן ללכוד ולסווג את התקשורת מקצה לקצה בעלות זניחה</b> — ואינו מוכיח שההתראות נכונות, מועילות, מייצגות או ניתנות להכללה.</div>
+
+<h2>8א. שלוש שכבות שאין לערבב</h2>
+<div class="plain" style="margin-bottom:1.6mm">
+<p style="margin:0 0 1.2mm"><b>(א) תוצאת מיפוי</b> — שיפוט הצנרת לגבי המודל המועמד: <code>Satisfied</code> / <code>Partially-Satisfied</code> / <code>Not-Satisfied</code>. בהרצה זו: <b>4 מתוך 4 המקרים Satisfied</b>; אפס Partially-Satisfied; אפס Not-Satisfied. שכבה זו <b>אינה מוזנת</b> אל מנגנון ההתראות.</p>
+<p style="margin:0 0 1.2mm"><b>(ב) אות מצב-שיחה</b> — ביטחון התשובה, נוכחות שדה הראיה ומספר הסבבים. זהו <b>הקלט היחיד</b> של מנגנון ההתראות.</p>
+<p style="margin:0 0 1.2mm"><b>(ג) פעולה תפעולית</b> — מועמדות לבדיקה אנושית. זהו הפלט.</p>
+<p style="margin:0"><b>משתני הקשר (n=19 דפוסי שונות, הקשר בלבד, לעולם אינם מפעילים התראה):</b> ‏C1 <code>mapping_certainty</code> — ערך יחיד 0.85, אפס מופעים מתחת ל-0.7 (מכנה: הנחיית ייחוס אחת); ‏C2 ביטחון סיווג agent4 — גבוה 15 · בינוני 4; ‏C3 <code>flag_for_guidelines_update</code> — כן 14 · לא 5; דגל <code>requires_human_review</code> של המערכת עצמה — False בכל 19. ‏<b>תוצאת המיפוי, תוויות דפוסי הקטעים ומשתני C1–C3 אינם מוזנים כלל אל מנגנון ההתראות.</b> דפוסי הנחיות חוזרים: 0; דפוסי קטעים חוזרים: 19 (תווית דומיננטית <code>Alternative</code> 14 · <code>Domain Mistake</code> 5; <code>probe_confirmed</code> False בכל 19). ‏<code>Alternative</code> משמעה ניסוח חלופי תקף — <b>לא</b> שגיאה.</p>
+</div>
 
 <h2>9. מגבלות</h2>
 <ul style="font-size:8pt">

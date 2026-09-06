@@ -235,6 +235,7 @@
     "scripts/tests/test_study1_call_bound.py",
     "scripts/tests/test_study1_detector_robustness.py",
     "scripts/tests/test_study1_forbidden_claims.py",
+    "scripts/tests/test_study1_validate_evidence.py",
     "scripts/tests/test_supervisor_source_manifest.py",
     "scripts/tests/test_thesis_evidence_package.py",
     "scripts/tests/test_validate_hlayer_program_portability.py",
@@ -266,7 +267,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "6506a13ca79257233c70467a78e158b453465e43b06b3c8c0d8e0f294446ea28",
+  "sourceTreeSha256": "9d1a1dd03a4dd630905df315b772a09303f2a46f4ba04ec5c85a1f7294836f34",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

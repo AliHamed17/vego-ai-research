@@ -43,6 +43,7 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 .grp .gl { font-size:6.9pt; margin-bottom:0.5mm; }
 .grp .row { margin-bottom:0.5mm; }
 .grp .lbl { flex:0 0 14mm; font-size:6.4pt; color:rgb(82,81,78); }
+.tag { display:inline-block; background:rgb(235,104,52); color:white; font-size:6.6pt; padding:0.3mm 1.3mm; border-radius:1mm; font-weight:700; }
 .cs[data-caveat="retrospective"]::after { content:" · ייחוס בדיעבד"; color:rgb(235,104,52); font-weight:600; }
 table { position:relative; }
 table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); letter-spacing:0.02em; }
@@ -63,6 +64,8 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
   <div class="kpi"><div class="v">43</div><div class="l">קריאות ספק (תקרה 326)</div></div>
   <div class="kpi"><div class="v">$0.135</div><div class="l">עלות בפועל (תקרה $10)</div></div>
 </div>
+<p class="note" style="margin:0 0 1.2mm">כל ערכי אריחי המדדים שלעיל אומתו בדיעבד מיומן האירועים ומקבלת ההרצה; הסטטוס הקובע מופיע בראש העמוד.</p>
+<p class="note" style="margin:0 0 1.6mm"><b>הגדרת התראה:</b> ‏STRONG_ALERT ו-WEAK_ALERT מציינים <b>מועמדת לבדיקה אנושית</b> בלבד. אין בהם קביעה ששגיאה אירעה, שהמודל שגה, שהתוצר פגום או שנדרשה התערבות.</p>
 
 <h2>1. תוצאות מרכזיות ותוצאות Detector-v1</h2>
 <div class="grid2">
@@ -89,7 +92,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 </div>
 <div class="chart">
   <div class="ct">איור 1 — סיום אפיזודות וסיווג Detector-v1</div>
-  <div class="cs" data-caveat="retrospective">N = 3 אפיזודות שלמות · ספירות בלבד (N קטן מדי לאחוזים)</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> מצב סיום וסיווג לכל אפיזודה · <b>מונה:</b> אפיזודות בכל קטגוריה · <b>מכנה:</b> 3 אפיזודות שלמות (ספירות בלבד; N קטן מדי לאחוזים) · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> נכונות ההתראות, תועלתן, ייצוגיות או יכולת הכללה</div>
   <div class="row"><span class="lbl wide">CONVERGED</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div>
   <div class="row"><span class="lbl wide">TERMINATED_MAX_ROUNDS</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div>
   <div class="row"><span class="lbl wide">INCOMPLETE_TECHNICAL</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
@@ -104,7 +107,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 2 — התפלגות ביטחון התשובות</div>
-  <div class="cs" data-caveat="retrospective">N = 44 תשובות · ספירות בפועל</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> רמת הביטחון המדווחת של התשובות · <b>מונה:</b> תשובות בכל רמה · <b>מכנה:</b> 44 תשובות · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> נכונות התשובה או איכותה — הביטחון מדווח על-ידי המודל ואינו אמת-מידה חיצונית</div>
   <div class="row"><span class="lbl">נמוך (Low)</span><span class="track"><span class="bar" style="width:64%"></span><span class="val">16</span></span></div>
   <div class="row"><span class="lbl">בינוני (Medium)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">25</span></span></div>
   <div class="row"><span class="lbl">גבוה (High)</span><span class="track"><span class="bar" style="width:12%"></span><span class="val">3</span></span></div>
@@ -127,12 +130,12 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <h1>בסיס השוואה, עלות ומגבלות</h1>
 <p class="sub">כל ערך נגזר מיומן האירועים ומקבלת ההרצה השמורים · קוד ביצוע <code>efe686ac</code></p>
 
-<h2>3. בסיס השוואה: ספק מדומה מול ריצה אמיתית</h2>
-<p class="note" style="margin:0 0 1.5mm">אותה צנרת מוגנת, אותו קורפוס, אותה תצורה — <b>ההבדל היחיד הוא הספק</b>.</p>
+<h2>3. בדיקת מכשור: פיקסצ׳ר דטרמיניסטי לצד הריצה האמיתית</h2>
+<div class="warn"><span class="tag">בדיקת הנדסה / מכשור בלבד — אינה תוצאה מדעית</span> &nbsp; אין זו השוואת ביצועי ספקים ואין זו השוואה בין <code>VEGO_AI_ON</code> ל-<code>VEGO_AI_OFF</code>; הפיקסצ׳ר <b>אינו קבוצת ביקורת</b>. שני המכנים נפרדים לחלוטין — 20 תשובות בפיקסצ׳ר מול 44 תשובות בריצה האמיתית — ואין לאחדם או להציגם כיחס אחד.</div>
 <div class="grid2">
 <div class="chart">
-  <div class="ct">איור 3 — ביטחון התשובות: בסיס מדומה מול ריצה אמיתית</div>
-  <div class="cs" data-caveat="retrospective">ספק מדומה N = 20 · ריצה אמיתית N = 44</div>
+  <div class="ct">איור 3 — ביטחון התשובות: פיקסצ׳ר דטרמיניסטי לצד הריצה האמיתית (בדיקת מכשור)</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> רמת הביטחון המדווחת · <b>מונה:</b> תשובות בכל רמה בכל אחת משתי הקבוצות · <b>מכנים נפרדים:</b> 20 תשובות פיקסצ׳ר · 44 תשובות בריצה האמיתית · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) ופלט הפיקסצ׳ר הדטרמיניסטי · <b>אינו מוכיח:</b> ביצועי ספק, איכות, נכונות או תועלת — בדיקת מכשור בלבד</div>
   <div class="legend"><span><span class="sw sw1"></span>ספק מדומה</span><span><span class="sw sw2"></span>ריצה אמיתית</span></div>
   <div class="grp">
     <div class="gl">ביטחון נמוך</div>
@@ -149,28 +152,26 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
     <div class="row"><span class="lbl">מדומה</span><span class="track"><span class="bar" style="width:80%"></span><span class="val">20</span></span></div>
     <div class="row"><span class="lbl">אמיתית</span><span class="track"><span class="bar b2" style="width:12%"></span><span class="val">3</span></span></div>
   </div>
-  <div class="note">אותה צנרת ואותו קורפוס; רק הספק שונה.</div>
+  <div class="note">מכנים נפרדים; אין לאחד את הספירות.</div>
 </div>
 <div>
 <table>
-<tr><th>מדד</th><th class="n">ספק מדומה</th><th class="n">ריצה אמיתית</th></tr>
-<tr><td>קריאות</td><td class="n">46 ×2</td><td class="n">43</td></tr>
-<tr><td>עלות</td><td class="n">$0</td><td class="n">$0.135</td></tr>
-<tr><td>אפיזודות</td><td class="n">10</td><td class="n">3</td></tr>
-<tr><td>שאלות / תשובות</td><td class="n">20 / 20</td><td class="n">44 / 44</td></tr>
+<tr><th>מדד (בדיקת מכשור — מכנים נפרדים)</th><th class="n">פיקסצ׳ר דטרמיניסטי</th><th class="n">ריצה אמיתית</th></tr>
+<tr><td>קריאות · עלות</td><td class="n">46 ×2 · $0</td><td class="n">43 · $0.135</td></tr>
+<tr><td>אפיזודות · שאלות/תשובות</td><td class="n">10 · 20/20</td><td class="n">3 · 44/44</td></tr>
 <tr class="hi"><td>סבב מרבי</td><td class="n">1</td><td class="n">10</td></tr>
 <tr><td>CONVERGED / MAX_ROUNDS</td><td class="n">10 / 0</td><td class="n">2 / 1</td></tr>
 <tr class="hi"><td>נמוך / בינוני / גבוה</td><td class="n">0 / 0 / 20</td><td class="n">16 / 25 / 3</td></tr>
 </table>
-<p class="note"><b>הממצא ההנדסי:</b> הפיקסצ׳ר מתכנס תמיד בסבב אחד בביטחון גבוה; המודל האמיתי מייצר ביטחון נמוך ובינוני ושרשראות עד מיצוי עשרת הסבבים. המכשור מודד שונות התנהגותית אמיתית. Detector-v1 <b>לא</b> הופעל על הבסיס המדומה — תשובות הפיקסצ׳ר סינתטיות.</p>
+<p class="note"><b>קריאת בדיקת המכשור:</b> הפיקסצ׳ר מתכנס בסבב אחד ובביטחון גבוה; הריצה תחת ספק אמיתי הניבה ביטחון נמוך ובינוני ושרשראות עד מיצוי עשרת הסבבים. הטענה הנתמכת היא <b>לכידה מקצה לקצה של התקשורת הבין-סוכנית תחת ספק אמיתי</b> — לא מדידת איכות ולא ביצועי ספק. ‏Detector-v1 <b>לא</b> הופעל על הפיקסצ׳ר; מכנן נפרד.</p>
 </div>
 </div>
 
-<h2>4. מסלולי תקשורת מכוונים</h2>
+<h2 style="margin-top:1.9mm">4. מסלולי תקשורת מכוונים</h2>
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 4 — מסלולי תקשורת מכוונים שנצפו</div>
-  <div class="cs" data-caveat="retrospective">N = 44 שאלות · 3 מתוך 6 מסלולים אפשריים נצפו</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> מספר השאלות לפי זוג סוכנים מכוון · <b>מונה:</b> שאלות בכל מסלול · <b>מכנה:</b> 44 שאלות (3 מתוך 6 מסלולים אפשריים נצפו) · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> נחיצות המסלול, סיבתיות או יכולת הכללה למקרים אחרים</div>
   <div class="row"><span class="lbl">שואל agent4 · משיב agent2</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">39</span></span></div>
   <div class="row"><span class="lbl">שואל agent3 · משיב agent2</span><span class="track"><span class="bar" style="width:10.3%"></span><span class="val">4</span></span></div>
   <div class="row"><span class="lbl">שואל agent3 · משיב agent1</span><span class="track"><span class="bar" style="width:2.6%"></span><span class="val">1</span></span></div>
@@ -184,12 +185,11 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><td class="n">agent3</td><td class="n">agent1</td><td class="n">1</td></tr>
 <tr class="hi"><td class="n">סה"כ</td><td class="n">—</td><td class="n">44</td></tr>
 </table>
-<p class="note">שלושה מסלולים מכוונים לא נצפו כלל: שואל agent2 / משיב agent1 · שואל agent2 / משיב agent2 · שואל agent4 / משיב agent1.</p>
-<p class="note">ריכוז חריג במסלול אחד: 39 מתוך 44 השאלות (88.6%) הגיעו מ-agent4 אל agent2, כולן באפיזודה שהגיעה למגבלת עשרת הסבבים.</p>
+<p class="note">ריכוז חריג במסלול אחד: 39 מתוך 44 השאלות (88.6%) הגיעו מ-agent4 אל agent2, כולן באפיזודה שהגיעה למגבלת עשרת הסבבים. שלושת המסלולים שלא נצפו מפורטים באיור 4.</p>
 </div>
 </div>
 
-<h2>5. עלות וקריאות — כולל ניסיונות שנכשלו</h2>
+<h2 style="margin-top:1.9mm">5. עלות וקריאות — כולל ניסיונות שנכשלו</h2>
 <table>
 <tr><th>שלב</th><th class="n">בקשות</th><th class="n">קלט</th><th class="n">פלט</th><th class="n">עלות</th></tr>
 <tr><td>ניסיון 1 — נדחה בשער הפרמטרים לפני כל פלט</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">$0.000000</td></tr>
@@ -199,36 +199,34 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 </table>
 <p class="note">נוסחה: (קלט÷10⁶×0.20)+(פלט÷10⁶×1.20) · תמחור רשמי נקרא 2026-09-05 · אסימוני מטמון: <code>NOT_AVAILABLE</code> (לא נאספו) · תקרות 326 בקשות ו-$10 לא נחצו.</p>
 
-<h2>6. שקיפות פרוטוקול · מה הוכח · מגבלות</h2>
-<div class="warn"><b>סטיית פרוטוקול:</b> ריצה מוקדמת חשפה פגם בשכבת המכשור (דרישת התאמה מדויקת של מזהי תשובות), לא במודל ולא בקורפוס. לאחר התיקון אי-התאמה נרשמת כ-<code>INCOMPLETE_TECHNICAL</code> ומוחרגת מכל מכנה. <b>ההסתעפות שתוקנה לא פעלה בריצה שהתקבלה</b> (0 אפיזודות כאלה). זוהי <b>ריצת חלופה תיאורית</b> ולא ניסיון ראשון נקי; שני הניסיונות שנכשלו מדווחים לעיל.</div>
+<h2 style="margin-top:1.9mm">6. שקיפות פרוטוקול · מה הוכח · מגבלות</h2>
+<div class="warn" style="padding:1.2mm 2.3mm"><b>סטיית פרוטוקול:</b> ריצה מוקדמת חשפה פגם בשכבת המכשור (התאמת מזהי תשובות), לא במודל ולא בקורפוס. לאחר התיקון אי-התאמה נרשמת כ-<code>INCOMPLETE_TECHNICAL</code> ומוחרגת מכל מכנה; <b>ההסתעפות שתוקנה לא פעלה בריצה שהתקבלה</b> (0 אפיזודות). זוהי <b>ריצת חלופה תיאורית</b>, לא ניסיון ראשון נקי.</div>
 <div class="grid2">
 <div>
 <table>
 <tr><th>הוכח</th><th>לא הוכח</th></tr>
-<tr><td>לכידת תקשורת בין-סוכנית מקצה לקצה</td><td>שההתרעות נכונות</td></tr>
+<tr><td>נלכדו 44 שאלות ו-44 תשובות בשלוש אפיזודות שלמות</td><td>שההתרעות נכונות</td></tr>
 <tr><td>החלת כלל סיווג קפוא על אפיזודות</td><td>שהן מועילות</td></tr>
 <tr><td>הרצה על קורפוס חיצוני ב-$0.13</td><td>ייצוגיות או הכללה</td></tr>
-<tr><td>המכשור מודד שונות אמיתית</td><td>מהו הסף הנכון</td></tr>
+<tr><td>לכידה מקצה לקצה של התקשורת הבין-סוכנית תחת ספק אמיתי</td><td>מהו הסף הנכון</td></tr>
 </table>
-<p class="note"><b>C1</b> (mapping_certainty&lt;0.7): נצפה ערך אחד 0.85 → 0 מופעים. <b>C2</b>: גבוה 15 / בינוני 4. <b>C3</b>: כן 14 / לא 5 — ראו עמוד 3.</p>
+<p class="note"><b>משתני הקשר בלבד (n=19 דפוסי שונות; לעולם אינם מפעילים התראה):</b> ‏C1 0.85 → 0 מופעים (מכנה: הנחיה אחת) · C2 גבוה 15 / בינוני 4 · C3 כן 14 / לא 5. פירוט בסעיף 10.</p>
 </div>
 <div>
 <p class="note" style="margin-top:0"><b>מגבלות:</b></p>
 <ul class="note">
-<li>N=4 ומכנה 3 — כל שינוי בודד משנה כל יחס.</li>
-<li>שני מקרים מתוך ארבעה ללא אפיזודה כלל.</li>
-<li>אין תוויות אמת; נכונות ההתרעות אינה ניתנת לבדיקה מנתונים אלה.</li>
+<li>N=4 ומכנה 3 — כל שינוי בודד משנה כל יחס; שני מקרים ללא אפיזודה כלל.</li>
+<li>אין תוויות אמת; נכונות ההתראות אינה ניתנת לבדיקה מנתונים אלה.</li>
 <li>ריצה אחת, מודל אחד, הגדרה אחת — אין בסיס להכללה.</li>
-<li>נמדדה נוכחות ראיה, לא איכותה.</li>
-<li>אישור מנחה עבור AirTravel אינו מתועד.</li>
+<li>נמדדה נוכחות ראיה, לא איכותה; אישור מנחה עבור AirTravel אינו מתועד.</li>
 </ul>
-<p class="note"><b>אין</b> לטעון דיוק, precision, recall, F1, נכונות התרעה, תועלת אנושית, אפקטיביות התערבות, ייצוגיות או הכללה. אף אחד מהם לא חושב.</p>
+<p class="note"><b>אין</b> לטעון דיוק, precision, recall, F1, נכונות התראה, תועלת אנושית, אפקטיביות התערבות, ייצוגיות או הכללה. אף אחד מהם לא חושב.</p>
 </div>
 </div>
 
-<div class="banner" style="margin-top:1mm"><b>מסקנה:</b> במחקר היתכנות תיאורי על ארבעה מקרי AirTravel ציבוריים־חיצוניים התקבלו שלוש אפיזודות Q&amp;A שלמות. כולן סווגו כהתרעות חזקות, ואפיזודה אחת הגיעה למגבלת הסבבים. <b>הסף אינו מפריד בקורפוס זה.</b> הממצא מדגים שניתן ללכוד ולסווג תקשורת בין-סוכנית מקצה לקצה; אינו מוכיח שההתרעות נכונות, מועילות, מייצגות או ניתנות להכללה.</div>
+<div class="banner" style="margin-top:0.6mm;margin-bottom:0;padding:1.1mm 2.3mm;font-size:7.4pt"><b>מסקנה:</b> שלוש אפיזודות שלמות, כולן מועמדות לבדיקה אנושית. <b>על קורפוס זה כולן נופלות באותו צד של הסף</b>, ובדיקת הפיקסצ׳ר מראה שהכלל הקפוא <b>כן</b> מקצה סיווגים שונים לקלטים שונים (סעיף 8). הממצא מדגים <b>לכידה מקצה לקצה של התקשורת הבין-סוכנית תחת ספק אמיתי</b> בלבד.</div>
 
-<div class="foot">שחזור: כל ערך חושב מחדש מיומן האירועים ומקבלת ההרצה · הנחיות ותשובות גולמיות נשמרות מחוץ למאגר הקוד · מפתח ה-API לא נחשף · 83/83 קבצים מוגנים ללא שינוי · Detector-v1 ו-v1.0.1/v1.0.2 זהים ברמת הבית</div>
+<div class="foot" style="margin-top:0.7mm;padding-top:0.5mm;font-size:6.2pt">שחזור: כל ערך חושב מחדש מיומן האירועים ומקבלת ההרצה · הנחיות ותשובות גולמיות מחוץ למאגר הקוד · מפתח ה-API לא נחשף · 83/83 קבצים מוגנים ללא שינוי</div>
 <div class="page2"></div>
 <h1>ניתוח מורחב: דינמיקת סבבים, פירוק אותות, ותפוקת הצנרת</h1>
 <p class="sub">כל הערכים חושבו מחדש מיומן האירועים ומתוצרי הצנרת · ללא שינוי ב-Detector-v1 או בספים</p>
@@ -237,7 +235,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 5 — שיעור תשובות בביטחון נמוך, לפי סבב</div>
-  <div class="cs" data-caveat="retrospective">N = 44 תשובות · פירוק לפי round_index</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> שיעור התשובות שדווח עליהן ביטחון נמוך, בכל סבב · <b>מונה:</b> תשובות בביטחון נמוך באותו סבב · <b>מכנה:</b> כלל התשובות באותו סבב (44 תשובות בעשרה סבבים; המכנה של כל שורה נפרד) · <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>) · <b>אינו מוכיח:</b> נכונות תשובה, מגמה לאורך זמן, איכות או יכולת הכללה — הביטחון מדווח על-ידי המודל ואינו אמת-מידה חיצונית</div>
   <div class="row"><span class="lbl">סבב 1 (n=7)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
   <div class="row"><span class="lbl">סבב 2 (n=7)</span><span class="track"><span class="bar" style="width:28.6%"></span><span class="val">29%</span></span></div>
   <div class="row"><span class="lbl">סבב 3 (n=5)</span><span class="track"><span class="bar" style="width:20%"></span><span class="val">20%</span></span></div>
@@ -262,8 +260,8 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 </div>
 </div>
 
-<h2 style="margin-top:2.2mm">8. ניסוי מעטפת: האם Detector-v1 בכלל מבחין?</h2>
-<p class="note" style="margin:0 0 1.5mm">ניסוי דטרמיניסטי ללא ספק וללא עלות, על שלושה מצבי פיקסצ׳ר. <b>ראיה הנדסית בלבד — לא תוצאה מדעית</b>, ואינה נכנסת לאף מכנה.</p>
+<h2 style="margin-top:2.2mm">8. בדיקת מעטפת דטרמיניסטית — בדיקת הנדסה / מכשור</h2>
+<p class="note" style="margin:0 0 1.2mm"><span class="tag">בדיקת הנדסה / מכשור בלבד — אינה תוצאה מדעית</span> בדיקה דטרמיניסטית ללא ספק וללא עלות. אין זו השוואת ביצועי ספקים ואין זו השוואה בין <code>VEGO_AI_ON</code> ל-<code>VEGO_AI_OFF</code>; הפיקסצ׳ר <b>אינו קבוצת ביקורת</b>. המכנים נפרדים — 20 תשובות פיקסצ׳ר מול 44 בריצה האמיתית — ואין לאחדם.</p>
 <div class="grid2">
 <div>
 <table>
@@ -275,8 +273,8 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <p class="note">מצב "ללא שאלות" הפיק אפס אירועים ואפס אפיזודות → סטטוס ריצה <code>VALID_ZERO_QA_RUN</code>. זהו המסלול שמעולם לא נבדק קודם, וכעת הופעל.</p>
 </div>
 <div>
-<div class="banner" style="margin:0"><b>מסקנת הניסוי:</b> ‏Detector-v1 <b>אינו מנוון</b>. על פיקסצ׳ר מתכנס הוא מחזיר <b>NO_ALERT ב-10 מתוך 10</b>; על פיקסצ׳ר שממצה סבבים הוא מחזיר <b>STRONG ב-11 מתוך 11</b>. כלומר המנגנון מסוגל להפריד — ותוצאת 3/3 בריצה האמיתית משקפת את התנהגות המודל (ביטחון נמוך בסבב הראשון), ולא כשל של הגלאי.</div>
-<p class="note"><b>זהו תיקון חשוב לניסוח הקודם:</b> לא נכון לומר "הסף אינו מפריד". נכון לומר: הסף מפריד היטב במרחב הלייף-סייקל, אך על הקורפוס הזה כל האפיזודות נופלות באותו צד שלו.</p>
+<div class="banner" style="margin:0"><b>מסקנת בדיקת המכשור (התנהגות קוד בלבד):</b> על פיקסצ׳ר מתכנס Detector-v1 מחזיר <b>NO_ALERT ב-10 מתוך 10</b>; על פיקסצ׳ר שממצה סבבים הוא מחזיר <b>STRONG_ALERT ב-11 מתוך 11</b>. כלומר הכלל הקפוא מקצה סיווגים שונים לקלטים שונים. הבדיקה <b>אינה</b> מוכיחה רגישות, סגוליות, נכונות, תועלת או יכולת הכללה, ואינה תוצאה מדעית.</div>
+<p class="note"><b>ניסוח קובע (מחליף ניסוח קודם):</b> הניסוח "הסף אינו מפריד" מבוטל. הניסוח הנכון הוא: <b>על קורפוס זה כל שלוש האפיזודות נופלות באותו צד של הסף</b>, ואילו בדיקת הפיקסצ׳ר הדטרמיניסטית מראה שהכלל הקפוא <b>כן</b> מקצה סיווגים שונים לקלטים שונים.</p>
 </div>
 </div>
 
@@ -284,7 +282,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 6 — קטעים לא מכוסים שזוהו, לפי מקרה</div>
-  <div class="cs" data-caveat="retrospective">N = 4 מקרים · סה"כ 86 קטעים</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> מספר הקטעים שלא כוסו, לכל מקרה · <b>מונה:</b> קטעים לא מכוסים במקרה · <b>מכנה:</b> 4 מקרים (סה"כ 86 קטעים) · <b>מקור:</b> תוצרי הצנרת לכל מקרה, חושבו מחדש דרך <code>analysis/extended-analytics.json</code> · <b>אינו מוכיח:</b> איכות המודל המועמד, נכונות הכיסוי או יכולת הכללה; זהו תוצר שכבת המיפוי ואינו קלט ל-Detector-v1</div>
   <div class="row"><span class="lbl">מקרה 01</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">23</span></span></div>
   <div class="row"><span class="lbl">מקרה 02</span><span class="track"><span class="bar" style="width:95.7%"></span><span class="val">22</span></span></div>
   <div class="row"><span class="lbl">מקרה 03</span><span class="track"><span class="bar" style="width:91.3%"></span><span class="val">21</span></span></div>
@@ -301,23 +299,29 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><td>סיווגי שונות (agent4)</td><td class="n">19</td></tr>
 <tr><td>— שונות מהותית</td><td class="n">14</td></tr>
 <tr><td>— שונות מזדמנת</td><td class="n">5</td></tr>
-<tr><td>דפוסי סטייה</td><td class="n">0</td></tr>
+<tr class="hi"><td>תוצאת מיפוי (שכבה נפרדת)</td><td class="n">Satisfied 4/4 · Partially 0 · Not 0</td></tr>
+<tr><td>דפוסי הנחיות חוזרים (<code>recurring_guideline_patterns</code>)</td><td class="n">0</td></tr>
+<tr><td>דפוסי קטעים חוזרים (<code>recurring_fragment_patterns</code>)</td><td class="n">19</td></tr>
+<tr><td>— תוויות: <code>Alternative</code> / <code>Domain Mistake</code></td><td class="n">14 / 5</td></tr>
+<tr><td>— <code>probe_confirmed</code></td><td class="n">False בכל 19</td></tr>
 </table>
-<p class="note"><b>הבהרה חשובה:</b> מקרים 01 ו-04 לא ייצרו אפיזודות Q&amp;A, אך <b>כן</b> הפיקו תוצר מדעי מלא. היעדר שאלות אינו היעדר עיבוד.</p>
+<p class="note"><b>תיקון שם-מפתח:</b> דיווח קודם הציג שורה יחידה "דפוסי סטייה = 0". קיימים שני שדות נפרדים: דפוסי הנחיות (0) ודפוסי קטעים (19). ‏<code>Alternative</code> משמעה ניסוח חלופי תקף — <b>אינה שגיאה</b>.</p>
+<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) תוצאת מיפוי — שיפוט הצנרת לגבי המודל המועמד; (ב) אות מצב-שיחה — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים; (ג) פעולה תפעולית — מועמדות לבדיקה אנושית. ‏<b>Detector-v1 קורא אך ורק את שכבה (ב)</b>. תוצאת המיפוי, תוויות דפוסי הקטעים ו-C1–C3 <b>אינם קלט שלו</b> ואינם יכולים להפעיל התראה.</p>
+<p class="note"><b>הבהרה:</b> מקרים 01 ו-04 לא ייצרו אפיזודות Q&amp;A אך <b>כן</b> הפיקו תוצר מלא. היעדר שאלות אינו היעדר עיבוד.</p>
 </div>
 </div>
 
-<h2 style="margin-top:2.2mm">10. משתני הקשר C1–C3 — מתוקן</h2>
+<h2 style="margin-top:2.2mm">10. משתני הקשר C1–C3 — הקשר בלבד, לעולם אינם מפעילים התראה</h2>
 <div class="grid2">
 <div>
 <table>
-<tr><th>משתנה</th><th class="n">ערך שנצפה</th></tr>
-<tr><td>C1 — <code>mapping_certainty</code> &lt; 0.7</td><td class="n">ערך אחד: 0.85 → <b>0 מופעים</b></td></tr>
-<tr><td>C2 — ביטחון סיווג agent4</td><td class="n">גבוה 15 · בינוני 4</td></tr>
-<tr><td>C3 — <code>flag_for_guidelines_update</code></td><td class="n">כן 14 · לא 5</td></tr>
-<tr class="hi"><td><code>requires_human_review</code> (דגל המערכת)</td><td class="n"><b>False בכל 19</b></td></tr>
+<tr><th>משתנה</th><th class="n">ערך שנצפה</th><th class="n">מכנה</th><th class="n">מפעיל?</th></tr>
+<tr><td>C1 — <code>mapping_certainty</code> &lt; 0.7</td><td class="n">0.85 → <b>0 מופעים</b></td><td class="n">הנחיה 1</td><td class="n">לא</td></tr>
+<tr><td>C2 — ביטחון סיווג agent4</td><td class="n">גבוה 15 · בינוני 4</td><td class="n">19 דפוסים</td><td class="n">לא</td></tr>
+<tr><td>C3 — <code>flag_for_guidelines_update</code></td><td class="n">כן 14 · לא 5</td><td class="n">19 דפוסים</td><td class="n">לא</td></tr>
+<tr class="hi"><td><code>requires_human_review</code> (דגל המערכת)</td><td class="n"><b>False בכל 19</b></td><td class="n">19 דפוסים</td><td class="n">לא</td></tr>
 </table>
-<p class="note"><b>תיקון לדוח קודם:</b> ‏C2 ו-C3 דווחו קודם כ-<code>NOT_AVAILABLE</code>. בפועל שניהם חושבו מתוצרי הריצה, והדיווח תוקן כאן.</p>
+<p class="note"><b>מכנה:</b> משתני ההקשר נמדדים על <b>19 דפוסי שונות</b> — לא על 3 אפיזודות ולא על 4 מקרים. ‏<b>Detector-v1 קורא אך ורק את S1/S3/S7 ואת S2/S6.</b> <b>תיקון:</b> דיווח קודם הציג את C2 ואת C3 כ-<code>NOT_AVAILABLE</code>; דיווח זה היה שגוי ו<b>מבוטל בזאת</b> — שני הערכים חושבו מתוצרי הריצה ומובאים לעיל.</p>
 </div>
 <div>
 <div class="warn" style="margin:0"><b>תצפית ההקשר המשמעותית ביותר:</b> דגל הביקורת האנושית של המערכת עצמה, <code>requires_human_review</code>, הוא <b>False בכל 19 הסיווגים</b> — בעוד ש-Detector-v1 סימן <b>3 מתוך 3</b> האפיזודות כהתרעה חזקה. שני המדדים אינם אמת-קרקע ואינם מודדים את אותה יחידה (אפיזודות מול דפוסים), ולכן <b>אין להסיק מכך שאחד מהם צודק</b>. הפער עצמו הוא התצפית.</div>
@@ -332,6 +336,6 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 </table>
 <p class="note">אף תשובה לא הייתה חסרת ראיה, ולכן S3 לא נורה. נמדדה <b>נוכחות</b> ואורך בלבד — <b>איכות</b> הראיה, נכונותה ורלוונטיותה לא נבדקו ואינן ניתנות לבדיקה מנתונים אלה.</p>
 
-<p class="note" style="margin-top:1.4mm"><b>מה הניתוח המורחב הוסיף:</b> הסבר מכניסטי ל-3/3 (סבב ראשון נוטה לביטחון נמוך, ו-S1 נורה על תשובה נמוכה אחת) · הוכחה שהגלאי מבחין (NO_ALERT 10/10 מול STRONG 11/11) · הפעלה ראשונה של <code>VALID_ZERO_QA_RUN</code> · תפוקת צנרת מלאה 4/4 מקרים · תיקון C2/C3. אף אחד מאלה אינו משנה את Detector-v1, את הספים או את המכנים.</p>
+<p class="note" style="margin-top:1.4mm"><b>מה הניתוח המורחב הוסיף:</b> הסבר מכניסטי ל-3/3 · בדיקת מכשור המראה שהכלל הקפוא מקצה סיווגים שונים לקלטים שונים (התנהגות קוד בלבד, מכנים נפרדים) · הפעלה ראשונה של <code>VALID_ZERO_QA_RUN</code> · תפוקת צנרת 4/4 <code>Satisfied</code> · פירוק דפוסי ההנחיות (0) ודפוסי הקטעים (19) · תיקון דיווח C2/C3. אף אחד מאלה אינו משנה את Detector-v1, את הספים או את המכנים.</p>
 
 </body></html>
