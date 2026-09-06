@@ -81,7 +81,7 @@ code { direction:ltr; unicode-bidi:isolate; }
 <div class="warn"><b>4 פערי ייחוס (PROVENANCE_GAP) — שלושה בקבלת ההרצה, ורביעי על מגבלת הסבבים שאינה נרשמת בקבלה:</b> קבלת ההרצה האמיתית אינה קושרת את גיבוב יומן האירועים שלה, אינה נושאת סיכום מחזור-חיים, ואינה רושמת את גרסת הקוד שתחתיה רצה — בעוד שקבלת הבדיקה המקדימה קושרת את שלושתם. אלה <b>פערי תיעוד ולא שגיאות ערך</b>: אפס בדיקות ערך נכשלו מתוך 92. הקבלה הקיימת לא שונתה בדיעבד; ההרצה הבאה תקשור את שלושת השדות.</div>
 
 <h2>3. טבלת אפיזודות</h2>
-<div class="banner" style="margin-bottom:1.4mm"><b>הגדרת התראה:</b> ‏<code>STRONG_ALERT</code> ו-<code>WEAK_ALERT</code> מציינים <b>מועמדות לבדיקה אנושית</b> בלבד. אין בהם קביעה ששגיאה אירעה, שהמודל שגה, שהתוצר פגום או שנדרשה התערבות אנושית.</div>
+<div class="banner" style="margin-bottom:1.4mm"><b>הגדרת התרעה:</b> ‏<code>STRONG_ALERT</code> ו-<code>WEAK_ALERT</code> מציינים <b>מועמדות לבדיקה אנושית</b> בלבד. אין בהם קביעה ששגיאה אירעה, שהמודל שגה, שהתוצר פגום או שנדרשה התערבות אנושית.</div>
 <table>
 <tr><th>אפיזודה</th><th class="n">מקרה</th><th class="n">סיום</th><th class="n">שאלות</th><th class="n">תשובות</th><th class="n">סבב מרבי</th><th class="n">נמוך/בינוני/גבוה</th><th class="n">אותות חזקים</th><th class="n">אותות חלשים</th><th class="n">סיווג</th></tr>
 <tr><td><code>EP-577319bf37c87…</code></td><td class="n">02</td><td class="n">CONVERGED</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">1/0/0</td><td class="n">S1</td><td class="n">—</td><td class="n"><b>STRONG_ALERT</b></td></tr>
@@ -136,7 +136,7 @@ code { direction:ltr; unicode-bidi:isolate; }
 </div>
 </div>
 
-<h2>6. משתני הקשר C1–C3 — הקשר בלבד, לעולם לא מפעילים התראה</h2>
+<h2>6. משתני הקשר C1–C3 — הקשר בלבד, לעולם לא מפעילים התרעה</h2>
 <table>
 <tr><th>משתנה</th><th>הגדרה</th><th class="n">ערך שנצפה</th><th class="n">מכנה</th><th class="n">משפיע על סיווג?</th></tr>
 <tr><td>C1</td><td><code>mapping_certainty &lt; 0.7</code></td><td class="n">ערך יחיד 0.85 → 0 מופעים</td><td class="n">הנחיית ייחוס אחת</td><td class="n">לא</td></tr>
@@ -165,7 +165,7 @@ code { direction:ltr; unicode-bidi:isolate; }
 <tr><td><code>probe_confirmed</code></td><td class="n">False בכל 19</td></tr>
 </table>
 <p class="note"><b>תיקון שם שדה:</b> דיווח קודם הציג שורה יחידה בשם "דפוסי סטייה" עם הערך 0. זו הייתה תקלת שם-מפתח; קיימים שני שדות נפרדים כמפורט לעיל. סיווגי שונות: 19 (מהותית 14 · מזדמנת 5) · הנחיות ייחוס 1. <b>מקרים 01 ו-04 לא ייצרו שאלות אך כן הפיקו תוצר מלא</b> — היעדר שאלות אינו היעדר עיבוד.</p>
-<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) <b>תוצאת מיפוי</b> — Satisfied / Partially-Satisfied / Not-Satisfied, שיפוט הצנרת לגבי המודל המועמד; (ב) <b>אות מצב-שיחה</b> — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים, <b>הקלט היחיד</b> של Detector-v1; (ג) <b>תווית דיווח</b> — מועמדות לבדיקה אנושית, הפלט. <b>תוצאת המיפוי, תוויות דפוסי הקטעים ומשתני C1–C3 אינם מוזנים כלל אל Detector-v1</b> ואינם יכולים להפעיל התראה. ‏<code>Alternative</code> ו-<code>Not-Satisfied</code> שייכים לשכבה (א) — אינם שגיאות ואינם טריגרים.</p>
+<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) <b>תוצאת מיפוי</b> — Satisfied / Partially-Satisfied / Not-Satisfied, שיפוט הצנרת לגבי המודל המועמד; (ב) <b>אות מצב-שיחה</b> — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים, <b>הקלט היחיד</b> של Detector-v1; (ג) <b>תווית דיווח</b> — מועמדות לבדיקה אנושית, הפלט. <b>תוצאת המיפוי, תוויות דפוסי הקטעים ומשתני C1–C3 אינם מוזנים כלל אל Detector-v1</b> ואינם יכולים להפעיל התרעה. ‏<code>Alternative</code> ו-<code>Not-Satisfied</code> שייכים לשכבה (א) — אינם שגיאות ואינם טריגרים.</p>
 
 <h2>8. עלות וקריאות — כולל ניסיונות שנכשלו</h2>
 <table>

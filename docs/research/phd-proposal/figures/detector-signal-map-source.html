@@ -50,11 +50,11 @@ code { direction:ltr; unicode-bidi:isolate; }
 </table>
 <p class="note"><b>הכלל שהוקפא מראש:</b> <code>STRONG_ALERT = S1 ∨ S3 ∨ S7</code> · <code>WEAK_ALERT = ¬STRONG ∧ (S2 ∨ S6)</code> · אחרת <code>NO_ALERT</code>. כל השדות סגורים ונרשמים על-ידי המערכת עצמה: אין קריאת תוכן ואין פרשנות. <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>).</p>
 
-<h2>3. מה אינו מפעיל התראה ישירה של הגלאי?</h2>
+<h2>3. מה אינו מפעיל התרעה ישירה של הגלאי?</h2>
 <table>
-<tr><th>פריט</th><th>מה זה</th><th class="n">סוג</th><th class="n">מפעיל התראה?</th><th>מה אינו אומר</th></tr>
+<tr><th>פריט</th><th>מה זה</th><th class="n">סוג</th><th class="n">מפעיל התרעה?</th><th>מה אינו אומר</th></tr>
 <tr><td><code>Alternative</code></td><td>תווית על מקטע במודל שאינו מכוסה בקווי ההנחיה</td><td class="n">תוצר סמנטי</td><td class="n"><b>לא</b></td><td><b>אינה שגיאה.</b> ניסוח חלופי תקף; <code>probe_confirmed</code> הוא <code>false</code> בכל 19 הדפוסים</td></tr>
-<tr><td><code>Non-Satisfied</code></td><td>תוצאת מיפוי: קו ההנחיה אינו מסופק במודל</td><td class="n">תוצר סמנטי</td><td class="n"><b>לא</b></td><td>אינה שגיאת מערכת ואינה עילה להתראה. בהרצה זו: <b>0 מופעים</b></td></tr>
+<tr><td><code>Non-Satisfied</code></td><td>תוצאת מיפוי: קו ההנחיה אינו מסופק במודל</td><td class="n">תוצר סמנטי</td><td class="n"><b>לא</b></td><td>אינה שגיאת מערכת ואינה עילה להתרעה. בהרצה זו: <b>0 מופעים</b></td></tr>
 <tr><td><code>mapping_certainty</code></td><td>ודאות המיפוי שסוכן 2 מייחס לקו הנחיה</td><td class="n">משתנה תיאורי</td><td class="n"><b>לא</b></td><td>מתחת ל-0.7 מפעיל <b>שאלה פנימית</b> מסוכן 2 לסוכן 1 — לא בדיקה אנושית</td></tr>
 <tr><td><code>C1</code></td><td><code>mapping_certainty &lt; 0.7</code></td><td class="n">הקשר</td><td class="n"><b>לא</b></td><td>ערך יחיד <code>0.85</code> → אפס מופעים מתחת לסף</td></tr>
 <tr><td><code>C2</code></td><td>ודאות סיווג של סוכן 4</td><td class="n">הקשר</td><td class="n">לא בגלאי · <b>כן</b> בסעיף 5</td><td>גבוה 15 · בינוני 4 (n=19 דפוסים)</td></tr>
