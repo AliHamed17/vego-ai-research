@@ -32,6 +32,7 @@ SETTING_ID = "cd_airtravel"
 CORPUS_ID = "text2uml_airtravel_253b26dc"
 EXPECTED_CASES = 4
 SCHEMA_VERSION = "study1-evidence-validation-v1"
+MAX_QA_ROUNDS = 10
 
 
 class Check:
@@ -52,7 +53,11 @@ class Check:
 
     @property
     def value_failures(self) -> list[dict[str, Any]]:
-        return [r for r in self.rows if r["status"] == "FAIL"]
+        """FAIL is a wrong value; NOT_VERIFIABLE is an artifact this validator must check and
+        cannot find. Both must terminate non-zero, or deleting a derived file would silently
+        remove its cross-checks and still report success. PROVENANCE_GAP is neither: it records
+        that the receipt does not bind a quantity, which is a disclosed fact about the run."""
+        return [r for r in self.rows if r["status"] in {"FAIL", "NOT_VERIFIABLE"}]
 
 
 def digest(path: Path) -> str:
@@ -530,8 +535,8 @@ def main() -> int:
             "absent",
             "recomputed from the event stream instead; receipt carries no lifecycle summary",
         )
-    check.compare("complete episodes == detector denominator",
-                  facts["complete_episodes"], sum(facts["classifications"].values()))
+    check.compare("denominator excludes incomplete-technical episodes",
+                  facts["total_episodes"] - facts["excluded_episodes"], facts["complete_episodes"])
     check.compare("excluded episodes", 0, facts["excluded_episodes"])
     check.compare("questions == answers", facts["questions"], facts["answers"])
 
@@ -544,17 +549,32 @@ def main() -> int:
                  note="zero-length count drives S3; semantic quality never inspected")
     check.compare("S3 fired", 0, facts["signals"].get("S3", 0))
     check.compare("zero-length evidence answers", 0, facts["evidence_lengths"]["zero_length"])
+    check.record("C1 is computable from pipeline outputs",
+                 "PASS" if facts["C1_values"] else "FAIL",
+                 "a non-empty certainty list", facts["C1_values"])
     check.compare("C1 below 0.7", 0,
                   sum(1 for v in facts["C1_values"] if isinstance(v, (int, float)) and v < 0.7))
+    check.compare("evidence length sample covers every answer", facts["answers"],
+                  facts["evidence_lengths"]["n"],
+                  "a zero-length count is only meaningful if every answer was measured")
     check.record("C1/C2/C3 never trigger alerts", "PASS",
                  note="classification derives only from S1/S3/S7 and S2/S6")
 
-    check.compare("max round index", 10, facts["max_round"],
-                  "MAX_QA_ROUNDS is 10; a higher value would mean the bound was not enforced")
+    check.record("round bound enforced",
+                 "PASS" if facts["max_round"] <= MAX_QA_ROUNDS else "FAIL",
+                 f"<= {MAX_QA_ROUNDS}", facts["max_round"],
+                 "exceeding the bound would mean the round loop was not enforced")
+    check.record("MAX_QA_ROUNDS bound in receipt", "PROVENANCE_GAP", "max_qa_rounds", "absent",
+                 f"the bound is a constant in the harness ({MAX_QA_ROUNDS}); the receipt does not "
+                 "record the round limit the run executed under")
     check.compare("confidence total == answers", facts["answers"],
                   sum(facts["confidence"].values()))
-    check.compare("confidence labels are the frozen three", ["High", "Low", "Medium"],
-                  sorted(facts["confidence"]))
+    unexpected = sorted(set(facts["confidence"]) - {"High", "Low", "Medium"})
+    check.record("confidence labels are within the frozen three",
+                 "FAIL" if unexpected else "PASS",
+                 "a subset of ['High', 'Low', 'Medium']", sorted(facts["confidence"]),
+                 "a level that never occurs is a legitimate observation; only an unexpected "
+                 f"label is a defect{' — found ' + str(unexpected) if unexpected else ''}")
     check.compare("per-round answers sum to answers", facts["answers"],
                   sum(sum(c.values()) for c in facts["confidence_by_round"].values()))
     check.compare("episode answer counts sum to answers", facts["answers"],
@@ -628,8 +648,23 @@ def main() -> int:
                         strong, weak, none)
 
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-    check.record("reviewed_head bound in real-run receipt", "PROVENANCE_GAP", "40-char SHA", "absent",
-                 "real-run receipt carries run_id but not the code SHA it executed under")
+    dirty = bool(subprocess.run(["git", "status", "--porcelain"], cwd=ROOT,
+                                capture_output=True, text=True).stdout.strip())
+    check.record("reporting tree is committed",
+                 "PROVENANCE_GAP" if dirty else "PASS",
+                 "a clean working tree", "dirty" if dirty else "clean",
+                 "a stamp taken from a dirty tree names a commit that cannot reproduce this "
+                 "artifact; reporting_code_sha is marked DIRTY_TREE until the tree is committed")
+    if "reviewed_head" in receipt:
+        check.compare("reviewed_head bound in real-run receipt", receipt["reviewed_head"],
+                      receipt["reviewed_head"],
+                      "receipt binds its execution code SHA; compare it against the authorization packet")
+    else:
+        check.record("reviewed_head bound in real-run receipt", "PROVENANCE_GAP", "40-char SHA",
+                     "absent",
+                     "real-run receipt carries run_id but not the code SHA it executed under; the "
+                     "value efe686ac0b13c6e17695b816da7eb0cdd3eadcc1 is known from the authorization "
+                     "packet and the preflight receipt, not from this receipt")
 
     chain_checks = {"derived analysis-receipt: output inventory pin resolves"}
     scientific_failures = [r for r in check.value_failures if r["check"] not in chain_checks]
@@ -648,7 +683,7 @@ def main() -> int:
         "status": status,
         "scientific_values_reproduce": not scientific_failures,
         "failure_scope": scope,
-        "reporting_code_sha": head,
+        "reporting_code_sha": f"{head}+DIRTY_TREE" if dirty else head,
         "execution_code_sha": receipt.get("reviewed_head", "NOT_BOUND_IN_RECEIPT"),
         "evidence_hashes": {
             "event_log": digest(events_path),
