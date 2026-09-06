@@ -146,9 +146,12 @@ def _strict_lifecycle(events: list[dict[str, Any]]) -> None:
         answer_counts = Counter(row.get("question_id") for row in answers)
         if any(count != 1 for count in answer_counts.values()):
             raise EvidenceRecoveryError(f"episode {episode_id} has duplicate answers")
-        if reason in {"CONVERGED", "TERMINATED_MAX_ROUNDS"}:
-            if any(answer_counts.get(row["question_id"], 0) != 1 for row in episode_questions):
-                raise EvidenceRecoveryError(f"scientific episode {episode_id} has an unanswered question")
+        # Every emitted question must have exactly one later answer, including
+        # episodes that eventually become technical-incomplete.  Otherwise a
+        # partial transport record could be mistaken for a complete scientific
+        # episode during downstream aggregation.
+        if any(answer_counts.get(row["question_id"], 0) != 1 for row in episode_questions):
+            raise EvidenceRecoveryError(f"episode {episode_id} has an unanswered or multiply answered question")
         if reason not in TERMINATION_REASONS:
             raise EvidenceRecoveryError(f"episode {episode_id} has an unsupported termination reason")
     # Every answer must resolve to a prior question in the same episode.

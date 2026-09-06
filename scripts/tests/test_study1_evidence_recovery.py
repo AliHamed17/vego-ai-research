@@ -216,3 +216,16 @@ def test_non_accepted_run_class_is_not_scientific_evidence(tmp_path: Path, kind:
     binding.write_text(json.dumps(payload), encoding="utf-8")
     result = module.recover(evidence, binding)
     assert result["status"] == module.EVIDENCE_INVALID
+
+
+def test_incomplete_episode_with_unanswered_question_fails_closed(tmp_path: Path):
+    module, evidence, binding = _valid_fixture(tmp_path)
+    event_path = evidence / "output/qa_events.jsonl"
+    rows = [json.loads(line) for line in event_path.read_text(encoding="utf-8").splitlines()]
+    rows.pop(1)  # remove the answer; the terminal is now INCOMPLETE_TECHNICAL
+    rows[-1]["termination_reason"] = "INCOMPLETE_TECHNICAL"
+    rows[-1]["converged"] = None
+    event_path.write_text("\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n", encoding="utf-8")
+    result = module.recover(evidence, binding)
+    assert result["status"] == module.EVIDENCE_INVALID
+    assert result["recomputed"] is None

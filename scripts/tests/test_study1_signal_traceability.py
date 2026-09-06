@@ -145,7 +145,8 @@ def test_dictionary_and_matrix_have_required_contract_fields():
     dictionary = traceability.signal_dictionary()
     assert dictionary["review_context"]["origin_main_sha"] == "c34d3954b5e080d090017d2ea655d454d75a6b92"
     assert dictionary["review_context"]["pr_38_head"] == "a976494a624391efb0fb96e8f769512f52f52af0"
-    assert dictionary["review_context"]["pr_41_head"] == "8902e45dfd8388739aed8bc60dc0502bd5761078"
+    assert dictionary["review_context"]["pr_41_head"] == "63da0105f25207e3cc6e67bb3ec499652d65124c"
+    assert dictionary["review_context"]["pr_42_head"] == "de65a57d5ca7289cc6032baa7cc797499fdc6812"
     required = {
         "hebrew_name", "english_code_name", "source_artifact", "source_field",
         "unit_of_analysis", "calculation_rule", "code_reference", "measurement_kind",
@@ -178,7 +179,13 @@ def test_manifest_mismatch_fails_closed(tmp_path):
     manifest = tmp_path / "binding.json"
     manifest.write_text(json.dumps({
         "accepted_run": True,
-        "run_id": "run-1",
+        "run_identity": {
+            "run_id": "run-1",
+            "run_class": "accepted_replacement_real_run",
+            "accepted_replacement": True,
+            "fake_preflight": False,
+            "status": "ACCEPTED_REPLACEMENT",
+        },
         "artifacts": {"qa_events_jsonl": {"sha256": "0" * 64}},
     }), encoding="utf-8")
     with pytest.raises(traceability.EvidenceError):
@@ -199,7 +206,13 @@ def test_bound_accepted_event_log_can_be_recomputed_without_raw_output(tmp_path)
     manifest = tmp_path / "binding.json"
     manifest.write_text(json.dumps({
         "accepted_run": True,
-        "run_id": "accepted-fixture",
+        "run_identity": {
+            "run_id": "accepted-fixture",
+            "run_class": "accepted_replacement_real_run",
+            "accepted_replacement": True,
+            "fake_preflight": False,
+            "status": "ACCEPTED_REPLACEMENT",
+        },
         "artifacts": {"qa_events_jsonl": {"sha256": traceability._sha256_file(event_log)}},
     }), encoding="utf-8")
 

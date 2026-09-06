@@ -54,7 +54,9 @@ _QA = "VEGO-AI/framework/qa_communication.py"
 REVIEW_CONTEXT = {
     "origin_main_sha": "c34d3954b5e080d090017d2ea655d454d75a6b92",
     "pr_38_head": "a976494a624391efb0fb96e8f769512f52f52af0",
-    "pr_41_head": "8902e45dfd8388739aed8bc60dc0502bd5761078",
+    "pr_41_head": "63da0105f25207e3cc6e67bb3ec499652d65124c",
+    "pr_42_head": "de65a57d5ca7289cc6032baa7cc797499fdc6812",
+    "canonical_draft": "pr-41 descendant; PR-42 is divergent and not merged wholesale",
     "source_definitions_head": "c34d3954b5e080d090017d2ea655d454d75a6b92",
 }
 
@@ -599,7 +601,12 @@ def _manifest_artifact(manifest: dict[str, Any]) -> tuple[str, str]:
             "preflight",
         }:
             raise EvidenceError("fake-preflight evidence cannot be used as an accepted scientific run")
-    run_id = manifest.get("run_id")
+    identity = manifest.get("run_identity")
+    if not isinstance(identity, dict):
+        raise EvidenceError("binding manifest lacks run_identity")
+    if identity.get("accepted_replacement") is not True or identity.get("run_class") != "accepted_replacement_real_run" or identity.get("fake_preflight") is True:
+        raise EvidenceError("binding manifest run_identity is not an accepted replacement")
+    run_id = identity.get("run_id")
     if not isinstance(run_id, str) or not run_id:
         raise EvidenceError("binding manifest lacks run_id")
     artifacts = manifest.get("artifacts")

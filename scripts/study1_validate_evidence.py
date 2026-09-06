@@ -39,6 +39,9 @@ def main(argv: list[str] | None = None) -> int:
         )
     else:
         result = recover(args.run_root, args.binding_manifest)
+    if args.manifest.exists():
+        print(json.dumps({"status": "OUTPUT_EXISTS", "check_count": 0}, sort_keys=True))
+        return 3
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"

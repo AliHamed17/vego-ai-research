@@ -980,9 +980,11 @@
     "operational_action"
   ],
   "review_context": {
+    "canonical_draft": "pr-41 descendant; PR-42 is divergent and not merged wholesale",
     "origin_main_sha": "c34d3954b5e080d090017d2ea655d454d75a6b92",
     "pr_38_head": "a976494a624391efb0fb96e8f769512f52f52af0",
-    "pr_41_head": "8902e45dfd8388739aed8bc60dc0502bd5761078",
+    "pr_41_head": "63da0105f25207e3cc6e67bb3ec499652d65124c",
+    "pr_42_head": "de65a57d5ca7289cc6032baa7cc797499fdc6812",
     "source_definitions_head": "c34d3954b5e080d090017d2ea655d454d75a6b92"
   },
   "schema": "vego-ai-study1-signal-dictionary-v1",
