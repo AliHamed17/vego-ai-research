@@ -321,3 +321,45 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
 - Rollback note: Revert commit 93bd2c7 to remove v3.2.1 artifacts; ignored external_data remains local-only
 - Git commit: none recorded by script.
+
+## 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the authorization-repair commit only; preserve rejected v3 artifacts.
+- Git commit: none recorded by script.
+
+## 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-05-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the repair commit only; preserve the rejected v3 run and all prior evidence.
+- Git commit: none recorded by script.
+
+## 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-presentation-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+- Rollback note: Revert commit 89495c2 to remove the report reconciliation and receipt additions.
+- Git commit: none recorded by script.
