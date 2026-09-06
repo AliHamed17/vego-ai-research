@@ -1,6 +1,6 @@
 # VEGO-AI Study 1/Study 2 implementation handoff
 
-**Date:** 2026-09-06  
+**Date:** 2026-09-06
 **Evidence class:** implementation, protocol and validation metadata; no new
 provider run and no new scientific data.
 
