@@ -12,7 +12,7 @@ provider run and no new scientific data.
 | PR #38 | open, draft, unmerged | `a976494a624391efb0fb96e8f769512f52f52af0` |
 | PR #41 | open, draft, unmerged | `63da0105f25207e3cc6e67bb3ec499652d65124c` |
 | PR #42 | open, draft, unmerged; divergent Study 2 branch | `de65a57d5ca7289cc6032baa7cc797499fdc6812` |
-| local canonical implementation | isolated branch | `deb54052204e88c9d3efdeb6037a7e773950d0c1` |
+| local canonical implementation | isolated branch | `82cd510731531c472d7ae6a1249328c6fc2e3196` |
 
 PR #41 descends from PR #38. PR #42 is not an ancestor of PR #41, so only
 its Study 2 contract, schemas, fixture runner and tests were ported. No broad
