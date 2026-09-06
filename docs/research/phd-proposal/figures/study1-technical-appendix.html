@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<title>Study 1 Technical Appendix</title><style>
+@page { size: A4; margin: 10mm 11mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:8pt; line-height:1.3; margin:0; }
+h1 { font-size:13.5pt; margin:0 0 1mm; }
+h2 { font-size:9.6pt; margin:3mm 0 1.2mm; padding-bottom:0.7mm; border-bottom:1.4px solid rgb(42,120,214); color:rgb(20,55,94); }
+.sub { color:rgb(82,81,78); font-size:7.4pt; margin:0 0 2mm; }
+table { width:100%; border-collapse:collapse; font-size:7.2pt; margin:0 0 1.8mm; }
+th,td { border:1px solid rgb(216,216,212); padding:0.9mm 1.2mm; text-align:right; vertical-align:top; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
+td.h code { font-size:6pt; word-break:break-all; }
+.hi { background:rgb(255,248,232); font-weight:700; }
+.note { font-size:6.9pt; color:rgb(82,81,78); margin:0.7mm 0 0; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52); padding:1.5mm 2.2mm; font-size:7.4pt; margin:0 0 1.8mm; }
+.banner { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214); padding:1.5mm 2.2mm; font-size:7.4pt; margin:0 0 1.8mm; }
+.pb { page-break-before: always; }
+code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,243); padding:0 0.5mm; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3mm; align-items:start; }
+.tag { display:inline-block; background:rgb(235,104,52); color:white; font-size:6.6pt; padding:0.3mm 1.3mm; border-radius:1mm; font-weight:700; }
+ul { margin:0.6mm 4mm 1.4mm 0; padding:0; } li { margin-bottom:0.4mm; }
+</style></head><body>
+
+<h1>מחקר 1 — AirTravel: נספח טכני</h1>
+<p class="sub">כל ערך חושב מחדש מיומן האירועים, מקבלת ההרצה ומתוצרי הצנרת · אין ערך מסופר · 2026-09-06</p>
+
+<h2>1. שרשרת הראיות</h2>
+<table>
+<tr><th>פריט</th><th class="n">ערך</th></tr>
+<tr><td>קוד ביצוע (execution_code_sha)</td><td class="n"><code>efe686ac0b13c6e17695b816da7eb0cdd3eadcc1</code><br><span class="note">ידוע מהקשר ההרצה ומקבלת הבדיקה המקדימה; <b>אינו קשור בקבלת ההרצה עצמה</b> — ראו פער ייחוס בסעיף 2.</span></td></tr>
+<tr><td>קוד דיווח (reporting_code_sha)</td><td class="n"><code>bb8422a55a04c99cf6e2de54d142e357adee7890</code></td></tr>
+<tr><td>מזהה הגדרה / קורפוס</td><td class="n"><code>cd_airtravel</code> / <code>text2uml_airtravel_253b26dc</code></td></tr>
+<tr><td>ארכיון ריצה</td><td class="n"><code>e37baecd…35fdd31f</code></td></tr>
+<tr><td>אימות מקור</td><td class="n">143/143 קבצים · 5/5 קובצי ריצה</td></tr>
+</table>
+<table><tr><td><code>compliance_vectors.json</code></td><td class="h"><code>87c71ed38834d1d35dd9dd699ea37fe64f08db071beb5a502b2ecce12ff27249</code></td></tr>
+<tr><td><code>deviation_patterns.json</code></td><td class="h"><code>96f07c5aa6080fceb6fcd533b674afba14c6572980ac82c262ef1339c737fc88</code></td></tr>
+<tr><td><code>dom_qa_history.json</code></td><td class="h"><code>f3e2aa09adafa970dd739b015f7a4a4e6c8f6213e5659f02e99d1eee152153ba</code></td></tr>
+<tr><td><code>event_log</code></td><td class="h"><code>55ea9361304482033a5b6fed83697a748dbd89b8d951e80c211eba69d117cac4</code></td></tr>
+<tr><td><code>lang_qa_history.json</code></td><td class="h"><code>10efef0d9dc6cf28caca044864ff451394c5c2d023435d69f81f268b30dd7a36</code></td></tr>
+<tr><td><code>language_template.json</code></td><td class="h"><code>80235567e8d5b62bd78df7585b0dea4539a59ae1fe2a9293108626acab011be7</code></td></tr>
+<tr><td><code>pipeline_state.json</code></td><td class="h"><code>e6c7e3d4539280b3bed6891958105235346cc4ca176551f48b7e78237e2c3813</code></td></tr>
+<tr><td><code>reference_guidelines.json</code></td><td class="h"><code>69300b02deb4c544e8afe2dfa907b750b22eea806583f71cd29e3c69fe843359</code></td></tr>
+<tr><td><code>run-receipt.json</code></td><td class="h"><code>7bb234a6dee79860ce007027d2f8ebcdd24489dc9c5436a3a683fe477eeb2438</code></td></tr>
+<tr><td><code>run_receipt</code></td><td class="h"><code>7bb234a6dee79860ce007027d2f8ebcdd24489dc9c5436a3a683fe477eeb2438</code></td></tr>
+<tr><td><code>uncovered_fragments.json</code></td><td class="h"><code>51396f896de73e488992521bfab2bc9f5446094b98f4c50dca4bcc9f9d4330e5</code></td></tr>
+<tr><td><code>variability_classifications.json</code></td><td class="h"><code>a0d28aa7b57e18956b75c8f8e00f1bda72c1cc8d08eee09c7cf2f7faf7c67a14</code></td></tr></table>
+
+<h2>2. אימות אוטומטי — 20 בדיקות מול מקור הראיות</h2>
+<table>
+<tr><th>בדיקה</th><th class="n">מצב</th><th class="n">צפוי</th><th class="n">בפועל</th></tr>
+<tr><td>setting_id</td><td class="n">PASS</td><td class="n">cd_airtravel</td><td class="n">cd_airtravel</td></tr>
+<tr><td>corpus_id</td><td class="n">PASS</td><td class="n">text2uml_airtravel_253b26dc</td><td class="n">text2uml_airtravel_253b26dc</td></tr>
+<tr><td>N cases declared</td><td class="n">PASS</td><td class="n">4</td><td class="n">4</td></tr>
+<tr><td>cases with pipeline output</td><td class="n">PASS</td><td class="n">4</td><td class="n">4</td></tr>
+<tr><td>event log hash bound in receipt</td><td class="n">PROVENANCE_GAP</td><td class="n">a sha256 field</td><td class="n">absent</td></tr>
+<tr><td>episodes</td><td class="n">PASS</td><td class="n">3</td><td class="n">3</td></tr>
+<tr><td>questions</td><td class="n">PASS</td><td class="n">44</td><td class="n">44</td></tr>
+<tr><td>answers</td><td class="n">PASS</td><td class="n">44</td><td class="n">44</td></tr>
+<tr><td>route pairs</td><td class="n">PASS</td><td class="n">3</td><td class="n">3</td></tr>
+<tr><td>termination states bound in receipt</td><td class="n">PROVENANCE_GAP</td><td class="n">termination_counts</td><td class="n">absent</td></tr>
+<tr><td>complete episodes == detector denominator</td><td class="n">PASS</td><td class="n">3</td><td class="n">3</td></tr>
+<tr><td>excluded episodes</td><td class="n">PASS</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>questions == answers</td><td class="n">PASS</td><td class="n">44</td><td class="n">44</td></tr>
+<tr><td>classification total == denominator</td><td class="n">PASS</td><td class="n">3</td><td class="n">3</td></tr>
+<tr><td>S3 basis is length only</td><td class="n">PASS</td><td class="n">—</td><td class="n">—</td></tr>
+<tr><td>S3 fired</td><td class="n">PASS</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>zero-length evidence answers</td><td class="n">PASS</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>C1 below 0.7</td><td class="n">PASS</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>C1/C2/C3 never trigger alerts</td><td class="n">PASS</td><td class="n">—</td><td class="n">—</td></tr>
+<tr><td>reviewed_head bound in real-run receipt</td><td class="n">PROVENANCE_GAP</td><td class="n">40-char SHA</td><td class="n">absent</td></tr>
+</table>
+<div class="warn"><b>שלושה פערי ייחוס (PROVENANCE_GAP):</b> קבלת ההרצה האמיתית אינה קושרת את גיבוב יומן האירועים שלה, אינה נושאת סיכום מחזור-חיים, ואינה רושמת את גרסת הקוד שתחתיה רצה — בעוד שקבלת הבדיקה המקדימה קושרת את שלושתם. אלה <b>פערי תיעוד ולא שגיאות ערך</b>: כל 17 בדיקות הערך עברו. הקבלה הקיימת לא שונתה בדיעבד; ההרצה הבאה תקשור את שלושת השדות.</div>
+
+<h2>3. טבלת אפיזודות</h2>
+<table>
+<tr><th>אפיזודה</th><th class="n">מקרה</th><th class="n">סיום</th><th class="n">שאלות</th><th class="n">תשובות</th><th class="n">סבב מרבי</th><th class="n">נמוך/בינוני/גבוה</th><th class="n">אותות חזקים</th><th class="n">אותות חלשים</th><th class="n">סיווג</th></tr>
+<tr><td><code>EP-577319bf37c87…</code></td><td class="n">02</td><td class="n">CONVERGED</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">1/0/0</td><td class="n">S1</td><td class="n">—</td><td class="n"><b>STRONG_ALERT</b></td></tr>
+<tr><td><code>EP-cefe8dd7f42da…</code></td><td class="n">03</td><td class="n">CONVERGED</td><td class="n">4</td><td class="n">4</td><td class="n">2</td><td class="n">3/1/0</td><td class="n">S1</td><td class="n">S2 S6</td><td class="n"><b>STRONG_ALERT</b></td></tr>
+<tr><td><code>EP-81b2c98d59125…</code></td><td class="n">חוצה-מקרים</td><td class="n">TERMINATED_MAX_ROUNDS</td><td class="n">39</td><td class="n">39</td><td class="n">10</td><td class="n">12/24/3</td><td class="n">S1 S7</td><td class="n">S2 S6</td><td class="n"><b>STRONG_ALERT</b></td></tr>
+</table>
+<p class="note"><b>כללי מכנה:</b> אפיזודה "שלמה" היא <code>CONVERGED</code> או <code>TERMINATED_MAX_ROUNDS</code>. אפיזודות <code>INCOMPLETE_TECHNICAL</code> מוחרגות מכל מכנה ומדווחות בנפרד. בהרצה זו: 3 שלמות, 0 מוחרגות.</p>
+
+<h2>4. טבלת מסלולי תקשורת</h2>
+<div class="grid2">
+<div>
+<table>
+<tr><th class="n">סוכן שואל</th><th class="n">סוכן משיב</th><th class="n">מספר שאלות</th></tr>
+<tr><td class="n">agent4</td><td class="n">agent2</td><td class="n">39</td></tr>
+<tr><td class="n">agent3</td><td class="n">agent2</td><td class="n">4</td></tr>
+<tr><td class="n">agent3</td><td class="n">agent1</td><td class="n">1</td></tr>
+<tr class="hi"><td class="n">סה"כ</td><td class="n">—</td><td class="n">44</td></tr>
+</table>
+</div>
+<div>
+<p class="note">שלושה מסלולים מכוונים נצפו מתוך שישה אפשריים. <b>לא נצפו כלל:</b> agent2 שואל את agent1; agent2 שואל את agent2; agent4 שואל את agent1.</p>
+<p class="note">88.6% מהשאלות (39 מתוך 44) הגיעו ממסלול יחיד — agent4 שואל את agent2 — כולן באפיזודה שהגיעה למגבלת הסבבים.</p>
+</div>
+</div>
+
+<div class="pb"></div>
+<h1>פירוק אותות, הקשר, עלות וגבולות</h1>
+<p class="sub">המשך הנספח הטכני</p>
+
+<h2>5. דינמיקת סבבים ופירוק אותות</h2>
+<div class="grid2">
+<div>
+<table>
+<tr><th class="n">סבב</th><th class="n">תשובות</th><th class="n">נמוך</th><th class="n">בינוני</th><th class="n">גבוה</th><th class="n">% נמוך</th><th class="n">חציון אורך ראיה</th></tr>
+<tr><td class="n">1</td><td class="n">7</td><td class="n">7</td><td class="n">0</td><td class="n">0</td><td class="n">100%</td><td class="n">62</td></tr>
+<tr><td class="n">2</td><td class="n">7</td><td class="n">2</td><td class="n">4</td><td class="n">1</td><td class="n">29%</td><td class="n">128</td></tr>
+<tr><td class="n">3</td><td class="n">5</td><td class="n">1</td><td class="n">4</td><td class="n">0</td><td class="n">20%</td><td class="n">62</td></tr>
+<tr><td class="n">4</td><td class="n">5</td><td class="n">2</td><td class="n">3</td><td class="n">0</td><td class="n">40%</td><td class="n">62</td></tr>
+<tr><td class="n">5</td><td class="n">4</td><td class="n">0</td><td class="n">4</td><td class="n">0</td><td class="n">0%</td><td class="n">62</td></tr>
+<tr><td class="n">6</td><td class="n">4</td><td class="n">0</td><td class="n">2</td><td class="n">2</td><td class="n">0%</td><td class="n">56</td></tr>
+<tr><td class="n">7</td><td class="n">3</td><td class="n">0</td><td class="n">3</td><td class="n">0</td><td class="n">0%</td><td class="n">44</td></tr>
+<tr><td class="n">8</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">100%</td><td class="n">44</td></tr>
+<tr><td class="n">9</td><td class="n">3</td><td class="n">0</td><td class="n">3</td><td class="n">0</td><td class="n">0%</td><td class="n">77</td></tr>
+<tr><td class="n">10</td><td class="n">4</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">50%</td><td class="n">251</td></tr>
+</table>
+</div>
+<div>
+<p class="note"><b>פירוק האותות:</b> ב-2 מתוך 3 האפיזודות S1 הוא הטריגר החזק היחיד; באחת נורה גם S7. ‏S3 לא נורה באף אפיזודה.</p>
+<p class="note"><b>הערת עמידות (אינה שינוי הגדרה):</b> אילו S1 לא היה נכלל, היו מתקבלים STRONG אחד ו-WEAK אחד. הסף לא שונה ולא ישונה בדיעבד.</p>
+<p class="note"><b>אורך שדה הראיה (בסיס S3):</b> n=44 · מינימום 38 · אחוזון 25: 44 · חציון 62 · אחוזון 75: 155 · מקסימום 540 · באורך אפס: <b>0</b>. נמדדה נוכחות ואורך בלבד — <b>איכות הראיה לא נמדדה</b>.</p>
+<p class="note">סבב 8 נשען על שתי תשובות בלבד ואינו מגמה.</p>
+</div>
+</div>
+
+<h2>6. משתני הקשר C1–C3 — הקשר בלבד, לעולם לא מפעילים התראה</h2>
+<table>
+<tr><th>משתנה</th><th>הגדרה</th><th class="n">ערך שנצפה</th><th class="n">משפיע על סיווג?</th></tr>
+<tr><td>C1</td><td><code>mapping_certainty &lt; 0.7</code></td><td class="n">ערך יחיד 0.85 → 0 מופעים</td><td class="n">לא</td></tr>
+<tr><td>C2</td><td>ביטחון סיווג agent4</td><td class="n">גבוה 15 · בינוני 4</td><td class="n">לא</td></tr>
+<tr><td>C3</td><td><code>flag_for_guidelines_update</code></td><td class="n">כן 14 · לא 5</td><td class="n">לא</td></tr>
+<tr class="hi"><td colspan="2"><code>requires_human_review</code> — דגל המערכת עצמה</td><td class="n">False בכל 19</td><td class="n">לא</td></tr>
+</table>
+<div class="banner"><b>תצפית הקשר:</b> דגל הביקורת האנושית של המערכת עצמה הוא False בכל 19 הסיווגים, בעוד Detector-v1 סימן 3 מתוך 3 האפיזודות. שני המדדים <b>אינם אמת-קרקע</b> ואינם מודדים את אותה יחידה (אפיזודות מול דפוסים). <b>אין להסיק מכך שאחד מהם צודק.</b> ‏C3 נמצא חופף לחלוטין ל"שונות מהותית" (14=14), כפי שנרשם מראש.</div>
+
+<h2>7. תפוקת הצנרת — כל ארבעת המקרים</h2>
+<table>
+<tr><th class="n">מקרה</th><th class="n">וקטור תאימות</th><th class="n">קטעים לא מכוסים</th></tr>
+<tr><td class="n">01</td><td class="n">כן</td><td class="n">23</td></tr>
+<tr><td class="n">02</td><td class="n">כן</td><td class="n">22</td></tr>
+<tr><td class="n">03</td><td class="n">כן</td><td class="n">21</td></tr>
+<tr><td class="n">04</td><td class="n">כן</td><td class="n">20</td></tr>
+<tr class="hi"><td class="n">סה"כ</td><td class="n">4 / 4</td><td class="n">86</td></tr>
+</table>
+<p class="note">סיווגי שונות: 19 (מהותית 14 · מזדמנת 5) · הנחיות ייחוס 1 · דפוסי סטייה 0. <b>מקרים 01 ו-04 לא ייצרו שאלות אך כן הפיקו תוצר מלא</b> — היעדר שאלות אינו היעדר עיבוד.</p>
+
+<h2>8. עלות וקריאות — כולל ניסיונות שנכשלו</h2>
+<table>
+<tr><th>שלב</th><th class="n">בקשות</th><th class="n">קלט</th><th class="n">פלט</th><th class="n">עלות</th></tr>
+<tr><td>ניסיון 1 — נדחה בשער הפרמטרים לפני כל פלט</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">$0.000000</td></tr>
+<tr><td>ניסיון 2 — נעצר בשכבת המכשור</td><td class="n">3</td><td class="n">10,285</td><td class="n">6,863</td><td class="n">$0.010293</td></tr>
+<tr class="hi"><td>ריצת החלופה שהתקבלה</td><td class="n">43</td><td class="n">186,558</td><td class="n">81,384</td><td class="n">$0.134972</td></tr>
+<tr><td><b>סה"כ</b></td><td class="n"><b>47</b></td><td class="n">196,843</td><td class="n">88,247</td><td class="n"><b>$0.145265</b></td></tr>
+</table>
+<p class="note">נוסחה: (קלט÷10⁶×0.2)+(פלט÷10⁶×1.2) · תמחור רשמי נקרא 2026-09-05 · אסימוני מטמון: <code>NOT_AVAILABLE</code> (לא נאספו) · תקרות 326 בקשות ו-$10 לא נחצו · ההרצה שהתקבלה היא <b>ריצת חלופה</b> לאחר תיקון פגם מכשור, ולא ניסיון ראשון נקי.</p>
+
+<h2>9. מעטפת הגלאי — בדיקת קוד בלבד</h2>
+<div class="warn"><span class="tag">בדיקת הנדסה בלבד — אינה תוצאה מדעית</span> &nbsp; מכנים מלאכותיים. <b>אין להשוות לטבלאות המדעיות שלמעלה.</b> הבדיקה מוכיחה התנהגות קוד בלבד; היא אינה מוכיחה רגישות, סגוליות, נכונות, תועלת או יכולת הכללה.</div>
+<table>
+<tr><th class="n">מצב פיקסצ׳ר</th><th class="n">אפיזודות</th><th class="n">STRONG</th><th class="n">WEAK</th><th class="n">NO_ALERT</th><th class="n">סטטוס ריצה</th></tr>
+<tr><td class="n">no_questions</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">VALID_ZERO_QA_RUN</td></tr>
+<tr><td class="n">two_rounds</td><td class="n">10</td><td class="n">0</td><td class="n">0</td><td class="n">10</td><td class="n">QA_OBSERVED</td></tr>
+<tr><td class="n">max_rounds</td><td class="n">11</td><td class="n">11</td><td class="n">0</td><td class="n">0</td><td class="n">QA_OBSERVED</td></tr>
+</table>
+
+<h2>10. גבולות טענה</h2>
+<div class="grid2">
+<div><table><tr><th>מותר לטעון</th></tr>
+<tr><td>נלכדו 44 שאלות ו-44 תשובות בשלוש אפיזודות שלמות</td></tr>
+<tr><td>שלוש האפיזודות סווגו STRONG לפי כלל שהוקפא מראש</td></tr>
+<tr><td>ארבעת המקרים הפיקו תוצר צנרת מלא</td></tr>
+<tr><td>העלות בפועל הייתה $0.135</td></tr>
+<tr><td>הגלאי מסמן מצבי מחזור-חיים שונים באופן שונה (קוד בלבד)</td></tr>
+</table></div>
+<div><table><tr><th>אסור לטעון</th></tr>
+<tr><td>דיוק, precision, recall, F1</td></tr>
+<tr><td>נכונות התרעה</td></tr>
+<tr><td>תועלת אנושית או אפקטיביות התערבות</td></tr>
+<tr><td>ייצוגיות או הכללה</td></tr>
+<tr><td>התנהגות סטודנטים או שחזור Cheers/ParkWise</td></tr>
+<tr><td>ש"נדרשה" התערבות אנושית — רק "מועמדת לבדיקה"</td></tr>
+</table></div>
+</div>
+
+<h2>11. שחזור</h2>
+<table>
+<tr><th>פעולה</th><th>פקודה</th></tr>
+<tr><td>אימות כל הספירות מול מקור הראיות</td><td><code>python scripts/study1_validate_evidence.py --run-root &lt;run&gt; --manifest &lt;out.json&gt;</code></td></tr>
+<tr><td>הפעלת Detector-v1 הקפוא</td><td><code>python scripts/airtravel_detector_analysis.py --events &lt;log&gt; --run-receipt &lt;receipt&gt; --output-dir &lt;dir&gt;</code></td></tr>
+<tr><td>ניתוח מורחב</td><td><code>python scripts/airtravel_extended_analytics.py --events &lt;log&gt; --output-dir &lt;out&gt; --result &lt;json&gt;</code></td></tr>
+<tr><td>מעטפת הגלאי (פיקסצ׳ר)</td><td><code>python scripts/airtravel_detector_envelope.py --output &lt;json&gt;</code></td></tr>
+</table>
+<p class="note">הנחיות ותשובות גולמיות, תוצרי צנרת ובתי קורפוס נשמרים מחוץ למאגר הקוד. מפתח ה-API נקרא אך ורק על-ידי ספריית הספק ממשתנה סביבה ולא נחשף. 83/83 קבצים מוגנים ללא שינוי; Detector-v1 ו-v1.0.1/v1.0.2 זהים ברמת הבית ל-main.</p>
+</body></html>

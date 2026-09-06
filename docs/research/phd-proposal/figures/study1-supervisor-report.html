@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<title>VEGO-AI Study 1 - Supervisor Report</title>
+<style>
+@page { size: A4; margin: 11mm 12mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:9pt; line-height:1.38; margin:0; }
+h1 { font-size:15pt; margin:0 0 1.2mm; }
+h2 { font-size:10.5pt; margin:3.4mm 0 1.5mm; padding-bottom:0.8mm; border-bottom:1.5px solid rgb(42,120,214); color:rgb(20,55,94); }
+.sub { color:rgb(82,81,78); font-size:8pt; margin:0 0 2.5mm; }
+.banner { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214); padding:2mm 2.6mm; font-size:8.2pt; margin:0 0 2.6mm; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52); padding:2mm 2.6mm; font-size:8.2pt; margin:0 0 2.4mm; }
+.plain { background:rgb(246,246,244); border:1px solid rgb(216,216,212); border-radius:2mm; padding:2.2mm 2.8mm; margin:0 0 2.4mm; font-size:8.4pt; }
+table { width:100%; border-collapse:collapse; font-size:8pt; margin:0 0 2.2mm; }
+th,td { border:1px solid rgb(216,216,212); padding:1.15mm 1.5mm; text-align:right; vertical-align:top; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
+.hi { background:rgb(255,248,232); font-weight:700; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3.4mm; align-items:start; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.8mm; margin-bottom:1.5mm; }
+.kpi { border:1px solid rgb(216,216,212); border-radius:2mm; padding:2mm; text-align:center; }
+.kpi .v { font-size:14pt; font-weight:700; color:rgb(20,55,94); line-height:1.05; }
+.kpi .l { font-size:7pt; color:rgb(82,81,78); margin-top:0.6mm; }
+.note { font-size:7.4pt; color:rgb(82,81,78); margin:0.9mm 0 0; }
+.pb { page-break-before: always; }
+ul { margin:0.8mm 4.5mm 1.8mm 0; padding:0; }
+li { margin-bottom:0.6mm; }
+code { font-family:Consolas,monospace; font-size:7.4pt; background:rgb(244,245,243); padding:0 0.6mm; }
+.chart { border:1px solid rgb(216,216,212); border-radius:2mm; padding:2.2mm 2.6mm; }
+.ct { font-size:8.4pt; font-weight:700; color:rgb(20,55,94); }
+.cs { font-size:7pt; color:rgb(82,81,78); margin:0.4mm 0 1.8mm; }
+.row { display:flex; align-items:center; gap:1.6mm; margin-bottom:0.95mm; }
+.lbl { flex:0 0 32mm; font-size:7.4pt; text-align:right; }
+.lbl.w { flex:0 0 40mm; }
+.track { flex:1 1 auto; display:flex; align-items:center; gap:1.3mm; }
+.bar { height:2.8mm; border-radius:1.4mm; background:rgb(42,120,214); }
+.bar.b2 { background:rgb(235,104,52); }
+.val { font-size:7.4pt; font-weight:700; font-variant-numeric:tabular-nums; }
+.legend { display:flex; gap:3.4mm; font-size:7pt; color:rgb(82,81,78); margin-bottom:1.6mm; }
+.sw { display:inline-block; width:2.4mm; height:2.4mm; border-radius:0.6mm; vertical-align:middle; margin-left:0.9mm; }
+.sw1 { background:rgb(42,120,214); } .sw2 { background:rgb(235,104,52); }
+.foot { border-top:1px solid rgb(216,216,212); margin-top:2.2mm; padding-top:1.4mm; font-size:7pt; color:rgb(82,81,78); }
+.tag { display:inline-block; background:rgb(235,104,52); color:white; font-size:6.8pt; padding:0.3mm 1.4mm; border-radius:1mm; font-weight:700; }
+</style></head><body>
+
+<h1>מחקר 1 — VEGO-AI · קורפוס AirTravel: דוח תוצאות לממונים</h1>
+<p class="sub">ריצת ספק מאושרת אחת · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code> · N=4 מקרים · <code>gpt-5.6-luna</code> · 2026-09-06</p>
+
+<div class="banner"><b>סיווג הנתונים:</b> קורפוס ציבורי חיצוני שנוצר באמצעות מודלי שפה. אינם נתוני סטודנטים, אינם שחזור Cheers/ParkWise, ואינם נתונים סינתטיים. לא נוצר אף מקרה סינתטי.</div>
+
+<h2>1. מה ניסינו לבדוק</h2>
+<p style="margin:0 0 2mm">מערכת VEGO-AI מפעילה ארבעה סוכני תוכנה שמנתחים יחד מודל הנדסי. במהלך העבודה הם <b>שואלים זה את זה שאלות</b>. השאלה שנבדקה: האם ניתן להאזין לשיחה הזו, ולזהות ממנה באופן אוטומטי מצבים שראוי שאדם יסתכל עליהם.</p>
+<p style="margin:0 0 2mm">זהו <b>מחקר היתכנות</b>: הוא בודק אם ניתן ללכוד ולסווג את השיחה — <b>לא</b> אם הזיהוי נכון או מועיל.</p>
+
+<h2>2. מהי "התראה חכמה"?</h2>
+<div class="plain">
+<p style="margin:0 0 1.6mm">"התראה חכמה" היא <b>סימון אוטומטי של שיחה בין הסוכנים כמועמדת לבדיקה אנושית</b>. היא נקבעת לפי כללים שנקבעו וננעלו <b>לפני</b> ההרצה, ולא לפי שיקול דעת בדיעבד.</p>
+<p style="margin:0 0 1.6mm">הכללים בודקים ארבעה דברים פשוטים בשיחה: האם הסוכן שענה אמר שהביטחון שלו <b>נמוך</b>; האם התשובה הגיעה <b>ללא ראיה</b>; האם השיחה <b>לא הסתיימה</b> והגיעה למגבלת הסבבים; והאם היו <b>כמה סבבים</b> של שאלות ותשובות.</p>
+<p style="margin:0"><b>חשוב:</b> "התראה" פירושה <b>מועמדת לבדיקה אנושית</b> — ולא קביעה שנדרשה התערבות ולא קביעה שמשהו שגוי.</p>
+</div>
+
+<table>
+<tr><th>סיווג</th><th>מתי הוא ניתן</th><th>מה זה אומר בפשטות</th></tr>
+<tr><td><b>STRONG</b> — התראה חזקה</td><td class="n">ביטחון נמוך <b>או</b> ראיה חסרה <b>או</b> הגעה למגבלת הסבבים</td><td>מועמדת מובהקת לבדיקה אנושית</td></tr>
+<tr><td><b>WEAK</b> — התראה חלשה</td><td class="n">אין אות חזק, אך יש ביטחון בינוני <b>או</b> יותר מסבב אחד</td><td>מועמדת אפשרית, בעדיפות נמוכה</td></tr>
+<tr><td><b>NO_ALERT</b> — ללא התראה</td><td class="n">אף אחד מהתנאים לא התקיים</td><td>לא סומנה לבדיקה</td></tr>
+<tr><td><b>EXCLUDED</b> — מוחרגת</td><td class="n">השיחה לא הושלמה מסיבה טכנית</td><td>מוסרת מהספירה כדי לא לעוות אותה</td></tr>
+</table>
+
+<h2>3. הנתונים והיקף הבדיקה</h2>
+<table>
+<tr><th>פריט</th><th class="n">ערך</th></tr>
+<tr><td>מקרים שנבדקו</td><td class="n">4</td></tr>
+<tr><td>סוג הנתונים</td><td class="n">ציבורי-חיצוני, נוצר במודלי שפה</td></tr>
+<tr><td>אימות מקור</td><td class="n">143/143 קבצים · 5/5 קובצי ריצה</td></tr>
+<tr><td>מספר ריצות ספק</td><td class="n">אחת</td></tr>
+</table>
+
+<div class="grid3">
+  <div class="kpi"><div class="v">3</div><div class="l">שיחות שהושלמו (הבסיס לספירה)</div></div>
+  <div class="kpi"><div class="v">3 / 0 / 0</div><div class="l">חזקה / חלשה / ללא התראה</div></div>
+  <div class="kpi"><div class="v">44</div><div class="l">שאלות ותשובות</div></div>
+  <div class="kpi"><div class="v">10</div><div class="l">סבב מרבי</div></div>
+  <div class="kpi"><div class="v">43</div><div class="l">קריאות ספק (תקרה 326)</div></div>
+  <div class="kpi"><div class="v">$0.135</div><div class="l">עלות בפועל (תקרה $10)</div></div>
+</div>
+
+<h2>4. התוצאות</h2>
+<div class="grid2">
+<div class="chart">
+  <div class="ct">איור 1 — סיום שיחות וסיווג ההתראות</div>
+  <div class="cs"><b>נמדד:</b> מספר שיחות · <b>מונה:</b> שיחות בכל מצב · <b>מכנה:</b> 3 שיחות שהושלמו · ספירות בלבד</div>
+  <div class="row"><span class="lbl w">הסתיימו בהסכמה</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div>
+  <div class="row"><span class="lbl w">הגיעו למגבלת הסבבים</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div>
+  <div class="row"><span class="lbl w">הופסקו טכנית (מוחרגות)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+  <div class="row"><span class="lbl w">התראה חזקה</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">3</span></span></div>
+  <div class="row"><span class="lbl w">התראה חלשה</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+  <div class="row"><span class="lbl w">ללא התראה</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+  <div class="note"><b>מה אינו מוכיח:</b> אינו מוכיח שההתראות נכונות או מועילות — לא נבדק.</div>
+</div>
+<div class="chart">
+  <div class="ct">איור 2 — רמת הביטחון של התשובות</div>
+  <div class="cs"><b>נמדד:</b> תשובות · <b>מונה:</b> תשובות בכל רמה · <b>מכנה:</b> 44 תשובות</div>
+  <div class="row"><span class="lbl">נמוך</span><span class="track"><span class="bar" style="width:64%"></span><span class="val">16</span></span></div>
+  <div class="row"><span class="lbl">בינוני</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">25</span></span></div>
+  <div class="row"><span class="lbl">גבוה</span><span class="track"><span class="bar" style="width:12%"></span><span class="val">3</span></span></div>
+  <div class="note">הביטחון מדווח על-ידי המודל עצמו ואינו מדד חיצוני. <b>מה אינו מוכיח:</b> אינו מעיד על נכונות התשובה.</div>
+</div>
+</div>
+
+<div class="pb"></div>
+<h1>ממצאים, פירוש ומגבלות</h1>
+<p class="sub">כל מספר חושב מחדש מיומן האירועים ומקבלת ההרצה · אימות אוטומטי: 17 בדיקות עברו, אפס סתירות ערך</p>
+
+<h2>5. מדוע כל שלוש השיחות סווגו כהתראה חזקה</h2>
+<div class="grid2">
+<div class="chart">
+  <div class="ct">איור 3 — שיעור תשובות בביטחון נמוך, לפי סבב</div>
+  <div class="cs"><b>נמדד:</b> אחוז · <b>מונה:</b> תשובות בביטחון נמוך בסבב · <b>מכנה:</b> כל התשובות באותו סבב</div>
+  <div class="row"><span class="lbl">סבב 1 (מתוך 7)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
+  <div class="row"><span class="lbl">סבב 2 (מתוך 7)</span><span class="track"><span class="bar" style="width:28.6%"></span><span class="val">29%</span></span></div>
+  <div class="row"><span class="lbl">סבב 3 (מתוך 5)</span><span class="track"><span class="bar" style="width:20%"></span><span class="val">20%</span></span></div>
+  <div class="row"><span class="lbl">סבב 4 (מתוך 5)</span><span class="track"><span class="bar" style="width:40%"></span><span class="val">40%</span></span></div>
+  <div class="row"><span class="lbl">סבבים 5–7</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0%</span></span></div>
+  <div class="row"><span class="lbl">סבב 8 (מתוך 2)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
+  <div class="row"><span class="lbl">סבב 10 (מתוך 4)</span><span class="track"><span class="bar" style="width:50%"></span><span class="val">50%</span></span></div>
+  <div class="note">סבב 8 נשען על שתי תשובות בלבד — אין להסיק ממנו מגמה.</div>
+</div>
+<div>
+<p style="margin:0 0 2mm"><b>תצפית:</b> בסבב הראשון כל שבע התשובות היו בביטחון נמוך. מהסבב השני ואילך השיעור יורד ל-29% ומטה.</p>
+<p style="margin:0 0 2mm"><b>פירוש (מוגבל לסבב הזה):</b> הכלל מסמן שיחה כהתראה חזקה אם <b>ולו תשובה אחת</b> בה הייתה בביטחון נמוך. מאחר שבמדגם הזה הסבב הראשון היה תמיד בביטחון נמוך, כל שלוש השיחות סומנו. <b>זו תצפית על שלוש שיחות בלבד ואינה חוק.</b></p>
+<table>
+<tr><th>שיחה</th><th class="n">מקרה</th><th class="n">אותות</th><th class="n">סיווג</th></tr>
+<tr><td>שיחה א׳</td><td class="n">02</td><td class="n">ביטחון נמוך</td><td class="n">חזקה</td></tr>
+<tr><td>שיחה ב׳</td><td class="n">03</td><td class="n">נמוך + בינוני + ריבוי סבבים</td><td class="n">חזקה</td></tr>
+<tr><td>שיחה ג׳</td><td class="n">חוצה-מקרים</td><td class="n">נמוך + מגבלת סבבים</td><td class="n">חזקה</td></tr>
+</table>
+<p class="note">"ראיה חסרה" לא התקיימה באף שיחה: לכל 44 התשובות היה שדה ראיה באורך חיובי. נמדדה <b>נוכחות</b> ראיה בלבד — לא איכותה.</p>
+</div>
+</div>
+
+<h2>6. האם המנגנון בכלל מסוגל להבחין?</h2>
+<div class="warn"><span class="tag">בדיקת הנדסה בלבד — אינה תוצאה מדעית</span> &nbsp; בדיקה דטרמיניסטית ללא ספק וללא עלות, על תרחישים מלאכותיים, כדי לוודא שהמנגנון אינו מסמן הכול תמיד. <b>אין להשוות את המספרים כאן למספרים המדעיים</b> — המכנים שונים לחלוטין.</div>
+<table>
+<tr><th>תרחיש מלאכותי</th><th class="n">שיחות</th><th class="n">חזקה</th><th class="n">חלשה</th><th class="n">ללא התראה</th></tr>
+<tr><td>ללא שאלות כלל</td><td class="n">0</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+<tr class="hi"><td>שיחות שמסתיימות בהסכמה</td><td class="n">10</td><td class="n">0</td><td class="n">0</td><td class="n">10</td></tr>
+<tr class="hi"><td>שיחות שממצות את הסבבים</td><td class="n">11</td><td class="n">11</td><td class="n">0</td><td class="n">0</td></tr>
+</table>
+<p class="note"><b>מסקנת הבדיקה:</b> המנגנון <b>אינו</b> מסמן הכול: בתרחיש אחד הוא החזיר "ללא התראה" ב-10 מתוך 10, ובאחר "התראה חזקה" ב-11 מתוך 11. <b>מה אינו מוכיח:</b> בדיקה זו מוכיחה התנהגות קוד בלבד. היא <b>אינה</b> מוכיחה רגישות, סגוליות, נכונות, תועלת או יכולת הכללה.</p>
+
+<h2>7. מה הוכח ומה לא</h2>
+<div class="grid2">
+<div>
+<table>
+<tr><th>תצפית — מה נמדד</th></tr>
+<tr><td>נלכדו 44 שאלות ו-44 תשובות בשלוש שיחות</td></tr>
+<tr><td>שלוש שיחות הושלמו; אפס הופסקו טכנית</td></tr>
+<tr><td>שלושתן סווגו התראה חזקה</td></tr>
+<tr><td>ארבעת המקרים הפיקו תוצר מלא</td></tr>
+<tr><td>עלות ההרצה: 0.135 דולר</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th>לא נמדד — ואין לטעון</th></tr>
+<tr><td>האם ההתראות נכונות</td></tr>
+<tr><td>האם אדם היה מפיק תועלת מהן</td></tr>
+<tr><td>האם המדגם מייצג משהו</td></tr>
+<tr><td>האם ניתן להכליל למקרים אחרים</td></tr>
+<tr><td>איכות הראיות שסופקו</td></tr>
+</table>
+</div>
+</div>
+
+<div class="pb"></div>
+<h1>מסקנה, מגבלות והצעד הבא</h1>
+<p class="sub">סיכום לממונים · כל טענה כאן מוגבלת למדגם שנצפה בפועל</p>
+
+<h2>8. מסקנה</h2>
+<div class="banner">במחקר היתכנות תיאורי על ארבעה מקרים ציבוריים-חיצוניים נלכדו שלוש שיחות שלמות בין הסוכנים. כולן סומנו כמועמדות לבדיקה אנושית, ואחת מהן הגיעה למגבלת הסבבים. <b>הממצא מדגים שניתן ללכוד ולסווג את התקשורת מקצה לקצה בעלות זניחה</b> — ואינו מוכיח שההתראות נכונות, מועילות, מייצגות או ניתנות להכללה.</div>
+
+<h2>9. מגבלות</h2>
+<ul style="font-size:8pt">
+<li>ארבעה מקרים בלבד, ובסיס של שלוש שיחות — כל שינוי בודד משנה כל יחס.</li>
+<li>שניים מארבעת המקרים לא ייצרו שיחות כלל (אך <b>כן</b> הפיקו תוצר מלא — היעדר שאלות אינו היעדר עיבוד).</li>
+<li>אין תוויות אמת, ולכן נכונות ההתראות אינה ניתנת לבדיקה מנתונים אלה.</li>
+<li>ריצה אחת, מודל אחד, הגדרה אחת.</li>
+<li>רמת הביטחון מדווחת על-ידי המודל עצמו.</li>
+<li>ההרצה היא ריצת חלופה לאחר תיקון פגם מכשור; שני ניסיונות קודמים נכשלו טכנית ומדווחים בנספח.</li>
+<li>אישור מנחה עבור AirTravel אינו מתועד.</li>
+</ul>
+
+<h2>10. הצעד הבא</h2>
+<p style="margin:0">מחקר נפרד עם יותר מקרים ועם תוכנית תיוג אנושית בלתי תלויה — רק כך ניתן יהיה לשאול אם ההתראות נכונות. במקביל הוכן (ולא בוצע) מחקר השוואה בין הפעלת VEGO-AI לבין קו בסיס ללא תזמור.</p>
+
+<div class="foot">כל ערך בדוח חושב מחדש מיומן האירועים ומקבלת ההרצה · הנחיות ותשובות גולמיות נשמרות מחוץ למאגר הקוד · לא נחשף מפתח גישה · 83/83 קבצים מוגנים ללא שינוי · פירוט טכני מלא בנספח הטכני</div>
+</body></html>
