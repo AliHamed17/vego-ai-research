@@ -99,14 +99,14 @@ supervisor-approval evidence.
 | Invariant | Value | Checked by |
 | --- | --- | --- |
 | Tests passing | **113 passed _(dated verification record)_** | `pytest VEGO-AI/tests` |
-| `ai_classification_changed` | **0** | dashboard / guard |
-| baseline `eval_output` modified | **false** | guard |
-| memory-informed differs from original | **0 / 27** | guard |
+| `ai_classification_changed` | **?** | dashboard / guard |
+| baseline `eval_output` modified | **?** | guard |
+| memory-informed differs from original | **0 / ?** | guard |
 | generalization-safe expert labels | **0** | guard |
 | deterministic policy | **v1 (no M4B-1.1 in code)** | guard |
-| evidence consistency | **18/18 present checks passed PASS** | `scripts/check_evidence_consistency.py` |
+| evidence consistency | **3/3 present checks passed PASS** | `scripts/check_evidence_consistency.py` |
 
-Scale figures: **179** models · **27** patterns · **11** review items · **3** reusable judgments · **8** advice items.
+Scale figures: **?** models · **?** patterns · **?** review items · **?** reusable judgments · **?** advice items.
 <!-- AUTO:invariants:end -->
 
 ## 6. Critical path (what actually unblocks the thesis)
@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
-- 2026-09-04 23:55 +03:00 - Codex - AirTravel v3.2.1 verifier hardening
-- 2026-09-04 23:45 +03:00 - Codex - AirTravel v3.2.1 materialization and verifier hardening
-- 2026-09-04 13:05 +03:00 - Codex - Implement passive Q&A communication contract and offline verification
-- 2026-09-04 01:04 +03:00 - Codex - Audit original VEGO-AI interaction-log availability
-- 2026-09-04 00:00 +03:00 - Codex - Unify Iris task plan source and harden RTL verification
-- 2026-09-03 23:30 +03:00 - Codex - Final revision of supervisor Q&A task plan
+- 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+- 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
+- 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
+- 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+- 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
+- 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
 <!-- AUTO:activity:end -->
 
 ---

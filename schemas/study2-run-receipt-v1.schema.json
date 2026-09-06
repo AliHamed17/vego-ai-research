@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study2-run-receipt-v1.schema.json",
+  "title": "VEGO-AI Study 2 fixture run receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "evidence_class", "scientific_result_status", "study1_pooled", "run_id",
+    "setting_id", "corpus_id", "corpus_hashes", "code_sha256", "configuration_sha256", "conditions",
+    "privacy_counters", "provider_calls", "external_calls"
+  ],
+  "properties": {
+    "schema_version": {"const": "study2-run-receipt-v1"},
+    "evidence_class": {"const": "ENGINEERING_FIXTURE_ONLY"},
+    "scientific_result_status": {"const": "NOT_EXECUTED"},
+    "study1_pooled": {"const": false},
+    "run_id": {"type": "string", "minLength": 1},
+    "setting_id": {"const": "cd_airtravel"},
+    "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+    "corpus_hashes": {"type": "object", "minProperties": 5, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "code_sha256": {"type": "string", "minLength": 1},
+    "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["VEGO_AI_ON", "VEGO_AI_OFF"],
+      "properties": {
+        "VEGO_AI_ON": {"$ref": "#/$defs/condition"},
+        "VEGO_AI_OFF": {"$ref": "#/$defs/condition"}
+      }
+    },
+    "privacy_counters": {"type": "object"},
+    "provider_calls": {"const": 0},
+    "external_calls": {"const": 0}
+  },
+  "$defs": {
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result_file_sha256", "event_log_sha256", "pipeline_manifest_sha256",
+        "result_file_hashes", "lifecycle_summary", "summary"
+      ],
+      "properties": {
+        "result_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "event_log_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "pipeline_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "result_file_hashes": {
+          "type": "object",
+          "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "lifecycle_summary": {"type": "object"},
+        "summary": {"type": "object"}
+      }
+    }
+  }
+}

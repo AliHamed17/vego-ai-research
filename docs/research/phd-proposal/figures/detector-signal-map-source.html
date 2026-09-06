@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<title>VEGO-AI - Detector Signal Map</title>
+<style>
+@page { size: A4; margin: 10mm 11mm 10mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:8.4pt; line-height:1.3; margin:0; }
+h1 { font-size:14pt; margin:0 0 1mm; }
+h2 { font-size:9.8pt; margin:2.6mm 0 1.1mm; padding-bottom:0.7mm; border-bottom:1.5px solid rgb(42,120,214); color:rgb(20,55,94); }
+.sub { color:rgb(82,81,78); font-size:7.6pt; margin:0 0 1.6mm; }
+.lead { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214); padding:2mm 2.6mm; font-size:9pt; font-weight:600; margin:0 0 2mm; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52); padding:1.6mm 2.2mm; font-size:7.6pt; margin:0 0 2mm; }
+.note { font-size:7.1pt; color:rgb(82,81,78); margin:0.6mm 0 1.6mm; }
+table { width:100%; border-collapse:collapse; font-size:7.5pt; margin:0 0 1.2mm; position:relative; }
+th,td { border:1px solid rgb(216,216,212); padding:1mm 1.3mm; text-align:right; vertical-align:top; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; }
+.hi { background:rgb(255,248,232); font-weight:700; }
+code { font-family:Consolas,monospace; font-size:7pt; background:rgb(244,245,243); padding:0 0.5mm; }
+table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); }
+.pb { page-break-before: always; }
+code { direction:ltr; unicode-bidi:isolate; }
+</style></head><body>
+
+<h1>מה מודד הגלאי, מה מפעיל בדיקה אנושית, ומה אינו מוכיח</h1>
+<p class="sub">מפת אותות לממונים · 2026-09-06 · מחקר 1 / AirTravel</p>
+
+<div class="warn"><b>סטטוס קובע:</b> <code>DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — <b>הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה מראש את כל רכיבי הראיה.</b></div>
+
+<div class="lead">הגלאי אינו קובע שהמערכת טעתה; הוא מסמן מקרה כמועמד לבדיקה אנושית כאשר תהליך התקשורת בין הסוכנים מציג סימן של אי־ודאות או חוסר הכרעה.</div>
+
+<p class="note">בניסוח מלא יותר: הגלאי אינו מחליט שהמערכת טעתה; הוא מסמן מועמד לבדיקה אנושית כאשר תהליך התקשורת בין הסוכנים מציג אי־ודאות, חוסר ראיה או חוסר הכרעה. מסמך זה נכתב בעקבות שאלותיכם, שחשפו <b>פער הצגה</b>: לא הובחן די הצורך בין תוצר סמנטי של המערכת לבין תנאי תהליך נצפה.</p>
+
+<h2>1. שלוש שכבות</h2>
+<table>
+<tr><th>שכבה</th><th>מה זה</th><th>הערך בהרצה</th><th class="n">מזין את הגלאי?</th></tr>
+<tr><td>נתון גולמי</td><td>אירוע תקשורת בודד ביומן: שאלה או תשובה, בשדות סגורים</td><td class="n">44 שאלות · 44 תשובות</td><td class="n">לא</td></tr>
+<tr class="hi"><td>אות תקשורת</td><td>תכונה נצפית של האירועים באפיזודה: ביטחון, נוכחות שדה ראיה, סבבים</td><td class="n">נמוך 16 · בינוני 25 · גבוה 3</td><td class="n"><b>כן — הקלט היחיד</b></td></tr>
+<tr><td>פעולה אנושית</td><td>תווית תפעולית: האפיזודה מועמדת לבדיקה אנושית</td><td class="n">3 אפיזודות</td><td class="n">— הפלט</td></tr>
+</table>
+
+<h2>2. מה מפעיל מועמד לבדיקה?</h2>
+<p class="note"><b>מסלול ההפעלה:</b> אירוע גולמי ← אות תקשורת ← כלל הגלאי ← מועמד לבדיקה אנושית.</p>
+<table>
+<tr><th class="n">אות</th><th>כיצד נמדד</th><th class="n">יחידה</th><th>משמעות</th><th>מה אינו מוכיח</th></tr>
+<tr><td class="n"><code>S1</code></td><td><code>answer_confidence == "Low"</code></td><td class="n">תשובה → אפיזודה</td><td>המערכת הצהירה שהתשובה נשענת על ידע מאומן ללא עיגון בארטיפקט</td><td>אינו מוכיח שהתשובה שגויה</td></tr>
+<tr><td class="n"><code>S3</code></td><td><code>answer_evidence_ref</code> הוא <code>null</code> או באורך 0</td><td class="n">תשובה</td><td>לא נרשם שדה ראיה</td><td>אינו מודד את <b>איכות</b> הראיה — רק את קיומה</td></tr>
+<tr><td class="n"><code>S7</code></td><td><code>termination_reason == "TERMINATED_MAX_ROUNDS"</code></td><td class="n">אפיזודה</td><td>השיחה מיצתה את מגבלת עשרת הסבבים בלי להתכנס</td><td>אינו מוכיח שנדרשה התערבות</td></tr>
+<tr><td class="n"><code>S2</code></td><td><code>answer_confidence == "Medium"</code></td><td class="n">תשובה → אפיזודה</td><td>התשובה הוסקה מהקשר בתוך הארטיפקטים</td><td>אינו מוכיח ליקוי</td></tr>
+<tr><td class="n"><code>S6</code></td><td><code>round_index</code> מרבי באפיזודה גדול מ-1</td><td class="n">אפיזודה</td><td>נדרש יותר מסבב אחד</td><td>אינו מוכיח קושי אמיתי</td></tr>
+</table>
+<p class="note"><b>הכלל שהוקפא מראש:</b> <code>STRONG_ALERT = S1 ∨ S3 ∨ S7</code> · <code>WEAK_ALERT = ¬STRONG ∧ (S2 ∨ S6)</code> · אחרת <code>NO_ALERT</code>. כל השדות סגורים ונרשמים על-ידי המערכת עצמה: אין קריאת תוכן ואין פרשנות. <b>מקור:</b> <code>output/qa_events.jsonl</code> (sha256 <code>55ea9361…d117cac4</code>).</p>
+
+<h2>3. מה אינו מפעיל התרעה ישירה של הגלאי?</h2>
+<table>
+<tr><th>פריט</th><th>מה זה</th><th class="n">סוג</th><th class="n">מפעיל התרעה?</th><th>מה אינו אומר</th></tr>
+<tr><td><code>Alternative</code></td><td>תווית על מקטע במודל שאינו מכוסה בקווי ההנחיה</td><td class="n">תוצר סמנטי</td><td class="n"><b>לא</b></td><td><b>אינה שגיאה.</b> ניסוח חלופי תקף; <code>probe_confirmed</code> הוא <code>false</code> בכל 19 הדפוסים</td></tr>
+<tr><td><code>Non-Satisfied</code></td><td>תוצאת מיפוי: קו ההנחיה אינו מסופק במודל</td><td class="n">תוצר סמנטי</td><td class="n"><b>לא</b></td><td>אינה שגיאת מערכת ואינה עילה להתרעה. בהרצה זו: <b>0 מופעים</b></td></tr>
+<tr><td><code>mapping_certainty</code></td><td>ודאות המיפוי שסוכן 2 מייחס לקו הנחיה</td><td class="n">משתנה תיאורי</td><td class="n"><b>לא</b></td><td>מתחת ל-0.7 מפעיל <b>שאלה פנימית</b> מסוכן 2 לסוכן 1 — לא בדיקה אנושית</td></tr>
+<tr><td><code>C1</code></td><td><code>mapping_certainty &lt; 0.7</code></td><td class="n">הקשר</td><td class="n"><b>לא</b></td><td>ערך יחיד <code>0.85</code> → אפס מופעים מתחת לסף</td></tr>
+<tr><td><code>C2</code></td><td>ודאות סיווג של סוכן 4</td><td class="n">הקשר</td><td class="n">לא בגלאי · <b>כן</b> בסעיף 5</td><td>גבוה 15 · בינוני 4 (n=19 דפוסים)</td></tr>
+<tr><td><code>C3</code></td><td><code>flag_for_guidelines_update</code> / <code>requires_human_review</code></td><td class="n">הקשר</td><td class="n">לא בגלאי · <b>כן</b> בסעיף 5</td><td>כן 14 · לא 5. <code>requires_human_review</code> הוא <code>false</code> בכל 19</td></tr>
+<tr><td>התאמת מקור–יעד</td><td>זהות הסוכן השואל והסוכן המשיב</td><td class="n">מטא-נתון ניתוב</td><td class="n"><b>לא</b></td><td><b>אין כלל "התאמה" מוגדר.</b> אף אות אינו בוחן זאת; זהו פירוק תיאורי בלבד</td></tr>
+</table>
+
+<h2>4. מי נמדד?</h2>
+<table>
+<tr><th>יחידה</th><th>תפקיד</th><th>הערך בהרצה</th></tr>
+<tr><td>סוכן בודד</td><td>פירוק תיאורי בלבד</td><td class="n">agent1–agent4</td></tr>
+<tr><td>זוג שואל–משיב</td><td>פירוק תיאורי בלבד</td><td class="n">שואל agent4 / משיב agent2 = 39 · שואל agent3 / משיב agent2 = 4 · שואל agent3 / משיב agent1 = 1</td></tr>
+<tr class="hi"><td><b>אפיזודת שאלות–תשובות</b></td><td><b>יחידת הניתוח הראשית של הגלאי</b></td><td class="n"><b>3 אפיזודות שלמות — המכנה</b></td></tr>
+<tr><td>מקרה</td><td>הקשר; לא כל מקרה מייצר אפיזודה</td><td class="n">4 מקרים; <code>01</code> ו-<code>04</code> הפיקו תוצר מלא ללא אף אפיזודה</td></tr>
+</table>
+<p class="note">המדידה אינה על סוכן בודד ואינה על מקרה — היא על <b>התקשורת בין הסוכנים</b>, ברמת האפיזודה. ספירות לפי סוכן ולפי מסלול הן פירוק תיאורי בלבד ואינן מכנה של אף סיווג.</p>
+
+<h2>5. האם קיים תור בדיקה אנושית אמיתי?</h2>
+<table>
+<tr><th></th><th>מנגנון א׳ — מדיניות ההתערבות הקיימת</th><th>מנגנון ב׳ — Detector-v1 (תרומת המחקר)</th></tr>
+<tr><td>קוד</td><td><code>selective_intervention_policy.py</code> · <code>human_review_queue.py</code></td><td>סקריפט ניתוח החל על יומן האירועים בדיעבד</td></tr>
+<tr><td>יחידת ניתוח</td><td class="n">סיווגי שונות של סוכן 4 (19 דפוסים)</td><td class="n">אפיזודות שאלות–תשובות (3)</td></tr>
+<tr><td>טריגרים</td><td><code>requires_human_review</code> · <code>Undetermined</code> · ביטחון נמוך · ביטחון בינוני · <code>flag_for_guidelines_update</code></td><td><code>S1</code> <code>S3</code> <code>S7</code> · <code>S2</code> <code>S6</code></td></tr>
+<tr class="hi"><td>כותב לתור?</td><td class="n"><b>כן</b> — <code>human_review_queue.jsonl</code></td><td class="n"><b>לא — אינו כותב דבר</b></td></tr>
+</table>
+<p class="note"><b>התשובה המדויקת:</b> Detector-v1 <b>אינו</b> מזין תור כלשהו. התווית "מועמד לבדיקה אנושית" היא <b>תווית דיווח בלבד</b>, ואין מאחוריה תור תפעולי. מנגנון א׳ קיים בקוד ומחובר לצנרת, אך בהרצה המאושרת <b>לא נוצר קובץ תור כלל</b> — ולכן האם הופעל ומה הכיל הוא <b><code>NOT_AVAILABLE</code></b>. אין לפרש היעדר קובץ כאפס. מתוך חמשת הטריגרים מאומת רק <code>requires_human_review = false</code> בכל 19.</p>
+
+<h2>6. הסיווג הפשוט</h2>
+<table>
+<tr><th>קטגוריה</th><th>מה היא מתארת</th><th>דוגמאות</th></tr>
+<tr><td>תוצאת מיפוי</td><td>שיפוט המערכת על המודל המועמד</td><td class="n"><code>Satisfied</code> · <code>Partially-Satisfied</code> · <code>Non-Satisfied</code></td></tr>
+<tr><td>תנאי תהליך / תקשורת</td><td>עובדה נצפית על מהלך השיחה</td><td class="n"><code>S1</code> <code>S2</code> <code>S3</code> <code>S6</code> <code>S7</code></td></tr>
+<tr><td>הקשר</td><td>משתנה נלווה שאינו משתתף בכלל</td><td class="n"><code>C1</code> <code>C2</code> <code>C3</code> · התאמת מקור–יעד</td></tr>
+<tr><td>תווית תפעולית</td><td>הפעולה המוצעת</td><td class="n"><code>STRONG_ALERT</code> · <code>WEAK_ALERT</code> · <code>NO_ALERT</code></td></tr>
+</table>
+<p class="note"><b>הקטגוריות יכולות להתקיים יחד באותה אפיזודה, ואין ביניהן היררכיה.</b> זו <b>אינה טקסונומיה אחת של שגיאות</b>: אפיזודה יכולה לשאת תוצאת מיפוי <code>Satisfied</code>, תנאי תקשורת של ביטחון נמוך, ותווית תפעולית של מועמדות לבדיקה — בו-זמנית ובלי סתירה. בהרצה זו כל ארבעת המקרים <code>Satisfied</code>, וכל שלוש האפיזודות מועמדות לבדיקה.</p>
+
+<h2>7. מה נמצא, ומה אינו מוכח</h2>
+<div class="warn"><b>הממצא המרכזי — שלילי:</b> כל שלוש האפיזודות נפלו לאותה קטגוריה. <b>בקורפוס זה כל שלוש האפיזודות נופלות באותו צד של הסף</b>.</div>
+<p class="note"><b>נמצא:</b> ניתן ללכוד תקשורת בין-סוכנית מקצה לקצה, לשמר אותה כראיה מאומתת-גיבוב ולהחיל עליה כלל שהוקפא מראש — 92 בדיקות אימות אוטומטיות, אפס סתירות ערך מדעיות. <b>אינו מוכח:</b> נכונות ההתרעות · דיוק, precision, recall, F1 · תועלת אנושית · אפקטיביות התערבות · סיבתיות · ייצוגיות · הכללה. אין תוויות אמת לקורפוס זה, ולכן נכונות ההתרעות <b>אינה ניתנת לבדיקה</b> מנתונים אלה. מחקר 2 (<code>VEGO_AI_ON</code> מול <code>VEGO_AI_OFF</code>) הוא <code>PREPARED_NOT_EXECUTED</code> — אין לו תוצאה ואין להציגו כתוצאה.</p>
+
+</body></html>

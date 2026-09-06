@@ -453,3 +453,192 @@ Chronological prompt history for Codex and Claude.
   - git diff check; no provider call
 - Status: TECHNICAL NO-GO; final correction pending push
 - Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.
+
+## 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Request: Repair v4 authorization freshness, nonce/invocation binding, exact command and root enforcement, and receipt validation without executing.
+- Actions taken:
+  - Added test-first negative coverage for grant windows and identities
+  - Hardened manifest, command, layout, attempt and receipt validators
+  - Regenerated v4 manifest, preparation records, packet documentation and release manifest
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python -m pytest scripts/tests/test_airtravel_v4_contract.py -q
+  - python -m pytest scripts/tests -q
+  - python -m pytest VEGO-AI/tests -q
+  - python -m pytest tests -q
+  - ruff check ...
+  - python scripts/security_audit.py --json
+  - python scripts/check_repository_privacy.py
+- Status: Authorization repair prepared; no execution authorized or performed.
+- Next steps: Independent Claude review; do not create or consume a grant; do not execute preflight.
+
+## 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Request: Repair the v4 authorization contract and stop before any preflight or provider call.
+- Actions taken:
+  - Implemented fail-closed grant freshness, identity binding, exact command and private-layout validation, and receipt evidence checks.
+  - Regenerated the v4 machine manifest and prepare-only request after code and packet changes.
+  - No provider, preflight, Detector-v1, renderer, synthetic generation, or protected runtime modification.
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-05-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python -m pytest scripts/tests/test_airtravel_v4_contract.py -q
+  - python -m pytest scripts/tests -q
+  - python -m pytest VEGO-AI/tests -q
+  - python -m pytest tests -q
+  - ruff check changed AirTravel files
+  - python -m compileall -q changed AirTravel files
+  - python scripts/check_repository_privacy.py
+  - python scripts/security_audit.py --json
+  - python scripts/check_evidence_consistency.py --check
+  - python scripts/build_airtravel_v4_manifest.py --check
+  - python scripts/build_hardening_manifests.py --check
+- Status: Authorization repair prepared; awaiting independent review.
+- Next steps: Independent review and CI on the consolidated PR head; do not create or consume a grant.
+
+## 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+
+- Request: Complete the authorized AirTravel Study 1 evidence package, reconcile the offline fake preflight and the single recorded provider-backed run, and publish truthful Hebrew reports.
+- Actions taken:
+  - Revalidated final-head fake preflight and private receipt
+  - Reconciled provider-run receipts and corrected Hebrew report claims
+  - Added six-slide outline and execution-analysis receipt
+  - Updated PR #38 description to current truthful status
+- Files changed:
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-presentation-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+- Commands/checks:
+  - python -m pytest -q scripts/tests (547 passed, 23 skipped)
+  - python -m pytest -q VEGO-AI/tests (134 passed)
+  - python -m pytest -q tests (46 passed)
+  - ruff check (PASS)
+  - python -m compileall -q scripts VEGO-AI (PASS)
+  - privacy/security/evidence/manifests (PASS)
+  - CI 33997099007 (all six jobs green)
+- Status: TECHNICAL_NO_GO: one provider run incomplete; no scientific denominator
+- Next steps: Repair answer-correlation instrumentation, validate with malformed-answer fake fixtures, and seek a fresh human decision before any additional provider run.
+
+## 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
+
+- Request: Set the controlling verdict PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE everywhere, publish the provenance caveat beside every numeric result and figure, keep Study 2 PREPARED_NOT_EXECUTED and unpooled, replace ambiguous RTL route arrows with explicit asking/answering columns, update PR 38 with a superseding note pointing to PR 41, and run the claim scanner and document validation.
+- Actions taken:
+  - Set the controlling verdict PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE in all five Study 1 supervisor documents and all three print sources.
+  - Published the provenance caveat as a banner at document top, as a marker under every table (zero-height CSS marker in print sources), and inline on every figure caption.
+  - Replaced arrow route notation with explicit asking-agent / answering-agent columns in the Hebrew results report, study1-results-source.html and fig2-routes.svg.
+  - Revoked the supervisor-acknowledgement route to removing the caveat in 2026-09-06-study1-evidence-status-he.md section 6; only a new self-binding receipt can remove it.
+  - Documented reporting_code_sha as a generation stamp outside the evidence chain, resolving the mismatch between documents generated at different commits.
+  - Regenerated the three Hebrew PDFs via headless Chrome and verified every page image for overlap, clipping and orphan pages; removed an orphan page in the supervisor report.
+  - Added a superseding status note to PR 38 pointing reviewers to PR 41 and the provenance caveat, and prepended the controlling verdict to PR 41.
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/agent-memory/decisions.md
+- Commands/checks:
+  - py -3.13 scripts/study1_validate_evidence.py --run-root external_data/airtravel-pr38/v4-real-run --manifest .../output-inventory.json -> PASS_WITH_PROVENANCE_GAPS, 17 PASS, 0 value failures, 3 gaps
+  - py -3.13 -m pytest scripts/tests -q -> 596 passed, 23 skipped
+  - py -3.13 scripts/check_thesis_citations.py / validate_thesis_content.py / check_repository_privacy.py / check_evidence_consistency.py --check / build_hardening_manifests.py --check / visualization_agent.py --check -> all PASS
+- Status: completed
+- Next steps: Await CI on head ffe8fc0; Study 2 requires independent preregistration review and fresh authorization before any paid run.
+
+## 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
+
+- Request: Finish every legitimate Study 1 analysis and reporting task, prepare Study 2 ON/OFF for preregistration, and produce Hebrew RTL supervisor materials, working only from the accepted private evidence with no provider call and no fabrication.
+- Actions taken:
+  - Task A: extended the evidence validator from 20 to 92 checks covering rounds, confidence, calls, tokens, cost, the context-only variables, the mapping result, S9 density, and a full cross-check of every derived analysis file against the event-log recomputation. Result: 0 scientific value failures.
+  - Found and fixed at source a false zero: airtravel_extended_analytics.py read deviation_patterns.json for a key that does not exist, publishing 0 where the evidence holds 19 recurring fragment patterns.
+  - Disclosed a self-inflicted derived-artifact loss: analysis/output-inventory.json was overwritten by a validator invocation pointed at it as --manifest; 144 candidate serializations failed to reproduce the pinned digest, so it was not reconstructed. Status model split into EVIDENCE_INVALID (scientific) versus DERIVED_CHAIN_BROKEN (derived chain).
+  - Closed three fail-open holes in the validator itself: NOT_VERIFIABLE was excluded from failures so a deleted derived file passed silently; reporting_code_sha was stamped from a dirty tree; and confidence labels were asserted to be exactly three so a run without High confidence would have failed. Added nine unit tests that assert the validator fails when it should.
+  - Task B/C: withdrew the NOT_AVAILABLE claim for C2 and C3 across every document; both are computable (C2 High 15 / Medium 4; C3 true 14 / false 5, n=19 variability patterns).
+  - Repaired all four Study 1 SVG figures: direction=rtl with text-anchor=end anchors the left edge, so every label ran off the viewBox and rendered as one or two characters. 29 elements re-anchored, verified by rasterising.
+  - Separated the three layers in every document: mapping result (4/4 Satisfied), conversation-state signal, and operational action; recorded that Alternative and Not-Satisfied are never errors and never alert triggers; defined alert in plain language as candidacy for human review.
+  - Labelled all fixture-versus-real material as an engineering instrumentation check with separate denominators; removed the instrumentation-quality claim from every proved column.
+  - Corrected stale heads, stale CI claims and stale validator counts in PR 38, PR 41, the dashboards and current-state; repaired a malformed table.
+  - Task D: independent Study 2 implementation review, verdict NOT_READY_FOR_PAID_AUTHORIZATION. Six of eleven controls are unbound, the single-varying-factor claim is contradicted by the harness's own receipt, and several attestations are hardcoded literals. No Study 2 implementation file was modified.
+  - Task E: Study 2 preregistration v2 with a blinded human-rubric primary outcome, secondary descriptive outcomes, an absolute ban on cross-condition alert comparison, purposive N=4, predefined missingness and zero-Q&A handling, a ban on outcome-dependent retry and model switching, paired offline preflight before separate per-condition authorization, and Llama confined to Study 2B.
+- Files changed:
+  - scripts/study1_validate_evidence.py
+  - scripts/airtravel_extended_analytics.py
+  - scripts/tests/test_study1_validate_evidence.py
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-preregistration-draft.md
+  - docs/research/phd-proposal/2026-09-06-study2-implementation-review.md
+  - docs/research/phd-proposal/figures/fig1-confidence.svg
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/fig3-episodes.svg
+  - docs/research/phd-proposal/figures/fig4-baseline.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/dashboards/results-dashboard.md
+  - docs/agent-memory/current-state.md
+- Commands/checks:
+  - py -3.13 scripts/study1_validate_evidence.py --run-root external_data/airtravel-pr38/v4-real-run --manifest .../analysis/evidence-validation.json -> DERIVED_CHAIN_BROKEN, 92 checks, 87 PASS, 0 scientific value failures, 4 provenance gaps, 1 derived-chain failure
+  - py -3.13 -m pytest scripts/tests/test_study1_validate_evidence.py -q -> 9 passed
+  - py -3.13 -m pytest scripts/tests -q -> full suite
+  - citations / thesis content / privacy / evidence consistency / hardening manifest / visualization catalog / gallery --check -> all PASS
+- Status: completed
+- Next steps: Study 2 requires Codex to bind six controls and correct the single-factor claim before any paid authorization; the overwritten analysis/output-inventory.json remains unrecovered and is disclosed.
+
+## 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+
+- Request: Implement and validate the combined Study 1 signal/evidence recovery and Study 2 ON/OFF engineering package without provider execution.
+- Actions taken:
+  - Implemented fail-closed Study 1 accepted-run recovery and signal traceability with explicit unavailable-evidence status.
+  - Added Study 2 ON/OFF system-comparison fixture runner with strict schemas, caps, timeout, privacy, path, retry and no-Q&A controls.
+  - Added explicit Study 1 producing-agent/phase and rounds-per-episode aggregate tables; no numeric values generated without a bound private event log.
+  - Selected PR #41 descendant as canonical draft and ported only the Study 2 contract from divergent PR #42.
+- Files changed:
+  - scripts/study1_evidence_recovery.py
+  - scripts/study1_validate_evidence.py
+  - scripts/build_study1_signal_traceability.py
+  - src/vego_study2/
+  - scripts/study2_on_off_experiment.py
+  - schemas/study1-evidence-binding-v1.schema.json
+  - schemas/study2-*.schema.json
+  - docs/research/phd-proposal/study1-*
+  - docs/research/phd-proposal/study2-*
+  - scripts/tests/test_study1_*.py
+  - scripts/tests/test_study2_contract.py
+  - tests/test_study2_*.py
+- Commands/checks:
+  - focused pytest: 66 passed
+  - root pytest: 71 passed
+  - VEGO-AI pytest: 134 passed
+  - scripts pytest: 654 passed, 22 skipped, 2 warnings, 7 subtests
+  - scoped Ruff: PASS; full Ruff baseline: 159 pre-existing findings
+  - privacy/evidence/security/compile/schema checks: PASS
+- Status: Implemented and locally validated; Study 1 accepted private evidence unavailable in reviewed worktree; Study 2 fixture prepared but not executed as science.
+- Next steps: Independent review of the canonical branch; supply the explicitly mounted accepted-run binding/event log if descriptive numeric reporting is required; separately authorize any future provider run.

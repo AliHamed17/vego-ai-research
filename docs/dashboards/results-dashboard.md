@@ -1,6 +1,6 @@
 # Results Dashboard
 
-Last curated update: 2026-07-20 by Codex. Historical validation rows below retain their original dates; they are not claims about the current dirty worktree unless explicitly rerun.
+Last curated update: 2026-09-06 by Claude. Historical validation rows below retain their original dates; they are not claims about the current dirty worktree unless explicitly rerun.
 
 Standing views: tracked `docs/research/h-layer/program-status-snapshot-v1.json`; ignored unified program overview at `reports/generated/hlayer_program_overview/program_overview.md`; one-command verification gate `.\scripts\verify-hlayer-all.ps1`. The final unsuppressed July 21 package rerun on 2026-07-20 recorded 94 + 53 passing tests; the status snapshot records the runtime and durations.
 
@@ -34,6 +34,7 @@ Standing views: tracked `docs/research/h-layer/program-status-snapshot-v1.json`;
 | H-layer reliability iterations 011-013 (2026-07-11) | Accepted `NEUTRAL` manifest-backed snapshots | Ignored `reports/generated/hlayer_iterations/iter_011/` through `iter_013/` | Preserve feedback-generalization and decision-snapshot boundaries; no default, empirical claim, or live authorization. Iteration 013 run is `hlayer-20260711T130619Z-f8a39357da`. |
 | H-layer reliability iteration 014 (2026-07-20) | Accepted `NEUTRAL`; run `hlayer-20260720T173308Z-d79047f5e2` | Ignored `reports/generated/hlayer_iterations/iter_014/`; tracked status snapshot | Coherence restoration only; normalized `fa3debf25ba705224bfa27748aaee7cd92d72e8f50b6704ccea2ff9f6255651e`. It creates no mechanism-performance evidence and does not create a default. |
 | Separate H-layer conformance suite | Offline-only run `HLAYER-CONFORMANCE-8c458da3755870930900` | Normalized `8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af` | Six fixture experiments pass; separate from numbered iterations; no runtime authorization. |
+| Study 1 AirTravel descriptive provider-backed run (2026-09-05, accepted) | 3 episodes (2 `CONVERGED`, 1 `TERMINATED_MAX_ROUNDS`); denominator 3 complete episodes; 0 `INCOMPLETE_TECHNICAL`; 44 questions and 44 answers; Detector-v1 `STRONG_ALERT` 3, `WEAK_ALERT` 0, `NO_ALERT` 0; actual cost USD 0.134972 | `docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md`; run_id `REAL-efe686a-20260905T2303Z`, setting `cd_airtravel`, corpus `text2uml_airtravel_253b26dc`, model `gpt-5.6-luna`, N=4 cases; raw prompts, answers, and corpus bytes are held outside version control | Controlling verdict `PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE`: the run receipt does not self-bind the event-log hash, a lifecycle summary, or the execution code SHA. Descriptive counts only. A `STRONG_ALERT` means solely that an episode is a candidate for human review; it is not a finding that an error occurred, that the model was wrong, that output was defective, or that intervention was required. **Alert correctness is untested** - no accuracy, precision, recall, alert-correctness, human-benefit, or generalization claim is supported. Detector-v1 reads conversation-state signals only (`S1`/`S3`/`S7` and `S2`/`S6`); mapping results and the context-only variables C1/C2/C3 never trigger an alert. The corpus is public-external Text2UML material - **not** student data and **not** Cheers or ParkWise. |
 
 ## Reproducibility Anchors
 
@@ -44,7 +45,8 @@ Standing views: tracked `docs/research/h-layer/program-status-snapshot-v1.json`;
 | M4A research state | `research-state-m4a` / `2828940` | Research story and documentation state after M4A. |
 | M4B-1 comparison state | `research-state-m4b1-deterministic-comparison` / `944c922` | Deterministic parallel comparison milestone. |
 | Visualizer UX clean state | `research-state-visualizer-ux-clean` / `78b261e` | Model/result matching and read-only research-panel UX cleanup. |
-| Current workspace | `agent/publish-hlayer-and-supervisor-package` / `af191f0` | Dirty local workspace; use `phase-0-boundary-record.md` and `program-status-snapshot-v1.json` for protected-path fingerprints and current gates. |
+
+Live branch, revision, and worktree state are intentionally omitted from this table, matching the convention `docs/PROGRESS_TRACKER.md` already applies. Verified with `git` on 2026-09-06: the previously listed `Current workspace` row named branch `agent/publish-hlayer-and-supervisor-package`, which no longer exists, so the row was removed rather than re-pinned to another transient value. Read the current branch and head directly with `git branch --show-current` and `git rev-parse HEAD`, and use `phase-0-boundary-record.md` plus `program-status-snapshot-v1.json` for protected-path fingerprints and current gates. Evidence-bound revisions belong in the row that cites them: the Study 1 AirTravel run above is bound to execution code SHA `efe686ac0b13c6e17695b816da7eb0cdd3eadcc1` (the reporting code SHA is a document-generation stamp and is not part of that evidence chain).
 
 ## Research Result Claims
 
@@ -60,4 +62,7 @@ Standing views: tracked `docs/research/h-layer/program-status-snapshot-v1.json`;
 
 - No controlled model, analysis, evaluation-output, PDF, archive, or executable contents are copied into this dashboard.
 - Existing M4A result numbers are metadata-level review results.
-- Any future performance or improvement claim must be linked to an experiment record and publishability decision.
+- No performance or improvement claim is permitted for Study 1: no independent quality measure exists. For any other programme area, such a claim additionally requires an experiment record and a publishability decision — the linkage is a necessary condition, never a sufficient one.
+- Study 1 rows keep three layers separate and must never conflate them: (a) the **mapping result** (Satisfied / Partially-Satisfied / Not-Satisfied), which is the pipeline's judgement about the candidate model and feeds Detector-v1 not at all; (b) the **conversation-state signal** (answer confidence, evidence-field presence, round count), which is Detector-v1's only input; and (c) the **reporting label**, which is candidacy for human review and is Detector-v1's only output. A deviation labelled `Alternative` and a `Not-Satisfied` mapping both sit in layer (a): neither is an error and neither triggers an alert.
+- No independent quality measure exists in this study, so no row may be read as a statement about quality, benefit, or provider performance.
+- Any fixture-versus-real comparison is an engineering and instrumentation check, never a scientific result and never a `VEGO_AI_ON` versus `VEGO_AI_OFF` contrast. The fixture is not a control group, and its denominator (20 answers) must never be merged with the real run's (44 answers).

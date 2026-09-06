@@ -321,3 +321,104 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
 - Rollback note: Revert commit 93bd2c7 to remove v3.2.1 artifacts; ignored external_data remains local-only
 - Git commit: none recorded by script.
+
+## 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the authorization-repair commit only; preserve rejected v3 artifacts.
+- Git commit: none recorded by script.
+
+## 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-05-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the repair commit only; preserve the rejected v3 run and all prior evidence.
+- Git commit: none recorded by script.
+
+## 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-presentation-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+- Rollback note: Revert commit 89495c2 to remove the report reconciliation and receipt additions.
+- Git commit: none recorded by script.
+
+## 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/agent-memory/decisions.md
+- Rollback note: git revert ffe8fc0 restores the previous Study 1 document wording; the PDFs are gitignored artifacts and would need regeneration from the reverted HTML sources.
+- Git commit: none recorded by script.
+
+## 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
+
+- Files changed:
+  - scripts/study1_validate_evidence.py
+  - scripts/airtravel_extended_analytics.py
+  - scripts/tests/test_study1_validate_evidence.py
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-preregistration-draft.md
+  - docs/research/phd-proposal/2026-09-06-study2-implementation-review.md
+  - docs/research/phd-proposal/figures/fig1-confidence.svg
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/fig3-episodes.svg
+  - docs/research/phd-proposal/figures/fig4-baseline.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/dashboards/results-dashboard.md
+  - docs/agent-memory/current-state.md
+- Rollback note: git revert d075cf8 restores the previous document wording; 08d9549 and f25ca5d restore the earlier validator and analytics behaviour. PDFs are gitignored and regenerate from the HTML sources.
+- Git commit: none recorded by script.
+
+## 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+
+- Files changed:
+  - scripts/study1_evidence_recovery.py
+  - scripts/study1_validate_evidence.py
+  - scripts/build_study1_signal_traceability.py
+  - src/vego_study2/
+  - scripts/study2_on_off_experiment.py
+  - schemas/study1-evidence-binding-v1.schema.json
+  - schemas/study2-*.schema.json
+  - docs/research/phd-proposal/study1-*
+  - docs/research/phd-proposal/study2-*
+  - scripts/tests/test_study1_*.py
+  - scripts/tests/test_study2_contract.py
+  - tests/test_study2_*.py
+- Rollback note: Revert commit b7c13fe and prior focused commits on this isolated branch; no protected runtime or Detector-v1 file was modified.
+- Git commit: none recorded by script.

@@ -1,0 +1,78 @@
+{
+  "claim_boundary": "No numeric Study 1 values are available in this worktree. A private accepted event log and binding manifest are required before any aggregate is calculated.",
+  "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+  "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+  "schema": "vego-ai-study1-safe-aggregate-metrics-v1",
+  "tables": {
+    "agent_answers": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "agent_questions": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "cases_with_q_and_a": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "cases_without_q_and_a": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "confidence_by_episode_round": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "confidence_evidence_termination": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "episodes": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "episodes_by_producing_agent_phase": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "evidence_reference_lengths": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "questions_answers_by_case_episode_route_round": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "rounds_per_episode": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "route_matrix": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "signal_cooccurrence": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "termination_states": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    }
+  }
+}

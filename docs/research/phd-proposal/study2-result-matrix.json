@@ -1,0 +1,31 @@
+{
+  "schema_version": "study2-result-matrix-v1",
+  "status": "PREPARED_NOT_EXECUTED",
+  "rows": [
+    {
+      "evidence_class": "VERIFIED_STUDY1_DESCRIPTIVE",
+      "study": "Study 1",
+      "pooled_with_study2": false,
+      "scientific_status": "SEPARATE_CONTEXT_ONLY"
+    },
+    {
+      "evidence_class": "STUDY1_RETROSPECTIVE_PROVENANCE",
+      "study": "Study 1",
+      "pooled_with_study2": false,
+      "scientific_status": "SEPARATE_CONTEXT_ONLY"
+    },
+    {
+      "evidence_class": "STUDY2_ENGINEERING_FIXTURE",
+      "study": "Study 2",
+      "pooled_with_study2": false,
+      "scientific_status": "ENGINEERING_ONLY"
+    },
+    {
+      "evidence_class": "STUDY2_NOT_EXECUTED",
+      "study": "Study 2",
+      "pooled_with_study2": false,
+      "scientific_status": "NO_SCIENTIFIC_RESULT"
+    }
+  ],
+  "claim_boundary": "No row supplies accuracy, quality, benefit, generalization, or ON/OFF superiority evidence."
+}

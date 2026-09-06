@@ -1,7 +1,7 @@
 # Literature Review v16 + Workbook v11 — Workbook v12 Repair Follow-up
 
-**Date:** 2026-08-20  
-**Scope:** Direct repair of Ali's external workbook `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx`.  
+**Date:** 2026-08-20
+**Scope:** Direct repair of Ali's external workbook `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v11_GitHub_Aligned.xlsx`.
 **Output:** `VEGO-AI_Literature_Workbook_RQ_Only_Organized_v12_Audit_Fixed.xlsx` (external `/mnt/data` artifact; not committed to this repository).
 
 This follow-up resolves workbook-side findings from `literature-review-v16-workbook-v11-verification-report.md`. It does **not** modify Literature Review v16 PDF; the paired PDF remains a separate controlled artifact and must be re-audited after its own enhancement pass.

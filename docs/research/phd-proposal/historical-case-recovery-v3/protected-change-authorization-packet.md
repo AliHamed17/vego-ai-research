@@ -1,8 +1,8 @@
 # Protected-change authorization packet — historical recovery v3
 
-**Status:** NOT REQUESTED / NO PROTECTED FILES TOUCHED  
-**Base SHA:** `58311c2ec29e13b68ad19005b4e62b5b6420b227`  
-**Proposed head SHA:** `6098d35dbfdaf0cc49eba465ba826d38bfe1ddca`  
+**Status:** NOT REQUESTED / NO PROTECTED FILES TOUCHED
+**Base SHA:** `58311c2ec29e13b68ad19005b4e62b5b6420b227`
+**Proposed head SHA:** `6098d35dbfdaf0cc49eba465ba826d38bfe1ddca`
 **Human authorization:** not supplied; no protected authorization record was created or modified.
 
 ## Scope decision
