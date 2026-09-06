@@ -176,7 +176,7 @@ recall, F1, תועלת אנושית, יעילות התערבות, superiority, g
 - נתוני התרשימים וקבלת האימות: [`2026-09-06-tomorrow-baseline-plot-data.json`](./2026-09-06-tomorrow-baseline-plot-data.json) ו־[`2026-09-06-tomorrow-baseline-figure-receipt.json`](./2026-09-06-tomorrow-baseline-figure-receipt.json)
 - מחולל התרשימים הניתן לשחזור: [`plot_supervisor_baseline.py`](../../../scripts/plot_supervisor_baseline.py)
 - PR מימוש בטיוטה: [PR #40](https://github.com/AliHamed17/vego-ai-research/pull/40)
-- CI ירוק: [run 34000970567](https://github.com/AliHamed17/vego-ai-research/actions/runs/34000970567)
+- CI ירוק לחבילת הבסיס הכוללת את התרשימים: [run 34021151368](https://github.com/AliHamed17/vego-ai-research/actions/runs/34021151368)
 
 **החלטה נדרשת:** לבדוק את גבול הראיות ולאשר (או לשנות) את ה־comparator של ON/OFF ואת הגדרות המודל והתקציב
 לפני כל הרצה עם ספק. עד שההחלטה תירשם, המצב המדעי הנכון הוא

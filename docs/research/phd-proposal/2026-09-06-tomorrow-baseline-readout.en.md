@@ -184,7 +184,7 @@ not proof of model error. The 59/80 and 150/165 counts are signals and coverage 
 - Plot data and figure receipt: [`2026-09-06-tomorrow-baseline-plot-data.json`](./2026-09-06-tomorrow-baseline-plot-data.json) and [`2026-09-06-tomorrow-baseline-figure-receipt.json`](./2026-09-06-tomorrow-baseline-figure-receipt.json)
 - Reproducible plot generator: [`plot_supervisor_baseline.py`](../../../scripts/plot_supervisor_baseline.py)
 - Draft implementation PR: [PR #40](https://github.com/AliHamed17/vego-ai-research/pull/40)
-- Green CI: [run 34000970567](https://github.com/AliHamed17/vego-ai-research/actions/runs/34000970567)
+- Green CI for the plotted baseline package: [run 34021151368](https://github.com/AliHamed17/vego-ai-research/actions/runs/34021151368)
 
 **Decision requested:** review the evidence boundary and approve (or revise) the ON/OFF comparator and model/
 budget settings before any provider-backed run. Until that decision is recorded, the scientifically correct
