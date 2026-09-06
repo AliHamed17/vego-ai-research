@@ -173,7 +173,18 @@ def pipeline_outputs(output_dir: Path) -> dict[str, Any]:
     classifications = (load("variability_classifications.json") or {}).get(
         "variability_classifications", []
     )
-    patterns = (load("deviation_patterns.json") or {}).get("deviation_patterns", [])
+    deviations = load("deviation_patterns.json") or {}
+    guideline_patterns = deviations.get("recurring_guideline_patterns") or []
+    fragment_patterns = deviations.get("recurring_fragment_patterns") or []
+    mapping_status: Counter = Counter()
+    coverage_totals: Counter = Counter()
+    for vector in compliance.values():
+        if not isinstance(vector, dict):
+            continue
+        for row in vector.get("existing_mapping") or []:
+            mapping_status[row.get("compliance_status")] += 1
+        for key, value in (vector.get("coverage_summary") or {}).items():
+            coverage_totals[key] += int(value or 0)
     certainties = [
         g.get("mapping_certainty")
         for g in guidelines
@@ -195,7 +206,22 @@ def pipeline_outputs(output_dir: Path) -> dict[str, Any]:
         "cases_with_pipeline_output": len(per_case),
         "per_case": per_case,
         "reference_guidelines": len(guidelines),
-        "deviation_patterns": len(patterns),
+        "deviation_patterns": len(guideline_patterns) + len(fragment_patterns),
+        "recurring_guideline_patterns": len(guideline_patterns),
+        "recurring_fragment_patterns": len(fragment_patterns),
+        "fragment_label_distribution": dict(
+            Counter(r.get("dominant_fragment_label") for r in fragment_patterns)
+        ),
+        "fragment_probe_confirmed": dict(
+            Counter(bool(r.get("probe_confirmed")) for r in fragment_patterns)
+        ),
+        "mapping_status_distribution": dict(mapping_status),
+        "coverage_summary_totals": dict(coverage_totals),
+        "mapping_result_note": (
+            "Mapping status and fragment labels are the pipeline's judgement about the "
+            "candidate model. They are context only: Detector-v1 reads none of them, and an "
+            "Alternative label is an unconfirmed observation rather than an established error."
+        ),
         "variability_classifications": len(classifications),
         "classification_distribution": dict(
             Counter(c.get("classification") for c in classifications)
