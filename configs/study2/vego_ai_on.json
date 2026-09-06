@@ -1,0 +1,105 @@
+{
+  "schema_version": "study2a-vego-ai-on-off-v1",
+  "study_id": "STUDY2A",
+  "condition_id": "VEGO_AI_ON",
+  "condition_label": "Full VEGO-AI orchestration",
+  "orchestration_mode": "full_vego_ai_orchestrator",
+  "provider": {
+    "name": "openai",
+    "model": "gpt-5.6-luna",
+    "api_mode": "chat.completions",
+    "execution_enabled": false,
+    "network_allowed": false,
+    "external_calls_forbidden": true
+  },
+  "model_parameters": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 20260906
+  },
+  "corpus": {
+    "setting_id": "cd_airtravel",
+    "corpus_id": "text2uml_airtravel_253b26dc",
+    "N": 4,
+    "case_ids": ["01", "02", "03", "04"],
+    "case_manifest_sha256": "7ef0c1308ad359a17c2a8a87c008e296f28a58eadd13e82f2e098c44a5e7dbb0",
+    "amendment_manifest_path": "docs/research/phd-proposal/text2uml-airtravel/amendment-manifest-v1.0.2.json",
+    "amendment_manifest_sha256": "bd2b7f03585582ff7591d21795fbd3ed4701244d66d26221683520238c2dead2",
+    "runtime_archive_sha256": "e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f",
+    "runtime_files": [
+      {"path": "domain_description/description.md", "bytes": 1477, "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2", "role": "domain_description"},
+      {"path": "candidate_models/01_result_one_claude-sonnet-4-6.txt", "bytes": 1248, "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91", "role": "candidate_model"},
+      {"path": "candidate_models/02_result_one_codestral-2508.txt", "bytes": 1272, "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6", "role": "candidate_model"},
+      {"path": "candidate_models/03_result_one_deepseek-chat.txt", "bytes": 1324, "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a", "role": "candidate_model"},
+      {"path": "candidate_models/04_result_one_gemini-2.5-flash.txt", "bytes": 1231, "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a", "role": "candidate_model"}
+    ]
+  },
+  "fairness": {
+    "max_completion_tokens": 16384,
+    "request_timeout_seconds": 180,
+    "run_timeout_seconds": 3600,
+    "max_retries": 3,
+    "max_concurrent_cases": 2,
+    "call_cap": 326,
+    "cost_cap_usd": 10.0,
+    "replicates": 1,
+    "condition_order": ["VEGO_AI_ON", "VEGO_AI_OFF"]
+  },
+  "output_schema": {
+    "id": "structured_uml_review_v1",
+    "validation": "strict"
+  },
+  "validation": {
+    "schema": "strict",
+    "parseability": "strict",
+    "unknown_fields": "reject"
+  },
+  "retention": {
+    "raw_content": "PRIVATE_IGNORED_ONLY",
+    "event_logs": "PRIVATE_IGNORED_ONLY",
+    "tracked_outputs": "SAFE_METADATA_ONLY"
+  },
+  "vego_controls": {
+    "orchestrator": "REQUIRED",
+    "qa_registry": "AVAILABLE",
+    "feedback_loop": "AVAILABLE",
+    "detector_input": "AVAILABLE"
+  },
+  "detector_applicability": "AVAILABLE_ON_ONLY",
+  "output": {
+    "root": "external_data/study2a/vego-ai-on/",
+    "event_log": "external_data/study2a/vego-ai-on/events.jsonl",
+    "raw_content_policy": "PRIVATE_IGNORED_ONLY"
+  },
+  "prompts": {
+    "output_objective": "structured_uml_review_v1",
+    "sources": [
+      {"path": "VEGO-AI/framework/orchestrator.py", "sha256": "fca4b885ee07381db0f02e558b1aebf25bdc7c27da1c471fd3103d7e0e2d5b88"},
+      {"path": "VEGO-AI/framework/agent1_language_advisor.py", "sha256": "13e152fe4ec3b417a8c515bbe1bdb28ff952766579ce1ed6463a7ad9fa5b724e"},
+      {"path": "VEGO-AI/framework/agent2_domain_advisor.py", "sha256": "fdf330b99295e871ad3cc3e5e934bb04a15f996a5060ea35d43fa13243d16d79"},
+      {"path": "VEGO-AI/framework/agent3_model_inspector.py", "sha256": "4d0042777040f76abc1ca616a6e1dddcda591ddec54478fa2491b5020a817fa4"},
+      {"path": "VEGO-AI/framework/agent4_variability_explorer.py", "sha256": "6b043c5643f9211d93ac402a9bf98685727e2cd92cab3377d1462dc3417df2ff"}
+    ],
+    "difference_policy": "ON decomposes the same output objective into the frozen four-agent orchestration; OFF uses one direct call per case. No other difference is permitted."
+  },
+  "implementation_sources": [
+    "VEGO-AI/framework/orchestrator.py",
+    "VEGO-AI/framework/agent1_language_advisor.py",
+    "VEGO-AI/framework/agent2_domain_advisor.py",
+    "VEGO-AI/framework/agent3_model_inspector.py",
+    "VEGO-AI/framework/agent4_variability_explorer.py"
+  ],
+  "references": {
+    "runtime_visible": [],
+    "excluded_paths": [
+      "reference_only/plantuml.txt",
+      "reference_only/plantuml_adjusted.txt",
+      "reference_only/extramaterial/AirTravel.cd4a"
+    ],
+    "status": "EXCLUDED_FROM_RUNTIME"
+  },
+  "claims": {
+    "allowed": ["descriptive execution and communication measures"],
+    "forbidden": ["accuracy", "correctness", "precision", "recall", "F1", "human benefit", "intervention effectiveness", "superiority", "generalization", "student-data claims"]
+  }
+}
