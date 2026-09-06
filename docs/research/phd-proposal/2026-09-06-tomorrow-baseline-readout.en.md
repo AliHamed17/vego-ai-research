@@ -47,6 +47,13 @@ item carried both). The current hook therefore catches downstream variability pa
 Stage 2 reference disagreement signal. The evidence supports measuring Stage 2 versus Stage 3 versus Stage 4;
 it does not select a “best” stage.
 
+![Observed human-escalation signals by pipeline stage](figures/tomorrow-human-escalation-signals.png)
+
+**How to read this plot.** Each horizontal bar is a descriptive signal share for its own denominator; the
+printed numerator and denominator are the authoritative values. The visual makes the concentration of Stage 2
+and Stage 3 signals easy to compare, while the caption prevents the percentages from being read as accuracy.
+Source: EXP-045 frozen-run inventory.
+
 ## 3. Existing recorded-review baseline
 
 EXP-046 re-analyzed the delivered co-author assessment record that accompanies the frozen run. It is useful
@@ -67,6 +74,12 @@ for locating intervention opportunities, but it is not independent ground truth 
 The practical message for tomorrow is: **the inspector’s own non-`Satisfied` signal is a measurable candidate
 for selective review, while the domain-guideline and variability stages need a controlled comparison rather than
 an assumption that one is preferable.**
+
+![Observed reviewer changes and candidate queue load](figures/tomorrow-reviewer-change-baseline.png)
+
+**How to read this plot.** The bars show recorded reviewer changes alongside one candidate queue rule, with the
+denominator printed beside every value. An overturn is a reviewer disagreement in this record, not an independent
+ground-truth label; the plot therefore supports queue design, not a quality claim. Source: EXP-046 recorded review.
 
 ## 4. Frozen C0 operating baseline
 
@@ -168,6 +181,8 @@ not proof of model error. The 59/80 and 150/165 counts are signals and coverage 
 - Study 2A preregistration: [`2026-09-06-study2-vego-ai-on-off-preregistration-he.md`](./2026-09-06-study2-vego-ai-on-off-preregistration-he.md)
 - Study 2A technical readiness: [`2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md`](./2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md)
 - Machine manifest: [`study2-vego-ai-on-off-manifest.json`](./study2-vego-ai-on-off-manifest.json)
+- Plot data and figure receipt: [`2026-09-06-tomorrow-baseline-plot-data.json`](./2026-09-06-tomorrow-baseline-plot-data.json) and [`2026-09-06-tomorrow-baseline-figure-receipt.json`](./2026-09-06-tomorrow-baseline-figure-receipt.json)
+- Reproducible plot generator: [`plot_supervisor_baseline.py`](../../../scripts/plot_supervisor_baseline.py)
 - Draft implementation PR: [PR #40](https://github.com/AliHamed17/vego-ai-research/pull/40)
 - Green CI: [run 34000970567](https://github.com/AliHamed17/vego-ai-research/actions/runs/34000970567)
 

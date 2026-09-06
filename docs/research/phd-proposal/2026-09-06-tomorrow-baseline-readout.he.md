@@ -46,6 +46,12 @@
 כלל את שניהם). לכן ה־hook הנוכחי קולט דפוסי שונות במורד הצינור אך אינו קולט את אות אי-ההתאמה של שלב 2.
 הראיות תומכות במדידה נפרדת של שלבים 2, 3 ו־4; הן אינן בוחרות את השלב "הטוב ביותר".
 
+![Observed human-escalation signals by pipeline stage](figures/tomorrow-human-escalation-signals.png)
+
+**כיצד לקרוא את התרשים.** כל פס אופקי הוא שיעור תיאורי של אות ביחס למכנה שלו; המונה והמכנה המודפסים הם
+הערכים הקובעים. התרשים מאפשר להשוות בקלות את ריכוז האותות בשלבים 2 ו־3, והכיתוב מונע פירוש של האחוזים
+כ־accuracy. מקור: מלאי ההרצה הקפואה של EXP-045.
+
 ## 3. בסיס הבדיקה האנושית המתועדת
 
 EXP-046 ניתח מחדש את רשומת ההערכה של מחברי-השותפים שנמסרה עם ההרצה הקפואה. היא שימושית לאיתור הזדמנויות
@@ -65,6 +71,12 @@ EXP-046 ניתח מחדש את רשומת ההערכה של מחברי-השות�
 
 המסר המעשי למחר הוא: **אות ה־non-`Satisfied` של הבודק הוא מועמד מדיד ל־selective review, ואילו שלב
 קווי ההנחיה בתחום ושלב השונות דורשים השוואה מבוקרת ולא הנחה שאחד מהם עדיף.**
+
+![Observed reviewer changes and candidate queue load](figures/tomorrow-reviewer-change-baseline.png)
+
+**כיצד לקרוא את התרשים.** העמודות מציגות שינויי verdict שתועדו אצל הסוקרים לצד כלל תור מועמד, כאשר המכנה
+מופיע ליד כל ערך. היפוך הוא אי-הסכמה של סוקר ברשומה זו, ולא תווית ground truth בלתי תלויה; לכן התרשים תומך
+בתכנון התור ולא בטענת איכות. מקור: הבדיקה המתועדת של EXP-046.
 
 ## 4. בסיס C0 הקפוא — פרופיל תפעולי
 
@@ -161,6 +173,8 @@ recall, F1, תועלת אנושית, יעילות התערבות, superiority, g
 - הרשמה מוקדמת Study 2A: [`2026-09-06-study2-vego-ai-on-off-preregistration-he.md`](./2026-09-06-study2-vego-ai-on-off-preregistration-he.md)
 - מוכנות טכנית Study 2A: [`2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md`](./2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md)
 - Manifest מכונה: [`study2-vego-ai-on-off-manifest.json`](./study2-vego-ai-on-off-manifest.json)
+- נתוני התרשימים וקבלת האימות: [`2026-09-06-tomorrow-baseline-plot-data.json`](./2026-09-06-tomorrow-baseline-plot-data.json) ו־[`2026-09-06-tomorrow-baseline-figure-receipt.json`](./2026-09-06-tomorrow-baseline-figure-receipt.json)
+- מחולל התרשימים הניתן לשחזור: [`plot_supervisor_baseline.py`](../../../scripts/plot_supervisor_baseline.py)
 - PR מימוש בטיוטה: [PR #40](https://github.com/AliHamed17/vego-ai-research/pull/40)
 - CI ירוק: [run 34000970567](https://github.com/AliHamed17/vego-ai-research/actions/runs/34000970567)
 

@@ -118,6 +118,7 @@ SOURCE_EXTRA = (
     "scripts/freeze_independent_calibration.py",
     "scripts/freeze_independent_gold_labels.py",
     "scripts/publish_independent_evidence_package.py",
+    "scripts/plot_supervisor_baseline.py",
     "scripts/validate_independent_calibration_returns.py",
     "scripts/validate_independent_evidence_returns.py",
     "scripts/validate_hlayer_offline.py",

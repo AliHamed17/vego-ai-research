@@ -171,6 +171,7 @@
     "scripts/hlayer_offline/state_machine.py",
     "scripts/hlayer_offline/suite.py",
     "scripts/hlayer_offline/validator.py",
+    "scripts/plot_supervisor_baseline.py",
     "scripts/publish_independent_evidence_package.py",
     "scripts/run_hlayer_architecture.py",
     "scripts/security_audit.py",
@@ -213,6 +214,7 @@
     "scripts/tests/test_iris_zoom_adjudicated_ledger.py",
     "scripts/tests/test_iris_zoom_disposition_ledger.py",
     "scripts/tests/test_iris_zoom_review_batches.py",
+    "scripts/tests/test_plot_supervisor_baseline.py",
     "scripts/tests/test_policy_arms.py",
     "scripts/tests/test_preliminary_human_intervention_one_page.py",
     "scripts/tests/test_prepare_text2uml_airtravel.py",
@@ -252,7 +254,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "43ab87d28bb678461d1b660dd8b524a024345c1fff14713b26c3041ec006c210",
+  "sourceTreeSha256": "ee72fe44a88286aea39dc04285a2957600b53cf1b08cfd6fda65a38acbf01045",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
