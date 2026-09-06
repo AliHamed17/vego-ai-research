@@ -21,6 +21,10 @@ its Study 2 contract, schemas, fixture runner and tests were ported. No broad
 merge was performed and the protected VEGO-AI runtime, Detector-v1, v1.0.1 and
 v1.0.2 were not changed.
 
+The full open Study 1/Study 2 set fetched for review also included PR #34
+(`55ff48a0…`), PR #35 (`8561aa0b…`), PR #39 (`5232475a…`) and PR #40
+(`43b58204…`); none was merged wholesale.
+
 ## B. Study 1 evidence status
 
 `EVIDENCE_NOT_AVAILABLE_IN_REVIEWED_WORKTREE`.
