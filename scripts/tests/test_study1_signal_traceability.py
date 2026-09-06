@@ -141,6 +141,26 @@ def test_every_generated_table_declares_status_and_denominator():
         assert set(("evidence_status", "denominator", "rows")) <= table.keys()
 
 
+def test_aggregate_exposes_producing_phase_and_round_tables():
+    recorder = QACommunicationRecorder(run_id="trace-fixture")
+    question = recorder.emit_question(
+        episode_id="ep-1", question_id="Q_lang_001", source_agent="agent2",
+        source_stage="guideline", source_skill="fixture", target_agent="agent1",
+        scope="language", case_id="case-1", question_text="fixture question", round_index=1,
+    )
+    recorder.emit_answer(question=question, answer_text="fixture answer",
+                         answer_confidence="High", answer_evidence="fixture evidence")
+    recorder.emit_termination(episode_id="ep-1", termination_reason="CONVERGED", converged=True)
+    summary = traceability.aggregate_verified_events(recorder.events)
+    producing = summary["tables"]["episodes_by_producing_agent_phase"]
+    rounds = summary["tables"]["rounds_per_episode"]
+    assert producing["denominator"] == "complete_scientific_episodes"
+    assert producing["rows"] == [{"producing_agent": "agent2", "phase": "guideline", "episode_count": 1}]
+    assert rounds["rows"][0]["round_count"] == 1
+    assert rounds["rows"][0]["question_count"] == 1
+    assert rounds["rows"][0]["answer_count"] == 1
+
+
 def test_dictionary_and_matrix_have_required_contract_fields():
     dictionary = traceability.signal_dictionary()
     assert dictionary["review_context"]["origin_main_sha"] == "c34d3954b5e080d090017d2ea655d454d75a6b92"

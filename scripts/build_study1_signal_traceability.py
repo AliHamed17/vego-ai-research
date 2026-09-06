@@ -657,6 +657,8 @@ def _table(rows: list[dict[str, Any]], denominator: str) -> dict[str, Any]:
 def _empty_tables(status: str) -> dict[str, Any]:
     names = (
         "episodes",
+        "episodes_by_producing_agent_phase",
+        "rounds_per_episode",
         "agent_questions",
         "agent_answers",
         "route_matrix",
@@ -824,6 +826,45 @@ def aggregate_verified_events(events: list[dict[str, Any]]) -> dict[str, Any]:
         for (confidence, bucket, termination), count in sorted(confidence_evidence_termination.items())
     ]
 
+    # Keep the producing-agent/phase summary explicit.  The source-stage and
+    # source-agent fields are provenance metadata; they are not competence or
+    # quality measures.  A missing value remains UNKNOWN rather than being
+    # silently dropped from the validated episode denominator.
+    producing_groups: Counter[tuple[str, str]] = Counter()
+    rounds_rows: list[dict[str, Any]] = []
+    for episode in complete:
+        episode_questions = [
+            event for event in events
+            if event.get("episode_id") == episode["episode_id"]
+            and event.get("event_type") == "QUESTION_EMITTED"
+        ]
+        pairs = {
+            (
+                event.get("source_agent") or "UNKNOWN",
+                event.get("source_stage") or "UNKNOWN",
+            )
+            for event in episode_questions
+        }
+        for pair in pairs:
+            producing_groups[pair] += 1
+        rounds_rows.append(
+            {
+                "episode_id": _safe_id(episode["episode_id"], "EP"),
+                "round_count": episode["round_count"],
+                "question_count": episode["question_count"],
+                "answer_count": episode["answer_count"],
+                "termination_reason": episode["termination_reason"],
+            }
+        )
+    producing_rows = [
+        {
+            "producing_agent": agent,
+            "phase": phase,
+            "episode_count": count,
+        }
+        for (agent, phase), count in sorted(producing_groups.items())
+    ]
+
     cooccurrence = Counter(tuple(detector_rows[episode_id]["all_signals_fired"]) for episode_id in detector_rows)
     cooccurrence_rows = [
         {"signals_fired": list(signals), "episode_count": count}
@@ -854,6 +895,8 @@ def aggregate_verified_events(events: list[dict[str, Any]]) -> dict[str, Any]:
 
     tables = {
         "episodes": _table(episode_rows, denominator),
+        "episodes_by_producing_agent_phase": _table(producing_rows, denominator),
+        "rounds_per_episode": _table(rounds_rows, denominator),
         "agent_questions": _table(
             [{"asking_agent": agent, "question_count": count} for agent, count in sorted(question_counts.items())],
             "all_validated_question_events",

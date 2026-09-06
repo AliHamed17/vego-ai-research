@@ -39,12 +39,22 @@
       "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
       "rows": []
     },
+    "episodes_by_producing_agent_phase": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
     "evidence_reference_lengths": {
       "denominator": "NOT_AVAILABLE_IN_WORKTREE",
       "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
       "rows": []
     },
     "questions_answers_by_case_episode_route_round": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "rounds_per_episode": {
       "denominator": "NOT_AVAILABLE_IN_WORKTREE",
       "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
       "rows": []

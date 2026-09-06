@@ -1,6 +1,6 @@
 # Study 1/Study 2 canonical draft selection
 
-**Review date:** 2026-09-06  
+**Review date:** 2026-09-06
 **Evidence class:** implementation/protocol metadata only; no scientific run.
 
 The repository was fetched before selection. At review time:
