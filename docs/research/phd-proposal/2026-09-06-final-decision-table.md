@@ -66,10 +66,44 @@ Validator: **92 checks, 87 PASS, 0 scientific value failures.**
 | Original contents of `analysis/output-inventory.json` | Overwritten 2026-09-06; 144 candidate serializations failed to reproduce the pinned digest; **not reconstructed** |
 | Alert correctness | No ground-truth labels exist for this corpus |
 
+## 5.1 The validator divergence — the single most important open item
+
+Two validators now exist for the same evidence, and they disagree about what may be emitted.
+
+| | Recomputation validator (mine, at commit `63da010`) | Binding-gated validator (Codex, canonical at HEAD) |
+|---|---|---|
+| Method | Recomputes every aggregate from the event log and cross-checks all derived files | Requires a `study1-evidence-binding-v1` manifest first, then recomputes |
+| Result on the accepted run | 92 checks · 87 PASS · **0 scientific value failures** · 4 provenance gaps · 1 derived-chain failure | `EVIDENCE_NOT_AVAILABLE_IN_REVIEWED_WORKTREE` |
+| Why that result | The evidence is present in this worktree and its hashes reproduce byte-exactly | **No binding manifest was supplied.** Not a statement that the evidence is absent or wrong |
+| Output artifact | `analysis/evidence-validation.json` (present) | one check row, no numbers |
+
+**Neither result contradicts the other.** Codex's status string is scoped —
+*"IN_REVIEWED_WORKTREE"* — and their handoff states the reason plainly: no private root is
+mounted in the worktree they reviewed. `external_data/**` is git-ignored and does not propagate
+between worktrees; this is the same worktree-scope condition that produced the earlier, later
+withdrawn, `EVIDENCE_BLOCKED` claim.
+
+Codex's own success status is `ACCEPTED_FOR_DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE`,
+so both parties agree that descriptive reporting is permitted and that the provenance is
+retrospective. The disagreement is only about the **gate**.
+
+**A binding manifest was deliberately not created.** Every field it requires is known and
+verified here, so producing one is trivially possible — and that is exactly why it was not done.
+A manifest authored today, after the outputs exist, cannot establish the pre-output binding that
+the caveat says is absent, and a file named `evidence-binding` created after the fact invites
+precisely the misreading this package exists to prevent. Creating it is a decision for a human,
+not a convenience for a reviewer.
+
+**Consequence for the published numbers:** they remain reproducible from
+`analysis/evidence-validation.json` and from the validator source at `63da010`, but they are
+**not** reproducible by the canonical CLI at HEAD until the gate is satisfied. That must not be
+described as the numbers being unverified; it is the canonical instrument declining to speak.
+
 ## 6. Requires a human decision — not more analysis
 
 | # | Decision | Options | What turns on it |
 |---|---|---|---|
+| D0 | How is the validator divergence resolved? | (a) create an explicitly-labelled retrospective binding manifest so the canonical CLI can run; (b) keep both validators and cite each by name; (c) restore the recomputation validator as canonical | **Highest priority.** Until this is settled the canonical tool emits no Study 1 numbers, while the published package cites 92 checks. Option (a) does **not** upgrade provenance and must never be presented as doing so. |
 | D1 | Should Detector-v1's "candidate for human review" label ever be wired to the existing `human_review_queue`? | (a) keep it a reporting label; (b) wire it | Today it is a reporting label only. Wiring it would make it an operational trigger and would change what the thesis is claiming. |
 | D2 | Which Study 2 preregistration is authoritative? | PR #41 version 2, PR #42's version, or a merged one | Two documents with the same filename exist on different branches. They must be reconciled before either is reviewed. |
 | D3 | Does the unrecovered `output-inventory.json` block the package? | (a) proceed with it disclosed; (b) block | No published claim depends on it and all scientific values reproduce. Current handling: proceed with disclosure. |
