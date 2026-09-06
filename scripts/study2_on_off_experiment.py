@@ -28,6 +28,7 @@ import jsonschema
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "VEGO-AI/framework"))
+sys.path.insert(0, str(ROOT / "src"))
 
 SETTING_ID = "cd_airtravel"
 CORPUS_ID = "text2uml_airtravel_253b26dc"
@@ -238,13 +239,67 @@ def prompt_difference_receipt(on: dict[str, Any], off: dict[str, Any]) -> dict[s
     }
 
 
+def _run_dependency_injected_fixture(
+    *, output_dir: Path, allowed_root: Path, fixture_mode: str, run_id: str
+) -> dict[str, Any]:
+    """Run the package-level paired fixture with a local deterministic client.
+
+    The explicit ``--allowed-root`` path selects this branch.  It never loads a
+    provider adapter or the protected production orchestrator; the package
+    runner receives only :class:`DeterministicFixtureClient`.
+    """
+    from vego_study2.config import load_config
+    from vego_study2.fixtures import DeterministicFixtureClient, fixture_cases
+    from vego_study2.runner import Study2Runner
+
+    config = load_config(ROOT / "docs/research/phd-proposal/study2-frozen-config.json")
+    config = {**config, "run_id": run_id}
+    runner = Study2Runner(
+        config=config,
+        cases=fixture_cases(config),
+        client=DeterministicFixtureClient(),
+        output_root=output_dir,
+        approved_root=allowed_root,
+        code_sha="ENGINEERING_FIXTURE_ONLY",
+    )
+    result = asyncio.run(runner.run_both(fixture_mode=fixture_mode))
+    return {
+        "schema_version": result["schema_version"],
+        "evidence_class": result["evidence_class"],
+        "scientific_result_status": result["receipt"]["scientific_result_status"],
+        "provider_calls": result["receipt"]["provider_calls"],
+        "external_calls": result["receipt"]["external_calls"],
+        "run_id": result["receipt"]["run_id"],
+        "normalized_sha256": result["normalized_sha256"],
+        "condition_status": {
+            name: report["status"]
+            for name, report in result["conditions"].items()
+        },
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime-root", type=Path, default=ROOT / "external_data/airtravel-pr38/runtime_input")
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--fixture-mode", default="two_rounds", choices=["no_questions", "two_rounds", "max_rounds"])
     parser.add_argument("--run-id", default="STUDY2-FIXTURE")
+    parser.add_argument(
+        "--allowed-root",
+        type=Path,
+        help="Absolute private root; selects the dependency-injected, no-provider fixture runner",
+    )
     args = parser.parse_args()
+
+    if args.allowed_root is not None:
+        summary = _run_dependency_injected_fixture(
+            output_dir=args.output_dir,
+            allowed_root=args.allowed_root,
+            fixture_mode=args.fixture_mode,
+            run_id=args.run_id,
+        )
+        print(json.dumps(summary, indent=2, sort_keys=True))
+        return 0
 
     corpus = load_corpus(args.runtime_root)
     on = asyncio.run(run_on(corpus, args.output_dir / "on", args.fixture_mode, args.run_id))

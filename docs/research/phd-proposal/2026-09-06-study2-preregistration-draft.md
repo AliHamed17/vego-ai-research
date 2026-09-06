@@ -72,20 +72,21 @@ only orchestration varied.
 | Corpus | `text2uml_airtravel_253b26dc` | code (`RUNTIME_FILES` hash pin) |
 | Setting | `cd_airtravel` | code |
 | Case identifiers | exactly `01`, `02`, `03`, `04` — identical in both conditions | code |
-| Provider / model | one model, identical in both conditions, recorded before the first call | **not yet bound — see §13** |
-| Temperature / seed | provider default, not overridden, identical in both conditions | **not yet bound** |
-| Max output tokens | identical in both conditions | **not yet bound** |
-| Retry policy | at most 3 attempts per call, counted against the request cap | **not yet bound** |
-| Request timeout | 180 s · run timeout 3600 s | **not yet bound** |
-| Concurrency | 2 cases | code (both conditions) |
-| Request cap | 326 outbound requests including retries, **per condition** | **not yet bound** |
-| Budget cap | USD 10 hard ceiling, per-request worst-case reservation, **per condition** | **not yet bound** |
-| Egress restriction | provider host only | **not yet bound** |
-| Output contract | mapping rows, coverage summary, uncovered fragments | code |
-| Privacy | private git-ignored output root; hashes and counts only in version control | code |
+| Provider / model | one model, identical in both conditions, recorded before any future provider call | **not yet bound for a paid run; fixture runner accepts only a local injected client** |
+| Temperature / seed | temperature `0.0`; no stochastic seed is used by the deterministic fixture | frozen config + runner |
+| Max output tokens | `2048`, identical in both conditions | frozen config + call request |
+| Retry policy | one transport retry (`retries=1`), counted against the request cap; no content-based retry | frozen config + runner |
+| Request timeout | 180 s per call; 3600 s per condition run | frozen config + runner |
+| Concurrency | 2 cases | frozen config + runner (both conditions) |
+| Request cap | 326 attempts including retries, **per condition** | frozen config + runner |
+| Budget cap | USD 10 hard ceiling, charged only from supplied usage, **per condition** | frozen config + runner |
+| Egress restriction | `DISABLED` for the fixture; no provider/network adapter is supplied | frozen config + dependency injection |
+| Output contract | `study2-condition-output-v1`: mapping rows, coverage summary, uncovered fragments | schema + runner (strict) |
+| Privacy | private git-ignored output root; hash/count receipts only in version control | runner + path/privacy tests |
 
 The "bound where" column is a factual statement about the current implementation, not
-an aspiration. Rows marked *not yet bound* are blocking preconditions listed in §13.
+an aspiration. Only the provider/model identity remains intentionally unbound for a
+future paid run; the fixture path is local-only and cannot call a provider.
 
 ## 5. Primary outcome — blinded human-rubric quality
 
@@ -216,12 +217,12 @@ The preflight **cannot** prove that only orchestration differs — §3 explains 
 design can. It proves parity on the enumerated parameters and records the structural
 differences; nothing more may be claimed from it.
 
-A preflight harness exists (`scripts/study2_on_off_experiment.py`) and has been
-executed on fixtures only. Its current fixture run produced **zero mapping rows and
-zero uncovered fragments in both conditions**, because the baseline fixture client
-returns empty lists by construction. That fixture therefore demonstrates plumbing and
-schema shape only; it carries no comparative content whatsoever, and no figure or
-sentence may present it as a difference between the conditions.
+A preflight harness exists (`scripts/study2_on_off_experiment.py`) and is exercised by
+dependency-injected engineering fixtures only. Fixture payloads are deliberately
+non-scientific and are written only to a caller-supplied private output root. They
+demonstrate plumbing, strict schema rejection, policy caps, privacy and lifecycle
+shape; they carry no comparative content and no figure or sentence may present them
+as a difference between the conditions.
 
 ## 11. Authorization gates
 
@@ -241,27 +242,26 @@ unrunnable, if the prompt-difference receipt is missing or inconsistent, if a ca
 budget is breached, if a credential, raw prompt, raw answer or private path reaches
 version control, or if any parameter in §4 is found to differ between the conditions.
 
-## 13. Blocking preconditions — controls not yet bound in code
+## 13. Remaining gates before any provider-backed run
 
-Independent review of the implementation on 2026-09-06 found that
-`scripts/study2_on_off_experiment.py` and `scripts/study2_vego_off_baseline.py` are
-**fixture-only harnesses with no provider path**, and that they bind none of the
-following, all of which the Study 1 paid-run harness
-(`scripts/airtravel_real_run.py`) does bind:
+The offline implementation now binds the declared control policy through
+`src/vego_study2/config.py` and `src/vego_study2/runner.py`, and the dependency
+injection boundary has no provider or network adapter. The following gates remain
+open for a future provider-backed run:
 
-| Control | Study 1 harness | Study 2 harness |
-|---|---|---|
-| Budget guard with per-request reservation | present | **absent** |
-| Outbound request cap | present | **absent** |
-| Egress restriction to the provider host | present | **absent** |
-| Frozen model identity | present | **absent** (fixture identity only) |
-| Max output tokens | present | **absent** |
-| Request / run timeout enforcement | present | **absent** |
+1. Independent review of this implementation and the frozen configuration.
+2. Freeze one provider/model identity, temperature/seed policy and exact budget in a
+   fresh authorization message before the first call.
+3. Separately verify provider-host egress, credential handling and any provider client
+   in the authorized execution environment; the fixture path cannot establish those
+   properties.
+4. Obtain a fresh one-time paired offline-preflight grant and audit its receipt.
+5. Obtain separate fresh authorizations for the ON and OFF paid conditions, with no
+   adaptive retry, model switching, corpus change or outcome-dependent rerun.
+6. Obtain independent blinded human-rubric scores; without them the primary outcome
+   is `NOT_COLLECTED` and no quality finding exists.
 
-Until every row above is implemented, reviewed and demonstrated under the offline
-paired preflight, §4 describes an intention rather than a binding, and **no paid Study
-2 run may be authorized**. This preregistration does not authorize implementation
-work; it states the precondition.
+Until these gates are closed, **no paid Study 2 run may be authorized**.
 
 ## 14. Claim boundary
 
@@ -301,7 +301,7 @@ for Study 2B.
 | 9 | Missingness, schema failure, partial output, zero-Q&A behaviour and technical failure are given predefined handling; outcome-dependent retry and model switching are prohibited. |
 | 10 | The preflight claim that prompt differences arise only from orchestration is removed as unprovable; the all-zero fixture result is disclosed. |
 | 11 | Separate authorization is required for each paid condition. |
-| 13 | New: the six controls the harness does not bind, as blocking preconditions. |
+| 13 | Replaced the stale six-control gap list with the controls now bound in the offline runner and the remaining provider/authorization gates. |
 | 15 | New: Llama is confined to a separately preregistered Study 2B. |
 
 ## 17. What has not been done

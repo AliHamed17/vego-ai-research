@@ -30,6 +30,24 @@
     "off_detector_denominator": "NOT_APPLICABLE",
     "study1_pooling": false
   },
+  "implementation": {
+    "runner": "src/vego_study2/runner.py",
+    "config_schema": "schemas/study2-frozen-config-v1.schema.json",
+    "controls_bound_for_offline_fixture": [
+      "model identity placeholder is recorded before fixture calls",
+      "temperature and max_output_tokens",
+      "retry and timeout policy",
+      "run timeout",
+      "concurrency",
+      "cost ceiling and per-condition call ceiling",
+      "network policy DISABLED",
+      "private output-root containment",
+      "strict output schema",
+      "ordered attempt and privacy counters"
+    ],
+    "provider_identity": "NOT_YET_FROZEN_FOR_ANY_PAID_RUN",
+    "provider_egress": "NOT_TESTED; fixture client has no network path"
+  },
   "fixture_policy": {
     "allowed": true,
     "tag": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
