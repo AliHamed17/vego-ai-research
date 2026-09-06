@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
 <title>VEGO-AI Study 1 - AirTravel</title>
 <style>
-@page { size: A4; margin: 10mm 11mm; }
+@page { size: A4; margin: 10mm 11mm 10mm; }
 * { box-sizing: border-box; }
 body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:8.3pt; line-height:1.32; margin:0; }
 h1 { font-size:14.5pt; margin:0 0 1mm; }
@@ -43,10 +43,15 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 .grp .gl { font-size:6.9pt; margin-bottom:0.5mm; }
 .grp .row { margin-bottom:0.5mm; }
 .grp .lbl { flex:0 0 14mm; font-size:6.4pt; color:rgb(82,81,78); }
+.cs[data-caveat="retrospective"]::after { content:" · ייחוס בדיעבד"; color:rgb(235,104,52); font-weight:600; }
+table { position:relative; }
+table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); letter-spacing:0.02em; }
 </style></head><body>
+
 
 <h1>מחקר 1 — VEGO-AI · קורפוס AirTravel: תוצאות מקדימות</h1>
 <p class="sub">ריצת ספק מאושרת אחת · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code> · N=4 מקרים · מודל <code>gpt-5.6-luna</code> · 2026-09-06</p>
+<div class="warn" style="margin-top:1.2mm;font-size:7pt;padding:1.1mm 2mm"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש.</div>
 
 <div class="banner"><b>סיווג הנתונים:</b> קורפוס ציבורי חיצוני שנוצר באמצעות מודלי שפה. אינם נתוני סטודנטים, אינם שחזור Cheers/ParkWise, ואינם נתונים סינתטיים. לא נוצר אף מקרה סינתטי.</div>
 
@@ -84,7 +89,7 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 </div>
 <div class="chart">
   <div class="ct">איור 1 — סיום אפיזודות וסיווג Detector-v1</div>
-  <div class="cs">N = 3 אפיזודות שלמות · ספירות בלבד (N קטן מדי לאחוזים)</div>
+  <div class="cs" data-caveat="retrospective">N = 3 אפיזודות שלמות · ספירות בלבד (N קטן מדי לאחוזים)</div>
   <div class="row"><span class="lbl wide">CONVERGED</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div>
   <div class="row"><span class="lbl wide">TERMINATED_MAX_ROUNDS</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div>
   <div class="row"><span class="lbl wide">INCOMPLETE_TECHNICAL</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
@@ -99,7 +104,7 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 2 — התפלגות ביטחון התשובות</div>
-  <div class="cs">N = 44 תשובות · ספירות בפועל</div>
+  <div class="cs" data-caveat="retrospective">N = 44 תשובות · ספירות בפועל</div>
   <div class="row"><span class="lbl">נמוך (Low)</span><span class="track"><span class="bar" style="width:64%"></span><span class="val">16</span></span></div>
   <div class="row"><span class="lbl">בינוני (Medium)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">25</span></span></div>
   <div class="row"><span class="lbl">גבוה (High)</span><span class="track"><span class="bar" style="width:12%"></span><span class="val">3</span></span></div>
@@ -127,7 +132,7 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 3 — ביטחון התשובות: בסיס מדומה מול ריצה אמיתית</div>
-  <div class="cs">ספק מדומה N = 20 · ריצה אמיתית N = 44</div>
+  <div class="cs" data-caveat="retrospective">ספק מדומה N = 20 · ריצה אמיתית N = 44</div>
   <div class="legend"><span><span class="sw sw1"></span>ספק מדומה</span><span><span class="sw sw2"></span>ריצה אמיתית</span></div>
   <div class="grp">
     <div class="gl">ביטחון נמוך</div>
@@ -165,20 +170,21 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 4 — מסלולי תקשורת מכוונים שנצפו</div>
-  <div class="cs">N = 44 שאלות · 3 מתוך 6 מסלולים אפשריים נצפו</div>
-  <div class="row"><span class="lbl">agent4 ← agent2</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">39</span></span></div>
-  <div class="row"><span class="lbl">agent3 ← agent2</span><span class="track"><span class="bar" style="width:10.3%"></span><span class="val">4</span></span></div>
-  <div class="row"><span class="lbl">agent3 ← agent1</span><span class="track"><span class="bar" style="width:2.6%"></span><span class="val">1</span></span></div>
-  <div class="note">שלושה מסלולים אפשריים לא נצפו כלל: agent2←agent1, agent2←agent2, agent4←agent1.</div>
+  <div class="cs" data-caveat="retrospective">N = 44 שאלות · 3 מתוך 6 מסלולים אפשריים נצפו</div>
+  <div class="row"><span class="lbl">שואל agent4 · משיב agent2</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">39</span></span></div>
+  <div class="row"><span class="lbl">שואל agent3 · משיב agent2</span><span class="track"><span class="bar" style="width:10.3%"></span><span class="val">4</span></span></div>
+  <div class="row"><span class="lbl">שואל agent3 · משיב agent1</span><span class="track"><span class="bar" style="width:2.6%"></span><span class="val">1</span></span></div>
+  <div class="note">שלושה מסלולים אפשריים לא נצפו כלל: שואל agent2 / משיב agent1 · שואל agent2 / משיב agent2 · שואל agent4 / משיב agent1.</div>
 </div>
 <div>
 <table>
-<tr><th>מסלול</th><th class="n">שאלות</th></tr>
-<tr><td>agent4 ← agent2</td><td class="n">39</td></tr>
-<tr><td>agent3 ← agent2</td><td class="n">4</td></tr>
-<tr><td>agent3 ← agent1</td><td class="n">1</td></tr>
-<tr class="hi"><td>סה"כ</td><td class="n">44</td></tr>
+<tr><th class="n">סוכן שואל</th><th class="n">סוכן משיב</th><th class="n">מספר שאלות</th></tr>
+<tr><td class="n">agent4</td><td class="n">agent2</td><td class="n">39</td></tr>
+<tr><td class="n">agent3</td><td class="n">agent2</td><td class="n">4</td></tr>
+<tr><td class="n">agent3</td><td class="n">agent1</td><td class="n">1</td></tr>
+<tr class="hi"><td class="n">סה"כ</td><td class="n">—</td><td class="n">44</td></tr>
 </table>
+<p class="note">שלושה מסלולים מכוונים לא נצפו כלל: שואל agent2 / משיב agent1 · שואל agent2 / משיב agent2 · שואל agent4 / משיב agent1.</p>
 <p class="note">ריכוז חריג במסלול אחד: 39 מתוך 44 השאלות (88.6%) הגיעו מ-agent4 אל agent2, כולן באפיזודה שהגיעה למגבלת עשרת הסבבים.</p>
 </div>
 </div>
@@ -231,7 +237,7 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 5 — שיעור תשובות בביטחון נמוך, לפי סבב</div>
-  <div class="cs">N = 44 תשובות · פירוק לפי round_index</div>
+  <div class="cs" data-caveat="retrospective">N = 44 תשובות · פירוק לפי round_index</div>
   <div class="row"><span class="lbl">סבב 1 (n=7)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
   <div class="row"><span class="lbl">סבב 2 (n=7)</span><span class="track"><span class="bar" style="width:28.6%"></span><span class="val">29%</span></span></div>
   <div class="row"><span class="lbl">סבב 3 (n=5)</span><span class="track"><span class="bar" style="width:20%"></span><span class="val">20%</span></span></div>
@@ -278,7 +284,7 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 6 — קטעים לא מכוסים שזוהו, לפי מקרה</div>
-  <div class="cs">N = 4 מקרים · סה"כ 86 קטעים</div>
+  <div class="cs" data-caveat="retrospective">N = 4 מקרים · סה"כ 86 קטעים</div>
   <div class="row"><span class="lbl">מקרה 01</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">23</span></span></div>
   <div class="row"><span class="lbl">מקרה 02</span><span class="track"><span class="bar" style="width:95.7%"></span><span class="val">22</span></span></div>
   <div class="row"><span class="lbl">מקרה 03</span><span class="track"><span class="bar" style="width:91.3%"></span><span class="val">21</span></span></div>

@@ -1,5 +1,10 @@
 # Study 1 — AirTravel execution and analysis receipt
 
+> **Controlling verdict:** `PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE`
+>
+> The private evidence was validated retrospectively; the original receipt did not self-bind the event-log hash, lifecycle summary, or execution-code SHA. These are provenance gaps, not value errors: every number reproduces from the event log. Supervisor acknowledgement does **not** upgrade this run to prospective or preregistered provenance.
+
+
 Machine-verifiable record for one authorized offline preflight and one
 authorized provider-backed run. Every value below is derived from a persisted
 artifact; none is narrated.
@@ -19,6 +24,7 @@ artifact; none is narrated.
 | Runtime archive SHA-256 | `e37baecd20a0c84eb1d9b87b3b78a23bc4b4eb8a9824ad3086dc30aa35fdd31f` |
 | Source verification | 143/143 source files, 5/5 runtime files |
 
+*[Retrospective provenance — see the controlling caveat at the top of this document.]*
 ## Offline fake preflight — engineering evidence only
 
 | Item | Value |
@@ -35,6 +41,7 @@ artifact; none is narrated.
 | Protected manifest before = after | True |
 | Tracked manifest before = after | True |
 
+*[Retrospective provenance — see the controlling caveat at the top of this document.]*
 This is technical readiness. It is not a scientific result.
 
 ## Real provider-backed run — exactly one
@@ -57,6 +64,7 @@ This is technical readiness. It is not a scientific result.
 | Blocked egress attempts | 0 |
 | Credential | process environment variable, value never read |
 
+*[Retrospective provenance — see the controlling caveat at the top of this document.]*
 Call bounds: minimum 4 + 3N = 16, maximum 82 + 61N = 326. Observed
 43 outbound requests, inside both bounds.
 
@@ -76,6 +84,7 @@ Call bounds: minimum 4 + 3N = 16, maximum 82 + 61N = 326. Observed
 | NO_ALERT | 0 |
 | Signals fired | {"S1_LOW_ANSWER_CONFIDENCE": 3, "S2_MEDIUM_ANSWER_CONFIDENCE": 2, "S6_MULTIPLE_QA_ROUNDS": 2, "S7_TERMINATED_MAX_ROUNDS": 1} |
 
+*[Retrospective provenance — see the controlling caveat at the top of this document.]*
 Classification rule applied unchanged: `STRONG_ALERT = S1 ∨ S3 ∨ S7`;
 `WEAK_ALERT = ¬STRONG ∧ (S2 ∨ S6)`; otherwise `NO_ALERT`.
 C1/C2/C3 are context only, C1 strictly `mapping_certainty < 0.7`.
@@ -93,6 +102,7 @@ S5/S8/S9 remain non-triggering or descriptive as preregistered.
 | Preflight receipt | `20d90f28adc44ba2467b0d895bf0b2173a22c6d3278cc5e2f175946f1e45afaa` |
 | Preflight output inventory | `3151f72da1e097dae651b93f4f857d28561984f2e7f1b32e9d6317f20ba6e112` |
 
+*[Retrospective provenance — see the controlling caveat at the top of this document.]*
 ## Privacy and claim boundary
 
 Raw prompts, raw answers, pipeline artifacts and corpus bytes are stored only

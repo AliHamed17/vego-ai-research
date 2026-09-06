@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
 <title>VEGO-AI Study 1 - Supervisor Report</title>
 <style>
-@page { size: A4; margin: 11mm 12mm; }
+@page { size: A4; margin: 11mm 12mm 11mm; }
 * { box-sizing: border-box; }
-body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:9pt; line-height:1.38; margin:0; }
+body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:9pt; line-height:1.33; margin:0; }
 h1 { font-size:15pt; margin:0 0 1.2mm; }
-h2 { font-size:10.5pt; margin:3.4mm 0 1.5mm; padding-bottom:0.8mm; border-bottom:1.5px solid rgb(42,120,214); color:rgb(20,55,94); }
-.sub { color:rgb(82,81,78); font-size:8pt; margin:0 0 2.5mm; }
+h2 { font-size:10.2pt; margin:2.7mm 0 1.2mm; padding-bottom:0.8mm; border-bottom:1.5px solid rgb(42,120,214); color:rgb(20,55,94); }
+.sub { color:rgb(82,81,78); font-size:8pt; margin:0 0 1.8mm; }
 .banner { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214); padding:2mm 2.6mm; font-size:8.2pt; margin:0 0 2.6mm; }
 .warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52); padding:2mm 2.6mm; font-size:8.2pt; margin:0 0 2.4mm; }
 .plain { background:rgb(246,246,244); border:1px solid rgb(216,216,212); border-radius:2mm; padding:2.2mm 2.8mm; margin:0 0 2.4mm; font-size:8.4pt; }
@@ -16,7 +16,7 @@ th { background:rgb(244,245,243); font-weight:600; }
 td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
 .hi { background:rgb(255,248,232); font-weight:700; }
 .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3.4mm; align-items:start; }
-.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.8mm; margin-bottom:1.5mm; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.4mm; margin-bottom:1.2mm; }
 .kpi { border:1px solid rgb(216,216,212); border-radius:2mm; padding:2mm; text-align:center; }
 .kpi .v { font-size:14pt; font-weight:700; color:rgb(20,55,94); line-height:1.05; }
 .kpi .l { font-size:7pt; color:rgb(82,81,78); margin-top:0.6mm; }
@@ -40,10 +40,15 @@ code { font-family:Consolas,monospace; font-size:7.4pt; background:rgb(244,245,2
 .sw1 { background:rgb(42,120,214); } .sw2 { background:rgb(235,104,52); }
 .foot { border-top:1px solid rgb(216,216,212); margin-top:2.2mm; padding-top:1.4mm; font-size:7pt; color:rgb(82,81,78); }
 .tag { display:inline-block; background:rgb(235,104,52); color:white; font-size:6.8pt; padding:0.3mm 1.4mm; border-radius:1mm; font-weight:700; }
+.cs[data-caveat="retrospective"]::after { content:" · ייחוס בדיעבד"; color:rgb(235,104,52); font-weight:600; }
+table { position:relative; }
+table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); letter-spacing:0.02em; }
 </style></head><body>
+
 
 <h1>מחקר 1 — VEGO-AI · קורפוס AirTravel: דוח תוצאות לממונים</h1>
 <p class="sub">ריצת ספק מאושרת אחת · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code> · N=4 מקרים · <code>gpt-5.6-luna</code> · 2026-09-06</p>
+<div class="warn" style="margin:1mm 0 1.2mm;font-size:6.5pt;padding:0.9mm 1.8mm;line-height:1.28"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש.</div>
 
 <div class="banner"><b>סיווג הנתונים:</b> קורפוס ציבורי חיצוני שנוצר באמצעות מודלי שפה. אינם נתוני סטודנטים, אינם שחזור Cheers/ParkWise, ואינם נתונים סינתטיים. לא נוצר אף מקרה סינתטי.</div>
 
@@ -88,7 +93,7 @@ code { font-family:Consolas,monospace; font-size:7.4pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 1 — סיום שיחות וסיווג ההתראות</div>
-  <div class="cs"><b>נמדד:</b> מספר שיחות · <b>מונה:</b> שיחות בכל מצב · <b>מכנה:</b> 3 שיחות שהושלמו · ספירות בלבד</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> מספר שיחות · <b>מונה:</b> שיחות בכל מצב · <b>מכנה:</b> 3 שיחות שהושלמו · ספירות בלבד</div>
   <div class="row"><span class="lbl w">הסתיימו בהסכמה</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div>
   <div class="row"><span class="lbl w">הגיעו למגבלת הסבבים</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div>
   <div class="row"><span class="lbl w">הופסקו טכנית (מוחרגות)</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
@@ -99,7 +104,7 @@ code { font-family:Consolas,monospace; font-size:7.4pt; background:rgb(244,245,2
 </div>
 <div class="chart">
   <div class="ct">איור 2 — רמת הביטחון של התשובות</div>
-  <div class="cs"><b>נמדד:</b> תשובות · <b>מונה:</b> תשובות בכל רמה · <b>מכנה:</b> 44 תשובות</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> תשובות · <b>מונה:</b> תשובות בכל רמה · <b>מכנה:</b> 44 תשובות</div>
   <div class="row"><span class="lbl">נמוך</span><span class="track"><span class="bar" style="width:64%"></span><span class="val">16</span></span></div>
   <div class="row"><span class="lbl">בינוני</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">25</span></span></div>
   <div class="row"><span class="lbl">גבוה</span><span class="track"><span class="bar" style="width:12%"></span><span class="val">3</span></span></div>
@@ -115,7 +120,7 @@ code { font-family:Consolas,monospace; font-size:7.4pt; background:rgb(244,245,2
 <div class="grid2">
 <div class="chart">
   <div class="ct">איור 3 — שיעור תשובות בביטחון נמוך, לפי סבב</div>
-  <div class="cs"><b>נמדד:</b> אחוז · <b>מונה:</b> תשובות בביטחון נמוך בסבב · <b>מכנה:</b> כל התשובות באותו סבב</div>
+  <div class="cs" data-caveat="retrospective"><b>נמדד:</b> אחוז · <b>מונה:</b> תשובות בביטחון נמוך בסבב · <b>מכנה:</b> כל התשובות באותו סבב</div>
   <div class="row"><span class="lbl">סבב 1 (מתוך 7)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">100%</span></span></div>
   <div class="row"><span class="lbl">סבב 2 (מתוך 7)</span><span class="track"><span class="bar" style="width:28.6%"></span><span class="val">29%</span></span></div>
   <div class="row"><span class="lbl">סבב 3 (מתוך 5)</span><span class="track"><span class="bar" style="width:20%"></span><span class="val">20%</span></span></div>
