@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<title>VEGO-AI Study 1 - AirTravel</title>
+<style>
+@page { size: A4; margin: 10mm 11mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:8.3pt; line-height:1.32; margin:0; }
+h1 { font-size:14.5pt; margin:0 0 1mm; }
+h2 { font-size:9.4pt; margin:3mm 0 1.2mm; padding-bottom:0.7mm; border-bottom:1.4px solid rgb(42,120,214); color:rgb(20,55,94); }
+.sub { color:rgb(82,81,78); font-size:7.5pt; margin:0 0 2mm; }
+.banner { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214); padding:1.5mm 2.3mm; font-size:7.6pt; margin:0 0 2.2mm; }
+table { width:100%; border-collapse:collapse; font-size:7.4pt; margin:0 0 1.8mm; }
+th,td { border:1px solid rgb(216,216,212); padding:1mm 1.4mm; text-align:right; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
+.hi { background:rgb(255,248,232); font-weight:700; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3mm; align-items:start; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.5mm; margin-bottom:1.2mm; }
+.kpi { border:1px solid rgb(216,216,212); border-radius:2mm; padding:1.6mm; text-align:center; }
+.kpi .v { font-size:13.5pt; font-weight:700; color:rgb(20,55,94); line-height:1.05; }
+.kpi .l { font-size:6.6pt; color:rgb(82,81,78); margin-top:0.4mm; }
+.note { font-size:6.8pt; color:rgb(82,81,78); margin:0.8mm 0 0; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52); padding:1.5mm 2.3mm; font-size:7.5pt; margin:0 0 1.8mm; }
+.page2 { page-break-before: always; }
+ul { margin:0.5mm 4mm 1.4mm 0; padding:0; }
+li { margin-bottom:0.4mm; }
+code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,243); padding:0 0.6mm; }
+.foot { border-top:1px solid rgb(216,216,212); margin-top:1.8mm; padding-top:1.1mm; font-size:6.5pt; color:rgb(82,81,78); }
+
+.chart { border:1px solid rgb(216,216,212); border-radius:2mm; padding:2mm 2.4mm; }
+.ct { font-size:7.8pt; font-weight:700; color:rgb(20,55,94); }
+.cs { font-size:6.6pt; color:rgb(82,81,78); margin:0.3mm 0 1.6mm; }
+.row { display:flex; align-items:center; gap:1.4mm; margin-bottom:1.1mm; }
+.lbl { flex:0 0 30mm; font-size:6.9pt; text-align:right; }
+.lbl.wide { flex:0 0 36mm; }
+.track { flex:1 1 auto; display:flex; align-items:center; gap:1.2mm; }
+.bar { height:2.6mm; border-radius:1.3mm; background:rgb(42,120,214); }
+.bar.b2 { background:rgb(235,104,52); }
+.val { font-size:6.9pt; font-weight:700; font-variant-numeric:tabular-nums; }
+.legend { display:flex; gap:3mm; font-size:6.5pt; color:rgb(82,81,78); margin-bottom:1.4mm; }
+.sw { display:inline-block; width:2.2mm; height:2.2mm; border-radius:0.6mm; vertical-align:middle; margin-left:0.8mm; }
+.sw1 { background:rgb(42,120,214); } .sw2 { background:rgb(235,104,52); }
+.grp { margin-bottom:1.4mm; }
+.grp .gl { font-size:6.9pt; margin-bottom:0.5mm; }
+.grp .row { margin-bottom:0.5mm; }
+.grp .lbl { flex:0 0 14mm; font-size:6.4pt; color:rgb(82,81,78); }
+</style></head><body>
+
+<h1>מחקר 1 — VEGO-AI · קורפוס AirTravel: תוצאות מקדימות</h1>
+<p class="sub">ריצת ספק מאושרת אחת · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code> · N=4 מקרים · מודל <code>gpt-5.6-luna</code> · 2026-09-06</p>
+
+<div class="banner"><b>סיווג הנתונים:</b> קורפוס ציבורי חיצוני שנוצר באמצעות מודלי שפה. אינם נתוני סטודנטים, אינם שחזור Cheers/ParkWise, ואינם נתונים סינתטיים. לא נוצר אף מקרה סינתטי.</div>
+
+<div class="grid3">
+  <div class="kpi"><div class="v">3</div><div class="l">אפיזודות שלמות (מכנה)</div></div>
+  <div class="kpi"><div class="v">3 / 0 / 0</div><div class="l">STRONG / WEAK / NO_ALERT</div></div>
+  <div class="kpi"><div class="v">44</div><div class="l">שאלות ותשובות</div></div>
+  <div class="kpi"><div class="v">10</div><div class="l">סבב מרבי</div></div>
+  <div class="kpi"><div class="v">43</div><div class="l">קריאות ספק (תקרה 326)</div></div>
+  <div class="kpi"><div class="v">$0.135</div><div class="l">עלות בפועל (תקרה $10)</div></div>
+</div>
+
+<h2>1. תוצאות מרכזיות ותוצאות Detector-v1</h2>
+<div class="grid2">
+<div>
+<table>
+<tr><th>מדד</th><th class="n">ערך</th></tr>
+<tr><td>מקרים זמינים</td><td class="n">4</td></tr>
+<tr><td>אפיזודות שנצפו</td><td class="n">3</td></tr>
+<tr class="hi"><td>אפיזודות שלמות (מכנה מדעי)</td><td class="n">3</td></tr>
+<tr><td>CONVERGED</td><td class="n">2</td></tr>
+<tr><td>TERMINATED_MAX_ROUNDS</td><td class="n">1</td></tr>
+<tr><td>INCOMPLETE_TECHNICAL</td><td class="n">0</td></tr>
+<tr><td>שאלות / תשובות</td><td class="n">44 / 44</td></tr>
+<tr><td>מסלולים מכוונים שנצפו</td><td class="n">3 מתוך 6</td></tr>
+</table>
+<table>
+<tr><th>אות Detector-v1</th><th class="n">אפיזודות</th></tr>
+<tr><td>S1 — ביטחון תשובה נמוך</td><td class="n">3</td></tr>
+<tr><td>S3 — ראיה חסרה</td><td class="n">0</td></tr>
+<tr><td>S7 — סיום במגבלת סבבים</td><td class="n">1</td></tr>
+<tr><td>S2 — ביטחון בינוני</td><td class="n">2</td></tr>
+<tr><td>S6 — יותר מסבב אחד</td><td class="n">2</td></tr>
+</table>
+</div>
+<div class="chart">
+  <div class="ct">איור 1 — סיום אפיזודות וסיווג Detector-v1</div>
+  <div class="cs">N = 3 אפיזודות שלמות · ספירות בלבד (N קטן מדי לאחוזים)</div>
+  <div class="row"><span class="lbl wide">CONVERGED</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div>
+  <div class="row"><span class="lbl wide">TERMINATED_MAX_ROUNDS</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div>
+  <div class="row"><span class="lbl wide">INCOMPLETE_TECHNICAL</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+  <div class="row"><span class="lbl wide">STRONG_ALERT</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">3</span></span></div>
+  <div class="row"><span class="lbl wide">WEAK_ALERT</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+  <div class="row"><span class="lbl wide">NO_ALERT</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+  <div class="note">המכנה המדעי הוא 3 אפיזודות שלמות; אפס הוחרגו.</div>
+</div>
+</div>
+
+<h2>2. התפלגות ביטחון התשובות</h2>
+<div class="grid2">
+<div class="chart">
+  <div class="ct">איור 2 — התפלגות ביטחון התשובות</div>
+  <div class="cs">N = 44 תשובות · ספירות בפועל</div>
+  <div class="row"><span class="lbl">נמוך (Low)</span><span class="track"><span class="bar" style="width:64%"></span><span class="val">16</span></span></div>
+  <div class="row"><span class="lbl">בינוני (Medium)</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">25</span></span></div>
+  <div class="row"><span class="lbl">גבוה (High)</span><span class="track"><span class="bar" style="width:12%"></span><span class="val">3</span></span></div>
+  <div class="note">ביטחון מדווח על-ידי המודל; אינו אמת-מידה חיצונית.</div>
+</div>
+<div>
+<table>
+<tr><th>רמת ביטחון</th><th class="n">ספירה</th><th class="n">אחוז</th></tr>
+<tr><td>נמוך (Low)</td><td class="n">16</td><td class="n">36.4%</td></tr>
+<tr><td>בינוני (Medium)</td><td class="n">25</td><td class="n">56.8%</td></tr>
+<tr><td>גבוה (High)</td><td class="n">3</td><td class="n">6.8%</td></tr>
+<tr class="hi"><td>סה"כ תשובות</td><td class="n">44</td><td class="n">100%</td></tr>
+</table>
+<p class="note">לכל 44 התשובות היה שדה ראיה באורך חיובי, ולכן <b>S3 פעל באפס אפיזודות</b>. נמדדה <b>נוכחות</b> ראיה בלבד — לא איכותה.</p>
+<p class="note"><b>כיסוי מקרים:</b> אפיזודות ממקרים <code>02</code> ו-<code>03</code>, בתוספת אפיזודה חוצת-מקרים של agent4. <b>מקרים <code>01</code> ו-<code>04</code> לא ייצרו אף אפיזודה.</b></p>
+</div>
+</div>
+
+<div class="page2"></div>
+<h1>בסיס השוואה, עלות ומגבלות</h1>
+<p class="sub">כל ערך נגזר מיומן האירועים ומקבלת ההרצה השמורים · קוד ביצוע <code>efe686ac</code></p>
+
+<h2>3. בסיס השוואה: ספק מדומה מול ריצה אמיתית</h2>
+<p class="note" style="margin:0 0 1.5mm">אותה צנרת מוגנת, אותו קורפוס, אותה תצורה — <b>ההבדל היחיד הוא הספק</b>.</p>
+<div class="grid2">
+<div class="chart">
+  <div class="ct">איור 3 — ביטחון התשובות: בסיס מדומה מול ריצה אמיתית</div>
+  <div class="cs">ספק מדומה N = 20 · ריצה אמיתית N = 44</div>
+  <div class="legend"><span><span class="sw sw1"></span>ספק מדומה</span><span><span class="sw sw2"></span>ריצה אמיתית</span></div>
+  <div class="grp">
+    <div class="gl">ביטחון נמוך</div>
+    <div class="row"><span class="lbl">מדומה</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+    <div class="row"><span class="lbl">אמיתית</span><span class="track"><span class="bar b2" style="width:64%"></span><span class="val">16</span></span></div>
+  </div>
+  <div class="grp">
+    <div class="gl">ביטחון בינוני</div>
+    <div class="row"><span class="lbl">מדומה</span><span class="track"><span class="bar" style="width:1%"></span><span class="val">0</span></span></div>
+    <div class="row"><span class="lbl">אמיתית</span><span class="track"><span class="bar b2" style="width:100%"></span><span class="val">25</span></span></div>
+  </div>
+  <div class="grp">
+    <div class="gl">ביטחון גבוה</div>
+    <div class="row"><span class="lbl">מדומה</span><span class="track"><span class="bar" style="width:80%"></span><span class="val">20</span></span></div>
+    <div class="row"><span class="lbl">אמיתית</span><span class="track"><span class="bar b2" style="width:12%"></span><span class="val">3</span></span></div>
+  </div>
+  <div class="note">אותה צנרת ואותו קורפוס; רק הספק שונה.</div>
+</div>
+<div>
+<table>
+<tr><th>מדד</th><th class="n">ספק מדומה</th><th class="n">ריצה אמיתית</th></tr>
+<tr><td>קריאות</td><td class="n">46 ×2</td><td class="n">43</td></tr>
+<tr><td>עלות</td><td class="n">$0</td><td class="n">$0.135</td></tr>
+<tr><td>אפיזודות</td><td class="n">10</td><td class="n">3</td></tr>
+<tr><td>שאלות / תשובות</td><td class="n">20 / 20</td><td class="n">44 / 44</td></tr>
+<tr class="hi"><td>סבב מרבי</td><td class="n">1</td><td class="n">10</td></tr>
+<tr><td>CONVERGED / MAX_ROUNDS</td><td class="n">10 / 0</td><td class="n">2 / 1</td></tr>
+<tr class="hi"><td>נמוך / בינוני / גבוה</td><td class="n">0 / 0 / 20</td><td class="n">16 / 25 / 3</td></tr>
+</table>
+<p class="note"><b>הממצא ההנדסי:</b> הפיקסצ׳ר מתכנס תמיד בסבב אחד בביטחון גבוה; המודל האמיתי מייצר ביטחון נמוך ובינוני ושרשראות עד מיצוי עשרת הסבבים. המכשור מודד שונות התנהגותית אמיתית. Detector-v1 <b>לא</b> הופעל על הבסיס המדומה — תשובות הפיקסצ׳ר סינתטיות.</p>
+</div>
+</div>
+
+<h2>4. מסלולי תקשורת מכוונים</h2>
+<div class="grid2">
+<div class="chart">
+  <div class="ct">איור 4 — מסלולי תקשורת מכוונים שנצפו</div>
+  <div class="cs">N = 44 שאלות · 3 מתוך 6 מסלולים אפשריים נצפו</div>
+  <div class="row"><span class="lbl">agent4 ← agent2</span><span class="track"><span class="bar" style="width:100%"></span><span class="val">39</span></span></div>
+  <div class="row"><span class="lbl">agent3 ← agent2</span><span class="track"><span class="bar" style="width:10.3%"></span><span class="val">4</span></span></div>
+  <div class="row"><span class="lbl">agent3 ← agent1</span><span class="track"><span class="bar" style="width:2.6%"></span><span class="val">1</span></span></div>
+  <div class="note">שלושה מסלולים אפשריים לא נצפו כלל: agent2←agent1, agent2←agent2, agent4←agent1.</div>
+</div>
+<div>
+<table>
+<tr><th>מסלול</th><th class="n">שאלות</th></tr>
+<tr><td>agent4 ← agent2</td><td class="n">39</td></tr>
+<tr><td>agent3 ← agent2</td><td class="n">4</td></tr>
+<tr><td>agent3 ← agent1</td><td class="n">1</td></tr>
+<tr class="hi"><td>סה"כ</td><td class="n">44</td></tr>
+</table>
+<p class="note">ריכוז חריג במסלול אחד: 39 מתוך 44 השאלות (88.6%) הגיעו מ-agent4 אל agent2, כולן באפיזודה שהגיעה למגבלת עשרת הסבבים.</p>
+</div>
+</div>
+
+<h2>5. עלות וקריאות — כולל ניסיונות שנכשלו</h2>
+<table>
+<tr><th>שלב</th><th class="n">בקשות</th><th class="n">קלט</th><th class="n">פלט</th><th class="n">עלות</th></tr>
+<tr><td>ניסיון 1 — נדחה בשער הפרמטרים לפני כל פלט</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">$0.000000</td></tr>
+<tr><td>ניסיון 2 — נעצר בשכבת המכשור</td><td class="n">3</td><td class="n">10,285</td><td class="n">6,863</td><td class="n">$0.010293</td></tr>
+<tr class="hi"><td>ריצת החלופה שהתקבלה</td><td class="n">43</td><td class="n">186,558</td><td class="n">81,384</td><td class="n">$0.134972</td></tr>
+<tr><td><b>סה"כ עלות ספק</b></td><td class="n"><b>47</b></td><td class="n">196,843</td><td class="n">88,247</td><td class="n"><b>$0.145265</b></td></tr>
+</table>
+<p class="note">נוסחה: (קלט÷10⁶×0.20)+(פלט÷10⁶×1.20) · תמחור רשמי נקרא 2026-09-05 · אסימוני מטמון: <code>NOT_AVAILABLE</code> (לא נאספו) · תקרות 326 בקשות ו-$10 לא נחצו.</p>
+
+<h2>6. שקיפות פרוטוקול · מה הוכח · מגבלות</h2>
+<div class="warn"><b>סטיית פרוטוקול:</b> ריצה מוקדמת חשפה פגם בשכבת המכשור (דרישת התאמה מדויקת של מזהי תשובות), לא במודל ולא בקורפוס. לאחר התיקון אי-התאמה נרשמת כ-<code>INCOMPLETE_TECHNICAL</code> ומוחרגת מכל מכנה. <b>ההסתעפות שתוקנה לא פעלה בריצה שהתקבלה</b> (0 אפיזודות כאלה). זוהי <b>ריצת חלופה תיאורית</b> ולא ניסיון ראשון נקי; שני הניסיונות שנכשלו מדווחים לעיל.</div>
+<div class="grid2">
+<div>
+<table>
+<tr><th>הוכח</th><th>לא הוכח</th></tr>
+<tr><td>לכידת תקשורת בין-סוכנית מקצה לקצה</td><td>שההתרעות נכונות</td></tr>
+<tr><td>החלת כלל סיווג קפוא על אפיזודות</td><td>שהן מועילות</td></tr>
+<tr><td>הרצה על קורפוס חיצוני ב-$0.13</td><td>ייצוגיות או הכללה</td></tr>
+<tr><td>המכשור מודד שונות אמיתית</td><td>מהו הסף הנכון</td></tr>
+</table>
+<p class="note"><b>C1</b> (mapping_certainty&lt;0.7): נצפה ערך אחד 0.85 → 0 מופעים. <b>C2/C3</b>: <code>NOT_AVAILABLE</code> — אין הגדרה ברמת אפיזודה לקורפוס זה.</p>
+</div>
+<div>
+<p class="note" style="margin-top:0"><b>מגבלות:</b></p>
+<ul class="note">
+<li>N=4 ומכנה 3 — כל שינוי בודד משנה כל יחס.</li>
+<li>שני מקרים מתוך ארבעה ללא אפיזודה כלל.</li>
+<li>אין תוויות אמת; נכונות ההתרעות אינה ניתנת לבדיקה מנתונים אלה.</li>
+<li>ריצה אחת, מודל אחד, הגדרה אחת — אין בסיס להכללה.</li>
+<li>נמדדה נוכחות ראיה, לא איכותה.</li>
+<li>אישור מנחה עבור AirTravel אינו מתועד.</li>
+</ul>
+<p class="note"><b>אין</b> לטעון דיוק, precision, recall, F1, נכונות התרעה, תועלת אנושית, אפקטיביות התערבות, ייצוגיות או הכללה. אף אחד מהם לא חושב.</p>
+</div>
+</div>
+
+<div class="banner" style="margin-top:1mm"><b>מסקנה:</b> במחקר היתכנות תיאורי על ארבעה מקרי AirTravel ציבוריים־חיצוניים התקבלו שלוש אפיזודות Q&amp;A שלמות. כולן סווגו כהתרעות חזקות, ואפיזודה אחת הגיעה למגבלת הסבבים. <b>הסף אינו מפריד בקורפוס זה.</b> הממצא מדגים שניתן ללכוד ולסווג תקשורת בין-סוכנית מקצה לקצה; אינו מוכיח שההתרעות נכונות, מועילות, מייצגות או ניתנות להכללה.</div>
+
+<div class="foot">שחזור: כל ערך חושב מחדש מיומן האירועים ומקבלת ההרצה · הנחיות ותשובות גולמיות נשמרות מחוץ למאגר הקוד · מפתח ה-API לא נחשף · 83/83 קבצים מוגנים ללא שינוי · Detector-v1 ו-v1.0.1/v1.0.2 זהים ברמת הבית</div>
+</body></html>
