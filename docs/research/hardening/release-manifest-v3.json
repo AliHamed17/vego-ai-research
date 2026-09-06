@@ -171,7 +171,6 @@
     "scripts/hlayer_offline/state_machine.py",
     "scripts/hlayer_offline/suite.py",
     "scripts/hlayer_offline/validator.py",
-    "scripts/plot_supervisor_baseline.py",
     "scripts/publish_independent_evidence_package.py",
     "scripts/run_hlayer_architecture.py",
     "scripts/security_audit.py",
@@ -254,7 +253,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "ee72fe44a88286aea39dc04285a2957600b53cf1b08cfd6fda65a38acbf01045",
+  "sourceTreeSha256": "c9b488aa5000412117502d489ab1ec861e55cef639e981cb4d8264da607d37c3",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
