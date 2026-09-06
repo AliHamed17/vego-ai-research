@@ -43,12 +43,13 @@ code { font-family:Consolas,monospace; font-size:7.4pt; background:rgb(244,245,2
 .cs[data-caveat="retrospective"]::after { content:" · ייחוס בדיעבד"; color:rgb(235,104,52); font-weight:600; }
 table { position:relative; }
 table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); letter-spacing:0.02em; }
+code { direction:ltr; unicode-bidi:isolate; }
 </style></head><body>
 
 
 <h1>מחקר 1 — VEGO-AI · קורפוס AirTravel: דוח תוצאות לממונים</h1>
 <p class="sub">ריצת ספק מאושרת אחת · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code> · N=4 מקרים · <code>gpt-5.6-luna</code> · 2026-09-06</p>
-<div class="warn" style="margin:1mm 0 1.2mm;font-size:6.5pt;padding:0.9mm 1.8mm;line-height:1.28"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש.</div>
+<div class="warn" style="margin:1mm 0 1.2mm;font-size:6.5pt;padding:0.9mm 1.8mm;line-height:1.28"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש. <b>הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה מראש את כל רכיבי הראיה.</b></div>
 
 <div class="banner"><b>סיווג הנתונים:</b> קורפוס ציבורי חיצוני שנוצר באמצעות מודלי שפה. אינם נתוני סטודנטים, אינם שחזור Cheers/ParkWise, ואינם נתונים סינתטיים. לא נוצר אף מקרה סינתטי.</div>
 
@@ -113,7 +114,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 
 <div class="pb"></div>
 <h1>ממצאים, פירוש ומגבלות</h1>
-<p class="sub">כל מספר חושב מחדש מיומן האירועים ומקבלת ההרצה · אימות אוטומטי: 17 בדיקות עברו, אפס סתירות ערך</p>
+<p class="sub">כל מספר חושב מחדש מיומן האירועים ומקבלת ההרצה · אימות אוטומטי: 92 בדיקות · 87 עברו · אפס כשלים בערכים מדעיים · 4 פערי ייחוס · 1 כשל בשרשרת של תוצר נגזר</p>
 
 <h2>5. מדוע כל שלוש השיחות סווגו כהתראה חזקה</h2>
 <div class="grid2">
@@ -191,7 +192,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <div class="plain" style="margin-bottom:1.6mm">
 <p style="margin:0 0 1.2mm"><b>(א) תוצאת מיפוי</b> — שיפוט הצנרת לגבי המודל המועמד: <code>Satisfied</code> / <code>Partially-Satisfied</code> / <code>Not-Satisfied</code>. בהרצה זו: <b>4 מתוך 4 המקרים Satisfied</b>; אפס Partially-Satisfied; אפס Not-Satisfied. שכבה זו <b>אינה מוזנת</b> אל מנגנון ההתראות.</p>
 <p style="margin:0 0 1.2mm"><b>(ב) אות מצב-שיחה</b> — ביטחון התשובה, נוכחות שדה הראיה ומספר הסבבים. זהו <b>הקלט היחיד</b> של מנגנון ההתראות.</p>
-<p style="margin:0 0 1.2mm"><b>(ג) פעולה תפעולית</b> — מועמדות לבדיקה אנושית. זהו הפלט.</p>
+<p style="margin:0 0 1.2mm"><b>(ג) תווית דיווח</b> — מועמדות לבדיקה אנושית. זהו הפלט.</p>
 <p style="margin:0"><b>משתני הקשר (n=19 דפוסי שונות, הקשר בלבד, לעולם אינם מפעילים התראה):</b> ‏C1 <code>mapping_certainty</code> — ערך יחיד 0.85, אפס מופעים מתחת ל-0.7 (מכנה: הנחיית ייחוס אחת); ‏C2 ביטחון סיווג agent4 — גבוה 15 · בינוני 4; ‏C3 <code>flag_for_guidelines_update</code> — כן 14 · לא 5; דגל <code>requires_human_review</code> של המערכת עצמה — False בכל 19. ‏<b>תוצאת המיפוי, תוויות דפוסי הקטעים ומשתני C1–C3 אינם מוזנים כלל אל מנגנון ההתראות.</b> דפוסי הנחיות חוזרים: 0; דפוסי קטעים חוזרים: 19 (תווית דומיננטית <code>Alternative</code> 14 · <code>Domain Mistake</code> 5; <code>probe_confirmed</code> False בכל 19). ‏<code>Alternative</code> משמעה ניסוח חלופי תקף — <b>לא</b> שגיאה.</p>
 </div>
 

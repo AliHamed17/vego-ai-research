@@ -47,12 +47,13 @@ code { font-family:Consolas,monospace; font-size:6.8pt; background:rgb(244,245,2
 .cs[data-caveat="retrospective"]::after { content:" · ייחוס בדיעבד"; color:rgb(235,104,52); font-weight:600; }
 table { position:relative; }
 table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); letter-spacing:0.02em; }
+code { direction:ltr; unicode-bidi:isolate; }
 </style></head><body>
 
 
 <h1>מחקר 1 — VEGO-AI · קורפוס AirTravel: תוצאות מקדימות</h1>
 <p class="sub">ריצת ספק מאושרת אחת · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code> · N=4 מקרים · מודל <code>gpt-5.6-luna</code> · 2026-09-06</p>
-<div class="warn" style="margin-top:1.2mm;font-size:7pt;padding:1.1mm 2mm"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש.</div>
+<div class="warn" style="margin-top:1.2mm;font-size:7pt;padding:1.1mm 2mm"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש. <b>הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה מראש את כל רכיבי הראיה.</b></div>
 
 <div class="banner"><b>סיווג הנתונים:</b> קורפוס ציבורי חיצוני שנוצר באמצעות מודלי שפה. אינם נתוני סטודנטים, אינם שחזור Cheers/ParkWise, ואינם נתונים סינתטיים. לא נוצר אף מקרה סינתטי.</div>
 
@@ -306,7 +307,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><td>— <code>probe_confirmed</code></td><td class="n">False בכל 19</td></tr>
 </table>
 <p class="note"><b>תיקון שם-מפתח:</b> דיווח קודם הציג שורה יחידה "דפוסי סטייה = 0". קיימים שני שדות נפרדים: דפוסי הנחיות (0) ודפוסי קטעים (19). ‏<code>Alternative</code> משמעה ניסוח חלופי תקף — <b>אינה שגיאה</b>.</p>
-<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) תוצאת מיפוי — שיפוט הצנרת לגבי המודל המועמד; (ב) אות מצב-שיחה — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים; (ג) פעולה תפעולית — מועמדות לבדיקה אנושית. ‏<b>Detector-v1 קורא אך ורק את שכבה (ב)</b>. תוצאת המיפוי, תוויות דפוסי הקטעים ו-C1–C3 <b>אינם קלט שלו</b> ואינם יכולים להפעיל התראה.</p>
+<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) תוצאת מיפוי — שיפוט הצנרת לגבי המודל המועמד; (ב) אות מצב-שיחה — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים; (ג) תווית דיווח — מועמדות לבדיקה אנושית. ‏<b>Detector-v1 קורא אך ורק את שכבה (ב)</b>. תוצאת המיפוי, תוויות דפוסי הקטעים ו-C1–C3 <b>אינם קלט שלו</b> ואינם יכולים להפעיל התראה.</p>
 <p class="note"><b>הבהרה:</b> מקרים 01 ו-04 לא ייצרו אפיזודות Q&amp;A אך <b>כן</b> הפיקו תוצר מלא. היעדר שאלות אינו היעדר עיבוד.</p>
 </div>
 </div>

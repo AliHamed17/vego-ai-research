@@ -109,7 +109,7 @@ Three layers must never be conflated:
 |---|---|---|
 | (a) Mapping result | Satisfied / Partially-Satisfied / Not-Satisfied — the pipeline's judgement about the candidate model | **No** |
 | (b) Conversation-state signal | Answer confidence, evidence-field presence, round count | **Yes — the only input** |
-| (c) Operational action | Candidacy for human review | This is the **output** |
+| (c) Reporting label | Candidacy for human review | This is the **output** |
 
 "Alternative" and "Not-Satisfied" belong to layer (a). Neither is an error and
 neither can trigger an alert.

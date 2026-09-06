@@ -98,8 +98,9 @@ Descriptive only, on this corpus, under this configuration:
 - the mapping result for this run is 4 of 4 cases `Satisfied`;
 - 19 recurring fragment patterns, labelled `Alternative` 14 and `Domain Mistake` 5, with
   `probe_confirmed` false on all 19;
-- **on this corpus all three episodes fall on the same side of the threshold**, so Detector-v1
-  does not separate them and is not usable for prioritisation in its current state.
+- **on this corpus all three episodes fall on the same side of the threshold**. The
+  deterministic fixture check shows the frozen rule does assign different classes to different
+  inputs, so this is a property of this corpus, not of the rule.
 
 ## 5. Claims rejected
 
@@ -117,7 +118,7 @@ because no ground-truth labels exist.
 The three layers are reported separately and must not be conflated: (a) the **mapping result**
 (`Satisfied` / `Partially-Satisfied` / `Not-Satisfied`), which feeds nothing; (b) the
 **conversation-state signal** (answer confidence, evidence-field presence, round count), which is
-Detector-v1's only input; (c) the **operational action**, candidacy for human review. An
+Detector-v1's only input; (c) the **reporting label**, candidacy for human review. An
 `Alternative` label and a `Not-Satisfied` mapping both sit in layer (a). Neither is an error and
 neither triggers an alert.
 
@@ -174,8 +175,7 @@ negligible cost. Every published number reproduces from the raw event log under 
 checks.
 
 The scientifically useful finding is a **negative** one: all three episodes land in the same
-alert class, so the frozen threshold does not discriminate on this corpus and cannot serve as a
-prioritisation mechanism as it stands. Nothing here shows that any alert was correct, useful or
+alert class. Nothing here shows that any alert was correct, useful or
 necessary — that question needs ground-truth labels, which do not exist for this corpus, and it
 is the substance of the proposed follow-up study.
 

@@ -23,12 +23,13 @@ ul { margin:0.6mm 4mm 1.4mm 0; padding:0; } li { margin-bottom:0.4mm; }
 .cs[data-caveat="retrospective"]::after { content:" · ייחוס בדיעבד"; color:rgb(235,104,52); font-weight:600; }
 table { position:relative; }
 table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3mm; left:0; font-size:5.6pt; font-weight:600; color:rgb(196,84,36); letter-spacing:0.02em; }
+code { direction:ltr; unicode-bidi:isolate; }
 </style></head><body>
 
 
 <h1>מחקר 1 — AirTravel: נספח טכני</h1>
 <p class="sub">כל ערך חושב מחדש מיומן האירועים, מקבלת ההרצה ומתוצרי הצנרת · אין ערך מסופר · 2026-09-06</p>
-<div class="warn" style="margin-top:1.2mm;font-size:7pt;padding:1.1mm 2mm"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש.</div>
+<div class="warn" style="margin-top:1.2mm;font-size:7pt;padding:1.1mm 2mm"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש. <b>הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה מראש את כל רכיבי הראיה.</b></div>
 
 <h2>1. שרשרת הראיות</h2>
 <table>
@@ -53,7 +54,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><td><code>variability_classifications.json</code></td><td class="h"><code>a0d28aa7b57e18956b75c8f8e00f1bda72c1cc8d08eee09c7cf2f7faf7c67a14</code></td></tr></table>
 
 <h2>2. אימות אוטומטי — 92 בדיקות מול מקור הראיות</h2>
-<p class="note"><b>הטבלה שלהלן היא מבחר של 20 בדיקות מתוך 92.</b> התוצאה המלאה: 86 עברו · 0 כשלים בערכים מדעיים · 5 פערי ייחוס · 1 כשל בשרשרת של תוצר נגזר. הארטיפקט המחייב הוא <code>analysis/evidence-validation.json</code>.</p>
+<p class="note"><b>הטבלה שלהלן היא מבחר של 20 בדיקות מתוך 92.</b> התוצאה המלאה: 87 עברו · 0 כשלים בערכים מדעיים · 4 פערי ייחוס · 1 כשל בשרשרת של תוצר נגזר. הארטיפקט המחייב הוא <code>analysis/evidence-validation.json</code>.</p>
 <table>
 <tr><th>בדיקה</th><th class="n">מצב</th><th class="n">צפוי</th><th class="n">בפועל</th></tr>
 <tr><td>setting_id</td><td class="n">PASS</td><td class="n">cd_airtravel</td><td class="n">cd_airtravel</td></tr>
@@ -77,7 +78,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><td>C1/C2/C3 never trigger alerts</td><td class="n">PASS</td><td class="n">—</td><td class="n">—</td></tr>
 <tr><td>reviewed_head bound in real-run receipt</td><td class="n">PROVENANCE_GAP</td><td class="n">40-char SHA</td><td class="n">absent</td></tr>
 </table>
-<div class="warn"><b>שלושה פערי ייחוס (PROVENANCE_GAP):</b> קבלת ההרצה האמיתית אינה קושרת את גיבוב יומן האירועים שלה, אינה נושאת סיכום מחזור-חיים, ואינה רושמת את גרסת הקוד שתחתיה רצה — בעוד שקבלת הבדיקה המקדימה קושרת את שלושתם. אלה <b>פערי תיעוד ולא שגיאות ערך</b>: כל 17 בדיקות הערך עברו. הקבלה הקיימת לא שונתה בדיעבד; ההרצה הבאה תקשור את שלושת השדות.</div>
+<div class="warn"><b>4 פערי ייחוס (PROVENANCE_GAP) — שלושה בקבלת ההרצה, ורביעי על מגבלת הסבבים שאינה נרשמת בקבלה:</b> קבלת ההרצה האמיתית אינה קושרת את גיבוב יומן האירועים שלה, אינה נושאת סיכום מחזור-חיים, ואינה רושמת את גרסת הקוד שתחתיה רצה — בעוד שקבלת הבדיקה המקדימה קושרת את שלושתם. אלה <b>פערי תיעוד ולא שגיאות ערך</b>: אפס בדיקות ערך נכשלו מתוך 92. הקבלה הקיימת לא שונתה בדיעבד; ההרצה הבאה תקשור את שלושת השדות.</div>
 
 <h2>3. טבלת אפיזודות</h2>
 <div class="banner" style="margin-bottom:1.4mm"><b>הגדרת התראה:</b> ‏<code>STRONG_ALERT</code> ו-<code>WEAK_ALERT</code> מציינים <b>מועמדות לבדיקה אנושית</b> בלבד. אין בהם קביעה ששגיאה אירעה, שהמודל שגה, שהתוצר פגום או שנדרשה התערבות אנושית.</div>
@@ -164,7 +165,7 @@ table::after { content:"ייחוס בדיעבד"; position:absolute; bottom:-2.3
 <tr><td><code>probe_confirmed</code></td><td class="n">False בכל 19</td></tr>
 </table>
 <p class="note"><b>תיקון שם שדה:</b> דיווח קודם הציג שורה יחידה בשם "דפוסי סטייה" עם הערך 0. זו הייתה תקלת שם-מפתח; קיימים שני שדות נפרדים כמפורט לעיל. סיווגי שונות: 19 (מהותית 14 · מזדמנת 5) · הנחיות ייחוס 1. <b>מקרים 01 ו-04 לא ייצרו שאלות אך כן הפיקו תוצר מלא</b> — היעדר שאלות אינו היעדר עיבוד.</p>
-<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) <b>תוצאת מיפוי</b> — Satisfied / Partially-Satisfied / Not-Satisfied, שיפוט הצנרת לגבי המודל המועמד; (ב) <b>אות מצב-שיחה</b> — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים, <b>הקלט היחיד</b> של Detector-v1; (ג) <b>פעולה תפעולית</b> — מועמדות לבדיקה אנושית, הפלט. <b>תוצאת המיפוי, תוויות דפוסי הקטעים ומשתני C1–C3 אינם מוזנים כלל אל Detector-v1</b> ואינם יכולים להפעיל התראה. ‏<code>Alternative</code> ו-<code>Not-Satisfied</code> שייכים לשכבה (א) — אינם שגיאות ואינם טריגרים.</p>
+<p class="note"><b>שלוש שכבות שאין לערבב:</b> (א) <b>תוצאת מיפוי</b> — Satisfied / Partially-Satisfied / Not-Satisfied, שיפוט הצנרת לגבי המודל המועמד; (ב) <b>אות מצב-שיחה</b> — ביטחון תשובה, נוכחות שדה ראיה ומספר סבבים, <b>הקלט היחיד</b> של Detector-v1; (ג) <b>תווית דיווח</b> — מועמדות לבדיקה אנושית, הפלט. <b>תוצאת המיפוי, תוויות דפוסי הקטעים ומשתני C1–C3 אינם מוזנים כלל אל Detector-v1</b> ואינם יכולים להפעיל התראה. ‏<code>Alternative</code> ו-<code>Not-Satisfied</code> שייכים לשכבה (א) — אינם שגיאות ואינם טריגרים.</p>
 
 <h2>8. עלות וקריאות — כולל ניסיונות שנכשלו</h2>
 <table>

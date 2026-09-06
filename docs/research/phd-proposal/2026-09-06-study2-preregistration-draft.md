@@ -110,30 +110,41 @@ declared interest and this must be recorded beside the result.
 5. Condition labels are revealed only after **all** scores are recorded and frozen.
    Re-scoring after unblinding is prohibited.
 
-**Rubric.** Five dimensions, each scored 1–5 against written anchors fixed before
-scoring begins:
+**Rubric — five dimensions, defined now and not scored.** Each is scored 1-5 against written
+anchors fixed before any artifact is seen. The rubric exists; **no artifact has been scored and
+no rating instrument has been exercised.**
 
 | # | Dimension | What is judged |
 |---|---|---|
-| Q1 | Mapping correctness | Does each stated compliance status follow from the candidate model? |
-| Q2 | Evidence adequacy | Does the cited evidence actually support the stated status? |
-| Q3 | Fragment identification | Are model fragments outside the guidelines identified without omission or invention? |
-| Q4 | Fragment labelling | Is each fragment label (Alternative / Domain Mistake / Language Mistake) defensible? |
-| Q5 | Internal consistency | Is the artifact self-consistent and faithful to the output contract? |
+| R1 | Factual alignment to the candidate model | Does every statement in the artifact hold against the candidate model as given? |
+| R2 | Guideline coverage | Are the reference guidelines addressed without omission? |
+| R3 | Unsupported assertions | Does the artifact assert anything the candidate model and guidelines do not support? (a higher score means fewer unsupported assertions) |
+| R4 | Usefulness of the uncovered-fragment analysis | Would the fragment analysis help a modeller decide what to do next? |
+| R5 | Schema completeness | Is the artifact complete and faithful to the agreed output contract? |
 
-The per-artifact quality score is the vector `(Q1…Q5)`. **No composite index is
-computed**, and dimensions are never summed or averaged into a single quality number.
+The per-artifact score is the vector `(R1...R5)`. **No composite index is computed**, and
+dimensions are never summed or averaged into a single quality number.
 
-**Agreement.** Inter-judge agreement is computed per dimension with an ordinal measure
-(Krippendorff's alpha; quadratic-weighted Cohen's kappa if exactly two judges) and is
-**reported with the result, always, including when it is poor**. A minimum acceptable
-agreement of α ≥ 0.60 per dimension is set now. Any dimension falling below it is
-reported as `AGREEMENT_INSUFFICIENT` and its scores are **not** interpreted — they are
-not repaired, re-judged, or dropped from the report.
+**Two independent raters are mandatory.** At least two raters score every artifact
+independently, without conferring, and their scores are frozen before any discussion. A single
+rater is never sufficient for any statement about quality.
 
-**Adjudication.** Disagreements of two points or more are discussed and the discussion
-recorded, after independent scores are frozen. Adjudicated scores are reported
-alongside the original independent scores, never in place of them.
+**Adjudication rule, fixed in advance.** Where two raters differ by two points or more on a
+dimension, a recorded adjudication discussion is held **after** the independent scores are
+frozen. Adjudicated scores are reported **alongside** the original independent scores, never in
+place of them. Unblinding happens only after all independent scores are frozen, and re-scoring
+after unblinding is prohibited.
+
+**Agreement gate.** Inter-rater agreement is computed per dimension with an ordinal measure
+(quadratic-weighted Cohen's kappa for two raters, Krippendorff's alpha for more) and is
+**reported with the result, always, including when it is poor**. A minimum acceptable agreement
+of alpha >= 0.60 per dimension is set now. Any dimension below it is reported
+`AGREEMENT_INSUFFICIENT` and its scores are **not** interpreted - not repaired, not re-judged,
+not dropped.
+
+**No performance claim may be made before all three of these hold:** two independent raters have
+scored, the adjudication rule has been applied, and the agreement gate has been passed for the
+dimension being cited. Until then the quality outcome is `NOT_COLLECTED`.
 
 **If no judges are available, the primary outcome is reported as `NOT_COLLECTED`.**
 The secondary outcomes are then reported alone and the study is explicitly labelled as
