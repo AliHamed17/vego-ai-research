@@ -223,6 +223,8 @@ Track milestones, current work, and next steps here.
 
 ## Next Steps
 
+- **2026-09-06 (Codex):** prepared separate Study 2A `VEGO-AI_ON` versus `VEGO-AI_OFF` descriptive comparison on the frozen public AirTravel corpus, with a newly constructed single-model no-VEGO baseline, exact parity controls, disabled-by-default local harness, JSON Schema, bilingual Hebrew preregistration/readiness documents, and a separate Study 2B Llama feasibility record. PR #40 is open/draft/unmerged; its latest CI run passed all six jobs. No provider/model call, Llama download, scientific experiment, or Study 1 mutation occurred. Independent review and explicit run authorization remain required.
+
 - **2026-09-03 (Codex):** produced the filled Hebrew supervisor-facing Q&A task plan (8 tasks, P0/P1/P2, no manual labeling), plus ignored local RTL DOCX/PDF deliverables. Current 12 Q&A records are documented as `ANSWER_NOT_PERSISTED`; only a descriptive feasibility result is permitted until complete observability is available.
 - **2026-09-03 (Codex):** refined the plan after Claude/GitHub evidence: interaction-log recovery is now Task 1, the first rerun is one setting only, supervisor requests are limited to log transfer or one-run/API-cost approval, and the PDF/DOCX omit internal commit SHAs.
 

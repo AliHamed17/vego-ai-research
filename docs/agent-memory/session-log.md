@@ -453,3 +453,85 @@ Chronological prompt history for Codex and Claude.
   - git diff check; no provider call
 - Status: TECHNICAL NO-GO; final correction pending push
 - Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.
+
+## 2026-09-06 03:07 +03:00 - Codex - Study 2A ON/OFF preparation
+
+- Request: Prepare a separately preregistered descriptive comparison of full VEGO-AI orchestration against a non-VEGO baseline, with separate Llama feasibility documentation.
+- Actions taken:
+  - Prepared separate Study 2A VEGO-AI_ON versus VEGO-AI_OFF preregistration and disabled-by-default harness.
+  - Added independent Study 2B Llama feasibility record without downloading or running a model.
+  - Generated deterministic manifest and refreshed the supported release manifest.
+  - Validated privacy, schema, lifecycle, parity, determinism, and offline-only boundaries.
+- Files changed:
+  - configs/study2/off_prompt.md
+  - configs/study2/vego_ai_on.json
+  - configs/study2/vego_ai_off.json
+  - schemas/study2a-vego-ai-on-off-v1.schema.json
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/phd-proposal/2026-09-06-study2-llama-feasibility-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-preregistration-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python scripts/study2_vego_ai_on_off.py --write-manifest
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py
+  - python -m pytest scripts/tests
+  - python -m pytest tests
+  - python -m pytest VEGO-AI/tests
+  - ruff check changed Python files
+  - python -m compileall changed Python files
+  - security/privacy/evidence consistency checks
+  - GitHub Actions run 34000338373 (all six jobs green)
+- Status: completed; preparation only; no provider or experiment
+- Next steps: Independent review and explicit run authorization remain required.
+
+## 2026-09-06 03:18 +03:00 - Codex - Study 2 manifest byte determinism hardening
+
+- Request: Ensure the Study 2 machine manifest writer produces identical canonical bytes on Windows and add a regression guard.
+- Actions taken:
+  - Made Study 2 manifest generation explicitly LF-stable across Windows and other platforms.
+  - Added a regression test that rejects CRLF and requires a final LF.
+  - Refreshed the supported hardening release manifest and removed volatile PR/head references from durable tracking.
+  - Revalidated the preparation CLI, targeted tests, lint, compile, privacy, evidence, and manifest checks.
+- Files changed:
+  - scripts/study2_vego_ai_on_off.py
+  - scripts/tests/test_study2_vego_ai_on_off.py
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/dashboards/progress-dashboard.md
+  - docs/dashboards/kpi-register.md
+- Commands/checks:
+  - python scripts/study2_vego_ai_on_off.py --write-manifest
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py -q (32 passed)
+  - ruff check scripts/study2_vego_ai_on_off.py scripts/tests/test_study2_vego_ai_on_off.py
+  - python -m compileall -q scripts/study2_vego_ai_on_off.py scripts/tests/test_study2_vego_ai_on_off.py
+  - python scripts/check_repository_privacy.py (PASS)
+  - python scripts/security_audit.py --history (PASS; 1364 files)
+  - python scripts/check_evidence_consistency.py --check (PASS)
+  - python scripts/build_hardening_manifests.py --check (PASS)
+- Status: completed; preparation only; no provider or experiment
+- Next steps: Independent review and explicit run authorization remain required.
+
+## 2026-09-06 03:31 +03:00 - Codex - Supervisor baseline readout
+
+- Request: Prepare a full evidence-first baseline and results readout for tomorrow's Iris/Arnon meeting without fabricating provider outcomes.
+- Actions taken:
+  - Added matched English and Hebrew supervisor readouts using existing EXP-045/EXP-046/C0 evidence and Study 2A preparation metrics
+  - Separated descriptive evidence, engineering fixture results, and unobserved provider outcomes
+  - Validated privacy, evidence consistency, hardening manifest, targeted Study 2A tests, and security audit
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.en.md
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.he.md
+- Commands/checks:
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py -q (32 passed)
+  - python scripts/check_repository_privacy.py (PASS)
+  - python scripts/security_audit.py --history (PASS)
+  - python scripts/check_evidence_consistency.py --check (PASS)
+  - python scripts/build_hardening_manifests.py --check (PASS)
+  - git diff --check (PASS)
+- Status: Preparation readout complete; no provider/API or scientific experiment executed; provider-backed outcomes remain unmeasured.
+- Next steps: Use the bilingual readout for supervisor review; obtain explicit authorization before any provider-backed Study 2A run.

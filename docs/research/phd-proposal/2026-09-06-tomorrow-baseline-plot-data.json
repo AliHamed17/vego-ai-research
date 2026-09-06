@@ -1,0 +1,95 @@
+{
+  "schema_version": "vego-ai-supervisor-baseline-plot-data-v1",
+  "evidence_status": "DESCRIPTIVE_ONLY",
+  "scope": "Existing frozen VEGO-AI course run; no new provider or model output",
+  "sources": [
+    {
+      "path": "experiments/EXP-045-escalation-point-demonstration/README.md",
+      "role": "frozen-run escalation-signal inventory"
+    },
+    {
+      "path": "experiments/EXP-046-recorded-review-analysis/README.md",
+      "role": "recorded reviewer-change analysis"
+    },
+    {
+      "path": "docs/research/baseline-characterization.md",
+      "role": "C0 operating baseline"
+    }
+  ],
+  "signal_rows": [
+    {
+      "id": "EXP045_S1_UNCERTAIN_CLUSTERS",
+      "label": "Stage 1: uncertain language clusters",
+      "stage": "Stage 1",
+      "numerator": 6,
+      "denominator": 38,
+      "source": "EXP-045"
+    },
+    {
+      "id": "EXP045_S2_LOW_CERTAINTY_CLUSTERS",
+      "label": "Stage 2: low-certainty/no-match clusters",
+      "stage": "Stage 2",
+      "numerator": 18,
+      "denominator": 28,
+      "source": "EXP-045"
+    },
+    {
+      "id": "EXP045_S2_REFERENCE_NO_MATCH",
+      "label": "Stage 2: reference guidelines with no match",
+      "stage": "Stage 2",
+      "numerator": 59,
+      "denominator": 80,
+      "source": "EXP-045"
+    },
+    {
+      "id": "EXP045_S3_ALTERNATIVE_CASES",
+      "label": "Stage 3: cases with an Alternative fragment",
+      "stage": "Stage 3",
+      "numerator": 150,
+      "denominator": 165,
+      "source": "EXP-045"
+    },
+    {
+      "id": "EXP045_S4_QUEUE_PATTERNS",
+      "label": "Stage 4: patterns with a queue trigger",
+      "stage": "Stage 4",
+      "numerator": 11,
+      "denominator": 27,
+      "source": "EXP-045"
+    }
+  ],
+  "review_rows": [
+    {
+      "id": "EXP046_S3_COMPLIANCE_OVERTURNED",
+      "label": "Stage 3: compliance judgments overturned",
+      "numerator": 120,
+      "denominator": 915,
+      "kind": "reviewer change",
+      "source": "EXP-046"
+    },
+    {
+      "id": "EXP046_S3_ALTERNATIVE_OVERTURNED",
+      "label": "Stage 3: alternative/mistake judgments overturned",
+      "numerator": 27,
+      "denominator": 104,
+      "kind": "reviewer change",
+      "source": "EXP-046"
+    },
+    {
+      "id": "EXP046_S3_POOLED_OVERTURNED",
+      "label": "Stage 3: pooled reviewer changes",
+      "numerator": 147,
+      "denominator": 1019,
+      "kind": "reviewer change",
+      "source": "EXP-046"
+    },
+    {
+      "id": "EXP046_NON_SATISFIED_QUEUE",
+      "label": "Candidate queue: non-Satisfied items",
+      "numerator": 257,
+      "denominator": 915,
+      "kind": "candidate queue",
+      "source": "EXP-046"
+    }
+  ]
+}

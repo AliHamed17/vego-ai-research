@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.example/schemas/study2a-vego-ai-on-off-v1.schema.json",
+  "title": "VEGO-AI Study 2A ON/OFF comparison manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "study_id",
+    "research_question",
+    "status",
+    "conditions",
+    "baseline",
+    "config_parity",
+    "prompt_difference_receipt",
+    "call_bounds",
+    "lifecycle_contract",
+    "detector_contract",
+    "measures",
+    "forbidden_claims",
+    "execution_gates",
+    "receipts"
+  ],
+  "properties": {
+    "schema_version": {"const": "study2a-vego-ai-on-off-v1"},
+    "study_id": {"const": "STUDY2A"},
+    "research_question": {"type": "string", "minLength": 1},
+    "status": {"const": "PREPARATION_ONLY_NO_EXPERIMENT"},
+    "conditions": {
+      "type": "object",
+      "required": ["VEGO_AI_ON", "VEGO_AI_OFF"],
+      "properties": {
+        "VEGO_AI_ON": {"$ref": "#/$defs/condition"},
+        "VEGO_AI_OFF": {"$ref": "#/$defs/condition"}
+      },
+      "additionalProperties": false
+    },
+    "baseline": {
+      "type": "object",
+      "required": ["id", "selection_status", "selection_evidence"],
+      "properties": {
+        "id": {"const": "BASELINE_SINGLE_MODEL_NO_VEGO"},
+        "selection_status": {"const": "NEWLY_CONSTRUCTED_EXPERIMENTAL_BASELINE"},
+        "selection_evidence": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "config_parity": {"type": "object", "required": ["status"]},
+    "prompt_difference_receipt": {
+      "type": "object",
+      "required": ["schema_version", "status", "on", "off", "allowed_difference"]
+    },
+    "call_bounds": {"type": "object", "required": ["N", "on", "off", "cost_status"]},
+    "lifecycle_contract": {"type": "object", "required": ["validator", "status"]},
+    "detector_contract": {"type": "object", "required": ["VEGO_AI_ON", "VEGO_AI_OFF"]},
+    "measures": {"type": "object", "required": ["both", "VEGO_AI_ON_only", "VEGO_AI_OFF_detector"]},
+    "forbidden_claims": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "execution_gates": {"type": "object", "required": ["provider_run", "llama", "synthetic_data"]},
+    "receipts": {
+      "type": "object",
+      "required": ["privacy", "fake_run_parity", "baseline_definition", "schema_validation"]
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "runtime_file": {
+      "type": "object",
+      "required": ["path", "bytes", "sha256", "role"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "role": {"enum": ["domain_description", "candidate_model"]}
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "study_id",
+        "condition_id",
+        "condition_label",
+        "orchestration_mode",
+        "provider",
+        "model_parameters",
+        "corpus",
+        "fairness",
+        "output_schema",
+        "validation",
+        "retention",
+        "vego_controls",
+        "detector_applicability",
+        "output",
+        "prompts",
+        "implementation_sources",
+        "references",
+        "claims"
+      ],
+      "properties": {
+        "schema_version": {"const": "study2a-vego-ai-on-off-v1"},
+        "study_id": {"const": "STUDY2A"},
+        "condition_id": {"enum": ["VEGO_AI_ON", "VEGO_AI_OFF"]},
+        "condition_label": {"type": "string", "minLength": 1},
+        "orchestration_mode": {"type": "string", "minLength": 1},
+        "provider": {"type": "object"},
+        "model_parameters": {"type": "object"},
+        "corpus": {
+          "type": "object",
+          "required": [
+            "setting_id",
+            "corpus_id",
+            "N",
+            "case_ids",
+            "case_manifest_sha256",
+            "amendment_manifest_path",
+            "amendment_manifest_sha256",
+            "runtime_archive_sha256",
+            "runtime_files"
+          ],
+          "properties": {
+            "setting_id": {"const": "cd_airtravel"},
+            "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+            "N": {"const": 4},
+            "case_ids": {"const": ["01", "02", "03", "04"]},
+            "case_manifest_sha256": {"$ref": "#/$defs/sha256"},
+            "amendment_manifest_path": {"type": "string", "minLength": 1},
+            "amendment_manifest_sha256": {"$ref": "#/$defs/sha256"},
+            "runtime_archive_sha256": {"$ref": "#/$defs/sha256"},
+            "runtime_files": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
+              "items": {"$ref": "#/$defs/runtime_file"}
+            }
+          },
+          "additionalProperties": true
+        },
+        "fairness": {"type": "object"},
+        "output_schema": {"type": "object"},
+        "validation": {"type": "object"},
+        "retention": {"type": "object"},
+        "vego_controls": {"type": "object"},
+        "detector_applicability": {"enum": ["AVAILABLE_ON_ONLY", "NOT_APPLICABLE"]},
+        "output": {"type": "object"},
+        "prompts": {"type": "object"},
+        "implementation_sources": {"type": "array", "items": {"type": "string"}},
+        "references": {"type": "object"},
+        "claims": {"type": "object"}
+      },
+      "additionalProperties": true
+    }
+  }
+}

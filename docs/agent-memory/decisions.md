@@ -486,3 +486,11 @@ Durable decisions for this project.
 - Decision: Retire F5 as a human-escalation trigger for the frozen corpus; expose `ANSWER_NOT_PERSISTED` only as a data-availability status.
 - Reason: Offline parity, schema, ordering, duplicate-ID, follow-up, termination, privacy, and route-representation checks pass. A direct production edit would weaken the protected-runtime evidence boundary.
 - Consequence: The technical verification is `PARTIAL`; no one-setting run can proceed until case-model inputs and a reviewed runtime integration are available.
+
+## 2026-09-06 - Study 2A ON/OFF preparation and Study 2B Llama feasibility
+
+- Decision: Register a separately preregistered descriptive comparison using `VEGO-AI_ON` (full current orchestration) and `VEGO-AI_OFF` (new single-model, no-delegation/no-Q&A/no-feedback/no-Detector baseline) on the same frozen AirTravel corpus and N=4 cases. The OFF condition is not historical evidence and is never pooled with Study 1 or the ON condition.
+- Decision: Freeze identical provider/model/corpus/objective/token/cost/timeout/retry/concurrency/schema/validation/privacy/retention controls while keeping condition identifiers, roots, event logs, denominators, and claim boundaries separate. Preparation remains disabled by default and supports only deterministic in-memory engineering fixtures.
+- Decision: Record `meta-llama/Llama-3.2-3B-Instruct` as a separate feasibility candidate only; do not download, run, or combine it with Study 2A. License, hardware, cost, structured-output, and tool-support checks remain pending.
+- Reason: The requested study tests observable orchestration and communication behavior, not accuracy, human benefit, or policy superiority. A meaningful no-VEGO comparator must be explicit and independently reproducible before any later provider-backed run.
+- Consequence: PR #40 is preparation-only and remains open/draft/unmerged pending independent review and fresh run authorization; no provider/API call or scientific result exists.

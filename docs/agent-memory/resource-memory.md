@@ -2,7 +2,16 @@
 
 This file is the compact shared resource index for Codex and Claude. It points agents to reusable research resources without forcing every prompt to reload downloaded source files.
 
-Last updated: 2026-09-03 by Codex.
+Last updated: 2026-09-06 by Codex.
+
+## Study 2A ON/OFF and Study 2B Llama preparation
+
+- Protocol/configuration: `docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-preregistration-he.md`, `docs/research/phd-proposal/2026-09-06-study2-vego-ai-on-off-technical-readiness-he.md`, `configs/study2/vego_ai_on.json`, `configs/study2/vego_ai_off.json`, and `configs/study2/off_prompt.md`.
+- Contract/validator: `schemas/study2a-vego-ai-on-off-v1.schema.json`, `scripts/study2_vego_ai_on_off.py`, and `scripts/tests/test_study2_vego_ai_on_off.py`.
+- Machine manifest: `docs/research/phd-proposal/study2-vego-ai-on-off-manifest.json`; preparation status is `PREPARATION_ONLY_NO_EXPERIMENT`, with provider and network disabled.
+- Separate feasibility record: `docs/research/phd-proposal/2026-09-06-study2-llama-feasibility-he.md`.
+- Official Llama references: [Hugging Face model card](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct), [Llama overview](https://llama.meta.com/doc/overview), and [Llama downloads](https://www.llama.com/llama-downloads/). The candidate is not downloaded or executed; license, hardware, cost, structured-output, and tool-support checks remain pending.
+- Evidence boundary: the OFF comparator is newly constructed and is not historical evidence. ON/OFF outputs, roots, logs, IDs, denominators, and claims remain separate; no accuracy, human-benefit, superiority, or generalization claim is allowed.
 
 ## September 3 Preliminary Human-Intervention One-Pager
 

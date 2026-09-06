@@ -1,0 +1,45 @@
+{
+  "data_sha256": "75642b4baddf791ec22bc425d55b584c3e5ccbe1648a8f60ab2b3df52da240e0",
+  "evidence_status": "DESCRIPTIVE_ONLY",
+  "figures": [
+    {
+      "png": "docs/research/phd-proposal/figures/tomorrow-human-escalation-signals.png",
+      "png_sha256": "47a567354fac6c6e704c8717319f5b2803a37acebf2923f6faf14b58fad317da",
+      "rows": [
+        "EXP045_S1_UNCERTAIN_CLUSTERS",
+        "EXP045_S2_LOW_CERTAINTY_CLUSTERS",
+        "EXP045_S2_REFERENCE_NO_MATCH",
+        "EXP045_S3_ALTERNATIVE_CASES",
+        "EXP045_S4_QUEUE_PATTERNS"
+      ],
+      "stem": "tomorrow-human-escalation-signals",
+      "svg": "docs/research/phd-proposal/figures/tomorrow-human-escalation-signals.svg",
+      "svg_sha256": "eda023c66b2ad33e18f7b1f235ef001c01199a6aba9f80937a5349576ff68d5b"
+    },
+    {
+      "png": "docs/research/phd-proposal/figures/tomorrow-reviewer-change-baseline.png",
+      "png_sha256": "2af7adb4f3689de7e386284b2911dbbadd3b205f695b3af0bd197730c0457bcc",
+      "rows": [
+        "EXP046_S3_COMPLIANCE_OVERTURNED",
+        "EXP046_S3_ALTERNATIVE_OVERTURNED",
+        "EXP046_S3_POOLED_OVERTURNED",
+        "EXP046_NON_SATISFIED_QUEUE"
+      ],
+      "stem": "tomorrow-reviewer-change-baseline",
+      "svg": "docs/research/phd-proposal/figures/tomorrow-reviewer-change-baseline.svg",
+      "svg_sha256": "5b024f5cec1a40b8f5059a439c75baceada9b805208ce5a94c1416f9dfa50ad1"
+    }
+  ],
+  "qa": {
+    "denominator_labels_visible": true,
+    "dpi": 300,
+    "formats": [
+      "PNG",
+      "SVG"
+    ],
+    "no_provider_or_network": true,
+    "scientific_outcome_observed": false
+  },
+  "renderer": "scripts/plot_supervisor_baseline.py",
+  "schema_version": "vego-ai-supervisor-baseline-figure-receipt-v1"
+}
