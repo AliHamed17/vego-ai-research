@@ -568,3 +568,46 @@ Chronological prompt history for Codex and Claude.
   - py -3.13 scripts/check_thesis_citations.py / validate_thesis_content.py / check_repository_privacy.py / check_evidence_consistency.py --check / build_hardening_manifests.py --check / visualization_agent.py --check -> all PASS
 - Status: completed
 - Next steps: Await CI on head ffe8fc0; Study 2 requires independent preregistration review and fresh authorization before any paid run.
+
+## 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
+
+- Request: Finish every legitimate Study 1 analysis and reporting task, prepare Study 2 ON/OFF for preregistration, and produce Hebrew RTL supervisor materials, working only from the accepted private evidence with no provider call and no fabrication.
+- Actions taken:
+  - Task A: extended the evidence validator from 20 to 92 checks covering rounds, confidence, calls, tokens, cost, the context-only variables, the mapping result, S9 density, and a full cross-check of every derived analysis file against the event-log recomputation. Result: 0 scientific value failures.
+  - Found and fixed at source a false zero: airtravel_extended_analytics.py read deviation_patterns.json for a key that does not exist, publishing 0 where the evidence holds 19 recurring fragment patterns.
+  - Disclosed a self-inflicted derived-artifact loss: analysis/output-inventory.json was overwritten by a validator invocation pointed at it as --manifest; 144 candidate serializations failed to reproduce the pinned digest, so it was not reconstructed. Status model split into EVIDENCE_INVALID (scientific) versus DERIVED_CHAIN_BROKEN (derived chain).
+  - Closed three fail-open holes in the validator itself: NOT_VERIFIABLE was excluded from failures so a deleted derived file passed silently; reporting_code_sha was stamped from a dirty tree; and confidence labels were asserted to be exactly three so a run without High confidence would have failed. Added nine unit tests that assert the validator fails when it should.
+  - Task B/C: withdrew the NOT_AVAILABLE claim for C2 and C3 across every document; both are computable (C2 High 15 / Medium 4; C3 true 14 / false 5, n=19 variability patterns).
+  - Repaired all four Study 1 SVG figures: direction=rtl with text-anchor=end anchors the left edge, so every label ran off the viewBox and rendered as one or two characters. 29 elements re-anchored, verified by rasterising.
+  - Separated the three layers in every document: mapping result (4/4 Satisfied), conversation-state signal, and operational action; recorded that Alternative and Not-Satisfied are never errors and never alert triggers; defined alert in plain language as candidacy for human review.
+  - Labelled all fixture-versus-real material as an engineering instrumentation check with separate denominators; removed the instrumentation-quality claim from every proved column.
+  - Corrected stale heads, stale CI claims and stale validator counts in PR 38, PR 41, the dashboards and current-state; repaired a malformed table.
+  - Task D: independent Study 2 implementation review, verdict NOT_READY_FOR_PAID_AUTHORIZATION. Six of eleven controls are unbound, the single-varying-factor claim is contradicted by the harness's own receipt, and several attestations are hardcoded literals. No Study 2 implementation file was modified.
+  - Task E: Study 2 preregistration v2 with a blinded human-rubric primary outcome, secondary descriptive outcomes, an absolute ban on cross-condition alert comparison, purposive N=4, predefined missingness and zero-Q&A handling, a ban on outcome-dependent retry and model switching, paired offline preflight before separate per-condition authorization, and Llama confined to Study 2B.
+- Files changed:
+  - scripts/study1_validate_evidence.py
+  - scripts/airtravel_extended_analytics.py
+  - scripts/tests/test_study1_validate_evidence.py
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-preregistration-draft.md
+  - docs/research/phd-proposal/2026-09-06-study2-implementation-review.md
+  - docs/research/phd-proposal/figures/fig1-confidence.svg
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/fig3-episodes.svg
+  - docs/research/phd-proposal/figures/fig4-baseline.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/dashboards/results-dashboard.md
+  - docs/agent-memory/current-state.md
+- Commands/checks:
+  - py -3.13 scripts/study1_validate_evidence.py --run-root external_data/airtravel-pr38/v4-real-run --manifest .../analysis/evidence-validation.json -> DERIVED_CHAIN_BROKEN, 92 checks, 87 PASS, 0 scientific value failures, 4 provenance gaps, 1 derived-chain failure
+  - py -3.13 -m pytest scripts/tests/test_study1_validate_evidence.py -q -> 9 passed
+  - py -3.13 -m pytest scripts/tests -q -> full suite
+  - citations / thesis content / privacy / evidence consistency / hardening manifest / visualization catalog / gallery --check -> all PASS
+- Status: completed
+- Next steps: Study 2 requires Codex to bind six controls and correct the single-factor claim before any paid authorization; the overwritten analysis/output-inventory.json remains unrecovered and is disclosed.

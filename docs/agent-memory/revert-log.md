@@ -379,3 +379,28 @@ Record file changes and rollback notes here.
   - docs/agent-memory/decisions.md
 - Rollback note: git revert ffe8fc0 restores the previous Study 1 document wording; the PDFs are gitignored artifacts and would need regeneration from the reverted HTML sources.
 - Git commit: none recorded by script.
+
+## 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
+
+- Files changed:
+  - scripts/study1_validate_evidence.py
+  - scripts/airtravel_extended_analytics.py
+  - scripts/tests/test_study1_validate_evidence.py
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-preregistration-draft.md
+  - docs/research/phd-proposal/2026-09-06-study2-implementation-review.md
+  - docs/research/phd-proposal/figures/fig1-confidence.svg
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/fig3-episodes.svg
+  - docs/research/phd-proposal/figures/fig4-baseline.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/dashboards/results-dashboard.md
+  - docs/agent-memory/current-state.md
+- Rollback note: git revert d075cf8 restores the previous document wording; 08d9549 and f25ca5d restore the earlier validator and analytics behaviour. PDFs are gitignored and regenerate from the HTML sources.
+- Git commit: none recorded by script.
