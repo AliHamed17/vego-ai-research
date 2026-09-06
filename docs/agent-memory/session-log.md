@@ -515,3 +515,23 @@ Chronological prompt history for Codex and Claude.
   - python scripts/build_hardening_manifests.py --check (PASS)
 - Status: completed; preparation only; no provider or experiment
 - Next steps: Independent review and explicit run authorization remain required.
+
+## 2026-09-06 03:31 +03:00 - Codex - Supervisor baseline readout
+
+- Request: Prepare a full evidence-first baseline and results readout for tomorrow's Iris/Arnon meeting without fabricating provider outcomes.
+- Actions taken:
+  - Added matched English and Hebrew supervisor readouts using existing EXP-045/EXP-046/C0 evidence and Study 2A preparation metrics
+  - Separated descriptive evidence, engineering fixture results, and unobserved provider outcomes
+  - Validated privacy, evidence consistency, hardening manifest, targeted Study 2A tests, and security audit
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.en.md
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.he.md
+- Commands/checks:
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py -q (32 passed)
+  - python scripts/check_repository_privacy.py (PASS)
+  - python scripts/security_audit.py --history (PASS)
+  - python scripts/check_evidence_consistency.py --check (PASS)
+  - python scripts/build_hardening_manifests.py --check (PASS)
+  - git diff --check (PASS)
+- Status: Preparation readout complete; no provider/API or scientific experiment executed; provider-backed outcomes remain unmeasured.
+- Next steps: Use the bilingual readout for supervisor review; obtain explicit authorization before any provider-backed Study 2A run.

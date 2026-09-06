@@ -359,3 +359,11 @@ Record file changes and rollback notes here.
   - docs/dashboards/kpi-register.md
 - Rollback note: Revert the deterministic manifest-writer/test/release-manifest and associated tracking-reference changes as one reviewed follow-up.
 - Git commit: none recorded by script.
+
+## 2026-09-06 03:31 +03:00 - Codex - Supervisor baseline readout
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.en.md
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.he.md
+- Rollback note: Remove the two newly added readout Markdown files; no runtime or baseline artifacts were changed.
+- Git commit: none recorded by script.

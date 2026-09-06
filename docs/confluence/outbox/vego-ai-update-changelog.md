@@ -1,28 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-06 03:18 +03:00.
+Generated from repository memory on 2026-09-06 03:32 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-02 09:28 +03:00 - Claude - Proposal Revision 19: committee + supervisor review closure
-
-- Request: Work on all the committee review items toward 100/100, then follow the supervisor Hebrew review and the 26 inline comments word by word, verifying everything
-- Actions taken:
-  - Closed all 10 committee items (1 Sept review) on the doctoral proposal via 6 staged XML edits: 2.6 false sentence replaced and competitors engaged; SQ1 reworded with competence/authority selection; operative falsifiers; C4 interaction hypothesis; Appendix C constants (Tables 8-9); Study 1 fitting admitted; 4.7 design fixed; participant table + second context + 4.2-year elapsed time; 4.5 blind-reconstruction instrument; dates/disclaimers/TOC/renumber; Table 7 reference row reconciled with 82 entries
-  - Traced the 31 Aug supervisor review (Hebrew email + 26 Arnon Sturm inline comments) item by item in VEGO_AI_Supervisor_Compliance_Matrix_20260902.md
-  - Companion SLR files given a 25 Aug -> Rev 19 numbering map; two stale lines in the Reference Audit corrected
-  - Checker changes documented in checker_updates.md (24 sections); assure.py gained the reconciled-row assertion (138)
-  - Delivered VEGO_AI_Proposal_Bundle_20260902[archive omitted] (61 hashed files) to Downloads\VEGO_AI_Proposal_v19_20260902
-  - Honest projection given: ~80/100 on the committee rubric, not 100; remaining points need executed searches, constants pilot, participants, EXP-005 labels
-- Files changed:
-  - (outside repo) Downloads\VEGO_AI_Proposal_v19_20260902\*
-- Commands/checks:
-  - python verify.py -> 77 pass / 0 fail (mean 20.2 w/s)
-  - python verify_reviewer.py -> 101 pass / 0 fail
-  - python assure.py -> 138 pass / 0 fail
-  - render.ps1 (Word COM) -> 36-page PDF; DOCX zip ok, 553 paragraphs
-- Status: completed
-- Next steps: Regenerate figure images 11/14/18/20; complete author lists for refs 74/75/78/79/80/81 against publisher records; execute QL-01..05; run constants pilot; decide ISS-042..049
 
 ## 2026-09-02 19:10 +03:00 - Claude - Preliminary study one-pager (2026-09-03) and EXP-045 registration
 
@@ -426,3 +406,23 @@ Showing the latest 20 session entries.
   - python scripts/build_hardening_manifests.py --check (PASS)
 - Status: completed; preparation only; no provider or experiment
 - Next steps: Independent review and explicit run authorization remain required.
+
+## 2026-09-06 03:31 +03:00 - Codex - Supervisor baseline readout
+
+- Request: Prepare a full evidence-first baseline and results readout for tomorrow's Iris/Arnon meeting without fabricating provider outcomes.
+- Actions taken:
+  - Added matched English and Hebrew supervisor readouts using existing EXP-045/EXP-046/C0 evidence and Study 2A preparation metrics
+  - Separated descriptive evidence, engineering fixture results, and unobserved provider outcomes
+  - Validated privacy, evidence consistency, hardening manifest, targeted Study 2A tests, and security audit
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.en.md
+  - docs/research/phd-proposal/2026-09-06-tomorrow-baseline-readout.he.md
+- Commands/checks:
+  - python -m pytest scripts/tests/test_study2_vego_ai_on_off.py -q (32 passed)
+  - python scripts/check_repository_privacy.py (PASS)
+  - python scripts/security_audit.py --history (PASS)
+  - python scripts/check_evidence_consistency.py --check (PASS)
+  - python scripts/build_hardening_manifests.py --check (PASS)
+  - git diff --check (PASS)
+- Status: Preparation readout complete; no provider/API or scientific experiment executed; provider-backed outcomes remain unmeasured.
+- Next steps: Use the bilingual readout for supervisor review; obtain explicit authorization before any provider-backed Study 2A run.
