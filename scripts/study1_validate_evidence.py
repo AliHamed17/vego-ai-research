@@ -272,6 +272,12 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
             return {}
 
     labels = {"STRONG_ALERT": strong, "WEAK_ALERT": weak, "NO_ALERT": none, "EXCLUDED": 0}
+    signal_names = {
+        "S1": "S1_LOW_ANSWER_CONFIDENCE", "S2": "S2_MEDIUM_ANSWER_CONFIDENCE",
+        "S3": "S3_MISSING_EVIDENCE", "S6": "S6_MULTIPLE_QA_ROUNDS",
+        "S7": "S7_TERMINATED_MAX_ROUNDS",
+    }
+    expected_signals = {signal_names[k]: v for k, v in facts["signals"].items() if v}
 
     summary = derived("detector-summary.json")
     if summary:
@@ -291,6 +297,8 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
                       summary.get("evidence", {}).get("event_log_sha256"))
         check.compare("derived detector-summary: event count", len(events),
                       summary.get("evidence", {}).get("event_count"))
+        check.compare("derived detector-summary: signals fired", expected_signals,
+                      summary.get("signals_fired"))
     else:
         check.record("derived detector-summary present", "NOT_VERIFIABLE", "a file", "absent")
 
@@ -315,6 +323,30 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
                       facts["recurring_fragment_patterns"] + facts["recurring_guideline_patterns"],
                       pipe.get("deviation_patterns"),
                       "a wrong key name here reads as zero; both sibling lists must be counted")
+        check.compare("derived extended-analytics: C1 values", facts["C1_values"],
+                      pipe.get("C1_mapping_certainty_values"))
+        check.compare("derived extended-analytics: reference guideline count",
+                      len(facts["C1_values"]), pipe.get("reference_guidelines"))
+        check.compare("derived extended-analytics: variability classification distribution",
+                      facts["classification_distribution"], pipe.get("classification_distribution"))
+        check.compare("derived extended-analytics: uncovered fragments per case",
+                      facts["fragments_per_case"],
+                      {k: v.get("uncovered_fragments") for k, v in (pipe.get("per_case") or {}).items()})
+        check.compare("derived extended-analytics: fragment label distribution",
+                      facts["fragment_label_distribution"], pipe.get("fragment_label_distribution"))
+        check.compare("derived extended-analytics: mapping result distribution",
+                      facts["mapping_status_distribution"], pipe.get("mapping_status_distribution"))
+        check.compare("derived extended-analytics: round dynamics",
+                      {str(k): dict(sorted(v.items())) for k, v in facts["confidence_by_round"].items()},
+                      {str(r["round_index"]): dict(sorted(
+                          (k, v) for k, v in (("High", r.get("high")), ("Low", r.get("low")),
+                                              ("Medium", r.get("medium"))) if v))
+                       for r in (extended.get("round_dynamics", {}).get("per_round") or [])})
+        check.compare("derived extended-analytics: episode profiles",
+                      {e["episode_id"]: (e["low"], e["medium"], e["high"], e["max_round"])
+                       for e in facts["episodes"]},
+                      {p["episode_id"]: (p.get("low"), p.get("medium"), p.get("high"), p.get("max_round"))
+                       for p in (extended.get("episode_profiles") or [])})
     else:
         check.record("derived extended-analytics present", "NOT_VERIFIABLE", "a file", "absent")
 
@@ -327,17 +359,16 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
         pinned = analysis_receipt.get("output_inventory_sha256")
         inventory = analysis_dir / "output-inventory.json"
         actual = digest(inventory) if inventory.is_file() else "absent"
-        if pinned and pinned != actual:
-            check.record(
-                "derived analysis-receipt: output inventory pin resolves",
-                "PROVENANCE_GAP", pinned, actual,
-                "analysis/output-inventory.json was overwritten on 2026-09-06 by an earlier "
-                "invocation of this validator pointed at it as --manifest. It is a derived "
-                "artifact referenced by no published claim, and it was not reconstructed: "
-                "matching a pinned hash by trial would fabricate provenance. Primary evidence "
-                "is unaffected and re-verified by the hash checks above.")
-        else:
-            check.compare("derived analysis-receipt: output inventory pin resolves", pinned, actual)
+        check.compare(
+            "derived analysis-receipt: output inventory pin resolves", pinned, actual,
+            "A binding that exists and does not resolve is a value disagreement, not a missing "
+            "binding, so this is FAIL and never PROVENANCE_GAP. Cause: analysis/"
+            "output-inventory.json was overwritten on 2026-09-06 by an invocation of this "
+            "validator pointed at it as --manifest. Recovery was attempted over 144 candidate "
+            "serializations of the 52 pinned artifacts and none reproduced the pinned digest; "
+            "the file was not reconstructed, because matching a hash by trial would fabricate "
+            "provenance. The failure is confined to the derived artifact chain: no published "
+            "claim cites this file and every scientific value reproduces.")
     else:
         check.record("derived analysis-receipt present", "NOT_VERIFIABLE", "a file", "absent")
 
@@ -348,6 +379,17 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
         check.compare("derived detector.csv: labels agree with the recomputation",
                       {e["episode_id"]: e["classification"] for e in facts["episodes"]},
                       {r["episode_id"]: r["classification"] for r in rows})
+        check.compare("derived detector.csv: reason codes agree with the recomputation",
+                      {e["episode_id"]: [signal_names[s] for s in e["strong_signals"]]
+                       for e in facts["episodes"]},
+                      {r["episode_id"]: [s for s in r["reason_codes"].split(" | ") if s]
+                       for r in rows})
+        check.compare("derived detector.csv: all signals agree with the recomputation",
+                      {e["episode_id"]: sorted(signal_names[s] for s in
+                                               e["strong_signals"] + e["weak_signals"])
+                       for e in facts["episodes"]},
+                      {r["episode_id"]: sorted(s for s in r["all_signals_fired"].split(" | ") if s)
+                       for r in rows})
     else:
         check.record("derived detector.csv present", "NOT_VERIFIABLE", "a file", "absent")
 
@@ -361,8 +403,28 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
         check.compare("derived episodes.csv: question counts agree",
                       {e["episode_id"]: e["questions"] for e in facts["episodes"]},
                       {r["episode_id"]: int(r["questions"]) for r in rows})
+        check.compare("derived episodes.csv: answer counts agree",
+                      {e["episode_id"]: e["answers"] for e in facts["episodes"]},
+                      {r["episode_id"]: int(r["answers"]) for r in rows})
+        check.compare("derived episodes.csv: denominator membership agrees",
+                      {e["episode_id"]: e["scientific_complete"] for e in facts["episodes"]},
+                      {r["episode_id"]: r["in_detector_denominator"] == "True" for r in rows})
     else:
         check.record("derived episodes.csv present", "NOT_VERIFIABLE", "a file", "absent")
+
+    envelope = derived("detector-envelope.json")
+    if envelope:
+        check.compare("derived detector-envelope: no provider calls", 0,
+                      envelope.get("provider_calls"))
+        check.compare("derived detector-envelope: file is fixture-classed",
+                      "ENGINEERING_FIXTURE_NOT_SCIENTIFIC", envelope.get("evidence_class"))
+        modes = envelope.get("modes") or []
+        check.compare("derived detector-envelope: every mode is fixture-classed",
+                      ["ENGINEERING_FIXTURE_NOT_SCIENTIFIC"] * len(modes),
+                      [m.get("evidence_class") for m in modes],
+                      "envelope rows are engineering fixtures and enter no scientific denominator")
+    else:
+        check.record("derived detector-envelope present", "NOT_VERIFIABLE", "a file", "absent")
 
     baseline = derived("baseline-comparison.json")
     if baseline:
@@ -370,6 +432,16 @@ def cross_check_derived(check, run_root, facts, receipt, usage, events, events_p
                      "PASS" if "fake" in json.dumps(baseline).lower() else "FAIL",
                      "fixture provider named explicitly", "named",
                      "the fixture-vs-real contrast is an instrumentation check, never VEGO_AI_ON/OFF")
+        check.compare("derived baseline-comparison: real side agrees with the event log",
+                      {"answers": facts["answers"], "confidence": facts["confidence"],
+                       "episodes": facts["total_episodes"], "evidence_missing": 0,
+                       "max_round": facts["max_round"], "questions": facts["questions"],
+                       "routes": facts["route_pairs"], "terminations": facts["termination_states"]},
+                      baseline.get("real_provider_run"))
+        check.compare("derived baseline-comparison: real usage matches the receipt", usage,
+                      baseline.get("real_usage"))
+        check.compare("derived baseline-comparison: detector applied to the real run only",
+                      labels, baseline.get("detector_v1_real_run_only"))
 
 
 def main() -> int:
@@ -559,9 +631,23 @@ def main() -> int:
     check.record("reviewed_head bound in real-run receipt", "PROVENANCE_GAP", "40-char SHA", "absent",
                  "real-run receipt carries run_id but not the code SHA it executed under")
 
+    chain_checks = {"derived analysis-receipt: output inventory pin resolves"}
+    scientific_failures = [r for r in check.value_failures if r["check"] not in chain_checks]
+    chain_failures = [r for r in check.value_failures if r["check"] in chain_checks]
+    if scientific_failures:
+        status, scope = "EVIDENCE_INVALID", "SCIENTIFIC_VALUES"
+    elif chain_failures:
+        status, scope = "DERIVED_CHAIN_BROKEN", "DERIVED_ARTIFACT_CHAIN"
+    elif check.failed:
+        status, scope = "PASS_WITH_PROVENANCE_GAPS", "NONE"
+    else:
+        status, scope = "PASS", "NONE"
+
     payload = {
         "schema_version": SCHEMA_VERSION,
-        "status": "FAIL" if check.value_failures else ("PASS_WITH_PROVENANCE_GAPS" if check.failed else "PASS"),
+        "status": status,
+        "scientific_values_reproduce": not scientific_failures,
+        "failure_scope": scope,
         "reporting_code_sha": head,
         "execution_code_sha": receipt.get("reviewed_head", "NOT_BOUND_IN_RECEIPT"),
         "evidence_hashes": {
@@ -582,7 +668,8 @@ def main() -> int:
 
     gaps = [r for r in check.rows if r["status"] == "PROVENANCE_GAP"]
     print(f"status: {payload['status']}  checks: {len(check.rows)}  "
-          f"value-failures: {len(check.value_failures)}  provenance-gaps: {len(gaps)}")
+          f"scientific-value-failures: {len(scientific_failures)}  "
+          f"derived-chain-failures: {len(chain_failures)}  provenance-gaps: {len(gaps)}")
     for row in check.rows:
         mark = {"PASS": "ok  ", "FAIL": "FAIL", "PROVENANCE_GAP": "GAP ", "NOT_VERIFIABLE": "N/V "}[row["status"]]
         print(f"  [{mark}] {row['check']}: expected={row['expected']} actual={row['actual']}")
