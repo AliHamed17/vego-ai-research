@@ -2,7 +2,7 @@
 
 Generated deterministically from Git-tracked shareable files.
 
-Totals: **8** Mermaid · **30** SVG · **10** HTML.
+Totals: **8** Mermaid · **30** SVG · **12** HTML.
 
 <details><summary>All diagram/graph files</summary>
 
@@ -24,6 +24,8 @@ Totals: **8** Mermaid · **30** SVG · **10** HTML.
 - `docs/research/phd-proposal/figures/fig3-episodes.svg`
 - `docs/research/phd-proposal/figures/fig4-baseline.svg`
 - `docs/research/phd-proposal/figures/study1-results-source.html`
+- `docs/research/phd-proposal/figures/study1-supervisor-report.html`
+- `docs/research/phd-proposal/figures/study1-technical-appendix.html`
 - `thesis/figures/fig-4-1-baseline-pipeline.mmd`
 - `thesis/figures/fig-5-1-co-reasoning-artifact.mmd`
 - `thesis/figures/fig-5-2-running-example.mmd`
