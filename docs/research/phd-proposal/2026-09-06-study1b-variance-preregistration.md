@@ -1,5 +1,12 @@
 # Study 1B preregistration — repeat-run variance of Detector-v1 on AirTravel
 
+**Study class: `EXPLORATORY_POST_STUDY1_VARIANCE_REPLICATION`.**
+
+This is an exploratory post-hoc replication that assesses run-to-run variability of the fixed
+AirTravel protocol. It does **not** upgrade the original Study 1 run to prospective provenance,
+and it does **not** test alert correctness, effectiveness, human benefit, accuracy or
+generalization.
+
 **Status: `PREREGISTERED_NOT_EXECUTED`.**
 **Frozen 2026-09-06, before any repeat run has been executed and before any repeat outcome has
 been observed.**
@@ -113,3 +120,40 @@ shown together, and it does **not** retroactively upgrade the Study 1 run.
 
 No repeat has been executed. No repeat outcome has been observed. `OPENAI_API_KEY` was not
 present in the execution environment when this document was frozen. This document is a design.
+
+---
+
+## Amendment A — 2026-09-06, before any execution
+
+Recorded before any provider call. The design below is unchanged; these are the study class
+label required by the sponsor and the outcome of the pre-execution budget gate.
+
+**A1. Study class.** `EXPLORATORY_POST_STUDY1_VARIANCE_REPLICATION`, as stated in the header.
+
+**A2. Global reservation gate — FAILED.** The gate requires a conservative upper bound for all
+five repeats combined, including every permitted retry, to fit the ceiling before run 1 starts.
+
+| Term | Value |
+|---|---|
+| Per-request worst-case reserve | `(8,000 × $0.20/M) + (16,384 × $1.20/M)` = **$0.0212608** |
+| Permitted requests per repeat | 326 (retries counted against this cap) |
+| Repeats | 5 |
+| **Conservative upper bound** | **$34.6551** |
+| Ceiling | $2.00 |
+| **Result** | **`BUDGET_INSUFFICIENT_FOR_FROZEN_FIVE_REPEAT_PROTOCOL`** |
+
+The largest per-repeat request cap that fits $2.00 across five repeats is **18**, against a
+protocol minimum of `4 + 3N` = **16** calls. Any inter-agent Q&A at all would breach the ceiling,
+so the frozen protocol cannot be conservatively bounded under $2.00.
+
+For reference only, and explicitly **not** the bound the gate uses: the accepted Study 1 run cost
+$0.134972 over 43 calls, so five repeats would realistically cost about $0.67. The guard cannot
+know that in advance, which is the point of a worst-case reservation.
+
+**No partial study was run.** Per the frozen design, five repeats are executed or none are.
+
+**A3. Credential.** `OPENAI_API_KEY` was absent from the execution environment at gate time:
+`CREDENTIAL_NOT_AVAILABLE`. No provider call was attempted, and no credential was inspected,
+requested or substituted.
+
+Either blocker alone is sufficient to prevent execution. Both were present.

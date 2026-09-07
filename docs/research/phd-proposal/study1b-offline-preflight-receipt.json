@@ -1,0 +1,131 @@
+{
+  "checks": [
+    {
+      "actual": 5,
+      "check": "five repeats attempted under an ample ceiling",
+      "expected": 5,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 5,
+      "check": "five repeats completed",
+      "expected": 5,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 5,
+      "check": "run identifiers are distinct",
+      "expected": 5,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": [
+        "VARIANCE-01",
+        "VARIANCE-02",
+        "VARIANCE-03",
+        "VARIANCE-04",
+        "VARIANCE-05"
+      ],
+      "check": "run identifiers follow the frozen sequence",
+      "expected": "VARIANCE-01..05",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 0.67486,
+      "check": "cumulative spend accumulates across repeats",
+      "expected": 0.67486,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "COMPLETE",
+      "check": "status is COMPLETE when all five finish",
+      "expected": "COMPLETE",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 1,
+      "check": "a repeat without headroom for a full one is refused, not truncated",
+      "expected": ">=1 refusal",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 0.269944,
+      "check": "spend never exceeds the ceiling",
+      "expected": "<= 0.60",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "STOPPED_AT_CAP",
+      "check": "a partial study is reported STOPPED_AT_CAP, never COMPLETE",
+      "expected": "STOPPED_AT_CAP",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 2,
+      "check": "started repeats are still reported",
+      "expected": ">=1",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 1,
+      "check": "a technical failure is preserved and reported, not replaced",
+      "expected": 1,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 5,
+      "check": "a technical failure does not halt the remaining repeats",
+      "expected": 5,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 4,
+      "check": "a failed repeat is excluded from the completed count",
+      "expected": 4,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "INCOMPLETE",
+      "check": "a run with a failure is not reported COMPLETE",
+      "expected": "not COMPLETE",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "absent",
+      "check": "repeat count is frozen, not a command-line argument",
+      "expected": "absent",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 0,
+      "check": "provider calls measured during preflight",
+      "expected": 0,
+      "note": "counted by the fake executor, not asserted",
+      "status": "PASS"
+    }
+  ],
+  "checks_failed": 0,
+  "checks_run": 16,
+  "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+  "generated_at": "2026-09-07T10:32:20.880550Z",
+  "note": "Covers the Study 1B repeat-orchestration loop only. It produces no scientific value, enters no denominator, and is never reported as a result.",
+  "provider_calls": 0,
+  "schema_version": "study1b-offline-preflight-v1",
+  "status": "PASS",
+  "study_class": "EXPLORATORY_POST_STUDY1_VARIANCE_REPLICATION"
+}
