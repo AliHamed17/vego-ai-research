@@ -30,6 +30,12 @@ if str(SCRIPTS) not in sys.path:
 
 from qa_communication import build_episode_projection  # noqa: E402, I001
 from study1_evidence_recovery import EvidenceRecoveryError, RETROSPECTIVE_VALIDATION, load_verified_events as _canonical_load_verified_events  # noqa: E402, I001
+from study1_signal_contract import S6_OPERATIONAL_DEFINITION  # noqa: E402, I001
+from build_study1_transparency_package import (  # noqa: E402, I001
+    agent4_causal_path,
+    case_model_availability,
+    reporting_code_metadata,
+)
 
 try:
     from extract_qa_escalation_features import detect_detector_v1  # noqa: E402
@@ -109,6 +115,7 @@ def mechanism_summary() -> dict[str, dict[str, Any]]:
             "queue_status": agent4_queue_status(None),
             "automatic_modification": False,
             "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence does not establish whether the policy fired.",
+            "causal_path": agent4_causal_path(),
         },
     }
 
@@ -132,8 +139,9 @@ def _entry(
     action: str,
     does_not_prove: str,
     evidence_availability: str = "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
+    data_status: str | None = None,
 ) -> dict[str, Any]:
-    return {
+    entry = {
         "category": category,
         "hebrew_name": hebrew_name,
         "english_code_name": english_code_name,
@@ -152,6 +160,9 @@ def _entry(
         "does_not_prove": does_not_prove,
         "evidence_availability": evidence_availability,
     }
+    if data_status is not None:
+        entry["data_status"] = data_status
+    return entry
 
 
 def signal_dictionary() -> dict[str, Any]:
@@ -290,9 +301,10 @@ def signal_dictionary() -> dict[str, Any]:
         (
             "S6_MULTIPLE_QA_ROUNDS",
             "יותר מסבב שאלות ותשובות אחד",
-            'episode.get("round_count", 0) > 1',
+            S6_OPERATIONAL_DEFINITION["rule"],
             "Q&A episode",
-            f"{_SOURCE}:323-328 (detect_detector_v1); {_SOURCE}:351-364 (projection)",
+            "scripts/study1_signal_contract.py (S6_OPERATIONAL_DEFINITION); "
+            f"{_SOURCE}:329 (detect_detector_v1)",
             "deterministic_derived_field",
             "weak; can co-occur with any strong signal or S2",
             "The maximum observed round count for the episode is greater than one.",
@@ -394,7 +406,11 @@ def signal_dictionary() -> dict[str, Any]:
                 candidate_for_review=False,
                 action="Report as context only; do not promote to an alert without a separately approved rule.",
                 does_not_prove=not_prove,
-                evidence_availability="CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
+                evidence_availability=(
+                    "CODE_DEFINED; DATA_NOT_AVAILABLE_IN_WORKTREE; "
+                    "REQUIRES_VALIDATED_FROZEN_EVAL_OUTPUT"
+                ),
+                data_status=NOT_AVAILABLE,
             )
         )
 
@@ -615,6 +631,10 @@ def signal_dictionary() -> dict[str, Any]:
                 },
             },
         },
+        "s6_operational_definition": S6_OPERATIONAL_DEFINITION,
+        "agent4_causal_path": agent4_causal_path(),
+        "case_model_availability": case_model_availability(),
+        "reporting_code_metadata": reporting_code_metadata(),
         "claim_boundary": (
             "This dictionary documents observability and candidate-review mechanics only. It does not "
             "establish accuracy, human benefit, reduced burden, generalization, or policy superiority."
@@ -1037,6 +1057,9 @@ def aggregate_verified_events(events: list[dict[str, Any]]) -> dict[str, Any]:
         "evidence_status": AVAILABLE,
         "denominator": denominator,
         "mechanisms": mechanism_summary(),
+        "agent4_causal_path": agent4_causal_path(),
+        "case_model_availability": case_model_availability(),
+        "reporting_code_metadata": reporting_code_metadata(),
         "agent4_review_queue": {
             "artifact": "human_review_queue.jsonl",
             "unit_of_analysis": "Agent-4 variability classification",
@@ -1059,6 +1082,9 @@ def build_metrics(events: list[dict[str, Any]] | None, *, evidence_status: str =
             "evidence_status": evidence_status,
             "denominator": evidence_status,
             "mechanisms": mechanism_summary(),
+            "agent4_causal_path": agent4_causal_path(),
+            "case_model_availability": case_model_availability(),
+            "reporting_code_metadata": reporting_code_metadata(),
             "agent4_review_queue": {
                 "artifact": "human_review_queue.jsonl",
                 "unit_of_analysis": "Agent-4 variability classification",
@@ -1108,7 +1134,10 @@ def _write_hebrew_note(path: Path, dictionary: dict[str, Any], metrics: dict[str
                 "",
                 "**Detector-v1:** יחידת הניתוח היא אפיזודת שאלות–תשובות. הפלט הוא reporting-level candidate-for-review label בלבד; Detector-v1 אינו כותב לתור ואינו יוצר `human_review_queue.jsonl`.",
                 "**Selective Intervention Policy / מנגנון הבדיקה של Agent 4:** יחידת הניתוח היא סיווג השונות של Agent 4. כאשר queue builder נפרד מופעל, הוא עשוי ליצור `human_review_queue.jsonl`. אין שינוי אוטומטי במקור, ביעד, בהנחיה או במודל.",
+                "**המסלול הסיבתי שנצפה בתיעוד:** Agent 4 הופעל ונוצר לפחות פריט בדיקה אחד; לאחר מכן המסלול נחסם כי `cd_airtravel` חסר ב-enum של הסכמה הישנה. לכן סטטוס התור הוא `NOT_AVAILABLE`, ואסור לפרש היעדר תור כ‘לא הופעל’ או כאפס.",
                 "**סטטוס תור AirTravel:** `NOT_AVAILABLE` — לא נמצא בקובץ העבודה הנבדק תור מאומת וטעון. היעדר קובץ אינו פירושו ‘לא הופעל’ ואינו מספר אפס.",
+                "**זמינות מקרה–מודל:** עבור `EP-577319bf…` ו-`EP-81b2c98d…` אין ראיית case→model מאומתת ב-worktree; הסטטוס הוא `UNAVAILABLE`, ללא הסקה מתצורת המודל.",
+                "**reporting_code_sha:** זהו מטא־דאטה תיעודי שאינו ראיה מדעית; ערכים ישנים מסומנים `STAMPED_SUPERSEDED`. `airtravel_real_run.py` השתנה לאחר ההרצה לצורך receipt-binding, ולכן אין לטעון לזהות bytes בין קוד ההרצה ההיסטורי לקוד הדיווח הנוכחי.",
                 "",
                 "## גבול הפרשנות",
                 "",

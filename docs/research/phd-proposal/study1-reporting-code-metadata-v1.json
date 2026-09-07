@@ -1,0 +1,10 @@
+{
+  "current_reporting_code": "scripts/airtravel_real_run.py",
+  "current_reporting_code_status": "CHANGED_POST_RUN_FOR_RECEIPT_BINDING",
+  "field": "reporting_code_sha",
+  "historical_executed_code_sha": "efe686ac0b13c6e17695b816da7eb0cdd3eadcc1",
+  "note": "The historical executed code and current reporting code are distinct; a reporting stamp cannot establish what code produced a private result.",
+  "stale_values": "STAMPED_SUPERSEDED",
+  "status": "NON_EVIDENTIARY_DOCUMENTATION_METADATA",
+  "used_for_scientific_binding": false
+}

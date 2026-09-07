@@ -248,6 +248,7 @@
     "scripts/tests/test_study1_evidence_recovery.py",
     "scripts/tests/test_study1_forbidden_claims.py",
     "scripts/tests/test_study1_signal_traceability.py",
+    "scripts/tests/test_study1_transparency_corrections.py",
     "scripts/tests/test_study1_transparency_package.py",
     "scripts/tests/test_study1_validate_evidence.py",
     "scripts/tests/test_study1b_offline_preflight.py",
@@ -284,7 +285,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "94e1fc50476476b935b15cd8303cf8de5144da9fd917e6c6edb158a541c82933",
+  "sourceTreeSha256": "959f182db1549b3d97704d4b2f09fabc2f60c4366cfa05d3c129af1982d7c1fd",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

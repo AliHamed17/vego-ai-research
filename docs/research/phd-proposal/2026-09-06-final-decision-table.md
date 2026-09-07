@@ -5,6 +5,12 @@
 This table exists so that nothing in the package is read at the wrong strength. Every row states
 one status and nothing stronger.
 
+> **Current transparency-package availability convention (2026-09-08):** `C1`, `C2`, and `C3`
+> are code-defined context-only variables, but their accepted-run values are
+> `NOT_AVAILABLE_IN_WORKTREE` in the canonical package because no validated private event/output
+> binding is mounted here. The numeric values cited below are retained as archival retrospective
+> evidence from the separately reviewed run; they are not recomputed or re-issued by this worktree.
+
 ---
 
 ## 1. Verified — recomputed from private evidence and cross-checked
@@ -23,7 +29,7 @@ one status and nothing stronger.
 | Calls / tokens / cost | 43 requests (cap 326) · 267,942 tokens · USD 0.134972 (budget USD 10) | run receipt, arithmetic reproduced |
 | Mapping result | 4 of 4 cases `Satisfied`; partially 0; not-satisfied 0 | pipeline output |
 | Deviation patterns | guideline 0 · fragment 19 (Alternative 14 / Domain Mistake 5), `probe_confirmed` false ×19 | pipeline output |
-| Context variables | C1 one value 0.85 → 0 below 0.7 · C2 High 15 / Medium 4 · C3 true 14 / false 5 (n = 19) | pipeline output |
+| Context variables (archival retrospective only) | Historical C1 one value 0.85 → 0 below 0.7 · C2 High 15 / Medium 4 · C3 true 14 / false 5 (n = 19); current canonical availability: `NOT_AVAILABLE_IN_WORKTREE` | archived pipeline output; current package status |
 | Evidence integrity | event-log and run-receipt SHA-256 both reproduce byte-exactly | direct hashing |
 
 Validator: **92 checks, 87 PASS, 0 scientific value failures.**
@@ -65,6 +71,14 @@ Validator: **92 checks, 87 PASS, 0 scientific value failures.**
 | Independent recomputation of `outbound_requests = 43` | The run persisted no per-call ledger; the value is receipt-asserted and only internally consistent |
 | Original contents of `analysis/output-inventory.json` | Overwritten 2026-09-06; 144 candidate serializations failed to reproduce the pinned digest; **not reconstructed** |
 | Alert correctness | No ground-truth labels exist for this corpus |
+
+## 5.3 Code provenance correction
+
+`reporting_code_sha` is non-evidentiary documentation metadata. Any value stamped by an older
+document is `STAMPED_SUPERSEDED`; only the historical `execution_code_sha` belongs to the accepted
+run's evidence chain. `airtravel_real_run.py` changed after that run for receipt-binding work, so
+the historical executed code and the current reporting code are **not byte-identical**. This is a
+reporting/provenance distinction, not a new scientific result.
 
 ## 5.1 The validator divergence — the single most important open item
 

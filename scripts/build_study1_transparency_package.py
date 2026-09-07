@@ -22,6 +22,9 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+from study1_case_selection import load_airtravel_selection
+from study1_signal_contract import S6_OPERATIONAL_DEFINITION
+
 ROOT = Path(__file__).resolve().parents[1]
 NOT_AVAILABLE = "NOT_AVAILABLE_IN_WORKTREE"
 AVAILABLE = "AVAILABLE_VERIFIED"
@@ -42,6 +45,7 @@ AIRTRAVEL_UPSTREAM_COMMIT = "253b26dc704d523209a5cba79686f8f7fab57d63"
 AIRTRAVEL_CORPUS_ID = "text2uml_airtravel_253b26dc"
 AIRTRAVEL_SETTING_ID = "cd_airtravel"
 SOURCE_MANIFEST = ROOT / "docs" / "research" / "phd-proposal" / "text2uml-airtravel" / "source-manifest.json"
+AIRTRAVEL_INVENTORY = ROOT / "docs" / "research" / "phd-proposal" / "text2uml-airtravel" / "airtravel-inventory.json"
 DETECTOR_SOURCE = ROOT / "scripts" / "extract_qa_escalation_features.py"
 
 AIRTRAVEL_RUNTIME_FILES = [
@@ -284,6 +288,101 @@ def _source_manifest_metadata() -> dict[str, Any]:
     }
 
 
+def airtravel_selection() -> dict[str, Any]:
+    """Return inventory-derived selection provenance without reading model text."""
+
+    return load_airtravel_selection(AIRTRAVEL_INVENTORY)
+
+
+def agent4_causal_path() -> dict[str, Any]:
+    """Document the observed Agent-4 path without claiming a queue artifact."""
+
+    return {
+        "status": "EXECUTED_THEN_BLOCKED",
+        "review_record_created": True,
+        "review_record_count": "AT_LEAST_ONE",
+        "queue_status": "NOT_AVAILABLE",
+        "failure_reason": "cd_airtravel absent from legacy schema enum",
+        "evidence_class": "DOCUMENTED_RUNTIME_PATH",
+        "causal_steps": [
+            {
+                "step": "Agent-4 variability classification executed",
+                "source": "VEGO-AI/framework/orchestrator.py:334-388",
+            },
+            {
+                "step": "review record construction was entered",
+                "source": "VEGO-AI/framework/human_review_queue.py:226-336",
+            },
+            {
+                "step": "legacy schema validation rejected the setting",
+                "source": "VEGO-AI/schemas/human_review_item.schema.json:62-68",
+            },
+            {
+                "step": "pipeline catches queue-builder failure and keeps queue unavailable",
+                "source": "VEGO-AI/framework/orchestrator.py:613-623",
+            },
+        ],
+        "interpretation": (
+            "The causal path is documented as executed, review-record-producing, then blocked. "
+            "Queue status remains NOT_AVAILABLE; absence of a validated queue artifact does not "
+            "establish that the policy did or did not trigger."
+        ),
+    }
+
+
+def case_model_availability() -> dict[str, dict[str, str]]:
+    """Expose case-to-model availability without inferring from configuration."""
+
+    base = {
+        "model_availability": "UNAVAILABLE",
+        "evidence_status": NOT_AVAILABLE,
+        "basis": "No validated case-to-model artifact is mounted in the reviewed worktree.",
+        "inference_from_model_config": "PROHIBITED",
+    }
+    return {
+        "EP-577319bf": {
+            **base,
+            "canonical_episode_id": "EP-577319bf37c87",
+            "case_linkage": "case 02",
+        },
+        "EP-81b2c98d": {
+            **base,
+            "canonical_episode_id": "EP-81b2c98d59125",
+            "case_linkage": "cross-case episode",
+        },
+    }
+
+
+def reporting_code_metadata() -> dict[str, Any]:
+    """Describe reporting-code hashes as documentation metadata, not evidence."""
+
+    return {
+        "field": "reporting_code_sha",
+        "status": "NON_EVIDENTIARY_DOCUMENTATION_METADATA",
+        "used_for_scientific_binding": False,
+        "stale_values": "STAMPED_SUPERSEDED",
+        "historical_executed_code_sha": "efe686ac0b13c6e17695b816da7eb0cdd3eadcc1",
+        "current_reporting_code": "scripts/airtravel_real_run.py",
+        "current_reporting_code_status": "CHANGED_POST_RUN_FOR_RECEIPT_BINDING",
+        "note": (
+            "The historical executed code and current reporting code are distinct; a reporting "
+            "stamp cannot establish what code produced a private result."
+        ),
+    }
+
+
+def byte_identity_distinction() -> dict[str, Any]:
+    """Return the explicit historical/current code distinction required by the report."""
+
+    metadata = reporting_code_metadata()
+    return {
+        "historical_executed_code": metadata["historical_executed_code_sha"],
+        "current_reporting_code_status": metadata["current_reporting_code_status"],
+        "byte_identical_to_historical": False,
+        "reason": "airtravel_real_run.py changed post-run for receipt-binding work.",
+    }
+
+
 def build_provenance_record(
     *,
     reviewed_head_sha: str,
@@ -314,6 +413,24 @@ def build_provenance_record(
     else:
         observed_count = airtravel_file_count if airtravel_file_count is not None else NOT_AVAILABLE
         matched_count = airtravel_matched_count if airtravel_matched_count is not None else NOT_AVAILABLE
+    selection = airtravel_selection()
+    selected_paths = selection.get("selected_case_paths", [])
+    candidate_labels = {
+        re.sub(r"^\d+_", "", Path(str(item["path"])).stem): Path(str(item["path"])).stem
+        for item in AIRTRAVEL_RUNTIME_FILES
+        if item["role"] == "candidate_model"
+    }
+    selected_case_ids = [
+        f"{index:02d}_{candidate_labels[path]}"
+        for index, path in enumerate(selected_paths, start=1)
+        if isinstance(path, str) and path in candidate_labels
+    ]
+    if not selected_case_ids:
+        selected_case_ids = [
+            Path(str(item["path"])).stem
+            for item in AIRTRAVEL_RUNTIME_FILES
+            if item["role"] == "candidate_model"
+        ]
     return {
         "schema_version": "study1-data-provenance-v1",
         "record_type": "safe_public_and_evidence_boundary",
@@ -334,16 +451,11 @@ def build_provenance_record(
             "upstream_commit": AIRTRAVEL_UPSTREAM_COMMIT,
             "archive_url": AIRTRAVEL_ARCHIVE_URL,
             "archive_sha256": airtravel_archive_sha256 or NOT_AVAILABLE,
-            "selection_rule": (
-                "N=4 purposive feasibility subset: the four result_one_* files named by the "
-                "v1.0.2 amendment, plus description.md; no Q&A frequency or VEGO output is used."
-            ),
-            "selected_case_ids": [
-                "01_result_one_claude-sonnet-4-6",
-                "02_result_one_codestral-2508",
-                "03_result_one_deepseek-chat",
-                "04_result_one_gemini-2.5-flash",
-            ],
+            "selection": selection,
+            "selection_rule": selection["predicate"],
+            "selection_status": selection["status"],
+            "selection_limitation": selection["reason"],
+            "selected_case_ids": selected_case_ids,
             "selected_runtime_files": AIRTRAVEL_RUNTIME_FILES,
             "source_file_count": observed_count,
             "source_manifest_entry_count": _source_manifest_metadata()["entry_count"],
@@ -608,10 +720,10 @@ def detector_criteria() -> list[dict[str, Any]]:
         {
             "signal": "S6",
             "signal_name": "S6_MULTIPLE_QA_ROUNDS",
-            "exact_code_rule": 'if episode.get("round_count", 0) > 1:',
+            "exact_code_rule": "if s6_fires(episode):",
             "required_log_fields": fields("round_index"),
             "unit": "Q&A episode",
-            "meaning": "The projected episode contains more than one Q&A round.",
+            "meaning": S6_OPERATIONAL_DEFINITION["description"],
             "does_not_mean": "It does not prove unresolved disagreement, high burden, or answer quality.",
             "detector_tier": "WEAK_ALERT",
             "direct_trigger": True,
@@ -757,6 +869,7 @@ def _fallback_signal_entries() -> list[dict[str, Any]]:
                 "candidate_for_human_review": False,
                 "does_not_prove": "It does not prove correctness, error, human need, or generalization.",
                 "evidence_availability": NOT_AVAILABLE,
+                "data_status": NOT_AVAILABLE,
             }
         )
     return entries
@@ -795,6 +908,7 @@ def mechanism_boundaries() -> dict[str, dict[str, Any]]:
             "queue_artifact": "human_review_queue.jsonl",
             "automatic_modification": False,
             "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence is not not-triggered.",
+            "causal_path": agent4_causal_path(),
         },
     }
 
@@ -847,6 +961,9 @@ def transparency_data_dictionary(*, reviewed_head_sha: str, main_sha: str) -> di
             ],
         },
         "mechanisms": mechanism_boundaries(),
+        "agent4_causal_path": agent4_causal_path(),
+        "case_model_availability": case_model_availability(),
+        "reporting_code_metadata": reporting_code_metadata(),
         "canonical_signal_entries": entries,
         "canonical_dictionary_path": "docs/research/phd-proposal/study1-signal-dictionary-v1.json",
         "note": "Alternative and Non-Satisfied are semantic mapping outputs, not Detector-v1 triggers or error labels by themselves.",
@@ -899,6 +1016,9 @@ def safe_metrics(evidence_root: Path | None) -> dict[str, Any]:
             "none": "NO_ALERT otherwise",
         },
         "mechanisms": mechanism_boundaries(),
+        "agent4_causal_path": agent4_causal_path(),
+        "case_model_availability": case_model_availability(),
+        "reporting_code_metadata": reporting_code_metadata(),
         "agent4_review_queue": {
             "status": "NOT_AVAILABLE",
             "artifact": "human_review_queue.jsonl",
@@ -909,7 +1029,7 @@ def safe_metrics(evidence_root: Path | None) -> dict[str, Any]:
             "S1 low answer confidence",
             "S2 medium answer confidence",
             "S3 null/zero-length answer evidence reference",
-            "S6 more than one Q&A round",
+            "S6_MULTIPLE_QA_ROUNDS: " + S6_OPERATIONAL_DEFINITION["rule"],
             "S7 maximum-round termination",
         ],
         "tables": tables,
@@ -919,7 +1039,7 @@ def safe_metrics(evidence_root: Path | None) -> dict[str, Any]:
 
 def example_cards() -> list[dict[str, Any]]:
     banner = "המחשה הנדסית בלבד — אינה תוצאת ניסוי ואינה נתון אמפירי"
-    return [
+    cards = [
         {
             "card_id": "EX-01",
             "title_he": "אפיזודה מלאה ללא התראה",
@@ -931,6 +1051,7 @@ def example_cards() -> list[dict[str, Any]]:
             "interpretation_he": "הדוגמה ממחישה כיצד מצב תקין עובר ללא תווית מועמד.",
             "limitation_he": "אינה מוכיחה נכונות תשובה או איכות ראיות.",
             "banner_he": banner,
+            "banner": "ENGINEERING_ILLUSTRATION_ONLY",
             "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
             "enters_scientific_metrics": False,
         },
@@ -945,6 +1066,7 @@ def example_cards() -> list[dict[str, Any]]:
             "interpretation_he": "זו תווית דיווח שמצביעה על מועמד לבדיקה אנושית בלבד.",
             "limitation_he": "Low הוא דיווח עצמי של המודל ואינו תווית שגיאה.",
             "banner_he": banner,
+            "banner": "ENGINEERING_ILLUSTRATION_ONLY",
             "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
             "enters_scientific_metrics": False,
         },
@@ -959,10 +1081,47 @@ def example_cards() -> list[dict[str, Any]]:
             "interpretation_he": "Queue builder נפרד עשוי ליצור human_review_queue.jsonl אם יורץ.",
             "limitation_he": "ב-AirTravel הסטטוס כרגע NOT_AVAILABLE; אין שינוי אוטומטי במקור, בהנחיה, ביעד או במודל.",
             "banner_he": banner,
+            "banner": "ENGINEERING_ILLUSTRATION_ONLY",
             "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
             "enters_scientific_metrics": False,
         },
     ]
+    cards.append(
+        {
+            "card_id": "EP-577319bf",
+            "title_he": "דוגמה אמיתית מצונזרת — שרשרת Q&A מלאה",
+            "mechanism": "Detector-v1",
+            "input_case": "case 02 (hash reference only)",
+            "case_reference": "sha256:UNAVAILABLE_IN_WORKTREE",
+            "qa_event_references": ["sha256:UNAVAILABLE_IN_WORKTREE"],
+            "raw_content": "REDACTED",
+            "example_kind": "REAL_REDACTED_RETROSPECTIVE_STRUCTURE_ONLY",
+            "log_fields": "hash-only event references; QUESTION_EMITTED → ANSWER_RECEIVED → CONVERGED",
+            "fields": {
+                "case_label": "02 (archival safe label; case hash unavailable in worktree)",
+                "question_id": "HASH_REF_UNAVAILABLE_IN_WORKTREE",
+                "question_count": 1,
+                "answer_count": 1,
+                "asking_agent": "REDACTED",
+                "answering_agent": "REDACTED",
+                "round_index": 1,
+                "answer_confidence": "Low (archival label; raw answer redacted)",
+                "answer_evidence_ref": "HASH_REF_UNAVAILABLE_IN_WORKTREE",
+                "termination_reason": "CONVERGED (reported historical label)",
+                "signals_fired": ["S1_LOW_ANSWER_CONFIDENCE (archival label)"],
+            },
+            "detector_rule": "STRONG_ALERT = S1 OR S3 OR S7; WEAK_ALERT = no strong signal AND (S2 OR S6)",
+            "detector_result": "STRONG_ALERT (archival classification; illustrative rule application only)",
+            "interpretation_he": "הדוגמה האמיתית המצונזרת מציגה את השרשרת case → Q&A → fields → Detector rule → result; תוכן השאלה והתשובה נשאר מצונזר.",
+            "limitation": "ENGINEERING_ILLUSTRATION_ONLY; archival descriptive labels only; no current event-log hash is mounted, so no scientific aggregate is recomputed and no correctness, quality, causality or human benefit is inferred.",
+            "limitation_he": "תוכן השאלה והתשובה אינו זמין ב-worktree; לא ניתן לאמת את הערכים מעבר להפניה ההיסטורית.",
+            "banner_he": banner,
+            "banner": "ENGINEERING_ILLUSTRATION_ONLY",
+            "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
+            "enters_scientific_metrics": False,
+        }
+    )
+    return cards
 
 
 def transparency_figure_manifest() -> dict[str, Any]:
@@ -1035,7 +1194,7 @@ def write_hebrew_note(path: Path, provenance: dict[str, Any], metrics: dict[str,
         "",
         f"הגדרת ההכנה היא `setting_id={AIRTRAVEL_SETTING_ID}` ו-`corpus_id={AIRTRAVEL_CORPUS_ID}`. המקור הוא Text2UML ציבורי, commit `{AIRTRAVEL_UPSTREAM_COMMIT}`, תחת `dataset/AirTravel`.",
         f"ארכיון codeload אומת ב-SHA-256 `{provenance['dataset']['archive_sha256']}`; נבדקו {provenance['dataset']['airtravel_source_verification']['matched_count']} קבצים מתוך 143, ללא שינוי בתוכן. הקבצים הגולמיים אינם נשמרים ב-Git.",
-        "בחירת N=4 היא purposive feasibility בלבד: ארבעת קבצי `result_one_*` שהוגדרו בתיקון v1.0.2 ותיאור הדומיין. זה אינו נתון של תלמידים, אינו Cheers/ParkWise ואינו ground truth.",
+        f"הפרדיקט הקבוע במניפסט מזהה {provenance['dataset']['selection'].get('eligible_case_count')} מועמדים מתאימים. הוא אינו מייצר בחירה ייחודית של ארבעה: הסטטוס הוא `{provenance['dataset']['selection_status']}`. {provenance['dataset']['selection_limitation']}",
         "",
         "| Runtime file | תפקיד | bytes | SHA-256 |",
         "|---|---|---:|---|",
@@ -1052,7 +1211,7 @@ def write_hebrew_note(path: Path, provenance: dict[str, Any], metrics: dict[str,
         "| פריט | מקור | כיצד אומת | מה ניתן להסיק | מה לא ניתן להסיק |",
         "|---|---|---|---|---|",
         "| corpus AirTravel | Text2UML ציבורי | commit, archive SHA-256 וספירת קבצים | provenance והיתכנות | התנהגות תלמידים, נכונות או תועלת אנושית |",
-        "| ארבעה candidates | `result_one_*` | כלל בחירה קפוא ו-SHA-256 | השוואת הכנה מתועדת | ייצוג סטטיסטי או ranking |",
+        "| ארבעה candidates | `result_one_*` | eligibility predicate + recorded purposive proposal + SHA-256 | הכנת N=4 מתועדת; הבחירה אינה ניתנת לשחזור מן inventory בלבד | ייצוג סטטיסטי או ranking |",
         "| references | reference-only | מופרדים מנתיב runtime | גבול קלט ברור | מקור לתווית Detector |",
         "| accepted run | מניפסט פרטי נדרש | לא מותקן ב-worktree | אין ערך מספרי כרגע | כל מסקנה ניסויית |",
         "",
@@ -1110,6 +1269,21 @@ def write_hebrew_note(path: Path, provenance: dict[str, Any], metrics: dict[str,
             "**Detector-v1:** אפיזודת Q&A, תווית מועמד לדיווח, ללא queue וללא שינוי אוטומטי.",
             "**Selective Intervention Policy / Agent-4:** סיווג השונות של Agent 4; queue builder נפרד עשוי לכתוב `human_review_queue.jsonl`. ב-AirTravel הסטטוס הוא `NOT_AVAILABLE` עד שקובץ queue מאומת יותקן. היעדרו אינו ‘not triggered’ ואינו אפס.",
             "בשני המנגנונים אין שינוי אוטומטי במקור, ביעד, בהנחיה או במודל.",
+            "נתיב Agent-4 המתועד: הסיווג בוצע, נוצרה לפחות רשומת review אחת, ולאחר מכן הכתיבה נחסמה משום ש-`cd_airtravel` חסר ב-enum של הסכמה הישנה. לכן `queue_status=NOT_AVAILABLE`; אין לכתוב ‘not triggered’.",
+            "",
+            "## 6א. זמינות case→model ומטא־דאטה של קוד הדיווח",
+            "",
+            "| אפיזודה | קישור למקרה | זמינות מודל | סטטוס ראיות |",
+            "|---|---|---|---|",
+        ]
+    )
+    for episode_id, status in case_model_availability().items():
+        lines.append(
+            f"| `{episode_id}` | {status['case_linkage']} | `{status['model_availability']}` | `{status['evidence_status']}` |"
+        )
+    lines.extend(
+        [
+            "אין להסיק זמינות מודל מהגדרת הקונפיגורציה. `reporting_code_sha` הוא מטא־דאטה תיעודי לא־ראייתי; הקוד שביצע היסטורית והקוד שמדווח כיום אינם byte-identical.",
             "",
             "## 7. כרטיסי דוגמה למנחים",
             "",
@@ -1119,15 +1293,24 @@ def write_hebrew_note(path: Path, provenance: dict[str, Any], metrics: dict[str,
         lines.extend(
             [
                 f"### {card['card_id']} — {card['title_he']}",
+                f"**{card['banner']}**",
                 f"**{card['banner_he']}**",
                 f"Input/case: `{card['input_case']}` → log: `{card['log_fields']}` → rule: `{card['detector_rule']}` → result: `{card['detector_result']}`.",
                 f"**פירוש:** {card['interpretation_he']} **מגבלה:** {card['limitation_he']}",
                 "",
             ]
         )
+        if card.get("card_id") == "EP-577319bf":
+            field_summary = "; ".join(
+                f"{name}={value}" for name, value in card.get("fields", {}).items()
+            )
+            lines.insert(
+                len(lines) - 2,
+                f"**שדות מצונזרים/בטוחים:** `{field_summary}`",
+            )
     lines.extend(
         [
-            "כל שלושת הכרטיסים הם `ENGINEERING_ILLUSTRATION_ONLY` ואינם נכנסים לטבלת מדדים מדעית.",
+            "כל ארבעת הכרטיסים הם `ENGINEERING_ILLUSTRATION_ONLY` ואינם נכנסים לטבלת מדדים מדעית. הדוגמה של EP-577319bf37c87 משתמשת בהפניות hash בלבד ובתוכן מצונזר.",
             "",
             "## 8. מה נצפה ומה לא נצפה",
             "",
@@ -1249,8 +1432,9 @@ def write_hebrew_pdf(path: Path, provenance: dict[str, Any], metrics: dict[str, 
 
     rtl("1. מקור ובחירת מקרים", margin, page_height - 166, size=12, bold=True, color=colors.HexColor("#0F4C81"))
     y = page_height - 184
+    selection = provenance["dataset"].get("selection", {})
     y = paragraph(
-        f"המקור הוא Text2UML/AirTravel ציבורי, commit {AIRTRAVEL_UPSTREAM_COMMIT}, תחת dataset/AirTravel. ארכיון codeload אומת ב-SHA-256 {provenance['dataset']['archive_sha256']} וב-143/143 קבצים. N=4 הוא מדגם היתכנות מכוון של ארבעה result_one_*; אין זה נתון תלמידים, Cheers/ParkWise או ground truth.",
+        f"המקור הוא Text2UML/AirTravel ציבורי, commit {AIRTRAVEL_UPSTREAM_COMMIT}, תחת dataset/AirTravel. ארכיון codeload: {provenance['dataset']['archive_sha256']}; אימות קבצים: {provenance['dataset']['airtravel_source_verification']['status']}. הפרדיקט מזהה {selection.get('eligible_case_count')} מועמדים, אך N=4 הוא בחירה purposive שאינה ניתנת לשחזור מן inventory בלבד ({selection.get('status')}); אין זה נתון תלמידים, Cheers/ParkWise או ground truth.",
         margin,
         y,
         page_width - 2 * margin,
@@ -1290,17 +1474,23 @@ def write_hebrew_pdf(path: Path, provenance: dict[str, Any], metrics: dict[str, 
     rtl("Agent-4: יחידת ניתוח Agent-4 variability classification; queue builder נפרד עשוי ליצור human_review_queue.jsonl.", margin, page_height - 172, size=8.2, color=colors.HexColor("#17202A"))
     rtl("AirTravel queue status: NOT_AVAILABLE — היעדר קובץ אינו ‘not triggered’.", margin, page_height - 187, size=8.2, bold=True, color=colors.HexColor("#A04000"))
 
-    rtl("4. שלושה כרטיסי המחשה", margin, page_height - 217, size=12, bold=True, color=colors.HexColor("#0F4C81"))
+    rtl("4. ארבעה כרטיסי המחשה", margin, page_height - 217, size=12, bold=True, color=colors.HexColor("#0F4C81"))
     card_y = page_height - 240
-    card_h = 55
-    card_colors = ["#F7F9FB", "#FFF8E7", "#F5F0FA"]
-    card_titles = ["EX-01 | אפיזודה מלאה ללא התראה", "EX-02 | Low confidence → Strong", "EX-03 | Agent-4 queue נפרד"]
+    card_h = 50
+    card_colors = ["#F7F9FB", "#FFF8E7", "#F5F0FA", "#EEF5FC"]
+    card_titles = [
+        "EX-01 | אפיזודה מלאה ללא התראה",
+        "EX-02 | Low confidence → Strong",
+        "EX-03 | Agent-4 queue נפרד",
+        "EP-577319bf | דוגמה אמיתית מצונזרת",
+    ]
     card_bodies = [
         "QUESTION → ANSWER High + evidence → CONVERGED → NO_ALERT; אינו מוכיח נכונות.",
         "ANSWER confidence=Low → S1 → STRONG_ALERT; דיווח עצמי, לא תווית שגיאה.",
         "classification=Undetermined → queue builder נפרד; Detector-v1 NOT_APPLICABLE.",
+        "case 02 → Q&A 1/1 → S1 → STRONG_ALERT; hash refs בלבד, תוכן מצונזר.",
     ]
-    for idx in range(3):
+    for idx in range(len(card_titles)):
         box(margin, card_y - card_h, page_width - 2 * margin, card_h, card_colors[idx])
         rtl(card_titles[idx], margin + 10, card_y - 17, size=8.6, bold=True, color=colors.HexColor("#273746"))
         rtl("המחשה הנדסית בלבד — אינה תוצאת ניסוי ואינה נתון אמפירי", margin + 10, card_y - 31, size=7.4, color=colors.HexColor("#7D3C0C"))
@@ -1405,6 +1595,21 @@ def write_package(
         + "\n",
         encoding="utf-8",
     )
+    paths["selection"] = output_dir / "study1-airtravel-selection-v1.json"
+    paths["selection"].write_text(
+        json.dumps(provenance["dataset"]["selection"], ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    paths["case_model_availability"] = output_dir / "study1-case-model-availability-v1.json"
+    paths["case_model_availability"].write_text(
+        json.dumps(case_model_availability(), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    paths["reporting_code_metadata"] = output_dir / "study1-reporting-code-metadata-v1.json"
+    paths["reporting_code_metadata"].write_text(
+        json.dumps(reporting_code_metadata(), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     paths["figures_manifest"] = output_dir / "study1-transparency-figures-manifest-v1.json"
     paths["figures_manifest"].write_text(
         json.dumps(transparency_figure_manifest(), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -1428,7 +1633,7 @@ def write_package(
         "## שקופית 1 — מאיפה הנתונים?\nText2UML/AirTravel ציבורי, commit קפוא, ארבעה candidates, לא תלמידים ולא Cheers/ParkWise.\n\n"
         "## שקופית 2 — איזה לוג?\n`qa_events.jsonl` הוא מקור Q&A; `interaction_log.json` ו-`user_actions.log` הם audit/UI; נוכחות source אינה נוכחות runtime.\n\n"
         "## שקופית 3 — איך ההתראה עובדת?\nSTRONG=S1/S3/S7; WEAK=S2/S6; תווית מועמד לדיווח בלבד. Agent-4 queue נפרד ו-AirTravel `NOT_AVAILABLE`.\n\n"
-        "## שקופית 4 — מה מותר לומר?\nאין event log פרטי מאומת ב-worktree; אין ממצא אמפירי. שלושת הכרטיסים הם המחשה הנדסית בלבד; מניפסט האיורים מתעד רק איורי כלל/גבול; השלב הבא הוא binding manifest.\n</div>\n",
+        "## שקופית 4 — מה מותר לומר?\nאין event log פרטי מאומת ב-worktree; אין ממצא אמפירי. ארבעת הכרטיסים הם המחשה הנדסית בלבד; מניפסט האיורים מתעד רק איורי כלל/גבול; השלב הבא הוא binding manifest.\n</div>\n",
         encoding="utf-8",
     )
     paths["email"] = output_dir / "2026-09-07-study1-transparency-email-draft.he.md"

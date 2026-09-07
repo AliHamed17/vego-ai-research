@@ -9,7 +9,7 @@
 
 הגדרת ההכנה היא `setting_id=cd_airtravel` ו-`corpus_id=text2uml_airtravel_253b26dc`. המקור הוא Text2UML ציבורי, commit `253b26dc704d523209a5cba79686f8f7fab57d63`, תחת `dataset/AirTravel`.
 ארכיון codeload אומת ב-SHA-256 `8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701`; נבדקו 143 קבצים מתוך 143, ללא שינוי בתוכן. הקבצים הגולמיים אינם נשמרים ב-Git.
-בחירת N=4 היא purposive feasibility בלבד: ארבעת קבצי `result_one_*` שהוגדרו בתיקון v1.0.2 ותיאור הדומיין. זה אינו נתון של תלמידים, אינו Cheers/ParkWise ואינו ground truth.
+הפרדיקט הקבוע במניפסט מזהה 21 מועמדים מתאימים. הוא אינו מייצר בחירה ייחודית של ארבעה: הסטטוס הוא `PURPOSIVE_NON_REPRODUCIBLE`. Inventory predicate identifies 21 eligible cases; it does not contain case-level ranking/selection metadata for the four selected cases. The four-case choice is therefore purposive and non-reproducible among 21 eligible cases.
 
 | Runtime file | תפקיד | bytes | SHA-256 |
 |---|---|---:|---|
@@ -24,7 +24,7 @@
 | פריט | מקור | כיצד אומת | מה ניתן להסיק | מה לא ניתן להסיק |
 |---|---|---|---|---|
 | corpus AirTravel | Text2UML ציבורי | commit, archive SHA-256 וספירת קבצים | provenance והיתכנות | התנהגות תלמידים, נכונות או תועלת אנושית |
-| ארבעה candidates | `result_one_*` | כלל בחירה קפוא ו-SHA-256 | השוואת הכנה מתועדת | ייצוג סטטיסטי או ranking |
+| ארבעה candidates | `result_one_*` | eligibility predicate + recorded purposive proposal + SHA-256 | הכנת N=4 מתועדת; הבחירה אינה ניתנת לשחזור מן inventory בלבד | ייצוג סטטיסטי או ranking |
 | references | reference-only | מופרדים מנתיב runtime | גבול קלט ברור | מקור לתווית Detector |
 | accepted run | מניפסט פרטי נדרש | לא מותקן ב-worktree | אין ערך מספרי כרגע | כל מסקנה ניסויית |
 
@@ -60,7 +60,7 @@
 | `S1` | `if any(row.get("answer_confidence") == "Low" for row in answers):` | `run_id, episode_id, event_type, sequence (event ordering), event_id (answer event identifier), question_id, source_agent, target_agent, round_index, termination_reason, scientific_complete, answer_confidence` | At least one answer reports Low confidence under the frozen answer field. | It does not prove an incorrect answer, poor evidence, or that a human queue was written. | `NOT_AVAILABLE_IN_WORKTREE` |
 | `S2` | `if any(row.get("answer_confidence") == "Medium" for row in answers):` | `run_id, episode_id, event_type, sequence (event ordering), event_id (answer event identifier), question_id, source_agent, target_agent, round_index, termination_reason, scientific_complete, answer_confidence` | At least one answer reports Medium confidence under the frozen answer field. | It does not prove error, disagreement or intervention benefit. | `NOT_AVAILABLE_IN_WORKTREE` |
 | `S3` | `if any((ref := row.get("answer_evidence_ref")) is None or ref.get("length", 0) == 0 for row in answers):` | `run_id, episode_id, event_type, sequence (event ordering), event_id (answer event identifier), question_id, source_agent, target_agent, round_index, termination_reason, scientific_complete, answer_evidence_ref` | At least one answer has a null or zero-length evidence reference under the frozen structural rule. | It does not assess evidence quality, truth, or semantic support; it is not an observed finding without a validated log. | `NOT_AVAILABLE_IN_WORKTREE` |
-| `S6` | `if episode.get("round_count", 0) > 1:` | `run_id, episode_id, event_type, sequence (event ordering), event_id (answer event identifier), question_id, source_agent, target_agent, round_index, termination_reason, scientific_complete` | The projected episode contains more than one Q&A round. | It does not prove unresolved disagreement, high burden, or answer quality. | `NOT_AVAILABLE_IN_WORKTREE` |
+| `S6` | `if s6_fires(episode):` | `run_id, episode_id, event_type, sequence (event ordering), event_id (answer event identifier), question_id, source_agent, target_agent, round_index, termination_reason, scientific_complete` | The projected episode contains more than one Q&A round. | It does not prove unresolved disagreement, high burden, or answer quality. | `NOT_AVAILABLE_IN_WORKTREE` |
 | `S7` | `if episode.get("termination_reason") == "TERMINATED_MAX_ROUNDS":` | `run_id, episode_id, event_type, sequence (event ordering), event_id (answer event identifier), question_id, source_agent, target_agent, round_index, termination_reason, scientific_complete` | The episode ended at the frozen maximum-round termination state. | It does not prove the final answer is wrong or that a human corrected it. | `NOT_AVAILABLE_IN_WORKTREE` |
 
 S1/S2 הם דיווח עצמי של המודל. S3 בודק null/אורך אפס בלבד; אורך ההפניה אינו איכות ראיה. S6 הוא תיאור מספר הסבבים. S7 הוא מצב סיום.
@@ -78,25 +78,44 @@ S1/S2 הם דיווח עצמי של המודל. S3 בודק null/אורך אפס
 **Detector-v1:** אפיזודת Q&A, תווית מועמד לדיווח, ללא queue וללא שינוי אוטומטי.
 **Selective Intervention Policy / Agent-4:** סיווג השונות של Agent 4; queue builder נפרד עשוי לכתוב `human_review_queue.jsonl`. ב-AirTravel הסטטוס הוא `NOT_AVAILABLE` עד שקובץ queue מאומת יותקן. היעדרו אינו ‘not triggered’ ואינו אפס.
 בשני המנגנונים אין שינוי אוטומטי במקור, ביעד, בהנחיה או במודל.
+נתיב Agent-4 המתועד: הסיווג בוצע, נוצרה לפחות רשומת review אחת, ולאחר מכן הכתיבה נחסמה משום ש-`cd_airtravel` חסר ב-enum של הסכמה הישנה. לכן `queue_status=NOT_AVAILABLE`; אין לכתוב ‘not triggered’.
+
+## 6א. זמינות case→model ומטא־דאטה של קוד הדיווח
+
+| אפיזודה | קישור למקרה | זמינות מודל | סטטוס ראיות |
+|---|---|---|---|
+| `EP-577319bf` | case 02 | `UNAVAILABLE` | `NOT_AVAILABLE_IN_WORKTREE` |
+| `EP-81b2c98d` | cross-case episode | `UNAVAILABLE` | `NOT_AVAILABLE_IN_WORKTREE` |
+אין להסיק זמינות מודל מהגדרת הקונפיגורציה. `reporting_code_sha` הוא מטא־דאטה תיעודי לא־ראייתי; הקוד שביצע היסטורית והקוד שמדווח כיום אינם byte-identical.
 
 ## 7. כרטיסי דוגמה למנחים
 
 ### EX-01 — אפיזודה מלאה ללא התראה
+**ENGINEERING_ILLUSTRATION_ONLY**
 **המחשה הנדסית בלבד — אינה תוצאת ניסוי ואינה נתון אמפירי**
 Input/case: `fixture-case-normal (engineering-only)` → log: `episode_id; QUESTION_EMITTED; ANSWER_RECEIVED; High; non-empty evidence ref; round_index=1; CONVERGED` → rule: `No S1/S2/S3/S6/S7` → result: `NO_ALERT (illustrative rule application only)`.
 **פירוש:** הדוגמה ממחישה כיצד מצב תקין עובר ללא תווית מועמד. **מגבלה:** אינה מוכיחה נכונות תשובה או איכות ראיות.
 
 ### EX-02 — התראת חוזק עקב ביטחון נמוך
+**ENGINEERING_ILLUSTRATION_ONLY**
 **המחשה הנדסית בלבד — אינה תוצאת ניסוי ואינה נתון אמפירי**
 Input/case: `fixture-case-low-confidence (engineering-only)` → log: `episode_id; ANSWER_RECEIVED; answer_confidence=Low; non-empty evidence ref; CONVERGED` → rule: `S1 fires; STRONG_ALERT = S1 OR S3 OR S7` → result: `STRONG_ALERT (illustrative rule application only)`.
 **פירוש:** זו תווית דיווח שמצביעה על מועמד לבדיקה אנושית בלבד. **מגבלה:** Low הוא דיווח עצמי של המודל ואינו תווית שגיאה.
 
 ### EX-03 — סיווג Agent-4 ותור נפרד
+**ENGINEERING_ILLUSTRATION_ONLY**
 **המחשה הנדסית בלבד — אינה תוצאת ניסוי ואינה נתון אמפירי**
 Input/case: `fixture-variability-classification (engineering-only)` → log: `classification=Undetermined; confidence=medium; requires_human_review=true` → rule: `Not a Detector-v1 input` → result: `Detector-v1: NOT_APPLICABLE`.
 **פירוש:** Queue builder נפרד עשוי ליצור human_review_queue.jsonl אם יורץ. **מגבלה:** ב-AirTravel הסטטוס כרגע NOT_AVAILABLE; אין שינוי אוטומטי במקור, בהנחיה, ביעד או במודל.
 
-כל שלושת הכרטיסים הם `ENGINEERING_ILLUSTRATION_ONLY` ואינם נכנסים לטבלת מדדים מדעית.
+### EP-577319bf — דוגמה אמיתית מצונזרת — שרשרת Q&A מלאה
+**ENGINEERING_ILLUSTRATION_ONLY**
+**המחשה הנדסית בלבד — אינה תוצאת ניסוי ואינה נתון אמפירי**
+Input/case: `case 02 (hash reference only)` → log: `hash-only event references; QUESTION_EMITTED → ANSWER_RECEIVED → CONVERGED` → rule: `STRONG_ALERT = S1 OR S3 OR S7; WEAK_ALERT = no strong signal AND (S2 OR S6)` → result: `STRONG_ALERT (archival classification; illustrative rule application only)`.
+**שדות מצונזרים/בטוחים:** `case_label=02 (archival safe label; case hash unavailable in worktree); question_id=HASH_REF_UNAVAILABLE_IN_WORKTREE; question_count=1; answer_count=1; asking_agent=REDACTED; answering_agent=REDACTED; round_index=1; answer_confidence=Low (archival label; raw answer redacted); answer_evidence_ref=HASH_REF_UNAVAILABLE_IN_WORKTREE; termination_reason=CONVERGED (reported historical label); signals_fired=['S1_LOW_ANSWER_CONFIDENCE (archival label)']`
+**פירוש:** הדוגמה האמיתית המצונזרת מציגה את השרשרת case → Q&A → fields → Detector rule → result; תוכן השאלה והתשובה נשאר מצונזר. **מגבלה:** תוכן השאלה והתשובה אינו זמין ב-worktree; לא ניתן לאמת את הערכים מעבר להפניה ההיסטורית.
+
+כל ארבעת הכרטיסים הם `ENGINEERING_ILLUSTRATION_ONLY` ואינם נכנסים לטבלת מדדים מדעית. הדוגמה של EP-577319bf37c87 משתמשת בהפניות hash בלבד ובתוכן מצונזר.
 
 ## 8. מה נצפה ומה לא נצפה
 

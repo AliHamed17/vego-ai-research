@@ -11,5 +11,5 @@ Text2UML/AirTravel ציבורי, commit קפוא, ארבעה candidates, לא ת
 STRONG=S1/S3/S7; WEAK=S2/S6; תווית מועמד לדיווח בלבד. Agent-4 queue נפרד ו-AirTravel `NOT_AVAILABLE`.
 
 ## שקופית 4 — מה מותר לומר?
-אין event log פרטי מאומת ב-worktree; אין ממצא אמפירי. שלושת הכרטיסים הם המחשה הנדסית בלבד; מניפסט האיורים מתעד רק איורי כלל/גבול; השלב הבא הוא binding manifest.
+אין event log פרטי מאומת ב-worktree; אין ממצא אמפירי. ארבעת הכרטיסים הם המחשה הנדסית בלבד; מניפסט האיורים מתעד רק איורי כלל/גבול; השלב הבא הוא binding manifest.
 </div>

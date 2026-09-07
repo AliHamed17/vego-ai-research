@@ -84,9 +84,10 @@ def test_context_and_mapping_outputs_are_not_detector_triggers():
 
 def test_example_cards_are_engineering_only_and_not_metrics():
     cards = transparency.example_cards()
-    assert len(cards) == 3
+    assert len(cards) == 4
     for card in cards:
         assert card["evidence_class"] == "ENGINEERING_ILLUSTRATION_ONLY"
+        assert card["banner"] == "ENGINEERING_ILLUSTRATION_ONLY"
         assert "המחשה הנדסית בלבד" in card["banner_he"]
         assert card["enters_scientific_metrics"] is False
     assert cards[1]["detector_result"] == "STRONG_ALERT (illustrative rule application only)"

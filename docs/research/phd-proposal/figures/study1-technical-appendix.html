@@ -30,12 +30,13 @@ code { direction:ltr; unicode-bidi:isolate; }
 <h1>מחקר 1 — AirTravel: נספח טכני</h1>
 <p class="sub">כל ערך חושב מחדש מיומן האירועים, מקבלת ההרצה ומתוצרי הצנרת · אין ערך מסופר · 2026-09-06</p>
 <div class="warn" style="margin-top:1.2mm;font-size:7pt;padding:1.1mm 2mm"><b>סטטוס קובע:</b> <code>PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> — הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה בעצמה את גיבוב יומן האירועים, את סיכום מחזור-החיים או את גרסת קוד הביצוע. אלה פערי ייחוס ולא שגיאות ערך; אישור מנחה <b>אינו</b> משדרג ריצה זו לייחוס פרוספקטיבי או רשום-מראש. <b>הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה מראש את כל רכיבי הראיה.</b></div>
+<div class="note"><b>סייג חבילת השקיפות הנוכחית:</b> ערכי C1/C2/C3 מסומנים <code>NOT_AVAILABLE_IN_WORKTREE</code> עד להרכבת binding פרטי מאומת; הערכים המספריים המוצגים כאן נשמרים כייחוס רטרוספקטיבי ארכיוני בלבד.</div>
 
 <h2>1. שרשרת הראיות</h2>
 <table>
 <tr><th>פריט</th><th class="n">ערך</th></tr>
 <tr><td>קוד ביצוע (execution_code_sha)</td><td class="n"><code>efe686ac0b13c6e17695b816da7eb0cdd3eadcc1</code><br><span class="note">ידוע מהקשר ההרצה ומקבלת הבדיקה המקדימה; <b>אינו קשור בקבלת ההרצה עצמה</b> — ראו פער ייחוס בסעיף 2.</span></td></tr>
-<tr><td>קוד דיווח (reporting_code_sha)</td><td class="n"><code>bb8422a55a04c99cf6e2de54d142e357adee7890</code><br><span class="note">חותמת הפקת מסמך זה. הערך מתקדם עם כל commit תיעודי ואינו חלק משרשרת הראיות; הערך הקשור לראיות הוא <code>execution_code_sha</code> בלבד.</span></td></tr>
+<tr><td>קוד דיווח (reporting_code_sha)</td><td class="n"><code>STAMPED_SUPERSEDED</code><br><span class="note">מטא־דאטה תיעודי בלבד ואינו חלק משרשרת הראיות; הערך הקשור לראיות הוא <code>execution_code_sha</code> בלבד.</span></td></tr>
 <tr><td>מזהה הגדרה / קורפוס</td><td class="n"><code>cd_airtravel</code> / <code>text2uml_airtravel_253b26dc</code></td></tr>
 <tr><td>ארכיון ריצה</td><td class="n"><code>e37baecd…35fdd31f</code></td></tr>
 <tr><td>אימות מקור</td><td class="n">143/143 קבצים · 5/5 קובצי ריצה</td></tr>
@@ -144,7 +145,7 @@ code { direction:ltr; unicode-bidi:isolate; }
 <tr><td>C3</td><td><code>flag_for_guidelines_update</code></td><td class="n">כן 14 · לא 5</td><td class="n">19 דפוסי שונות</td><td class="n">לא</td></tr>
 <tr class="hi"><td colspan="2"><code>requires_human_review</code> — דגל המערכת עצמה</td><td class="n">False בכל 19</td><td class="n">19 דפוסי שונות</td><td class="n">לא</td></tr>
 </table>
-<p class="note"><b>מכנה:</b> משתני ההקשר נמדדים על <b>19 דפוסי שונות</b> — לא על 3 אפיזודות ולא על 4 מקרים. ‏<b>Detector-v1 קורא אך ורק את S1/S3/S7 ואת S2/S6.</b> דיווח קודם שהציג את C2 ואת C3 כ-<code>NOT_AVAILABLE</code> היה שגוי ו<b>מבוטל בזאת</b>; שני הערכים חושבו מתוצרי הריצה ומובאים לעיל.</p>
+<p class="note"><b>מכנה ארכיוני:</b> משתני ההקשר חושבו היסטורית על <b>19 דפוסי שונות</b> — לא על 3 אפיזודות ולא על 4 מקרים. בחבילת השקיפות הנוכחית ערכי C1/C2/C3 הם <code>NOT_AVAILABLE_IN_WORKTREE</code> עד להרכבת binding פרטי מאומת; הערכים שלעיל נשמרים כייחוס רטרוספקטיבי ארכיוני בלבד. ‏<b>Detector-v1 קורא אך ורק את S1/S3/S7 ואת S2/S6.</b></p>
 <div class="banner"><b>תצפית הקשר:</b> דגל הביקורת האנושית של המערכת עצמה הוא False בכל 19 הסיווגים, בעוד Detector-v1 סימן 3 מתוך 3 האפיזודות. שני המדדים <b>אינם אמת-קרקע</b> ואינם מודדים את אותה יחידה (אפיזודות מול דפוסים). <b>אין להסיק מכך שאחד מהם צודק.</b> ‏C3 נמצא חופף לחלוטין ל"שונות מהותית" (14=14), כפי שנרשם מראש.</div>
 
 <h2>7. תפוקת הצנרת — כל ארבעת המקרים</h2>

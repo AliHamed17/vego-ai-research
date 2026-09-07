@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "VEGO-AI" / "framework"))
 import build_study1_signal_traceability as traceability  # noqa: E402
 from extract_qa_escalation_features import detect_detector_v1  # noqa: E402
 from qa_communication import QACommunicationRecorder  # noqa: E402
+from study1_signal_contract import S6_OPERATIONAL_DEFINITION  # noqa: E402
 
 
 def _episode(*, confidence="High", evidence=True, rounds=1, termination="CONVERGED"):
@@ -77,16 +78,17 @@ def test_context_and_semantic_fields_never_trigger_detector():
 
 def test_signal_dictionary_predicates_are_code_grounded():
     source = (ROOT / "scripts" / "extract_qa_escalation_features.py").read_text(encoding="utf-8")
+    contract_source = (ROOT / "scripts" / "study1_signal_contract.py").read_text(encoding="utf-8")
     entries = {row["english_code_name"]: row for row in traceability.signal_dictionary()["entries"]}
     expected = {
         "S1_LOW_ANSWER_CONFIDENCE": 'row.get("answer_confidence") == "Low"',
         "S2_MEDIUM_ANSWER_CONFIDENCE": 'row.get("answer_confidence") == "Medium"',
         "S3_MISSING_ANSWER_EVIDENCE": 'row.get("answer_evidence_ref")',
-        "S6_MULTIPLE_QA_ROUNDS": 'episode.get("round_count", 0) > 1',
+        "S6_MULTIPLE_QA_ROUNDS": S6_OPERATIONAL_DEFINITION["rule"],
         "S7_TERMINATED_MAX_ROUNDS": 'episode.get("termination_reason") == "TERMINATED_MAX_ROUNDS"',
     }
     for code, snippet in expected.items():
-        assert snippet in source
+        assert (snippet in source) or (snippet in contract_source)
         assert snippet in entries[code]["calculation_rule"]
         assert entries[code]["direct_detector_v1_trigger"] is True
 

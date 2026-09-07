@@ -2,7 +2,7 @@
   "canonical_project_artifacts": {
     "signal_dictionary": {
       "path": "docs/research/phd-proposal/study1-signal-dictionary-v1.json",
-      "sha256": "3a45b8b896a44ae1d3b0366dd3c81f9c5cd05912c73810fe506911f895f60ab9"
+      "sha256": "931d5b352da124e390c605f44c6c4c90557c239dc12e17d0c4e990c7ffb72ef1"
     },
     "traceability_matrix": {
       "path": "docs/research/phd-proposal/study1-signal-traceability-matrix-v1.csv",
@@ -107,7 +107,51 @@
         "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
       }
     ],
-    "selection_rule": "N=4 purposive feasibility subset: the four result_one_* files named by the v1.0.2 amendment, plus description.md; no Q&A frequency or VEGO output is used.",
+    "selection": {
+      "eligible_case_count": 21,
+      "eligible_case_hashes": [
+        "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+        "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+        "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+        "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+        "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+        "b72fc5eaa682ce27912086dd2dcb3ea192c7fbe14285457cdcea23b0b6222f0b",
+        "81abd4b6b848b9e9102418d023d2af4656931fe162358f336f6132ab11a817c5",
+        "49e3989e341eba1414f6366b50d12b946ab3ceb16884e8faf1c0f6945ea8d4e9",
+        "4590b62dc0ea047e9a7789739a6482b5221e0deaa0fd5dc8004643863911ba36",
+        "6fad455a7d4831a5baba0cb7f4336f24fa338f4cd0c14f02236305664aebdfab",
+        "559769d3653cd690966e7873a5647da7834532148fa4ec64ee34e3bc8e056d18",
+        "7e65f088e45f47a1eb0c39c7b1e70eb05b77ec6a6836e9454f89babf81bba26e",
+        "06ea010da3a8e4f21e38a4cb5c3b279cc036d3f0a1af5e15f8363efad5e4a36f",
+        "9d1a6cb2d9113e0425d0a69d8dd483cb403b0db89c2052cd621fd4728373248a",
+        "70ccdd6576d3c15d3215b946b23cf1ed0c40d463a05a7a4fbe0956f27dfba266",
+        "77cdd113ce541a0bfffed798cbbfe3000d92d23fca88e41a344806373d551b1e",
+        "3d8bb9c8564e086f0ba9e948b101def6c1fb50eefb1f2d20d71e591a491b1819",
+        "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a",
+        "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+        "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+        "7e3fccfff40f578aa80ab5aec866e5842bae6009cc4c8fd6c580f90a5f623d35"
+      ],
+      "predicate": "eligible iff classification=GENERATED_CANDIDATE_MODEL, path starts result_one_, bytes>0, syntax_validation=WRAPPER_PRESENT, and sha256 is 64 hex",
+      "reason": "Inventory predicate identifies 21 eligible cases; it does not contain case-level ranking/selection metadata for the four selected cases. The four-case choice is therefore purposive and non-reproducible among 21 eligible cases.",
+      "selected_case_hashes": [
+        "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+        "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+        "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+        "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
+      ],
+      "selected_case_paths": [
+        "result_one_claude-sonnet-4-6.txt",
+        "result_one_codestral-2508.txt",
+        "result_one_deepseek-chat.txt",
+        "result_one_gemini-2.5-flash.txt"
+      ],
+      "selection_basis": "recorded_purposive_choice_not_derived_by_predicate",
+      "status": "PURPOSIVE_NON_REPRODUCIBLE"
+    },
+    "selection_limitation": "Inventory predicate identifies 21 eligible cases; it does not contain case-level ranking/selection metadata for the four selected cases. The four-case choice is therefore purposive and non-reproducible among 21 eligible cases.",
+    "selection_rule": "eligible iff classification=GENERATED_CANDIDATE_MODEL, path starts result_one_, bytes>0, syntax_validation=WRAPPER_PRESENT, and sha256 is 64 hex",
+    "selection_status": "PURPOSIVE_NON_REPRODUCIBLE",
     "setting_id": "cd_airtravel",
     "source_file_count": 143,
     "source_manifest": {

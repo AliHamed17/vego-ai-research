@@ -1,4 +1,31 @@
 {
+  "agent4_causal_path": {
+    "causal_steps": [
+      {
+        "source": "VEGO-AI/framework/orchestrator.py:334-388",
+        "step": "Agent-4 variability classification executed"
+      },
+      {
+        "source": "VEGO-AI/framework/human_review_queue.py:226-336",
+        "step": "review record construction was entered"
+      },
+      {
+        "source": "VEGO-AI/schemas/human_review_item.schema.json:62-68",
+        "step": "legacy schema validation rejected the setting"
+      },
+      {
+        "source": "VEGO-AI/framework/orchestrator.py:613-623",
+        "step": "pipeline catches queue-builder failure and keeps queue unavailable"
+      }
+    ],
+    "evidence_class": "DOCUMENTED_RUNTIME_PATH",
+    "failure_reason": "cd_airtravel absent from legacy schema enum",
+    "interpretation": "The causal path is documented as executed, review-record-producing, then blocked. Queue status remains NOT_AVAILABLE; absence of a validated queue artifact does not establish that the policy did or did not trigger.",
+    "queue_status": "NOT_AVAILABLE",
+    "review_record_count": "AT_LEAST_ONE",
+    "review_record_created": true,
+    "status": "EXECUTED_THEN_BLOCKED"
+  },
   "canonical_dictionary_path": "docs/research/phd-proposal/study1-signal-dictionary-v1.json",
   "canonical_signal_entries": [
     {
@@ -206,7 +233,7 @@
       "can_cooccur_with_other_signals": true,
       "candidate_for_human_review": true,
       "category": "communication_process_signal",
-      "code_reference": "scripts/extract_qa_escalation_features.py:323-328 (detect_detector_v1); scripts/extract_qa_escalation_features.py:351-364 (projection)",
+      "code_reference": "scripts/study1_signal_contract.py (S6_OPERATIONAL_DEFINITION); scripts/extract_qa_escalation_features.py:329 (detect_detector_v1)",
       "cooccurrence_scope": "weak; can co-occur with any strong signal or S2",
       "detector_role": "direct_trigger",
       "direct_detector_v1_trigger": true,
@@ -252,11 +279,12 @@
       "category": "context_only_variable",
       "code_reference": "scripts/extract_qa_escalation_features.py:209-227 (_mapping_certainty_count); VEGO-AI/framework/agent2_domain_advisor.py:38-44,53-54",
       "cooccurrence_scope": "May be reported alongside process signals; excluded from Detector-v1 logic.",
+      "data_status": "NOT_AVAILABLE_IN_WORKTREE",
       "detector_role": "context_only",
       "direct_detector_v1_trigger": false,
       "does_not_prove": "Context-only; never a Detector-v1 trigger and never a correctness label.",
       "english_code_name": "C1_MAPPING_CERTAINTY",
-      "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
+      "evidence_availability": "CODE_DEFINED; DATA_NOT_AVAILABLE_IN_WORKTREE; REQUIRES_VALIDATED_FROZEN_EVAL_OUTPUT",
       "hebrew_name": "ודאות מיפוי Agent 2",
       "measurement_kind": "semantic_model_output",
       "source_artifact": "VEGO-AI/eval_output/*/agentB_best_guidelines.json",
@@ -272,11 +300,12 @@
       "category": "context_only_variable",
       "code_reference": "scripts/extract_qa_escalation_features.py:230-237 (_agent4_confidence); VEGO-AI/framework/agent4_variability_explorer.py:524-531",
       "cooccurrence_scope": "May be reported alongside process signals; excluded from Detector-v1 logic.",
+      "data_status": "NOT_AVAILABLE_IN_WORKTREE",
       "detector_role": "context_only",
       "direct_detector_v1_trigger": false,
       "does_not_prove": "Context-only; never a Detector-v1 trigger and never a performance measure.",
       "english_code_name": "C2_AGENT4_CLASSIFICATION_CONFIDENCE",
-      "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
+      "evidence_availability": "CODE_DEFINED; DATA_NOT_AVAILABLE_IN_WORKTREE; REQUIRES_VALIDATED_FROZEN_EVAL_OUTPUT",
       "hebrew_name": "ביטחון סיווג Agent 4",
       "measurement_kind": "model_self_report",
       "mechanism": "selective_intervention_policy_agent4",
@@ -295,11 +324,12 @@
       "category": "context_only_variable",
       "code_reference": "VEGO-AI/framework/human_review_queue.py:278-325 (build_review_items)",
       "cooccurrence_scope": "May be reported alongside process signals; excluded from Detector-v1 logic.",
+      "data_status": "NOT_AVAILABLE_IN_WORKTREE",
       "detector_role": "context_only",
       "direct_detector_v1_trigger": false,
       "does_not_prove": "Context-only; not a Detector-v1 trigger and not proof of an error or guideline defect.",
       "english_code_name": "C3_AGENT4_REVIEW_FLAGS",
-      "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
+      "evidence_availability": "CODE_DEFINED; DATA_NOT_AVAILABLE_IN_WORKTREE; REQUIRES_VALIDATED_FROZEN_EVAL_OUTPUT",
       "hebrew_name": "דגלי בדיקה של Agent 4",
       "measurement_kind": "semantic_model_output",
       "mechanism": "selective_intervention_policy_agent4",
@@ -509,6 +539,24 @@
       "unit_of_analysis": "run"
     }
   ],
+  "case_model_availability": {
+    "EP-577319bf": {
+      "basis": "No validated case-to-model artifact is mounted in the reviewed worktree.",
+      "canonical_episode_id": "EP-577319bf37c87",
+      "case_linkage": "case 02",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "inference_from_model_config": "PROHIBITED",
+      "model_availability": "UNAVAILABLE"
+    },
+    "EP-81b2c98d": {
+      "basis": "No validated case-to-model artifact is mounted in the reviewed worktree.",
+      "canonical_episode_id": "EP-81b2c98d59125",
+      "case_linkage": "cross-case episode",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "inference_from_model_config": "PROHIBITED",
+      "model_availability": "UNAVAILABLE"
+    }
+  },
   "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
   "layers": {
     "communication_process_signals": [
@@ -563,6 +611,33 @@
     },
     "selective_intervention_agent4": {
       "automatic_modification": false,
+      "causal_path": {
+        "causal_steps": [
+          {
+            "source": "VEGO-AI/framework/orchestrator.py:334-388",
+            "step": "Agent-4 variability classification executed"
+          },
+          {
+            "source": "VEGO-AI/framework/human_review_queue.py:226-336",
+            "step": "review record construction was entered"
+          },
+          {
+            "source": "VEGO-AI/schemas/human_review_item.schema.json:62-68",
+            "step": "legacy schema validation rejected the setting"
+          },
+          {
+            "source": "VEGO-AI/framework/orchestrator.py:613-623",
+            "step": "pipeline catches queue-builder failure and keeps queue unavailable"
+          }
+        ],
+        "evidence_class": "DOCUMENTED_RUNTIME_PATH",
+        "failure_reason": "cd_airtravel absent from legacy schema enum",
+        "interpretation": "The causal path is documented as executed, review-record-producing, then blocked. Queue status remains NOT_AVAILABLE; absence of a validated queue artifact does not establish that the policy did or did not trigger.",
+        "queue_status": "NOT_AVAILABLE",
+        "review_record_count": "AT_LEAST_ONE",
+        "review_record_created": true,
+        "status": "EXECUTED_THEN_BLOCKED"
+      },
       "output": "separate review item when queue builder executes",
       "queue_artifact": "human_review_queue.jsonl",
       "queue_status": "NOT_AVAILABLE",
@@ -572,6 +647,16 @@
     }
   },
   "note": "Alternative and Non-Satisfied are semantic mapping outputs, not Detector-v1 triggers or error labels by themselves.",
+  "reporting_code_metadata": {
+    "current_reporting_code": "scripts/airtravel_real_run.py",
+    "current_reporting_code_status": "CHANGED_POST_RUN_FOR_RECEIPT_BINDING",
+    "field": "reporting_code_sha",
+    "historical_executed_code_sha": "efe686ac0b13c6e17695b816da7eb0cdd3eadcc1",
+    "note": "The historical executed code and current reporting code are distinct; a reporting stamp cannot establish what code produced a private result.",
+    "stale_values": "STAMPED_SUPERSEDED",
+    "status": "NON_EVIDENTIARY_DOCUMENTATION_METADATA",
+    "used_for_scientific_binding": false
+  },
   "review_context": {
     "note": "The canonical legacy dictionary remains an immutable input; this wrapper records the current review context.",
     "origin_main_sha": "158714064a2ecc40f5eda8561240978ebfe1b371",
