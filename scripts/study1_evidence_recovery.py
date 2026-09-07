@@ -41,6 +41,16 @@ PARTIAL = "PARTIAL_EVIDENCE_ONLY"
 EVIDENCE_INVALID = "EVIDENCE_INVALID"
 EVIDENCE_NOT_AVAILABLE = "EVIDENCE_NOT_AVAILABLE_IN_REVIEWED_WORKTREE"
 
+# Evidence provenance is a property of the binding manifest, not a narrative
+# label added after the fact.  Historical Study 1 evidence is necessarily
+# retrospective; a prospective manifest is reserved for a self-binding run
+# whose binding exists before execution.
+PROSPECTIVE_SELF_BINDING = "prospective_self_binding"
+RETROSPECTIVE_VALIDATION = "retrospective_validation"
+EVIDENCE_MODES = (PROSPECTIVE_SELF_BINDING, RETROSPECTIVE_VALIDATION)
+PROSPECTIVE_VERDICT = "PROSPECTIVE_SELF_BOUND_EVIDENCE"
+RETROSPECTIVE_VERDICT = "DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE"
+
 LOCATION_CLASS = "authorized_read_only_evidence_root"
 PRIMARY_ARTIFACTS = ("qa_events_jsonl", "run_receipt", "pipeline_output_manifest")
 OPTIONAL_ARTIFACTS = ("detector_summary", "episode_csv", "detector_csv")
@@ -61,6 +71,31 @@ def _safe_digest_text(value: str) -> str:
 
 def _check(name: str, status: str, *, expected: Any = None, actual: Any = None, note: str = "") -> dict[str, Any]:
     return {"check": name, "status": status, "expected": expected, "actual": actual, "note": note}
+
+
+def _validate_validation_mode(manifest: dict[str, Any], mode: str) -> str:
+    """Validate the explicit provenance mode and return its bounded verdict.
+
+    The check is intentionally repeated at the canonical event-loader
+    boundary so callers cannot bypass the manifest mode by using a lower-level
+    helper.  In particular, retrospective evidence must declare that its
+    binding was created after the run and is never promoted to a prospective
+    verdict.
+    """
+
+    if mode not in EVIDENCE_MODES:
+        raise EvidenceRecoveryError(f"unsupported evidence validation mode: {mode!r}")
+    manifest_mode = manifest.get("validation_mode")
+    if manifest_mode != mode:
+        raise EvidenceRecoveryError("binding validation_mode does not match requested validator mode")
+    created_after_run = manifest.get("created_after_run")
+    if not isinstance(created_after_run, bool):
+        raise EvidenceRecoveryError("binding created_after_run must be an explicit boolean")
+    if mode == RETROSPECTIVE_VALIDATION and created_after_run is not True:
+        raise EvidenceRecoveryError("retrospective_validation requires created_after_run=true")
+    if mode == PROSPECTIVE_SELF_BINDING and created_after_run is not False:
+        raise EvidenceRecoveryError("prospective_self_binding requires created_after_run=false")
+    return RETROSPECTIVE_VERDICT if mode == RETROSPECTIVE_VALIDATION else PROSPECTIVE_VERDICT
 
 
 def _relative_artifact(root: Path, descriptor: dict[str, Any], name: str) -> Path:
@@ -115,6 +150,44 @@ def _load_events(path: Path) -> list[dict[str, Any]]:
     if len(run_ids) != 1 or None in run_ids:
         raise EvidenceRecoveryError("accepted event stream must contain exactly one non-empty run_id")
     _strict_lifecycle(events)
+    return events
+
+
+def load_verified_events(
+    event_log: Path,
+    binding_manifest: Path,
+    *,
+    mode: str = RETROSPECTIVE_VALIDATION,
+) -> list[dict[str, Any]]:
+    """Load an event log only after canonical mode, identity, and hash checks.
+
+    This is the single event-loader boundary used by Study 1 reporting.  It
+    intentionally returns validated event objects only to the in-process
+    caller; public outputs must use aggregate projections that omit event text.
+    """
+
+    if not event_log.is_file() or event_log.is_symlink() or not binding_manifest.is_file() or binding_manifest.is_symlink():
+        raise EvidenceRecoveryError("accepted event log or binding manifest is unavailable")
+    manifest = _json(binding_manifest, "binding manifest")
+    _validate_validation_mode(manifest, mode)
+    schema = _json(ROOT / "schemas/study1-evidence-binding-v1.schema.json", "binding schema")
+    try:
+        jsonschema.Draft202012Validator(schema).validate(manifest)
+    except jsonschema.ValidationError as exc:
+        raise EvidenceRecoveryError(f"binding manifest schema invalid: {exc.message}") from exc
+    identity = manifest.get("run_identity")
+    if not isinstance(identity, dict) or identity.get("accepted_replacement") is not True or identity.get("run_class") != "accepted_replacement_real_run" or identity.get("fake_preflight") is True:
+        raise EvidenceRecoveryError("binding manifest run_identity is not an accepted replacement")
+    run_id = identity.get("run_id")
+    descriptor = manifest.get("artifacts", {}).get("qa_events_jsonl")
+    expected_hash = descriptor.get("sha256") if isinstance(descriptor, dict) else None
+    if not isinstance(run_id, str) or not run_id or not isinstance(expected_hash, str) or not HEX64.fullmatch(expected_hash):
+        raise EvidenceRecoveryError("binding manifest lacks a valid accepted event binding")
+    if digest(event_log) != expected_hash.lower():
+        raise EvidenceRecoveryError("event-log SHA-256 does not match the accepted-run manifest")
+    events = _load_events(event_log)
+    if {event.get("run_id") for event in events} != {run_id}:
+        raise EvidenceRecoveryError("event log run_id does not match the accepted-run manifest")
     return events
 
 
@@ -225,19 +298,44 @@ def _recompute(events: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def _safe_aggregate(recomputed: dict[str, Any]) -> dict[str, Any]:
+def _safe_aggregate(recomputed: dict[str, Any], *, verdict: str) -> dict[str, Any]:
     return {
         "evidence_status": ACCEPTED,
+        "verdict": verdict,
         "denominator": "complete_episodes",
         "recomputed": recomputed,
         "claim_boundary": "descriptive_only; no correctness, benefit, effectiveness, accuracy, or generalization claim",
     }
 
 
-def unavailable_result(note: str) -> dict[str, Any]:
+def unavailable_result(
+    note: str,
+    *,
+    mode: str = RETROSPECTIVE_VALIDATION,
+) -> dict[str, Any]:
+    if mode not in EVIDENCE_MODES:
+        return {
+            "schema_version": "study1-evidence-recovery-v1",
+            "status": EVIDENCE_INVALID,
+            "validation_mode": mode,
+            "verdict": EVIDENCE_INVALID,
+            "location_class": LOCATION_CLASS,
+            "note": f"unsupported evidence validation mode: {mode!r}",
+            "run_id_sha256": None,
+            "checks": [_check("evidence validation mode", "FAIL", note="unsupported mode")],
+            "recomputed": None,
+            "safe_values": {
+                "episode_count": "NOT_AVAILABLE_AFTER_INVALID_CHAIN",
+                "question_count": "NOT_AVAILABLE_AFTER_INVALID_CHAIN",
+                "answer_count": "NOT_AVAILABLE_AFTER_INVALID_CHAIN",
+            },
+        }
+    verdict = RETROSPECTIVE_VERDICT if mode == RETROSPECTIVE_VALIDATION else PROSPECTIVE_VERDICT
     return {
         "schema_version": "study1-evidence-recovery-v1",
         "status": EVIDENCE_NOT_AVAILABLE,
+        "validation_mode": mode,
+        "verdict": verdict,
         "location_class": LOCATION_CLASS,
         "note": note,
         "run_id_sha256": None,
@@ -247,16 +345,28 @@ def unavailable_result(note: str) -> dict[str, Any]:
     }
 
 
-def recover(evidence_root: Path, binding_manifest: Path) -> dict[str, Any]:
+def recover(
+    evidence_root: Path,
+    binding_manifest: Path,
+    *,
+    mode: str = RETROSPECTIVE_VALIDATION,
+) -> dict[str, Any]:
     """Validate one explicitly supplied private evidence root without mutating it."""
     checks: list[dict[str, Any]] = []
     root = evidence_root
     if not root.exists() or not root.is_dir() or root.is_symlink():
-        return unavailable_result("explicit read-only evidence root is absent from the reviewed worktree")
+        return unavailable_result(
+            "explicit read-only evidence root is absent from the reviewed worktree",
+            mode=mode,
+        )
     if not binding_manifest.is_file() or binding_manifest.is_symlink():
-        return unavailable_result("private binding manifest is absent from the reviewed worktree")
+        return unavailable_result(
+            "private binding manifest is absent from the reviewed worktree",
+            mode=mode,
+        )
     try:
         manifest = _json(binding_manifest, "binding manifest")
+        verdict = _validate_validation_mode(manifest, mode)
         schema = _json(ROOT / "schemas/study1-evidence-binding-v1.schema.json", "binding schema")
         try:
             jsonschema.Draft202012Validator(schema).validate(manifest)
@@ -333,13 +443,15 @@ def recover(evidence_root: Path, binding_manifest: Path) -> dict[str, Any]:
         return {
             "schema_version": "study1-evidence-recovery-v1",
             "status": status,
+            "validation_mode": mode,
+            "verdict": verdict,
             "location_class": LOCATION_CLASS,
             "run_id_sha256": _safe_digest_text(run_id),
             "binding_manifest_sha256": digest(binding_manifest),
             "artifact_hashes": {name: descriptors[name]["sha256"] for name in descriptors},
             "checks": checks,
             "recomputed": recomputed,
-            "safe_values": _safe_aggregate(recomputed),
+            "safe_values": _safe_aggregate(recomputed, verdict=verdict),
             "provenance_gaps": provenance_gaps,
         }
     except EvidenceRecoveryError as exc:
@@ -347,6 +459,8 @@ def recover(evidence_root: Path, binding_manifest: Path) -> dict[str, Any]:
         return {
             "schema_version": "study1-evidence-recovery-v1",
             "status": EVIDENCE_INVALID,
+            "validation_mode": mode,
+            "verdict": EVIDENCE_INVALID,
             "location_class": LOCATION_CLASS,
             "checks": checks,
             "recomputed": None,
@@ -354,13 +468,30 @@ def recover(evidence_root: Path, binding_manifest: Path) -> dict[str, Any]:
         }
 
 
+def validate_evidence(
+    evidence_root: Path,
+    binding_manifest: Path,
+    *,
+    mode: str = RETROSPECTIVE_VALIDATION,
+) -> dict[str, Any]:
+    """Canonical evidence validator used by all Study 1 reporting paths.
+
+    ``recover`` is retained as the historical function name for callers that
+    already import it.  New callers should use this explicit mode-bearing
+    entry point so the provenance interpretation is visible at the call site.
+    """
+
+    return recover(evidence_root, binding_manifest, mode=mode)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evidence-root", type=Path, required=True)
     parser.add_argument("--binding-manifest", type=Path, required=True)
+    parser.add_argument("--mode", choices=EVIDENCE_MODES, default=RETROSPECTIVE_VALIDATION)
     parser.add_argument("--safe-output", type=Path)
     args = parser.parse_args(argv)
-    result = recover(args.evidence_root, args.binding_manifest)
+    result = validate_evidence(args.evidence_root, args.binding_manifest, mode=args.mode)
     if args.safe_output:
         args.safe_output.parent.mkdir(parents=True, exist_ok=True)
         args.safe_output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")

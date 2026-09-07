@@ -7,6 +7,8 @@
   "required": [
     "schema_version",
     "accepted_run",
+    "validation_mode",
+    "created_after_run",
     "run_identity",
     "setting_id",
     "corpus_id",
@@ -17,6 +19,10 @@
   "properties": {
     "schema_version": {"const": "study1-evidence-binding-v1"},
     "accepted_run": {"const": true},
+    "validation_mode": {
+      "enum": ["prospective_self_binding", "retrospective_validation"]
+    },
+    "created_after_run": {"type": "boolean"},
     "run_identity": {
       "type": "object",
       "additionalProperties": false,
@@ -41,6 +47,16 @@
       "required": ["qa_events_jsonl", "run_receipt", "pipeline_output_manifest"]
     }
   },
+  "allOf": [
+    {
+      "if": {"properties": {"validation_mode": {"const": "prospective_self_binding"}}},
+      "then": {"properties": {"created_after_run": {"const": false}}}
+    },
+    {
+      "if": {"properties": {"validation_mode": {"const": "retrospective_validation"}}},
+      "then": {"properties": {"created_after_run": {"const": true}}}
+    }
+  ],
   "$defs": {
     "artifact": {
       "type": "object",

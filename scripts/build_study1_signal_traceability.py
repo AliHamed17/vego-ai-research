@@ -22,10 +22,14 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 FRAMEWORK = ROOT / "VEGO-AI" / "framework"
+SCRIPTS = ROOT / "scripts"
 if str(FRAMEWORK) not in sys.path:
     sys.path.insert(0, str(FRAMEWORK))
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
 
-from qa_communication import build_episode_projection, load_event_stream  # noqa: E402
+from qa_communication import build_episode_projection  # noqa: E402, I001
+from study1_evidence_recovery import EvidenceRecoveryError, RETROSPECTIVE_VALIDATION, load_verified_events as _canonical_load_verified_events  # noqa: E402, I001
 
 try:
     from extract_qa_escalation_features import detect_detector_v1  # noqa: E402
@@ -61,8 +65,52 @@ REVIEW_CONTEXT = {
 }
 
 
-class EvidenceError(RuntimeError):
-    """Raised when a supplied private evidence chain cannot be verified."""
+EvidenceError = EvidenceRecoveryError
+
+QUEUE_NOT_AVAILABLE = "NOT_AVAILABLE"
+QUEUE_AVAILABLE_VERIFIED = "AVAILABLE_VERIFIED"
+
+
+def agent4_queue_status(
+    queue_artifact: Path | None,
+    *,
+    expected_sha256: str | None = None,
+) -> str:
+    """Return a fail-closed status for the separate Agent-4 queue artifact.
+
+    A path's existence is not evidence that the queue was built.  The status
+    becomes ``AVAILABLE_VERIFIED`` only when a file and an explicit matching
+    SHA-256 are supplied; every absent or unbound artifact is ``NOT_AVAILABLE``.
+    """
+
+    if queue_artifact is None or not queue_artifact.is_file() or queue_artifact.is_symlink():
+        return QUEUE_NOT_AVAILABLE
+    if not isinstance(expected_sha256, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", expected_sha256):
+        return QUEUE_NOT_AVAILABLE
+    return QUEUE_AVAILABLE_VERIFIED if _sha256_file(queue_artifact) == expected_sha256.lower() else QUEUE_NOT_AVAILABLE
+
+
+def mechanism_summary() -> dict[str, dict[str, Any]]:
+    """Return the public, non-event mechanism boundary used by all outputs."""
+
+    return {
+        "detector_v1": {
+            "unit_of_analysis": "Q&A episode",
+            "output": "reporting-level candidate-for-review label",
+            "writes_queue": False,
+            "queue_status": "NOT_APPLICABLE",
+            "automatic_modification": False,
+        },
+        "selective_intervention_policy_agent4": {
+            "unit_of_analysis": "Agent-4 variability classification",
+            "output": "human_review_queue.jsonl review item when the queue builder is executed",
+            "writes_queue": True,
+            "queue_artifact": "human_review_queue.jsonl",
+            "queue_status": agent4_queue_status(None),
+            "automatic_modification": False,
+            "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence does not establish whether the policy fired.",
+        },
+    }
 
 
 def _entry(
@@ -210,7 +258,7 @@ def signal_dictionary() -> dict[str, Any]:
             "S1_LOW_ANSWER_CONFIDENCE",
             "ביטחון תשובה נמוך",
             'any(row.get("answer_confidence") == "Low" for row in answers)',
-            "answer → Q&A episode",
+            "Q&A episode",
             f"{_SOURCE}:316-321 (detect_detector_v1)",
             "model_self_report",
             "strong; may co-occur with S3, S6, and S7 on one complete episode",
@@ -221,7 +269,7 @@ def signal_dictionary() -> dict[str, Any]:
             "S2_MEDIUM_ANSWER_CONFIDENCE",
             "ביטחון תשובה בינוני",
             'any(row.get("answer_confidence") == "Medium" for row in answers)',
-            "answer → Q&A episode",
+            "Q&A episode",
             f"{_SOURCE}:323-328 (detect_detector_v1)",
             "model_self_report",
             "weak; may co-occur with S6, but S2 is suppressed from reason_codes when a strong signal fires",
@@ -232,7 +280,7 @@ def signal_dictionary() -> dict[str, Any]:
             "S3_MISSING_ANSWER_EVIDENCE",
             "היעדר הפניית ראיות בתשובה",
             'any((ref := row.get("answer_evidence_ref")) is None or ref.get("length", 0) == 0 for row in answers)',
-            "answer → Q&A episode",
+            "Q&A episode",
             f"{_SOURCE}:319-322 (detect_detector_v1)",
             "deterministic_derived_field",
             "strong; can co-occur with S1, S6, and S7",
@@ -465,14 +513,14 @@ def signal_dictionary() -> dict[str, Any]:
             "Reporting label only; it does not create an automatic correction.",
         ),
         (
-            "Q_AND_A_QUEUE_BINDING",
-            "חיבור לתור בדיקה",
-            "No Q&A Detector-v1 enqueue call; separate Agent-4 queue builder exists",
-            "Q&A episode / review item",
+            "AGENT4_HUMAN_REVIEW_QUEUE",
+            "תור בדיקה אנושית של Agent 4",
+            "Agent-4 variability classification selected by the queue builder",
+            "Agent-4 variability classification",
             "VEGO-AI/framework/human_review_queue.py:226-336,354-366",
             "deterministic_control_path",
-            "May be discussed alongside alerts, but is not automatically populated by the Q&A detector.",
-            "No automatic queue or correction is implemented for these Q&A signals; this is a reporting label only.",
+            "May co-occur with Agent-4 classification records; it is separate from Detector-v1 labels.",
+            "May create human_review_queue.jsonl only when the separate queue builder is explicitly executed; current AirTravel status is NOT_AVAILABLE without a validated mounted artifact.",
         ),
         (
             "AUTOMATIC_SOURCE_OR_MODEL_CHANGE",
@@ -509,12 +557,41 @@ def signal_dictionary() -> dict[str, Any]:
                     else "No automatic queue, correction, source change, target change, or model replacement is implied."
                 ),
                 evidence_availability=(
-                    "CODE_DEFINED; Q&A_QUEUE_BINDING_NOT_PRESENT"
-                    if code != "AUTOMATIC_SOURCE_OR_MODEL_CHANGE"
+                    "CODE_DEFINED; QUEUE_ARTIFACT_NOT_VALIDATED"
+                    if code == "AGENT4_HUMAN_REVIEW_QUEUE"
+                    else "CODE_DEFINED; REPORTING_LABEL_ONLY"
+                    if code == "CANDIDATE_FOR_HUMAN_REVIEW"
                     else "NOT_OPERATIONALIZED_IN_CANONICAL_CODE"
                 ),
             )
         )
+
+    detector_codes = {
+        "S1_LOW_ANSWER_CONFIDENCE",
+        "S2_MEDIUM_ANSWER_CONFIDENCE",
+        "S3_MISSING_ANSWER_EVIDENCE",
+        "S6_MULTIPLE_QA_ROUNDS",
+        "S7_TERMINATED_MAX_ROUNDS",
+        "CANDIDATE_FOR_HUMAN_REVIEW",
+    }
+    agent4_codes = {"C2_AGENT4_CLASSIFICATION_CONFIDENCE", "C3_AGENT4_REVIEW_FLAGS", "AGENT4_HUMAN_REVIEW_QUEUE"}
+    for entry in entries:
+        if entry["english_code_name"] in detector_codes:
+            entry["mechanism"] = "detector_v1"
+            entry["writes_queue"] = False
+            entry["queue_status"] = "NOT_APPLICABLE"
+        elif entry["english_code_name"] in agent4_codes:
+            entry["mechanism"] = "selective_intervention_policy_agent4"
+            entry["writes_queue"] = entry["english_code_name"] == "AGENT4_HUMAN_REVIEW_QUEUE"
+            entry["queue_status"] = (
+                agent4_queue_status(None)
+                if entry["english_code_name"] == "AGENT4_HUMAN_REVIEW_QUEUE"
+                else "NOT_APPLICABLE"
+            )
+            entry["automatic_modification"] = False
+        if entry["english_code_name"] == "AGENT4_HUMAN_REVIEW_QUEUE":
+            entry["queue_artifact"] = "human_review_queue.jsonl"
+            entry["may_create_queue_when_builder_executed"] = True
 
     return {
         "schema": "vego-ai-study1-signal-dictionary-v1",
@@ -525,6 +602,19 @@ def signal_dictionary() -> dict[str, Any]:
             "Code-grounded definitions are available. Numeric Study 1 evidence is not generated "
             "unless a private accepted-run event log and binding manifest are supplied and verified."
         ),
+        "evidence_validation": {
+            "canonical_validator": "scripts/study1_evidence_recovery.py:validate_evidence",
+            "modes": {
+                "prospective_self_binding": {
+                    "created_after_run": False,
+                    "verdict": "PROSPECTIVE_SELF_BOUND_EVIDENCE",
+                },
+                "retrospective_validation": {
+                    "created_after_run": True,
+                    "verdict_cap": "DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE",
+                },
+            },
+        },
         "claim_boundary": (
             "This dictionary documents observability and candidate-review mechanics only. It does not "
             "establish accuracy, human benefit, reduced burden, generalization, or policy superiority."
@@ -536,6 +626,47 @@ def signal_dictionary() -> dict[str, Any]:
             "non_triggering_context": ["C1_MAPPING_CERTAINTY", "C2_AGENT4_CLASSIFICATION_CONFIDENCE", "C3_AGENT4_REVIEW_FLAGS"],
             "non_triggering_semantics": ["MAPPING_ALTERNATIVE", "MAPPING_NON_SATISFIED", "SOURCE_TARGET_ALIGNMENT"],
             "source_reference": f"{_SOURCE}:309-339",
+        },
+        "mechanisms": {
+            "detector_v1": {
+                "hebrew_name": "Detector-v1",
+                "english_code_name": "Detector-v1",
+                "source_artifact": _SOURCE,
+                "source_field": "detect_detector_v1(episode)",
+                "unit_of_analysis": "Q&A episode",
+                "calculation_rule": "Apply STRONG_ALERT = S1 OR S3 OR S7; WEAK_ALERT = no strong signal AND (S2 OR S6); NO_ALERT otherwise.",
+                "code_reference": f"{_SOURCE}:309-339",
+                "measurement_kind": "deterministic_derived_field",
+                "can_cooccur_with_other_signals": True,
+                "output": "reporting-level candidate-for-review label",
+                "writes_queue": False,
+                "queue_artifact": None,
+                "queue_status": "NOT_APPLICABLE",
+                "candidate_for_human_review": True,
+                "direct_detector_v1_trigger": False,
+                "automatic_modification": False,
+                "does_not_prove": "A candidate label is not a human decision, queue insertion, correctness, error, benefit, or required intervention.",
+            },
+            "selective_intervention_policy_agent4": {
+                "hebrew_name": "מדיניות התערבות סלקטיבית / מנגנון בדיקת Agent 4",
+                "english_code_name": "Selective Intervention Policy / Agent-4 review mechanism",
+                "source_artifact": "VEGO-AI/framework/human_review_queue.py",
+                "source_field": "build_review_items(variability_classification)",
+                "unit_of_analysis": "Agent-4 variability classification",
+                "calculation_rule": "Use Agent-4 variability fields and the separately executed queue-builder policy to form review items.",
+                "code_reference": "VEGO-AI/framework/human_review_queue.py:226-336,354-366",
+                "measurement_kind": "deterministic_control_path_with_semantic_input",
+                "can_cooccur_with_other_signals": True,
+                "output": "human_review_queue.jsonl review item when the queue builder is executed",
+                "writes_queue": True,
+                "may_create_queue_when_builder_executed": True,
+                "queue_artifact": "human_review_queue.jsonl",
+                "queue_status": agent4_queue_status(None),
+                "candidate_for_human_review": True,
+                "direct_detector_v1_trigger": False,
+                "automatic_modification": False,
+                "does_not_prove": "A queue item is not a Detector-v1 result, correctness, error, benefit, or permission to modify source, target, guideline, or model.",
+            },
         },
         "required_layers": [
             "raw_event_field",
@@ -578,6 +709,33 @@ def traceability_matrix() -> list[dict[str, str]]:
                 "Not evidence of": entry["does_not_prove"],
             }
         )
+    mechanisms = dictionary["mechanisms"]
+    rows.extend(
+        [
+            {
+                "Category": "mechanism",
+                "Variable/signal": "DETECTOR_V1_CANDIDATE_LABEL",
+                "Measured from": f"{mechanisms['detector_v1']['source_artifact']} :: {mechanisms['detector_v1']['source_field']}",
+                "Unit": mechanisms["detector_v1"]["unit_of_analysis"],
+                "Asking agent": "Not applicable",
+                "Answering agent": "Not applicable",
+                "Direct trigger?": "NO",
+                "Action": "Emit a reporting-level candidate-for-review label only; Detector-v1 does not create a queue.",
+                "Not evidence of": mechanisms["detector_v1"]["does_not_prove"],
+            },
+            {
+                "Category": "mechanism",
+                "Variable/signal": "AGENT4_HUMAN_REVIEW_QUEUE",
+                "Measured from": f"{mechanisms['selective_intervention_policy_agent4']['source_artifact']} :: {mechanisms['selective_intervention_policy_agent4']['source_field']}",
+                "Unit": mechanisms["selective_intervention_policy_agent4"]["unit_of_analysis"],
+                "Asking agent": "Not applicable",
+                "Answering agent": "Not applicable",
+                "Direct trigger?": "NO",
+                "Action": "May create human_review_queue.jsonl when the separate queue builder is executed; current AirTravel status is NOT_AVAILABLE without a validated artifact.",
+                "Not evidence of": mechanisms["selective_intervention_policy_agent4"]["does_not_prove"],
+            },
+        ]
+    )
     return rows
 
 
@@ -589,59 +747,14 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _manifest_artifact(manifest: dict[str, Any]) -> tuple[str, str]:
-    if manifest.get("accepted_run") is not True:
-        raise EvidenceError("binding manifest is not explicitly marked accepted_run")
-    for key in ("run_kind", "evidence_class", "execution_class", "run_type"):
-        marker = manifest.get(key)
-        if isinstance(marker, str) and marker.strip().casefold() in {
-            "fake_preflight",
-            "local_only",
-            "local-only",
-            "preflight",
-        }:
-            raise EvidenceError("fake-preflight evidence cannot be used as an accepted scientific run")
-    identity = manifest.get("run_identity")
-    if not isinstance(identity, dict):
-        raise EvidenceError("binding manifest lacks run_identity")
-    if identity.get("accepted_replacement") is not True or identity.get("run_class") != "accepted_replacement_real_run" or identity.get("fake_preflight") is True:
-        raise EvidenceError("binding manifest run_identity is not an accepted replacement")
-    run_id = identity.get("run_id")
-    if not isinstance(run_id, str) or not run_id:
-        raise EvidenceError("binding manifest lacks run_id")
-    artifacts = manifest.get("artifacts")
-    if not isinstance(artifacts, dict):
-        raise EvidenceError("binding manifest lacks artifacts")
-    item = artifacts.get("qa_events_jsonl")
-    if not isinstance(item, dict) or not isinstance(item.get("sha256"), str):
-        raise EvidenceError("binding manifest lacks qa_events_jsonl.sha256")
-    if not re.fullmatch(r"[0-9a-fA-F]{64}", item["sha256"]):
-        raise EvidenceError("binding manifest contains an invalid event-log hash")
-    return run_id, item["sha256"].lower()
-
-
 def load_verified_events(event_log: Path, binding_manifest: Path) -> list[dict[str, Any]]:
-    """Verify an explicitly accepted event log and return validated events."""
+    """Compatibility wrapper over the canonical mode-aware validator."""
 
-    if not event_log.is_file() or not binding_manifest.is_file():
-        raise EvidenceError("accepted event log or binding manifest is unavailable")
-    try:
-        manifest = json.loads(binding_manifest.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise EvidenceError("binding manifest cannot be read") from exc
-    run_id, expected_hash = _manifest_artifact(manifest)
-    observed_hash = _sha256_file(event_log)
-    if observed_hash != expected_hash:
-        raise EvidenceError("event-log SHA-256 does not match the accepted-run manifest")
-    try:
-        events = load_event_stream(event_log)
-    except Exception as exc:  # noqa: BLE001 - validation boundary must fail closed
-        raise EvidenceError("event log fails schema/lifecycle validation") from exc
-    if not events:
-        raise EvidenceError("accepted event log is empty")
-    if {event.get("run_id") for event in events} != {run_id}:
-        raise EvidenceError("event log run_id does not match the accepted-run manifest")
-    return events
+    return _canonical_load_verified_events(
+        event_log,
+        binding_manifest,
+        mode=RETROSPECTIVE_VALIDATION,
+    )
 
 
 def _safe_id(value: Any, prefix: str = "ID") -> str:
@@ -923,6 +1036,13 @@ def aggregate_verified_events(events: list[dict[str, Any]]) -> dict[str, Any]:
         "schema": "vego-ai-study1-safe-aggregate-metrics-v1",
         "evidence_status": AVAILABLE,
         "denominator": denominator,
+        "mechanisms": mechanism_summary(),
+        "agent4_review_queue": {
+            "artifact": "human_review_queue.jsonl",
+            "unit_of_analysis": "Agent-4 variability classification",
+            "status": agent4_queue_status(None),
+            "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence does not establish whether the policy fired.",
+        },
         "tables": tables,
         "claim_boundary": (
             "Retrospective descriptive observability only. Confidence is an LLM self-report; "
@@ -938,6 +1058,13 @@ def build_metrics(events: list[dict[str, Any]] | None, *, evidence_status: str =
             "schema": "vego-ai-study1-safe-aggregate-metrics-v1",
             "evidence_status": evidence_status,
             "denominator": evidence_status,
+            "mechanisms": mechanism_summary(),
+            "agent4_review_queue": {
+                "artifact": "human_review_queue.jsonl",
+                "unit_of_analysis": "Agent-4 variability classification",
+                "status": agent4_queue_status(None),
+                "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence does not establish whether the policy fired.",
+            },
             "tables": _empty_tables(evidence_status),
             "claim_boundary": (
                 "No numeric Study 1 values are available in this worktree. A private accepted event "
@@ -977,7 +1104,11 @@ def _write_hebrew_note(path: Path, dictionary: dict[str, Any], metrics: dict[str
                 '<div dir="ltr">WEAK_ALERT = no strong signal AND (S2 OR S6)</div>',
                 '<div dir="ltr">NO_ALERT otherwise</div>',
                 "",
-                "ההתראה היא מועמד בלבד. עבור אותות ה-Q&A אין חיבור אוטומטי לתור או תיקון; זהו reporting label בלבד. קיים ב-code תור נפרד עבור Agent 4, אך הוא אינו מוזן אוטומטית מ-Detector-v1.",
+                "## שני מנגנונים נפרדים",
+                "",
+                "**Detector-v1:** יחידת הניתוח היא אפיזודת שאלות–תשובות. הפלט הוא reporting-level candidate-for-review label בלבד; Detector-v1 אינו כותב לתור ואינו יוצר `human_review_queue.jsonl`.",
+                "**Selective Intervention Policy / מנגנון הבדיקה של Agent 4:** יחידת הניתוח היא סיווג השונות של Agent 4. כאשר queue builder נפרד מופעל, הוא עשוי ליצור `human_review_queue.jsonl`. אין שינוי אוטומטי במקור, ביעד, בהנחיה או במודל.",
+                "**סטטוס תור AirTravel:** `NOT_AVAILABLE` — לא נמצא בקובץ העבודה הנבדק תור מאומת וטעון. היעדר קובץ אינו פירושו ‘לא הופעל’ ואינו מספר אפס.",
                 "",
                 "## גבול הפרשנות",
                 "",
@@ -986,6 +1117,10 @@ def _write_hebrew_note(path: Path, dictionary: dict[str, Any], metrics: dict[str
                 "## זמינות הנתונים",
                 "",
                 "הטבלאות המצורפות מציינות `NOT_AVAILABLE_IN_WORKTREE` ואין בהן אפסים מומצאים. לאחר קבלת קובץ אירועים פרטי ומניפסט binding מאושר, יש לאמת SHA-256, run_id ושלמות lifecycle לפני חישוב כל ערך.",
+                "",
+                "## מצבי אימות הראיות",
+                "",
+                "הוולידטור הקנוני הוא `scripts/study1_evidence_recovery.py:validate_evidence`. במצב `prospective_self_binding` המניפסט חייב לציין `created_after_run = false`; במצב `retrospective_validation` הוא חייב לציין `created_after_run = true`, והוורדיקט נשאר לכל היותר `DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE`.",
                 "",
                 "המסמך הוא טיוטה טכנית מסייעת-מכונה; המשמעות העברית דורשת ביקורת אנושית של Ali/המנחים.",
                 "</div>",

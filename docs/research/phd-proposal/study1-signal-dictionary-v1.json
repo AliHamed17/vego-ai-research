@@ -165,9 +165,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "ביטחון תשובה נמוך",
       "measurement_kind": "model_self_report",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "answer_confidence",
-      "unit_of_analysis": "answer → Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     {
       "action": "Medium confidence on any answer in a complete episode. The result is a candidate label only.",
@@ -184,9 +187,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "ביטחון תשובה בינוני",
       "measurement_kind": "model_self_report",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "answer_confidence",
-      "unit_of_analysis": "answer → Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     {
       "action": "Any answer has no recorded evidence reference or a zero-length reference. The result is a candidate label only.",
@@ -203,9 +209,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "היעדר הפניית ראיות בתשובה",
       "measurement_kind": "deterministic_derived_field",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "answer_evidence_ref",
-      "unit_of_analysis": "answer → Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     {
       "action": "The maximum observed round count for the episode is greater than one. The result is a candidate label only.",
@@ -222,9 +231,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "יותר מסבב שאלות ותשובות אחד",
       "measurement_kind": "deterministic_derived_field",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "round_count",
-      "unit_of_analysis": "Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     {
       "action": "A complete episode ended because the configured maximum was reached. The result is a candidate label only.",
@@ -241,9 +253,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "אי־התכנסות עד הגבלת הסבבים",
       "measurement_kind": "deterministic_control_state",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "termination_reason",
-      "unit_of_analysis": "Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     {
       "action": "Report as context only; do not promote to an alert without a separately approved rule.",
@@ -266,6 +281,7 @@
     },
     {
       "action": "Report as context only; do not promote to an alert without a separately approved rule.",
+      "automatic_modification": false,
       "calculation_rule": "Agent-4 classification confidence is reported separately from Q&A answer confidence.",
       "can_cooccur_with_other_signals": true,
       "candidate_for_human_review": false,
@@ -279,12 +295,16 @@
       "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
       "hebrew_name": "ביטחון סיווג Agent 4",
       "measurement_kind": "model_self_report",
+      "mechanism": "selective_intervention_policy_agent4",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "VEGO-AI/eval_output/*/agentD_variability_classes*.json",
       "source_field": "variability_classifications[].confidence",
-      "unit_of_analysis": "variability classification"
+      "unit_of_analysis": "variability classification",
+      "writes_queue": false
     },
     {
       "action": "Report as context only; do not promote to an alert without a separately approved rule.",
+      "automatic_modification": false,
       "calculation_rule": "Flags are copied into a separate Agent-4 review item when the queue builder policy selects it.",
       "can_cooccur_with_other_signals": true,
       "candidate_for_human_review": false,
@@ -298,9 +318,12 @@
       "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
       "hebrew_name": "דגלי בדיקה של Agent 4",
       "measurement_kind": "semantic_model_output",
+      "mechanism": "selective_intervention_policy_agent4",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "VEGO-AI/eval_output/*/agentD_variability_classes*.json",
       "source_field": "requires_human_review; flag_for_guidelines_update",
-      "unit_of_analysis": "variability classification"
+      "unit_of_analysis": "variability classification",
+      "writes_queue": false
     },
     {
       "action": "Keep as an analysis output; any human-review use needs an explicit, separately governed policy.",
@@ -447,31 +470,40 @@
       "direct_detector_v1_trigger": false,
       "does_not_prove": "A candidate label is not a human decision, a queue insertion, correctness, or benefit.",
       "english_code_name": "CANDIDATE_FOR_HUMAN_REVIEW",
-      "evidence_availability": "CODE_DEFINED; Q&A_QUEUE_BINDING_NOT_PRESENT",
+      "evidence_availability": "CODE_DEFINED; REPORTING_LABEL_ONLY",
       "hebrew_name": "מועמד לבדיקה אנושית",
       "measurement_kind": "deterministic_derived_field",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "Detector-v1 candidate_alert == true for a complete episode",
-      "unit_of_analysis": "Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     {
-      "action": "No automatic queue or correction is implemented for these Q&A signals; this is a reporting label only.",
-      "calculation_rule": "No automatic queue or correction is implemented for these Q&A signals; this is a reporting label only.",
+      "action": "May create human_review_queue.jsonl only when the separate queue builder is explicitly executed; current AirTravel status is NOT_AVAILABLE without a validated mounted artifact.",
+      "automatic_modification": false,
+      "calculation_rule": "May create human_review_queue.jsonl only when the separate queue builder is explicitly executed; current AirTravel status is NOT_AVAILABLE without a validated mounted artifact.",
       "can_cooccur_with_other_signals": true,
       "candidate_for_human_review": false,
       "category": "operational_action",
       "code_reference": "VEGO-AI/framework/human_review_queue.py:226-336,354-366",
-      "cooccurrence_scope": "May be discussed alongside alerts, but is not automatically populated by the Q&A detector.",
+      "cooccurrence_scope": "May co-occur with Agent-4 classification records; it is separate from Detector-v1 labels.",
       "detector_role": "descriptive_only",
       "direct_detector_v1_trigger": false,
       "does_not_prove": "No automatic queue, correction, source change, target change, or model replacement is implied.",
-      "english_code_name": "Q_AND_A_QUEUE_BINDING",
-      "evidence_availability": "CODE_DEFINED; Q&A_QUEUE_BINDING_NOT_PRESENT",
-      "hebrew_name": "חיבור לתור בדיקה",
+      "english_code_name": "AGENT4_HUMAN_REVIEW_QUEUE",
+      "evidence_availability": "CODE_DEFINED; QUEUE_ARTIFACT_NOT_VALIDATED",
+      "hebrew_name": "תור בדיקה אנושית של Agent 4",
+      "may_create_queue_when_builder_executed": true,
       "measurement_kind": "deterministic_control_path",
+      "mechanism": "selective_intervention_policy_agent4",
+      "queue_artifact": "human_review_queue.jsonl",
+      "queue_status": "NOT_AVAILABLE",
       "source_artifact": "VEGO-AI/framework/human_review_queue.py",
-      "source_field": "No Q&A Detector-v1 enqueue call; separate Agent-4 queue builder exists",
-      "unit_of_analysis": "Q&A episode / review item"
+      "source_field": "Agent-4 variability classification selected by the queue builder",
+      "unit_of_analysis": "Agent-4 variability classification",
+      "writes_queue": true
     },
     {
       "action": "No source, guideline, target, or model is changed automatically by this package.",
@@ -494,6 +526,31 @@
     }
   ],
   "entries_by_code": {
+    "AGENT4_HUMAN_REVIEW_QUEUE": {
+      "action": "May create human_review_queue.jsonl only when the separate queue builder is explicitly executed; current AirTravel status is NOT_AVAILABLE without a validated mounted artifact.",
+      "automatic_modification": false,
+      "calculation_rule": "May create human_review_queue.jsonl only when the separate queue builder is explicitly executed; current AirTravel status is NOT_AVAILABLE without a validated mounted artifact.",
+      "can_cooccur_with_other_signals": true,
+      "candidate_for_human_review": false,
+      "category": "operational_action",
+      "code_reference": "VEGO-AI/framework/human_review_queue.py:226-336,354-366",
+      "cooccurrence_scope": "May co-occur with Agent-4 classification records; it is separate from Detector-v1 labels.",
+      "detector_role": "descriptive_only",
+      "direct_detector_v1_trigger": false,
+      "does_not_prove": "No automatic queue, correction, source change, target change, or model replacement is implied.",
+      "english_code_name": "AGENT4_HUMAN_REVIEW_QUEUE",
+      "evidence_availability": "CODE_DEFINED; QUEUE_ARTIFACT_NOT_VALIDATED",
+      "hebrew_name": "תור בדיקה אנושית של Agent 4",
+      "may_create_queue_when_builder_executed": true,
+      "measurement_kind": "deterministic_control_path",
+      "mechanism": "selective_intervention_policy_agent4",
+      "queue_artifact": "human_review_queue.jsonl",
+      "queue_status": "NOT_AVAILABLE",
+      "source_artifact": "VEGO-AI/framework/human_review_queue.py",
+      "source_field": "Agent-4 variability classification selected by the queue builder",
+      "unit_of_analysis": "Agent-4 variability classification",
+      "writes_queue": true
+    },
     "AUTOMATIC_SOURCE_OR_MODEL_CHANGE": {
       "action": "No source, guideline, target, or model is changed automatically by this package.",
       "calculation_rule": "No source, guideline, target, or model is changed automatically by this package.",
@@ -534,6 +591,7 @@
     },
     "C2_AGENT4_CLASSIFICATION_CONFIDENCE": {
       "action": "Report as context only; do not promote to an alert without a separately approved rule.",
+      "automatic_modification": false,
       "calculation_rule": "Agent-4 classification confidence is reported separately from Q&A answer confidence.",
       "can_cooccur_with_other_signals": true,
       "candidate_for_human_review": false,
@@ -547,12 +605,16 @@
       "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
       "hebrew_name": "ביטחון סיווג Agent 4",
       "measurement_kind": "model_self_report",
+      "mechanism": "selective_intervention_policy_agent4",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "VEGO-AI/eval_output/*/agentD_variability_classes*.json",
       "source_field": "variability_classifications[].confidence",
-      "unit_of_analysis": "variability classification"
+      "unit_of_analysis": "variability classification",
+      "writes_queue": false
     },
     "C3_AGENT4_REVIEW_FLAGS": {
       "action": "Report as context only; do not promote to an alert without a separately approved rule.",
+      "automatic_modification": false,
       "calculation_rule": "Flags are copied into a separate Agent-4 review item when the queue builder policy selects it.",
       "can_cooccur_with_other_signals": true,
       "candidate_for_human_review": false,
@@ -566,9 +628,12 @@
       "evidence_availability": "CODE_DEFINED; REQUIRES_FROZEN_EVAL_OUTPUT_NOT_PRESENT_IN_THIS_WORKTREE",
       "hebrew_name": "דגלי בדיקה של Agent 4",
       "measurement_kind": "semantic_model_output",
+      "mechanism": "selective_intervention_policy_agent4",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "VEGO-AI/eval_output/*/agentD_variability_classes*.json",
       "source_field": "requires_human_review; flag_for_guidelines_update",
-      "unit_of_analysis": "variability classification"
+      "unit_of_analysis": "variability classification",
+      "writes_queue": false
     },
     "CANDIDATE_FOR_HUMAN_REVIEW": {
       "action": "Reporting label only; it does not create an automatic correction.",
@@ -582,12 +647,15 @@
       "direct_detector_v1_trigger": false,
       "does_not_prove": "A candidate label is not a human decision, a queue insertion, correctness, or benefit.",
       "english_code_name": "CANDIDATE_FOR_HUMAN_REVIEW",
-      "evidence_availability": "CODE_DEFINED; Q&A_QUEUE_BINDING_NOT_PRESENT",
+      "evidence_availability": "CODE_DEFINED; REPORTING_LABEL_ONLY",
       "hebrew_name": "מועמד לבדיקה אנושית",
       "measurement_kind": "deterministic_derived_field",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "Detector-v1 candidate_alert == true for a complete episode",
-      "unit_of_analysis": "Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     "MAPPING_ALTERNATIVE": {
       "action": "Keep as an analysis output; any human-review use needs an explicit, separately governed policy.",
@@ -683,25 +751,6 @@
       "source_artifact": "VEGO-AI/framework/orchestrator.py",
       "source_field": "existing_mapping[].compliance_status == Satisfied",
       "unit_of_analysis": "mapping item"
-    },
-    "Q_AND_A_QUEUE_BINDING": {
-      "action": "No automatic queue or correction is implemented for these Q&A signals; this is a reporting label only.",
-      "calculation_rule": "No automatic queue or correction is implemented for these Q&A signals; this is a reporting label only.",
-      "can_cooccur_with_other_signals": true,
-      "candidate_for_human_review": false,
-      "category": "operational_action",
-      "code_reference": "VEGO-AI/framework/human_review_queue.py:226-336,354-366",
-      "cooccurrence_scope": "May be discussed alongside alerts, but is not automatically populated by the Q&A detector.",
-      "detector_role": "descriptive_only",
-      "direct_detector_v1_trigger": false,
-      "does_not_prove": "No automatic queue, correction, source change, target change, or model replacement is implied.",
-      "english_code_name": "Q_AND_A_QUEUE_BINDING",
-      "evidence_availability": "CODE_DEFINED; Q&A_QUEUE_BINDING_NOT_PRESENT",
-      "hebrew_name": "חיבור לתור בדיקה",
-      "measurement_kind": "deterministic_control_path",
-      "source_artifact": "VEGO-AI/framework/human_review_queue.py",
-      "source_field": "No Q&A Detector-v1 enqueue call; separate Agent-4 queue builder exists",
-      "unit_of_analysis": "Q&A episode / review item"
     },
     "RAW_ANSWER_CONFIDENCE": {
       "action": "Preserve for traceability; do not route a person from the raw field alone.",
@@ -851,9 +900,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "ביטחון תשובה נמוך",
       "measurement_kind": "model_self_report",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "answer_confidence",
-      "unit_of_analysis": "answer → Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     "S2_MEDIUM_ANSWER_CONFIDENCE": {
       "action": "Medium confidence on any answer in a complete episode. The result is a candidate label only.",
@@ -870,9 +922,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "ביטחון תשובה בינוני",
       "measurement_kind": "model_self_report",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "answer_confidence",
-      "unit_of_analysis": "answer → Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     "S3_MISSING_ANSWER_EVIDENCE": {
       "action": "Any answer has no recorded evidence reference or a zero-length reference. The result is a candidate label only.",
@@ -889,9 +944,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "היעדר הפניית ראיות בתשובה",
       "measurement_kind": "deterministic_derived_field",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "answer_evidence_ref",
-      "unit_of_analysis": "answer → Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     "S6_MULTIPLE_QA_ROUNDS": {
       "action": "The maximum observed round count for the episode is greater than one. The result is a candidate label only.",
@@ -908,9 +966,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "יותר מסבב שאלות ותשובות אחד",
       "measurement_kind": "deterministic_derived_field",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "round_count",
-      "unit_of_analysis": "Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     "S7_TERMINATED_MAX_ROUNDS": {
       "action": "A complete episode ended because the configured maximum was reached. The result is a candidate label only.",
@@ -927,9 +988,12 @@
       "evidence_availability": "CODE_DEFINED; RUN_EVIDENCE_STATUS_SEPARATE",
       "hebrew_name": "אי־התכנסות עד הגבלת הסבבים",
       "measurement_kind": "deterministic_control_state",
+      "mechanism": "detector_v1",
+      "queue_status": "NOT_APPLICABLE",
       "source_artifact": "scripts/extract_qa_escalation_features.py",
       "source_field": "termination_reason",
-      "unit_of_analysis": "Q&A episode"
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
     },
     "SOURCE_TARGET_ALIGNMENT": {
       "action": "Keep as an analysis output; any human-review use needs an explicit, separately governed policy.",
@@ -972,6 +1036,60 @@
   },
   "evidence_boundary": "Code-grounded definitions are available. Numeric Study 1 evidence is not generated unless a private accepted-run event log and binding manifest are supplied and verified.",
   "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+  "evidence_validation": {
+    "canonical_validator": "scripts/study1_evidence_recovery.py:validate_evidence",
+    "modes": {
+      "prospective_self_binding": {
+        "created_after_run": false,
+        "verdict": "PROSPECTIVE_SELF_BOUND_EVIDENCE"
+      },
+      "retrospective_validation": {
+        "created_after_run": true,
+        "verdict_cap": "DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE"
+      }
+    }
+  },
+  "mechanisms": {
+    "detector_v1": {
+      "automatic_modification": false,
+      "calculation_rule": "Apply STRONG_ALERT = S1 OR S3 OR S7; WEAK_ALERT = no strong signal AND (S2 OR S6); NO_ALERT otherwise.",
+      "can_cooccur_with_other_signals": true,
+      "candidate_for_human_review": true,
+      "code_reference": "scripts/extract_qa_escalation_features.py:309-339",
+      "direct_detector_v1_trigger": false,
+      "does_not_prove": "A candidate label is not a human decision, queue insertion, correctness, error, benefit, or required intervention.",
+      "english_code_name": "Detector-v1",
+      "hebrew_name": "Detector-v1",
+      "measurement_kind": "deterministic_derived_field",
+      "output": "reporting-level candidate-for-review label",
+      "queue_artifact": null,
+      "queue_status": "NOT_APPLICABLE",
+      "source_artifact": "scripts/extract_qa_escalation_features.py",
+      "source_field": "detect_detector_v1(episode)",
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
+    },
+    "selective_intervention_policy_agent4": {
+      "automatic_modification": false,
+      "calculation_rule": "Use Agent-4 variability fields and the separately executed queue-builder policy to form review items.",
+      "can_cooccur_with_other_signals": true,
+      "candidate_for_human_review": true,
+      "code_reference": "VEGO-AI/framework/human_review_queue.py:226-336,354-366",
+      "direct_detector_v1_trigger": false,
+      "does_not_prove": "A queue item is not a Detector-v1 result, correctness, error, benefit, or permission to modify source, target, guideline, or model.",
+      "english_code_name": "Selective Intervention Policy / Agent-4 review mechanism",
+      "hebrew_name": "מדיניות התערבות סלקטיבית / מנגנון בדיקת Agent 4",
+      "may_create_queue_when_builder_executed": true,
+      "measurement_kind": "deterministic_control_path_with_semantic_input",
+      "output": "human_review_queue.jsonl review item when the queue builder is executed",
+      "queue_artifact": "human_review_queue.jsonl",
+      "queue_status": "NOT_AVAILABLE",
+      "source_artifact": "VEGO-AI/framework/human_review_queue.py",
+      "source_field": "build_review_items(variability_classification)",
+      "unit_of_analysis": "Agent-4 variability classification",
+      "writes_queue": true
+    }
+  },
   "required_layers": [
     "raw_event_field",
     "communication_process_signal",

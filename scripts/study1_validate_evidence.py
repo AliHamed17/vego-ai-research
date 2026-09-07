@@ -21,9 +21,11 @@ if str(ROOT / "scripts") not in sys.path:
 
 from study1_evidence_recovery import (  # noqa: E402
     EVIDENCE_INVALID,
+    EVIDENCE_MODES,
     EVIDENCE_NOT_AVAILABLE,
-    recover,
+    RETROSPECTIVE_VALIDATION,
     unavailable_result,
+    validate_evidence,
 )
 
 
@@ -32,13 +34,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run-root", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True, help="safe output receipt path")
     parser.add_argument("--binding-manifest", type=Path)
+    parser.add_argument("--mode", choices=EVIDENCE_MODES, default=RETROSPECTIVE_VALIDATION)
     args = parser.parse_args(argv)
     if args.binding_manifest is None:
         result = unavailable_result(
-            "binding manifest was not supplied; legacy validator refuses unbound evidence"
+            "binding manifest was not supplied; legacy validator refuses unbound evidence",
+            mode=args.mode,
         )
     else:
-        result = recover(args.run_root, args.binding_manifest)
+        result = validate_evidence(args.run_root, args.binding_manifest, mode=args.mode)
     if args.manifest.exists():
         print(json.dumps({"status": "OUTPUT_EXISTS", "check_count": 0}, sort_keys=True))
         return 3

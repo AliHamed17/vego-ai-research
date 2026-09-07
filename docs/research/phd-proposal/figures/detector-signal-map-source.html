@@ -74,13 +74,13 @@ code { direction:ltr; unicode-bidi:isolate; }
 
 <h2>5. האם קיים תור בדיקה אנושית אמיתי?</h2>
 <table>
-<tr><th></th><th>מנגנון א׳ — מדיניות ההתערבות הקיימת</th><th>מנגנון ב׳ — Detector-v1 (תרומת המחקר)</th></tr>
+<tr><th></th><th>Selective Intervention Policy / מנגנון בדיקת Agent 4</th><th>Detector-v1</th></tr>
 <tr><td>קוד</td><td><code>selective_intervention_policy.py</code> · <code>human_review_queue.py</code></td><td>סקריפט ניתוח החל על יומן האירועים בדיעבד</td></tr>
-<tr><td>יחידת ניתוח</td><td class="n">סיווגי שונות של סוכן 4 (19 דפוסים)</td><td class="n">אפיזודות שאלות–תשובות (3)</td></tr>
+<tr><td>יחידת ניתוח</td><td class="n">סיווגי שונות של Agent 4</td><td class="n">אפיזודות שאלות–תשובות</td></tr>
 <tr><td>טריגרים</td><td><code>requires_human_review</code> · <code>Undetermined</code> · ביטחון נמוך · ביטחון בינוני · <code>flag_for_guidelines_update</code></td><td><code>S1</code> <code>S3</code> <code>S7</code> · <code>S2</code> <code>S6</code></td></tr>
-<tr class="hi"><td>כותב לתור?</td><td class="n"><b>כן</b> — <code>human_review_queue.jsonl</code></td><td class="n"><b>לא — אינו כותב דבר</b></td></tr>
+<tr class="hi"><td>כותב לתור?</td><td class="n"><b>עשוי ליצור</b> <code>human_review_queue.jsonl</code> כאשר queue builder מופעל</td><td class="n"><b>לא — אינו כותב דבר</b></td></tr>
 </table>
-<p class="note"><b>התשובה המדויקת:</b> Detector-v1 <b>אינו</b> מזין תור כלשהו. התווית "מועמד לבדיקה אנושית" היא <b>תווית דיווח בלבד</b>, ואין מאחוריה תור תפעולי. מנגנון א׳ קיים בקוד ומחובר לצנרת, אך בהרצה המאושרת <b>לא נוצר קובץ תור כלל</b> — ולכן האם הופעל ומה הכיל הוא <b><code>NOT_AVAILABLE</code></b>. אין לפרש היעדר קובץ כאפס. מתוך חמשת הטריגרים מאומת רק <code>requires_human_review = false</code> בכל 19.</p>
+<p class="note"><b>התשובה המדויקת:</b> Detector-v1 <b>אינו</b> מזין תור כלשהו. התווית "מועמד לבדיקה אנושית" היא <b>תווית דיווח בלבד</b>. מנגנון Agent 4 עשוי ליצור תור רק כאשר queue builder נפרד מופעל; עבור AirTravel הסטטוס הוא <b><code>NOT_AVAILABLE</code></b> כי לא מותקן קובץ תור מאומת. היעדר ארטיפקט אינו פירושו "לא הופעל" ואינו מספר אפס. אין שינוי אוטומטי במקור, ביעד, בהנחיה או במודל.</p>
 
 <h2>6. הסיווג הפשוט</h2>
 <table>

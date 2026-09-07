@@ -54,6 +54,25 @@ def test_explicit_binding_delegates_to_recovery(tmp_path: Path):
     assert json.loads(output.read_text(encoding="utf-8"))["recomputed"]["questions"] == 1
 
 
+def test_cli_mode_cannot_relabel_retrospective_manifest_as_prospective(tmp_path: Path):
+    _, evidence, binding = _valid_fixture(tmp_path)
+    output = tmp_path / "safe.json"
+    code, summary = run_validator(
+        "--run-root",
+        str(evidence),
+        "--binding-manifest",
+        str(binding),
+        "--mode",
+        "prospective_self_binding",
+        "--manifest",
+        str(output),
+    )
+    assert code == 2
+    assert summary["status"] == "EVIDENCE_INVALID"
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload["verdict"] == "EVIDENCE_INVALID"
+
+
 def test_existing_output_is_not_overwritten(tmp_path: Path):
     output = tmp_path / "foreign.json"
     output.write_text('{"owner":"other"}\n', encoding="utf-8")

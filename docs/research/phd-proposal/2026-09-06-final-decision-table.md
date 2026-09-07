@@ -60,7 +60,7 @@ Validator: **92 checks, 87 PASS, 0 scientific value failures.**
 
 | Item | Why |
 |---|---|
-| Whether VEGO-AI's selective intervention policy fired on the accepted run | The run produced no `human_review_queue.jsonl` at all. Four of its five triggers cannot be evaluated. Only `requires_human_review = false` (×19) is validated. |
+| Agent-4 queue status / whether the selective intervention policy fired | **`NOT_AVAILABLE`** — no validated `human_review_queue.jsonl` is mounted for AirTravel. Four of the five policy inputs cannot be evaluated; only `requires_human_review = false` (×19) is validated. Absence of the queue artifact does **not** establish whether the policy fired or a zero count. |
 | Cached-token counts | Never captured by the run counter |
 | Independent recomputation of `outbound_requests = 43` | The run persisted no per-call ledger; the value is receipt-asserted and only internally consistent |
 | Original contents of `analysis/output-inventory.json` | Overwritten 2026-09-06; 144 candidate serializations failed to reproduce the pinned digest; **not reconstructed** |

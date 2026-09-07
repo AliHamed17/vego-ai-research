@@ -1,7 +1,31 @@
 {
+  "agent4_review_queue": {
+    "artifact": "human_review_queue.jsonl",
+    "status": "NOT_AVAILABLE",
+    "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence does not establish whether the policy fired.",
+    "unit_of_analysis": "Agent-4 variability classification"
+  },
   "claim_boundary": "No numeric Study 1 values are available in this worktree. A private accepted event log and binding manifest are required before any aggregate is calculated.",
   "denominator": "NOT_AVAILABLE_IN_WORKTREE",
   "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+  "mechanisms": {
+    "detector_v1": {
+      "automatic_modification": false,
+      "output": "reporting-level candidate-for-review label",
+      "queue_status": "NOT_APPLICABLE",
+      "unit_of_analysis": "Q&A episode",
+      "writes_queue": false
+    },
+    "selective_intervention_policy_agent4": {
+      "automatic_modification": false,
+      "output": "human_review_queue.jsonl review item when the queue builder is executed",
+      "queue_artifact": "human_review_queue.jsonl",
+      "queue_status": "NOT_AVAILABLE",
+      "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence does not establish whether the policy fired.",
+      "unit_of_analysis": "Agent-4 variability classification",
+      "writes_queue": true
+    }
+  },
   "schema": "vego-ai-study1-safe-aggregate-metrics-v1",
   "tables": {
     "agent_answers": {

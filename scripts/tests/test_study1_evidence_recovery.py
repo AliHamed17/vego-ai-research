@@ -90,6 +90,8 @@ def _valid_fixture(tmp_path: Path) -> tuple[object, Path, Path]:
     manifest = {
         "schema_version": "study1-evidence-binding-v1",
         "accepted_run": True,
+        "validation_mode": "retrospective_validation",
+        "created_after_run": True,
         "run_identity": {
             "run_id": "accepted-run-1",
             "run_class": "accepted_replacement_real_run",
@@ -134,6 +136,18 @@ def test_existing_root_without_binding_manifest_is_unavailable(tmp_path: Path):
     evidence.mkdir()
     result = module.recover(evidence, tmp_path / "missing-binding.json")
     assert result["status"] == module.EVIDENCE_NOT_AVAILABLE
+    assert result["recomputed"] is None
+
+
+def test_unsupported_validation_mode_fails_closed(tmp_path: Path):
+    module = load_module()
+    result = module.validate_evidence(
+        tmp_path / "not-mounted",
+        tmp_path / "missing-binding.json",
+        mode="unsupported_mode",
+    )
+    assert result["status"] == module.EVIDENCE_INVALID
+    assert result["verdict"] == module.EVIDENCE_INVALID
     assert result["recomputed"] is None
 
 
@@ -229,3 +243,50 @@ def test_incomplete_episode_with_unanswered_question_fails_closed(tmp_path: Path
     result = module.recover(evidence, binding)
     assert result["status"] == module.EVIDENCE_INVALID
     assert result["recomputed"] is None
+
+
+def test_retrospective_manifest_requires_created_after_run_true(tmp_path: Path):
+    module, evidence, binding = _valid_fixture(tmp_path)
+    payload = json.loads(binding.read_text(encoding="utf-8"))
+    payload["validation_mode"] = module.RETROSPECTIVE_VALIDATION
+    payload["created_after_run"] = False
+    binding.write_text(json.dumps(payload) + "\n", encoding="utf-8")
+    result = module.recover(evidence, binding, mode=module.RETROSPECTIVE_VALIDATION)
+    assert result["status"] == module.EVIDENCE_INVALID
+    assert result["recomputed"] is None
+
+
+def test_prospective_manifest_rejects_created_after_run_true(tmp_path: Path):
+    module, evidence, binding = _valid_fixture(tmp_path)
+    payload = json.loads(binding.read_text(encoding="utf-8"))
+    payload["validation_mode"] = module.PROSPECTIVE_SELF_BINDING
+    payload["created_after_run"] = True
+    binding.write_text(json.dumps(payload) + "\n", encoding="utf-8")
+    result = module.recover(evidence, binding, mode=module.PROSPECTIVE_SELF_BINDING)
+    assert result["status"] == module.EVIDENCE_INVALID
+    assert result["recomputed"] is None
+
+
+def test_retrospective_verdict_is_capped_even_when_chain_is_valid(tmp_path: Path):
+    module, evidence, binding = _valid_fixture(tmp_path)
+    payload = json.loads(binding.read_text(encoding="utf-8"))
+    payload["validation_mode"] = module.RETROSPECTIVE_VALIDATION
+    payload["created_after_run"] = True
+    binding.write_text(json.dumps(payload) + "\n", encoding="utf-8")
+    result = module.recover(evidence, binding, mode=module.RETROSPECTIVE_VALIDATION)
+    assert result["status"] == module.ACCEPTED
+    assert result["validation_mode"] == module.RETROSPECTIVE_VALIDATION
+    assert result["verdict"] == module.RETROSPECTIVE_VERDICT
+    assert result["verdict"] != module.PROSPECTIVE_VERDICT
+
+
+def test_prospective_self_binding_mode_is_explicit_and_distinct(tmp_path: Path):
+    module, evidence, binding = _valid_fixture(tmp_path)
+    payload = json.loads(binding.read_text(encoding="utf-8"))
+    payload["validation_mode"] = module.PROSPECTIVE_SELF_BINDING
+    payload["created_after_run"] = False
+    binding.write_text(json.dumps(payload) + "\n", encoding="utf-8")
+    result = module.validate_evidence(evidence, binding, mode=module.PROSPECTIVE_SELF_BINDING)
+    assert result["status"] == module.ACCEPTED
+    assert result["validation_mode"] == module.PROSPECTIVE_SELF_BINDING
+    assert result["verdict"] == module.PROSPECTIVE_VERDICT

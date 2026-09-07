@@ -182,6 +182,43 @@ def test_dictionary_and_matrix_have_required_contract_fields():
     ]
 
 
+def test_detector_and_agent4_mechanisms_are_separate_and_queue_is_unavailable():
+    dictionary = traceability.signal_dictionary()
+    mechanisms = dictionary["mechanisms"]
+    detector = mechanisms["detector_v1"]
+    agent4 = mechanisms["selective_intervention_policy_agent4"]
+
+    assert detector["unit_of_analysis"] == "Q&A episode"
+    assert detector["output"] == "reporting-level candidate-for-review label"
+    assert detector["writes_queue"] is False
+    assert detector["queue_artifact"] is None
+
+    assert agent4["unit_of_analysis"] == "Agent-4 variability classification"
+    assert agent4["queue_artifact"] == "human_review_queue.jsonl"
+    assert agent4["may_create_queue_when_builder_executed"] is True
+    assert agent4["queue_status"] == "NOT_AVAILABLE"
+    assert agent4["automatic_modification"] is False
+    unavailable_metrics = traceability.build_metrics(None, evidence_status=traceability.NOT_AVAILABLE)
+    assert unavailable_metrics["mechanisms"]["detector_v1"]["writes_queue"] is False
+    assert unavailable_metrics["mechanisms"]["selective_intervention_policy_agent4"]["queue_status"] == "NOT_AVAILABLE"
+    detector_result = detect_detector_v1(_episode())
+    assert "human_review_queue.jsonl" not in json.dumps(detector_result)
+    assert "queue_status" not in detector_result
+    assert agent4["direct_detector_v1_trigger"] is False
+
+    matrix = traceability.traceability_matrix()
+    matrix_codes = {row["Variable/signal"] for row in matrix}
+    assert "DETECTOR_V1_CANDIDATE_LABEL" in matrix_codes
+    assert "AGENT4_HUMAN_REVIEW_QUEUE" in matrix_codes
+
+
+def test_missing_agent4_queue_is_not_reported_as_not_triggered(tmp_path):
+    assert traceability.agent4_queue_status(None) == "NOT_AVAILABLE"
+    assert traceability.agent4_queue_status(tmp_path / "human_review_queue.jsonl") == "NOT_AVAILABLE"
+    assert traceability.build_metrics(None, evidence_status=traceability.NOT_AVAILABLE)["agent4_review_queue"]["status"] == "NOT_AVAILABLE"
+    assert "not triggered" not in json.dumps(traceability.signal_dictionary()).lower()
+
+
 def test_hebrew_note_contract_is_rtl_and_bounded():
     note = traceability.ROOT / "docs" / "research" / "phd-proposal" / "2026-09-06-study1-signal-technical-note.he.md"
     # The generated note is checked in after the build step; this assertion
@@ -198,7 +235,14 @@ def test_manifest_mismatch_fails_closed(tmp_path):
     event_log.write_text("{}\n", encoding="utf-8")
     manifest = tmp_path / "binding.json"
     manifest.write_text(json.dumps({
+        "schema_version": "study1-evidence-binding-v1",
         "accepted_run": True,
+        "validation_mode": "retrospective_validation",
+        "created_after_run": True,
+        "setting_id": "cd_airtravel",
+        "corpus_id": "text2uml_airtravel_253b26dc",
+        "execution_code_sha256": "a" * 64,
+        "config_sha256": "b" * 64,
         "run_identity": {
             "run_id": "run-1",
             "run_class": "accepted_replacement_real_run",
@@ -206,7 +250,11 @@ def test_manifest_mismatch_fails_closed(tmp_path):
             "fake_preflight": False,
             "status": "ACCEPTED_REPLACEMENT",
         },
-        "artifacts": {"qa_events_jsonl": {"sha256": "0" * 64}},
+        "artifacts": {
+            "qa_events_jsonl": {"path": "qa_events.jsonl", "sha256": "0" * 64},
+            "run_receipt": {"path": "run-receipt.json", "sha256": "1" * 64},
+            "pipeline_output_manifest": {"path": "pipeline.json", "sha256": "2" * 64},
+        },
     }), encoding="utf-8")
     with pytest.raises(traceability.EvidenceError):
         traceability.load_verified_events(event_log, manifest)
@@ -225,7 +273,14 @@ def test_bound_accepted_event_log_can_be_recomputed_without_raw_output(tmp_path)
     recorder.emit_termination(episode_id="ep-1", termination_reason="CONVERGED", converged=True)
     manifest = tmp_path / "binding.json"
     manifest.write_text(json.dumps({
+        "schema_version": "study1-evidence-binding-v1",
         "accepted_run": True,
+        "validation_mode": "retrospective_validation",
+        "created_after_run": True,
+        "setting_id": "cd_airtravel",
+        "corpus_id": "text2uml_airtravel_253b26dc",
+        "execution_code_sha256": "a" * 64,
+        "config_sha256": "b" * 64,
         "run_identity": {
             "run_id": "accepted-fixture",
             "run_class": "accepted_replacement_real_run",
@@ -233,7 +288,11 @@ def test_bound_accepted_event_log_can_be_recomputed_without_raw_output(tmp_path)
             "fake_preflight": False,
             "status": "ACCEPTED_REPLACEMENT",
         },
-        "artifacts": {"qa_events_jsonl": {"sha256": traceability._sha256_file(event_log)}},
+        "artifacts": {
+            "qa_events_jsonl": {"path": "qa_events.jsonl", "sha256": traceability._sha256_file(event_log)},
+            "run_receipt": {"path": "run-receipt.json", "sha256": "1" * 64},
+            "pipeline_output_manifest": {"path": "pipeline.json", "sha256": "2" * 64},
+        },
     }), encoding="utf-8")
 
     events = traceability.load_verified_events(event_log, manifest)
