@@ -5168,4 +5168,3 @@ Historical entries.
   - Workflow verify-proposal-bibliography -> 57 refs, 54 exact, 3 defects, 0 overturned
 - Status: Completed
 - Next steps: Ali to apply the three verified citation fixes ([35] venue, [20] and [27] titles) and leave [45] unchanged.
-

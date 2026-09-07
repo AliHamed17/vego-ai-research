@@ -111,6 +111,7 @@ Track milestones, current work, and next steps here.
 
 | ID | Started | Status | Summary | Next Step |
 | --- | --- | --- | --- | --- |
+| TASK-046 | 2026-09-06 | Done, reviewer acceptance pending | Literature evidence-closure audit: re-verified 54/68 proposal references, searched both adjacent literatures named in proposal §2.6, assessed 35 candidate refuters, mapped 28 high-priority papers, and classified 37 Chapter 2 claims. All three gaps NARROWED; none refuted. Chapter 2 deliberately NOT rewritten. | Reviewer/orchestrator accepts or returns the audit. Then apply corrections in the order given in `2026-09-06-chapter2-claim-audit.md` Part 7, and freeze the §18 protocol amendment before any query is executed (ISS-059…ISS-063). |
 | TASK-001 | 2026-06-11 | Done | Durable revert support started by adding `.gitignore`, initializing Git, and pushing a safe baseline. | Continue using commits for every meaningful change. |
 | TASK-003 | 2026-06-11 | Open | Audit data sensitivity and provenance. | Review `VEGO-AI/inputs/`, `VEGO-AI/models/`, `VEGO-AI/analysis/`, and the IRB-related PDF. |
 | TASK-004 | 2026-06-11 | In progress | Map existing paper/package results to experiments. | Continue `EXP-000-existing-packaged-results-audit` without copying controlled artifacts into Git. |
@@ -225,6 +226,16 @@ Track milestones, current work, and next steps here.
 | 2026-06-29 | Hardened doctoral capability alignment for Claude/Codex and future PhD studies. | `docs/research/phd-thesis-optimization-plan.md`, `docs/agent-memory/claude-phd-thesis-collaboration-prompt.md`, `docs/operations/alignment-control.md`, `docs/architecture/project-map.md`, `docs/architecture/README.md`, `README.md`, memory files |
 
 ## Next Steps
+
+- **2026-09-06 (Claude) — literature evidence-closure audit delivered; Chapter 2 not rewritten.** The next literature task is **not** more searching. In order:
+  1. Reviewer/orchestrator accepts or returns the evidence audit. Chapter 2, the research questions and the gap wording stay frozen until then.
+  2. On acceptance, correct the two `LIKELY_FALSE` statements first — §2.6's "aggregate competence profile over a task distribution" (contradicted by reference [60]'s own abstract) and §2.4's "the lifecycle is the dimension least covered" — because they are the cheapest credibility repairs in the chapter.
+  3. Freeze the pre-execution protocol amendment (`2026-09-06-literature-search-protocol-audit.md` §18) **before** executing any query: add QL-06 run without the substrate conjunction, split QL-05 into recall and conjunction variants, apply the §18.2 term-class corrections, and add `selective classification` to QL-02.
+  4. Supersede or mark historical the 2026-07-30 `literature-search-execution-register.md`, which defines five different query families from §4.3 Table 3 (ISS-061).
+  5. Resolve the single-rater screening constraint, or adopt the named substitute and record it as a limitation (protocol audit §15).
+  6. Bring the five Appendix B accompanying deliverables and the Figure 8 coding sheet under version control (ISS-060).
+  7. Correct the two page ranges in references [54] and [61] (ISS-059).
+  8. Note for whoever executes: all four primary databases were ACCESS BLOCKED from this machine. Confirm Scopus/Web of Science entitlement exists, or formally revise the primary-source set as a recorded protocol amendment — never by silently substituting a discovery engine.
 
 - **2026-09-03 (Codex):** produced the filled Hebrew supervisor-facing Q&A task plan (8 tasks, P0/P1/P2, no manual labeling), plus ignored local RTL DOCX/PDF deliverables. Current 12 Q&A records are documented as `ANSWER_NOT_PERSISTED`; only a descriptive feasibility result is permitted until complete observability is available.
 - **2026-09-03 (Codex):** refined the plan after Claude/GitHub evidence: interaction-log recovery is now Task 1, the first rerun is one setting only, supervisor requests are limited to log transfer or one-run/API-cost approval, and the PDF/DOCX omit internal commit SHAs.
