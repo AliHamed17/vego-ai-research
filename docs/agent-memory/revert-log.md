@@ -452,3 +452,24 @@ Record file changes and rollback notes here.
   - docs/agent-memory/resource-memory.md
 - Rollback note: Revert commit 454f95f2fd9410f18227f75e3ef6b4796225457a and this tracking update if rollback is approved; private ignored outputs remain outside Git.
 - Git commit: pending.
+
+## 2026-09-07 23:48 +03:00 - Codex - Study 1 transparency package finalization
+
+- Files changed:
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+  - docs/agent-memory/session-log.md
+- Rollback note: Revert the transparency-package commit and associated memory entries if the package is rejected; do not restore or commit private evidence.
+- Git commit: none recorded by script.
+
+## 2026-09-08 00:11 +03:00 - Codex - Transparency manifest and clean-checkout hardening
+
+- Files changed:
+  - scripts/build_study1_transparency_package.py
+  - scripts/tests/test_study1_transparency_package.py
+  - docs/research/phd-proposal/study1-transparency-figures-manifest-v1.json
+- Rollback note: Revert the consolidated transparency package commit if rejected; generated private artifacts remain outside Git.
+- Git commit: none recorded by script.

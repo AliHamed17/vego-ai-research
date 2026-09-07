@@ -148,6 +148,7 @@
     "schemas/run-acceptance-record-v1.schema.json",
     "schemas/run-log-event-v1.schema.json",
     "schemas/security-posture-snapshot-v1.schema.json",
+    "schemas/study1-data-provenance-v1.schema.json",
     "schemas/study1-evidence-binding-v1.schema.json",
     "schemas/study2-condition-output-v1.schema.json",
     "schemas/study2-frozen-config-v1.schema.json",
@@ -247,6 +248,7 @@
     "scripts/tests/test_study1_evidence_recovery.py",
     "scripts/tests/test_study1_forbidden_claims.py",
     "scripts/tests/test_study1_signal_traceability.py",
+    "scripts/tests/test_study1_transparency_package.py",
     "scripts/tests/test_study1_validate_evidence.py",
     "scripts/tests/test_study1b_offline_preflight.py",
     "scripts/tests/test_study1b_variance_budget.py",
@@ -282,7 +284,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "4774346e238b5de417d4b9b0e039a9c4988456be3935b67244493b237aff8079",
+  "sourceTreeSha256": "20277320b73ad2d92809cfd76cdcf8aeb72a5bdc4c2a5c3d387ed35d3832e66f",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

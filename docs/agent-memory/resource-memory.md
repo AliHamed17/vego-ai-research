@@ -4,6 +4,12 @@ This file is the compact shared resource index for Codex and Claude. It points a
 
 Last updated: 2026-09-03 by Codex.
 
+## September 7 Study 1 data/log/pattern transparency
+
+- Builder: `scripts/build_study1_transparency_package.py`; focused tests: `scripts/tests/test_study1_transparency_package.py`.
+- Tracked outputs: `docs/research/phd-proposal/study1-data-provenance-v1.json`, `study1-log-contract-matrix-v1.csv`, `detector-v1-criteria-to-log-fields-v1.csv`, `study1-transparency-data-dictionary-v1.json`, `study1-transparency-metrics-v1.json`, and Hebrew supervisor materials.
+- Evidence boundary: public AirTravel and VEGO-AI v2.1.5.3 source hashes are verified from temporary archives; the accepted private Study 1 event log is not mounted, so scientific tables remain `NOT_AVAILABLE_IN_WORKTREE`. No provider/API/model call or new experiment was run.
+
 ## September 7 Study 1B closure and bounded pilot
 
 - Closure receipt: `docs/research/phd-proposal/study1b-offline-preflight-receipt.json` (historical Study 1B closure; no provider calls).

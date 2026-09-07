@@ -1,0 +1,119 @@
+{
+  "agent4_review_queue": {
+    "artifact": "human_review_queue.jsonl",
+    "note": "A missing/unmounted queue is not a count of zero and is not ‘not triggered’.",
+    "status": "NOT_AVAILABLE"
+  },
+  "claim_boundary": "Descriptive evidence only after a byte-verified accepted event log; no accuracy, benefit, causal, generalization or superiority claim.",
+  "detector_formula": {
+    "none": "NO_ALERT otherwise",
+    "strong": "STRONG_ALERT = S1 OR S3 OR S7",
+    "weak": "WEAK_ALERT = no strong signal AND (S2 OR S6)"
+  },
+  "detector_signals": {
+    "S1": {
+      "observed": false,
+      "observed_count": "NOT_AVAILABLE_IN_WORKTREE",
+      "rule_present": true,
+      "unit": "Q&A episode"
+    },
+    "S2": {
+      "observed": false,
+      "observed_count": "NOT_AVAILABLE_IN_WORKTREE",
+      "rule_present": true,
+      "unit": "Q&A episode"
+    },
+    "S3": {
+      "observed": false,
+      "observed_count": "NOT_AVAILABLE_IN_WORKTREE",
+      "rule_present": true,
+      "unit": "Q&A episode"
+    },
+    "S6": {
+      "observed": false,
+      "observed_count": "NOT_AVAILABLE_IN_WORKTREE",
+      "rule_present": true,
+      "unit": "Q&A episode"
+    },
+    "S7": {
+      "observed": false,
+      "observed_count": "NOT_AVAILABLE_IN_WORKTREE",
+      "rule_present": true,
+      "unit": "Q&A episode"
+    }
+  },
+  "detector_v1": "rules_described_only_no_experimental_run",
+  "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+  "mechanisms": {
+    "detector_v1": {
+      "automatic_modification": false,
+      "output": "reporting-level candidate-for-human-review label",
+      "queue_artifact": null,
+      "queue_status": "NOT_APPLICABLE",
+      "unit": "Q&A episode",
+      "writes_queue": false
+    },
+    "selective_intervention_agent4": {
+      "automatic_modification": false,
+      "output": "separate review item when queue builder executes",
+      "queue_artifact": "human_review_queue.jsonl",
+      "queue_status": "NOT_AVAILABLE",
+      "status_rule": "NOT_AVAILABLE unless a validated queue artifact is mounted; absence is not not-triggered.",
+      "unit": "Agent-4 variability classification",
+      "writes_queue": true
+    }
+  },
+  "observed_patterns": [],
+  "private_event_log": "NOT_AVAILABLE_IN_WORKTREE",
+  "rules_present_not_observed": [
+    "S1 low answer confidence",
+    "S2 medium answer confidence",
+    "S3 null/zero-length answer evidence reference",
+    "S6 more than one Q&A round",
+    "S7 maximum-round termination"
+  ],
+  "schema_version": "study1-transparency-metrics-v1",
+  "scientific_denominator": "NOT_AVAILABLE_IN_WORKTREE",
+  "tables": {
+    "cases_with_and_without_q_and_a": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "confidence_by_episode_and_round": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "confidence_evidence_termination": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "episodes": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "evidence_reference_distribution": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "questions_answers_by_case": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "route_matrix": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    },
+    "signal_cooccurrence": {
+      "denominator": "NOT_AVAILABLE_IN_WORKTREE",
+      "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+      "rows": []
+    }
+  }
+}

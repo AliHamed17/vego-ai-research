@@ -7,6 +7,13 @@ staleness_threshold_days: 14
 
 Durable decisions for this project.
 
+## 2026-09-07 - Study 1 transparency evidence boundary
+
+- Decision: Publish a sanitized data/log/pattern transparency package with public provenance and exact Detector-v1 traceability, while keeping accepted private-run metrics `NOT_AVAILABLE_IN_WORKTREE` until the original binding manifest and event log are mounted and byte-verified.
+- Decision: Treat `qa_events.jsonl` as the Q&A source of truth only when its run-level provenance is validated; `interaction_log.json`, `user_actions.log`, and UI exports cannot substitute for answer-level Q&A evidence without the required fields. Detector-v1 remains a reporting-level candidate label and never writes the separate Agent-4 queue.
+- Reason: The reviewed worktree contains no accepted private event-log chain. Producing numeric results or empirical patterns from narrative values would violate the evidence boundary.
+- Consequence: The package is ready for supervisor transparency review, but no scientific counts, effectiveness/accuracy claims, charts, new run, provider call, or synthetic scientific evidence is authorized by this change.
+
 ## Decision Lifecycle Registry
 
 | 2026-09-03 | Q&A Escalation Detection as Active Milestone | Active, supervisor-directed | The immediate technical path is read-only Q&A communication observability → transparent candidate alert rules → blind human validation sheets. Prior Agent-C score reconstruction/C2 bridge remains valid later-stage evidence; P-A/P-B/P-C replay, correction injection, and Condition-A selection are deferred. |

@@ -1,57 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-07 16:51 +03:00.
+Generated from repository memory on 2026-09-07 23:48 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-03 23:30 +03:00 - Codex - Final revision of supervisor Q&A task plan
-
-- Request: Refine the operational plan with interaction-log recovery first, one-setting rerun, minimal supervisor requests, and no internal SHA in supervisor artifacts.
-- Actions taken:
-  - Added interaction-log recovery as Task 1
-  - Re-sequenced eight operational tasks and narrowed first rerun to one setting
-  - Removed internal revision SHA from DOCX/PDF and regenerated artifacts
-- Files changed:
-  - docs/research/phd-proposal/2026-09-03-qa-escalation-task-plan.he.md
-  - scripts/qa_task_plan_data.py
-  - scripts/build_qa_escalation_task_plan.py
-  - scripts/build_qa_escalation_task_plan_pdf.py
-  - scripts/tests/test_qa_escalation_task_plan.py
-- Commands/checks:
-  - python -m pytest -q scripts/tests/test_qa_escalation_task_plan.py (2 passed)
-  - python scripts/build_qa_escalation_task_plan.py
-  - python scripts/build_qa_escalation_task_plan_pdf.py
-  - pdftoppm/pdfinfo and visual inspection (3 A4 pages)
-- Status: completed; pending final push and CI
-- Next steps: Push the focused revision; no study execution until interaction-log recovery and one-setting approval gate.
-
-## 2026-09-04 00:00 +03:00 - Codex - Unify Iris task plan source and harden RTL verification
-
-- Request: Engineering hardening only: canonical JSON source, generated Markdown/DOCX/PDF, content equality tests, bidi scanner, and interaction-log semantic guard; no experiment execution.
-- Actions taken:
-  - Added scripts/data/qa_task_plan.json as the sole structured plan source
-  - Converted qa_task_plan_data.py to a JSON loader
-  - Added Markdown generator and deterministic bidi-aware send-gate scanner
-  - Removed hard-coded PDF summary rows and task list duplication
-  - Added full task-field and summary equality tests
-  - Regenerated DOCX and PDF without changing approved supervisor Markdown
-- Files changed:
-  - scripts/data/qa_task_plan.json
-  - scripts/qa_task_plan_data.py
-  - scripts/build_qa_escalation_task_plan_md.py
-  - scripts/build_qa_escalation_task_plan.py
-  - scripts/build_qa_escalation_task_plan_pdf.py
-  - scripts/qa_task_plan_send_gate.py
-  - scripts/tests/test_qa_escalation_task_plan.py
-- Commands/checks:
-  - focused task-plan tests: 9 passed
-  - compileall: PASS
-  - repository privacy: PASS
-  - evidence consistency: 18/18 PASS
-  - PDF: 3 A4 pages and visual inspection PASS
-  - DOCX render unavailable: pdf2image/LibreOffice unavailable; structural QA PASS
-- Status: Ready for human review; engineering hardening complete locally, no VEGO-AI experiment executed.
-- Next steps: Run full CI after commit; preserve approved supervisor-facing content; no runtime study execution in this change.
 
 ## 2026-09-04 01:04 +03:00 - Codex - Audit original VEGO-AI interaction-log availability
 
@@ -456,3 +407,38 @@ Showing the latest 20 session entries.
   - GitHub Actions run 34129167954
 - Status: completed
 - Next steps: Independent review; mount accepted private evidence before any Study 1 numeric report; obtain separate explicit provider authorization for any future pilot.
+
+## 2026-09-07 23:46 +03:00 - Codex - Study 1 transparency package
+
+- Request: Build sanitized evidence, log, and Detector transparency package for supervisor review.
+- Actions taken:
+  - Added evidence-bound provenance and release verification
+  - Added log-contract, signal dictionary, detector criteria, metrics, Hebrew note, slides, and email
+  - Added privacy/schema/tests and regenerated supported release manifest
+- Files changed:
+  - scripts/build_study1_transparency_package.py
+  - scripts/tests/test_study1_transparency_package.py
+  - schemas/study1-data-provenance-v1.schema.json
+  - docs/research/phd-proposal transparency package
+- Commands/checks:
+  - focused package tests; full scripts tests; root and VEGO-AI tests; changed-scope Ruff and compile; verify-source; security/evidence checks
+- Status: completed; private accepted evidence unavailable in reviewed worktree
+- Next steps: Human/supervisor review; mount and validate private accepted-run binding manifest before any scientific metrics
+
+## 2026-09-07 23:48 +03:00 - Codex - Study 1 transparency package finalization
+
+- Request: Finalize the sanitized supervisor transparency package under the no-new-experiment boundary.
+- Actions taken:
+  - Revalidated staged privacy and schema outputs
+  - Updated shared project memory with evidence boundary and next gate
+- Files changed:
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+  - docs/agent-memory/session-log.md
+- Commands/checks:
+  - focused transparency tests; changed-scope Ruff; compileall; staged privacy and JSON/CSV checks
+- Status: completed; scientific evidence unavailable in reviewed worktree
+- Next steps: Push one draft-PR update and await supervisor review; mount private binding manifest before numeric reporting

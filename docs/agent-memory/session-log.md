@@ -38,27 +38,6 @@ Chronological prompt history for Codex and Claude.
 - Commands run: `pwsh ./scripts/build-progress-visualizations.ps1` (multiple iterations), `[Parser]::ParseFile` syntax checks, Browser tool screenshots (light + dark), `gh pr create/checks/view`, `gh api repos/.../pulls/29/merge`, `git worktree add/remove`.
 - Next steps: None outstanding for this task. The dashboard now shows all 4 status mixes it already computes, in both generated outputs, with real charts instead of flat bars.
 
-## 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
-
-- Request: Attached the same proposal PDF alongside the delivered strict review; verified the review against the actual document.
-- Actions taken:
-  - Re-verified every falsifiable claim in the 2026-08-23 strict proposal review against the same PDF (sha256 a4c9739..., confirmed 21 pages; the harness reported 24, which is harness metadata not the document).
-  - WITHDREW my own reference [45] finding: DBLP canonical form is 'Khaled E. Ahmed', so 'K. E. Ahmed' is correct as written. Earlier sources (arXiv/ORCID/GitHub) render the name without the middle initial, which misled the original check.
-  - CORRECTED the 'Chapter 2 duplicates Chapter 4' claim as unsupported (only 14 shared 5-grams, nearly all page boilerplate); the 'move it to Chapter 4' recommendation rested on a false premise and was replaced.
-  - STRENGTHENED the solution-world finding: Chapter 2 names the author's own Studies five times and issues design orders in two Research implication lines (p.8 Study 2 must test, p.9 Study 3 must treat).
-  - Widened the bibliography check from 13 refs to all 57 via a 12-agent adversarially-adjudicated workflow: 54 exact, 0 unverifiable, 3 real defects, 0 overturned.
-  - Newly found [35] GLIF3 cites the wrong journal entirely (JAMIA 11(4) 375-385 -> Journal of Biomedical Informatics 37(3) 147-161); independent proof the cited locus cannot exist since JAMIA 11(4) spans pp. 235-338.
-  - New finding B2: Chapter 2 requires a review policy to combine eight named signals; Chapter 4 never enumerates them and three (novelty, evidence quality, reviewer competence) appear nowhere in the methodology chapter.
-  - Score adjusted 75 to 73; delivered corrected review to Ali and pushed as 118570b.
-- Files changed:
-  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
-- Commands/checks:
-  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
-  - pypdf page/footer check -> 21 pages, all footers Page N of 21
-  - Workflow verify-proposal-bibliography -> 57 refs, 54 exact, 3 defects, 0 overturned
-- Status: Completed
-- Next steps: Ali to apply the three verified citation fixes ([35] venue, [20] and [27] titles) and leave [45] unchanged.
-
 ## 2026-09-02 09:28 +03:00 - Claude - Proposal Revision 19: committee + supervisor review closure
 
 - Request: Work on all the committee review items toward 100/100, then follow the supervisor Hebrew review and the 26 inline comments word by word, verifying everything
@@ -634,7 +613,6 @@ Chronological prompt history for Codex and Claude.
 - Status: completed
 - Next steps: Awaiting OPENAI_API_KEY to execute the five Study 1B repeats under the USD 2 ceiling, a decision on D0 given decision-table section 5.2, and a decision on whether Claude may close the Study 2 egress and call-site-test gaps on Codex's PR 42 branch.
 
-
 ## 2026-09-07 15:21 +03:00 - Codex - Study 2 ON/OFF enforcement and Study 1B independent gate
 
 - Request: Review PR #41 Study 1B before execution and harden Study 2 ON/OFF controls without provider or experiment execution.
@@ -689,3 +667,54 @@ Chronological prompt history for Codex and Claude.
   - GitHub Actions run 34129167954
 - Status: completed
 - Next steps: Independent review; mount accepted private evidence before any Study 1 numeric report; obtain separate explicit provider authorization for any future pilot.
+
+## 2026-09-07 23:46 +03:00 - Codex - Study 1 transparency package
+
+- Request: Build sanitized evidence, log, and Detector transparency package for supervisor review.
+- Actions taken:
+  - Added evidence-bound provenance and release verification
+  - Added log-contract, signal dictionary, detector criteria, metrics, Hebrew note, slides, and email
+  - Added privacy/schema/tests and regenerated supported release manifest
+- Files changed:
+  - scripts/build_study1_transparency_package.py
+  - scripts/tests/test_study1_transparency_package.py
+  - schemas/study1-data-provenance-v1.schema.json
+  - docs/research/phd-proposal transparency package
+- Commands/checks:
+  - focused package tests; full scripts tests; root and VEGO-AI tests; changed-scope Ruff and compile; verify-source; security/evidence checks
+- Status: completed; private accepted evidence unavailable in reviewed worktree
+- Next steps: Human/supervisor review; mount and validate private accepted-run binding manifest before any scientific metrics
+
+## 2026-09-07 23:48 +03:00 - Codex - Study 1 transparency package finalization
+
+- Request: Finalize the sanitized supervisor transparency package under the no-new-experiment boundary.
+- Actions taken:
+  - Revalidated staged privacy and schema outputs
+  - Updated shared project memory with evidence boundary and next gate
+- Files changed:
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+  - docs/agent-memory/session-log.md
+- Commands/checks:
+  - focused transparency tests; changed-scope Ruff; compileall; staged privacy and JSON/CSV checks
+- Status: completed; scientific evidence unavailable in reviewed worktree
+- Next steps: Push one draft-PR update and await supervisor review; mount private binding manifest before numeric reporting
+
+## 2026-09-08 00:11 +03:00 - Codex - Transparency manifest and clean-checkout hardening
+
+- Request: Extend the Study 1 transparency package with a safe generated-figures manifest and clean-checkout fallback.
+- Actions taken:
+  - Added three-entry rule-only figures manifest
+  - Removed dependency on deleted legacy signal dictionary through a descriptive fallback
+  - Re-ran full verify-source successfully
+- Files changed:
+  - scripts/build_study1_transparency_package.py
+  - scripts/tests/test_study1_transparency_package.py
+  - docs/research/phd-proposal/study1-transparency-figures-manifest-v1.json
+- Commands/checks:
+  - 11 focused tests; verify-source PASS; hardening manifest check
+- Status: completed; no scientific evidence generated
+- Next steps: Commit/push package for draft PR review; wait for private evidence binding and supervisor review
