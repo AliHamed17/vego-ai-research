@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<title>VEGO-AI Study 1 — Results Dossier</title><style>
+@page { size: A4; margin: 10mm 11mm 11mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color:rgb(11,11,11); font-size:8.4pt; line-height:1.32; margin:0; }
+h1 { font-size:14pt; margin:0 0 1mm; }
+h2 { font-size:9.6pt; margin:2.2mm 0 1mm; padding-bottom:0.7mm; border-bottom:1.5px solid rgb(42,120,214); color:rgb(20,55,94); }
+h3 { font-size:8.6pt; margin:2mm 0 0.8mm; color:rgb(20,55,94); }
+.sub { color:rgb(82,81,78); font-size:7.6pt; margin:0 0 1.6mm; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52); padding:1.6mm 2.2mm; font-size:7.6pt; margin:0 0 2mm; }
+.key { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214); padding:1.5mm 2.2mm; font-size:8pt; margin:0 0 1.6mm; }
+.note { font-size:6.9pt; color:rgb(82,81,78); margin:0.4mm 0 1.3mm; }
+table { width:100%; border-collapse:collapse; font-size:7.3pt; margin:0 0 1.1mm; }
+th,td { border:1px solid rgb(216,216,212); padding:0.75mm 1.1mm; text-align:right; vertical-align:top; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
+.hi { background:rgb(255,248,232); font-weight:700; }
+code { font-family:Consolas,monospace; font-size:6.9pt; background:rgb(244,245,243); padding:0 0.5mm; direction:ltr; unicode-bidi:isolate; }
+.row { display:flex; align-items:center; gap:1.4mm; margin:0.5mm 0; }
+.lbl { flex:0 0 44mm; font-size:7.1pt; text-align:right; }
+.track { flex:1 1 auto; position:relative; height:3.4mm; background:rgb(244,245,243); border-radius:0.7mm; }
+.bar { position:absolute; top:0; right:0; height:100%; background:rgb(42,120,214); border-radius:0.7mm; }
+.bar.alt { background:rgb(235,104,52); }
+.val { position:absolute; left:1.2mm; top:-0.1mm; font-size:6.9pt; font-weight:700; color:rgb(20,55,94); }
+.pb { page-break-before: always; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3mm; align-items:start; }
+.kpi { border:1px solid rgb(216,216,212); border-radius:1.6mm; padding:1.6mm; text-align:center; }
+.kpi .v { font-size:12.5pt; font-weight:700; color:rgb(20,55,94); line-height:1.05; }
+.kpi .l { font-size:6.8pt; color:rgb(82,81,78); margin-top:0.5mm; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.2mm; margin-bottom:1.4mm; }
+</style></head><body>
+<h1>מחקר 1 — AirTravel: דוסייה תוצאות וניתוחים</h1>
+<p class="sub">gpt-5.6-luna · <code>cd_airtravel</code> · <code>text2uml_airtravel_253b26dc</code>
+ · ריצה <code>REAL-efe686a-20260905T2303Z</code> · הופק 2026-09-07</p>
+
+<div class="warn"><b>סטטוס קובע:</b> <code>DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE</code> —
+הראיות הפרטיות אומתו בדיעבד; הקבלה המקורית לא קשרה מראש את כל רכיבי הראיה.
+כל מספר במסמך זה חושב מחדש מיומן האירועים <code>55ea936130448203…</code>
+ולא הועתק מדוח קודם. קריאות ספק שבוצעו להפקת מסמך זה: <b>0</b>.</div>
+
+<div class="grid3">
+  <div class="kpi"><div class="v">3</div><div class="l">אפיזודות שלמות (מכנה)</div></div>
+  <div class="kpi"><div class="v">44 / 44</div><div class="l">שאלות / תשובות</div></div>
+  <div class="kpi"><div class="v">10</div><div class="l">סבב מרבי</div></div>
+</div>
+<div class="grid3">
+  <div class="kpi"><div class="v">3 / 0 / 0</div><div class="l">חזקה / חלשה / ללא</div></div>
+  <div class="kpi"><div class="v">43</div><div class="l">קריאות ספק</div></div>
+  <div class="kpi"><div class="v">$0.134972</div><div class="l">עלות בפועל</div></div>
+</div>
+<p class="note">כל הערכים לעיל אומתו בדיעבד — ראו הסטטוס הקובע בראש המסמך.</p><h2>1. הממצא המרכזי החדש — האות הנושא את כל המשקל</h2>
+<div class="key"><b>‏S1 (ביטחון תשובה נמוך) הוא האות היחיד שנושא את התוצאה.</b>
+בהסרת S1 בלבד, שתיים משלוש האפיזודות משנות סיווג והתפלגות הסיווג קורסת.
+בהסרת כל אות אחר — <b>אף אפיזודה אינה משנה סיווג</b>.
+כלומר הכותרת "3 מתוך 3 התרעה חזקה" היא למעשה <b>"3 מתוך 3 ביטחון נמוך"</b>.</div><table>
+<tr><th class="n">האות שהוסר</th><th class="n">חזקה</th><th class="n">חלשה</th><th class="n">ללא</th><th class="n">אפיזודות ששינו סיווג</th></tr>
+<tr class="hi"><td class="n"><code>S1</code></td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n"><b>2</b></td></tr><tr><td class="n"><code>S2</code></td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n"><b>0</b></td></tr><tr><td class="n"><code>S3</code></td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n"><b>0</b></td></tr><tr><td class="n"><code>S6</code></td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n"><b>0</b></td></tr><tr><td class="n"><code>S7</code></td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n"><b>0</b></td></tr></table>
+<p class="note"><b>מה נמדד:</b> סיווג מחדש של אותן אפיזודות כאשר אות בודד מוסר מהכלל הקפוא <b>מונה:</b> מספר האפיזודות בכל סיווג <b>מכנה:</b> 3 אפיזודות שלמות <b>מקור:</b> <code>output/qa_events.jsonl</code> <b>מה אינו מוכיח:</b> אין זה שינוי סף ואין זה גלאי חדש — הכלל ומפתחותיו לא שונו. זהו תיאור עמידוּת בלבד ואינו מעיד שהאותות האחרים מיותרים בקורפוס אחר</p><h2>2. אותות שפעלו</h2>
+<div class="row"><span class="lbl">S1 — ביטחון נמוך</span><span class="track"><span class="bar" style="width:100.0%"></span><span class="val">3</span></span></div><div class="row"><span class="lbl">S2 — ביטחון בינוני</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div><div class="row"><span class="lbl">S6 — יותר מסבב אחד</span><span class="track"><span class="bar" style="width:66.7%"></span><span class="val">2</span></span></div><div class="row"><span class="lbl">S7 — מגבלת סבבים</span><span class="track"><span class="bar" style="width:33.3%"></span><span class="val">1</span></span></div><div class="row"><span class="lbl">S3 — ראיה חסרה</span><span class="track"><span class="bar" style="width:0.0%"></span><span class="val">0</span></span></div>
+<p class="note"><b>מה נמדד:</b> מספר האפיזודות שבהן כל אות פעל <b>מונה:</b> אפיזודות שבהן האות פעל <b>מכנה:</b> 3 אפיזודות שלמות <b>מקור:</b> <code>output/qa_events.jsonl</code> <b>מה אינו מוכיח:</b> אינו מוכיח שהתרחשה שגיאה. ‏<b>S3 לא פעל כלל</b>: הכלל קיים ולא נצפה בראיות הזמינות — אין זה ממצא אמפירי ואין להציגו ככזה</p><h2>3. מסלול הביטחון לאורך הסבבים</h2>
+<div class="grid2"><div>
+<table><tr><th class="n">סבב</th><th class="n">תשובות</th><th class="n">נמוך</th><th class="n">בינוני</th><th class="n">גבוה</th><th class="n">שיעור נמוך</th></tr>
+<tr><td class="n">1</td><td class="n">7</td><td class="n">7</td><td class="n">0</td><td class="n">0</td><td class="n">100%</td></tr><tr><td class="n">2</td><td class="n">7</td><td class="n">2</td><td class="n">4</td><td class="n">1</td><td class="n">29%</td></tr><tr><td class="n">3</td><td class="n">5</td><td class="n">1</td><td class="n">4</td><td class="n">0</td><td class="n">20%</td></tr><tr><td class="n">4</td><td class="n">5</td><td class="n">2</td><td class="n">3</td><td class="n">0</td><td class="n">40%</td></tr><tr><td class="n">5</td><td class="n">4</td><td class="n">0</td><td class="n">4</td><td class="n">0</td><td class="n">0%</td></tr><tr><td class="n">6</td><td class="n">4</td><td class="n">0</td><td class="n">2</td><td class="n">2</td><td class="n">0%</td></tr><tr><td class="n">7</td><td class="n">3</td><td class="n">0</td><td class="n">3</td><td class="n">0</td><td class="n">0%</td></tr><tr><td class="n">8</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">100%</td></tr><tr><td class="n">9</td><td class="n">3</td><td class="n">0</td><td class="n">3</td><td class="n">0</td><td class="n">0%</td></tr><tr><td class="n">10</td><td class="n">4</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">50%</td></tr></table></div><div>
+<div class="row"><span class="lbl">סבב 1</span><span class="track"><span class="bar" style="width:100.0%"></span><span class="val">100%</span></span></div><div class="row"><span class="lbl">סבב 2</span><span class="track"><span class="bar" style="width:28.6%"></span><span class="val">29%</span></span></div><div class="row"><span class="lbl">סבב 3</span><span class="track"><span class="bar" style="width:20.0%"></span><span class="val">20%</span></span></div><div class="row"><span class="lbl">סבב 4</span><span class="track"><span class="bar" style="width:40.0%"></span><span class="val">40%</span></span></div><div class="row"><span class="lbl">סבב 5</span><span class="track"><span class="bar" style="width:0.0%"></span><span class="val">0%</span></span></div><div class="row"><span class="lbl">סבב 6</span><span class="track"><span class="bar" style="width:0.0%"></span><span class="val">0%</span></span></div><div class="row"><span class="lbl">סבב 7</span><span class="track"><span class="bar" style="width:0.0%"></span><span class="val">0%</span></span></div><div class="row"><span class="lbl">סבב 8</span><span class="track"><span class="bar" style="width:100.0%"></span><span class="val">100%</span></span></div><div class="row"><span class="lbl">סבב 9</span><span class="track"><span class="bar" style="width:0.0%"></span><span class="val">0%</span></span></div><div class="row"><span class="lbl">סבב 10</span><span class="track"><span class="bar" style="width:50.0%"></span><span class="val">50%</span></span></div>
+</div></div>
+<p class="note"><b>מה נמדד:</b> שיעור התשובות בביטחון נמוך בכל סבב <b>מונה:</b> תשובות בביטחון נמוך <b>מכנה:</b> כלל התשובות באותו סבב <b>מקור:</b> <code>output/qa_events.jsonl</code> <b>מה אינו מוכיח:</b> הירידה מ-100% בסבב הראשון ל-50% בסבב האחרון היא תיאור בלבד; אין בה כדי לקבוע שסבבים מאוחרים מיישבים אי-ודאות</p><h2>4. אורך שדה הראיה לפי רמת ביטחון</h2>
+<div class="key"><b>ממצא נגד-אינטואיטיבי:</b> לתשובות בביטחון <b>נמוך</b> יש חציון אורך ראיה
+<b>100</b>, גבוה מזה של תשובות בביטחון גבוה
+(<b>62</b>) ובינוני (<b>62</b>).
+כלומר אורך הראיה <b>אינו עוקב</b> אחר רמת הביטחון המדווחת.</div>
+<table><tr><th>רמת ביטחון</th><th class="n">n</th><th class="n">חציון</th><th class="n">מינימום</th><th class="n">מקסימום</th><th class="n">אורך אפס</th></tr>
+<tr><td>High</td><td class="n">3</td><td class="n">62</td><td class="n">38</td><td class="n">89</td><td class="n">0</td></tr><tr><td>Low</td><td class="n">16</td><td class="n">100</td><td class="n">38</td><td class="n">251</td><td class="n">0</td></tr><tr><td>Medium</td><td class="n">25</td><td class="n">62</td><td class="n">38</td><td class="n">540</td><td class="n">0</td></tr></table>
+<p class="note"><b>מה נמדד:</b> אורך שדה הראיה בתווים, מקובץ לפי רמת הביטחון שהמודל דיווח <b>מונה:</b> אורך השדה בכל תשובה <b>מכנה:</b> 44 תשובות <b>מקור:</b> <code>output/qa_events.jsonl</code> <b>מה אינו מוכיח:</b> אורך מודד <b>נוכחות וגודל</b> של השדה בלבד — לא איכות, לא נכונות ולא רלוונטיות של הראיה</p><h2>5. ריכוז מסלולי התקשורת</h2>
+<table><tr><th class="n">סוכן שואל</th><th class="n">סוכן משיב</th><th class="n">שאלות</th><th class="n">שיעור</th></tr>
+<tr><td class="n">agent4</td><td class="n">agent2</td><td class="n">39</td><td class="n">88.6%</td></tr><tr><td class="n">agent3</td><td class="n">agent2</td><td class="n">4</td><td class="n">9.1%</td></tr><tr><td class="n">agent3</td><td class="n">agent1</td><td class="n">1</td><td class="n">2.3%</td></tr>
+<tr class="hi"><td class="n">סה"כ</td><td class="n">—</td><td class="n">44</td><td class="n">100%</td></tr></table>
+<p class="note"><b>מה נמדד:</b> מספר השאלות בכל זוג מסלול מכוון <b>מונה:</b> שאלות בכל זוג <b>מכנה:</b> 44 שאלות · 3 מתוך 6 זוגות אפשריים נצפו <b>מקור:</b> <code>output/qa_events.jsonl</code> <b>מה אינו מוכיח:</b> נפח מסלול הוא מטא-נתון ניתוב תיאורי; אף אות בגלאי אינו קורא אותו, ואין בו כדי לקבוע אם מסלול היה מתאים או נחוץ. מסלול שלא נצפה אינו מסלול מושבת</p><h2>6. בסיס ההשוואה — האם הכלל מפריד בכלל?</h2>
+<div class="warn"><b>בדיקת הנדסה בלבד — אינה תוצאה מדעית — אינה מדד ספק — אינה השוואת
+<code>VEGO_AI_ON</code> מול <code>VEGO_AI_OFF</code>.</b> קריאות ספק: <b>0</b>.
+המכנים כאן נפרדים לחלוטין מן המכנה של ההרצה המאושרת ואין למזג ביניהם.</div>
+<table><tr><th>מצב פיקסצ׳ר</th><th class="n">אפיזודות</th><th class="n">מכנה</th><th class="n">חזקה</th><th class="n">חלשה</th><th class="n">ללא</th><th class="n">סטטוס</th></tr>
+<tr><td><code>no_questions</code></td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n"><code>VALID_ZERO_QA_RUN</code></td></tr><tr><td><code>two_rounds</code></td><td class="n">10</td><td class="n">10</td><td class="n">0</td><td class="n">0</td><td class="n">10</td><td class="n"><code>QA_OBSERVED</code></td></tr><tr><td><code>max_rounds</code></td><td class="n">11</td><td class="n">11</td><td class="n">11</td><td class="n">0</td><td class="n">0</td><td class="n"><code>QA_OBSERVED</code></td></tr></table>
+<div class="key"><b>מסקנה מתודולוגית:</b> קלטים דטרמיניסטיים שונים מניעים את הכלל הקפוא
+לסיווגים <b>הפוכים</b> — NO_ALERT · STRONG_ALERT.
+לפיכך <b>הכלל אינו מנוון</b>. התוצאה "3 מתוך 3" בקורפוס AirTravel היא תכונה של <b>הקורפוס</b>,
+ולא עדות לכך שהכלל שבור או שאינו מסוגל להבחין.</div>
+<p class="note"><b>מה נמדד:</b> סיווג Detector-v1 על שלושה מצבי פיקסצ׳ר דטרמיניסטיים <b>מונה:</b> אפיזודות בכל סיווג <b>מכנה:</b> מכנה נפרד לכל מצב פיקסצ׳ר <b>מקור:</b> <code>analysis/detector-envelope.json</code> <b>מה אינו מוכיח:</b> תשובות הפיקסצ׳ר סינתטיות ובנויות מראש; אינן מעידות דבר על התנהגות ספק אמיתי, על איכות או על נכונות</p><h2>7. טבלת האפיזודות המלאה</h2>
+<table><tr><th class="n">אפיזודה</th><th class="n">מקרה</th><th class="n">סיום</th><th class="n">שאלות</th>
+<th class="n">סבבים</th><th class="n">אותות חזקים</th><th class="n">אותות חלשים</th><th class="n">סיווג</th></tr>
+<tr><td class="n"><code>EP-577319bf37c87…</code></td><td class="n">02</td><td class="n"><code>CONVERGED</code></td><td class="n">1</td><td class="n">1</td><td class="n">S1</td><td class="n">—</td><td class="n"><code>STRONG_ALERT</code></td></tr><tr><td class="n"><code>EP-cefe8dd7f42da…</code></td><td class="n">03</td><td class="n"><code>CONVERGED</code></td><td class="n">4</td><td class="n">2</td><td class="n">S1</td><td class="n">S2, S6</td><td class="n"><code>STRONG_ALERT</code></td></tr><tr><td class="n"><code>EP-81b2c98d59125…</code></td><td class="n">חוצה-מקרים</td><td class="n"><code>TERMINATED_MAX_ROUNDS</code></td><td class="n">39</td><td class="n">10</td><td class="n">S1, S7</td><td class="n">S2, S6</td><td class="n"><code>STRONG_ALERT</code></td></tr></table>
+<p class="note"><b>מה נמדד:</b> כל אפיזודה שנצפתה, עם האותות שפעלו בה והסיווג שנגזר <b>מונה:</b> אפיזודה בודדת <b>מכנה:</b> 3 אפיזודות שלמות · 0 הוחרגו <b>מקור:</b> <code>output/qa_events.jsonl</code> <b>מה אינו מוכיח:</b> התרעה פירושה <b>מועמדות לבדיקה אנושית</b> בלבד — לא שגיאה שאותרה, לא ליקוי ולא צורך מוכח בהתערבות</p><h2>8. עלות, אסימונים, ומה שאינו זמין</h2>
+<table>
+<tr><th>פריט</th><th class="n">ערך</th></tr>
+<tr><td>קריאות ספק</td><td class="n">43</td></tr>
+<tr><td>אסימוני קלט</td><td class="n">186,558</td></tr>
+<tr><td>אסימוני פלט</td><td class="n">81,384</td></tr>
+<tr><td>סה"כ אסימונים</td><td class="n">267,942</td></tr>
+<tr><td>עלות בפועל</td><td class="n">$0.134972</td></tr>
+<tr class="hi"><td>ייחוס עלות לאפיזודה בודדת</td><td class="n"><code>NOT_AVAILABLE</code></td></tr>
+</table>
+<p class="note"><b>מדוע לא זמין:</b> ההרצה לא שמרה יומן ברמת הקריאה הבודדת, ולכן לא ניתן לייחס
+עלות או אסימונים לאפיזודה מסוימת. זהו <code>NOT_AVAILABLE</code> — <b>אין לדווח עליו כאפס
+ואין לאמוד אותו בחלוקה פשוטה</b>.</p>
+
+<h2>9. גבולות הטענה</h2>
+<table><tr><th>מותר לטעון</th><th>אסור לטעון</th></tr>
+<tr><td>ספירות תיאוריות מריצת ספק מאושרת אחת, על קורפוס זה ובתצורה זו בלבד</td>
+<td>נכונות ההתרעות · דיוק, precision, recall, F1 · אפקטיביות · תועלת אנושית · סיבתיות ·
+ייצוגיות · הכללה · כל השוואה בין בסיס הפיקסצ׳ר לריצה המאושרת כאילו הייתה תוצאה</td></tr></table>
+<p class="note">מדדים אסורים שחושבו במסמך זה: <b>0</b>.
+מחקר 1B סגור כ-<code>BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL</code> ולא בוצע.
+הפיילוט המוגבל-תקציב הוא <code>PREREGISTERED_NOT_EXECUTED</code>.
+מחקר 2 (<code>VEGO_AI_ON</code> מול <code>VEGO_AI_OFF</code>) הוא <code>PREPARED_NOT_EXECUTED</code> —
+אין לו תוצאה ואין להציגו כתוצאה.</p>
+</body></html>
