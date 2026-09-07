@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import asyncio
+import importlib.util
 import json
 import os
+import socket
 import subprocess
 import sys
 from pathlib import Path
@@ -10,9 +12,9 @@ from pathlib import Path
 import pytest
 
 from vego_study2.config import load_config
-from vego_study2.fixtures import DeterministicFixtureClient, fixture_cases
+from vego_study2.fixtures import DeterministicFixtureClient, FixtureResponse, fixture_cases
 from vego_study2.paths import UnsafeOutputPathError, ensure_safe_output_root
-from vego_study2.runner import Study2RunError, Study2Runner
+from vego_study2.runner import Study2RunError, Study2Runner, validate_persisted_receipt
 
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "docs/research/phd-proposal/study2-frozen-config.json"
 
@@ -249,3 +251,252 @@ def test_cli_is_fixture_only_and_writes_private_root(tmp_path: Path) -> None:
     assert summary["evidence_class"] == "ENGINEERING_FIXTURE_ONLY"
     assert summary["scientific_result_status"] == "NOT_EXECUTED"
     assert summary["provider_calls"] == 0
+
+
+def test_cli_rejects_unscoped_legacy_runtime_path(tmp_path: Path) -> None:
+    script = Path(__file__).resolve().parents[1] / "scripts/study2_on_off_experiment.py"
+    env = {**os.environ, "PYTHONPATH": str(Path(__file__).resolve().parents[1] / "src")}
+    completed = subprocess.run(
+        [sys.executable, str(script), "--output-dir", str(tmp_path / "output")],
+        capture_output=True,
+        text=True,
+        env=env,
+        check=False,
+    )
+    assert completed.returncode != 0
+    assert "--allowed-root is required" in completed.stderr
+
+
+def test_legacy_protected_helpers_fail_closed() -> None:
+    script = Path(__file__).resolve().parents[1] / "scripts/study2_on_off_experiment.py"
+    spec = importlib.util.spec_from_file_location("study2_cli", script)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    with pytest.raises(RuntimeError, match="controlled fixture runner"):
+        asyncio.run(module.run_on({}, Path("output"), "two_rounds", "legacy"))
+    with pytest.raises(RuntimeError, match="controlled fixture runner"):
+        asyncio.run(module.run_off({}, "two_rounds"))
+
+
+def test_call_site_binds_model_temperature_token_and_timeout_policy(tmp_path: Path) -> None:
+    class RecordingClient(DeterministicFixtureClient):
+        async def complete(self, request: object) -> FixtureResponse:
+            response = await super().complete(request)
+            self.calls[-1]["timeout_seconds"] = request.timeout_seconds
+            return response
+
+    client = RecordingClient()
+    runner = _runner(tmp_path, client)
+    result = asyncio.run(runner.run_both())
+    assert result["conditions"]["VEGO_AI_ON"]["status"] == "PASS"
+    assert result["conditions"]["VEGO_AI_OFF"]["status"] == "PASS"
+    expected = {
+        "model_id": runner.config["model"]["model_id"],
+        "temperature": runner.config["model"]["temperature"],
+        "max_output_tokens": runner.config["model"]["max_output_tokens"],
+        "timeout_seconds": runner.config["execution"]["timeout_seconds"],
+    }
+    assert client.calls
+    assert all({key: call[key] for key in expected} == expected for call in client.calls)
+
+
+def test_output_token_ceiling_is_enforced_at_call_site(tmp_path: Path) -> None:
+    class OverTokenClient(DeterministicFixtureClient):
+        async def complete(self, request: object) -> FixtureResponse:
+            response = await super().complete(request)
+            return FixtureResponse(
+                response.payload,
+                input_tokens=response.input_tokens,
+                output_tokens=request.max_output_tokens + 1,
+                cost_usd=response.cost_usd,
+            )
+
+    report = asyncio.run(_runner(tmp_path, OverTokenClient()).run_off())
+    assert report["status"] == "TECHNICAL_FAILURE"
+    assert report["failure_code"] == "OUTPUT_TOKEN_CEILING_EXCEEDED"
+    assert report["output_tokens"] == 0
+
+
+def test_zero_budget_blocks_before_client_call(tmp_path: Path) -> None:
+    config = load_config(CONFIG_PATH)
+    config["execution"]["cost_ceiling_usd"] = 0.0
+
+    class CountingClient(DeterministicFixtureClient):
+        pass
+
+    client = CountingClient()
+    runner = Study2Runner(
+        config=config,
+        cases=fixture_cases(config),
+        client=client,
+        output_root=tmp_path / "study2-output",
+        code_sha="fixture-code-sha",
+    )
+    report = asyncio.run(runner.run_off())
+    assert report["status"] == "TECHNICAL_FAILURE"
+    assert report["failure_code"] == "COST_CEILING_EXCEEDED"
+    assert report["attempts"] == 0
+    assert client.calls == []
+
+
+def test_call_ceiling_is_hard_limit_across_concurrent_cases(tmp_path: Path) -> None:
+    config = load_config(CONFIG_PATH)
+    config["execution"]["call_ceiling"] = 2
+    config["execution"]["retries"] = 0
+    client = DeterministicFixtureClient()
+    runner = Study2Runner(
+        config=config,
+        cases=fixture_cases(config),
+        client=client,
+        output_root=tmp_path / "study2-output",
+        code_sha="fixture-code-sha",
+    )
+    report = asyncio.run(runner.run_off())
+    assert report["status"] == "TECHNICAL_FAILURE"
+    assert report["attempts"] == 2
+    assert len(client.calls) == 2
+    assert report["failure_code"] == "CALL_CEILING_EXCEEDED"
+
+
+def test_configuration_is_frozen_before_conditions_start(tmp_path: Path) -> None:
+    config = load_config(CONFIG_PATH)
+    client = DeterministicFixtureClient()
+    runner = Study2Runner(
+        config=config,
+        cases=fixture_cases(config),
+        client=client,
+        output_root=tmp_path / "study2-output",
+        code_sha="fixture-code-sha",
+    )
+    config["model"]["model_id"] = "mutated-after-construction"
+    report = asyncio.run(runner.run_off())
+    assert report["status"] == "PASS"
+    assert all(call["model_id"] == "TO_BE_FROZEN_BEFORE_FIRST_CALL" for call in client.calls)
+
+
+def test_runner_rejects_unmarked_non_fixture_client(tmp_path: Path) -> None:
+    class UnmarkedClient:
+        async def complete(self, request: object) -> FixtureResponse:
+            raise AssertionError("a non-fixture client must never be called")
+
+    config = load_config(CONFIG_PATH)
+    with pytest.raises(Study2RunError, match="offline-only client"):
+        Study2Runner(
+            config=config,
+            cases=fixture_cases(config),
+            client=UnmarkedClient(),
+            output_root=tmp_path / "study2-output",
+            code_sha="fixture-code-sha",
+        )
+
+
+def test_egress_attempt_is_blocked_and_recorded(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def forbidden_connect(*args: object, **kwargs: object) -> object:
+        raise AssertionError("the test client attempted an unguarded connection")
+
+    monkeypatch.setattr(socket, "create_connection", forbidden_connect)
+
+    class EgressAttemptClient(DeterministicFixtureClient):
+        async def complete(self, request: object) -> FixtureResponse:
+            socket.create_connection(("api.openai.com", 443), timeout=0.001)
+            return await super().complete(request)
+
+    report = asyncio.run(_runner(tmp_path, EgressAttemptClient()).run_off())
+    assert report["status"] == "TECHNICAL_FAILURE"
+    assert report["privacy_counters"]["blocked_egress_attempts"] == 4
+    assert report["provider_calls"] == 0
+    assert report["external_calls"] == 0
+
+
+def test_connect_ex_egress_attempt_is_blocked(tmp_path: Path) -> None:
+    class EgressAttemptClient(DeterministicFixtureClient):
+        async def complete(self, request: object) -> FixtureResponse:
+            sock = socket.socket()
+            try:
+                sock.connect_ex(("api.openai.com", 443))
+            finally:
+                sock.close()
+            return await super().complete(request)
+
+    report = asyncio.run(_runner(tmp_path, EgressAttemptClient()).run_off())
+    assert report["status"] == "TECHNICAL_FAILURE"
+    assert report["privacy_counters"]["blocked_egress_attempts"] == 4
+
+
+def test_non_finite_usage_fails_closed(tmp_path: Path) -> None:
+    class NaNClient(DeterministicFixtureClient):
+        async def complete(self, request: object) -> FixtureResponse:
+            response = await super().complete(request)
+            return FixtureResponse(
+                response.payload,
+                input_tokens=response.input_tokens,
+                output_tokens=response.output_tokens,
+                cost_usd=float("nan"),
+            )
+
+    report = asyncio.run(_runner(tmp_path, NaNClient()).run_off())
+    assert report["status"] == "TECHNICAL_FAILURE"
+    assert report["failure_code"] == "MISSING_USAGE"
+
+
+def test_symlinked_approved_root_is_rejected(tmp_path: Path) -> None:
+    allowed = tmp_path / "allowed"
+    allowed.mkdir()
+    link = tmp_path / "allowed-link"
+    try:
+        link.symlink_to(allowed, target_is_directory=True)
+    except (OSError, NotImplementedError):
+        pytest.skip("symlink creation is unavailable")
+    config = load_config(CONFIG_PATH)
+    with pytest.raises(UnsafeOutputPathError):
+        asyncio.run(Study2Runner(
+            config=config,
+            cases=fixture_cases(config),
+            client=DeterministicFixtureClient(),
+            output_root=link / "output",
+            approved_root=link,
+            code_sha="fixture-code-sha",
+        ).run_off())
+
+
+def test_persisted_receipt_rejects_result_tampering(tmp_path: Path) -> None:
+    asyncio.run(_runner(tmp_path).run_both())
+    result_path = tmp_path / "study2-output" / "VEGO_AI_ON" / "result.json"
+    payload = json.loads(result_path.read_text(encoding="utf-8"))
+    payload["cost_usd"] = 0.123456
+    result_path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(Study2RunError, match="result hash mismatch"):
+        validate_persisted_receipt(tmp_path / "study2-output")
+
+
+def test_persisted_receipt_rejects_receipt_binding_tampering(tmp_path: Path) -> None:
+    asyncio.run(_runner(tmp_path).run_both())
+    receipt_path = tmp_path / "study2-output" / "run-receipt.json"
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt["run_id"] = "tampered"
+    receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+    with pytest.raises(Study2RunError, match="receipt binding mismatch"):
+        validate_persisted_receipt(tmp_path / "study2-output")
+
+
+def test_persisted_receipt_rejects_event_log_tampering(tmp_path: Path) -> None:
+    asyncio.run(_runner(tmp_path).run_both())
+    event_path = tmp_path / "study2-output" / "VEGO_AI_OFF" / "events.jsonl"
+    event_path.write_text(event_path.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+    with pytest.raises(Study2RunError, match="event hash mismatch"):
+        validate_persisted_receipt(tmp_path / "study2-output")
+
+
+def test_on_off_receipt_bindings_are_symmetric(tmp_path: Path) -> None:
+    result = asyncio.run(_runner(tmp_path).run_both())
+    receipt = result["receipt"]
+    for condition in ("VEGO_AI_ON", "VEGO_AI_OFF"):
+        bound = receipt["conditions"][condition]
+        summary = bound["summary"]
+        assert bound["configuration_sha256"] == receipt["configuration_sha256"]
+        assert summary["model"] == result["conditions"][condition]["model"]
+        assert summary["control_policy"] == result["conditions"][condition]["control_policy"]
+        assert summary["corpus_hashes"] == receipt["corpus_hashes"]
+    assert receipt["conditions"]["VEGO_AI_ON"]["summary"]["detector_v1"]["status"] == "APPLICABLE"
+    assert receipt["conditions"]["VEGO_AI_OFF"]["summary"]["detector_v1"]["status"] == "NOT_APPLICABLE"

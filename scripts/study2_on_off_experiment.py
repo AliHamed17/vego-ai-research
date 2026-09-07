@@ -1,15 +1,21 @@
-"""Study 2: run VEGO_AI_ON and VEGO_AI_OFF over the same corpus and compare.
+"""Study 2: compare the VEGO_AI_ON and VEGO_AI_OFF systems offline.
 
-The single varying factor is VEGO-AI orchestration. Corpus, case identifiers,
-model, token policy, retries, timeout, concurrency and output schema are held
-identical, and a prompt-difference receipt records what actually differed.
+This is a system comparison, not a single-factor orchestration ablation. The
+conditions necessarily differ in prompt text, task decomposition, call
+structure and control flow; the prompt-difference receipt records those
+structural differences rather than claiming they are incidental.
 
-Detector-v1 is applied only to the ON condition. The OFF baseline emits no
-inter-agent episodes, so its detector denominator is NOT_APPLICABLE and the two
-conditions are never compared on alert counts. They are compared on the shared
-per-case output objective, on cost and on time.
+Detector-v1 is applicable only to the ON condition and is not executed by this
+fixture harness. The OFF baseline emits no inter-agent episodes, so its detector
+denominator is NOT_APPLICABLE and the two conditions are never compared on alert
+counts. Schema/volume diagnostics are reported as explicitly not comparable as
+quality; operational costs and timings are descriptive only.
 
 Study 1 results are never pooled with anything produced here.
+
+The historical protected-runtime helpers are retained only as fail-closed
+compatibility names. The command-line interface accepts only the controlled
+dependency-injected runner selected with ``--allowed-root``.
 """
 
 from __future__ import annotations
@@ -18,12 +24,8 @@ import argparse
 import asyncio
 import json
 import sys
-import time
-from collections import Counter
 from pathlib import Path
 from typing import Any
-
-import jsonschema
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -125,95 +127,27 @@ def summarise_off(result: dict[str, Any]) -> dict[str, Any]:
 
 
 async def run_on(corpus: dict[str, Any], output: Path, mode: str, run_id: str) -> dict[str, Any]:
-    import airtravel_v4_execution as ex
-    from airtravel_local_observer import Observer, Proxy, RecordingFake
-    from qa_communication import QACommunicationRecorder
-    from qa_registry import QARegistry
+    """Deprecated protected-runtime fixture path; fail closed if called."""
+    raise RuntimeError("legacy protected-runtime path is disabled; use the controlled fixture runner")
 
-    module = ex._load_protected_runtime()
-    output.mkdir(parents=True, exist_ok=True)
-    recorder = QACommunicationRecorder(output / "qa_events.jsonl", run_id=run_id)
-    observer = Observer(recorder)
-    fake = RecordingFake(mode)
-    proxy = Proxy(fake, observer, len(corpus["cases"]), SETTING_ID, run_id)
-    cfg = {
-        "setting_id": SETTING_ID,
-        "corpus_id": CORPUS_ID,
-        "language_name": "UML",
-        "domain_description": corpus["domain_description"],
-        "case_models": corpus["cases"],
-        "max_concurrent_cases": 2,
-        "model": FIXTURE_IDENTITY,
-        "output_dir": str(output),
-    }
-    original_client, original_registry = module.LLMClient, module.QARegistry
-    module.LLMClient = lambda **_: proxy
-    module.QARegistry = observer.registry(QARegistry)
-    started = time.monotonic()
-    try:
-        await module.run_setting(cfg, output / "inline.json", None, SETTING_ID)
-    finally:
-        module.LLMClient, module.QARegistry = original_client, original_registry
-        recorder.close_open_episodes()
-    events = recorder.events
-    prompts = {row["label"]: row["prompt_sha256"] for row in fake.calls}
-    return {
-        "condition": "VEGO_AI_ON",
-        "elapsed_seconds": round(time.monotonic() - started, 3),
-        "calls": len(fake.calls),
-        "agent_decomposition": True,
-        "inter_agent_qa": True,
-        "episodes": len({e["episode_id"] for e in events}),
-        "questions": sum(e["event_type"] == "QUESTION_EMITTED" for e in events),
-        "answers": sum(e["event_type"] == "ANSWER_RECEIVED" for e in events),
-        "termination_states": dict(
-            Counter(
-                e["termination_reason"] for e in events if e["event_type"] == "EPISODE_TERMINATED"
-            )
-        ),
-        "per_case": summarise_on(output),
-        "prompt_sha_by_label": prompts,
-    }
+
+async def _legacy_run_on(corpus: dict[str, Any], output: Path, mode: str, run_id: str) -> dict[str, Any]:
+    raise RuntimeError("legacy protected-runtime path is disabled; use the controlled fixture runner")
 
 
 async def run_off(corpus: dict[str, Any], mode: str) -> dict[str, Any]:
-    from airtravel_local_observer import RecordingFake
-    from study2_vego_off_baseline import run_off_baseline
+    """Deprecated unbound baseline path; fail closed if called."""
+    raise RuntimeError("legacy unbound baseline path is disabled; use the controlled fixture runner")
 
-    class BaselineFake(RecordingFake):
-        """Fixture client for the baseline: no protected call-inventory contract."""
 
-        def __init__(self, mode: str):
-            self.mode = mode
-            self.calls = []
-
-        async def call(self, prompt, *, label):
-            self.calls.append({"label": label})
-            await asyncio.sleep(0)
-            return {
-                "schema_version": "study2-condition-output-v1",
-                "condition": "VEGO_AI_OFF",
-                "skill_version": "off-baseline-v1",
-                "case_id": label.split("/")[1],
-                "existing_mapping": [],
-                "coverage_summary": {"satisfied": 0, "partially_satisfied": 0, "not_satisfied": 0},
-                "uncovered_fragments": [],
-            }
-
-    client = BaselineFake(mode)
-    started = time.monotonic()
-    result = await run_off_baseline(
-        client, corpus["cases"], corpus["domain_description"], "UML", max_concurrent=2
-    )
-    result["elapsed_seconds"] = round(time.monotonic() - started, 3)
-    result["per_case"] = summarise_off(result)
-    return result
+async def _legacy_run_off(corpus: dict[str, Any], mode: str) -> dict[str, Any]:
+    raise RuntimeError("legacy unbound baseline path is disabled; use the controlled fixture runner")
 
 
 def prompt_difference_receipt(on: dict[str, Any], off: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "study2-prompt-difference-receipt-v1",
-        "varying_factor": "VEGO-AI orchestration (agent decomposition and inter-agent Q&A)",
+        "varying_factor": "VEGO-AI system workflow (agent decomposition, prompts, Q&A, and call structure)",
         "held_identical": [
             "corpus_id and case identifiers",
             "model identity and token policy",
@@ -221,10 +155,10 @@ def prompt_difference_receipt(on: dict[str, Any], off: dict[str, Any]) -> dict[s
             "required output fields (mapping rows, uncovered fragments)",
             "private output root and privacy controls",
         ],
-        "on_prompt_count": len(on["prompt_sha_by_label"]),
-        "off_prompt_count": len(off["prompt_sha_by_case"]),
-        "on_prompt_sha_by_label": on["prompt_sha_by_label"],
-        "off_prompt_sha_by_case": off["prompt_sha_by_case"],
+        "on_prompt_count": len(on["prompt_sha_by_call"]),
+        "off_prompt_count": len(off["prompt_sha_by_call"]),
+        "on_prompt_sha_by_call": on["prompt_sha_by_call"],
+        "off_prompt_sha_by_call": off["prompt_sha_by_call"],
         "structural_differences": {
             "agent_decomposition": {"on": True, "off": False},
             "inter_agent_qa": {"on": True, "off": False},
@@ -301,63 +235,10 @@ def main() -> int:
         print(json.dumps(summary, indent=2, sort_keys=True))
         return 0
 
-    corpus = load_corpus(args.runtime_root)
-    on = asyncio.run(run_on(corpus, args.output_dir / "on", args.fixture_mode, args.run_id))
-    off = asyncio.run(run_off(corpus, args.fixture_mode))
-
-    cases = sorted(set(on["per_case"]) | set(off["per_case"]))
-    comparison = []
-    for case_id in cases:
-        a, b = on["per_case"].get(case_id, {}), off["per_case"].get(case_id, {})
-        comparison.append(
-            {
-                "case_id": case_id,
-                "on_mapping_rows": a.get("mapping_rows"),
-                "off_mapping_rows": b.get("mapping_rows"),
-                "on_uncovered_fragments": a.get("uncovered_fragments"),
-                "off_uncovered_fragments": b.get("uncovered_fragments"),
-                "on_schema_complete": a.get("schema_complete"),
-                "off_schema_complete": b.get("schema_complete"),
-            }
-        )
-
-    payload = {
-        "schema_version": "study2-on-off-comparison-v1",
-        "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
-        "provider_calls": 0,
-        "fixture_mode": args.fixture_mode,
-        "setting_id": SETTING_ID,
-        "corpus_id": CORPUS_ID,
-        "cases": len(corpus["cases"]),
-        "conditions": {
-            "VEGO_AI_ON": {k: v for k, v in on.items() if k != "prompt_sha_by_label"},
-            "VEGO_AI_OFF": {
-                k: v for k, v in off.items() if k not in {"cases", "prompt_sha_by_case"}
-            },
-        },
-        "per_case_comparison": comparison,
-        "detector_v1": {
-            "applied_to": "VEGO_AI_ON only",
-            "off_denominator": "NOT_APPLICABLE",
-            "reason": (
-                "The baseline produces no inter-agent episodes. Absence of a measuring "
-                "unit is not a zero-alert observation, so the conditions are never "
-                "compared on alert counts."
-            ),
-        },
-        "prompt_difference_receipt": prompt_difference_receipt(on, off),
-        "pooling": "Study 1 results are not pooled with this comparison.",
-        "forbidden_metrics_computed": [],
-    }
-    try:
-        jsonschema.Draft202012Validator(COMPARISON_SCHEMA).validate(payload)
-    except jsonschema.ValidationError as exc:
-        raise ValueError(f"Study 2 comparison receipt schema invalid: {exc.message}") from exc
-    target = args.output_dir / "on-off-comparison.json"
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_bytes((json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8"))
-    print(json.dumps({k: payload[k] for k in ("conditions", "per_case_comparison", "detector_v1")}, indent=2, sort_keys=True))
-    return 0
+    parser.error(
+        "Study 2 is fixture-only in this revision; --allowed-root is required "
+        "to select the controlled dependency-injected runner"
+    )
 
 
 if __name__ == "__main__":

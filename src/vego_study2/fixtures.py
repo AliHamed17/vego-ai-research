@@ -33,6 +33,8 @@ def fixture_cases(config: dict[str, Any]) -> list[dict[str, Any]]:
 class DeterministicFixtureClient:
     """Offline client used by tests; it has no provider or network path."""
 
+    offline_only = True
+
     def __init__(
         self,
         mode: str = "valid",

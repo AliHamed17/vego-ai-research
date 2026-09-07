@@ -7,7 +7,7 @@
   "required": [
     "schema_version", "evidence_class", "scientific_result_status", "study1_pooled", "run_id",
     "setting_id", "corpus_id", "corpus_hashes", "code_sha256", "configuration_sha256", "conditions",
-    "privacy_counters", "provider_calls", "external_calls"
+    "case_input_hashes", "privacy_counters", "provider_calls", "external_calls", "receipt_binding"
   ],
   "properties": {
     "schema_version": {"const": "study2-run-receipt-v1"},
@@ -18,6 +18,7 @@
     "setting_id": {"const": "cd_airtravel"},
     "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
     "corpus_hashes": {"type": "object", "minProperties": 5, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "case_input_hashes": {"type": "object", "minProperties": 4, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
     "code_sha256": {"type": "string", "minLength": 1},
     "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "conditions": {
@@ -31,7 +32,17 @@
     },
     "privacy_counters": {"type": "object"},
     "provider_calls": {"const": 0},
-    "external_calls": {"const": 0}
+    "external_calls": {"const": 0},
+    "receipt_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "scope", "content_sha256"],
+      "properties": {
+        "algorithm": {"const": "SHA-256"},
+        "scope": {"const": "canonical receipt object without receipt_binding"},
+        "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
   },
   "$defs": {
     "condition": {
@@ -39,7 +50,8 @@
       "additionalProperties": false,
       "required": [
         "result_file_sha256", "event_log_sha256", "pipeline_manifest_sha256",
-        "result_file_hashes", "lifecycle_summary", "summary"
+        "result_file_hashes", "lifecycle_summary", "summary", "configuration_sha256",
+        "code_sha256", "model", "control_policy", "corpus_hashes", "case_input_hashes"
       ],
       "properties": {
         "result_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
@@ -50,7 +62,13 @@
           "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
         },
         "lifecycle_summary": {"type": "object"},
-        "summary": {"type": "object"}
+        "summary": {"type": "object"},
+        "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "code_sha256": {"type": "string", "minLength": 1},
+        "model": {"type": "object"},
+        "control_policy": {"type": "object"},
+        "corpus_hashes": {"type": "object"},
+        "case_input_hashes": {"type": "object"}
       }
     }
   }

@@ -133,3 +133,5 @@ def test_comparison_schema_freezes_fixture_and_off_detector_boundary():
     jsonschema.Draft202012Validator.check_schema(schema)
     assert schema["properties"]["provider_calls"]["const"] == 0
     assert schema["properties"]["detector_v1"]["properties"]["off_denominator"]["const"] == "NOT_APPLICABLE"
+    assert schema["properties"]["detector_v1"]["properties"]["detector_v1_executed"]["const"] is False
+    assert schema["properties"]["per_case_comparison"]["items"]["properties"]["comparability"]["const"] == "NOT_COMPARABLE_AS_QUALITY"

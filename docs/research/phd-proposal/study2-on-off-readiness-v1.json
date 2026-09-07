@@ -2,7 +2,7 @@
   "schema_version": "study2-on-off-readiness-v1",
   "status": "PREPARED_NOT_EXECUTED",
   "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
-  "research_question": "Describe per-case artifact, call, token, cost and elapsed-time differences when VEGO-AI orchestration is enabled versus a defined direct baseline.",
+  "research_question": "Describe per-case artifact, call, token, cost and elapsed-time differences between the complete VEGO-AI ON system and a defined direct OFF system.",
   "conditions": {
     "VEGO_AI_ON": {
       "orchestration": true,
@@ -43,10 +43,13 @@
       "network policy DISABLED",
       "private output-root containment",
       "strict output schema",
-      "ordered attempt and privacy counters"
+      "ordered attempt and privacy counters",
+      "receipt self-binding and persisted artifact hashes",
+      "fixture-client offline marker and blocked-egress counter",
+      "CLI rejection of the unscoped legacy runtime path"
     ],
     "provider_identity": "NOT_YET_FROZEN_FOR_ANY_PAID_RUN",
-    "provider_egress": "NOT_TESTED; fixture client has no network path"
+    "provider_egress": "OFFLINE_SOCKET_GUARD_TESTED; no provider client or network path"
   },
   "fixture_policy": {
     "allowed": true,

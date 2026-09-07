@@ -3,9 +3,12 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import math
 import re
+import socket
 import time
 from collections import Counter
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
@@ -55,20 +58,36 @@ class Study2Runner:
         approved_root: Path | None = None,
     ) -> None:
         validate_config(config)
-        self.config = config
+        # Freeze the caller's configuration at construction.  A condition must
+        # not be able to observe a later mutation of model, policy, or corpus
+        # settings made by another caller or task.
+        self.config = json.loads(canonical_json(config).decode("utf-8"))
+        network_policy = self.config["execution"]["network_policy"]
+        if network_policy["mode"] != "DISABLED" or network_policy["provider_hosts"]:
+            raise Study2RunError("Study 2 fixture execution requires network DISABLED with no hosts")
+        if getattr(client, "offline_only", False) is not True:
+            raise Study2RunError("Study 2 fixture execution requires a declared offline-only client")
         self.cases = self._validate_cases(cases)
         self.client = client
         self.output_root = Path(output_root)
         self.code_sha = code_sha
-        self.config_sha256 = canonical_sha256(config)
-        self._allowed_root = (approved_root or self.output_root.parent).resolve(strict=False)
+        self.config_sha256 = canonical_sha256(self.config)
+        # Keep the lexical root intact so ``ensure_safe_output_root`` can reject
+        # a symlink/reparse-point root instead of resolving it away here.
+        self._allowed_root = (approved_root or self.output_root.parent).absolute()
         self.corpus_hashes = {
             row["path"]: row["sha256"] for row in self.config["corpus"]["files"]
+        }
+        self.case_input_hashes = {
+            row["case_id"]: hashlib.sha256(row["case_model"].encode("utf-8")).hexdigest()
+            for row in self.cases
         }
 
     def _validate_cases(self, cases: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if len(cases) != len(self.config["case_ids"]):
             raise Study2RunError("case count does not match frozen configuration")
+        if any(not isinstance(row, dict) for row in cases):
+            raise Study2RunError("fixture cases must be objects")
         by_id = {str(row.get("case_id")): row for row in cases}
         if list(by_id) != self.config["case_ids"] or any(
             not isinstance(row.get("case_id"), str)
@@ -83,7 +102,34 @@ class Study2Runner:
     def _policy(self) -> dict[str, Any]:
         return self.config["execution"]
 
+    def _assert_request_policy(self, request: CallRequest) -> None:
+        """Fail closed if a call does not carry the frozen execution policy."""
+        expected_model = self.config["model"]
+        if request.model_id != expected_model["model_id"]:
+            raise Study2RunError("MODEL_ID_POLICY_MISMATCH")
+        if request.temperature != float(expected_model["temperature"]):
+            raise Study2RunError("TEMPERATURE_POLICY_MISMATCH")
+        if request.max_output_tokens != int(expected_model["max_output_tokens"]):
+            raise Study2RunError("TOKEN_POLICY_MISMATCH")
+        if request.timeout_seconds != float(self._policy["timeout_seconds"]):
+            raise Study2RunError("TIMEOUT_POLICY_MISMATCH")
+        if request.condition not in {"VEGO_AI_ON", "VEGO_AI_OFF"}:
+            raise Study2RunError("CONDITION_POLICY_MISMATCH")
+
+    def _cost_reservation(self) -> float:
+        """Reserve an equal slice of the frozen budget before each attempt.
+
+        The reservation is intentionally retained for failed attempts.  This
+        makes the aggregate ceiling conservative under retries and prevents a
+        later attempt from spending a budget slice that an earlier attempt
+        already consumed.
+        """
+        ceiling = float(self._policy["cost_ceiling_usd"])
+        calls = int(self._policy["call_ceiling"])
+        return ceiling / calls if calls else ceiling
+
     async def _call(self, request: CallRequest, state: dict[str, Any]) -> tuple[Any, dict[str, Any]]:
+        self._assert_request_policy(request)
         last_code = "UNKNOWN"
         max_attempts = int(self._policy["retries"]) + 1
         for attempt in range(1, max_attempts + 1):
@@ -91,6 +137,12 @@ class Study2Runner:
                 async with state["lock"]:
                     if state["attempts"] >= self._policy["call_ceiling"]:
                         raise Study2RunError("CALL_CEILING_EXCEEDED")
+                    reservation = self._cost_reservation()
+                    if reservation <= 0 or state["reserved_cost_usd"] + reservation > float(
+                        self._policy["cost_ceiling_usd"]
+                    ) + 1e-12:
+                        raise Study2RunError("COST_CEILING_EXCEEDED")
+                    state["reserved_cost_usd"] += reservation
                     state["attempts"] += 1
                     state["attempt_markers"].append({"label": request.label, "attempt": attempt})
                 try:
@@ -99,6 +151,10 @@ class Study2Runner:
                     )
                 except asyncio.TimeoutError:
                     last_code = "TIMEOUT"
+                except Study2RunError:
+                    # Safety-policy failures (including blocked egress) are
+                    # terminal for this case and must not be retried.
+                    raise
                 except Exception as exc:  # noqa: BLE001 - sanitized into a receipt
                     last_code = type(exc).__name__.upper()
                 else:
@@ -106,11 +162,26 @@ class Study2Runner:
                     if _contains_secret(payload):
                         state["privacy_counters"]["secrets_detected"] += 1
                         return None, {"valid": False, "reason_code": "SECRET_LEAK"}
-                    cost = float(getattr(response, "cost_usd", -1))
-                    input_tokens = int(getattr(response, "input_tokens", -1))
-                    output_tokens = int(getattr(response, "output_tokens", -1))
-                    if input_tokens < 0 or output_tokens < 0 or cost < 0:
+                    try:
+                        cost = float(getattr(response, "cost_usd", -1))
+                        input_tokens = int(getattr(response, "input_tokens", -1))
+                        output_tokens = int(getattr(response, "output_tokens", -1))
+                    except (TypeError, ValueError, OverflowError):
                         last_code = "MISSING_USAGE"
+                        continue
+                    if (
+                        not math.isfinite(cost)
+                        or input_tokens < 0
+                        or output_tokens < 0
+                        or cost < 0
+                    ):
+                        last_code = "MISSING_USAGE"
+                    elif output_tokens > int(self.config["model"]["max_output_tokens"]):
+                        raise Study2RunError("OUTPUT_TOKEN_CEILING_EXCEEDED")
+                    elif cost > reservation + 1e-12:
+                        # A client that reports more than its pre-call reserved
+                        # slice cannot be admitted under the frozen budget.
+                        raise Study2RunError("COST_CEILING_EXCEEDED")
                     elif state["cost_usd"] + cost > float(self._policy["cost_ceiling_usd"]):
                         raise Study2RunError("COST_CEILING_EXCEEDED")
                     else:
@@ -148,9 +219,14 @@ class Study2Runner:
             "successful_calls": 0,
             "attempt_markers": [],
             "cost_usd": 0.0,
+            "reserved_cost_usd": 0.0,
             "input_tokens": 0,
             "output_tokens": 0,
-            "privacy_counters": {"secrets_detected": 0, "raw_content_persisted": 0},
+            "privacy_counters": {
+                "secrets_detected": 0,
+                "raw_content_persisted": 0,
+                "blocked_egress_attempts": 0,
+            },
         }
         started = time.perf_counter()
         rows: list[dict[str, Any]] = []
@@ -202,10 +278,11 @@ class Study2Runner:
             )
 
         try:
-            await asyncio.wait_for(
-                asyncio.gather(*(one(case) for case in self.cases)),
-                timeout=float(self._policy["run_timeout_seconds"]),
-            )
+            with _disabled_network(state):
+                await asyncio.wait_for(
+                    asyncio.gather(*(one(case) for case in self.cases)),
+                    timeout=float(self._policy["run_timeout_seconds"]),
+                )
         except asyncio.TimeoutError as exc:
             raise Study2RunError("RUN_TIMEOUT") from exc
         ended = time.perf_counter()
@@ -222,6 +299,7 @@ class Study2Runner:
             "setting_id": self.config["setting_id"],
             "corpus_id": self.config["corpus_id"],
             "corpus_hashes": self.corpus_hashes,
+            "case_input_hashes": self.case_input_hashes,
             "code_sha256": self.code_sha,
             "configuration_sha256": self.config_sha256,
             "model": self.config["model"],
@@ -367,6 +445,7 @@ class Study2Runner:
             "setting_id": self.config["setting_id"],
             "corpus_id": self.config["corpus_id"],
             "corpus_hashes": self.corpus_hashes,
+            "case_input_hashes": self.case_input_hashes,
             "code_sha256": self.code_sha,
             "configuration_sha256": self.config_sha256,
             "conditions": {
@@ -375,23 +454,46 @@ class Study2Runner:
                     "result_file_hashes": {"result.json": artifacts["VEGO_AI_ON"]["result_file_sha256"]},
                     "lifecycle_summary": _lifecycle_summary(on),
                     "summary": _receipt_condition_summary(on),
+                    "configuration_sha256": self.config_sha256,
+                    "code_sha256": self.code_sha,
+                    "model": self.config["model"],
+                    "control_policy": self._policy,
+                    "corpus_hashes": self.corpus_hashes,
+                    "case_input_hashes": self.case_input_hashes,
                 },
                 "VEGO_AI_OFF": {
                     **artifacts["VEGO_AI_OFF"],
                     "result_file_hashes": {"result.json": artifacts["VEGO_AI_OFF"]["result_file_sha256"]},
                     "lifecycle_summary": _lifecycle_summary(off),
                     "summary": _receipt_condition_summary(off),
+                    "configuration_sha256": self.config_sha256,
+                    "code_sha256": self.code_sha,
+                    "model": self.config["model"],
+                    "control_policy": self._policy,
+                    "corpus_hashes": self.corpus_hashes,
+                    "case_input_hashes": self.case_input_hashes,
                 },
             },
             "privacy_counters": {
                 "raw_content_persisted": 0,
                 "secrets_detected": on["privacy_counters"]["secrets_detected"] + off["privacy_counters"]["secrets_detected"],
+                "blocked_egress_attempts": on["privacy_counters"]["blocked_egress_attempts"] + off["privacy_counters"]["blocked_egress_attempts"],
             },
             "provider_calls": 0,
             "external_calls": 0,
         }
+        # The pair is a system comparison: all controls and inputs are shared,
+        # while only the workflow condition varies.
+        if on["model"] != off["model"] or on["control_policy"] != off["control_policy"]:
+            raise Study2RunError("ON_OFF_CONTROL_ASYMMETRY")
+        receipt["receipt_binding"] = {
+            "algorithm": "SHA-256",
+            "scope": "canonical receipt object without receipt_binding",
+            "content_sha256": canonical_sha256(receipt),
+        }
         validate_receipt(receipt)
         _write_json(self.output_root / "run-receipt.json", receipt)
+        validate_persisted_receipt(self.output_root)
         normalized_receipt = {
             "evidence_class": receipt["evidence_class"],
             "scientific_result_status": receipt["scientific_result_status"],
@@ -401,6 +503,8 @@ class Study2Runner:
             "corpus_id": receipt["corpus_id"],
             "code_sha256": receipt["code_sha256"],
             "configuration_sha256": receipt["configuration_sha256"],
+            "corpus_hashes": receipt["corpus_hashes"],
+            "case_input_hashes": receipt["case_input_hashes"],
             "conditions": {
                 condition: receipt["conditions"][condition]["lifecycle_summary"]
                 for condition in ("VEGO_AI_ON", "VEGO_AI_OFF")
@@ -502,6 +606,142 @@ def _file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+@contextmanager
+def _disabled_network(state: dict[str, Any]):
+    """Block socket egress for the complete dependency-injected run.
+
+    Study 2's frozen configuration is offline-only.  Patching the common
+    socket entry points around the actual client calls makes that policy
+    executable and records every attempted connection without contacting a
+    network endpoint.
+    """
+    blocked = state["privacy_counters"]
+    original_create = socket.create_connection
+    original_getaddrinfo = socket.getaddrinfo
+    original_connect = socket.socket.connect
+    original_connect_ex = socket.socket.connect_ex
+
+    def deny(*args: Any, **kwargs: Any) -> Any:
+        blocked["blocked_egress_attempts"] += 1
+        raise Study2RunError("EGRESS_BLOCKED")
+
+    socket.create_connection = deny  # type: ignore[assignment]
+    socket.getaddrinfo = deny  # type: ignore[assignment]
+    socket.socket.connect = deny  # type: ignore[method-assign]
+    socket.socket.connect_ex = deny  # type: ignore[method-assign]
+    try:
+        yield
+    finally:
+        socket.create_connection = original_create  # type: ignore[assignment]
+        socket.getaddrinfo = original_getaddrinfo  # type: ignore[assignment]
+        socket.socket.connect = original_connect  # type: ignore[method-assign]
+        socket.socket.connect_ex = original_connect_ex  # type: ignore[method-assign]
+
+
+def validate_persisted_receipt(output_root: Path) -> dict[str, Any]:
+    """Validate a persisted ON/OFF receipt and every bound artifact.
+
+    This validator is deliberately read-only and performs no provider or
+    network activity.  It catches result, event-log, pipeline-manifest, and
+    receipt tampering before any aggregate is treated as a valid fixture run.
+    """
+    root = Path(output_root)
+    receipt_path = root / "run-receipt.json"
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise Study2RunError("receipt unavailable or invalid JSON") from exc
+    try:
+        validate_receipt(receipt)
+    except SchemaValidationError as exc:
+        raise Study2RunError("receipt schema invalid") from exc
+    binding = receipt.get("receipt_binding")
+    if not isinstance(binding, dict) or binding.get("algorithm") != "SHA-256":
+        raise Study2RunError("receipt binding missing")
+    unsigned = dict(receipt)
+    unsigned.pop("receipt_binding", None)
+    if binding.get("content_sha256") != canonical_sha256(unsigned):
+        raise Study2RunError("receipt binding mismatch")
+    for condition in ("VEGO_AI_ON", "VEGO_AI_OFF"):
+        bound = receipt["conditions"][condition]
+        condition_dir = root / condition
+        result_path = condition_dir / "result.json"
+        event_path = condition_dir / "events.jsonl"
+        manifest_path = condition_dir / "pipeline-output-manifest.json"
+        for path in (result_path, event_path, manifest_path):
+            if not path.is_file():
+                raise Study2RunError(f"missing persisted artifact: {condition}/{path.name}")
+        actual_result_hash = _file_sha256(result_path)
+        actual_event_hash = _file_sha256(event_path)
+        actual_manifest_hash = _file_sha256(manifest_path)
+        if actual_result_hash != bound["result_file_sha256"]:
+            raise Study2RunError(f"result hash mismatch: {condition}")
+        if actual_event_hash != bound["event_log_sha256"]:
+            raise Study2RunError(f"event hash mismatch: {condition}")
+        if actual_manifest_hash != bound["pipeline_manifest_sha256"]:
+            raise Study2RunError(f"pipeline manifest hash mismatch: {condition}")
+        try:
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise Study2RunError(f"persisted JSON invalid: {condition}") from exc
+        if manifest.get("schema_version") != "study2-pipeline-manifest-v1" or manifest.get("condition") != condition:
+            raise Study2RunError(f"pipeline manifest identity mismatch: {condition}")
+        try:
+            validate_result(result)
+        except SchemaValidationError as exc:
+            raise Study2RunError(f"result schema invalid: {condition}") from exc
+        if result.get("condition") != condition:
+            raise Study2RunError(f"result condition identity mismatch: {condition}")
+        expected_detector_status = "APPLICABLE" if condition == "VEGO_AI_ON" else "NOT_APPLICABLE"
+        if result.get("detector_v1", {}).get("status") != expected_detector_status:
+            raise Study2RunError(f"result detector identity mismatch: {condition}")
+        files = manifest.get("files", {})
+        if files.get("result.json") != actual_result_hash or files.get("events.jsonl") != actual_event_hash:
+            raise Study2RunError(f"pipeline manifest content mismatch: {condition}")
+        for key in ("run_id", "setting_id", "corpus_id", "code_sha256", "configuration_sha256"):
+            if result.get(key) != receipt.get(key):
+                raise Study2RunError(f"receipt/result binding mismatch: {condition}/{key}")
+        if result.get("corpus_hashes") != receipt.get("corpus_hashes"):
+            raise Study2RunError(f"receipt/result corpus binding mismatch: {condition}")
+        if result.get("case_input_hashes") != receipt.get("case_input_hashes"):
+            raise Study2RunError(f"receipt/result case binding mismatch: {condition}")
+        if bound.get("configuration_sha256") != receipt["configuration_sha256"]:
+            raise Study2RunError(f"condition configuration binding mismatch: {condition}")
+        if bound.get("code_sha256") != receipt["code_sha256"]:
+            raise Study2RunError(f"condition code binding mismatch: {condition}")
+        if bound.get("model") != result.get("model") or bound.get("control_policy") != result.get("control_policy"):
+            raise Study2RunError(f"condition control binding mismatch: {condition}")
+        if bound.get("corpus_hashes") != receipt.get("corpus_hashes"):
+            raise Study2RunError(f"condition corpus binding mismatch: {condition}")
+        if bound.get("case_input_hashes") != receipt.get("case_input_hashes"):
+            raise Study2RunError(f"condition case binding mismatch: {condition}")
+        summary = bound.get("summary", {})
+        for key in (
+            "status",
+            "fixture_mode",
+            "attempts",
+            "calls",
+            "successful_calls",
+            "retries_used",
+            "input_tokens",
+            "output_tokens",
+            "cost_usd",
+            "output_validation",
+            "privacy_counters",
+            "provider_calls",
+            "external_calls",
+            "model",
+            "control_policy",
+            "corpus_hashes",
+            "case_input_hashes",
+            "detector_v1",
+        ):
+            if summary.get(key) != result.get(key):
+                raise Study2RunError(f"receipt/result summary mismatch: {condition}/{key}")
+    return {"status": "PASS", "conditions": ["VEGO_AI_ON", "VEGO_AI_OFF"]}
+
+
 def _lifecycle_summary(report: dict[str, Any]) -> dict[str, Any]:
     reasons = Counter(event.get("termination_reason") for event in report["events"] if event["event_type"] == "EPISODE_TERMINATED")
     return {
@@ -518,6 +758,11 @@ def _receipt_condition_summary(report: dict[str, Any]) -> dict[str, Any]:
     return {
         "status": report["status"],
         "fixture_mode": report["fixture_mode"],
+        "model": report["model"],
+        "control_policy": report["control_policy"],
+        "corpus_hashes": report["corpus_hashes"],
+        "case_input_hashes": report["case_input_hashes"],
+        "detector_v1": report["detector_v1"],
         "prompt_sha_by_case": report["prompt_sha_by_case"],
         "prompt_sha_by_call": report["prompt_sha_by_call"],
         "attempts": report["attempts"],
@@ -558,6 +803,10 @@ def _normalized_condition(report: dict[str, Any]) -> dict[str, Any]:
         for key in (
             "condition",
             "status",
+            "model",
+            "control_policy",
+            "corpus_hashes",
+            "case_input_hashes",
             "prompt_sha_by_case",
             "prompt_sha_by_call",
             "successful_cases",

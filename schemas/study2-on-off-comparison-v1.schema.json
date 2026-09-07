@@ -48,7 +48,8 @@
           "on_uncovered_fragments",
           "off_uncovered_fragments",
           "on_schema_complete",
-          "off_schema_complete"
+          "off_schema_complete",
+          "comparability"
         ],
         "properties": {
           "case_id": {"type": "string"},
@@ -57,15 +58,17 @@
           "on_uncovered_fragments": {"type": "integer", "minimum": 0},
           "off_uncovered_fragments": {"type": "integer", "minimum": 0},
           "on_schema_complete": {"type": "boolean"},
-          "off_schema_complete": {"type": "boolean"}
+          "off_schema_complete": {"type": "boolean"},
+          "comparability": {"const": "NOT_COMPARABLE_AS_QUALITY"}
         }
       }
     },
     "detector_v1": {
       "type": "object",
-      "required": ["applied_to", "off_denominator", "reason"],
+      "required": ["applicable_to", "detector_v1_executed", "off_denominator", "reason"],
       "properties": {
-        "applied_to": {"const": "VEGO_AI_ON only"},
+        "applicable_to": {"const": "VEGO_AI_ON only"},
+        "detector_v1_executed": {"const": false},
         "off_denominator": {"const": "NOT_APPLICABLE"},
         "reason": {"type": "string", "minLength": 1}
       }

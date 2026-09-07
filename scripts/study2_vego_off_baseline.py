@@ -1,4 +1,4 @@
-"""VEGO_AI_OFF: a defined non-VEGO baseline for the same output objective.
+"""Parser-level support for the VEGO_AI_OFF output contract.
 
 The baseline pursues the same per-case objective as the orchestrated pipeline —
 map reference guidelines onto a candidate model and audit what the model covers
@@ -9,9 +9,10 @@ What is deliberately absent, and nothing else:
   * no inter-agent question-and-answer protocol,
   * no round loop and no MAX_QA_ROUNDS.
 
-Everything else is held identical to the ON condition: same corpus, same case
-identifiers, same model, same token policy, same retry policy, same timeout,
-same concurrency, same output schema, same private output root.
+The canonical controlled execution path is :class:`vego_study2.runner.Study2Runner`,
+which enforces the frozen model, token, retry, timeout, concurrency, cost, call,
+privacy and egress policy at each call site.  This low-level helper is retained
+for strict parser/fixture tests and must not be used as a paid-run harness.
 
 Because the baseline emits no inter-agent episodes, Detector-v1 has no unit of
 analysis here. Its denominator is NOT_APPLICABLE, never zero.
@@ -137,9 +138,15 @@ async def run_off_baseline(
     async def one(case: dict[str, str]) -> dict[str, Any]:
         case_id = case["case_id"]
         prompt = off_prompt(case_id, case["case_model"], domain_description, language_name)
+        label = f"off_baseline/{case_id}/evaluate"
+        call_record = {
+            "case_id": case_id,
+            "label": label,
+            "prompt_sha256": prompt_digest(prompt),
+        }
+        calls.append(call_record)
         async with semaphore:
-            response = await client.call(prompt, label=f"off_baseline/{case_id}/evaluate")
-        calls.append({"case_id": case_id, "label": f"off_baseline/{case_id}/evaluate"})
+            response = await client.call(prompt, label=label)
         return normalise(case_id, response)
 
     results = await asyncio.gather(*[one(case) for case in cases])
@@ -159,11 +166,9 @@ async def run_off_baseline(
             "analysis. This is not a zero-alert observation."
         ),
         "prompt_sha_by_case": {
-            case["case_id"]: prompt_digest(
-                off_prompt(case["case_id"], case["case_model"], domain_description, language_name)
-            )
-            for case in cases
+            call["case_id"]: call["prompt_sha256"] for call in calls
         },
+        "prompt_sha_by_call": sorted(calls, key=lambda call: call["case_id"]),
     }
 
 

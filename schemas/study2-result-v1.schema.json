@@ -5,7 +5,7 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version", "evidence_class", "condition", "run_id", "setting_id", "corpus_id", "corpus_hashes",
+    "schema_version", "evidence_class", "condition", "run_id", "setting_id", "corpus_id", "corpus_hashes", "case_input_hashes",
     "code_sha256", "configuration_sha256", "model", "control_policy", "objective_schema", "fixture_mode",
     "prompt_sha_by_case", "prompt_sha_by_call", "cases", "successful_cases", "technical_failures", "status", "failure_code",
     "agent_decomposition", "inter_agent_qa", "questions", "answers", "episodes",
@@ -21,6 +21,7 @@
     "setting_id": {"const": "cd_airtravel"},
     "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
     "corpus_hashes": {"type": "object", "minProperties": 5, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "case_input_hashes": {"type": "object", "minProperties": 4, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
     "code_sha256": {"type": "string", "minLength": 1},
     "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "model": {"type": "object"},
