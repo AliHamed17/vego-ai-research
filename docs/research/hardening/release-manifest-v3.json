@@ -230,6 +230,7 @@
     "scripts/tests/test_iris_zoom_adjudicated_ledger.py",
     "scripts/tests/test_iris_zoom_disposition_ledger.py",
     "scripts/tests/test_iris_zoom_review_batches.py",
+    "scripts/tests/test_pilot_budget_constrained_config.py",
     "scripts/tests/test_policy_arms.py",
     "scripts/tests/test_preliminary_human_intervention_one_page.py",
     "scripts/tests/test_prepare_airtravel_protected_fake_preflight.py",
@@ -277,7 +278,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "839a589b77f23d23e1a0d112ef3b559cab39d34391a45393e23ce56b7c41abc7",
+  "sourceTreeSha256": "98e9564a512fc1df7fc8a023e5d204e14e5cf450376bb01163e3f8f78f46ce96",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

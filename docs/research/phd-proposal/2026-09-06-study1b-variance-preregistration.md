@@ -7,7 +7,7 @@ AirTravel protocol. It does **not** upgrade the original Study 1 run to prospect
 and it does **not** test alert correctness, effectiveness, human benefit, accuracy or
 generalization.
 
-**Status: `PREREGISTERED_NOT_EXECUTED`.**
+**Status: `BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL`.** Closed 2026-09-06 without execution.
 **Frozen 2026-09-06, before any repeat run has been executed and before any repeat outcome has
 been observed.**
 
@@ -157,3 +157,32 @@ know that in advance, which is the point of a worst-case reservation.
 requested or substituted.
 
 Either blocker alone is sufficient to prevent execution. Both were present.
+
+---
+
+## Amendment B — 2026-09-06, closure
+
+**Study 1B is closed as `BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL`.** It was not executed, not
+partially executed, and no credential was used.
+
+The USD 2.00 ceiling remains in force and the conservative-budget finding stands: the frozen
+protocol's worst-case bound is $34.6551 (§A2), which does not fit.
+
+**Four repairs were considered and each is rejected.** Recording them matters, because each would
+have produced a number while quietly destroying what the number meant:
+
+| Rejected repair | Why it is rejected |
+|---|---|
+| Use a realistic bound from the one prior run | A single observation is not an upper bound. The guard's purpose is to hold when behaviour departs from that observation, which is precisely when a bound is needed. |
+| Reduce the per-repeat cap to 18 and proceed | 18 is two calls above the protocol minimum of 16. Any inter-agent Q&A would breach it, so the protocol could not complete. Calling that a replication of Study 1 would be false. |
+| Run a partial five-repeat study | The design says five repeats or none. A partial run reported as variance evidence would be a study whose sample size was chosen by the budget after the fact. |
+| Use a credential before all gates are green | Prohibited outright. |
+
+No successor inherits Study 1B's question. The variance question — whether `STRONG_ALERT` 3/3 is
+stable under repetition — **remains open and unanswered**, and no other study in this programme
+answers it. The separately prepared `BUDGET_CONSTRAINED_EXPLORATORY_PILOT` is **not** a
+replacement: it changes the token and call limits, so it cannot separate run-to-run variation from
+limit effects, and it must never be cited as evidence about stability.
+
+Reopening Study 1B requires a ceiling that accommodates its worst-case bound, not a change to its
+protocol.
