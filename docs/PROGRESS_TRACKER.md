@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
-- 2026-09-04 23:55 +03:00 - Codex - AirTravel v3.2.1 verifier hardening
-- 2026-09-04 23:45 +03:00 - Codex - AirTravel v3.2.1 materialization and verifier hardening
-- 2026-09-04 13:05 +03:00 - Codex - Implement passive Q&A communication contract and offline verification
-- 2026-09-04 01:04 +03:00 - Codex - Audit original VEGO-AI interaction-log availability
-- 2026-09-04 00:00 +03:00 - Codex - Unify Iris task plan source and harden RTL verification
-- 2026-09-03 23:30 +03:00 - Codex - Final revision of supervisor Q&A task plan
+- 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
+- 2026-09-05 00:32 +03:00 - Codex - Final pre-authorization consistency correction
+- 2026-09-05 00:06 +03:00 - Codex - AirTravel v3.2.1 receipt completeness finalized
+- 2026-09-05 00:04 +03:00 - Codex - AirTravel v3.2.1 final CI run recorded
+- 2026-09-05 00:03 +03:00 - Codex - AirTravel v3.2.1 CI gate recorded
+- 2026-09-05 00:00 +03:00 - Codex - AirTravel v3.2.1 adversarial test completion
 <!-- AUTO:activity:end -->
 
 ---

@@ -38,40 +38,6 @@ Chronological prompt history for Codex and Claude.
 - Commands run: `pwsh ./scripts/build-progress-visualizations.ps1` (multiple iterations), `[Parser]::ParseFile` syntax checks, Browser tool screenshots (light + dark), `gh pr create/checks/view`, `gh api repos/.../pulls/29/merge`, `git worktree add/remove`.
 - Next steps: None outstanding for this task. The dashboard now shows all 4 status mixes it already computes, in both generated outputs, with real charts instead of flat bars.
 
-## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
-
-- Request: Strict scored review of 2026-08-23 doctoral proposal PDF as reviewer and orchestrator; also fix broken main CI.
-- Actions taken:
-  - Delivered strict scored review (75/100) of the 2026-08-23 consolidated doctoral proposal PDF via a 7-dimension Workflow plus manual recovery of two wrongly auto-dropped findings, cross-referenced against v13/v8/v15 verification reports.
-  - Sent doctoral-proposal-2026-08-23-strict-review.md to user via SendUserFile.
-  - Diagnosed a pre-existing broken main: pip-audit flagged pip 26.1.2 (PYSEC-2026-3721) pinned via pip_api in uv.lock; bumped to 26.2.1 with uv lock --upgrade-package pip --native-tls.
-  - Discovered the lock hash bump cascaded through build_hardening_manifests, build_bigui_run_store, build_experiment_benchmark, build_bigui_catalog, build_bigui, build_thesis_evidence_package, build_thesis_progress_visual, build_thesis_review_manifest.
-  - Regenerated the full chain iteratively to a verified fixed point: 3 stable passes with identical experiment-catalog-snapshot-v1.json SHA256, 103 accepted bundles, 932 observations, 0 safe labels unchanged.
-  - Verified all 18 CI check gates individually with real exit codes plus full 190-test pytest suite before each commit.
-  - Confirmed CI green on main (all jobs incl. merge-gate) via gh run view --json jobs, not just the watch notification.
-- Files changed:
-  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
-  - uv.lock
-  - docs/research/hardening/release-manifest-v3.json
-  - docs/research/hardening/security-posture-snapshot-v1.json
-  - docs/research/bigui/experiment-catalog-snapshot-v1.json
-  - docs/research/bigui/artifact-snapshot-v1.json
-  - docs/research/bigui/baseline-comparison-results-v1.json
-  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
-  - docs/research/bigui/EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md
-  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
-  - experiments/current-run-index-v1.json
-  - experiments/accepted-runs/EXP-033-EXP-033-9b351820bea6.json through EXP-040 variants
-  - VEGO-AI-Research-Hub.html
-  - VEGO-AI-Experiment-Benchmark-Report.html
-- Commands/checks:
-  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
-  - uv lock --upgrade-package pip --native-tls -> pip 26.1.2 to 26.2.1
-  - uv run python -m pytest scripts/tests -q -> 190 passed 7 subtests passed
-  - gh run view 32732249579 --json jobs -> all jobs success incl merge-gate
-- Status: Completed
-- Next steps: None outstanding for this task; a concurrent session's v16 proposal and workbook v12 work (ISS-036 to 038) is separate and not yet reconciled.
-
 ## 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
 
 - Request: Attached the same proposal PDF alongside the delivered strict review; verified the review against the actual document.
@@ -453,3 +419,27 @@ Chronological prompt history for Codex and Claude.
   - git diff check; no provider call
 - Status: TECHNICAL NO-GO; final correction pending push
 - Next steps: Await explicit fake-preflight authorization, CI green, model/budget and paid-run approval.
+
+## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
+
+- Request: Perform a strict evidence-closure audit of the current literature review, test GAP-1/GAP-2/GAP-3 adversarially, audit the five registered query families, and prepare the execution-ready search corpus. Do not rewrite Chapter 2.
+- Actions taken:
+  - Re-verified 54 of 68 proposal references against external records (51 DOIs via Crossref; [13] via ACM DL; [52] via arXiv; [54] via IJCAI index; [60] via PMLR; [61] via NeurIPS)
+  - Searched the two adjacent literatures Section 2.6 names as likeliest refuters (BPM work-item/resource allocation; knowledge-base curation/truth maintenance/belief revision) plus organisational memory and expert routing
+  - Assessed 35 candidate refuters and mapped 28 high-priority papers (24 Tier A, 4 Tier B) with 45 extraction fields each
+  - Classified 37 Chapter 2 absence/novelty claims: 22 SUPPORTED, 9 NEEDS_NARROWING, 2 LIKELY_FALSE, 4 UNVERIFIED, 0 REFUTED
+  - Gap verdicts: GAP-1, GAP-2 and GAP-3 all NARROWED; none refuted
+  - Found that the QL-05 substrate conjunction structurally prevents the registered generic terms from reaching the BPM and provenance literatures, and that the 2026-07-30 repo register defines five different query families from proposal Section 4.3 Table 3
+  - Recommended a frozen pre-execution protocol amendment including a new QL-06 adjacent-refuter family run without the substrate conjunction
+- Files changed:
+  - literature/2026-09-06-gap-refutation-matrix.csv
+  - literature/2026-09-06-high-priority-literature-map.csv
+  - docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md
+  - docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md
+- Commands/checks:
+  - curl Crossref REST /works (51 DOI lookups + 42 bibliographic queries)
+  - OpenAlex via WebFetch (4 queries)
+  - python CSV validation battery: structure, duplicate DOI, duplicate title, tier, gap-claim consistency - all PASS
+- Status: completed
+- Next steps: Reviewer/orchestrator (ChatGPT) to accept or return the evidence audit. Chapter 2 NOT rewritten pending acceptance. Supervisor decisions open: freeze the amended protocol before execution; resolve single-rater screening; adopt GAP-1 replacement wording; tighten the SQ2 refutation condition.
+

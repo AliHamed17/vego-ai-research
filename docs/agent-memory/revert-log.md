@@ -321,3 +321,13 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
 - Rollback note: Revert commit 93bd2c7 to remove v3.2.1 artifacts; ignored external_data remains local-only
 - Git commit: none recorded by script.
+
+## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
+
+- Files changed:
+  - literature/2026-09-06-gap-refutation-matrix.csv
+  - literature/2026-09-06-high-priority-literature-map.csv
+  - docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md
+  - docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md
+- Rollback note: All four deliverables are new files. Delete literature/2026-09-06-gap-refutation-matrix.csv, literature/2026-09-06-high-priority-literature-map.csv, docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md and docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md to revert. No existing proposal, Chapter 2, or Study 1 file was modified.
+- Git commit: none recorded by script.

@@ -5114,3 +5114,37 @@ Historical entries.
 - Status: run-project-review.ps1 verdict is blocked, expected standing EXP-005 gate only, not unsafe. CI green on main.
 - Next steps: ISS-032 dashboard generated file tracking question, same root commit, remains open and undecided, separate from the 27 files resolved here. EXP-005 0 of 24 remains the standing blocker across the whole project; requires real human expert labeling, not further automation.
 
+## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
+
+- Request: Strict scored review of 2026-08-23 doctoral proposal PDF as reviewer and orchestrator; also fix broken main CI.
+- Actions taken:
+  - Delivered strict scored review (75/100) of the 2026-08-23 consolidated doctoral proposal PDF via a 7-dimension Workflow plus manual recovery of two wrongly auto-dropped findings, cross-referenced against v13/v8/v15 verification reports.
+  - Sent doctoral-proposal-2026-08-23-strict-review.md to user via SendUserFile.
+  - Diagnosed a pre-existing broken main: pip-audit flagged pip 26.1.2 (PYSEC-2026-3721) pinned via pip_api in uv.lock; bumped to 26.2.1 with uv lock --upgrade-package pip --native-tls.
+  - Discovered the lock hash bump cascaded through build_hardening_manifests, build_bigui_run_store, build_experiment_benchmark, build_bigui_catalog, build_bigui, build_thesis_evidence_package, build_thesis_progress_visual, build_thesis_review_manifest.
+  - Regenerated the full chain iteratively to a verified fixed point: 3 stable passes with identical experiment-catalog-snapshot-v1.json SHA256, 103 accepted bundles, 932 observations, 0 safe labels unchanged.
+  - Verified all 18 CI check gates individually with real exit codes plus full 190-test pytest suite before each commit.
+  - Confirmed CI green on main (all jobs incl. merge-gate) via gh run view --json jobs, not just the watch notification.
+- Files changed:
+  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
+  - uv.lock
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/research/hardening/security-posture-snapshot-v1.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/bigui/artifact-snapshot-v1.json
+  - docs/research/bigui/baseline-comparison-results-v1.json
+  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
+  - docs/research/bigui/EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - experiments/current-run-index-v1.json
+  - experiments/accepted-runs/EXP-033-EXP-033-9b351820bea6.json through EXP-040 variants
+  - VEGO-AI-Research-Hub.html
+  - VEGO-AI-Experiment-Benchmark-Report.html
+- Commands/checks:
+  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
+  - uv lock --upgrade-package pip --native-tls -> pip 26.1.2 to 26.2.1
+  - uv run python -m pytest scripts/tests -q -> 190 passed 7 subtests passed
+  - gh run view 32732249579 --json jobs -> all jobs success incl merge-gate
+- Status: Completed
+- Next steps: None outstanding for this task; a concurrent session's v16 proposal and workbook v12 work (ISS-036 to 038) is separate and not yet reconciled.
+

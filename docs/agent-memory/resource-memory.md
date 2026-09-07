@@ -104,6 +104,34 @@ Dry-run command:
 .\scripts\download-hitl-resources.ps1 -DryRun
 ```
 
+## Literature Evidence-Closure Audit (2026-09-06)
+
+Durable, reusable outputs of the pre-execution literature audit. These are evidence-control
+artifacts, not a completed review. No registered protocol query has been executed.
+
+- `literature/2026-09-06-gap-refutation-matrix.csv` - 35 candidate refuters (12 GAP-1, 14 GAP-2, 9 GAP-3). Columns keep `What_it_matches` and `What_it_does_not_match` separate, which is what makes each verdict checkable. Verdict vocabulary: `DIRECT_PREDECESSOR`, `PARTIAL_PREDECESSOR`, `NEAR_MISS`, `POSSIBLE_REFUTER`, `REFUTER`, `SUPPORTING_BACKGROUND`. No row is `REFUTER`.
+- `literature/2026-09-06-high-priority-literature-map.csv` - 28 papers (8 GAP-1, 8 GAP-2, 6 GAP-3, 6 cross-cutting) with 45 extraction fields each; 24 Tier A, 4 Tier B, no Tier C or D supporting any absence claim. Every row records `extraction_depth`; **none claims `full_text`**.
+- `docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md` - 21 sections: per-family term audits, consolidated missing vocabulary, adjacent-field results, database-role assessment, the recommended frozen pre-execution amendment (incl. the proposed QL-06 family), open supervisor decisions, and the reproducibility/validation record.
+- `docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md` - 37 Chapter 2 claims classified with replacement wording for every non-supported claim, plus citation-level defects and the three gap verdicts.
+
+### Reusable methodology
+
+- **Refuter-hunt procedure** (protocol audit §17.2): write the sentence a refuting abstract would contain; enumerate the vocabularies it could be written in, including ones the proposal does not use; search each independently without the substrate conjunction; fill `What_it_matches` and `What_it_does_not_match` before assigning a verdict. The most common outcome is a match on mechanism and a difference on **unit of decision** - that field was the single most discriminating one in the audit.
+- **Two-channel verification**: Crossref REST for identity (DOI, venue, year, type, pages) and duplicate-DOI detection; OpenAlex for abstracts where publisher access is blocked. Never promote a discovery engine to a primary database, and never let "found via OpenAlex" be a record's only provenance.
+
+### Index reachability from this machine (2026-09-06)
+
+| Interface | Status |
+| --- | --- |
+| Crossref REST API | Reachable from the shell. Primary verification channel. |
+| OpenAlex | Blocked from the shell (HTTP 000, corporate proxy); reachable via the WebFetch tool. |
+| DBLP, Semantic Scholar, arXiv API, doi.org, DataCite | Blocked from the shell (HTTP 000, corporate proxy). arXiv/publisher abstract pages reachable via WebFetch. |
+| ACM DL, IEEE Xplore, Scopus, Web of Science | **ACCESS BLOCKED** - no subscription or API entitlement. Individual ACM record pages reachable via web search. |
+| ScienceDirect | HTTP 403 to automated access. SpringerLink redirects to authentication. |
+
+Caveat for any future agent: **Crossref cannot substitute for ACM Digital Library.** Reference
+[13] of the proposal has a valid ACM DOI (`10.1145/3550356.3561583`) that Crossref does not index.
+
 ## Current Seed Sources
 
 | ID | Resource | Use In VEGO-AI |
