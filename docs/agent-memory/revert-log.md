@@ -422,3 +422,15 @@ Record file changes and rollback notes here.
   - tests/test_study2_*.py
 - Rollback note: Revert commit b7c13fe and prior focused commits on this isolated branch; no protected runtime or Detector-v1 file was modified.
 - Git commit: none recorded by script.
+
+## 2026-09-07 13:28 +03:00 - Claude - Study 1B variance preregistered and prepared; binding-manifest obstacle recorded
+
+- Files changed:
+  - scripts/airtravel_real_run.py
+  - scripts/study1b_variance_runs.py
+  - scripts/tests/test_study1b_variance_budget.py
+  - docs/research/phd-proposal/2026-09-06-study1b-variance-preregistration.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: git revert the study1b commit removes the variance harness and preregistration; BudgetGuard defaults are unchanged so the Study 1 accepted-run behaviour is unaffected either way.
+- Git commit: none recorded by script.

@@ -99,11 +99,38 @@ not a convenience for a reviewer.
 **not** reproducible by the canonical CLI at HEAD until the gate is satisfied. That must not be
 described as the numbers being unverified; it is the canonical instrument declining to speak.
 
+### 5.2 What creating a binding manifest would actually require — new, 2026-09-06
+
+Codex has since built the gate properly. `study1_evidence_recovery.py` requires the binding to
+declare `created_after_run` as an explicit boolean, and enforces
+`retrospective_validation → created_after_run = true`, locking the verdict to
+`DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE`. A manifest written today therefore
+**cannot** be promoted to prospective. That removes the mislabelling risk this table originally
+raised against option (a).
+
+**But a deeper obstacle was then found, and it is the reason option (a) is still not a reviewer's
+call to make.** `schemas/study1-evidence-binding-v1.schema.json` requires two things the accepted
+run cannot supply:
+
+| Required field | Problem |
+|---|---|
+| `execution_code_sha256` (and `config_sha256`) | The validator compares the binding's value against the **run receipt's** field. The accepted run's receipt binds neither — that is provenance gap 3. Any value written into the binding is therefore **unverifiable by construction**: nothing in the evidence can confirm or refute it. |
+| `pipeline_output_manifest` | A **required** primary artifact that the accepted run never produced. It is a run-time output in the Study 2 design; Study 1 predates it. It exists nowhere under `v4-real-run/`. |
+
+Satisfying the schema thus requires authoring two attestations that no evidence can check, and
+creating an artifact that did not exist at run time. The mode gate protects against mislabelling
+provenance; it does not protect against a reviewer inventing the inputs. Doing that to unblock a
+tool is the precise failure mode this package exists to prevent, so it was not done.
+
+**This does not block descriptive reporting.** Every published number remains reproducible from
+`analysis/evidence-validation.json` and from the recomputation validator, and Codex's own success
+status agrees that descriptive reporting is permitted.
+
 ## 6. Requires a human decision — not more analysis
 
 | # | Decision | Options | What turns on it |
 |---|---|---|---|
-| D0 | How is the validator divergence resolved? | (a) create an explicitly-labelled retrospective binding manifest so the canonical CLI can run; (b) keep both validators and cite each by name; (c) restore the recomputation validator as canonical | **Highest priority.** Until this is settled the canonical tool emits no Study 1 numbers, while the published package cites 92 checks. Option (a) does **not** upgrade provenance and must never be presented as doing so. |
+| D0 | How is the validator divergence resolved? | (a) author a binding manifest, accepting that `execution_code_sha256` is unverifiable and that a `pipeline_output_manifest` must be created after the fact — see §5.2; (b) keep both validators and cite each by name; (c) relax the schema so a historical run can bind only what its receipt actually carries | **Highest priority.** Until this is settled the canonical tool emits no Study 1 numbers, while the published package cites 92 checks. Option (a) does **not** upgrade provenance and must never be presented as doing so. |
 | D1 | Should Detector-v1's "candidate for human review" label ever be wired to the existing `human_review_queue`? | (a) keep Detector-v1 as a reporting label; (b) separately define a governed bridge | Today Detector-v1 is reporting-only and does not write the Agent-4 queue. The Agent-4 queue is a separate mechanism; wiring a bridge would be a new operational policy and would change what the thesis is claiming. |
 | D2 | Which Study 2 preregistration is authoritative? | PR #41 version 2, PR #42's version, or a merged one | Two documents with the same filename exist on different branches. They must be reconciled before either is reviewed. |
 | D3 | Does the unrecovered `output-inventory.json` block the package? | (a) proceed with it disclosed; (b) block | No published claim depends on it and all scientific values reproduce. Current handling: proceed with disclosure. |

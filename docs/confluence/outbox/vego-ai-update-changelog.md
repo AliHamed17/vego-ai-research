@@ -1,30 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-06 17:04 +03:00.
+Generated from repository memory on 2026-09-07 13:28 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-03 12:55 +03:00 - Codex - Iris preliminary-pilot technical evidence audit
-
-- Request: Verify frozen VEGO-AI evidence, human-layer milestones, EXP-005 gate, trigger inventory, real pilot candidates, and deterministic replay boundaries without changing VEGO-AI behavior.
-- Actions taken:
-  - Added a fail-closed read-only local evidence verifier.
-  - Reconciled 179 ranked rows, 165 per-case reports, 83 distinct case IDs, 27 patterns, and the separate paper 178/26 snapshot.
-  - Hash-verified Agent 4 analysis copies, audited EXP-005 at 0/24, classified triggers, and documented C1-C4 feasibility and scientific boundaries.
-- Files changed:
-  - scripts/verify_iris_preliminary_pilot.py
-  - scripts/tests/test_verify_iris_preliminary_pilot.py
-  - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-evidence-map.md
-  - docs/research/phd-proposal/2026-09-03-iris-preliminary-pilot-technical-boundary.md
-- Commands/checks:
-  - uv run pytest scripts/tests/test_verify_iris_preliminary_pilot.py -q => 4 passed
-  - uv run pytest -q => 46 passed
-  - uv run pytest VEGO-AI/tests -q => 113 passed
-  - uv run ruff check focused files => passed
-  - scripts/check_repository_privacy.py and scripts/security_audit.py => passed
-  - project-health/research-health => research-health blocked by pre-existing tracked Confluence outbox files
-- Status: ready for human review
-- Next steps: Supervisor approves pilot protocol and human evidence collection; EXP-005 remains blocked at 0/24.
 
 ## 2026-09-03 22:42 +03:00 - Codex - Implement Q&A escalation observability study scaffold
 
@@ -444,3 +422,28 @@ Showing the latest 20 session entries.
   - privacy/evidence/security/compile/schema checks: PASS
 - Status: Implemented and locally validated; Study 1 accepted private evidence unavailable in reviewed worktree; Study 2 fixture prepared but not executed as science.
 - Next steps: Independent review of the canonical branch; supply the explicitly mounted accepted-run binding/event log if descriptive numeric reporting is required; separately authorize any future provider run.
+
+## 2026-09-07 13:28 +03:00 - Claude - Study 1B variance preregistered and prepared; binding-manifest obstacle recorded
+
+- Request: Continue and save all work.
+- Actions taken:
+  - Rebased the Study 1B variance work onto three new Codex commits on the shared branch; no conflicts. Full scripts suite 674 passed, 23 skipped.
+  - Accepted Codex's corrections to the detector signal-map memo: my claim that the Agent-4 mechanism DOES write human_review_queue.jsonl overstated it (the queue builder is invoked conditionally), and their scoping of the absence to this worktree is safer than asserting the run produced none.
+  - Verified Codex's new evidence-binding mode gate: retrospective_validation requires created_after_run=true, so a manifest written today cannot be promoted to prospective. That removes the mislabelling risk originally raised against D0 option (a).
+  - Found a deeper obstacle and did NOT create the binding manifest: the schema requires execution_code_sha256, which the accepted run's receipt does not bind and which nothing can therefore cross-check, and a pipeline_output_manifest that the accepted run never produced. Recorded as decision-table section 5.2 and D0 was re-scoped accordingly.
+  - Regenerated all four Hebrew PDFs after Codex edited the memo print source; memo remains two pages.
+  - Confirmed OPENAI_API_KEY is still absent, so no provider call was made and none could have been.
+- Files changed:
+  - scripts/airtravel_real_run.py
+  - scripts/study1b_variance_runs.py
+  - scripts/tests/test_study1b_variance_budget.py
+  - docs/research/phd-proposal/2026-09-06-study1b-variance-preregistration.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - git rebase origin/study1/closure-and-study2-prep -> clean, 1 commit replayed
+  - py -3.13 -m pytest scripts/tests -q -> 674 passed, 23 skipped
+  - hardening manifest / visualization catalog / gallery / privacy / evidence consistency / BigUI catalog --check -> all PASS
+  - OPENAI_API_KEY presence check -> absent; no provider call attempted
+- Status: completed
+- Next steps: Awaiting OPENAI_API_KEY to execute the five Study 1B repeats under the USD 2 ceiling, a decision on D0 given decision-table section 5.2, and a decision on whether Claude may close the Study 2 egress and call-site-test gaps on Codex's PR 42 branch.

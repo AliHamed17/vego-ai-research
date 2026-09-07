@@ -38,40 +38,6 @@ Chronological prompt history for Codex and Claude.
 - Commands run: `pwsh ./scripts/build-progress-visualizations.ps1` (multiple iterations), `[Parser]::ParseFile` syntax checks, Browser tool screenshots (light + dark), `gh pr create/checks/view`, `gh api repos/.../pulls/29/merge`, `git worktree add/remove`.
 - Next steps: None outstanding for this task. The dashboard now shows all 4 status mixes it already computes, in both generated outputs, with real charts instead of flat bars.
 
-## 2026-08-24 16:32 +03:00 - Claude - Strict proposal review delivery plus CI security and build-chain fix
-
-- Request: Strict scored review of 2026-08-23 doctoral proposal PDF as reviewer and orchestrator; also fix broken main CI.
-- Actions taken:
-  - Delivered strict scored review (75/100) of the 2026-08-23 consolidated doctoral proposal PDF via a 7-dimension Workflow plus manual recovery of two wrongly auto-dropped findings, cross-referenced against v13/v8/v15 verification reports.
-  - Sent doctoral-proposal-2026-08-23-strict-review.md to user via SendUserFile.
-  - Diagnosed a pre-existing broken main: pip-audit flagged pip 26.1.2 (PYSEC-2026-3721) pinned via pip_api in uv.lock; bumped to 26.2.1 with uv lock --upgrade-package pip --native-tls.
-  - Discovered the lock hash bump cascaded through build_hardening_manifests, build_bigui_run_store, build_experiment_benchmark, build_bigui_catalog, build_bigui, build_thesis_evidence_package, build_thesis_progress_visual, build_thesis_review_manifest.
-  - Regenerated the full chain iteratively to a verified fixed point: 3 stable passes with identical experiment-catalog-snapshot-v1.json SHA256, 103 accepted bundles, 932 observations, 0 safe labels unchanged.
-  - Verified all 18 CI check gates individually with real exit codes plus full 190-test pytest suite before each commit.
-  - Confirmed CI green on main (all jobs incl. merge-gate) via gh run view --json jobs, not just the watch notification.
-- Files changed:
-  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
-  - uv.lock
-  - docs/research/hardening/release-manifest-v3.json
-  - docs/research/hardening/security-posture-snapshot-v1.json
-  - docs/research/bigui/experiment-catalog-snapshot-v1.json
-  - docs/research/bigui/artifact-snapshot-v1.json
-  - docs/research/bigui/baseline-comparison-results-v1.json
-  - docs/research/bigui/experiment-benchmark-snapshot-v1.json
-  - docs/research/bigui/EXPERIMENT_BENCHMARK_ANALYTICS_REPORT.md
-  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
-  - experiments/current-run-index-v1.json
-  - experiments/accepted-runs/EXP-033-EXP-033-9b351820bea6.json through EXP-040 variants
-  - VEGO-AI-Research-Hub.html
-  - VEGO-AI-Experiment-Benchmark-Report.html
-- Commands/checks:
-  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
-  - uv lock --upgrade-package pip --native-tls -> pip 26.1.2 to 26.2.1
-  - uv run python -m pytest scripts/tests -q -> 190 passed 7 subtests passed
-  - gh run view 32732249579 --json jobs -> all jobs success incl merge-gate
-- Status: Completed
-- Next steps: None outstanding for this task; a concurrent session's v16 proposal and workbook v12 work (ISS-036 to 038) is separate and not yet reconciled.
-
 ## 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
 
 - Request: Attached the same proposal PDF alongside the delivered strict review; verified the review against the actual document.
@@ -642,3 +608,29 @@ Chronological prompt history for Codex and Claude.
   - privacy/evidence/security/compile/schema checks: PASS
 - Status: Implemented and locally validated; Study 1 accepted private evidence unavailable in reviewed worktree; Study 2 fixture prepared but not executed as science.
 - Next steps: Independent review of the canonical branch; supply the explicitly mounted accepted-run binding/event log if descriptive numeric reporting is required; separately authorize any future provider run.
+
+## 2026-09-07 13:28 +03:00 - Claude - Study 1B variance preregistered and prepared; binding-manifest obstacle recorded
+
+- Request: Continue and save all work.
+- Actions taken:
+  - Rebased the Study 1B variance work onto three new Codex commits on the shared branch; no conflicts. Full scripts suite 674 passed, 23 skipped.
+  - Accepted Codex's corrections to the detector signal-map memo: my claim that the Agent-4 mechanism DOES write human_review_queue.jsonl overstated it (the queue builder is invoked conditionally), and their scoping of the absence to this worktree is safer than asserting the run produced none.
+  - Verified Codex's new evidence-binding mode gate: retrospective_validation requires created_after_run=true, so a manifest written today cannot be promoted to prospective. That removes the mislabelling risk originally raised against D0 option (a).
+  - Found a deeper obstacle and did NOT create the binding manifest: the schema requires execution_code_sha256, which the accepted run's receipt does not bind and which nothing can therefore cross-check, and a pipeline_output_manifest that the accepted run never produced. Recorded as decision-table section 5.2 and D0 was re-scoped accordingly.
+  - Regenerated all four Hebrew PDFs after Codex edited the memo print source; memo remains two pages.
+  - Confirmed OPENAI_API_KEY is still absent, so no provider call was made and none could have been.
+- Files changed:
+  - scripts/airtravel_real_run.py
+  - scripts/study1b_variance_runs.py
+  - scripts/tests/test_study1b_variance_budget.py
+  - docs/research/phd-proposal/2026-09-06-study1b-variance-preregistration.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - git rebase origin/study1/closure-and-study2-prep -> clean, 1 commit replayed
+  - py -3.13 -m pytest scripts/tests -q -> 674 passed, 23 skipped
+  - hardening manifest / visualization catalog / gallery / privacy / evidence consistency / BigUI catalog --check -> all PASS
+  - OPENAI_API_KEY presence check -> absent; no provider call attempted
+- Status: completed
+- Next steps: Awaiting OPENAI_API_KEY to execute the five Study 1B repeats under the USD 2 ceiling, a decision on D0 given decision-table section 5.2, and a decision on whether Claude may close the Study 2 egress and call-site-test gaps on Codex's PR 42 branch.
+
