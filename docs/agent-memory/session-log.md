@@ -634,3 +634,29 @@ Chronological prompt history for Codex and Claude.
 - Status: completed
 - Next steps: Awaiting OPENAI_API_KEY to execute the five Study 1B repeats under the USD 2 ceiling, a decision on D0 given decision-table section 5.2, and a decision on whether Claude may close the Study 2 egress and call-site-test gaps on Codex's PR 42 branch.
 
+
+## 2026-09-07 15:21 +03:00 - Codex - Study 2 ON/OFF enforcement and Study 1B independent gate
+
+- Request: Review PR #41 Study 1B before execution and harden Study 2 ON/OFF controls without provider or experiment execution.
+- Actions taken:
+  - Reviewed PR #41 successor and rejected Study 1B execution because frozen five-repeat protocol is budget-blocked.
+  - Enforced offline-only model/configuration, cost/token/call ceilings, timeout/retry controls, egress blocking, strict OFF schema, receipt self-binding, provenance hashes, and fail-closed CLI/helpers.
+- Files changed:
+  - src/vego_study2/runner.py
+  - src/vego_study2/fixtures.py
+  - scripts/study2_on_off_experiment.py
+  - schemas/study2-result-v1.schema.json
+  - schemas/study2-run-receipt-v1.schema.json
+  - schemas/study2-on-off-comparison-v1.schema.json
+  - tests/test_study2_on_off.py
+  - scripts/tests/test_study2_contract.py
+  - docs/research/phd-proposal/2026-09-07-study2-control-hardening.md
+  - docs/research/phd-proposal/study2-on-off-readiness-v1.json
+  - docs/research/phd-proposal/2026-09-06-study2-readiness-note.he.md
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - Focused pytest: 54 passed
+  - CI run 34121059938: all six jobs passed
+  - Focused Ruff, compile, schemas, privacy, security, evidence consistency: passed
+- Status: completed; PR remains draft/open/unmerged; no provider, model, experiment, or credentials
+- Next steps: Independent human review, freeze provider/model/budget, and issue separate one-time execution grant before any real run.

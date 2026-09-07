@@ -1,34 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-07 13:28 +03:00.
+Generated from repository memory on 2026-09-07 15:22 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-03 22:42 +03:00 - Codex - Implement Q&A escalation observability study scaffold
-
-- Request: Implement the supervisor-directed Q&A escalation detection milestone while preserving score-replay work as later-stage evidence.
-- Actions taken:
-  - Read live orchestrator and agent communication paths
-  - Extract frozen Q&A questions and confidence inventories
-  - Build transparent detector and blind reviewer material
-  - Defer C2 111-versus-114 reconciliation
-- Files changed:
-  - scripts/extract_qa_escalation_features.py
-  - scripts/tests/test_extract_qa_escalation_features.py
-  - schemas/qa-escalation-event-v1.schema.json
-  - docs/research/phd-proposal/2026-09-03-qa-escalation-observability.md
-  - docs/agent-memory/current-state.md
-  - docs/agent-memory/progress.md
-  - docs/agent-memory/issues.md
-  - docs/agent-memory/decisions.md
-- Commands/checks:
-  - python -m pytest -q
-  - python -m pytest -q VEGO-AI/tests
-  - ruff check scripts/extract_qa_escalation_features.py scripts/tests/test_extract_qa_escalation_features.py
-  - python scripts/check_repository_privacy.py
-  - python scripts/check_evidence_consistency.py
-- Status: completed
-- Next steps: Obtain approved answer-level Q&A histories and blind labels; do not run intervention or score-effect replay.
 
 ## 2026-09-03 23:06 +03:00 - Codex - Supervisor-facing Q&A task plan
 
@@ -447,3 +421,29 @@ Showing the latest 20 session entries.
   - OPENAI_API_KEY presence check -> absent; no provider call attempted
 - Status: completed
 - Next steps: Awaiting OPENAI_API_KEY to execute the five Study 1B repeats under the USD 2 ceiling, a decision on D0 given decision-table section 5.2, and a decision on whether Claude may close the Study 2 egress and call-site-test gaps on Codex's PR 42 branch.
+
+## 2026-09-07 15:21 +03:00 - Codex - Study 2 ON/OFF enforcement and Study 1B independent gate
+
+- Request: Review PR #41 Study 1B before execution and harden Study 2 ON/OFF controls without provider or experiment execution.
+- Actions taken:
+  - Reviewed PR #41 successor and rejected Study 1B execution because frozen five-repeat protocol is budget-blocked.
+  - Enforced offline-only model/configuration, cost/token/call ceilings, timeout/retry controls, egress blocking, strict OFF schema, receipt self-binding, provenance hashes, and fail-closed CLI/helpers.
+- Files changed:
+  - src/vego_study2/runner.py
+  - src/vego_study2/fixtures.py
+  - scripts/study2_on_off_experiment.py
+  - schemas/study2-result-v1.schema.json
+  - schemas/study2-run-receipt-v1.schema.json
+  - schemas/study2-on-off-comparison-v1.schema.json
+  - tests/test_study2_on_off.py
+  - scripts/tests/test_study2_contract.py
+  - docs/research/phd-proposal/2026-09-07-study2-control-hardening.md
+  - docs/research/phd-proposal/study2-on-off-readiness-v1.json
+  - docs/research/phd-proposal/2026-09-06-study2-readiness-note.he.md
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - Focused pytest: 54 passed
+  - CI run 34121059938: all six jobs passed
+  - Focused Ruff, compile, schemas, privacy, security, evidence consistency: passed
+- Status: completed; PR remains draft/open/unmerged; no provider, model, experiment, or credentials
+- Next steps: Independent human review, freeze provider/model/budget, and issue separate one-time execution grant before any real run.
