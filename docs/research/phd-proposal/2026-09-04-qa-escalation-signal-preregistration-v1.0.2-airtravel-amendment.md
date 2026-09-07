@@ -216,6 +216,14 @@ in v1.0.1 §15 (episode termination genuinely derived from orchestrator control 
 from the call label, `case_id` included in episode identity) — this amendment freezes the dataset; it does
 not assert those prerequisites are met.
 
+The Detector-v1 label remains separate from the selective-intervention mechanism:
+Detector-v1 is episode-level and reporting-only, and never writes a queue. The
+Agent-4 mechanism operates on an Agent-4 variability classification and may
+write `human_review_queue.jsonl` only through its separately executed queue
+builder. For AirTravel the Agent-4 queue status is `NOT_AVAILABLE` without a
+validated artifact; absence must not be reported as “not triggered” or zero.
+Neither path automatically modifies a source, target, guideline, or model.
+
 ## 8. Allowed and forbidden claims
 
 **Allowed:** empirical observation of VEGO-AI's own Q&A communication, episode structure, and Detector-v1

@@ -178,6 +178,19 @@ S4, S5, S8, and S9 remain outside Detector v1 by §5 and may only enter a later,
 revision (§16). C1/C2/C3 are reported alongside every episode as context and never contribute to either
 tier.
 
+### 6a. Detector versus selective-intervention mechanism
+
+The two operational mechanisms are intentionally separate. **Detector-v1** has
+unit of analysis **Q&A episode** and emits only a reporting-level
+`candidate-for-review` label; it never writes `human_review_queue.jsonl` and
+does not create an automatic queue. The **Selective Intervention Policy /
+Agent-4 review mechanism** has unit of analysis **Agent-4 variability
+classification** and may create `human_review_queue.jsonl` only when its
+separate queue builder is explicitly executed. For AirTravel, that queue is
+`NOT_AVAILABLE` unless a validated queue artifact is mounted; absence is not
+evidence that the policy did not fire or that the count is zero. Neither
+mechanism automatically changes a source, target, guideline, or model.
+
 ## 7. Strong vs. weak signals
 
 Evaluated on the evidence available, not asserted by convention, and now consistent with §6's operational

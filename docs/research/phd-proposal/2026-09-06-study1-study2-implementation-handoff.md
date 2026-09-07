@@ -60,9 +60,14 @@ NO_ALERT     otherwise
 ```
 
 Signals can co-occur. `Alternative`, `Non-Satisfied`, C1, C2 and C3 are not
-Detector-v1 triggers. A candidate alert is a reporting label only: no automatic
-queue, correction, source change, target change or model replacement is
-implemented by this package.
+Detector-v1 triggers. Detector-v1 operates at Q&A-episode level and emits a
+reporting-level candidate-for-review label; it never writes a queue. The
+separate Selective Intervention Policy / Agent-4 mechanism operates at
+Agent-4-variability-classification level and may create
+`human_review_queue.jsonl` only when its queue builder is explicitly executed.
+For AirTravel its queue status is `NOT_AVAILABLE` without a validated artifact;
+absence is not “not triggered” or zero. Neither mechanism automatically changes
+the source, target, guideline or model.
 
 ## D. Study 2 design and implementation status
 
