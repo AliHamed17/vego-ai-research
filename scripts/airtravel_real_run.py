@@ -50,21 +50,36 @@ class BudgetExceeded(RuntimeError):
 class BudgetGuard:
     """Count every outbound request and reserve worst-case cost before it."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        budget_usd: float = BUDGET_USD,
+        prior_spend_usd: float = 0.0,
+        max_requests: int = MAX_OUTBOUND_REQUESTS,
+    ) -> None:
         self.requests = 0
         self.spent_usd = 0.0
         self.prompt_tokens = 0
         self.completion_tokens = 0
+        self.budget_usd = budget_usd
+        self.prior_spend_usd = prior_spend_usd
+        self.max_requests = max_requests
         self.per_request_reserve = (
             RESERVE_INPUT_TOKENS * PRICE_IN_PER_M + RESERVE_OUTPUT_TOKENS * PRICE_OUT_PER_M
         ) / 1_000_000
 
+    @property
+    def cumulative_spend_usd(self) -> float:
+        """Spend across every run sharing this budget, not just this one."""
+        return self.prior_spend_usd + self.spent_usd
+
     def reserve(self) -> None:
-        if self.requests + 1 > MAX_OUTBOUND_REQUESTS:
-            raise BudgetExceeded(f"outbound request cap {MAX_OUTBOUND_REQUESTS} reached")
-        if self.spent_usd + self.per_request_reserve > BUDGET_USD:
+        if self.requests + 1 > self.max_requests:
+            raise BudgetExceeded(f"outbound request cap {self.max_requests} reached")
+        if self.cumulative_spend_usd + self.per_request_reserve > self.budget_usd:
             raise BudgetExceeded(
-                f"budget reservation would exceed ${BUDGET_USD:.2f} (spent ${self.spent_usd:.4f})"
+                f"budget reservation would exceed ${self.budget_usd:.2f} "
+                f"(cumulative spend ${self.cumulative_spend_usd:.4f}, "
+                f"of which ${self.prior_spend_usd:.4f} came from earlier runs)"
             )
         self.requests += 1
 
@@ -80,13 +95,15 @@ class BudgetGuard:
     def summary(self) -> dict[str, Any]:
         return {
             "outbound_requests": self.requests,
-            "outbound_request_cap": MAX_OUTBOUND_REQUESTS,
+            "outbound_request_cap": self.max_requests,
             "prompt_tokens": self.prompt_tokens,
             "completion_tokens": self.completion_tokens,
             "total_tokens": self.prompt_tokens + self.completion_tokens,
             "actual_cost_usd": round(self.spent_usd, 6),
-            "budget_usd": BUDGET_USD,
-            "within_budget": self.spent_usd <= BUDGET_USD,
+            "budget_usd": self.budget_usd,
+            "prior_spend_usd": round(self.prior_spend_usd, 6),
+            "cumulative_spend_usd": round(self.cumulative_spend_usd, 6),
+            "within_budget": self.cumulative_spend_usd <= self.budget_usd,
             "price_input_per_1m_usd": PRICE_IN_PER_M,
             "price_output_per_1m_usd": PRICE_OUT_PER_M,
         }
@@ -155,14 +172,16 @@ def build_client(guard: BudgetGuard):
     return client
 
 
-async def run(output: Path, runtime_root: Path, run_id: str) -> dict[str, Any]:
+async def run(output: Path, runtime_root: Path, run_id: str, *,
+              budget_usd: float = BUDGET_USD, prior_spend_usd: float = 0.0,
+              max_requests: int = MAX_OUTBOUND_REQUESTS) -> dict[str, Any]:
     import orchestrator
     from airtravel_local_observer import Observer, Proxy, route_metrics, validate_final_stream
     from qa_communication import QACommunicationRecorder
     from qa_registry import QARegistry
 
     inputs = load_runtime(runtime_root)
-    guard = BudgetGuard()
+    guard = BudgetGuard(budget_usd, prior_spend_usd, max_requests)
     egress = restrict_egress()
     client = build_client(guard)
 
@@ -249,11 +268,22 @@ def main() -> int:
     parser.add_argument("--runtime-root", type=Path, default=ROOT / "external_data/airtravel-pr38/runtime_input")
     parser.add_argument("--output-dir", type=Path, default=ROOT / RUN_ROOT / "output")
     parser.add_argument("--run-id", required=True)
+    parser.add_argument("--budget-usd", type=float, default=BUDGET_USD,
+                        help="hard ceiling shared with any prior spend passed in")
+    parser.add_argument("--prior-spend-usd", type=float, default=0.0,
+                        help="spend already incurred by earlier runs under the same ceiling")
+    parser.add_argument("--max-requests", type=int, default=MAX_OUTBOUND_REQUESTS)
     args = parser.parse_args()
+    if args.prior_spend_usd < 0 or args.budget_usd <= 0:
+        print(json.dumps({"status": "REFUSED", "error": "invalid budget arguments"}))
+        return 2
     if (args.output_dir / "run-receipt.json").exists():
         print(json.dumps({"status": "REFUSED", "error": "a run receipt already exists"}))
         return 2
-    receipt = asyncio.run(run(args.output_dir, args.runtime_root, args.run_id))
+    receipt = asyncio.run(run(args.output_dir, args.runtime_root, args.run_id,
+                              budget_usd=args.budget_usd,
+                              prior_spend_usd=args.prior_spend_usd,
+                              max_requests=args.max_requests))
     target = args.output_dir / "run-receipt.json"
     with target.open("xb") as handle:
         handle.write((json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8"))
