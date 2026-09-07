@@ -2,14 +2,14 @@
   "schemaVersion": "ThesisReviewPackageManifest-v1",
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
-  "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
-  "packageRevision": "4374a94806a51ba43b7fc7994fcf91e884d65117",
-  "sourceTreeHash": "d789e036ad5b6302ca6f9e436aa12003c9416649c0c8762656b62d7068763049",
+  "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
+  "packageRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
+  "sourceTreeHash": "2a3648a8195ef591cb0bcb2737cb1debb5b6fa6aafc34e5c3c6bdf8f751a327f",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
   "evidenceSnapshot": {
     "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-    "sha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+    "sha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
     "bytes": 48319,
     "tracked": true
   },
@@ -33,12 +33,12 @@
       "filename": "VEGO-AI-MSc-Thesis-Evidence-Ready-Draft-2026-07-25.pdf",
       "tracked": false,
       "availableInClone": false,
-      "sha256": "181279212f4c4d140a158a3766b533b6de1dad4a6f17eea67626f838460bed97",
-      "bytes": 1401639
+      "sha256": null,
+      "bytes": null
     },
     "renderVerification": {
       "status": "NOT_RECORDED",
-      "pdfPageCount": 91,
+      "pdfPageCount": null,
       "renderedPageCount": null,
       "sheetCount": null,
       "qaReportSha256": null
@@ -179,7 +179,7 @@
     },
     {
       "path": "scripts/build_hardening_manifests.py",
-      "sha256": "3e9428943a2bed5811bd715c8e53f71174a7f111bf05d87d2ef953aa80cb569d"
+      "sha256": "209ddb9d839e11f2c8cbb379b337d61690a9dd3811afaba7778ebf4d82c10d54"
     },
     {
       "path": "scripts/build_thesis_evidence_package.py",
@@ -331,7 +331,7 @@
     }
   ],
   "toolVersions": {
-    "python": "3.10.0",
+    "python": "3.13.3",
     "jsonschema": "4.26.0"
   },
   "protectedRuntimeChanged": false,
