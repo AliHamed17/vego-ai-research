@@ -434,3 +434,21 @@ Record file changes and rollback notes here.
   - docs/research/hardening/release-manifest-v3.json
 - Rollback note: git revert the study1b commit removes the variance harness and preregistration; BudgetGuard defaults are unchanged so the Study 1 accepted-run behaviour is unaffected either way.
 - Git commit: none recorded by script.
+
+## 2026-09-07 16:51 +03:00 - Codex - Study 1B closure and bounded pilot readiness
+
+- Files changed:
+  - scripts/pilot_budget_constrained_runner.py
+  - scripts/pilot_budget_constrained_preflight.py
+  - scripts/study1b_variance_runs.py
+  - scripts/study1b_offline_preflight.py
+  - schemas/pilot-repeat-receipt-v1.schema.json
+  - docs/research/phd-proposal/2026-09-07-study1b-pilot-technical-note.he.md
+  - docs/research/phd-proposal/2026-09-07-study1b-pilot-email-draft.he.md
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+- Rollback note: Revert commit 454f95f2fd9410f18227f75e3ef6b4796225457a and this tracking update if rollback is approved; private ignored outputs remain outside Git.
+- Git commit: pending.

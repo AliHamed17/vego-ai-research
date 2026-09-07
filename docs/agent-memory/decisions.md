@@ -495,3 +495,10 @@ Durable decisions for this project.
 - Decision: `reporting_code_sha` is documented as a document-generation stamp outside the evidence chain; `execution_code_sha` is the value bound to the evidence. This resolves the mismatch between documents generated at different commits without retrofitting either value.
 - Reason: The published numbers reproduce exactly from the raw evidence (evidence validator: 17 PASS, 0 value failures, 3 provenance gaps), but the run's provenance was established after execution rather than at execution. Reporting the numbers without that status beside them would overstate what the receipt supports.
 - Consequence: Study 1 remains descriptive-only with the permitted-claim boundary unchanged (one public-external run, N=4, denominator 3, no ground truth; no correctness, accuracy, benefit, representativeness, generalization or ON/OFF superiority). Study 2 remains `PREPARED_NOT_EXECUTED` and unpooled. Detector-v1 and preregistration v1.0.1/v1.0.2 are untouched.
+
+## 2026-09-07 - Study 1B closure and bounded pilot separation
+
+- Decision: Close Study 1B permanently under the frozen protocol as `BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL`; do not shrink, reopen, relabel, or partially execute its five-repeat design.
+- Decision: Maintain a separate `BUDGET_CONSTRAINED_EXPLORATORY_PILOT` with exactly three repeats, prospective per-repeat binding, complete budget reservation before any response, 90-request/repeat cap, truncation exclusion, and private ignored outputs. The controller and preflight are offline-only engineering artifacts; they do not create scientific results.
+- Reason: The frozen Study 1B worst-case call/cost envelope cannot fit the reserved USD 2. A bounded pilot is a different protocol and must not be pooled with Study 1B or the accepted Study 1 run.
+- Consequence: No provider/API/model call, paid run, Detector-v1 experiment, or synthetic scientific-data generation occurred. Independent human review and a fresh one-time grant remain required for any future provider-backed pilot.

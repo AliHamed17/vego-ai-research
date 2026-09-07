@@ -9,6 +9,8 @@ Track project issues here. Keep active issues near the top.
 
 ## Open
 
+| ISS-056 | 2026-09-07 | Codex (Study 1B / pilot readiness) | High | High | Medium | Open / human-gated | Study 1B is closed because its frozen 326-call-per-repeat protocol exceeds the USD 2 reservation. The separate three-repeat budget-constrained pilot is prepared offline, but no provider run is authorized or executed; accepted private Study 1 evidence is not mounted in this worktree for new numeric reporting. | Independently review the pilot protocol and receipts, then issue a fresh one-time provider authorization only if the model, budget, egress, and evidence gates are accepted. |
+
 | ISS-053 | 2026-09-03 | Supervisor feedback / Q&A escalation tranche | High | High | Medium | Open, supervisor validation pending | The immediate study is now Q&A escalation detection: the frozen final snapshot exposes 12 Agent-2→Agent-1 questions but 0 persisted answers, so answer-confidence, answer-evidence, round linkage, and true/false alert validation are not yet observable. Claude/Codex disagreement on usable C2 corrections (114 vs 111) is deferred and does not block this study. | Capture or supply approved answer-level Q&A histories and blind human labels covering alerts and non-alerts; do not run intervention or score-effect replay. |
 
 | ID | Date | Source | Severity | Impact | Effort | Status | Summary | Next Step |

@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-07 16:51 +03:00 - Codex - Study 1B closure and bounded pilot readiness
 - 2026-09-07 15:21 +03:00 - Codex - Study 2 ON/OFF enforcement and Study 1B independent gate
 - 2026-09-07 13:28 +03:00 - Claude - Study 1B variance preregistered and prepared; binding-manifest obstacle recorded
 - 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
 - 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
 - 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
-- 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
 <!-- AUTO:activity:end -->
 
 ---

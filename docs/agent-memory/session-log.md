@@ -660,3 +660,32 @@ Chronological prompt history for Codex and Claude.
   - Focused Ruff, compile, schemas, privacy, security, evidence consistency: passed
 - Status: completed; PR remains draft/open/unmerged; no provider, model, experiment, or credentials
 - Next steps: Independent human review, freeze provider/model/budget, and issue separate one-time execution grant before any real run.
+
+## 2026-09-07 16:51 +03:00 - Codex - Study 1B closure and bounded pilot readiness
+
+- Request: Implement the attached Study 1B closure and separate budget-constrained exploratory pilot preparation without provider execution.
+- Actions taken:
+  - Closed Study 1B under frozen budget
+  - Added fail-closed three-repeat offline pilot controller and receipts
+  - Added truncation, reservation, privacy, schema, and no-provider tests
+  - Added Hebrew technical note and email draft
+  - Refreshed hardening manifest and verified head-specific CI
+- Files changed:
+  - scripts/pilot_budget_constrained_runner.py
+  - scripts/pilot_budget_constrained_preflight.py
+  - scripts/study1b_variance_runs.py
+  - scripts/study1b_offline_preflight.py
+  - schemas/pilot-repeat-receipt-v1.schema.json
+  - docs/research/phd-proposal/2026-09-06-budget-constrained-exploratory-pilot-preregistration.md
+  - docs/research/phd-proposal/2026-09-06-study1b-variance-preregistration.md
+  - docs/research/phd-proposal/2026-09-06-study1b-codex-review-request.md
+  - docs/research/phd-proposal/2026-09-06-pilot-codex-review-request.md
+  - docs/research/phd-proposal/2026-09-07-study1b-pilot-technical-note.he.md
+  - docs/research/phd-proposal/2026-09-07-study1b-pilot-email-draft.he.md
+- Commands/checks:
+  - uv run python -m pytest -q -p no:cacheprovider VEGO-AI/tests scripts/tests tests/hlayer_offline tests
+  - uv run ruff check on changed files
+  - uv run python scripts/build_hardening_manifests.py --check
+  - GitHub Actions run 34129167954
+- Status: completed
+- Next steps: Independent review; mount accepted private evidence before any Study 1 numeric report; obtain separate explicit provider authorization for any future pilot.

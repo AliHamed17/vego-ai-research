@@ -4,6 +4,14 @@ This file is the compact shared resource index for Codex and Claude. It points a
 
 Last updated: 2026-09-03 by Codex.
 
+## September 7 Study 1B closure and bounded pilot
+
+- Closure receipt: `docs/research/phd-proposal/study1b-offline-preflight-receipt.json` (historical Study 1B closure; no provider calls).
+- Pilot controller: `scripts/pilot_budget_constrained_runner.py`; offline preflight: `scripts/pilot_budget_constrained_preflight.py`; receipt schema: `schemas/pilot-repeat-receipt-v1.schema.json`.
+- Pilot protocol: `docs/research/phd-proposal/2026-09-06-budget-constrained-exploratory-pilot-preregistration.md`.
+- Supervisor-facing Hebrew materials: `docs/research/phd-proposal/2026-09-07-study1b-pilot-technical-note.he.md` and `docs/research/phd-proposal/2026-09-07-study1b-pilot-email-draft.he.md`.
+- Evidence boundary: preflight is `PREPARED_OFFLINE_ONLY`; fake requests are engineering checks, provider/API calls are zero, and no scientific denominator or result is generated.
+
 ## September 3 Preliminary Human-Intervention One-Pager
 
 - Source: `docs/research/phd-proposal/2026-09-03-preliminary-human-intervention-experiment.en.md`
