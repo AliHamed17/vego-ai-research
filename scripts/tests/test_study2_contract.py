@@ -56,33 +56,16 @@ def test_off_prompt_declares_condition_and_schema():
 
 def test_off_runner_propagates_malformed_output_instead_of_coercing_to_empty():
     module = load_module()
-
-    class BadClient:
-        async def call(self, prompt, *, label):
-            return {"case_id": label.split("/")[1]}
-
     with pytest.raises(module.OutputSchemaError):
-        asyncio.run(
-            module.run_off_baseline(
-                BadClient(),
-                [{"case_id": "01", "case_model": "fixture"}],
-                "domain",
-                "UML",
-            )
-        )
+        module.normalise("01", {"case_id": "01"})
 
 
-def test_off_runner_rejects_duplicate_case_ids():
+def test_legacy_off_runner_rejects_any_client():
     module = load_module()
-
-    class NeverCalled:
-        async def call(self, prompt, *, label):
-            raise AssertionError("duplicate case validation should happen before calls")
-
-    with pytest.raises(module.OutputSchemaError, match="unique"):
+    with pytest.raises(RuntimeError, match="controlled fixture runner"):
         asyncio.run(
             module.run_off_baseline(
-                NeverCalled(),
+                object(),
                 [{"case_id": "01", "case_model": "a"}, {"case_id": "01", "case_model": "b"}],
                 "domain",
                 "UML",
@@ -90,23 +73,17 @@ def test_off_runner_rejects_duplicate_case_ids():
         )
 
 
-def test_off_metadata_keeps_detector_not_applicable():
+def test_legacy_off_runner_cannot_emit_detector_metadata():
     module = load_module()
-
-    class GoodClient:
-        async def call(self, prompt, *, label):
-            return valid_payload(label.split("/")[1])
-
-    result = asyncio.run(
-        module.run_off_baseline(
-            GoodClient(),
-            [{"case_id": "01", "case_model": "fixture"}],
-            "domain",
-            "UML",
+    with pytest.raises(RuntimeError, match="controlled fixture runner"):
+        asyncio.run(
+            module.run_off_baseline(
+                object(),
+                [{"case_id": "01", "case_model": "fixture"}],
+                "domain",
+                "UML",
+            )
         )
-    )
-    assert result["detector_v1_denominator"] == "NOT_APPLICABLE"
-    assert result["episodes"] == 0
 
 
 def test_on_summary_rejects_missing_arrays_instead_of_reporting_zero(tmp_path: Path):

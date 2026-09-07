@@ -20,10 +20,12 @@ values are rejected before they can evade the cost ceiling. The approved root
 remains lexical until path validation, so symlink/reparse-point roots are
 rejected rather than resolved away.
 
-The low-level `study2_vego_off_baseline.py` helper remains a strict parser and
-fixture utility only; it is not a paid-run harness. The legacy protected-runtime
-helpers fail closed, and the CLI rejects an invocation without `--allowed-root`.
-The Study 2 comparison must use the controlled package runner.
+The low-level `study2_vego_off_baseline.py` module remains a strict parser and
+prompt utility only; its historical unbound executor now fails closed rather
+than accepting an arbitrary client. It is not a paid-run harness. The legacy
+protected-runtime helpers fail closed, and the CLI rejects an invocation
+without `--allowed-root`. The Study 2 comparison must use the controlled
+package runner.
 
 ## Evidence and receipt binding
 

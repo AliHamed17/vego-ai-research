@@ -17,31 +17,20 @@ def test_normalise_rejects_missing_required_arrays() -> None:
         normalise("01", {"case_id": "01", "existing_mapping": []})
 
 
-def test_direct_baseline_is_one_call_per_case_and_has_no_qa() -> None:
+def test_legacy_direct_baseline_path_is_fail_closed() -> None:
     config = load_config(CONFIG_PATH)
+
     class Client:
         async def call(self, prompt: dict[str, str], *, label: str) -> dict[str, object]:
-            return {
-                "schema_version": "study2-condition-output-v1",
-                "condition": "VEGO_AI_OFF",
-                "skill_version": "off-baseline-v1",
-                "case_id": label.split("/")[1],
-                "existing_mapping": [],
-                "coverage_summary": {"satisfied": 0, "partially_satisfied": 0, "not_satisfied": 0},
-                "uncovered_fragments": [],
-            }
+            raise AssertionError("legacy OFF execution path must never call a client")
 
-    client = Client()
-    result = asyncio.run(
-        run_off_baseline(
-            client,
-            fixture_cases(config),
-            "fixture domain",
-            "UML",
-            max_concurrent=2,
+    with pytest.raises(RuntimeError, match="controlled fixture runner"):
+        asyncio.run(
+            run_off_baseline(
+                Client(),
+                fixture_cases(config),
+                "fixture domain",
+                "UML",
+                max_concurrent=2,
+            )
         )
-    )
-    assert result["calls"] == 4
-    assert result["episodes"] == 0
-    assert result["detector_v1_denominator"] == "NOT_APPLICABLE"
-    assert set(result["cases"]) == {"01", "02", "03", "04"}

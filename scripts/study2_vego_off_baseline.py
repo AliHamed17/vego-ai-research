@@ -20,7 +20,6 @@ analysis here. Its denominator is NOT_APPLICABLE, never zero.
 
 from __future__ import annotations
 
-import asyncio
 import json
 from pathlib import Path
 from typing import Any
@@ -123,53 +122,16 @@ async def run_off_baseline(
     language_name: str,
     max_concurrent: int = 2,
 ) -> dict[str, Any]:
-    """Run one direct call per case with the ON condition's concurrency limit."""
-    case_ids = [case.get("case_id") for case in cases]
-    if (
-        any(not isinstance(case_id, str) or not case_id for case_id in case_ids)
-        or len(case_ids) != len(set(case_ids))
-    ):
-        raise OutputSchemaError("OFF baseline case identifiers must be unique and non-empty")
-    if not isinstance(domain_description, str) or not isinstance(language_name, str):
-        raise OutputSchemaError("OFF baseline context must be text")
-    semaphore = asyncio.Semaphore(max_concurrent)
-    calls: list[dict[str, Any]] = []
+    """Reject the historical unbound executor.
 
-    async def one(case: dict[str, str]) -> dict[str, Any]:
-        case_id = case["case_id"]
-        prompt = off_prompt(case_id, case["case_model"], domain_description, language_name)
-        label = f"off_baseline/{case_id}/evaluate"
-        call_record = {
-            "case_id": case_id,
-            "label": label,
-            "prompt_sha256": prompt_digest(prompt),
-        }
-        calls.append(call_record)
-        async with semaphore:
-            response = await client.call(prompt, label=label)
-        return normalise(case_id, response)
-
-    results = await asyncio.gather(*[one(case) for case in cases])
-    by_case = {row["case_id"]: row for row in results}
-    return {
-        "condition": "VEGO_AI_OFF",
-        "skill_version": SKILL_VERSION,
-        "cases": by_case,
-        "calls": len(calls),
-        "calls_per_case": 1,
-        "agent_decomposition": False,
-        "inter_agent_qa": False,
-        "episodes": 0,
-        "detector_v1_denominator": "NOT_APPLICABLE",
-        "detector_v1_note": (
-            "The baseline emits no inter-agent episodes, so Detector-v1 has no unit of "
-            "analysis. This is not a zero-alert observation."
-        ),
-        "prompt_sha_by_case": {
-            call["case_id"]: call["prompt_sha256"] for call in calls
-        },
-        "prompt_sha_by_call": sorted(calls, key=lambda call: call["case_id"]),
-    }
+    The parser and prompt helpers remain available for fixture construction, but this function
+    accepted an arbitrary ``client`` without the frozen model, token, timeout, cost, call, path,
+    and egress controls.  Keeping it callable would create a second execution path that could
+    silently bypass the controlled runner.  Use :class:`vego_study2.runner.Study2Runner` for the
+    dependency-injected offline fixture instead.
+    """
+    del client, cases, domain_description, language_name, max_concurrent
+    raise RuntimeError("legacy OFF execution path is disabled; use the controlled fixture runner")
 
 
 def prompt_digest(prompt: dict[str, str]) -> str:
