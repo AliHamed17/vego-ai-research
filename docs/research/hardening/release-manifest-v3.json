@@ -244,6 +244,7 @@
     "scripts/tests/test_study1_forbidden_claims.py",
     "scripts/tests/test_study1_signal_traceability.py",
     "scripts/tests/test_study1_validate_evidence.py",
+    "scripts/tests/test_study1b_variance_budget.py",
     "scripts/tests/test_study2_contract.py",
     "scripts/tests/test_supervisor_source_manifest.py",
     "scripts/tests/test_thesis_evidence_package.py",
@@ -276,7 +277,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "3bdaa312f30e012225128ad2352c7ae9e14188f098fcb07a5da2b049ceab4710",
+  "sourceTreeSha256": "839a589b77f23d23e1a0d112ef3b559cab39d34391a45393e23ce56b7c41abc7",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
