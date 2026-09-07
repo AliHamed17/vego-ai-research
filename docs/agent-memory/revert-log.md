@@ -489,3 +489,10 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md
 - Rollback note: All four deliverables are new files. Delete literature/2026-09-06-gap-refutation-matrix.csv, literature/2026-09-06-high-priority-literature-map.csv, docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md and docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md to revert. No existing proposal, Chapter 2, or Study 1 file was modified.
 - Git commit: none recorded by script.
+
+## 2026-09-08 01:59 +03:00 - Codex - Study 1 supervisor transparency correction integration
+
+- Files changed:
+  - transparency package scripts, schemas, tests, generated documentation and workflow; no private artifacts
+- Rollback note: Revert the transparency correction commits and merge commit if rollback is required; private ignored evidence remains untouched
+- Git commit: none recorded by script.

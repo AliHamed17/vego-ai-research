@@ -38,27 +38,6 @@ Chronological prompt history for Codex and Claude.
 - Commands run: `pwsh ./scripts/build-progress-visualizations.ps1` (multiple iterations), `[Parser]::ParseFile` syntax checks, Browser tool screenshots (light + dark), `gh pr create/checks/view`, `gh api repos/.../pulls/29/merge`, `git worktree add/remove`.
 - Next steps: None outstanding for this task. The dashboard now shows all 4 status mixes it already computes, in both generated outputs, with real charts instead of flat bars.
 
-## 2026-08-25 14:10 +03:00 - Claude - Verification pass corrects the strict proposal review
-
-- Request: Attached the same proposal PDF alongside the delivered strict review; verified the review against the actual document.
-- Actions taken:
-  - Re-verified every falsifiable claim in the 2026-08-23 strict proposal review against the same PDF (sha256 a4c9739..., confirmed 21 pages; the harness reported 24, which is harness metadata not the document).
-  - WITHDREW my own reference [45] finding: DBLP canonical form is 'Khaled E. Ahmed', so 'K. E. Ahmed' is correct as written. Earlier sources (arXiv/ORCID/GitHub) render the name without the middle initial, which misled the original check.
-  - CORRECTED the 'Chapter 2 duplicates Chapter 4' claim as unsupported (only 14 shared 5-grams, nearly all page boilerplate); the 'move it to Chapter 4' recommendation rested on a false premise and was replaced.
-  - STRENGTHENED the solution-world finding: Chapter 2 names the author's own Studies five times and issues design orders in two Research implication lines (p.8 Study 2 must test, p.9 Study 3 must treat).
-  - Widened the bibliography check from 13 refs to all 57 via a 12-agent adversarially-adjudicated workflow: 54 exact, 0 unverifiable, 3 real defects, 0 overturned.
-  - Newly found [35] GLIF3 cites the wrong journal entirely (JAMIA 11(4) 375-385 -> Journal of Biomedical Informatics 37(3) 147-161); independent proof the cited locus cannot exist since JAMIA 11(4) spans pp. 235-338.
-  - New finding B2: Chapter 2 requires a review policy to combine eight named signals; Chapter 4 never enumerates them and three (novelty, evidence quality, reviewer competence) appear nowhere in the methodology chapter.
-  - Score adjusted 75 to 73; delivered corrected review to Ali and pushed as 118570b.
-- Files changed:
-  - docs/research/phd-proposal/doctoral-proposal-2026-08-23-strict-review.md
-- Commands/checks:
-  - python scripts/check_evidence_consistency.py --check -> 18/18 PASS
-  - pypdf page/footer check -> 21 pages, all footers Page N of 21
-  - Workflow verify-proposal-bibliography -> 57 refs, 54 exact, 3 defects, 0 overturned
-- Status: Completed
-- Next steps: Ali to apply the three verified citation fixes ([35] venue, [20] and [27] titles) and leave [45] unchanged.
-
 ## 2026-09-02 09:28 +03:00 - Claude - Proposal Revision 19: committee + supervisor review closure
 
 - Request: Work on all the committee review items toward 100/100, then follow the supervisor Hebrew review and the 26 inline comments word by word, verifying everything
@@ -756,6 +735,7 @@ Chronological prompt history for Codex and Claude.
   - gh pr edit 41 --body <sanitized final status>
 - Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW — NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
 - Next steps: Mount and validate the accepted private binding manifest/event log; semantically rebase PR #41 onto current origin/main 158714064; obtain supervisor and independent review before any scientific reporting or merge.
+
 ## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
 
 - Request: Perform a strict evidence-closure audit of the current literature review, test GAP-1/GAP-2/GAP-3 adversarially, audit the five registered query families, and prepare the execution-ready search corpus. Do not rewrite Chapter 2.
@@ -778,3 +758,19 @@ Chronological prompt history for Codex and Claude.
   - python CSV validation battery: structure, duplicate DOI, duplicate title, tier, gap-claim consistency - all PASS
 - Status: completed
 - Next steps: Reviewer/orchestrator (ChatGPT) to accept or return the evidence audit. Chapter 2 NOT rewritten pending acceptance. Supervisor decisions open: freeze the amended protocol before execution; resolve single-rater screening; adopt GAP-1 replacement wording; tighten the SQ2 refutation condition.
+
+## 2026-09-08 01:59 +03:00 - Codex - Study 1 supervisor transparency correction integration
+
+- Request: Implement the nine-blocker supervisor-transparency correction package on the live PR branch without provider or experiment execution.
+- Actions taken:
+  - Integrated current origin/main safely with tracking-history conflict resolution
+  - Preserved Agent-4 causal-path, deterministic selection, case-model availability, S6, worked-example, CI, and byte-identity corrections
+  - Validated public provenance and sanitized outputs
+- Files changed:
+  - transparency package scripts, schemas, tests, generated documentation and workflow; no private artifacts
+- Commands/checks:
+  - targeted and full pytest suites
+  - Ruff and compileall
+  - privacy, security, evidence consistency and manifest checks
+- Status: completed; awaiting PR CI and human review
+- Next steps: Review CI and supervisor package; mount private evidence only through its binding manifest before numeric reporting

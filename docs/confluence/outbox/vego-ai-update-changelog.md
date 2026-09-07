@@ -1,83 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-07 23:48 +03:00.
+Generated from repository memory on 2026-09-08 02:00 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-04 01:04 +03:00 - Codex - Audit original VEGO-AI interaction-log availability
-
-- Request: Task 1 only: recover the original historical interaction log read-only.
-- Actions taken:
-  - Ran deterministic inventory across repository, archives, Downloads, Claude workspace, OneDrive Documents, mounted VEGO-AI Drive, and Codex attachments.
-  - Inspected archived evaluator configuration, source, and safe evaluator-log aggregates.
-- Files changed:
-  - docs/research/phd-proposal/2026-09-04-interaction-log-recovery-receipt.md
-  - scripts/find_original_interaction_log.py
-  - scripts/tests/test_find_original_interaction_log.py
-  - tracking memory updates
-- Commands/checks:
-  - focused recovery tests: 3 passed
-  - compileall: PASS
-  - repository privacy: PASS
-  - evidence consistency: 18/18 PASS
-- Status: Task 1 complete: local search exhausted; original interaction log not found; historical mode conditionally full_content; Q&A baseline unchanged; no experiment, rerun, or API call.
-- Next steps: Human decision whether to request the inaccessible original interaction log from Iris/Arnon; do not proceed to instrumentation or rerun.
-
-## 2026-09-04 13:05 +03:00 - Codex - Implement passive Q&A communication contract and offline verification
-
-- Request: Tasks 2–5: freeze baseline terminology, define live contract, implement privacy-safe observer/extractor, verify offline, and prepare one-setting run without live API execution.
-- Actions taken:
-  - Added qa-communication-event-v1 schema and deterministic append-only observer/projection; corrected frozen extractor F5 semantics to ANSWER_NOT_PERSISTED; documented blocked inputs, cost boundary, and protected-runtime integration gate; ran offline route/parity fixtures.
-- Files changed:
-  - schemas/qa-communication-event-v1.schema.json
-  - VEGO-AI/framework/qa_communication.py
-  - VEGO-AI/tests/test_qa_communication.py
-  - scripts/extract_qa_escalation_features.py
-  - scripts/tests/test_extract_qa_escalation_features.py
-  - docs/research/phd-proposal/2026-09-04-qa-baseline-freeze.md
-  - docs/research/phd-proposal/2026-09-04-qa-instrumentation-verification.md
-  - docs/research/phd-proposal/2026-09-03-qa-escalation-observability.md
-  - tracking memory updates
-- Commands/checks:
-  - offline focused tests: 14 passed; VEGO-AI tests: 120 passed; full tests: 237 passed, 10 skipped, 1 pre-existing merge-base hardening failure; ruff: PASS; compileall: PASS; privacy: PASS; evidence consistency: 18/18 PASS
-- Status: Tasks 2–5 partial: observer contract and offline verification pass; protected orchestrator wiring remains pending; all four settings blocked by missing case-model directories; no live LLM/API run.
-- Next steps: Obtain reviewed runtime integration authorization and complete case-model inputs before one-setting dry-run/live decision; do not execute real LLM run yet.
-
-## 2026-09-04 23:45 +03:00 - Codex - AirTravel v3.2.1 materialization and verifier hardening
-
-- Request: Final AirTravel materialization and v3.2 verifier hardening
-- Actions taken:
-  - Downloaded pinned Text2UML codeload archive and verified SHA
-  - Materialized ignored five-file runtime pack and provider-disabled config
-  - Refactored historical-only audit path and added strict adversarial tests
-  - Ran local suites and CI without provider calls
-- Files changed:
-  - scripts/audit_historical_case_recovery_v3_2.py
-  - scripts/materialize_airtravel_runtime_v3_2_1.py
-  - scripts/tests/test_audit_historical_case_recovery_v3_2.py
-  - docs/research/phd-proposal/2026-09-04-historical-case-recovery-audit-v3.2.1-airtravel-materialization.md
-  - docs/research/phd-proposal/historical-case-recovery-v3.2.1/*
-- Commands/checks:
-  - pytest scripts/tests -q (346 passed, 22 skipped)
-  - pytest VEGO-AI/tests -q (134 passed)
-  - pytest -q (46 passed)
-  - ruff and compileall pass
-  - evidence consistency, security, privacy pass
-  - GitHub Actions 33917630552 (source gate red; Python matrix pass)
-- Status: TECHNICAL NO-GO: protected preflight authorization and CI stale manifest gate remain
-- Next steps: Resolve release-manifest gate; obtain protected observer authorization; then rerun offline protected fake preflight before any paid authorization
-
-## 2026-09-04 23:55 +03:00 - Codex - AirTravel v3.2.1 verifier hardening
-
-- Request: Complete final offline AirTravel materialization and v3.2.1 technical gate without provider execution.
-- Actions taken:
-  - Harden normalized path collision checks; regenerate receipts; run offline checks
-- Files changed:
-  - v3.2.1 verifier, tests, report and receipts
-- Commands/checks:
-  - 349 scripts tests; 46 root; 134 VEGO-AI; ruff/compile/privacy/security/evidence pass
-- Status: TECHNICAL NO-GO; no provider calls
-- Next steps: Resolve protected observer authorization, CI stale release gate, model/budget selection and paid-run authorization before provider execution.
 
 ## 2026-09-05 00:00 +03:00 - Codex - AirTravel v3.2.1 adversarial test completion
 
@@ -442,3 +367,75 @@ Showing the latest 20 session entries.
   - focused transparency tests; changed-scope Ruff; compileall; staged privacy and JSON/CSV checks
 - Status: completed; scientific evidence unavailable in reviewed worktree
 - Next steps: Push one draft-PR update and await supervisor review; mount private binding manifest before numeric reporting
+
+## 2026-09-08 00:11 +03:00 - Codex - Transparency manifest and clean-checkout hardening
+
+- Request: Extend the Study 1 transparency package with a safe generated-figures manifest and clean-checkout fallback.
+- Actions taken:
+  - Added three-entry rule-only figures manifest
+  - Removed dependency on deleted legacy signal dictionary through a descriptive fallback
+  - Re-ran full verify-source successfully
+- Files changed:
+  - scripts/build_study1_transparency_package.py
+  - scripts/tests/test_study1_transparency_package.py
+  - docs/research/phd-proposal/study1-transparency-figures-manifest-v1.json
+- Commands/checks:
+  - 11 focused tests; verify-source PASS; hardening manifest check
+- Status: completed; no scientific evidence generated
+- Next steps: Commit/push package for draft PR review; wait for private evidence binding and supervisor review
+
+## 2026-09-08 00:21 +03:00 - Codex - Study 1 transparency package CI and PR finalization
+
+- Request: Finalize the sanitized Study 1 data/log/pattern transparency package, refresh the hardening manifest, verify green CI on the pushed head, and update PR #41 metadata.
+- Actions taken:
+  - Refreshed release-manifest-v3 through the supported builder after CI freshness failure; pushed commit 60db152; dispatched workflow 34162596621 and verified all six jobs passed; updated PR #41 description with final head, provenance, evidence boundary, and supervisor-review status.
+- Files changed:
+  - docs/research/hardening/release-manifest-v3.json
+  - PR #41 metadata only
+- Commands/checks:
+  - git fetch origin --prune
+  - uv run python scripts/build_hardening_manifests.py
+  - gh workflow run supervisor-package.yml --ref study1/closure-and-study2-prep
+  - gh run view 34162596621 --json status,conclusion,headSha,jobs
+  - gh pr edit 41 --body <sanitized final status>
+- Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW — NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
+- Next steps: Mount and validate the accepted private binding manifest/event log; semantically rebase PR #41 onto current origin/main 158714064; obtain supervisor and independent review before any scientific reporting or merge.
+
+## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
+
+- Request: Perform a strict evidence-closure audit of the current literature review, test GAP-1/GAP-2/GAP-3 adversarially, audit the five registered query families, and prepare the execution-ready search corpus. Do not rewrite Chapter 2.
+- Actions taken:
+  - Re-verified 54 of 68 proposal references against external records (51 DOIs via Crossref; [13] via ACM DL; [52] via arXiv; [54] via IJCAI index; [60] via PMLR; [61] via NeurIPS)
+  - Searched the two adjacent literatures Section 2.6 names as likeliest refuters (BPM work-item/resource allocation; knowledge-base curation/truth maintenance/belief revision) plus organisational memory and expert routing
+  - Assessed 35 candidate refuters and mapped 28 high-priority papers (24 Tier A, 4 Tier B) with 45 extraction fields each
+  - Classified 37 Chapter 2 absence/novelty claims: 22 SUPPORTED, 9 NEEDS_NARROWING, 2 LIKELY_FALSE, 4 UNVERIFIED, 0 REFUTED
+  - Gap verdicts: GAP-1, GAP-2 and GAP-3 all NARROWED; none refuted
+  - Found that the QL-05 substrate conjunction structurally prevents the registered generic terms from reaching the BPM and provenance literatures, and that the 2026-07-30 repo register defines five different query families from proposal Section 4.3 Table 3
+  - Recommended a frozen pre-execution protocol amendment including a new QL-06 adjacent-refuter family run without the substrate conjunction
+- Files changed:
+  - literature/2026-09-06-gap-refutation-matrix.csv
+  - literature/2026-09-06-high-priority-literature-map.csv
+  - docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md
+  - docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md
+- Commands/checks:
+  - curl Crossref REST /works (51 DOI lookups + 42 bibliographic queries)
+  - OpenAlex via WebFetch (4 queries)
+  - python CSV validation battery: structure, duplicate DOI, duplicate title, tier, gap-claim consistency - all PASS
+- Status: completed
+- Next steps: Reviewer/orchestrator (ChatGPT) to accept or return the evidence audit. Chapter 2 NOT rewritten pending acceptance. Supervisor decisions open: freeze the amended protocol before execution; resolve single-rater screening; adopt GAP-1 replacement wording; tighten the SQ2 refutation condition.
+
+## 2026-09-08 01:59 +03:00 - Codex - Study 1 supervisor transparency correction integration
+
+- Request: Implement the nine-blocker supervisor-transparency correction package on the live PR branch without provider or experiment execution.
+- Actions taken:
+  - Integrated current origin/main safely with tracking-history conflict resolution
+  - Preserved Agent-4 causal-path, deterministic selection, case-model availability, S6, worked-example, CI, and byte-identity corrections
+  - Validated public provenance and sanitized outputs
+- Files changed:
+  - transparency package scripts, schemas, tests, generated documentation and workflow; no private artifacts
+- Commands/checks:
+  - targeted and full pytest suites
+  - Ruff and compileall
+  - privacy, security, evidence consistency and manifest checks
+- Status: completed; awaiting PR CI and human review
+- Next steps: Review CI and supervisor package; mount private evidence only through its binding manifest before numeric reporting
