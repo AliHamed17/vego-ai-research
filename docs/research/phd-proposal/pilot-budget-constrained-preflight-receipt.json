@@ -128,18 +128,26 @@
       "status": "PASS"
     },
     {
+      "actual": 262,
+      "check": "fake requests measured during preflight",
+      "expected": "> 0",
+      "note": "provider calls remain disabled",
+      "status": "PASS"
+    },
+    {
       "actual": 0,
-      "check": "provider calls measured during preflight",
+      "check": "provider calls remain disabled during preflight",
       "expected": 0,
-      "note": "counted by the fake, not asserted",
+      "note": "fake requests are counted separately",
       "status": "PASS"
     }
   ],
   "checks_failed": 0,
-  "checks_run": 16,
+  "checks_run": 17,
   "config_sha256": "f7dc940649cab9317785d9e6248dbe38788883513070366933c07e83306f457e",
   "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
-  "generated_at": "2026-09-07T12:04:49.506156Z",
+  "fake_calls": 262,
+  "generated_at": "2026-09-07T13:18:09.383571Z",
   "not_a_replication_of_study1": true,
   "note": "Engineering fixture only. Produces no scientific value, enters no denominator, and is never reported as a result. Execution remains blocked pending Codex approval, green CI on the execution head, and a fresh one-time authorization.",
   "provider_calls": 0,

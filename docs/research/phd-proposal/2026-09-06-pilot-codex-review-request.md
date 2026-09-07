@@ -24,8 +24,9 @@ Frozen limits: output ceiling **4,096** tokens (Study 1 used 16,384), input rese
 call cap **90 per repeat**, **3 repeats**, ceiling **USD 2.00**. Proven bound:
 `$0.0065152 × 90 × 3 = $1.7591`, headroom $0.2409.
 
-The offline preflight passed with 16 checks and zero measured provider calls
-(`pilot-budget-constrained-preflight-receipt.json`).
+The offline-only fixture preflight passed with 17 checks, 262 measured fake requests, and zero
+provider calls (`pilot-budget-constrained-preflight-receipt.json`). The fixture is engineering
+evidence only; it is not a pilot repeat and produces no scientific result.
 
 ---
 

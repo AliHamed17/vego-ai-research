@@ -186,3 +186,13 @@ limit effects, and it must never be cited as evidence about stability.
 
 Reopening Study 1B requires a ceiling that accommodates its worst-case bound, not a change to its
 protocol.
+
+## Amendment C — implementation closure guard (2026-09-07)
+
+The historical launcher `scripts/study1b_variance_runs.py` is now a fail-closed closure guard. Its
+legacy `--execute` interface returns `BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL` before any subprocess,
+SDK import, credential access, or provider request. The companion
+`scripts/study1b_offline_preflight.py` verifies this closure and reports `repeat_execution =
+NOT_STARTED`; it is not a repeat run and produces no scientific denominator. The new
+`BUDGET_CONSTRAINED_EXPLORATORY_PILOT` has a separate controller and preregistration and must not
+be described as a Study 1B continuation or replication.

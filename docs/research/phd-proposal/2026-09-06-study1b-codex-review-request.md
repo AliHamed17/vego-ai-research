@@ -1,7 +1,12 @@
 # Study 1B — independent read-only review request for Codex
 
-**Status: `REVIEW_OUTSTANDING`.** This is gate 2 of the Study 1B execution protocol. It has not
-been performed. Study 1B must not execute until it is.
+**Status: `SUPERSEDED_CLOSED`.** This review request is retained as historical protocol context.
+Study 1B is now permanently closed as `BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL`; no execution gate
+remains open for that protocol.
+
+The closure was recorded on 2026-09-07 after the frozen five-repeat budget was checked. The
+historical request below is not an authorization to reopen, reduce, partially run, or relabel
+Study 1B. The separate budget-constrained pilot has its own preregistration and review gate.
 
 **Study class:** `EXPLORATORY_POST_STUDY1_VARIANCE_REPLICATION`.
 
@@ -69,9 +74,10 @@ immediate run:
 2. **`BUDGET_INSUFFICIENT_FOR_FROZEN_FIVE_REPEAT_PROTOCOL`** — the conservative upper bound over
    five repeats is $34.6551 against a $2.00 ceiling. See Amendment A2 of the preregistration.
 
-The offline preflight (gate 3) passed with 16 checks and zero measured provider calls; its
-receipt is `study1b-offline-preflight-receipt.json`. That preflight covers the repeat-
-orchestration loop, **not** the single-run harness, which was preflighted separately for Study 1.
+The historical offline preflight record is superseded by the closure receipt: the current
+`study1b-offline-preflight-receipt.json` reports five closure checks, `repeat_execution =
+NOT_STARTED`, and `provider_calls = 0`. It is a closure check, not an orchestration run and not
+scientific evidence.
 
 ## Requested output
 

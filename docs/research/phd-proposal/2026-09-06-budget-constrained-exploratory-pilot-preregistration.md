@@ -142,13 +142,30 @@ the corpus hashes, its own event-log hash, the lifecycle summary, the output has
 metadata, calls, tokens, cost, start and end time, the egress record, and the truncated-call
 count.
 
+### 9.1 Implemented preparation boundary
+
+The preparation controller is `scripts/pilot_budget_constrained_runner.py`. It is deliberately
+provider-agnostic and accepts only a client that declares `offline_only = True`; it does not
+import an SDK, resolve a host, open a socket, read credentials, or provide a provider adapter.
+Before the first fixture response is observable it writes one prospective binding for each of
+`PILOT-01` … `PILOT-03`, including the frozen configuration hash, code hash, case-input hashes,
+run identity, expected event-log path, and the zeroed accounting fields. It then reserves the
+complete worst-case budget for each repeat before starting that repeat. A final private receipt
+adds the event-log hash, lifecycle summary, output accounting, and truncation status.
+
+Transport retries (at most three per request) are counted against the 90-call cap. A failed
+repeat is recorded once and has `repeat_retry_count = 0`; the controller never restarts a
+repeat or changes a limit after observing a response. `finish_reason == "length"` is counted per
+call and marks the repeat `TRUNCATION_AFFECTED` with
+`scientific_denominator_eligible = false`.
+
 ## 10. Gates — all must be green before any provider call
 
 | # | Gate | Status |
 |---|---|---|
 | 1 | This preregistration committed and immutable | pending commit |
 | 2 | Worst-case bound proven to fit USD 2.00 | **PASS** — $1.7591, §3 |
-| 3 | Full fake-provider preflight across all three repeats | pending |
+| 3 | Offline-only controller/preflight checks across all three repeat identities | **PASS** — no provider adapter or provider call |
 | 4 | Codex independent approval of egress, call cap, **token cap**, budget cap, receipt self-binding and lifecycle handling | pending |
 | 5 | Green CI on the exact execution head | pending |
 | 6 | **Fresh one-time provider authorization**, naming model, ceiling and caps in the authorization text | **pending — not requested** |

@@ -138,6 +138,7 @@
     "schemas/metric-observation-v2.schema.json",
     "schemas/model-execution-manifest-v1.schema.json",
     "schemas/paper-baseline-snapshot-v1.schema.json",
+    "schemas/pilot-repeat-receipt-v1.schema.json",
     "schemas/policy-candidate-record-v1.schema.json",
     "schemas/qa-communication-event-v1.schema.json",
     "schemas/qa-escalation-event-v1.schema.json",
@@ -231,6 +232,8 @@
     "scripts/tests/test_iris_zoom_disposition_ledger.py",
     "scripts/tests/test_iris_zoom_review_batches.py",
     "scripts/tests/test_pilot_budget_constrained_config.py",
+    "scripts/tests/test_pilot_budget_constrained_preflight.py",
+    "scripts/tests/test_pilot_budget_constrained_runner.py",
     "scripts/tests/test_policy_arms.py",
     "scripts/tests/test_preliminary_human_intervention_one_page.py",
     "scripts/tests/test_prepare_airtravel_protected_fake_preflight.py",
@@ -245,6 +248,7 @@
     "scripts/tests/test_study1_forbidden_claims.py",
     "scripts/tests/test_study1_signal_traceability.py",
     "scripts/tests/test_study1_validate_evidence.py",
+    "scripts/tests/test_study1b_offline_preflight.py",
     "scripts/tests/test_study1b_variance_budget.py",
     "scripts/tests/test_study2_contract.py",
     "scripts/tests/test_supervisor_source_manifest.py",
@@ -278,7 +282,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "67bef194611d6abf0dfa013b8e73e158ad71a1b28fa0eb301513c525d3cc35d1",
+  "sourceTreeSha256": "000ef587b3e366420e924244f8f07444b94c6ff30010fe9746e74a9023bd4a44",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

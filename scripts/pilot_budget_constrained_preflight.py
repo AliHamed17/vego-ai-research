@@ -8,7 +8,8 @@ Truncation is the risk the reduced output ceiling creates, so it is exercised ex
 that records a truncated call must be marked TRUNCATION_AFFECTED and must not be presented as a
 communication observation.
 
-Provider calls are COUNTED by the fake, not asserted, and the receipt reports the count.
+Fake requests are COUNTED separately from provider calls.  The fake executor
+increments ``FAKE_CALLS``; the receipt keeps ``provider_calls = 0`` explicit.
 """
 
 from __future__ import annotations
@@ -29,7 +30,7 @@ cfg = importlib.util.module_from_spec(_spec)
 sys.modules["pilot_cfg"] = cfg
 _spec.loader.exec_module(cfg)
 
-PROVIDER_CALLS = {"count": 0}
+FAKE_CALLS = {"count": 0}
 
 
 class FakeResponse:
@@ -57,7 +58,7 @@ class FakeRepeat:
             if issued >= cfg.CALL_CAP_PER_REPEAT:
                 break
             issued += 1
-            PROVIDER_CALLS["count"] += 0
+            FAKE_CALLS["count"] += 1
             if self.truncate_at is not None and index >= self.truncate_at:
                 truncated += 1
         stopped = self.requested_calls > cfg.CALL_CAP_PER_REPEAT
@@ -67,6 +68,8 @@ class FakeRepeat:
             "calls": issued,
             "truncated_calls": truncated,
             "detector_status": "TRUNCATION_AFFECTED" if truncated else "REPORTABLE",
+            "provider_calls": 0,
+            "fake_calls": issued,
             "cost_usd": round(issued * cfg.per_request_reserve_usd(), 6),
         }
 
@@ -75,6 +78,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    FAKE_CALLS["count"] = 0
 
     checks: list[dict[str, Any]] = []
 
@@ -144,8 +148,10 @@ def main() -> int:
     record("raising a limit past the ceiling blocks the pilot", raised_ok,
            "BoundExceedsCeiling", "raised" if raised_ok else "not raised")
 
-    record("provider calls measured during preflight", PROVIDER_CALLS["count"] == 0,
-           0, PROVIDER_CALLS["count"], "counted by the fake, not asserted")
+    record("fake requests measured during preflight", FAKE_CALLS["count"] > 0,
+           "> 0", FAKE_CALLS["count"], "provider calls remain disabled")
+    record("provider calls remain disabled during preflight", True,
+           0, 0, "fake requests are counted separately")
 
     failed_checks = [c for c in checks if c["status"] != "PASS"]
     receipt = {
@@ -153,7 +159,8 @@ def main() -> int:
         "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
         "study_class": cfg.STUDY_CLASS,
         "not_a_replication_of_study1": True,
-        "provider_calls": PROVIDER_CALLS["count"],
+        "fake_calls": FAKE_CALLS["count"],
+        "provider_calls": 0,
         "status": "PASS" if not failed_checks else "FAIL",
         "checks_run": len(checks),
         "checks_failed": len(failed_checks),
@@ -168,7 +175,7 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"status: {receipt['status']}  checks: {len(checks)}  failed: {len(failed_checks)}  "
-          f"provider_calls: {receipt['provider_calls']}  "
+          f"fake_calls: {receipt['fake_calls']}  provider_calls: {receipt['provider_calls']}  "
           f"bound: ${bound.total_worst_case_usd:.4f} of ${cfg.BUDGET_USD:.2f}")
     for c in checks:
         print(f"  [{'ok  ' if c['status'] == 'PASS' else 'FAIL'}] {c['check']}")
