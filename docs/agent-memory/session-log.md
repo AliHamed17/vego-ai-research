@@ -718,3 +718,20 @@ Chronological prompt history for Codex and Claude.
   - 11 focused tests; verify-source PASS; hardening manifest check
 - Status: completed; no scientific evidence generated
 - Next steps: Commit/push package for draft PR review; wait for private evidence binding and supervisor review
+
+## 2026-09-08 00:21 +03:00 - Codex - Study 1 transparency package CI and PR finalization
+
+- Request: Finalize the sanitized Study 1 data/log/pattern transparency package, refresh the hardening manifest, verify green CI on the pushed head, and update PR #41 metadata.
+- Actions taken:
+  - Refreshed release-manifest-v3 through the supported builder after CI freshness failure; pushed commit 60db152; dispatched workflow 34162596621 and verified all six jobs passed; updated PR #41 description with final head, provenance, evidence boundary, and supervisor-review status.
+- Files changed:
+  - docs/research/hardening/release-manifest-v3.json
+  - PR #41 metadata only
+- Commands/checks:
+  - git fetch origin --prune
+  - uv run python scripts/build_hardening_manifests.py
+  - gh workflow run supervisor-package.yml --ref study1/closure-and-study2-prep
+  - gh run view 34162596621 --json status,conclusion,headSha,jobs
+  - gh pr edit 41 --body <sanitized final status>
+- Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW — NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
+- Next steps: Mount and validate the accepted private binding manifest/event log; semantically rebase PR #41 onto current origin/main 158714064; obtain supervisor and independent review before any scientific reporting or merge.

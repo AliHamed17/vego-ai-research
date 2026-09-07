@@ -473,3 +473,11 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/study1-transparency-figures-manifest-v1.json
 - Rollback note: Revert the consolidated transparency package commit if rejected; generated private artifacts remain outside Git.
 - Git commit: none recorded by script.
+
+## 2026-09-08 00:21 +03:00 - Codex - Study 1 transparency package CI and PR finalization
+
+- Files changed:
+  - docs/research/hardening/release-manifest-v3.json
+  - PR #41 metadata only
+- Rollback note: Revert commit 60db152 to restore the previous release-manifest source-tree hash if needed; PR metadata can be restored from its prior body.
+- Git commit: none recorded by script.

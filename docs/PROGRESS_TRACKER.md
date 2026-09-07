@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-08 00:21 +03:00 - Codex - Study 1 transparency package CI and PR finalization
+- 2026-09-08 00:11 +03:00 - Codex - Transparency manifest and clean-checkout hardening
 - 2026-09-07 23:48 +03:00 - Codex - Study 1 transparency package finalization
 - 2026-09-07 23:46 +03:00 - Codex - Study 1 transparency package
 - 2026-09-07 16:51 +03:00 - Codex - Study 1B closure and bounded pilot readiness
 - 2026-09-07 15:21 +03:00 - Codex - Study 2 ON/OFF enforcement and Study 1B independent gate
-- 2026-09-07 13:28 +03:00 - Claude - Study 1B variance preregistered and prepared; binding-manifest obstacle recorded
-- 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
 <!-- AUTO:activity:end -->
 
 ---
