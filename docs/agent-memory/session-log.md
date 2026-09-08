@@ -842,3 +842,24 @@ Chronological prompt history for Codex and Claude.
 - Status: completed
 - Next steps: Independent supervisor-package review; no new empirical claim or provider run is authorized by this documentation package.
 - Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).
+
+## 2026-09-08 23:24 +03:00 - Codex - Study 1 multi-dataset admission privacy hardening
+
+- Request: Continue the bounded multi-dataset validation plan after a final review found unsafe metadata-card validation.
+- Actions taken:
+  - Added fail-closed semantic validation for public QuRE and metadata-only archive data cards.
+  - Rejected traversal, separator, reserved-character, and Unicode-control inventory names at build and validation time.
+  - Confirmed QuRE public record metadata but retained NOT_ADMITTED because the official record has no explicit licence or SHA-256 binding.
+  - Ran no provider/API/model call or experiment; spend USD 0.
+- Files changed:
+  - src/vego_multidataset/admission.py
+  - schemas/multidataset-data-card-v1.schema.json
+  - tests/test_multidataset_admission.py
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - python -m pytest scripts/tests tests VEGO-AI/tests -q -p no:cacheprovider: 1080 passed, 23 skipped, 7 subtests.
+  - python scripts/build_hardening_manifests.py --check: PASS.
+  - python scripts/check_repository_privacy.py: PASS.
+  - python scripts/security_audit.py: PASS.
+- Status: Pushed draft PR update; CI pending.
+- Next steps: Await exact-head CI; data admissions, frozen model, budget proof, and separate one-time provider authorization remain required before any real run.
