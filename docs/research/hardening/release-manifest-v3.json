@@ -193,6 +193,7 @@
     "scripts/tests/supervisor_package_browser_smoke.mjs",
     "scripts/tests/test_agent_contribution_report.py",
     "scripts/tests/test_airtravel_detector_envelope_extended.py",
+    "scripts/tests/test_airtravel_full_frame_corpus.py",
     "scripts/tests/test_airtravel_observer_incomplete.py",
     "scripts/tests/test_airtravel_pr38_authorization.py",
     "scripts/tests/test_airtravel_pr38_hardening.py",
@@ -247,6 +248,7 @@
     "scripts/tests/test_reuse_gates.py",
     "scripts/tests/test_security_audit.py",
     "scripts/tests/test_study1_call_bound.py",
+    "scripts/tests/test_study1_detector_baselines.py",
     "scripts/tests/test_study1_detector_robustness.py",
     "scripts/tests/test_study1_evidence_recovery.py",
     "scripts/tests/test_study1_forbidden_claims.py",
@@ -289,7 +291,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "1cd8764c1360425421398cba0d4c628c2095215aa58777994ca159470e8c9d98",
+  "sourceTreeSha256": "8e8e3d1648ca15136d69574d459297dacb87040ada0f2aafee7794fdd7182c62",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
