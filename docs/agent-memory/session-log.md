@@ -866,3 +866,61 @@ Chronological prompt history for Codex and Claude.
   - study2_prospective_report.py -> Hebrew report (9 pp), slides (10), executive summary, E2E visual, 14 blinded cards
 - Status: completed
 - Next steps: Two independent raters score the 14 blinded cards with human-rater-rubric.he.md; then compute agreement. PR #45 stays a draft; no merge without supervisor review.
+
+## 2026-09-09 00:49 +03:00 - Codex - Bilingual visual human-intervention baseline
+
+- Request: Create concise 3-4 page English and Hebrew supervisor PDFs with baselines, plots, experiments, conclusions, and Iris/Arnon questions.
+- Actions taken:
+  - Built one evidence-bound four-page visual readout in English and Hebrew from pinned tracked evidence
+  - Added an ON/OFF workflow diagram, operational baseline plots, Detector-v1 interpretation, agent-route coverage, and the human-validation gate
+  - Rendered and inspected all eight pages; normalized volatile PDF timestamps for reproducible hashes
+  - Preserved the frozen archival-retrospective, engineering-only fixture, prospective empirical, accepted-run robustness, and NOT_MEASURED evidence classes
+- Files changed:
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-facts.json
+  - docs/visualizations/catalog.generated.md
+  - docs/PROGRESS_TRACKER.md
+  - docs/agent-memory/session-log.md
+  - docs/agent-memory/revert-log.md
+  - docs/agent-memory/revert-log-archive.md
+  - scripts/build_study1_visual_baseline_bilingual.py
+  - tests/test_study1_visual_baseline_bilingual.py
+- Commands/checks:
+  - Focused report tests: 9 passed
+  - Full inventories: VEGO-AI 134 passed; scripts 789 passed, 23 skipped, 7 subtests; root 120 passed, 1 skipped
+  - PDF QA: 4 A4-landscape pages per language, embedded Unicode fonts, selectable text, no clipping
+  - Privacy, evidence consistency, security history, pip-audit, npm audit, Ruff, compile, and repository builders passed
+- Status: ready for draft PR review
+- Next steps: Open a stacked draft PR against study2/prospective-on-off-paired; require green CI; human raters remain NOT_MEASURED.
+
+## 2026-09-09 01:55 +03:00 - Codex - Enhanced bilingual human-intervention baseline
+
+- Request: Add evidence-honest uncertainty, trigger-location, round, signal-co-occurrence, and case-level analytics to the four-page bilingual supervisor baseline.
+- Actions taken:
+  - Bound case selection to the frozen manifest and derived case-level Q&A counts, episode classes, round distributions, and signal co-occurrence from tracked aggregate evidence.
+  - Clarified that objective known/unknown status and requested answer-level confidence/evidence cuts are not available in the tracked aggregate.
+  - Added the post-episode Detector-v1 reporting location, human-review decision point, and separate Agent-4 status in English and Hebrew.
+  - Rebuilt both four-page PDFs, corrected RTL arrow direction and Hebrew labels, and verified deterministic output and visual containment.
+- Files changed:
+  - scripts/build_study1_visual_baseline_bilingual.py
+  - tests/test_study1_visual_baseline_bilingual.py
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-facts.json
+- Commands/checks:
+  - python -m pytest tests/test_study1_visual_baseline_bilingual.py -q
+  - python -m pytest tests -q
+  - python -m pytest VEGO-AI/tests -q
+  - python -m pytest scripts/tests -q
+  - python -m ruff check scripts/build_study1_visual_baseline_bilingual.py tests/test_study1_visual_baseline_bilingual.py
+  - python scripts/build_study1_visual_baseline_bilingual.py --render
+  - python scripts/check_repository_privacy.py
+  - python scripts/security_audit.py
+  - python scripts/check_evidence_consistency.py --check
+- Status: completed
+- Next steps: Independent supervisor review and human rating remain required.
