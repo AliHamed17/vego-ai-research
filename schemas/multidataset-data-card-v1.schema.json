@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/multidataset-data-card-v1.schema.json",
+  "title": "VEGO-AI multi-dataset data admission card",
+  "type": "object",
+  "required": [
+    "schema_version", "dataset_id", "dataset_name", "evidence_class",
+    "owner_or_publisher", "official_source", "licence", "date_or_version",
+    "raw_artifact", "source_file_count", "analysis_unit", "language_or_domain",
+    "independent_labels_or_reference_artifacts", "potential_leakage_risk",
+    "privacy_classification", "intended_vego_task", "permitted_claims",
+    "prohibited_claims", "decision", "admission_blockers", "review_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "vego-multidataset-data-card-v1"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "dataset_name": {"type": "string", "minLength": 1},
+    "evidence_class": {"type": "string", "minLength": 1},
+    "owner_or_publisher": {"type": "string", "minLength": 1},
+    "official_source": {"type": "object"},
+    "licence": {
+      "type": "object",
+      "required": ["status", "name", "url"],
+      "properties": {
+        "status": {"enum": ["VERIFIED", "UNVERIFIED"]},
+        "name": {"type": ["string", "null"]},
+        "url": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "date_or_version": {"type": "object"},
+    "raw_artifact": {
+      "type": "object",
+      "required": ["sha256", "file_inventory", "storage"],
+      "properties": {
+        "sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "bytes": {"type": ["integer", "null"], "minimum": 0},
+        "file_inventory": {"type": "array"},
+        "storage": {"const": "GITIGNORED_LOCAL_ONLY"}
+      },
+      "additionalProperties": true
+    },
+    "source_file_count": {"type": ["integer", "null"], "minimum": 0},
+    "analysis_unit": {"type": "string", "minLength": 1},
+    "language_or_domain": {"type": "string", "minLength": 1},
+    "independent_labels_or_reference_artifacts": {"type": "string", "minLength": 1},
+    "potential_leakage_risk": {"type": "string", "minLength": 1},
+    "privacy_classification": {"type": "string", "minLength": 1},
+    "intended_vego_task": {"type": "string", "minLength": 1},
+    "permitted_claims": {"type": "array", "items": {"type": "string"}},
+    "prohibited_claims": {"type": "array", "items": {"type": "string"}},
+    "decision": {"enum": ["ADMITTED", "ADMITTED_WITH_LIMITATIONS", "NOT_ADMITTED"]},
+    "admission_blockers": {"type": "array", "items": {"type": "string"}},
+    "review_status": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

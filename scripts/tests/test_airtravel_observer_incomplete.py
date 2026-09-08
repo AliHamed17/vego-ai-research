@@ -65,15 +65,34 @@ def _drive(answers):
     observer = observer_module.Observer(recorder)
     registry = observer.registry(BaseRegistry)()
     meta = _meta()
-    observer_module.CURRENT.set(meta)
-    observer.expected[meta["episode_id"]] = {"lang": ["a", "b"], "dom": []}
+    token = observer_module.CURRENT.set(meta)
+    try:
+        observer.expected[meta["episode_id"]] = {"lang": ["a", "b"], "dom": []}
 
-    async def run():
-        await registry.allocate_ids(["a", "b"], "lang")
-        await registry.record_answers(answers, "lang")
+        async def run():
+            await registry.allocate_ids(["a", "b"], "lang")
+            await registry.record_answers(answers, "lang")
 
-    asyncio.run(run())
+        asyncio.run(run())
+    finally:
+        observer_module.CURRENT.reset(token)
     return recorder
+
+
+def test_drive_restores_observer_context_after_run():
+    import airtravel_local_observer as observer_module
+
+    outer = observer_module.CURRENT.set(None)
+    try:
+        _drive(
+            [
+                {"question_id": "Q1", "answer": "x", "confidence": "High", "evidence": "e"},
+                {"question_id": "Q2", "answer": "y", "confidence": "Low", "evidence": "f"},
+            ]
+        )
+        assert observer_module.CURRENT.get() is None
+    finally:
+        observer_module.CURRENT.reset(outer)
 
 
 def test_matching_answers_do_not_terminate_the_episode():
@@ -123,15 +142,18 @@ def test_terminated_episode_is_never_reopened():
     observer = observer_module.Observer(recorder)
     registry = observer.registry(BaseRegistry)()
     meta = _meta()
-    observer_module.CURRENT.set(meta)
-    observer.expected[meta["episode_id"]] = {"lang": ["a"], "dom": []}
+    token = observer_module.CURRENT.set(meta)
+    try:
+        observer.expected[meta["episode_id"]] = {"lang": ["a"], "dom": []}
 
-    async def run():
-        await registry.allocate_ids(["a"], "lang")
-        await registry.record_answers([], "lang")
-        observer.expected[meta["episode_id"]] = {"lang": ["b"], "dom": []}
-        await registry.allocate_ids(["b"], "lang")
-        await registry.record_answers([], "lang")
+        async def run():
+            await registry.allocate_ids(["a"], "lang")
+            await registry.record_answers([], "lang")
+            observer.expected[meta["episode_id"]] = {"lang": ["b"], "dom": []}
+            await registry.allocate_ids(["b"], "lang")
+            await registry.record_answers([], "lang")
 
-    asyncio.run(run())
+        asyncio.run(run())
+    finally:
+        observer_module.CURRENT.reset(token)
     assert len(recorder.terminations) == 1

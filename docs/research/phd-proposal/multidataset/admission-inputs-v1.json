@@ -1,0 +1,42 @@
+{
+  "schema_version": "vego-multidataset-admission-inputs-v1",
+  "review_date": "2026-09-08",
+  "qure": {
+    "concept_doi": "10.5281/zenodo.15656471",
+    "record_doi": "10.5281/zenodo.15656472",
+    "record_url": "https://zenodo.org/records/15656472",
+    "version": "1",
+    "published": "2025-06-13",
+    "retrieved_at": "2026-09-08",
+    "licence": null,
+    "raw_file_sha256": null,
+    "file_inventory": [],
+    "parser_version": "qure-adapter-v1",
+    "official_metadata_scope": "TITLE_RESOURCE_TYPE_OPEN_ACCESS_VERSION_AND_STATED_FILE_NAMES_ONLY",
+    "official_metadata_status": "RECORD_SPECIFIC_LICENCE_NOT_CAPTURED"
+  },
+  "vego_se_archive": {
+    "archive_sha256": "8d37f3adb28e70b09bd095e7cf27b055c8488369aecd3628960a148d11b5b384",
+    "archive_bytes": 22450455,
+    "file_count": 632,
+    "inventory_method": "ZIP_CENTRAL_DIRECTORY_METADATA_ONLY",
+    "provenance": null,
+    "licence": null,
+    "task_fit": "UNVERIFIED",
+    "source_class": "USER_SUPPLIED_PROJECT_BACKUP_ARCHIVE",
+    "top_level": "VEGO-AI",
+    "extension_counts": {
+      ".docx": 1,
+      ".exe": 1,
+      ".json": 252,
+      ".log": 4,
+      ".md": 4,
+      ".pdf": 1,
+      ".py": 15,
+      ".txt": 344,
+      ".xlsx": 9,
+      ".yaml": 1
+    },
+    "content_inspection": "NOT_PERFORMED_PENDING_PROVENANCE_LICENCE_AND_TASK_ADMISSION"
+  }
+}

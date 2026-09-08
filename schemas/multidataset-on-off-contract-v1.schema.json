@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/multidataset-on-off-contract-v1.schema.json",
+  "title": "VEGO-AI multi-dataset ON/OFF contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "shared_controls", "VEGO_AI_ON", "VEGO_AI_OFF"],
+  "properties": {
+    "schema_version": {"const": "vego-multidataset-on-off-contract-v1"},
+    "shared_controls": {"type": "object"},
+    "VEGO_AI_ON": {"type": "object"},
+    "VEGO_AI_OFF": {"type": "object"}
+  }
+}

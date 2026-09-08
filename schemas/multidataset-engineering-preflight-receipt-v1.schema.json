@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/multidataset-engineering-preflight-receipt-v1.schema.json",
+  "title": "VEGO-AI multi-dataset engineering-only preflight receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "evidence_class", "scientific_result_status", "study1_pooled", "execution_code_sha",
+    "provider_calls", "external_provider_calls", "network_policy",
+    "blocked_egress_attempts", "fake_client_requests", "conditions", "receipt_binding"
+  ],
+  "properties": {
+    "schema_version": {"const": "vego-multidataset-engineering-preflight-receipt-v1"},
+    "evidence_class": {"const": "ENGINEERING_FIXTURE_ONLY"},
+    "scientific_result_status": {"const": "NOT_EXECUTED"},
+    "study1_pooled": {"const": false},
+    "execution_code_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "provider_calls": {"const": 0},
+    "external_provider_calls": {"const": 0},
+    "network_policy": {"const": "DISABLED"},
+    "blocked_egress_attempts": {"type": "integer", "minimum": 0},
+    "fake_client_requests": {"type": "integer", "minimum": 0},
+    "conditions": {"type": "object", "required": ["VEGO_AI_ON", "VEGO_AI_OFF"]},
+    "receipt_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "content_sha256"],
+      "properties": {
+        "algorithm": {"const": "SHA-256"},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

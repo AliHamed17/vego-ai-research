@@ -1,0 +1,53 @@
+{
+  "schema_version": "vego-multidataset-preregistration-template-v1",
+  "study_id": "VEGO-AI-STUDY-1-MULTI-DATASET",
+  "status": "BLOCKED_PENDING_DATA_ADMISSION_AND_FROZEN_MODEL",
+  "evidence_class": "PRE_EXECUTION_TEMPLATE_NOT_EMPIRICAL_EVIDENCE",
+  "dataset_lanes": {
+    "AIRTRAVEL_QA_FEASIBILITY_BASELINE": {
+      "status": "ARCHIVAL_RETROSPECTIVE_DESCRIPTIVE_EVIDENCE_ONLY",
+      "new_run": "PROHIBITED_BY_THIS_TEMPLATE",
+      "pooling": "PROHIBITED"
+    },
+    "QURE_EXTERNAL_REQUIREMENTS_QUALITY_VALIDATION": {
+      "status": "NOT_ADMITTED_PENDING_EXPLICIT_LICENCE_AND_RAW_FILE_BINDING",
+      "label_role": "NOT_DIRECT_ALERT_GROUND_TRUTH",
+      "label_visibility_during_execution": "FORBIDDEN"
+    },
+    "VEGO_SE_ARCHIVE_DATASET_PENDING_ADMISSION": {
+      "status": "NOT_ADMITTED_PENDING_PROVENANCE_LICENCE_AND_TASK_FIT",
+      "provider_execution": "FORBIDDEN"
+    }
+  },
+  "provider_policy": {
+    "provider": "OpenAI",
+    "model_id": "NOT_FROZEN_BY_USER",
+    "model_version": "NOT_FROZEN_BY_USER",
+    "total_budget_ceiling_usd": 6.0,
+    "fallback_or_switching": "FORBIDDEN",
+    "retry_policy": "ONE_TRANSPORT_RETRY_BEFORE_VALID_OUTPUT_ONLY",
+    "provider_calls_permitted": false
+  },
+  "on_off_design": {
+    "ON": "MULTI_AGENT_BOUNDED_QA_AND_DETECTOR_V1_ON_COMPLETE_EPISODES_ONLY",
+    "OFF": "DIRECT_SINGLE_MODEL_NO_AGENTS_NO_QA_NO_DETECTOR",
+    "detector_v1_off": "NOT_APPLICABLE",
+    "comparison_language": "SYSTEM_COMPARISON_NOT_PURE_ORCHESTRATION_ABLATION"
+  },
+  "human_validation": {
+    "independent_raters": "NOT_MEASURED",
+    "alert_correctness": "NOT_MEASURED",
+    "human_benefit": "NOT_MEASURED"
+  },
+  "required_before_any_provider_call": [
+    "ADMIT_EXACT_DATASET_WITH_PROVENANCE_LICENCE_AND_HASH",
+    "FREEZE_EXECUTABLE_CASE_SELECTION_AND_INPUT_HASHES",
+    "FREEZE_ONE_EXPLICIT_USER_APPROVED_OPENAI_MODEL_AND_VERSION",
+    "CONSERVATIVE_BUDGET_AND_CALL_ARITHMETIC_WITHIN_USD_6",
+    "LABEL_LEAKAGE_TEST_PASS",
+    "FULL_ON_OFF_FAKE_PREFLIGHT_PASS",
+    "EXACT_HEAD_GREEN_CI",
+    "PRIVATE_OUTPUT_ROOT_AND_EVIDENCE_PACKET",
+    "EXPLICIT_ONE_TIME_HUMAN_EXECUTION_AUTHORIZATION"
+  ]
+}
