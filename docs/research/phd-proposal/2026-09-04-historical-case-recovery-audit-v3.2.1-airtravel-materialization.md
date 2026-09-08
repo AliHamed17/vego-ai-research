@@ -1,6 +1,6 @@
 # Historical recovery v3.2.1 — AirTravel materialization and verifier hardening
 
-**Status: TECHNICAL NO-GO**  
+**Status: TECHNICAL NO-GO**
 **Audit base SHA:** `11cbe0413884624469867afa7aba66a0050a6442`
 **Provider, external-model, Detector-v1, and paid-experiment calls:** `0`
 

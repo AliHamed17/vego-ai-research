@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study1-data-provenance-v1.schema.json",
+  "title": "VEGO-AI Study 1 safe data provenance record",
+  "type": "object",
+  "required": ["schema_version", "verification_date", "review_context", "dataset", "private_accepted_run_evidence", "verification_boundary"],
+  "properties": {
+    "schema_version": {"const": "study1-data-provenance-v1"},
+    "verification_date": {"type": "string", "minLength": 10},
+    "review_context": {
+      "type": "object",
+      "required": ["origin_main_sha", "reviewed_pr_head_sha", "pr_number", "pr_state"],
+      "properties": {
+        "origin_main_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "reviewed_pr_head_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "pr_number": {"const": 41},
+        "pr_state": {"const": "OPEN_DRAFT_UNMERGED"}
+      },
+      "additionalProperties": true
+    },
+    "dataset": {
+      "type": "object",
+      "required": ["classification", "setting_id", "corpus_id", "upstream_commit", "source_file_count", "selected_runtime_files", "airtravel_source_verification"],
+      "properties": {
+        "classification": {"const": "PUBLIC_EXTERNAL"},
+        "setting_id": {"const": "cd_airtravel"},
+        "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+        "upstream_commit": {"const": "253b26dc704d523209a5cba79686f8f7fab57d63"},
+        "source_file_count": {"type": ["integer", "string"]},
+        "selected_runtime_files": {"type": "array", "minItems": 5, "maxItems": 5},
+        "airtravel_source_verification": {"type": "object", "required": ["status", "matched_count"]}
+      },
+      "additionalProperties": true
+    },
+    "private_accepted_run_evidence": {
+      "type": "object",
+      "required": ["status", "binding_manifest"],
+      "properties": {
+        "status": {"enum": ["NOT_AVAILABLE_IN_WORKTREE", "AVAILABLE_VERIFIED", "EVIDENCE_INVALID"]},
+        "binding_manifest": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "verification_boundary": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

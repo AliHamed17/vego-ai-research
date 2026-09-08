@@ -73,8 +73,15 @@ used as the new-corpus detector.
 `extract_qa_escalation_features.py` emits source-hashed events and applies a
 transparent OR-rule. F5 is retained only as a visible data-availability status and
 does not produce an escalation alert. The
-alerts are candidate alerts only; no correctness is inferred. The detector stores
-reason codes, confidence, evidence presence, and provenance for auditability.
+alerts are reporting-level candidate labels from Detector-v1's Q&A-episode
+mechanism only; no correctness is inferred and Detector-v1 does not write a
+queue. The separate Selective Intervention Policy / Agent-4 mechanism operates
+on Agent-4 variability classifications and may create `human_review_queue.jsonl`
+only when its queue builder is explicitly executed. AirTravel queue status is
+`NOT_AVAILABLE` without a validated artifact, and absence does not mean “not
+triggered” or zero. Neither mechanism automatically changes a source, target,
+guideline, or model. The detector stores reason codes, confidence, evidence
+presence, and provenance for auditability.
 
 The generator creates three independent blind sheets (Reviewer A/B/C) with context
 and blank fields for `review_label`, `short_rationale`, `reviewer_id`,

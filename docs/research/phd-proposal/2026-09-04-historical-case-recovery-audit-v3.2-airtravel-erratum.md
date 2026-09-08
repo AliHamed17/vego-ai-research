@@ -1,7 +1,7 @@
 # Historical recovery v3.2 — AirTravel evidence reconciliation and technical preflight
 
-**Status: TECHNICAL NO-GO**  
-**Audit base SHA:** `25b60197706f7725571bd32c2d4a258dd5014035`  
+**Status: TECHNICAL NO-GO**
+**Audit base SHA:** `25b60197706f7725571bd32c2d4a258dd5014035`
 **Provider, experiment, Detector-v1, and synthetic calls:** 0
 
 This is a successor/erratum to v3 and v3.1. Earlier reports remain preserved

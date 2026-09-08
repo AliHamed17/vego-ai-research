@@ -1,0 +1,202 @@
+{
+  "analysis": {
+    "inference": "none",
+    "reason": "four cases; descriptive counts only",
+    "sampling": "N=4 is a purposive feasibility sample, not drawn to support inference; no p-value, confidence interval, effect size or power calculation is computed or reported",
+    "significance_tests": "none"
+  },
+  "authorization_gates": [
+    "preregistration review (version 2)",
+    "closure of every entry in binding_status.declared_but_NOT_bound_in_code",
+    "implementation review at immutable head with green CI",
+    "fresh one-time grant for a PAIRED offline preflight exercising both conditions in one pass",
+    "preflight evidence audit",
+    "separate fresh authorization for exactly one ON run and exactly one OFF run, each naming the model, budget and cap in the authorization text"
+  ],
+  "binding_status": {
+    "bound_and_verified_in_code": {
+      "concurrency": 2,
+      "corpus_pinning_by_sha256": "load_corpus verifies every RUNTIME_FILES digest",
+      "output_contract": [
+        "existing_mapping",
+        "coverage_summary",
+        "uncovered_fragments"
+      ]
+    },
+    "consequence": "The declared-but-unbound list is a set of blocking preconditions. Until every entry is implemented and demonstrated under a paired offline preflight, the frozen block states an intention rather than a binding and no paid Study 2 run may be authorized.",
+    "declared_but_NOT_bound_in_code": [
+      "budget_usd_cap",
+      "request_cap_per_condition",
+      "egress_restriction",
+      "model identity",
+      "max_output_tokens",
+      "request_timeout_seconds",
+      "run_timeout_seconds",
+      "retries",
+      "case_ids enforcement"
+    ],
+    "reference": "docs/research/phd-proposal/2026-09-06-study2-implementation-review.md"
+  },
+  "comparison_type": {
+    "reason": "Prompt text, task decomposition and call structure necessarily differ between the conditions and are constitutive of orchestration, not incidental to it. No design can hold them constant while varying orchestration. Every observed difference is attributable to the system as a whole, never to orchestration as an isolated mechanism.",
+    "structural_difference_schedule": [
+      "prompt text",
+      "task decomposition",
+      "call count per case",
+      "control flow"
+    ],
+    "type": "SYSTEM_COMPARISON",
+    "withdrawn_claim": "VEGO-AI orchestration only"
+  },
+  "conditions": {
+    "VEGO_AI_OFF": {
+      "agents": [],
+      "calls_per_case": 1,
+      "detector_v1": "NOT_APPLICABLE",
+      "detector_v1_execution": "NOT_EXECUTED_IN_ANY_RUN_SO_FAR",
+      "detector_v1_reason": "no inter-agent episodes exist; absence of a measuring unit is not a zero-alert observation",
+      "inter_agent_qa": false,
+      "max_qa_rounds": null,
+      "orchestration": false,
+      "round_loop": false
+    },
+    "VEGO_AI_ON": {
+      "agents": [
+        "agent1",
+        "agent2",
+        "agent3",
+        "agent4"
+      ],
+      "detector_v1": "APPLICABLE",
+      "detector_v1_configuration": "must be the identical version-pinned Study 1 configuration - same signals, thresholds and alert classes - cited by module path and digest; no post-outcome tuning",
+      "detector_v1_execution": "NOT_EXECUTED_IN_ANY_RUN_SO_FAR",
+      "inter_agent_qa": true,
+      "max_qa_rounds": 10,
+      "orchestration": true,
+      "round_loop": true
+    }
+  },
+  "forbidden_claims": [
+    "accuracy",
+    "precision",
+    "recall",
+    "F1",
+    "alert correctness",
+    "human benefit",
+    "intervention effectiveness",
+    "representativeness",
+    "generalization",
+    "which condition is better",
+    "student behaviour",
+    "historical recovery",
+    "that orchestration alone caused any observed difference",
+    "any cross-condition comparison of alert rates, counts or proportions",
+    "efficiency framed as merit"
+  ],
+  "frozen": {
+    "_note": "Entries here are the intended configuration. See binding_status for which of them the code actually enforces; several do not.",
+    "budget_usd_cap": 10.0,
+    "case_ids": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "concurrency": 2,
+    "corpus_id": "text2uml_airtravel_253b26dc",
+    "max_output_tokens": "identical across conditions",
+    "model": "TO_BE_FROZEN_BEFORE_FIRST_CALL",
+    "output_contract": [
+      "existing_mapping",
+      "coverage_summary",
+      "uncovered_fragments"
+    ],
+    "request_cap_per_condition": 326,
+    "request_timeout_seconds": 180,
+    "retries": 3,
+    "run_timeout_seconds": 3600,
+    "seed": "not set by either condition",
+    "setting_id": "cd_airtravel",
+    "temperature": "provider default, not overridden"
+  },
+  "model_factor": {
+    "deferred_to": "Study 2B, separately preregistered, own denominators, no pooling",
+    "in_scope_for_study2": false,
+    "note": "Varying the model alongside orchestration would confound the two."
+  },
+  "non_shared_outcomes": {
+    "detector_v1": "ON only; OFF denominator is NOT_APPLICABLE"
+  },
+  "offline_preflight": {
+    "does_not_prove": [
+      "absence of network egress",
+      "absence of a credential",
+      "that OFF contains no hidden Q&A",
+      "that only orchestration differs - see comparison_type"
+    ],
+    "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+    "evidence_class_source": "HARDCODED_LITERAL_NOT_MEASURED",
+    "executed_against": "deterministic fixtures only",
+    "fixture_content": "Both conditions emit empty mapping and fragment lists by construction, so every per-case comparison row is 0 versus 0. The fixture demonstrates plumbing and schema shape only and carries no comparative content.",
+    "harness": "scripts/study2_on_off_experiment.py",
+    "proves": [
+      "no provider construction on the fixture path",
+      "schema shape holds",
+      "a prompt-difference receipt is produced"
+    ],
+    "provider_calls": 0,
+    "provider_calls_source": "HARDCODED_LITERAL_NOT_MEASURED"
+  },
+  "prepared_at_head": "a976494a624391efb0fb96e8f769512f52f52af0",
+  "primary_outcome": {
+    "agreement": "ordinal agreement reported per dimension, always, including when poor; minimum acceptable alpha 0.60, below which the dimension is reported AGREEMENT_INSUFFICIENT and is not interpreted",
+    "composite_index": "PROHIBITED - dimensions are never summed or averaged",
+    "dimensions": [
+      "Q1 mapping correctness",
+      "Q2 evidence adequacy",
+      "Q3 fragment identification",
+      "Q4 fragment labelling",
+      "Q5 internal consistency"
+    ],
+    "fallback": "NOT_COLLECTED - secondary outcomes are never promoted to primary",
+    "instrument_status": "NOT_BUILT - no labelling plan or rubric anchors exist yet",
+    "judges": "at least two independent judges; a VEGO-AI author is a declared interest",
+    "measure": "blinded human-rubric quality of the shared per-case output",
+    "units": "4 cases x 2 conditions = 8 artifacts"
+  },
+  "prohibited_degrees_of_freedom": [
+    "outcome-dependent retry",
+    "model switching after any outcome is observed",
+    "changing prompts, temperature or corpus after any outcome is observed",
+    "re-running a condition after seeing its result"
+  ],
+  "requires": "separate independent review and fresh authorization per paid condition",
+  "schema_version": "study2-frozen-config-v2",
+  "shared_outcomes": {
+    "NOT_MEASURABLE_BY_THE_CURRENT_HARNESS": [
+      "tokens",
+      "cost_usd",
+      "technical_failures"
+    ],
+    "measurable_by_the_current_harness": [
+      "completed_cases",
+      "schema_validity",
+      "mapping_rows",
+      "uncovered_fragments",
+      "calls",
+      "elapsed_seconds"
+    ],
+    "note": "The three unmeasurable outcomes have no token accounting, no price model and no status field anywhere in the Study 2 code. They are secondary and descriptive; a cheaper or faster condition is not thereby better."
+  },
+  "status": "PREPARED_NOT_EXECUTED",
+  "study_separation": {
+    "note": "Study 1 counts are never combined with Study 2 counts.",
+    "pooled_with_study1": false,
+    "shared_denominators": false
+  },
+  "supersedes": {
+    "reason": "v1 declared orchestration the only varying factor, presented unbound controls as frozen, listed unmeasurable shared outcomes, and defined no primary outcome.",
+    "version": "study2-frozen-config-v1"
+  },
+  "varying_factor": "NOT_A_SINGLE_FACTOR"
+}

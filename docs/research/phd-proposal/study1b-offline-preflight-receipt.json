@@ -1,0 +1,45 @@
+{
+  "checks": [
+    {
+      "actual": "BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL",
+      "check": "historical status is frozen",
+      "expected": "BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL",
+      "status": "PASS"
+    },
+    {
+      "actual": "no provider harness reference",
+      "check": "variance module is a closure guard",
+      "expected": "no provider harness reference",
+      "status": "PASS"
+    },
+    {
+      "actual": "present",
+      "check": "replacement pilot controller is separate",
+      "expected": "pilot_budget_constrained_runner.py exists",
+      "status": "PASS"
+    },
+    {
+      "actual": "NOT_STARTED",
+      "check": "repeat execution is not started",
+      "expected": "NOT_STARTED",
+      "status": "PASS"
+    },
+    {
+      "actual": 0,
+      "check": "provider calls remain disabled",
+      "expected": 0,
+      "status": "PASS"
+    }
+  ],
+  "checks_failed": 0,
+  "checks_run": 5,
+  "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+  "generated_at": "2026-09-07T13:18:09.148042Z",
+  "note": "Closure verification only. No repeat, provider call, Detector-v1 run or scientific denominator was produced. The constrained pilot is a separate study.",
+  "provider_calls": 0,
+  "repeat_execution": "NOT_STARTED",
+  "schema_version": "study1b-closure-preflight-v1",
+  "status": "PASS",
+  "study1b_status": "BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL",
+  "study_class": "EXPLORATORY_POST_STUDY1_VARIANCE_REPLICATION"
+}

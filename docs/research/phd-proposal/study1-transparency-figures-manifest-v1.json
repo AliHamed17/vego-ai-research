@@ -1,0 +1,53 @@
+{
+  "claim_boundary": "No empirical figure or scientific chart is generated while the accepted private event log is unavailable.",
+  "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+  "figures": [
+    {
+      "artifact": "2026-09-07-study1-data-log-pattern-transparency-he.pdf",
+      "does_not_show": "alert correctness, prevalence, benefit, or intervention effect",
+      "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
+      "figure_id": "FIG-01",
+      "kind": "rule_diagram",
+      "scientific_denominator": "NOT_APPLICABLE",
+      "source_refs": [
+        "detector-v1-criteria-to-log-fields-v1.csv"
+      ],
+      "status": "SAFE_RULE_VISUAL",
+      "title": "Detector-v1 rule flow"
+    },
+    {
+      "artifact": "2026-09-07-study1-data-log-pattern-transparency-he.pdf",
+      "does_not_show": "queue volume, human workload, or model quality",
+      "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
+      "figure_id": "FIG-02",
+      "kind": "mechanism_boundary_diagram",
+      "scientific_denominator": "NOT_APPLICABLE",
+      "source_refs": [
+        "study1-transparency-data-dictionary-v1.json"
+      ],
+      "status": "SAFE_RULE_VISUAL",
+      "title": "Detector-v1 versus Agent-4 mechanism boundary"
+    },
+    {
+      "artifact": "2026-09-07-study1-data-log-pattern-transparency-he.pdf",
+      "does_not_show": "accepted-run outcomes or empirical patterns",
+      "evidence_class": "ENGINEERING_ILLUSTRATION_ONLY",
+      "figure_id": "FIG-03",
+      "kind": "provenance_diagram",
+      "scientific_denominator": "NOT_APPLICABLE",
+      "source_refs": [
+        "study1-data-provenance-v1.json"
+      ],
+      "status": "SAFE_RULE_VISUAL",
+      "title": "Public provenance and private-evidence boundary"
+    }
+  ],
+  "privacy": {
+    "new_scientific_data": 0,
+    "private_paths_or_credentials": false,
+    "provider_calls": 0,
+    "raw_prompts_answers_or_corpus_bytes": false
+  },
+  "schema_version": "study1-transparency-figures-manifest-v1",
+  "status": "SAFE_RULE_VISUALS_ONLY"
+}

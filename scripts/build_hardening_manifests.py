@@ -107,6 +107,8 @@ SOURCE_EXTRA = (
     "scripts/build-hlayer-experiments.ps1",
     "scripts/build_bigui.py",
     "scripts/build_hardening_manifests.py",
+    "scripts/study1_case_selection.py",
+    "scripts/study1_signal_contract.py",
     "scripts/build_independent_evidence_package.py",
     "scripts/check_dependency_lock.py",
     "scripts/check_hlayer_change_authorization.py",

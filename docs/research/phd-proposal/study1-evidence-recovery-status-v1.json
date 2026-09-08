@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "actual": null,
+      "check": "private accepted evidence root",
+      "expected": null,
+      "note": "explicit read-only evidence root is absent from the reviewed worktree",
+      "status": "NOT_AVAILABLE"
+    }
+  ],
+  "location_class": "authorized_read_only_evidence_root",
+  "note": "explicit read-only evidence root is absent from the reviewed worktree",
+  "recomputed": null,
+  "run_id_sha256": null,
+  "safe_values": {
+    "answer_count": "NOT_AVAILABLE_IN_WORKTREE",
+    "episode_count": "NOT_AVAILABLE_IN_WORKTREE",
+    "question_count": "NOT_AVAILABLE_IN_WORKTREE"
+  },
+  "schema_version": "study1-evidence-recovery-v1",
+  "status": "EVIDENCE_NOT_AVAILABLE_IN_REVIEWED_WORKTREE"
+}

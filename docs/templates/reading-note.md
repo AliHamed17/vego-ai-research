@@ -18,7 +18,7 @@ How this relates to VEGO-AI.
 
 ## Methods/Concepts To Reuse
 
-- 
+-
 
 ## Important Quotes Or Ideas
 
@@ -30,5 +30,5 @@ Limitations, assumptions, or disagreement.
 
 ## Follow-Up
 
-- 
+-
 
