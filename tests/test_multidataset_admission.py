@@ -115,6 +115,7 @@ def test_data_card_rejects_named_but_unverified_licence_and_unsafe_metadata() ->
         "record.csv.",
         "record\x00.csv",
         "record\n.csv",
+        "record\u0085.csv",
         "record<private>.csv",
     ],
 )
@@ -127,7 +128,9 @@ def test_inventory_rejects_pathlike_names_before_a_card_is_created(unsafe_name: 
         build_qure_data_card(source)
 
 
-@pytest.mark.parametrize("unsafe_name", ["nested/record.csv", "record\x00.csv"])
+@pytest.mark.parametrize(
+    "unsafe_name", ["nested/record.csv", "record\x00.csv", "record\u0085.csv"]
+)
 def test_inventory_rejects_pathlike_names_when_a_card_is_revalidated(unsafe_name: str) -> None:
     card = _admitted_qure_card()
     card["raw_artifact"] = dict(card["raw_artifact"])

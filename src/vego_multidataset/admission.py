@@ -7,6 +7,7 @@ content and local private paths are intentionally rejected from data cards.
 from __future__ import annotations
 
 import re
+import unicodedata
 from collections.abc import Mapping
 from datetime import date, datetime
 from typing import Any
@@ -24,7 +25,6 @@ _EXTENSION_RE = re.compile(r"^\.[a-z0-9]{1,16}$")
 _DECISIONS = {"ADMITTED", "ADMITTED_WITH_LIMITATIONS", "NOT_ADMITTED"}
 _PRIVATE_MARKERS = ("external_data/", "external_data\\", "c:\\users\\", "c:/users/")
 _ABSOLUTE_PATH_RE = re.compile(r"^(?:[a-z]:[\\/]|\\\\|/|~[\\/]|file:)", re.IGNORECASE)
-_CONTROL_CHAR_RE = re.compile(r"[\x00-\x1f\x7f]")
 _WINDOWS_RESERVED_FILENAME_CHARS = frozenset('<>:"/\\|?*')
 _QURE_DATASET_ID = "QURE_EXTERNAL_REQUIREMENTS_QUALITY_VALIDATION"
 _ARCHIVE_DATASET_ID = "VEGO_SE_ARCHIVE_DATASET_PENDING_ADMISSION"
@@ -90,7 +90,7 @@ def _validate_logical_basename(value: object, field: str) -> str:
     if (
         value in {".", ".."}
         or value.endswith((" ", "."))
-        or _CONTROL_CHAR_RE.search(value)
+        or any(unicodedata.category(character) == "Cc" for character in value)
         or any(character in _WINDOWS_RESERVED_FILENAME_CHARS for character in value)
     ):
         raise AdmissionError(f"{field} must be a safe logical basename")
