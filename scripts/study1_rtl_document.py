@@ -73,6 +73,9 @@ code { font-family:Consolas,monospace; font-size:7pt; background:rgb(244,245,243
      padding:1.1mm; margin:0 0 1mm; }
 .chip { display:inline-block; font-size:6.8pt; font-weight:700; padding:0.5mm 1.6mm;
         border-radius:1mm; margin:0 0 1mm; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin:2mm 0; }
+.two h3 { margin:0 0 1mm; font-size:9pt; color:rgb(20,55,94); }
+.two ul { margin:0; padding-inline-start:4mm; }
 .chip.pro  { background:rgb(232,226,253); color:rgb(48,26,110); border:1px solid rgb(112,72,220); }
 .chip.arch { background:rgb(226,238,253); color:rgb(20,55,94); border:1px solid rgb(42,120,214); }
 .chip.fix  { background:rgb(253,236,229); color:rgb(150,58,18); border:1px solid rgb(235,104,52); }

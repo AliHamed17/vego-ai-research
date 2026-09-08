@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>סיכום עסקי</title><style>@page { size:A4; margin:11mm 12mm 12mm; } body { font-size:8.4pt; }
+* { box-sizing: border-box; }
+body { font-family:"Segoe UI",Arial,sans-serif; color:rgb(11,11,11); margin:0; line-height:1.34; }
+h1 { font-size:15pt; margin:0 0 1mm; color:rgb(20,55,94); }
+h2 { font-size:10.4pt; margin:2.6mm 0 1.2mm; padding-bottom:0.8mm; color:rgb(20,55,94);
+     border-bottom:1.6px solid rgb(42,120,214); }
+h3 { font-size:8.8pt; margin:1.8mm 0 0.8mm; color:rgb(20,55,94); }
+p { margin:0 0 1.1mm; }
+.sub { color:rgb(82,81,78); font-size:8pt; margin:0 0 2mm; }
+.lead { font-size:9.4pt; margin:0 0 1.8mm; }
+table { width:100%; border-collapse:collapse; font-size:7.6pt; margin:0 0 1mm; }
+th,td { border:1px solid rgb(216,216,212); padding:0.9mm 1.2mm; text-align:right; vertical-align:top; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
+code { font-family:Consolas,monospace; font-size:7pt; background:rgb(244,245,243);
+       padding:0 0.6mm; direction:ltr; unicode-bidi:isolate; }
+.num { unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+.f { font-family:Consolas,monospace; direction:ltr; unicode-bidi:isolate; font-size:8.6pt;
+     display:block; text-align:center; background:rgb(244,245,243); border-radius:1mm;
+     padding:1.1mm; margin:0 0 1mm; }
+.chip { display:inline-block; font-size:6.8pt; font-weight:700; padding:0.5mm 1.6mm;
+        border-radius:1mm; margin:0 0 1mm; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin:2mm 0; }
+.two h3 { margin:0 0 1mm; font-size:9pt; color:rgb(20,55,94); }
+.two ul { margin:0; padding-inline-start:4mm; }
+.chip.pro  { background:rgb(232,226,253); color:rgb(48,26,110); border:1px solid rgb(112,72,220); }
+.chip.arch { background:rgb(226,238,253); color:rgb(20,55,94); border:1px solid rgb(42,120,214); }
+.chip.fix  { background:rgb(253,236,229); color:rgb(150,58,18); border:1px solid rgb(235,104,52); }
+.chip.pub  { background:rgb(230,244,233); color:rgb(20,80,40); border:1px solid rgb(60,150,90); }
+.chip.def  { background:rgb(240,240,238); color:rgb(60,60,58); border:1px solid rgb(170,170,166); }
+.chip.na   { background:rgb(238,238,238); color:rgb(70,70,70); border:1px solid rgb(150,150,150); }
+.cap { font-size:6.9pt; color:rgb(82,81,78); margin:0.5mm 0 1.6mm; }
+.cap b { color:rgb(40,40,38); }
+.key  { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214);
+        padding:1.6mm 2.2mm; font-size:8.4pt; margin:0 0 1.8mm; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52);
+        padding:1.6mm 2.2mm; font-size:8pt; margin:0 0 1.8mm; }
+.na   { background:rgb(242,242,242); border-right:3px solid rgb(140,140,140);
+        padding:1.6mm 2.2mm; font-size:8pt; margin:0 0 1.8mm; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3.4mm; align-items:start; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.6mm; align-items:start; }
+.grid4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:2.2mm; align-items:start; }
+.kpi { border:1px solid rgb(216,216,212); border-radius:1.8mm; padding:1.8mm; text-align:center; }
+.kpi .v { font-size:13pt; font-weight:700; color:rgb(20,55,94); line-height:1.05; }
+.kpi .l { font-size:7pt; color:rgb(82,81,78); margin-top:0.6mm; }
+.kpi .d { font-size:6.4pt; color:rgb(120,118,114); margin-top:0.3mm; }
+.row { display:flex; align-items:center; gap:1.6mm; margin:0.6mm 0; }
+.lbl { flex:0 0 42mm; font-size:7.4pt; text-align:right; }
+.track { flex:1 1 auto; position:relative; height:3.8mm; background:rgb(244,245,243);
+         border-radius:0.8mm; }
+.bar { position:absolute; top:0; right:0; height:100%; background:rgb(42,120,214);
+       border-radius:0.8mm; }
+.bar.fixbar { background:rgb(235,104,52); }
+.bar.zero { background:rgb(170,170,166); width:0.8mm !important; }
+.val { position:absolute; left:1.4mm; top:0.15mm; font-size:7pt; font-weight:700;
+       color:rgb(20,55,94); }
+.stage { border:1.4px solid rgb(42,120,214); border-radius:1.8mm; padding:1.6mm 1.4mm;
+         background:rgb(250,252,255); text-align:center; }
+.stage .n { display:inline-block; width:4.6mm; height:4.6mm; line-height:4.6mm; border-radius:50%;
+            background:rgb(42,120,214); color:#fff; font-size:7pt; font-weight:700; }
+.stage .t { font-size:7.8pt; font-weight:700; color:rgb(20,55,94); margin:0.7mm 0 0.3mm; }
+.stage .s { font-size:6.7pt; color:rgb(82,81,78); }
+.aside { border:1.4px dashed rgb(235,104,52); border-radius:1.8mm; padding:1.6mm;
+         background:rgb(254,249,246); }
+.ok { color:rgb(20,110,50); font-weight:700; }
+.no { color:rgb(150,40,40); font-weight:700; }
+ul, ol { margin:0 0 1.2mm; padding-right:4.6mm; padding-left:0; }
+li { font-size:8pt; margin:0 0 0.5mm; }
+tr, .key, .warn, .na, .kpi, .stage, .aside, figure { page-break-inside:avoid; }
+.pb { page-break-before:always; }
+</style></head><body><h1>סיכום עסקי — עמוד אחד</h1><div class="kpis"><div class="kpi"><div class="v">0.8333</div><div class="l">שיעור התרעה</div></div><div class="kpi"><div class="v">6</div><div class="l">שיחות לבדיקה — הכול</div></div><div class="kpi"><div class="v">5</div><div class="l">לאחר קדימות</div></div><div class="kpi"><div class="v">אינו זמין</div><div class="l">חיסכון בדקות בדיקה</div></div></div><h2>מה זה אומר בפועל</h2><p>בריצה הפרוספקטיבית שיחה אחת מתוך שש לא קיבלה התרעה כלל. זו הפעם הראשונה שזה קורה: בכל הריצות הארכיוניות שיעור ההתרעה היה 1.0, כלומר המערכת שלחה לאדם <b>הכול</b>, וזה אינו סינון ואין בו חיסכון. כעת יש סינון אמיתי, והעומס קטן בכ־17%.</p><p>אבל <b>איננו יודעים</b> אם השיחה שנותרה בחוץ הייתה כזו שאדם רצה לראות. הקטנת עומס בלי מדידת שימור אינה חיסכון מוכח — היא יכולה להיות גם אובדן.</p><h2>מה חסר כדי להכריע</h2><p>שני בודקים אנושיים עצמאיים על אותם כרטיסים עיוורים. זה החסם היחיד. הוא אינו חסם תקציבי ואינו חסם הנדסי — כל שאר המנגנון בנוי, קפוא ונבדק.</p><p class="verdict"><b>הכרעה: CONDITIONAL GO</b> — הבסיס בנוי, קפוא ורץ מקצה לקצה, והגלאי הוכיח שהוא מסנן. שיעור השימור, שהוא התוצאה הראשית, תלוי בשני בודקים אנושיים עיוורים שאינם קיימים.</p><p class="cap"><b>מה מוצג:</b> התמונה התפעולית בקצרה · <b>מונה:</b> 5 שיחות בקבוצת הקדימות · <b>מכנה:</b> 6 שיחות שהושלמו · <b>מקור:</b> <code>scripts/study1_hotspot_analysis.py</code> · <b>מה אינו מוכיח:</b> הקטנת עומס בלי שימור מדוד אינה חיסכון מוכח</p></body></html>

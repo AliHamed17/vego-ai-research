@@ -377,12 +377,22 @@ def main() -> int:
             "episode-level and reporting-only; it does not create a human queue and is not "
             "Agent-4's queue mechanism"
         ),
-        "pooling": "PROHIBITED - runs keep their own denominators",
+        "pooling": "PROHIBITED - every table is computed per run on its own denominator",
         "table_a_pipeline_reliability": table_a(runs),
-        "table_b_detector_to_human_agreement": table_b(all_rows, verdicts, key),
-        "table_c_operational_baseline": table_c(all_rows, verdicts, key, receipts, minutes),
+        "table_b_detector_to_human_agreement": [
+            {"run_label": run["label"], "evidence_class": run["evidence_class"],
+             **table_b(run["episodes"], verdicts, key)}
+            for run in runs
+        ],
+        "table_c_operational_baseline": [
+            {"run_label": run["label"], "evidence_class": run["evidence_class"],
+             **table_c(run["episodes"], verdicts, key, [run["receipt"]], minutes)}
+            for run in runs
+        ],
         "table_d_robustness": table_d(runs),
-        "preregistered_sensitivity": sensitivity(all_rows),
+        "preregistered_sensitivity": [
+            {"run_label": run["label"], **sensitivity(run["episodes"])} for run in runs
+        ],
         "adjudication": (
             {"verdict_counts": dict(Counter(verdicts.values()))} if verdicts
             else unavailable("no rater responses supplied", ["rater A responses", "rater B responses"])

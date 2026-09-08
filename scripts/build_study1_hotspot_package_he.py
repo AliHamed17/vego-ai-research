@@ -27,9 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from study1_rtl_document import (  # noqa: E402
-    ARCHIVAL,
     DOC_CSS,
-    FIXTURE,
     MAP_CSS,
     PROSPECTIVE,
     UNAVAILABLE,
@@ -85,10 +83,10 @@ def section_purpose(manifest: dict[str, Any]) -> str:
         "<p><b>מה שנמדד אינו נכונות של הבינה המלאכותית.</b> מה שנמדד הוא האם הגלאי "
         "מקטין את עומס הבדיקה, ובאותה עת שומר בפנים את השיחות שאדם שופט כראויות "
         "לבדיקה. אלה שתי שאלות נפרדות, והתשובה לאחת אינה תשובה לשנייה.</p>"
-        + f'<div class="kpis">{kpi(num(manifest["corpus"]["eligible_case_count"]), "מקרים כשירים במסגרת")}'
-        f'{kpi(num(len(manifest["selection"]["selected"])), "מקרים שנדגמו מראש")}'
-        f'{kpi(num(f"{budget['whole_study_reservation_usd']:.2f}$"), "שריון פסימי לכל המחקר")}'
-        f'{kpi(num(f"{budget['ceiling_usd']:.2f}$"), "תקרת ההוצאה")}</div>'
+        + f'<div class="kpis">{kpi(str(manifest["corpus"]["eligible_case_count"]), "מקרים כשירים במסגרת")}'
+        f'{kpi(str(len(manifest["selection"]["selected"])), "מקרים שנדגמו מראש")}'
+        f'{kpi(str(f"{budget['whole_study_reservation_usd']:.2f}$"), "שריון פסימי לכל המחקר")}'
+        f'{kpi(str(f"{budget['ceiling_usd']:.2f}$"), "תקרת ההוצאה")}</div>'
         + caption(
             meaning="הפרמטרים שהוקפאו לפני כל קריאה לספק",
             numerator="6 מקרים נבחרים",
@@ -180,12 +178,21 @@ def table_a_section(analysis: dict[str, Any]) -> str:
     )
 
 
+def primary(analysis: dict[str, Any], table: str) -> dict[str, Any]:
+    """The prospective run carries the primary result; archival runs sit beside it, never pooled."""
+    rows = analysis[table]
+    for row in rows:
+        if row.get("evidence_class") == PROSPECTIVE:
+            return row
+    return rows[0]
+
+
 def table_b_section(analysis: dict[str, Any]) -> str:
-    b = analysis["table_b_detector_to_human_agreement"]
+    b = primary(analysis, "table_b_detector_to_human_agreement")
     unavailable = is_unavailable(b)
     body = (
-        f'<div class="kpis">{kpi(num(b["alert_rate"]), "שיעור התרעה של גלאי־v1")}'
-        f'{kpi(num(b["denominator_complete_episodes"]), "שיחות שהושלמו — מכנה")}'
+        f'<div class="kpis">{kpi(str(b["alert_rate"]), "שיעור התרעה של גלאי־v1")}'
+        f'{kpi(str(b["denominator_complete_episodes"]), "שיחות שהושלמו — מכנה")}'
         f'{kpi(NA_HE, "שיעור ״ראוי לבדיקה״ אנושי")}'
         f'{kpi(NA_HE, "דיוק והיזכרות")}</div>'
     )
@@ -217,15 +224,15 @@ def table_b_section(analysis: dict[str, Any]) -> str:
 
 
 def table_c_section(analysis: dict[str, Any]) -> str:
-    c = analysis["table_c_operational_baseline"]
+    c = primary(analysis, "table_c_operational_baseline")
     everything = c["all_episodes_review_workload"]
     prioritized = c["detector_prioritized_review_workload"]
     reduction = c["workload_reduction_fraction"]
     return (
-        h2("6. טבלה ג׳ — בסיס תפעולי ועסקי", ARCHIVAL)
-        + f'<div class="kpis">{kpi(num(everything), "עומס בדיקה — כל השיחות")}'
-        f'{kpi(num(prioritized), "עומס בדיקה — לאחר קדימות הגלאי")}'
-        f'{kpi(num(f"{reduction:.1%}") if reduction is not None else NA_HE, "הקטנת עומס")}'
+        h2("6. טבלה ג׳ — בסיס תפעולי ועסקי", PROSPECTIVE)
+        + f'<div class="kpis">{kpi(str(everything), "עומס בדיקה — כל השיחות")}'
+        f'{kpi(str(prioritized), "עומס בדיקה — לאחר קדימות הגלאי")}'
+        f'{kpi(str(f"{reduction:.1%}") if reduction is not None else NA_HE, "הקטנת עומס")}'
         f'{kpi(NA_HE, "שימור שיחות שאדם אישר")}</div>'
         + bars(
             [
@@ -234,11 +241,12 @@ def table_c_section(analysis: dict[str, Any]) -> str:
             ],
             maximum=everything or 1,
         )
-        + "<p class=\"warn\">שתי מסקנות נפרדות. <b>ראשונה:</b> אם קבוצת הקדימות מוגדרת "
-        "כ״כל התרעה״, ההקטנה היא <b>אפס</b>, משום ששיעור ההתרעה הוא 1.0 בכל שיחה שנצפתה "
-        "אי־פעם. <b>שנייה:</b> אם היא מוגדרת כ״התרעה חזקה בלבד״, יש הקטנה — אך "
-        "<b>שיעור השימור אינו ידוע</b> בלי בודקים, ולכן אי־אפשר לדעת אם ההקטנה נקנתה "
-        "במחיר השמטת שיחות שאדם היה רוצה לראות.</p>"
+        + "<p class=\"warn\">שתי מסקנות נפרדות. <b>ראשונה:</b> בריצה הפרוספקטיבית "
+        "התקבלה לראשונה שיחה אחת ללא התרעה כלל. מכאן שהגלאי <b>אינו פונקציה קבועה</b>, "
+        "והוא אכן מסנן — בניגוד לכל הריצות הארכיוניות, שבהן שיעור ההתרעה היה 1.0 "
+        "וההקטנה הייתה אפס. <b>שנייה:</b> ההקטנה קטנה, נמדדה על שש שיחות בלבד, "
+        "ו<b>שיעור השימור אינו ידוע</b> בלי בודקים. לכן אי־אפשר לדעת אם ההקטנה נקנתה "
+        "במחיר השמטת שיחה שאדם היה רוצה לראות.</p>"
         + caption(
             meaning="עומס הבדיקה לפני ואחרי קדימות הגלאי",
             numerator=f"{prioritized} שיחות בקבוצת הקדימות",
@@ -286,10 +294,10 @@ def section_verdict(analysis: dict[str, Any], verdict: dict[str, str]) -> str:
         h2("8. מה נמצא, מה לא נמצא, ומה ההכרעה")
         + "<h3>מה נמצא</h3><ul>"
         "<li>הצינור רץ מקצה לקצה, והתקשורת בין הסוכנים נלכדת ונשמרת עם אימות גיבוב.</li>"
-        "<li>שיעור ההתרעה של גלאי־v1 הוא <b>1.0</b> בכל שיחה שנצפתה אי־פעם. "
-        "לכן קדימות לפי ״התרעה מול אין־התרעה״ אינה מקטינה עומס כלל.</li>"
-        "<li>קדימות לפי ״התרעה חזקה בלבד״ כן מקטינה עומס — אך בלי שימור מדוד "
-        "אי־אפשר לדעת מה המחיר.</li>"
+        "<li>בריצה הפרוספקטיבית נצפתה <b>לראשונה</b> שיחה ללא התרעה: שיעור ההתרעה "
+        "הוא 0.833 ולא 1.0. הגלאי אינו פונקציה קבועה, והוא מקטין עומס ב־16.7%.</li>"
+        "<li>בכל הריצות הארכיוניות שיעור ההתרעה היה <b>1.0</b>, ושם קדימות לפי "
+        "״התרעה מול אין־התרעה״ לא הקטינה עומס כלל.</li>"
         "<li>מנגנוני ההסלמה במערכת אינם מסכימים ביניהם, ותור הבדיקה האנושית ריק.</li>"
         "</ul>"
         "<h3>מה לא נמצא</h3><ul>"
@@ -305,6 +313,82 @@ def section_verdict(analysis: dict[str, Any], verdict: dict[str, str]) -> str:
             denominator="הראיות שנאספו במחקר זה",
             source="docs/research/phd-proposal/2026-09-09-study1-human-review-hotspot-preregistration.md",
             limitation="הכרעה זו נוגעת לבסיס הזה בלבד, ואינה מאשרת שום טענת איכות",
+        )
+    )
+
+
+def section_rubric(manifest: dict[str, Any]) -> str:
+    rubric = manifest["human_review_rubric"]
+    shown = "".join(f"<li>{esc(item)}</li>" for item in rubric["blinding"]["shown"])
+    withheld = "".join(f"<li>{esc(item)}</li>" for item in rubric["blinding"]["withheld"])
+    rows = [
+        [esc(q["prompt"]), esc(" · ".join(q["options"]))] for q in rubric["questions"]
+    ]
+    return (
+        h2("9. מחוון הבדיקה האנושית — הוקפא לפני שקיימת ולו תווית אחת")
+        + f'<div class="two"><div><h3>מה הבודק רואה</h3><ul>{shown}</ul></div>'
+        f'<div><h3>מה מוסתר ממנו</h3><ul>{withheld}</ul></div></div>'
+        + "<p>תווית הביטחון מוסתרת משום שהיא הקלט הדומיננטי של גלאי־v1. בודק שרואה "
+        "אותה אינו שופט באופן עצמאי אלא משכפל את הגלאי. המחיר הוא שהבודק רואה פחות "
+        "ממפעיל אמיתי, וזה נרשם כמגבלה ולא מוסבר כיתרון.</p>"
+        + table(["שאלה לבודק", "אפשרויות"], rows, numeric_from=2)
+        + f'<p class="warn"><b>כלל ההכרעה:</b> {esc(rubric["adjudication_rule"])}</p>'
+        + caption(
+            meaning="המחוון שלפיו יסווגו הכרטיסים כשיהיו בודקים",
+            numerator="3 שאלות לכל כרטיס",
+            denominator="20 כרטיסים עיוורים שהוכנו",
+            source="study1-hotspot-manifest.json",
+            limitation="מחוון אינו תוצאה; הוא רק מונע התאמת מחוון לתוויות",
+        )
+    )
+
+
+def section_boundary() -> str:
+    return (
+        h2("10. שני מנגנונים שאסור לערבב")
+        + '<div class="two">'
+        "<div><h3>גלאי־v1</h3><ul>"
+        "<li>יחידת ניתוח: שיחת שאלה־תשובה.</li>"
+        "<li>קלט: מצב השיחה בלבד — ביטחון, ראיות, סבבים, סיום.</li>"
+        "<li>פלט: סיווג לדיווח.</li>"
+        "<li><b>אינו יוצר תור אנושי ואינו מזין תור.</b></li></ul></div>"
+        "<div><h3>מנגנון התור של סוכן־4</h3><ul>"
+        "<li>יחידת ניתוח: פריט בתור.</li>"
+        "<li>מנגנון נפרד לחלוטין.</li>"
+        "<li>בריצה הפרוספקטיבית — ראו טבלה א׳.</li>"
+        "<li><b>אינו גלאי־v1 ואינו נגזר ממנו.</b></li></ul></div></div>"
+        + "<p class=\"warn\">ערבוב בין השניים היה הופך ״שיחה סומנה״ ל״פריט הגיע לאדם״. "
+        "אלה שתי טענות שונות, ורק אחת מהן נמדדה כאן.</p>"
+        + caption(
+            meaning="הפרדת המנגנונים כפי שהם בנויים",
+            numerator="2 מנגנונים",
+            denominator="המערכת כפי שנבנתה",
+            source="scripts/study1_hotspot_analysis.py",
+            limitation="הפרדה מבנית; אינה מעידה שאחד מהם צודק",
+        )
+    )
+
+
+def section_study2() -> str:
+    return (
+        h2("11. מה המערכת יכולה לתמוך בו כעת, ומה נותר למחקר 2")
+        + '<div class="two">'
+        "<div><h3>נתמך כעת</h3><ul>"
+        "<li>לכידה מקצה לקצה של תקשורת בין סוכנים, עם אימות גיבוב.</li>"
+        "<li>סיווג לפי כלל שהוקפא לפני שנצפה פלט כלשהו.</li>"
+        "<li>מדידת עומס בדיקה לפי הגדרת קדימות מוצהרת.</li>"
+        "<li>הפקת כרטיסים עיוורים והרצת ההכרעה — ברגע שיהיו בודקים.</li></ul></div>"
+        "<div><h3>נותר למחקר 2</h3><ul>"
+        "<li>שני בודקים אנושיים עצמאיים — החסם היחיד.</li>"
+        "<li>מדידת זמן בדיקה בפועל, לצורך טענת חיסכון.</li>"
+        "<li>מה קובע את אורך השיחה, שהוא שאינו מבוקר.</li>"
+        "<li>השוואת הפעלה מול כיבוי — אינה נגזרת ממחקר זה.</li></ul></div></div>"
+        + caption(
+            meaning="גבול היכולת הנוכחית מול מה שנדרש בהמשך",
+            numerator="4 יכולות נתמכות",
+            denominator="השאלה המלאה של המחקר",
+            source="2026-09-09-study1-human-review-hotspot-preregistration.md",
+            limitation="רשימה זו אינה התחייבות לתוצאה של מחקר 2",
         )
     )
 
@@ -325,25 +409,32 @@ def build_report(manifest: dict[str, Any], analysis: dict[str, Any],
         + '<div class="pb"></div>'
         + table_d_section(analysis)
         + section_verdict(analysis, verdict)
+        + '<div class="pb"></div>'
+        + section_rubric(manifest)
+        + '<div class="pb"></div>'
+        + section_boundary()
+        + section_study2()
     )
     return page("בסיס לזיהוי מוקדי בדיקה אנושית", DOC_CSS, body)
 
 
 def build_business(manifest: dict[str, Any], analysis: dict[str, Any],
                    verdict: dict[str, str]) -> str:
-    c = analysis["table_c_operational_baseline"]
-    b = analysis["table_b_detector_to_human_agreement"]
+    c = primary(analysis, "table_c_operational_baseline")
+    b = primary(analysis, "table_b_detector_to_human_agreement")
     body = (
         '<h1>סיכום עסקי — עמוד אחד</h1>'
-        f'<div class="kpis">{kpi(num(b["alert_rate"]), "שיעור התרעה")}'
-        f'{kpi(num(c["all_episodes_review_workload"]), "שיחות לבדיקה — הכול")}'
-        f'{kpi(num(c["detector_prioritized_review_workload"]), "לאחר קדימות")}'
+        f'<div class="kpis">{kpi(str(b["alert_rate"]), "שיעור התרעה")}'
+        f'{kpi(str(c["all_episodes_review_workload"]), "שיחות לבדיקה — הכול")}'
+        f'{kpi(str(c["detector_prioritized_review_workload"]), "לאחר קדימות")}'
         f'{kpi(NA_HE, "חיסכון בדקות בדיקה")}</div>'
         "<h2>מה זה אומר בפועל</h2>"
-        "<p>אם מגדירים ״לשלוח לאדם כל שיחה שקיבלה התרעה״, המערכת שולחת <b>הכול</b>. "
-        "זה אינו סינון, ואין בו חיסכון. אם מגדירים ״לשלוח רק התרעה חזקה״, יש הקטנה "
-        "אמיתית של העומס — אבל <b>איננו יודעים</b> כמה מהשיחות שאדם היה רוצה לראות "
-        "נשארות בפנים, כי אף אדם לא סיווג אותן.</p>"
+        "<p>בריצה הפרוספקטיבית שיחה אחת מתוך שש לא קיבלה התרעה כלל. זו הפעם הראשונה "
+        "שזה קורה: בכל הריצות הארכיוניות שיעור ההתרעה היה 1.0, כלומר המערכת שלחה "
+        "לאדם <b>הכול</b>, וזה אינו סינון ואין בו חיסכון. כעת יש סינון אמיתי, "
+        "והעומס קטן בכ־17%.</p>"
+        "<p>אבל <b>איננו יודעים</b> אם השיחה שנותרה בחוץ הייתה כזו שאדם רצה לראות. "
+        "הקטנת עומס בלי מדידת שימור אינה חיסכון מוכח — היא יכולה להיות גם אובדן.</p>"
         "<h2>מה חסר כדי להכריע</h2>"
         "<p>שני בודקים אנושיים עצמאיים על אותם כרטיסים עיוורים. זה החסם היחיד. "
         "הוא אינו חסם תקציבי ואינו חסם הנדסי — כל שאר המנגנון בנוי, קפוא ונבדק.</p>"

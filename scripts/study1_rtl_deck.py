@@ -37,6 +37,8 @@ ORANGE = RGBColor(0xEB, 0x68, 0x34)
 ORANGE_L = RGBColor(0xFD, 0xEC, 0xE5)
 GREEN = RGBColor(0x3C, 0x96, 0x5A)
 GREEN_L = RGBColor(0xE6, 0xF4, 0xE9)
+PURPLE = RGBColor(0x30, 0x1A, 0x6E)
+PURPLE_L = RGBColor(0xE8, 0xE2, 0xFD)
 GREY = RGBColor(0xAA, 0xAA, 0xA6)
 GREY_L = RGBColor(0xF0, 0xF0, 0xEE)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
@@ -197,7 +199,8 @@ def title(slide, text, *, sub=None, y=None):
 
 def chip(slide, x, y, text, *, kind="arch", w=Inches(3.15), h=Inches(0.29)):
     palette = {"arch": (ACCENT_L, NAVY, ACCENT), "fix": (ORANGE_L, ORANGE, ORANGE),
-               "pub": (GREEN_L, GREEN, GREEN), "na": (GREY_L, MUTED, GREY)}
+               "pub": (GREEN_L, GREEN, GREEN), "na": (GREY_L, MUTED, GREY),
+               "pro": (PURPLE_L, PURPLE, PURPLE)}
     fill, ink, edge = palette[kind]
     sh = card(slide, x, y, w, h, fill=fill, line_col=edge, radius=0.35)
     tf = sh.text_frame
