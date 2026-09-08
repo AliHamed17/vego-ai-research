@@ -27,6 +27,7 @@ This directory turns the requirements from the 29 July 2026 supervisor call into
 19. [`2026-09-06-study1-study2-implementation-handoff.md`](./2026-09-06-study1-study2-implementation-handoff.md) — combined evidence status, implementation controls, validation results, and remaining human gates.
 20. [`2026-09-07-study1b-pilot-technical-note.he.md`](./2026-09-07-study1b-pilot-technical-note.he.md) — short Hebrew RTL note distinguishing the permanently closed Study 1B protocol from the separate offline-only pilot.
 21. [`2026-09-07-study1b-pilot-email-draft.he.md`](./2026-09-07-study1b-pilot-email-draft.he.md) — unsent Hebrew supervisor email draft with the frozen pilot limits and claim boundary.
+22. [`2026-09-08-study1-instrument-experiments-addendum.md`](./2026-09-08-study1-instrument-experiments-addendum.md) — three offline instrument experiments (extended detector envelope truth table, event-order/aggregation robustness on the accepted log, reserve-versus-actual cost calibration with a USD 2/6 protocol menu); zero provider calls, Detector-v1 unchanged, USD 6 authorisation unused.
 
 ## Canonical working research architecture
 

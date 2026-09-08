@@ -1,11 +1,20 @@
 <!--
-last_updated: 2026-07-04
+last_updated: 2026-09-08
 staleness_threshold_days: 14
 -->
 
 # Decisions
 
 Durable decisions for this project.
+
+## 2026-09-08 - Instrument experiments under the USD 6 authorisation
+
+- Decision: Use the 2026-09-08 USD 6.00 authorisation first for zero-cost instrument experiments (extended detector envelope truth table, event-order/aggregation robustness on the accepted log, reserve-versus-actual cost calibration) and spend nothing until one reserve-bound menu row is preregistered, pilot gates 4 and 6 are closed, and a credential is present (decision D8 in `2026-09-06-final-decision-table.md`).
+- Decision: The extended envelope subclasses the accepted-lineage fixture client and never modifies `scripts/airtravel_local_observer.py`; the three legacy modes run the parent untouched so the original envelope rows stay comparable.
+- Decision: The aggregation-sensitivity columns (majority, first round, final round, plurality) are descriptive summaries of the recorded answers and are never presented as alternative detectors. Detector-v1 and its `any` aggregation remain frozen; the dependence of the S1 signal (not the classification, which S7 preserves) on `any` in one of three episodes is disclosed in the dossier (section 2) and the decision table (section 2); the same-day draft that claimed a class-level dependence was withdrawn after adversarial review and a correction record was added to the addendum.
+- Decision: The first-attempt confound — forcing fixture questions through the parent's `max_rounds` mode also injected the `agent4/classify` variability row and altered the pipeline phase structure — is disclosed as a methodological note in the dossier (section 8) and the addendum rather than silently corrected.
+- Reason: The credential is absent and the pilot review gate is outstanding, so paid execution is not yet permitted, while real instrument gaps existed: `WEAK_ALERT` and S3 had never been produced end-to-end, and no robustness or cost-calibration analysis had been run.
+- Consequence: Provider calls 0; Detector-v1 unchanged; three new gitignored analysis artifacts under `external_data/airtravel-pr38/v4-real-run/analysis/`; the dossier PDF grows to three pages with sections 2, 8 and 11; `docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md` records the experiments.
 
 ## 2026-09-07 - Study 1 transparency evidence boundary
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import statistics
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -232,7 +233,7 @@ def separation_baseline(envelope: dict[str, Any]) -> dict[str, Any]:
     classes_seen = {k for r in rows for k in ("STRONG_ALERT", "NO_ALERT") if (r.get(k) or 0) > 0}
     return {
         "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
-        "provider_calls": envelope.get("provider_calls", 0),
+        "provider_calls": envelope.get("provider_calls", "NOT_AVAILABLE"),
         "modes": rows,
         "distinct_classes_produced": sorted(classes_seen),
         "rule_discriminates": len(classes_seen) > 1,
@@ -242,6 +243,138 @@ def separation_baseline(envelope: dict[str, Any]) -> dict[str, Any]:
             "result, NOT provider performance, and NOT a VEGO_AI_ON/OFF comparison. Its "
             "denominators are separate from the accepted run's and must never be merged with them."
         ),
+    }
+
+
+def truth_table(extended: dict[str, Any]) -> dict[str, Any]:
+    """The extended envelope: every class and every isolable branch of the frozen rule."""
+    if not extended:
+        return {"available": False}
+    modes = extended.get("modes") or []
+    rows = []
+    for m in modes:
+        d = m.get("detector_v1") or {}
+        rows.append({
+            "fixture_mode": m.get("fixture_mode"),
+            "isolated_branch": m.get("isolated_branch"),
+            "injected_confidence": m.get("injected_confidence"),
+            "injected_evidence": m.get("injected_evidence"),
+            "question_rounds": m.get("question_rounds"),
+            "episodes": m.get("episodes_observed"),
+            "denominator": m.get("detector_denominator"),
+            "STRONG_ALERT": d.get("STRONG_ALERT"),
+            "WEAK_ALERT": d.get("WEAK_ALERT"),
+            "NO_ALERT": d.get("NO_ALERT"),
+            "signals": m.get("signals_fired_any_episode") or [],
+            "expected_class": m.get("expected_class"),
+            "conforms": m.get("conforms_to_frozen_rule"),
+        })
+    tt = extended.get("truth_table") or {}
+    return {
+        "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+        "available": bool(rows),
+        "provider_calls": extended.get("provider_calls", "NOT_AVAILABLE"),
+        "fake_calls_total": extended.get("fake_calls_total"),
+        "modes": rows,
+        "classes_reachable": tt.get("classes_reachable", []),
+        "all_three_classes_reached": bool(tt.get("all_three_classes_reached")),
+        "modes_conforming": tt.get("modes_conforming"),
+        "modes_total": tt.get("modes_total"),
+        "weak_alert_reached": any((r["WEAK_ALERT"] or 0) > 0 for r in rows),
+        "s3_reached": any("S3_MISSING_ANSWER_EVIDENCE" in r["signals"] for r in rows),
+        "interpretation": (
+            "The original envelope reached only NO_ALERT and STRONG_ALERT-via-S7. The extended "
+            "envelope isolates S1, S3 (both the empty and the null encoding), S2 and S6 on their "
+            "own, and produces WEAK_ALERT end-to-end through the protected orchestrator. Every "
+            "class and every isolable branch of the frozen rule is therefore reachable. This is an "
+            "instrument check on synthetic input, NOT a scientific result; its denominators must "
+            "never be merged with the accepted run's."
+        ),
+    }
+
+
+def instrument_robustness(rob: dict[str, Any]) -> dict[str, Any]:
+    """Order invariance, denominator and aggregation sensitivity on the accepted log."""
+    if not rob:
+        return {"available": False}
+    oi = rob.get("event_order_invariance") or {}
+    ag = rob.get("aggregation_sensitivity") or {}
+    return {
+        "available": True,
+        "evidence_class": rob.get("evidence_class"),
+        "provider_calls": rob.get("provider_calls", "NOT_AVAILABLE"),
+        "detector_v1_modified": rob.get("detector_v1_modified", False),
+        "order_invariance": {
+            "invariant": oi.get("invariant"),
+            "permutations_invariant": oi.get("permutations_invariant"),
+            "seeded_permutations": oi.get("seeded_permutations"),
+            "named_reorderings_invariant": oi.get("named_reorderings_invariant"),
+            "episodes_with_multiple_termination_events": oi.get("episodes_with_multiple_termination_events"),
+        },
+        "denominator_sensitivity": rob.get("denominator_sensitivity"),
+        "aggregation_sensitivity": {
+            "status": ag.get("status"),
+            "class_recomputation": ag.get("class_recomputation"),
+            "episodes": ag.get("episodes", []),
+            "class_agreement_with_frozen": ag.get("class_agreement_with_frozen", {}),
+            "label_agreement_with_frozen_any": ag.get("label_agreement_with_frozen_any", {}),
+            "denominator": ag.get("denominator"),
+            "episodes_whose_class_depends_on_any": ag.get("episodes_whose_class_depends_on_summary", []),
+            "episodes_whose_s1_depends_on_any": ag.get("episodes_whose_s1_depends_on_summary", []),
+        },
+        "value_domain": rob.get("value_domain"),
+        "leave_one_episode_out": rob.get("leave_one_episode_out"),
+    }
+
+
+def cost_calibration(cal: dict[str, Any]) -> dict[str, Any]:
+    """Reserve-versus-actual calibration and the proven-bound protocol menu."""
+    if not cal:
+        return {"available": False}
+    menu = cal.get("protocol_menu") or []
+    return {
+        "available": True,
+        "evidence_class": cal.get("evidence_class"),
+        "provider_calls": cal.get("provider_calls", "NOT_AVAILABLE"),
+        "actuals": cal.get("actuals"),
+        "calibration": cal.get("calibration"),
+        "menu_summary": cal.get("menu_summary"),
+        "protocols_fitting_6": [r for r in menu if r["fits"].get("6.00")],
+        "frozen_study1b_bound_usd": next(
+            (r["reserve_bound_usd"] for r in menu if r.get("is_frozen_study1b")), None),
+        "frozen_pilot_bound_usd": next(
+            (r["reserve_bound_usd"] for r in menu if r.get("is_frozen_pilot")), None),
+        "claim_boundary": cal.get("claim_boundary"),
+    }
+
+
+AUTHORISATION = {
+    "ceiling_usd": 6.00,
+    "authorised_on": "2026-09-08",
+    "source": ("docs/research/phd-proposal/2026-09-06-final-decision-table.md (D8); "
+               "docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md (section 6)"),
+}
+
+
+def authorisation(run_root: Path) -> dict[str, Any]:
+    """The current budget authorisation, with its two measurable facts measured at build time."""
+    receipts = []
+    for path in sorted(run_root.parent.rglob("*receipt*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        started = str(data.get("started_at") or "")
+        if started[:10] >= AUTHORISATION["authorised_on"] and "usage" in data:
+            receipts.append(path.relative_to(run_root.parent).as_posix())
+    return {
+        **AUTHORISATION,
+        "credential_present_at_build": "OPENAI_API_KEY" in os.environ,
+        "credential_check": "presence-only; the value is never read",
+        "paid_run_receipts_on_or_after_authorisation": receipts,
+        "note": ("an empty receipt list means no provider-backed run receipt dated on or after the "
+                 "authorisation exists under the private evidence root; it is a measured absence of "
+                 "receipts, not a ledger of calls"),
     }
 
 
@@ -257,6 +390,9 @@ def build(run_root: Path) -> dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
 
     envelope = maybe("detector-envelope.json")
+    extended = maybe("detector-envelope-extended.json")
+    robustness = maybe("instrument-robustness.json")
+    calibration = maybe("cost-calibration.json")
     scored = [r for r in rows if r["classification"] != "EXCLUDED"]
     usage = receipt.get("usage") or {}
 
@@ -295,6 +431,10 @@ def build(run_root: Path) -> dict[str, Any]:
         "evidence_length_by_confidence": evidence_by_confidence(events),
         "route_concentration": route_concentration(rows),
         "separation_baseline": separation_baseline(envelope),
+        "truth_table": truth_table(extended),
+        "instrument_robustness": instrument_robustness(robustness),
+        "cost_calibration": cost_calibration(calibration),
+        "authorisation": authorisation(run_root),
         "cost": {
             "outbound_requests": usage.get("outbound_requests"),
             "prompt_tokens": usage.get("prompt_tokens"),
@@ -334,6 +474,24 @@ def main() -> int:
     print(f"  signals {h['signals_fired']}")
     print(f"  rule discriminates on fixtures: {dossier['separation_baseline']['rule_discriminates']} "
           f"{dossier['separation_baseline']['distinct_classes_produced']}")
+    tt, rb, cc = dossier["truth_table"], dossier["instrument_robustness"], dossier["cost_calibration"]
+    if tt["available"]:
+        print(f"  truth table: conforming {tt['modes_conforming']}/{tt['modes_total']} "
+              f"all_three={tt['all_three_classes_reached']} weak_reached={tt['weak_alert_reached']} s3_reached={tt['s3_reached']}")
+    else:
+        print("  truth table: NOT_AVAILABLE")
+    if rb["available"]:
+        ag = rb["aggregation_sensitivity"]
+        print(f"  robustness: order_invariant={rb['order_invariance']['invariant']} "
+              f"class_depends_on_any={ag['episodes_whose_class_depends_on_any']} "
+              f"s1_depends_on_any={ag['episodes_whose_s1_depends_on_any']}")
+    au = dossier["authorisation"]
+    print(f"  authorisation: USD {au['ceiling_usd']} on {au['authorised_on']}; "
+          f"credential_present={au['credential_present_at_build']}; "
+          f"paid receipts since={len(au['paid_run_receipts_on_or_after_authorisation'])}")
+    if cc["available"]:
+        print(f"  cost calibration: {cc['menu_summary']} study1b_bound=${cc['frozen_study1b_bound_usd']} "
+              f"pilot_bound=${cc['frozen_pilot_bound_usd']}")
     print(f"  provider calls made by this script: {dossier['provider_calls_made_by_this_script']}")
     return 0
 

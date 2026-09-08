@@ -496,3 +496,25 @@ Record file changes and rollback notes here.
   - transparency package scripts, schemas, tests, generated documentation and workflow; no private artifacts
 - Rollback note: Revert the transparency correction commits and merge commit if rollback is required; private ignored evidence remains untouched
 - Git commit: none recorded by script.
+
+## 2026-09-08 16:08 +03:00 - Claude - Study 1 instrument experiments: extended envelope truth table, log robustness, cost calibration, adversarial review corrections
+
+- Files changed:
+  - scripts/airtravel_detector_envelope_extended.py
+  - scripts/study1_instrument_robustness.py
+  - scripts/study1_cost_calibration.py
+  - scripts/build_study1_results_dossier.py
+  - scripts/render_study1_results_dossier.py
+  - scripts/tests/test_airtravel_detector_envelope_extended.py
+  - scripts/tests/test_study1_instrument_robustness.py
+  - docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/phd-proposal/README.md
+  - docs/research/phd-proposal/figures/study1-results-dossier.html
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+- Rollback note: Revert the single commit on study1/closure-and-study2-prep. Generated analysis JSON and the PDF are gitignored and regenerate from the scripts. The removed system-TEMP fixture residue was never evidence and is not recoverable.
+- Git commit: none recorded by script.

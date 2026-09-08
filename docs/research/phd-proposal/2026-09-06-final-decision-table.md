@@ -43,6 +43,8 @@ Validator: **92 checks, 87 PASS, 0 scientific value failures.**
 | Answer confidence skews Low/Medium | Self-reported by the model; not calibrated; not an external measure |
 | 39 of 44 questions travelled one route | A routing observation; says nothing about whether that route was appropriate |
 | Two of four cases produced no episode | A valid observation, not a technical failure — both produced complete pipeline output |
+| The S1 signal in one of three episodes rests on the `any` aggregation alone (12 Low / 24 Medium / 3 High answers summarise to Medium under majority or plurality), while no classification does — that episode stays `STRONG_ALERT` through S7 | A property of how Detector-v1 summarises this run's answers; not a proposal to change the rule, and Detector-v1 is unchanged (addendum 2026-09-08 §3, including the correction record) |
+| The classification is invariant to event order (500/500 permutations) and the confidence labels are all within {Low, Medium, High} | An instrument property on one log; says nothing about correctness |
 
 ## 3. Engineering only — never a scientific result
 
@@ -50,6 +52,8 @@ Validator: **92 checks, 87 PASS, 0 scientific value failures.**
 |---|---|
 | Fixture-versus-real comparison (`baseline-comparison.json`, figure 4) | Instrumentation check. **Not** provider performance, **not** `VEGO_AI_ON` vs `VEGO_AI_OFF`. Denominators 20 and 44 are separate and must not be merged. |
 | Detector envelope fixture modes | `ENGINEERING_FIXTURE_NOT_SCIENTIFIC`; enters no scientific denominator |
+| Extended detector envelope — nine fixture modes, 9/9 conforming; `WEAK_ALERT`, S1, S2, S3 (both encodings) and S6 each reached in isolation | `ENGINEERING_FIXTURE_NOT_SCIENTIFIC`; shows every class and every isolable branch is reachable; enters no scientific denominator (addendum 2026-09-08 §2) |
+| Cost calibration and reserve-bound protocol menu (16 of 30 rows fit USD 6.00) | Arithmetic on frozen reserve constants against one receipt; bounds reservations, not spend, unless every prompt fits the 8,000-token input reserve; not authorisation, not a spend prediction; per-call maxima `NOT_AVAILABLE` (addendum 2026-09-08 §4) |
 | Study 2 fixture preflight | Both conditions emit empty lists by construction; every per-case row is 0 versus 0 |
 | Offline authorized preflight (46/46 identical calls) | Engineering evidence for the instrumentation, not a finding |
 
@@ -152,6 +156,7 @@ status agrees that descriptive reporting is permitted.
 | D5 | Are Iris and Arnon eligible as blinded raters? | (a) yes with declared interest; (b) recruit externally | They authored VEGO-AI. Either choice is defensible; the interest must be recorded beside any result. |
 | D6 | Is `include_medium` true or false for the selective intervention policy in any future study? | true (Medium triggers) or false | Changes how many patterns enter the queue. Must be fixed before, not after, an outcome. |
 | D7 | Timing of the supervisor meeting | before Wednesday, or later | The reply email is drafted and **not sent**; it awaits approval of both wording and date. |
+| D8 | Which protocol, if any, runs under the USD 6.00 authorisation of 2026-09-08? | one row of the reserve-bound menu in `2026-09-08-study1-instrument-experiments-addendum.md` §4 (16 rows fit USD 6.00; e.g. 2×326 calls at 4,096 output → USD 4.25, or 5×180 at 4,096 → USD 5.86), or none | Fitting the ceiling is arithmetic, not authorisation to run. Any run still needs its own preregistration naming the exact row, D4 settled, gate 4 (independent review) closed, gate 6 (frozen model/ceiling/caps) confirmed, and a present credential — `OPENAI_API_KEY` is absent as of 2026-09-08. Nothing has been spent. |
 
 ## 7. Standing prohibitions
 
