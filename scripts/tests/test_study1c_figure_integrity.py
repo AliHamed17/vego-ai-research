@@ -27,8 +27,34 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-import render_study1c_figures as figures  # noqa: E402
 import study1_detector_baselines as baselines  # noqa: E402
+
+RENDERER = ROOT / "scripts/render_study1c_figures.py"
+
+
+def renderer_constants() -> dict[str, str]:
+    """Read the renderer's module-level string constants without importing it.
+
+    The renderer imports matplotlib, which the CI test environment does not install. Parsing the
+    source keeps this guard running everywhere instead of silently skipping where it matters.
+    """
+    import ast
+
+    tree = ast.parse(RENDERER.read_text(encoding="utf-8"))
+    values: dict[str, str] = {}
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and isinstance(node.value, ast.Constant):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and isinstance(node.value.value, str):
+                    values[target.id] = node.value.value
+        elif isinstance(node, ast.Assign) and isinstance(node.value, ast.Name):
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    values[target.id] = values.get(node.value.id, "")
+    return values
+
+
+CONSTANTS = renderer_constants()
 
 BASELINES_JSON = ROOT / "external_data/airtravel-pr38/analysis-baselines/detector-baselines.json"
 ALERT = {"STRONG_ALERT", "WEAK_ALERT"}
@@ -78,26 +104,27 @@ class TestAgreementLevelsAreDistinctAndConsistent:
 
 class TestColourMeaningIsSingleValued:
     def test_identical_and_differs_are_distinct_colours(self):
-        assert figures.IDENTICAL_COLOUR != figures.DIFFERS_COLOUR
+        assert CONSTANTS["IDENTICAL_COLOUR"] != CONSTANTS["DIFFERS_COLOUR"]
+        assert CONSTANTS["IDENTICAL_COLOUR"] and CONSTANTS["DIFFERS_COLOUR"]
 
     def test_legend_labels_name_the_level_rather_than_asserting_a_general_match(self):
-        for label in (figures.IDENTICAL_LABEL, figures.DIFFERS_LABEL):
-            assert "at this level" in label
+        for key in ("IDENTICAL_LABEL", "DIFFERS_LABEL"):
+            assert "at this level" in CONSTANTS[key]
 
     def test_the_renderer_declares_the_two_panel_titles_by_level(self):
-        source = (ROOT / "scripts/render_study1c_figures.py").read_text(encoding="utf-8")
+        source = RENDERER.read_text(encoding="utf-8")
         assert "(a) THREE-CLASS level" in source
         assert "(b) BINARY REVIEW level" in source
         assert "ANALYTIC RULE-SENSITIVITY, NOT EMPIRICAL ACCURACY" in source
 
     def test_the_mechanisms_figure_denies_a_safety_reading_and_a_truth_reading(self):
-        source = (ROOT / "scripts/render_study1c_figures.py").read_text(encoding="utf-8")
+        source = RENDERER.read_text(encoding="utf-8")
         assert "NOT a finding that the case is safe" in source
         assert "not truth labels for Detector-v1" in source
         assert "NEITHER IS GROUND TRUTH" in source
 
     def test_the_characteristic_figure_distinguishes_answers_from_rounds(self):
-        source = (ROOT / "scripts/render_study1c_figures.py").read_text(encoding="utf-8")
+        source = RENDERER.read_text(encoding="utf-8")
         assert "answer count, NOT Q&A rounds" in source
 
 
