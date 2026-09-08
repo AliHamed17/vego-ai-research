@@ -1,20 +1,8 @@
 # VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-08 16:14 +03:00.
+Generated from repository memory on 2026-09-08 18:26 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-05 00:04 +03:00 - Codex - AirTravel v3.2.1 final CI run recorded
-
-- Request: Record the final reproduced CI outcome and preserve the technical no-go gate.
-- Actions taken:
-  - Reproduced CI run 33919262015; all Python jobs passed; source freshness gate and merge gate failed.
-- Files changed:
-  - Final AirTravel materialization report
-- Commands/checks:
-  - gh run watch 33919262015; gh run view --json jobs
-- Status: TECHNICAL NO-GO; no provider calls
-- Next steps: Human policy remediation remains required before any paid run.
 
 ## 2026-09-05 00:06 +03:00 - Codex - AirTravel v3.2.1 receipt completeness finalized
 
@@ -464,3 +452,23 @@ Showing the latest 20 session entries.
   - Workflow study1-new-experiments-adversarial-review (27 agents; 1 verifier hit the session limit)
 - Status: completed; ENGINEERING_FIXTURE_NOT_SCIENTIFIC and descriptive instrument analyses only; 0 provider calls; Detector-v1 unchanged
 - Next steps: Commit and push to study1/closure-and-study2-prep (PR #41) and confirm CI. To spend under the USD 6.00 authorisation: set OPENAI_API_KEY in the execution environment, close pilot gate 4 (independent review) and gate 6 (frozen model, ceiling, caps), preregister exactly one reserve-bound menu row (D8), then run with BudgetGuard at 6.00. Candidate zero-cost follow-ups: mixed-confidence multi-answer fixture episodes; a per-call ledger in the real-run harness so maxima and per-episode cost stop being NOT_AVAILABLE.
+
+## 2026-09-08 18:18 +03:00 - Codex - Study 1 Hebrew supervisor E2E readout
+
+- Request: Produce and verify a concise Hebrew RTL Study 1 supervisor package on PR #41.
+- Actions taken:
+  - Created a six-page RTL readout and six-slide RTL deck with evidence boundaries and visual QA.
+  - Added a safe evidence index and Hebrew supervisor email draft.
+  - Ran local tests, privacy/evidence/security checks, and green CI on the package commit.
+- Files changed:
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-readout-he[PDF omitted]
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-slides-he.pptx
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-slides-he[PDF omitted]
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md
+  - docs/research/phd-proposal/2026-09-08-study1-supervisor-email-he.md
+- Commands/checks:
+  - python -m pytest scripts/tests -q -p no:cacheprovider
+  - CI run 34243313635
+- Status: completed
+- Next steps: Independent supervisor-package review; no new empirical claim or provider run is authorized by this documentation package.
+- Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).

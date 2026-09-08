@@ -2,7 +2,12 @@
 
 This file is the compact shared resource index for Codex and Claude. It points agents to reusable research resources without forcing every prompt to reload downloaded source files.
 
-Last updated: 2026-09-03 by Codex.
+Last updated: 2026-09-08 by Codex.
+
+## September 8 Study 1 E2E Hebrew supervisor readout
+
+- Readout: `docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-readout-he.pdf`; deck: `2026-09-08-study1-e2e-supervisor-slides-he.pptx` and `.pdf`; index: `2026-09-08-study1-e2e-evidence-index.md`; email: `2026-09-08-study1-supervisor-email-he.md`.
+- Boundary: supervisor communication only. Archival figures remain retrospective/descriptive; the three new checks are engineering-only. No new empirical evidence, accuracy/benefit claim, provider/API call, corpus change, or Detector-v1 change.
 
 ## September 7 Study 1 data/log/pattern transparency
 

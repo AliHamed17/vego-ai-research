@@ -518,3 +518,14 @@ Record file changes and rollback notes here.
   - docs/agent-memory/decisions.md
 - Rollback note: Revert the single commit on study1/closure-and-study2-prep. Generated analysis JSON and the PDF are gitignored and regenerate from the scripts. The removed system-TEMP fixture residue was never evidence and is not recoverable.
 - Git commit: none recorded by script.
+
+## 2026-09-08 18:18 +03:00 - Codex - Study 1 Hebrew supervisor E2E readout
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-readout-he.pdf
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-slides-he.pptx
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-slides-he.pdf
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md
+  - docs/research/phd-proposal/2026-09-08-study1-supervisor-email-he.md
+- Rollback note: Revert the readout package and its tracking entry; it changes no protected runtime or empirical evidence.
+- Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).
