@@ -181,7 +181,7 @@ def figure_mechanisms(report: dict[str, Any], out: Path, run_index: int = 0) -> 
     mistakes = [row["fragment_stage"]["domain_mistakes"] for row in rows]
     flagged = [row["detector_v1_flags_case"] for row in rows]
 
-    fig, ax = plt.subplots(figsize=(5.4, 0.2 * len(rows) + 1.6))
+    fig, ax = plt.subplots(figsize=(5.4, min(3.3, 0.2 * len(rows) + 1.6)))
     ax.bar(
         cases,
         mistakes,
