@@ -157,10 +157,19 @@ def compare(labels: list[str], reference: list[str]) -> dict[str, Any]:
         )
         if n
         else None,
-        "binary_agreement": round(sum(x == y for x, y in zip(flag, ref_flag)) / n, 4) if n else None,
+        "binary_review_agreement": round(sum(x == y for x, y in zip(flag, ref_flag)) / n, 4)
+        if n
+        else None,
         "cohens_kappa_binary": cohens_kappa(flag, ref_flag),
         "jaccard_on_flagged": jaccard(flag, ref_flag),
-        "identical_to_detector_v1": labels == reference,
+        "identical_three_class": labels == reference,
+        "identical_binary_review": flag == ref_flag,
+        "agreement_level_note": (
+            "three-class identity compares STRONG/WEAK/NO_ALERT labels; binary-review identity "
+            "compares only the send-for-review decision. A rule can differ on one and match "
+            "exactly on the other, so neither number may be reported as 'match' without saying "
+            "which level it refers to"
+        ),
     }
 
 
@@ -249,10 +258,15 @@ def score_run(label: str, events_path: Path) -> dict[str, Any]:
         results[name]["signal_is_inert_on_this_data"] = labels == reference
         results[name]["dropped_signal"] = dropped
 
-    equivalents = sorted(
+    equivalent_three_class = sorted(
         name
         for name, row in results.items()
-        if row["identical_to_detector_v1"] and not name.startswith("V1_WITHOUT_")
+        if row["identical_three_class"] and not name.startswith("V1_WITHOUT_")
+    )
+    equivalent_binary_review = sorted(
+        name
+        for name, row in results.items()
+        if row["identical_binary_review"] and not name.startswith("V1_WITHOUT_")
     )
     signal_counts = {
         name: sum(1 for ep in complete if pred(ep)) for name, pred in SIGNALS.items()
@@ -264,7 +278,7 @@ def score_run(label: str, events_path: Path) -> dict[str, Any]:
         "episodes_excluded": len(episodes) - len(complete),
         "denominator_note": "this run is scored on its own denominator and is never pooled",
         "detector_v1_class_counts": dict(Counter(reference)),
-        "detector_v1_flag_rate": round(
+        "detector_v1_binary_review_selection_rate": round(
             sum(label in ALERT_CLASSES for label in reference) / len(reference), 4
         )
         if reference
@@ -275,7 +289,12 @@ def score_run(label: str, events_path: Path) -> dict[str, Any]:
             name for name, count in signal_counts.items() if count == 0
         ),
         "baselines": results,
-        "baselines_equivalent_to_detector_v1": equivalents,
+        "baselines_identical_at_three_class_level": equivalent_three_class,
+        "baselines_identical_at_binary_review_level": equivalent_binary_review,
+        "binary_review_decision_rule": (
+            "an episode is sent for review when its class is STRONG_ALERT or WEAK_ALERT; "
+            "NO_ALERT is not sent"
+        ),
         "chance_baseline": chance_baseline(reference),
         "signal_space_coverage": signal_space_coverage(episodes),
     }

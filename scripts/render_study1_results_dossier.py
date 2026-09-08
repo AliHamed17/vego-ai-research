@@ -51,6 +51,29 @@ tr, .key, .warn, .note, .kpi { page-break-inside: avoid; }
 """
 
 
+def low_share_text(row) -> str:
+    """Hoisted so no nested same-quote f-string is needed, which 3.10 rejects."""
+    value = row["low_share"]
+    return "" if value is None else "{:.0f}%".format(value * 100)
+
+
+def row_open_if(condition) -> str:
+    """A highlighted row opener, hoisted so no backslash sits inside an f-string expression."""
+    return '<tr class="hi">' if condition else "<tr>"
+
+
+def row_open(episode, highlighted):
+    """Extracted so no backslash sits inside an f-string expression, which 3.10 rejects."""
+    css = ' class="hi"' if episode["episode_id"] in highlighted else ""
+    return f"<tr{css}>"
+
+
+def other_signal_text(episode):
+    """Extracted so no backslash or nested quote sits inside an f-string expression."""
+    names = [name.split("_")[0] for name in episode["recorded_other_signals"]]
+    return ", ".join(names) or "—"
+
+
 def esc(value: Any) -> str:
     return html.escape(str(value))
 
@@ -114,11 +137,11 @@ def render_aggregation(d: dict[str, Any]) -> str:
     dep_class = set(ag["episodes_whose_class_depends_on_any"])
     dep_s1 = set(ag["episodes_whose_s1_depends_on_any"])
     rows = "".join(
-        f'<tr{" class=\"hi\"" if e["episode_id"] in (dep_class | dep_s1) else ""}>'
-        f'<td class="n"><code>{esc(e["episode_id"][:11])}…</code></td>'
+        row_open(e, dep_class | dep_s1)
+        + f'<td class="n"><code>{esc(e["episode_id"][:11])}…</code></td>'
         f'<td class="n">{e["answers"]}</td><td class="n">{e["rounds"]}</td>'
         f'<td class="n">{e["label_counts"]["Low"]}/{e["label_counts"]["Medium"]}/{e["label_counts"]["High"]}</td>'
-        f'<td class="n"><code>{esc(", ".join(x.split("_")[0] for x in e["recorded_other_signals"]) or "—")}</code></td>'
+        f'<td class="n"><code>{esc(other_signal_text(e))}</code></td>'
         f'<td class="n"><b>{lab(e["summaries"]["any"])}</b>←{heb_class[e["frozen_class"]]}</td>'
         + "".join(f'<td class="n">{lab(e["summaries"][k])}←{heb_class[e["class_under_summary"][k]]}</td>' for k in order)
         + "</tr>"
@@ -148,18 +171,19 @@ def render_aggregation(d: dict[str, Any]) -> str:
     labels = vd.get("confidence_labels") or {}
     named_ok = sum(1 for v in (oi.get("named_reorderings_invariant") or {}).values() if v)
     head_cells = "".join(f'<th class="n">{heads[k]}</th>' for k in order)
-    return f"""<h2>{title}</h2>
-{key}
-<table><tr><th class="n">אפיזודה</th><th class="n">תשובות</th><th class="n">סבבים</th><th class="n">נמוך / בינוני / גבוה</th>
-<th class="n">אותות אחרים שנרשמו</th><th class="n">any (קפוא)</th>{head_cells}</tr>
-{rows}</table>
-{caption("בכל תא: תווית סיכום הביטחון ← הסיווג המתקבל כשהכלל הקפוא מופעל מחדש עם תרומת S1/S2 מוחלפת בסיכום, ו-S3, S6, S7 נשמרים כפי שנרשמו",
+    robustness_caption = caption("בכל תא: תווית סיכום הביטחון ← הסיווג המתקבל כשהכלל הקפוא מופעל מחדש עם תרומת S1/S2 מוחלפת בסיכום, ו-S3, S6, S7 נשמרים כפי שנרשמו",
          f"הסכמה עם הקפוא ברמת הסיווג — רוב {ca.get('majority')}, חציון סדר {ca.get('ordinal_median')}, סבב ראשון {ca.get('first_round_any')}, "
          f"סבב אחרון {ca.get('final_round_any')}, שכיח {ca.get('plurality')}; ברמת התווית — רוב {la.get('majority')}, חציון סדר {la.get('ordinal_median')}, "
          f"סבב ראשון {la.get('first_round_any')}, סבב אחרון {la.get('final_round_any')}, שכיח {la.get('plurality')}",
          f"{n} אפיזודות שלמות", "analysis/instrument-robustness.json",
          "אין זה גלאי חלופי ואין זו הצעה לשנות את הכלל — Detector-v1 ומפתחותיו לא שונו. \"רוב\" הוא רוב אמיתי (יותר ממחצית התשובות, אחרת \"אין רוב\"); "
-         "\"חציון סדר\" הוא החציון על הסולם נמוך < בינוני < גבוה. תיאור רגישות בלבד")}
+         "\"חציון סדר\" הוא החציון על הסולם נמוך < בינוני < גבוה. תיאור רגישות בלבד")
+    return f"""<h2>{title}</h2>
+{key}
+<table><tr><th class="n">אפיזודה</th><th class="n">תשובות</th><th class="n">סבבים</th><th class="n">נמוך / בינוני / גבוה</th>
+<th class="n">אותות אחרים שנרשמו</th><th class="n">any (קפוא)</th>{head_cells}</tr>
+{rows}</table>
+{robustness_caption}
 <p class="note"><b>אי-תלות בסדר האירועים:</b> {oi.get('permutations_invariant')}/{oi.get('seeded_permutations')} תמורות אקראיות
 של יומן האירועים ו-{named_ok}/3 סידורים מוגדרים (הפוך, לפי סוג אירוע, לפי אפיזודה) נתנו סיווג זהה לכל אפיזודה;
 אפיזודות עם יותר מאירוע סיום אחד: {oi.get('episodes_with_multiple_termination_events')}.
@@ -179,7 +203,7 @@ def render_truth_table(d: dict[str, Any]) -> str:
         return ", ".join(s.split("_")[0] for s in signals) or "—"
 
     rows = "".join(
-        f'<tr{" class=\"hi\"" if (m["WEAK_ALERT"] or 0) > 0 else ""}><td><code>{esc(m["fixture_mode"])}</code></td>'
+        row_open_if((m["WEAK_ALERT"] or 0) > 0) + f'<td><code>{esc(m["fixture_mode"])}</code></td>'
         f'<td>{esc(HEB_BRANCH.get(m["isolated_branch"], m["isolated_branch"]))}</td>'
         f'<td class="n">{HEB_CONF.get(m["injected_confidence"], esc(m["injected_confidence"]))}</td>'
         f'<td class="n">{HEB_EVIDENCE.get(m["injected_evidence"], esc(m["injected_evidence"]))}</td>'
@@ -231,7 +255,7 @@ def render_cost_calibration(d: dict[str, Any]) -> str:
 
     def menu_rows(rows):
         return "".join(
-            f'<tr{" class=\"hi\"" if r.get("is_frozen_pilot") else ""}><td class="n">{r["repeats"]}</td>'
+            row_open_if(r.get("is_frozen_pilot")) + f'<td class="n">{r["repeats"]}</td>'
             f'<td class="n">{r["call_cap_per_repeat"]}</td><td class="n">{r["max_output_tokens"]:,}</td>'
             f'<td class="n"><b>${r["reserve_bound_usd"]}</b></td><td class="n">{"✓" if r["fits"].get("2.00") else "✗"}</td>'
             f'<td class="n">{"פיילוט קפוא" if r.get("is_frozen_pilot") else "—"}</td></tr>'
@@ -327,7 +351,7 @@ def render(d: dict[str, Any]) -> str:
 כלומר הכותרת "3 מתוך 3 התרעה חזקה" היא למעשה <b>"3 מתוך 3 ביטחון נמוך"</b>.</div>""")
 
     rows = "".join(
-        f'<tr{" class=\"hi\"" if sig == "S1" else ""}><td class="n"><code>{esc(sig)}</code></td>'
+        row_open_if(sig == "S1") + f'<td class="n"><code>{esc(sig)}</code></td>'
         f'<td class="n">{esc(v["resulting_distribution"].get("STRONG_ALERT", 0))}</td>'
         f'<td class="n">{esc(v["resulting_distribution"].get("WEAK_ALERT", 0))}</td>'
         f'<td class="n">{esc(v["resulting_distribution"].get("NO_ALERT", 0))}</td>'
@@ -360,7 +384,7 @@ def render(d: dict[str, Any]) -> str:
     trow = "".join(
         f'<tr><td class="n">{r["round_index"]}</td><td class="n">{r["answers"]}</td>'
         f'<td class="n">{r["low"]}</td><td class="n">{r["medium"]}</td><td class="n">{r["high"]}</td>'
-        f'<td class="n">{"" if r["low_share"] is None else f"{r['low_share']*100:.0f}%"}</td></tr>'
+        f'<td class="n">{low_share_text(r)}</td></tr>'
         for r in tr["per_round"]
     )
     parts.append(f"""<h2>4. מסלול הביטחון לאורך הסבבים</h2>

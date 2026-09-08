@@ -75,6 +75,8 @@ def value_or_na(value: Any) -> str:
 
 def section_purpose(manifest: dict[str, Any]) -> str:
     budget = manifest["budget"]
+    reservation = "{:.2f}$".format(budget["whole_study_reservation_usd"])
+    ceiling = "{:.2f}$".format(budget["ceiling_usd"])
     return (
         h2("1. מה השאלה, ומה אינה")
         + "<p>השאלה היחידה שהמחקר הזה שואל היא: מבין שיחות שאלה־תשובה שהושלמו, "
@@ -85,8 +87,8 @@ def section_purpose(manifest: dict[str, Any]) -> str:
         "לבדיקה. אלה שתי שאלות נפרדות, והתשובה לאחת אינה תשובה לשנייה.</p>"
         + f'<div class="kpis">{kpi(str(manifest["corpus"]["eligible_case_count"]), "מקרים כשירים במסגרת")}'
         f'{kpi(str(len(manifest["selection"]["selected"])), "מקרים שנדגמו מראש")}'
-        f'{kpi(str(f"{budget['whole_study_reservation_usd']:.2f}$"), "שריון פסימי לכל המחקר")}'
-        f'{kpi(str(f"{budget['ceiling_usd']:.2f}$"), "תקרת ההוצאה")}</div>'
+        f'{kpi(reservation, "שריון פסימי לכל המחקר")}'
+        f'{kpi(ceiling, "תקרת ההוצאה")}</div>'
         + caption(
             meaning="הפרמטרים שהוקפאו לפני כל קריאה לספק",
             numerator="6 מקרים נבחרים",

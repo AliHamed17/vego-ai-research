@@ -10,6 +10,17 @@ not computed and are not computable.
 
 ---
 
+> **CORRECTION NOTICE — 2026-09-09.** This document was corrected after review. Three statements
+> in the original were wrong or unscoped, and the corrections are in place below:
+> (1) "no baseline reproduces it" compared **three-class** labels and was written as though it
+> were general; at the **binary review-decision** level `ALWAYS_ALERT` is *identical* to
+> Detector-v1 on run 1. (2) "no episode has ever been `NO_ALERT`" was unscoped. (3) a screening
+> fraction was described as workload reduction; it is now `UNVALIDATED_SCREENING_FRACTION` and is
+> not evidence of saved human work. The authoritative record is
+> [`study1c-reconciliation.json`](study1c-reconciliation.json) and
+> [`study1c-claim-ledger.json`](study1c-claim-ledger.json).
+
+
 ## 1. Headline
 
 **Whether Detector-v1 separates episodes into more than one class is not a stable property of the
@@ -21,16 +32,20 @@ rule. It changed between two runs whose configuration was byte-identical.**
 | Mean answers per episode | 14.7 | **2.6** | **39.5** |
 | Detector-v1 classes | STRONG 3 | **STRONG 7, WEAK 4** | STRONG 11 |
 | Separates episodes? | no | **yes** | no |
-| Trivial baselines reproducing it exactly | 5 | **0** | 9 |
-| Review load | 1.0 | 1.0 | 1.0 |
+| Baselines identical at the **three-class** level | 5 | **0** | 9 |
+| Baselines identical at the **binary review** level | 5 | **3**, incl. `ALWAYS_ALERT` | 6 |
+| Binary review-selection rate | 1.0 | 1.0 | 1.0 |
 
 An earlier draft of this document, written after run 1 alone, concluded that the rule is
-behaviourally distinct from every trivial baseline. **Run 2 refutes that as a general statement**,
+behaviourally distinct from every trivial baseline. That was a **three-class** statement written
+as though it were general, and it is false at the **binary review** level, where `ALWAYS_ALERT`
+is identical to Detector-v1 on run 1. **Run 2 refutes it as a general statement too**,
 and the draft is corrected here. Drawing a stable conclusion from run 1 would have repeated
 exactly the error that the accepted run's three-episode conclusion made.
 
-**What is stable across all three runs is the review load: 1.0.** Every complete episode ever
-observed has been flagged STRONG or WEAK. No episode has ever been `NO_ALERT`. The D6 dosage
+**What is stable across all three runs is the binary review-selection rate: 1.0.** Every complete episode ever
+observed has been flagged STRONG or WEAK. **Across the accepted run and both full-frame
+runs**, no complete episode was `NO_ALERT`. The D6 dosage
 target of load ≤ 0.5 is unmet on every piece of evidence the project has.
 
 ## 2. The mechanism, and a model that predicted it
@@ -147,13 +162,16 @@ With no labels, correctness is not measurable. What *is* measurable is **what ea
 
 | | Accepted (n=3) | Run 1 (n=11) | Run 2 (n=11) |
 |---|---|---|---|
-| Baselines identical to Detector-v1 | 5 | **0** | 9 |
+| Baselines identical at the **three-class** level | 5 | **0** | 9 |
+| Baselines identical at the **binary review** level | 5 | **3**, incl. `ALWAYS_ALERT` | 6 |
 | Best exact three-class agreement | 1.00 | **0.64** | 1.00 |
 | Signals that contribute | S1 only | S1 and S2 | S1 and S6 |
 | Reachable patterns visited | 3 of 24 | **6 of 24** | 3 of 24 |
 
 In the two saturated runs, `ALWAYS_ALERT` reproduces Detector-v1 **exactly**. In the one run whose
-episodes fell in the separation window, no baseline does. The rule's added value over flagging
+episodes fell in the separation window, no baseline does **at the three-class level**. At the
+**binary review-decision** level `ALWAYS_ALERT` is identical to Detector-v1 on that run, because
+Detector-v1 sent all 11 episodes for review. The rule's behaviour relative to flagging
 everything is therefore **regime-dependent**, and the regime is not controlled.
 
 **The agreement numbers are reported with their chance band, because without it they mean
@@ -190,7 +208,7 @@ show any wrong. This is co-occurrence, reported as co-occurrence.
 
 | Directive | What this work contributes | Status |
 |---|---|---|
-| **D6** — dosage, load target ≤ 0.5, recorded unmet | Load is now measured on three runs: **1.0 in every one**, and re-scoring under every round bound from 1 to 10 leaves it at 1.0. No episode has ever been `NO_ALERT`. | **Target missed on all evidence**, measured rather than assumed |
+| **D6** — dosage, load target ≤ 0.5, recorded unmet | Load is now measured on three runs: **1.0 in every one**, and re-scoring under every round bound from 1 to 10 leaves it at 1.0. Across those three runs no complete episode was `NO_ALERT`. | **Target missed on all evidence**, measured rather than assumed |
 | **D10** — bounded interaction, two-round pilot candidate | Run 1 *was* effectively a two-round regime (maximum round index 2) and is the only run in which the rule separated. A bound would therefore plausibly improve **separation**. It would not reduce **load**, and it cannot: an episode cut off at the bound terminates `TERMINATED_MAX_ROUNDS`, itself a strong signal — visible in run 2, where 8 of 11 episodes did exactly that. | Quantified, with the trade-off made explicit |
 | **D2** — intervene early, not only post-Agent-4 | §7: 13 of 21 cases are never assessed because they never triggered a question, 9 carrying domain-mistake labels — and the queue a reviewer would open is empty. | New evidence, at frame scale |
 | **D5** — the human expert is real, never simulated | No human judgement was simulated, requested or synthesised. The resampled curve is labelled `ANALYTIC_MODEL_NOT_OBSERVATION`. | Respected |
@@ -204,7 +222,7 @@ denominator; which Detector-v1 classes occurred and how often in each run; that 
 distribution differed between two runs of identical configuration; the baseline agreement results
 with their chance band; the rule's reachable-space distribution and operating characteristic as
 properties of the rule under stated assumptions; the co-occurrence crosstab in §7; the measured
-review load; the run costs, with run 2's stated as a lower bound.
+the binary review-selection rate and the UNVALIDATED_SCREENING_FRACTION; the run costs, with run 2's stated as a lower bound.
 
 **Forbidden.** Alert correctness; accuracy, precision, recall, F1; effectiveness; human benefit;
 causality; representativeness; generalization to other corpora, settings or models; any
@@ -226,7 +244,7 @@ no estimate of how much.
    determines whether the rule separates at all. Nothing here explains it, and it is the most
    consequential open question this work surfaces.
 3. **Whether cases that produce no episode should be escalated.** Live for 13 of 21 cases in run 1.
-4. **Why no episode is ever `NO_ALERT`.** The rule reserves that class for one of its 24 reachable
+4. **Why `NO_ALERT` was not observed in these three runs.** The rule reserves that class for one of its 24 reachable
    patterns, and no run has visited it.
 5. **How much run-to-run variation there is.** Two observations cannot say. A third run is **not**
    authorized by the stability preregistration under any outcome, and none was executed.

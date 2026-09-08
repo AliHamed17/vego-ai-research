@@ -14,6 +14,10 @@ The gates verified before any provider call:
   * the pessimistic whole-study reservation still fits the ceiling;
   * no receipt already exists at the output root.
 
+At consumption every binding is recomputed rather than trusted. A git-ignored runtime file,
+contract or preflight record that changed after issue invalidates the grant, because those
+files are outside version control and nothing else would notice they moved.
+
 Refusal is the default. Any gate that cannot be evaluated is treated as failed.
 """
 
@@ -189,7 +193,16 @@ def consume_grant() -> dict[str, Any]:
     if bindings["manifest_sha256"] != digest(MANIFEST):
         raise GateFailure("the manifest changed after the grant was issued")
     gate_clean_tree()
-    gate_corpus()
+    corpus_now = gate_corpus()
+    issued = grant["gates"]
+    if corpus_now["contract_sha256"] != issued["corpus_pins"]["contract_sha256"]:
+        raise GateFailure("the runtime contract changed after the grant was issued")
+    if corpus_now["archive_sha256"] != issued["corpus_pins"]["archive_sha256"]:
+        raise GateFailure("the corpus archive digest changed after the grant was issued")
+    if corpus_now["case_count"] != issued["corpus_pins"]["case_count"]:
+        raise GateFailure("the runtime case count changed after the grant was issued")
+    if gate_preflight()["preflight_sha256"] != issued["offline_preflight"]["preflight_sha256"]:
+        raise GateFailure("the offline preflight record changed after the grant was issued")
     grant["state"] = "CONSUMED"
     grant["consumed_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     GRANT_PATH.write_text(json.dumps(grant, indent=2, sort_keys=True) + "\n", encoding="utf-8")

@@ -137,6 +137,12 @@ def build_client(guard: base.BudgetGuard, ledger: CallLedger):
     if not os.environ.get("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is absent from the process environment")
     client = LLMClient(model=MODEL, interaction_log=None)
+    # With SDK-level retries enabled one wrapper call can issue several physical HTTP requests,
+    # so a cap on wrapper calls would not bound physical outbound requests. Disabling them makes
+    # the two counts identical, which is what the declared cap actually needs to mean.
+    client._client.max_retries = 0
+    if getattr(client._client, "max_retries", None) != 0:
+        raise RuntimeError("provider SDK retries could not be disabled; the call cap would not bound physical requests")
     completions = client._client.chat.completions
     original_create = completions.create
 
@@ -267,6 +273,9 @@ async def run(
         == usage["outbound_requests"],
         "blocked_egress_attempts": egress["blocked_hosts"],
         "credential_source": "process environment variable, value never read",
+        "sdk_max_retries": 0,
+        "physical_requests_equal_wrapper_calls": True,
+        "call_cap_bounds": "physical outbound requests, because SDK-level retries are disabled",
         "event_log_sha256": hashlib.sha256(event_log.read_bytes()).hexdigest()
         if event_log.is_file()
         else None,

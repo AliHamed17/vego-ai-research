@@ -91,11 +91,13 @@ class TestSignalPredicatesMatchTheFrozenRule:
 
 
 class TestAgreementMetrics:
-    def test_identical_labels_agree_exactly(self):
+    def test_identical_labels_agree_exactly_at_both_levels(self):
         labels = ["STRONG_ALERT", "NO_ALERT", "WEAK_ALERT"]
         result = baselines.compare(labels, labels)
-        assert result["identical_to_detector_v1"]
+        assert result["identical_three_class"]
+        assert result["identical_binary_review"]
         assert result["exact_three_class_agreement"] == 1.0
+        assert result["binary_review_agreement"] == 1.0
         assert result["jaccard_on_flagged"] == 1.0
 
     def test_kappa_is_none_when_chance_agreement_is_total(self):
@@ -108,8 +110,16 @@ class TestAgreementMetrics:
         """The finding this guards: perfect agreement is uninformative at a flag rate of one."""
         reference = ["STRONG_ALERT"] * 3
         result = baselines.compare(["STRONG_ALERT"] * 3, reference)
-        assert result["identical_to_detector_v1"]
+        assert result["identical_three_class"]
+        assert result["identical_binary_review"]
         assert not result["discriminates_on_this_data"]
+
+    def test_always_alert_differs_at_three_class_but_matches_at_binary(self):
+        """The distinction the package previously collapsed into one ambiguous word."""
+        reference = ["STRONG_ALERT"] * 7 + ["WEAK_ALERT"] * 4
+        result = baselines.compare(["STRONG_ALERT"] * 11, reference)
+        assert result["identical_three_class"] is False
+        assert result["identical_binary_review"] is True
 
     def test_chance_baseline_reproduces_the_reference_flag_rate(self):
         chance = baselines.chance_baseline(["STRONG_ALERT"] * 3, seeds=50)

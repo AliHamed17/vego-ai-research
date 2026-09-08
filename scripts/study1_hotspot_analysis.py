@@ -298,17 +298,52 @@ def sensitivity(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+VALID_R1 = {"Yes", "No", "Insufficient information"}
+
+
 def read_responses(path: Path | None) -> tuple[dict[str, str], dict[str, float]] | tuple[None, None]:
     if path is None or not path.is_file():
         return None, None
     payload = json.loads(path.read_text(encoding="utf-8"))
     answers, minutes = {}, {}
     for row in payload.get("responses", []):
-        if row.get("R1_WORTHY"):
-            answers[row["card_id"]] = row["R1_WORTHY"]
+        value = row.get("R1_WORTHY")
+        if value in VALID_R1:
+            answers[row["card_id"]] = value
         if row.get("R4_MINUTES") is not None:
             minutes[row["card_id"]] = float(row["R4_MINUTES"])
     return (answers or None), (minutes or None)
+
+
+def rater_sets_complete(expected: set[str], rater_a: dict[str, str] | None,
+                        rater_b: dict[str, str] | None) -> dict[str, Any]:
+    """A partial rating set may not produce a rate, because its denominator would be self-selected.
+
+    Allowing adjudication over whichever cards happened to come back would let the sample be
+    chosen by the raters' completion order. Every expected card must be answered by both raters
+    before any adjudication, table, rate or primary outcome is computed.
+    """
+    if not rater_a or not rater_b:
+        return {
+            "complete": False,
+            "reason": "one or both rater response sets are absent",
+            "missing_from_rater_a": sorted(expected) if not rater_a else [],
+            "missing_from_rater_b": sorted(expected) if not rater_b else [],
+        }
+    missing_a = sorted(expected - set(rater_a))
+    missing_b = sorted(expected - set(rater_b))
+    invalid_a = sorted(card for card, value in rater_a.items() if value not in VALID_R1)
+    invalid_b = sorted(card for card, value in rater_b.items() if value not in VALID_R1)
+    complete = not (missing_a or missing_b or invalid_a or invalid_b)
+    return {
+        "complete": complete,
+        "expected_cards": len(expected),
+        "missing_from_rater_a": missing_a,
+        "missing_from_rater_b": missing_b,
+        "invalid_in_rater_a": invalid_a,
+        "invalid_in_rater_b": invalid_b,
+        "reason": None if complete else "paired rater coverage is incomplete",
+    }
 
 
 def main() -> int:
@@ -362,11 +397,14 @@ def main() -> int:
 
     rater_a, minutes_a = read_responses(args.rater_a)
     rater_b, minutes_b = read_responses(args.rater_b)
-    verdicts = adjudicate(rater_a, rater_b) if (rater_a and rater_b) else None
     key = None
+    expected: set[str] = set()
     if args.card_key and args.card_key.is_file():
         payload = json.loads(args.card_key.read_text(encoding="utf-8"))
         key = {row["card_id"]: row["episode_id"] for row in payload.get("key", [])}
+        expected = set(key)
+    coverage = rater_sets_complete(expected, rater_a, rater_b)
+    verdicts = adjudicate(rater_a, rater_b) if coverage["complete"] else None
     minutes = {**(minutes_a or {}), **(minutes_b or {})} or None
 
     report = {
@@ -393,9 +431,10 @@ def main() -> int:
         "preregistered_sensitivity": [
             {"run_label": run["label"], **sensitivity(run["episodes"])} for run in runs
         ],
+        "paired_rater_coverage": coverage,
         "adjudication": (
             {"verdict_counts": dict(Counter(verdicts.values()))} if verdicts
-            else unavailable("no rater responses supplied", ["rater A responses", "rater B responses"])
+            else unavailable(coverage["reason"] or "no rater responses supplied", ["complete paired rater coverage for every expected card"])
         ),
     }
     text = json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n"

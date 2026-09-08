@@ -184,7 +184,8 @@ def table(headers: list[str], rows: list[list[str]], *, numeric_from: int = 1,
             f'<td class="n">{c}</td>' if i >= numeric_from else f"<td>{c}</td>"
             for i, c in enumerate(cells)
         )
-        body.append(f'<tr{" style=\"background:rgb(255,248,232)\"" if r in highlight else ""}>{tds}</tr>')
+        shade = ' style="background:rgb(255,248,232)"' if r in highlight else ""
+        body.append(f"<tr{shade}>{tds}</tr>")
     return f"<table><tr>{head}</tr>{''.join(body)}</table>"
 
 
