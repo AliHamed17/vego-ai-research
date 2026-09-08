@@ -543,3 +543,16 @@ Record file changes and rollback notes here.
   - tests/test_study1_visual_baseline_bilingual.py
 - Rollback note: Revert the single feature commit to remove the generated reports, their builder/tests, visualization catalog entries, and this session record.
 - Git commit: none recorded by script.
+
+## 2026-09-09 01:55 +03:00 - Codex - Enhanced bilingual human-intervention baseline
+
+- Files changed:
+  - scripts/build_study1_visual_baseline_bilingual.py
+  - tests/test_study1_visual_baseline_bilingual.py
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-facts.json
+- Rollback note: Revert the final enhancement commit to restore the prior four-page baseline.
+- Git commit: none recorded by script.

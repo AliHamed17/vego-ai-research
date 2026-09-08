@@ -52,6 +52,77 @@ def test_load_evidence_recomputes_the_published_operational_baseline() -> None:
     assert facts["on_setting_level_cost_usd"] == pytest.approx(0.007457)
 
 
+def test_uncertainty_extension_is_recomputed_from_the_tracked_aggregate() -> None:
+    facts = load_evidence(ROOT)
+
+    assert facts["objective_known_unknown_status"] == "NOT_MEASURED"
+    assert facts["objective_known_unknown_field"] == "NOT_AVAILABLE_IN_TRACKED_AGGREGATE"
+    assert facts["detection_timing"] == "POST_EPISODE_TERMINATION_REPORTING"
+    assert facts["episode_round_distribution"] == [
+        {"round_count": 2, "episodes": 3},
+        {"round_count": 3, "episodes": 1},
+        {"round_count": 4, "episodes": 4},
+        {"round_count": 10, "episodes": 6},
+    ]
+    assert facts["round_termination_distribution"][-1] == {
+        "round_count": 10,
+        "CONVERGED": 1,
+        "TERMINATED_MAX_ROUNDS": 5,
+    }
+    assert facts["signal_cooccurrence"] == [
+        {"signals": ["S1", "S2", "S6"], "episodes": 6},
+        {"signals": ["S1", "S2", "S6", "S7"], "episodes": 5},
+        {"signals": ["S1", "S6"], "episodes": 2},
+        {"signals": ["S6"], "episodes": 1},
+    ]
+    assert [row["case_id"] for row in facts["case_qa"]] == facts["case_ids"]
+    assert [row["questions"] for row in facts["case_qa"]] == [
+        12,
+        26,
+        5,
+        28,
+        32,
+        6,
+        5,
+        67,
+        54,
+        15,
+        5,
+        0,
+    ]
+    assert [row["status"] for row in facts["case_qa"]] == [
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "HAS_COMPLETE_EPISODE",
+        "INCOMPLETE_EPISODE_ONLY",
+        "INCOMPLETE_EPISODE_ONLY",
+        "NO_EPISODE",
+    ]
+    assert facts["unselected_case_ids"] == ["04", "09", "10", "11", "13", "14", "16", "17", "19"]
+    assert facts["unsupported_cuts"] == {
+        "answer_confidence_distribution": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE",
+        "answer_evidence_length_distribution": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE",
+        "first_low_confidence_round": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE",
+    }
+    by_case = {row["case_id"]: row for row in facts["case_qa"]}
+    assert by_case["08"]["episode_classes"] == ["STRONG_ALERT", "WEAK_ALERT"]
+    assert by_case["08"]["rounds"] == [2, 2]
+    assert by_case["05"]["rounds"] == [10, 4]
+    assert by_case["05"]["episode_classes"] == ["STRONG_ALERT", "STRONG_ALERT"]
+    assert by_case["18"]["episode_classes"] == ["EXCLUDED"]
+    assert by_case["18"]["strong_alerts"] is None
+    assert by_case["18"]["detector_evaluation_status"] == "EXCLUDED_NOT_EVALUATED"
+    assert by_case["21"]["episode_classes"] == ["NO_EPISODE"]
+    assert by_case["21"]["weak_alerts"] is None
+    assert by_case["21"]["detector_evaluation_status"] == "NO_EPISODE_NOT_APPLICABLE"
+
+
 def test_bilingual_reports_have_four_pages_and_matching_fact_ids() -> None:
     facts = load_evidence(ROOT)
     english = build_html("en", facts)
@@ -75,10 +146,14 @@ def test_bilingual_reports_have_four_pages_and_matching_fact_ids() -> None:
         "time-total",
         "time-per-output",
         "detector-distribution",
-        "route-agent3-agent1",
-        "route-agent3-agent2",
         "agent4-status",
         "human-next-step",
+        "uncertainty-boundary",
+        "trigger-location",
+        "round-distribution",
+        "signal-cooccurrence",
+        "case-qa-volume",
+        "unsupported-cuts",
     }
     for fact_id in required_fact_ids:
         marker = f'data-fact-id="{fact_id}"'
@@ -133,6 +208,14 @@ def test_report_preserves_evidence_classes_and_claim_boundary() -> None:
     assert "לא נעשה שימוש חוזר או איגום של פלטים" in hebrew
     assert "2 shared setting-level requests" in english
     assert "2 בקשות משותפות ברמת התנאי" in hebrew
+    assert "No objective known/unknown field is recorded" in english
+    assert "לא נרשם שדה אובייקטיבי של ידוע/לא־ידוע" in hebrew
+    assert "model self-report" in english
+    assert "דיווח עצמי של המודל" in hebrew
+    assert "not correctness" in english
+    assert "לא נכונות" in hebrew
+    assert "POST_EPISODE_TERMINATION_REPORTING" in joined
+    assert "NOT_AVAILABLE_IN_TRACKED_AGGREGATE" in joined
 
 
 def test_every_quantitative_visual_prints_its_evidence_contract_visibly() -> None:
@@ -144,7 +227,9 @@ def test_every_quantitative_visual_prints_its_evidence_contract_visibly() -> Non
             "chart-cost",
             "chart-time",
             "chart-detector",
-            "chart-routes",
+            "chart-rounds",
+            "chart-signal-cooccurrence",
+            "chart-case-qa",
         ):
             start = html.index(f'id="{chart_id}"')
             end = html.index("</figure>", start)
@@ -222,6 +307,23 @@ def test_bilingual_render_sources_are_deterministic_and_fully_resolved() -> None
         assert "}}" not in first
         assert "${" not in first
         assert all(line == line.rstrip() for line in first.splitlines())
+
+
+def test_compact_rtl_flow_uses_non_mirroring_css_arrowheads() -> None:
+    hebrew = build_html("he", load_evidence(ROOT))
+
+    assert '.mini-arrow::before { content:"";' in hebrew
+    assert '[dir="rtl"] .mini-arrow::before' in hebrew
+    assert 'content:"‹"' not in hebrew
+
+
+def test_hebrew_robustness_and_route_labels_are_unambiguous() -> None:
+    hebrew = build_html("he", load_evidence(ROOT))
+
+    assert "3/3 שינויי סדר מוגדרים" in hebrew
+    assert "סוכן 3 שואל · סוכן 1 משיב = 64 Q · סוכן 2 משיב = 191 Q" in hebrew
+    assert "סידורים שמיים" not in hebrew
+    assert "סוכן שואל 3" not in hebrew
 
 
 def test_pdf_metadata_normalization_removes_volatile_render_timestamps(tmp_path: Path) -> None:

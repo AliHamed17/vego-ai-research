@@ -56,6 +56,8 @@ p { margin:0; line-height:1.32; }
 .ladder-card .tag { font-size:5.6pt; line-height:1.12; max-width:55mm; white-space:normal; }
 .fixture-marker { margin-top:1.2mm; font-size:5.1pt; font-weight:800; color:#a95508;
   direction:ltr; unicode-bidi:isolate; }
+.robustness-marker { margin-top:1.1mm; font-size:4.55pt; line-height:1.15; color:#376884; overflow-wrap:anywhere; }
+.robustness-marker bdi { font-size:4.25pt; font-weight:850; }
 .ladder-card h3 { margin-top:6mm; max-width:46mm; }
 .ladder-card p { margin-top:2.2mm; font-size:7.8pt; color:#526b7c; max-width:55mm; }
 .legend { display:flex; gap:2mm; align-items:center; margin-top:3mm; }
@@ -65,6 +67,7 @@ p { margin:0; line-height:1.32; }
 .lane-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:2.3mm; }
 .lane-status { font-size:6.5pt; color:#526b7c; }
 .flow { display:flex; align-items:stretch; justify-content:space-between; gap:2mm; direction:ltr; }
+[dir="rtl"] .flow { direction:rtl; }
 .node { flex:1; min-height:27mm; padding:3mm 2.2mm; border-radius:3mm; background:#f4f8fb;
   border:1px solid #d7e3ec; text-align:center; display:flex; flex-direction:column; justify-content:center;
   font-size:7.3pt; line-height:1.25; color:#23465f; white-space:pre-line; }
@@ -74,6 +77,7 @@ p { margin:0; line-height:1.32; }
 .arrow { flex:0 0 7mm; align-self:center; height:1.5px; background:#7f98aa; position:relative; }
 .arrow::after { content:""; position:absolute; right:-.2mm; top:-1.3mm; border-left:2.5mm solid #7f98aa;
   border-top:1.4mm solid transparent; border-bottom:1.4mm solid transparent; }
+[dir="rtl"] .arrow::after { right:auto; left:-.2mm; border-left:0; border-right:2.5mm solid #7f98aa; }
 .agent4-stop { margin-top:2mm; border:1px dashed #d06a4b; border-radius:3mm; padding:2mm 3mm;
   color:#a74325; font-size:7pt; background:#fff6f1; text-align:center; }
 .compare-strip { display:grid; grid-template-columns:1fr 1fr 1.05fr; gap:3mm; margin-top:3mm; }
@@ -91,6 +95,9 @@ p { margin:0; line-height:1.32; }
 .unit { width:6mm; height:6mm; border-radius:1.7mm; display:block; }
 .unit-on { background:#2385c7; } .unit-off { background:#f2994a; } .unit-empty { background:#dde5eb; }
 .unit-label { display:flex; justify-content:space-between; font-size:7.4pt; margin-top:2mm; color:#405b6e; }
+.structure-chip { margin-top:1.4mm; padding:1.2mm 1.5mm; border-radius:1.8mm; background:#f2f6f9;
+  font-size:5.15pt; line-height:1.18; color:#526b7c; }
+.structure-chip bdi { display:block; margin-top:.6mm; font-weight:850; color:#647b8d; }
 .bar-row { display:grid; grid-template-columns:24mm 1fr 24mm; gap:2mm; align-items:center; margin:2mm 0; }
 .bar-label { font-size:7.2pt; color:#405b6e; }
 .bar-track { height:5.2mm; background:#edf2f6; border-radius:99px; overflow:hidden; }
@@ -114,6 +121,46 @@ p { margin:0; line-height:1.32; }
   font-size:9.2pt; font-weight:750; color:#8d4a08; display:flex; align-items:center; }
 .struct-note { background:#f2f6f9; border:1px solid #d5e0e8; border-radius:4mm; padding:4mm; font-size:7.3pt; }
 .struct-note h3 { margin-bottom:1.7mm; }
+.analytics-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:3mm; margin-top:3mm; }
+.signal-panel, .round-panel { height:56.5mm; padding:2.6mm 3.2mm 2.2mm; }
+.analytics-grid .chart-caption { display:grid; grid-template-columns:1fr 1fr; column-gap:3mm; row-gap:.2mm;
+  margin-top:.7mm; padding-top:.7mm; font-size:4.9pt; line-height:1.12; }
+.analytics-grid .chart-caption span:first-child { grid-column:1 / -1; }
+.chart-head { display:flex; align-items:flex-start; justify-content:space-between; gap:3mm; }
+.chart-head h3 { margin-bottom:1.5mm; }
+.signal-chart-layout { display:grid; grid-template-columns:.9fr 1.1fr; gap:4mm; direction:ltr; }
+.micro-label { font-size:5.7pt; color:#667e90; font-weight:800; margin-bottom:1mm; }
+.metric-row, .combo-row { display:grid; align-items:center; gap:1.4mm; height:3.7mm; }
+.metric-row { grid-template-columns:8mm 1fr 13mm; }
+.combo-row { grid-template-columns:29mm 1fr 7mm; }
+.metric-code, .combo-label { font-size:6.1pt; color:#38556b; font-weight:800; }
+.metric-track, .combo-track { display:block; height:2.4mm; background:#edf2f6; border-radius:99px; overflow:hidden; }
+.metric-fill, .combo-fill { display:block; height:100%; border-radius:99px; }
+.metric-fill.confidence-low { background:#db5a42; }
+.metric-fill.confidence-medium { background:#f2a83b; }
+.metric-fill.evidence { background:#738797; }
+.metric-fill.process { background:#2385c7; }
+.metric-fill.termination { background:#8167c9; }
+.combo-fill { background:#3c8fbd; }
+.metric-value, .combo-value { font-size:6.6pt; color:#113f63; font-weight:850; text-align:end; }
+.signal-key { display:grid; grid-template-columns:repeat(5,1fr); gap:1.1mm; margin-top:1.2mm; direction:ltr; }
+.signal-key span { padding:1.1mm 1.3mm; border-radius:1.8mm; background:#f3f7fa; color:#526b7c;
+  font-size:4.75pt; line-height:1.16; }
+.class-ribbon { display:grid; grid-template-columns:1.18fr 1fr; gap:3mm; align-items:center; margin-top:.5mm; }
+.class-ribbon .detector-bar { height:4mm; margin:0; }
+.class-ribbon .detector-legend { gap:2mm; font-size:5.7pt; }
+.round-chart { display:flex; align-items:flex-end; justify-content:space-around; height:20mm; padding:1mm 4mm 0;
+  border-bottom:1px solid #cfdce5; direction:ltr; }
+.round-col { width:14mm; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
+.round-value { font-size:7pt; font-weight:850; color:#24475f; margin-bottom:1mm; }
+.round-bar-shell { width:8mm; min-height:1.8mm; display:flex; flex-direction:column; justify-content:flex-end;
+  overflow:hidden; border-radius:2mm 2mm 0 0; background:#edf2f6; }
+.round-max, .round-converged { display:block; width:100%; }
+.round-max { background:#8167c9; }
+.round-converged { background:#2385c7; }
+.round-label { font-size:6.2pt; font-weight:800; color:#526b7c; margin-top:1mm; }
+.round-legend { display:flex; gap:3mm; margin-top:1.3mm; font-size:5.4pt; color:#526b7c; direction:ltr; }
+.round-note { margin-top:1.1mm; font-size:6.4pt; color:#6a4b91; font-weight:750; }
 .super-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:4mm; margin-top:3.5mm; }
 .rule-box { background:#0f3b5e; color:white; border-radius:4mm; padding:4mm 5mm; }
 .rule-box h3 { color:white; margin-bottom:2mm; }
@@ -148,6 +195,71 @@ p { margin:0; line-height:1.32; }
   line-height:1.08; white-space:normal; overflow-wrap:anywhere; }
 .final { margin-top:3mm; border-radius:3mm; padding:3mm 4mm; background:#e5f5f3; color:#0f6865;
   font-size:9pt; font-weight:850; text-align:center; }
+.boundary-grid { display:grid; grid-template-columns:.82fr 1.18fr; gap:3mm; margin-top:3mm; }
+[dir="rtl"] .boundary-grid { grid-template-columns:1.18fr .82fr; }
+.boundary-card, .trigger-card { min-height:31mm; border-radius:4mm; padding:3mm 3.6mm; border:1px solid #d9e4ec; background:white; }
+.boundary-card { border-inline-start:2.5mm solid #8167c9; }
+.trigger-card { border-inline-start:2.5mm solid #2385c7; }
+.boundary-card h3, .trigger-card h3 { margin-bottom:1.5mm; }
+.boundary-main { font-size:8.5pt; font-weight:850; color:#183b56; display:flex; align-items:center; gap:2mm; flex-wrap:wrap; }
+.boundary-card p { margin-top:1.2mm; font-size:6.6pt; color:#526b7c; }
+.criterion-line { margin-top:1mm; padding:.8mm 1.2mm; border-radius:1.5mm; background:#f4f7fa; color:#4c6476;
+  font-size:5.1pt; line-height:1.14; }
+.boundary-card small, .trigger-card small { display:block; margin-top:1.2mm; font-size:5.4pt; color:#6b7f8e; }
+.status-chip { display:inline-block; border-radius:1.8mm; padding:.8mm 1.7mm; background:#edf1f4; color:#52687a;
+  font-size:5.3pt; font-weight:850; direction:ltr; unicode-bidi:isolate; white-space:nowrap; }
+.boundary-tags { display:flex; gap:1.2mm; flex-wrap:wrap; margin-top:1.2mm; }
+.boundary-tags span, .boundary-tags bdi { padding:.7mm 1.4mm; border-radius:99px; background:#f1edfb; color:#6741b9;
+  font-size:5.4pt; font-weight:750; }
+.mini-flow { display:flex; align-items:stretch; gap:1mm; direction:ltr; margin-top:1mm; }
+[dir="rtl"] .mini-flow { direction:rtl; }
+.mini-node { flex:1; min-height:10mm; border-radius:2mm; background:#eef6fc; border:1px solid #c8deed;
+  padding:1.4mm 1mm; display:flex; align-items:center; justify-content:center; text-align:center; font-size:5.6pt; line-height:1.15; }
+.mini-arrow { flex:0 0 3mm; display:flex; align-items:center; justify-content:center; }
+.mini-arrow::before { content:""; width:0; height:0; border-top:1.3mm solid transparent; border-bottom:1.3mm solid transparent; border-left:2mm solid #6d8799; }
+[dir="rtl"] .mini-arrow::before { border-left:0; border-right:2mm solid #6d8799; }
+.trigger-formula { margin-top:1.2mm; border-radius:1.8mm; padding:.8mm 1.4mm; background:#fff3e5; color:#8d4a08;
+  font-family:Consolas,"Courier New",monospace; font-size:5.3pt; font-weight:750; text-align:center; }
+.meaning-inline { margin-top:.8mm; color:#0f6865; font-size:6.2pt; font-weight:850; text-align:center; }
+.case-panel { margin-top:3mm; padding:2.7mm 3.4mm 2.4mm; }
+.case-panel .chart-head .tag { max-width:116mm; white-space:normal; text-align:center; }
+.frame-grid { display:grid; grid-template-columns:repeat(21,1fr); gap:1mm; margin-top:.5mm; direction:ltr; }
+.frame-cell { display:flex; align-items:center; justify-content:center; height:5.5mm; border-radius:1.3mm;
+  font-size:5.6pt; font-weight:850; }
+.frame-cell.selected { background:#d9edfb; color:#145da0; border:1px solid #86bbdd; }
+.frame-cell.not-selected { background:#edf1f4; color:#84939f; border:1px solid #d6dfe5; }
+.frame-legend { display:flex; gap:3mm; align-items:center; margin-top:1mm; font-size:5.5pt; color:#60788c; }
+.frame-key { display:inline-block; width:3mm; height:3mm; border-radius:.7mm; margin-inline-end:.8mm; }
+.frame-key.selected { background:#86bbdd; } .frame-key.not-selected { background:#d6dfe5; }
+.case-bars { display:grid; grid-template-columns:repeat(12,1fr); gap:2mm; align-items:end; height:34mm; margin-top:1mm;
+  padding:0 2mm; border-bottom:1px solid #cfdce5; direction:ltr; }
+.case-col { height:33mm; display:grid; grid-template-rows:4mm 18mm 4mm 3.2mm 3.2mm; align-items:end; text-align:center; }
+.case-value { font-size:6.3pt; color:#24475f; font-weight:850; }
+.case-bar-shell { height:18mm; width:7mm; background:#edf2f6; border-radius:1.8mm 1.8mm 0 0; overflow:hidden;
+  display:flex; align-items:flex-end; justify-self:center; }
+.case-bar-fill { display:block; width:100%; background:#2385c7; border-radius:1.8mm 1.8mm 0 0; }
+.case-col.incomplete .case-bar-fill { background:#f2a83b; }
+.case-col.none .case-bar-fill { background:#a9b7c2; }
+.case-id { font-size:6.1pt; font-weight:850; color:#183b56; }
+.case-rounds, .case-class { font-size:4.8pt; color:#60788c; white-space:nowrap; }
+.case-class { color:#145da0; font-weight:850; }
+.case-col.incomplete .case-class { color:#a65a0a; }
+.case-col.none .case-class { color:#718697; }
+.case-legend { margin-top:1mm; padding:.8mm 1.5mm; border-radius:1.5mm; background:#f3f7fa; color:#60788c;
+  font-size:5.2pt; direction:ltr; unicode-bidi:isolate; text-align:center; }
+.gate-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:3mm; margin-top:2mm; }
+.unsupported-card, .human-card { min-height:22mm; border-radius:3mm; padding:2.4mm 3mm; display:flex;
+  align-items:center; justify-content:space-between; gap:3mm; }
+.unsupported-card { background:#f2f5f7; border:1px solid #d5e0e8; }
+.human-card { background:#e9f7f5; border:1px solid #a8d9d3; }
+.unsupported-card h3, .human-card h3 { margin-bottom:1mm; }
+.unsupported-card p, .human-card p { font-size:6pt; color:#526b7c; }
+.human-card small { display:block; margin-top:.8mm; font-size:5.2pt; color:#54736f; }
+.human-badge { flex:0 0 33mm; border-radius:2mm; padding:2mm; background:#0f6865; color:white; text-align:center;
+  font-size:5.7pt; line-height:1.35; font-weight:850; direction:ltr; unicode-bidi:isolate; }
+.route-status-strip { display:grid; grid-template-columns:1fr 1fr; gap:2mm; margin-top:1.7mm; font-size:5.5pt; color:#526b7c; }
+.route-status-strip span { border:1px solid #d9e4ec; border-radius:2mm; padding:1.1mm 1.8mm; background:white; }
+.page-4 .final { margin-top:1.7mm; padding:2mm 3mm; font-size:7.4pt; }
 .footer { position:absolute; inset-inline:13mm; bottom:4mm; display:flex; align-items:flex-end; justify-content:space-between;
   gap:5mm; border-top:1px solid #dbe4eb; padding-top:1.5mm; color:#718697; font-size:5.7pt; }
 .footer a { color:#4d748e; text-decoration:none; }
@@ -173,7 +285,7 @@ bdi, code { direction:ltr; unicode-bidi:isolate; }
       </div>
       <div class="scope-row">
         <span class="pill">Public external LLM-generated AirTravel corpus</span>
-        <span class="pill">12 seeded cases from 21 eligible</span>
+        <span class="pill">12 seeded candidate-model artifacts from 21 eligible</span>
         <span class="pill">gpt-5.6-luna · PROVIDER_DEFAULT_NOT_SENT · one day</span>
         <span class="pill gray">Not student data · not representative</span>
         <span class="pill gray">3 inputs overlap Study 1 · no outputs reused or pooled</span>
@@ -189,6 +301,7 @@ bdi, code { direction:ltr; unicode-bidi:isolate; }
           <div class="ladder-num">02</div><span class="tag engineering">ENGINEERING-ONLY FIXTURE</span>
           <div class="fixture-marker">ENGINEERING_FIXTURE_NOT_SCIENTIFIC</div>
           <h3>2 · Engineering checks</h3><p>9/9 rule modes · 724 fixture calls · 0 provider calls</p>
+          <div class="robustness-marker"><bdi>DESCRIPTIVE_INSTRUMENT_ROBUSTNESS_ON_ONE_ACCEPTED_RUN</bdi><br>500/500 seeded permutations · 3/3 named reorderings</div>
         </div>
         <div class="ladder-card prospective" data-fact-id="ladder-prospective">
           <div class="ladder-num">03</div><span class="tag prospective">PROSPECTIVE EMPIRICAL EVIDENCE</span>
@@ -203,7 +316,7 @@ bdi, code { direction:ltr; unicode-bidi:isolate; }
 
       <footer class="footer">
         <span>Four-page visual readout · no new experiment or provider call was made to create this report </span>
-        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
+        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/public-aggregate.json">aggregate</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/case-selection-manifest.json">selection</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
         <span class="page-no">1 / 4</span>
       </footer>
     </section>
@@ -220,7 +333,7 @@ inspects the model</div><span class="arrow" aria-hidden="true"></span><div class
 who asked whom, rounds, confidence, evidence</div><span class="arrow" aria-hidden="true"></span><div class="node detector">Detector-v1
 classifies each complete Q&amp;A episode</div><span class="arrow" aria-hidden="true"></span><div class="node result">Report label
 candidate for human review</div></div>
-        <div class="agent4-stop" data-fact-id="agent4-status"><bdi>Agent 4</bdi> — 0 Agent-4-labelled requests are present in the public aggregate before ON STOPPED_AT_CAP</div>
+        <div class="agent4-stop" data-fact-id="agent4-status"><bdi>Agent 4</bdi> — Prospective: 0 Agent-4-labelled requests before cap · separate archival path: EXECUTED_THEN_BLOCKED · queue NOT_AVAILABLE</div>
       </div>
       <div class="flow-lane off">
         <div class="lane-head"><h3>VEGO-AI OFF</h3><span class="tag prospective">BASELINE · N=12</span></div>
@@ -234,7 +347,7 @@ candidate for human review</div></div>
 
       <footer class="footer">
         <span>Four-page visual readout · no new experiment or provider call was made to create this report </span>
-        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
+        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/public-aggregate.json">aggregate</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/case-selection-manifest.json">selection</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
         <span class="page-no">2 / 4</span>
       </footer>
     </section>
@@ -249,6 +362,7 @@ candidate for human review</div></div>
           <div class="unit-label" data-fact-id="completion-on"><strong>ON · 9 of 12</strong><bdi>75%</bdi></div><div class="units"><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-on" aria-hidden="true"></span><span class="unit unit-empty" aria-hidden="true"></span><span class="unit unit-empty" aria-hidden="true"></span><span class="unit unit-empty" aria-hidden="true"></span></div>
           <div class="unit-label" data-fact-id="completion-off"><strong>OFF · 12 of 12</strong><bdi>100%</bdi></div><div class="units"><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span><span class="unit unit-off" aria-hidden="true"></span></div>
           <p style="font-size:6.8pt;color:#6b7f8e;margin-top:2mm"><bdi>ON = STOPPED_AT_CAP; cases 18, 20 and 21 = NOT_PRODUCED.</bdi></p>
+          <div class="structure-chip"><span>ON 9/9 completed summaries were internally consistent; OFF 7/12. The workflows construct outputs differently.</span><bdi>NOT COMPARABLE AS QUALITY</bdi></div>
 
       <figcaption class="chart-caption">
         <span><b>Source:</b> analysis.json · <b>Condition:</b> ON + OFF</span>
@@ -341,75 +455,134 @@ candidate for human review</div></div>
       </figcaption>
         </figure>
       </div>
-      <div class="detector-panel">
-        <figure class="panel" id="chart-detector" data-denominator="14 complete plus 2 excluded ON Q&amp;A episodes" data-evidence-status="PROSPECTIVE EMPIRICAL EVIDENCE" data-fact-id="detector-distribution">
-          <h3>Detector-v1 under ON</h3><div class="detector-bar"><span class="seg-strong" style="width:81.25%"></span><span class="seg-weak" style="width:6.25%"></span><span class="seg-no" style="width:0.00%"></span><span class="seg-excluded" style="width:12.50%"></span></div>
-          <div class="detector-legend">
-            <span><i class="swatch seg-strong"></i>Strong <bdi>13</bdi></span>
-            <span><i class="swatch seg-weak"></i>Weak <bdi>1</bdi></span>
-            <span><i class="swatch seg-no"></i>No alert <bdi>0</bdi></span>
-            <span><i class="swatch seg-excluded"></i>Excluded <bdi>2</bdi></span>
+      <div class="analytics-grid">
+        <figure class="panel signal-panel" id="chart-detector" data-denominator="16 recorded ON episodes; predicates use 14 complete episodes" data-evidence-status="PROSPECTIVE EMPIRICAL EVIDENCE" data-fact-id="detector-distribution">
+          <div id="chart-signal-cooccurrence" data-fact-id="signal-cooccurrence">
+            <div class="chart-head"><h3>Detector-v1 predicate occurrence and combinations</h3><span class="tag prospective">OVERLAPPING · N=14 COMPLETE</span></div>
+            <div class="signal-chart-layout">
+              <div><div class="micro-label">Overlapping episode predicates</div>
+
+      <div class="metric-row">
+        <bdi class="metric-code">S1</bdi>
+        <span class="metric-track"><span class="metric-fill confidence-low" style="width:92.86%"></span></span>
+        <bdi class="metric-value">13/14</bdi>
+      </div>
+
+      <div class="metric-row">
+        <bdi class="metric-code">S2</bdi>
+        <span class="metric-track"><span class="metric-fill confidence-medium" style="width:78.57%"></span></span>
+        <bdi class="metric-value">11/14</bdi>
+      </div>
+
+      <div class="metric-row">
+        <bdi class="metric-code">S3</bdi>
+        <span class="metric-track"><span class="metric-fill evidence" style="width:0.00%"></span></span>
+        <bdi class="metric-value">0/14</bdi>
+      </div>
+
+      <div class="metric-row">
+        <bdi class="metric-code">S6</bdi>
+        <span class="metric-track"><span class="metric-fill process" style="width:100.00%"></span></span>
+        <bdi class="metric-value">14/14</bdi>
+      </div>
+
+      <div class="metric-row">
+        <bdi class="metric-code">S7</bdi>
+        <span class="metric-track"><span class="metric-fill termination" style="width:35.71%"></span></span>
+        <bdi class="metric-value">5/14</bdi>
+      </div>
+              </div>
+              <div><div class="micro-label">Exact all_signals_fired sets</div><div class="combo-row"><bdi class="combo-label">S1+S2+S6</bdi><span class="combo-track"><span class="combo-fill" style="width:100.00%"></span></span><bdi class="combo-value">6</bdi></div><div class="combo-row"><bdi class="combo-label">S1+S2+S6+S7</bdi><span class="combo-track"><span class="combo-fill" style="width:83.33%"></span></span><bdi class="combo-value">5</bdi></div><div class="combo-row"><bdi class="combo-label">S1+S6</bdi><span class="combo-track"><span class="combo-fill" style="width:33.33%"></span></span><bdi class="combo-value">2</bdi></div><div class="combo-row"><bdi class="combo-label">S6</bdi><span class="combo-track"><span class="combo-fill" style="width:16.67%"></span></span><bdi class="combo-value">1</bdi></div></div>
+            </div>
+            <div class="class-ribbon"><div class="detector-bar"><span class="seg-strong" style="width:81.25%"></span><span class="seg-weak" style="width:6.25%"></span><span class="seg-no" style="width:0.00%"></span><span class="seg-excluded" style="width:12.50%"></span></div><div class="detector-legend"><span><i class="swatch seg-strong"></i>Strong <bdi>13</bdi></span><span><i class="swatch seg-weak"></i>Weak <bdi>1</bdi></span><span><i class="swatch seg-no"></i>No alert <bdi>0</bdi></span><span><i class="swatch seg-excluded"></i>Excluded <bdi>2</bdi></span></div></div>
           </div>
+
       <figcaption class="chart-caption">
-        <span><b>Source:</b> analysis.json · <b>Condition:</b> ON only</span>
-        <span><b>Denominator:</b> 16 recorded episodes = 14 complete + 2 excluded</span>
+        <span><b>Source:</b> public-aggregate.json · <b>Condition:</b> VEGO-AI ON</span>
+        <span><b>Denominator:</b> 16 recorded episodes for classes; 14 complete episodes for predicates</span>
         <span><b>Evidence class:</b> PROSPECTIVE EMPIRICAL EVIDENCE</span>
-        <span><b>Metric:</b> frozen Detector-v1 class per Q&amp;A episode</span>
-        <span><b>Limitation:</b> No human labels; not correctness, accuracy, or benefit.</span>
+        <span><b>Metric:</b> overlapping predicate presence and exact signal set per episode</span>
+        <span><b>Limitation:</b> Model self-report plus structural fields; signals may co-occur and are not calibrated uncertainty or human judgment.</span>
       </figcaption>
         </figure>
-        <div class="insight">14/14 complete episodes received a candidate label. This is alert saturation—not proof of correctness.</div>
-        <div class="struct-note"><h3>Output structure check</h3><p>ON 9/9 completed summaries were internally consistent; OFF 7/12. The workflows construct outputs differently.</p><span class="tag unmeasured" style="margin-top:2mm">NOT COMPARABLE AS QUALITY</span></div>
+        <figure class="panel round-panel" id="chart-rounds" data-denominator="14 complete ON Q&amp;A episodes" data-evidence-status="PROSPECTIVE EMPIRICAL EVIDENCE" data-fact-id="round-distribution">
+          <div class="chart-head"><h3>Maximum recorded round index per complete ON episode</h3><span class="tag prospective">N=14 COMPLETE</span></div>
+          <div class="round-chart"><div class="round-col"><bdi class="round-value">3</bdi><div class="round-bar-shell" style="height:50.00%"><span class="round-max" style="height:0.00%"></span><span class="round-converged" style="height:100.00%"></span></div><bdi class="round-label">R2</bdi></div><div class="round-col"><bdi class="round-value">1</bdi><div class="round-bar-shell" style="height:16.67%"><span class="round-max" style="height:0.00%"></span><span class="round-converged" style="height:100.00%"></span></div><bdi class="round-label">R3</bdi></div><div class="round-col"><bdi class="round-value">4</bdi><div class="round-bar-shell" style="height:66.67%"><span class="round-max" style="height:0.00%"></span><span class="round-converged" style="height:100.00%"></span></div><bdi class="round-label">R4</bdi></div><div class="round-col"><bdi class="round-value">6</bdi><div class="round-bar-shell" style="height:100.00%"><span class="round-max" style="height:83.33%"></span><span class="round-converged" style="height:16.67%"></span></div><bdi class="round-label">R10</bdi></div></div>
+          <div class="round-legend"><span><i class="swatch round-converged"></i>CONVERGED</span><span><i class="swatch round-max"></i>TERMINATED_MAX_ROUNDS</span></div>
+          <div class="round-note">At R10: 5 max-round stops + 1 convergence.</div>
+
+      <figcaption class="chart-caption">
+        <span><b>Source:</b> public-aggregate.json · <b>Condition:</b> VEGO-AI ON</span>
+        <span><b>Denominator:</b> 14 complete Q&amp;A episodes; 2 incomplete technical episodes excluded</span>
+        <span><b>Evidence class:</b> PROSPECTIVE EMPIRICAL EVIDENCE</span>
+        <span><b>Metric:</b> maximum recorded round_index per complete episode</span>
+        <span><b>Limitation:</b> Process state—not difficulty, failure, correctness, quality, or human workload.</span>
+      </figcaption>
+        </figure>
       </div>
 
       <footer class="footer">
         <span>Four-page visual readout · no new experiment or provider call was made to create this report </span>
-        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
+        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/public-aggregate.json">aggregate</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/case-selection-manifest.json">selection</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
         <span class="page-no">3 / 4</span>
       </footer>
     </section>
     <section class="page page-4" aria-label="page 4">
 
       <div class="top"><div class="brand">VEGO-AI · HUMAN-IN-THE-LOOP</div><div class="date">Supervisor readout · 9 September 2026</div></div>
-      <h2>Where can a human enter—and what is still missing?</h2>
-      <p class="subtitle">Direct answer to Iris and Arnon’s questions</p>
-      <div class="super-grid">
-        <div>
-          <div class="rule-box"><h3>How the smart alert works</h3><div class="rule">STRONG_ALERT = S1 OR S3 OR S7</div><div class="rule">WEAK_ALERT = no strong signal AND (S2 OR S6)</div><div class="rule">NO_ALERT otherwise</div><div class="meaning">Alert = a candidate for human review in the report</div></div>
-          <div class="section-label" style="margin-top:2.5mm">Observed trigger signals · denominator: 14 complete ON episodes</div>
-          <div class="signals"><div class="signal"><span>S1 · at least one Low self-reported answer confidence</span><span class="count">13/14</span></div><div class="signal"><span>S2 · at least one Medium self-reported answer confidence</span><span class="count">11/14</span></div><div class="signal"><span>S3 · missing or zero-length evidence reference</span><span class="count">0/14</span></div><div class="signal"><span>S6 · more than one Q&amp;A round</span><span class="count">14/14</span></div><div class="signal"><span>S7 · episode stopped at the maximum round</span><span class="count">5/14</span></div></div>
+      <h2>Where do Detector signals appear—and when can a human enter?</h2>
+      <p class="subtitle">Observed process evidence, reporting point, and the missing human judgment</p>
+      <div class="boundary-grid">
+        <div class="boundary-card" data-fact-id="uncertainty-boundary">
+          <h3>What is observed—and what remains unresolved</h3>
+          <div class="boundary-main">No objective known/unknown field is recorded <bdi class="status-chip">NOT_MEASURED</bdi></div>
+          <p>Detector-v1 uses answer-confidence fields reported by the model plus structural and control fields.</p>
+          <div class="criterion-line">S1 Low · S2 Medium (model self-report) · S3 no evidence reference · S6 &gt;1 round · S7 max-round termination</div>
+          <div class="boundary-tags"><span>model self-report</span><span>not correctness</span><bdi>NOT_AVAILABLE_IN_TRACKED_AGGREGATE</bdi></div>
+          <small>NOT_MEASURED / NOT_AVAILABLE is an evidence status—not objective absence or calibrated uncertainty.</small>
         </div>
-        <figure class="panel" id="chart-routes" data-denominator="255 ON questions" data-evidence-status="PROSPECTIVE EMPIRICAL EVIDENCE">
-          <h3>Observed agent coverage</h3>
-          <div class="agent-table">
-            <div class="head">Asking agent</div><div class="head">Answering agent</div><div class="head">Q</div>
-            <div data-fact-id="route-agent3-agent1">Agent 3 · Model Inspector</div><div>Agent 1 · Language Advisor</div><div class="count">64</div>
-            <div data-fact-id="route-agent3-agent2">Agent 3 · Model Inspector</div><div>Agent 2 · Domain Advisor</div><div class="count">191</div>
-          </div>
-          <div class="agent4" data-fact-id="agent4-status"><strong>Agent 4 · Variability Explorer</strong><br>Prospective aggregate: 0 Agent-4-labelled requests before ON STOPPED_AT_CAP<br>Separate archival path: <bdi>EXECUTED_THEN_BLOCKED · queue NOT_AVAILABLE</bdi></div>
+        <div class="trigger-card" data-fact-id="trigger-location">
+          <div class="chart-head"><h3>Where the reporting label is produced</h3><bdi class="status-chip">POST_EPISODE_TERMINATION_REPORTING</bdi></div>
+          <div class="mini-flow"><span class="mini-node">Recorded Q&amp;A events</span><span class="mini-arrow" aria-hidden="true"></span><span class="mini-node">Episode projection</span><span class="mini-arrow" aria-hidden="true"></span><span class="mini-node">Completeness gate</span><span class="mini-arrow" aria-hidden="true"></span><span class="mini-node">Frozen Detector-v1 rule</span><span class="mini-arrow" aria-hidden="true"></span><span class="mini-node">Reporting candidate</span></div>
+          <div class="trigger-formula"><bdi>STRONG = S1 OR S3 OR S7 · WEAK = no strong signal AND (S2 OR S6)</bdi></div>
+          <div class="meaning-inline">Alert = a candidate for human review in the report</div>
+          <small>POST_EPISODE_TERMINATION_REPORTING · no interruption, correction, or queue write</small>
+        </div>
+      </div>
+      <figure class="panel case-panel" id="chart-case-qa" data-denominator="21 eligible artifacts; 12 seeded cases" data-evidence-status="PROSPECTIVE EMPIRICAL EVIDENCE" data-fact-id="case-qa-volume">
+        <div class="chart-head"><h3>Q&amp;A volume by selected AirTravel case</h3><span class="tag prospective">One AirTravel task · 21 eligible artifacts · 12 seeded · 9 not selected</span></div>
+        <div class="frame-grid"><bdi class="frame-cell selected">01</bdi><bdi class="frame-cell selected">02</bdi><bdi class="frame-cell selected">03</bdi><bdi class="frame-cell not-selected">04</bdi><bdi class="frame-cell selected">05</bdi><bdi class="frame-cell selected">06</bdi><bdi class="frame-cell selected">07</bdi><bdi class="frame-cell selected">08</bdi><bdi class="frame-cell not-selected">09</bdi><bdi class="frame-cell not-selected">10</bdi><bdi class="frame-cell not-selected">11</bdi><bdi class="frame-cell selected">12</bdi><bdi class="frame-cell not-selected">13</bdi><bdi class="frame-cell not-selected">14</bdi><bdi class="frame-cell selected">15</bdi><bdi class="frame-cell not-selected">16</bdi><bdi class="frame-cell not-selected">17</bdi><bdi class="frame-cell selected">18</bdi><bdi class="frame-cell not-selected">19</bdi><bdi class="frame-cell selected">20</bdi><bdi class="frame-cell selected">21</bdi></div>
+        <div class="frame-legend"><span><i class="frame-key selected"></i>selected: <bdi>12</bdi></span><span><i class="frame-key not-selected"></i>not selected / no run result: <bdi>9</bdi></span><span>Top: questions · below: case ID, recorded rounds, episode classes</span></div>
+        <div class="case-bars"><div class="case-col complete"><bdi class="case-value">12</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:17.91%"></span></div><bdi class="case-id">01</bdi><bdi class="case-rounds">R4,R4</bdi><bdi class="case-class">S+S</bdi></div><div class="case-col complete"><bdi class="case-value">26</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:38.81%"></span></div><bdi class="case-id">02</bdi><bdi class="case-rounds">R10</bdi><bdi class="case-class">S</bdi></div><div class="case-col complete"><bdi class="case-value">5</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:7.46%"></span></div><bdi class="case-id">03</bdi><bdi class="case-rounds">R4</bdi><bdi class="case-class">S</bdi></div><div class="case-col complete"><bdi class="case-value">28</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:41.79%"></span></div><bdi class="case-id">05</bdi><bdi class="case-rounds">R10,R4</bdi><bdi class="case-class">S+S</bdi></div><div class="case-col complete"><bdi class="case-value">32</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:47.76%"></span></div><bdi class="case-id">06</bdi><bdi class="case-rounds">R10</bdi><bdi class="case-class">S</bdi></div><div class="case-col complete"><bdi class="case-value">6</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:8.96%"></span></div><bdi class="case-id">07</bdi><bdi class="case-rounds">R3</bdi><bdi class="case-class">S</bdi></div><div class="case-col complete"><bdi class="case-value">5</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:7.46%"></span></div><bdi class="case-id">08</bdi><bdi class="case-rounds">R2,R2</bdi><bdi class="case-class">S+W</bdi></div><div class="case-col complete"><bdi class="case-value">67</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:100.00%"></span></div><bdi class="case-id">12</bdi><bdi class="case-rounds">R10,R2</bdi><bdi class="case-class">S+S</bdi></div><div class="case-col complete"><bdi class="case-value">54</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:80.60%"></span></div><bdi class="case-id">15</bdi><bdi class="case-rounds">R10,R10</bdi><bdi class="case-class">S+S</bdi></div><div class="case-col incomplete"><bdi class="case-value">15</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:22.39%"></span></div><bdi class="case-id">18</bdi><bdi class="case-rounds">R3</bdi><bdi class="case-class">X</bdi></div><div class="case-col incomplete"><bdi class="case-value">5</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:7.46%"></span></div><bdi class="case-id">20</bdi><bdi class="case-rounds">R1</bdi><bdi class="case-class">X</bdi></div><div class="case-col none"><bdi class="case-value">0</bdi><div class="case-bar-shell"><span class="case-bar-fill" style="height:0.00%"></span></div><bdi class="case-id">21</bdi><bdi class="case-rounds">—</bdi><bdi class="case-class">Ø</bdi></div></div>
+        <div class="case-legend">S = STRONG_ALERT tier · W = WEAK_ALERT tier · X = EXCLUDED · Ø = NO_EPISODE · tiers are not severity</div>
 
       <figcaption class="chart-caption">
-        <span><b>Source:</b> analysis.json · <b>Condition:</b> ON only</span>
-        <span><b>Denominator:</b> 255 questions; 250 answers</span>
+        <span><b>Source:</b> public-aggregate.json + case-selection-manifest.json · <b>Condition:</b> VEGO-AI ON</span>
+        <span><b>Denominator:</b> 21 eligible artifacts; bars show the 12 seeded cases</span>
         <span><b>Evidence class:</b> PROSPECTIVE EMPIRICAL EVIDENCE</span>
-        <span><b>Metric:</b> question count by asking agent × answering agent</span>
-        <span><b>Limitation:</b> Observed routes only; not agent performance.</span>
+        <span><b>Metric:</b> recorded questions per selected case; badges preserve every episode class</span>
+        <span><b>Limitation:</b> Twelve artifacts from one task, not 12 use cases; frequency is not risk, error, importance, or intervention need.</span>
       </figcaption>
-        </figure>
+      </figure>
+      <div class="gate-grid">
+        <div class="unsupported-card" data-fact-id="unsupported-cuts">
+          <div><h3>Requested answer-level cuts not exposed by the tracked aggregate</h3><p>Confidence histogram · evidence-reference lengths · first Low-confidence round</p></div>
+          <bdi class="status-chip">NOT_AVAILABLE_IN_TRACKED_AGGREGATE</bdi>
+        </div>
+        <div class="human-card" data-fact-id="human-next-step">
+          <div><h3>When should a human enter?</h3><p>After the reporting candidate, raters must decide REVIEW_WORTHY / NOT_REVIEW_WORTHY / INSUFFICIENT_INFORMATION. Human outcome = NOT_MEASURED (0 raters).</p><small>Before scoring: current pack = 2 raters; supervisor freeze = 3. Reconcile this and adjudicate disagreements.</small></div>
+          <bdi class="human-badge">HUMAN OUTCOME<br>NOT_MEASURED · 0</bdi>
+        </div>
       </div>
-      <div class="human-grid">
-        <div class="panel" data-fact-id="human-next-step"><h3>Next human-validation gate</h3><div class="steps"><div class="step">1 · Reconcile before scoring: current pack = 2 raters; supervisor freeze = 3 (Ali, Iris, Arnon).</div><div class="step">2 · Adjudicate disagreements and record rationale + review time.</div><div class="step">3 · Add valid non-alert examples before estimating recall or false negatives.</div></div></div>
-        <div class="panel"><h3>Human-labelled outcome</h3><div class="matrix"><div class="matrix-cell"><span>TP · alert + review needed</span><strong>NOT_MEASURED</strong></div><div class="matrix-cell"><span>FP · alert + review not needed</span><strong>NOT_MEASURED</strong></div><div class="matrix-cell"><span>FN · no alert + review needed</span><strong>NOT_MEASURED</strong></div><div class="matrix-cell"><span>TN · no alert + review not needed</span><strong>NOT_MEASURED</strong></div></div></div>
-      </div>
-      <div class="evidence-strips">
-        <div class="engineering-strip"><span class="tag engineering">ENGINEERING-ONLY FIXTURE</span><span><bdi>ENGINEERING_FIXTURE_NOT_SCIENTIFIC</bdi> · 9/9 rule modes · 724 fixture calls · 0 provider calls. Instrument behavior only.</span></div>
-        <div class="engineering-strip robustness"><span class="tag prospective">DESCRIPTIVE_INSTRUMENT_ROBUSTNESS_ON_ONE_ACCEPTED_RUN</span><span>500/500 seeded permutations + 3/3 named reorderings · one accepted run · 0 provider calls.</span></div>
+      <div class="route-status-strip">
+        <span>Observed Q&amp;A routes: asking Agent 3 · answering Agent 1 = 64 Q · answering Agent 2 = 191 Q · <bdi>n=255 questions</bdi></span>
+        <span data-fact-id="agent4-status">Separate Agent-4 mechanism: EXECUTED_THEN_BLOCKED · queue NOT_AVAILABLE</span>
       </div>
       <div class="final">Current result: an inspectable escalation baseline—not validated human-intervention detection.</div>
 
       <footer class="footer">
         <span>Four-page visual readout · no new experiment or provider call was made to create this report </span>
-        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
+        <span class="sources">Sources: <a href="https://github.com/AliHamed17/vego-ai-research/pull/45">PR #45</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/analysis.json">prospective</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/evidence/S2P-LIVE-20260908T192135Z/public-aggregate.json">aggregate</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/case-selection-manifest.json">selection</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md">limits</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md">archival</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md">engineering</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md">Agent-4</a> · <a href="https://github.com/AliHamed17/vego-ai-research/blob/cbfc7f8adab29e9a521247109b60cf815228687e/docs/research/phd-proposal/2026-09-03-qa-human-escalation-study-freeze.md">supervisor</a></span>
         <span class="page-no">4 / 4</span>
       </footer>
     </section></body>

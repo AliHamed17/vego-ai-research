@@ -26,9 +26,212 @@
     "20",
     "21"
   ],
+  "case_qa": [
+    {
+      "answers": 12,
+      "case_id": "01",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT",
+        "STRONG_ALERT"
+      ],
+      "episodes": 2,
+      "questions": 12,
+      "rounds": [
+        4,
+        4
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 2,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 26,
+      "case_id": "02",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT"
+      ],
+      "episodes": 1,
+      "questions": 26,
+      "rounds": [
+        10
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 1,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 5,
+      "case_id": "03",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT"
+      ],
+      "episodes": 1,
+      "questions": 5,
+      "rounds": [
+        4
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 1,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 28,
+      "case_id": "05",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT",
+        "STRONG_ALERT"
+      ],
+      "episodes": 2,
+      "questions": 28,
+      "rounds": [
+        10,
+        4
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 2,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 32,
+      "case_id": "06",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT"
+      ],
+      "episodes": 1,
+      "questions": 32,
+      "rounds": [
+        10
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 1,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 6,
+      "case_id": "07",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT"
+      ],
+      "episodes": 1,
+      "questions": 6,
+      "rounds": [
+        3
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 1,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 5,
+      "case_id": "08",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT",
+        "WEAK_ALERT"
+      ],
+      "episodes": 2,
+      "questions": 5,
+      "rounds": [
+        2,
+        2
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 1,
+      "weak_alerts": 1
+    },
+    {
+      "answers": 67,
+      "case_id": "12",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT",
+        "STRONG_ALERT"
+      ],
+      "episodes": 2,
+      "questions": 67,
+      "rounds": [
+        10,
+        2
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 2,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 54,
+      "case_id": "15",
+      "detector_evaluation_status": "EVALUATED",
+      "episode_classes": [
+        "STRONG_ALERT",
+        "STRONG_ALERT"
+      ],
+      "episodes": 2,
+      "questions": 54,
+      "rounds": [
+        10,
+        10
+      ],
+      "status": "HAS_COMPLETE_EPISODE",
+      "strong_alerts": 2,
+      "weak_alerts": 0
+    },
+    {
+      "answers": 10,
+      "case_id": "18",
+      "detector_evaluation_status": "EXCLUDED_NOT_EVALUATED",
+      "episode_classes": [
+        "EXCLUDED"
+      ],
+      "episodes": 1,
+      "questions": 15,
+      "rounds": [
+        3
+      ],
+      "status": "INCOMPLETE_EPISODE_ONLY",
+      "strong_alerts": null,
+      "weak_alerts": null
+    },
+    {
+      "answers": 5,
+      "case_id": "20",
+      "detector_evaluation_status": "EXCLUDED_NOT_EVALUATED",
+      "episode_classes": [
+        "EXCLUDED"
+      ],
+      "episodes": 1,
+      "questions": 5,
+      "rounds": [
+        1
+      ],
+      "status": "INCOMPLETE_EPISODE_ONLY",
+      "strong_alerts": null,
+      "weak_alerts": null
+    },
+    {
+      "answers": 0,
+      "case_id": "21",
+      "detector_evaluation_status": "NO_EPISODE_NOT_APPLICABLE",
+      "episode_classes": [
+        "NO_EPISODE"
+      ],
+      "episodes": 0,
+      "questions": 0,
+      "rounds": [],
+      "status": "NO_EPISODE",
+      "strong_alerts": null,
+      "weak_alerts": null
+    }
+  ],
   "corpus": "Text2UML AirTravel (public external LLM-generated corpus)",
   "cost_per_completed_ratio": 22.696380090497737,
   "cost_total_ratio": 17.020699406164574,
+  "detection_timing": "POST_EPISODE_TERMINATION_REPORTING",
   "eligible_cases": 21,
   "engineering_fixture_calls": 724,
   "engineering_modes_conform": 9,
@@ -36,6 +239,24 @@
   "engineering_named_reorderings": 3,
   "engineering_provider_calls": 0,
   "engineering_seeded_permutations": 500,
+  "episode_round_distribution": [
+    {
+      "episodes": 3,
+      "round_count": 2
+    },
+    {
+      "episodes": 1,
+      "round_count": 3
+    },
+    {
+      "episodes": 4,
+      "round_count": 4
+    },
+    {
+      "episodes": 6,
+      "round_count": 10
+    }
+  ],
   "episodes_complete": 14,
   "episodes_converged": 9,
   "episodes_excluded": 2,
@@ -52,6 +273,8 @@
     "20",
     "21"
   ],
+  "objective_known_unknown_field": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE",
+  "objective_known_unknown_status": "NOT_MEASURED",
   "off_completed": 12,
   "off_cost_per_completed": 0.00442,
   "off_cost_usd": 0.053045,
@@ -77,9 +300,63 @@
   "qa_answers": 250,
   "qa_questions": 255,
   "receipt_requests": 240,
+  "round_termination_distribution": [
+    {
+      "CONVERGED": 3,
+      "TERMINATED_MAX_ROUNDS": 0,
+      "round_count": 2
+    },
+    {
+      "CONVERGED": 1,
+      "TERMINATED_MAX_ROUNDS": 0,
+      "round_count": 3
+    },
+    {
+      "CONVERGED": 4,
+      "TERMINATED_MAX_ROUNDS": 0,
+      "round_count": 4
+    },
+    {
+      "CONVERGED": 1,
+      "TERMINATED_MAX_ROUNDS": 5,
+      "round_count": 10
+    }
+  ],
   "route_agent3_agent1": 64,
   "route_agent3_agent2": 191,
   "run_id": "S2P-LIVE-20260908T192135Z",
+  "signal_cooccurrence": [
+    {
+      "episodes": 6,
+      "signals": [
+        "S1",
+        "S2",
+        "S6"
+      ]
+    },
+    {
+      "episodes": 5,
+      "signals": [
+        "S1",
+        "S2",
+        "S6",
+        "S7"
+      ]
+    },
+    {
+      "episodes": 2,
+      "signals": [
+        "S1",
+        "S6"
+      ]
+    },
+    {
+      "episodes": 1,
+      "signals": [
+        "S6"
+      ]
+    }
+  ],
   "signal_s1": 13,
   "signal_s2": 11,
   "signal_s3": 0,
@@ -91,6 +368,7 @@
     "aggregate": "6e103688526d4de9d581bb7f059a37b53afb301f0ae807bcd310465a240a6183",
     "analysis": "9b4e3ebc5dd1469ae4ed02af2dd3dc381e0e39c8e3c08cf7ae57e969b026321d",
     "archival": "0eda4798820a3af6e06583d5d51137f292d9cc081d19c9e3f99d3b98eb92f1b0",
+    "case_selection": "23756aa8a3c4b194097542dd9ee8bc42e0994e3105e0b7040734daaa7dbb6ad3",
     "claims": "26f241981c4dc8f1f88b930e016f11b640cda8aaabc195dfc7f9015629cf5a60",
     "engineering": "9d2a7e070d64c1549495649c0100b344206279792e61e7ceefcb7f289f05cf7f",
     "rubric": "781f7f996d5952e67900fa6d67887d75e07005b8baafbfc1356aa088e4c67815",
@@ -101,5 +379,21 @@
   "temperature": "PROVIDER_DEFAULT_NOT_SENT",
   "time_per_completed_ratio": 9.567427467015227,
   "time_total_ratio": 7.175570600261421,
-  "total_cost_usd": 0.955908
+  "total_cost_usd": 0.955908,
+  "unselected_case_ids": [
+    "04",
+    "09",
+    "10",
+    "11",
+    "13",
+    "14",
+    "16",
+    "17",
+    "19"
+  ],
+  "unsupported_cuts": {
+    "answer_confidence_distribution": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE",
+    "answer_evidence_length_distribution": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE",
+    "first_low_confidence_round": "NOT_AVAILABLE_IN_TRACKED_AGGREGATE"
+  }
 }
