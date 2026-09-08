@@ -153,6 +153,9 @@
     "schemas/study2-condition-output-v1.schema.json",
     "schemas/study2-frozen-config-v1.schema.json",
     "schemas/study2-on-off-comparison-v1.schema.json",
+    "schemas/study2-prospective-manifest-v1.schema.json",
+    "schemas/study2-prospective-public-aggregate-v1.schema.json",
+    "schemas/study2-prospective-receipt-v1.schema.json",
     "schemas/study2-result-v1.schema.json",
     "schemas/study2-run-receipt-v1.schema.json",
     "schemas/thesis-evidence-snapshot-v1.schema.json",
@@ -289,7 +292,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "1cd8764c1360425421398cba0d4c628c2095215aa58777994ca159470e8c9d98",
+  "sourceTreeSha256": "0158b26eeb2cb8d83be7e04eb68c296dc844ebabaa44749904e4560712d41325",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",

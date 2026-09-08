@@ -1,0 +1,111 @@
+{
+  "chosen_option": {
+    "distinct_cases": 12,
+    "fits_guard_ceiling": true,
+    "meets_minimum_cases": true,
+    "off_request_cap": 36,
+    "on_request_cap": 228,
+    "option": "A_HIGHEST_COVERAGE",
+    "paired_units": 12,
+    "purpose": "largest distinct paired sample that fits the ceiling",
+    "repeats_per_case": 1,
+    "requests_reserved": 264,
+    "reservation_usd": 5.8241
+  },
+  "decision": "A_HIGHEST_COVERAGE: the primary question is a paired per-case comparison, so distinct paired units are worth more than repeats of a default-temperature stochastic system; B has the same reservation with half the distinct cases; C leaves two thirds of the affordable sample unused",
+  "frozen_at": "2026-09-08T19:07:01Z",
+  "guard_ceiling_usd": 5.9,
+  "hard_ceiling_usd": 6.0,
+  "menu": {
+    "guard_ceiling_usd": 5.9,
+    "hard_ceiling_usd": 6.0,
+    "options": [
+      {
+        "distinct_cases": 12,
+        "fits_guard_ceiling": true,
+        "meets_minimum_cases": true,
+        "off_request_cap": 36,
+        "on_request_cap": 228,
+        "option": "A_HIGHEST_COVERAGE",
+        "paired_units": 12,
+        "purpose": "largest distinct paired sample that fits the ceiling",
+        "repeats_per_case": 1,
+        "requests_reserved": 264,
+        "reservation_usd": 5.8241
+      },
+      {
+        "distinct_cases": 6,
+        "fits_guard_ceiling": true,
+        "meets_minimum_cases": true,
+        "off_request_cap": 36,
+        "on_request_cap": 228,
+        "option": "B_REPEATABILITY",
+        "paired_units": 12,
+        "purpose": "fewer distinct cases, two repeats each",
+        "repeats_per_case": 2,
+        "requests_reserved": 264,
+        "reservation_usd": 5.8241
+      },
+      {
+        "distinct_cases": 4,
+        "fits_guard_ceiling": true,
+        "meets_minimum_cases": true,
+        "off_request_cap": 12,
+        "on_request_cap": 76,
+        "option": "C_MINIMUM_VIABLE",
+        "paired_units": 4,
+        "purpose": "four paired cases, one repeat",
+        "repeats_per_case": 1,
+        "requests_reserved": 88,
+        "reservation_usd": 1.9414
+      }
+    ],
+    "per_request_reserve_usd": 0.0220608,
+    "requests_per_paired_unit": 22,
+    "total_request_cap": 267
+  },
+  "operational_caps_per_case": {
+    "VEGO_AI_OFF": 3,
+    "VEGO_AI_ON": 19,
+    "off_rationale": "one logical call with the protected client's full parse re-attempt allowance (3 attempts); transport retries count inside the cap",
+    "on_rationale": "1.77x the Study 1 all-in request rate per case (10.75), covering setting-level phases, Q&A rounds, parse re-attempts and transport retries; exceeding it stops ON with STOPPED_AT_CAP"
+  },
+  "per_request_reserve": {
+    "formula": "(reserve_input_tokens x price_in + max_output_tokens x price_out) / 1e6",
+    "max_output_tokens": 16384,
+    "reserve_input_tokens": 12000,
+    "usd": 0.0220608
+  },
+  "pricing_usd_per_1m_tokens": {
+    "input": 0.2,
+    "model": "gpt-5.6-luna",
+    "output": 1.2
+  },
+  "rules": [
+    "never start a paired unit unless its full ON+OFF reservation fits; all twelve units are reserved before the first request",
+    "one transport retry per request, only for a documented transport/provider failure before valid output; a valid but undesirable result is never retried",
+    "every retry, failed call and parse re-attempt counts against the caps and the ceiling",
+    "a failed or incomplete case remains in the evidence and is reported",
+    "never stop early because results are favourable or unfavourable"
+  ],
+  "safety_margin_reason": "covers any input-token overshoot above the per-request input reserve on the final admitted request",
+  "safety_margin_usd": 0.1,
+  "schema_version": "study2-prospective-budget-reservation-v1",
+  "study1_calibration_reference": {
+    "actual_cost_usd": 0.134972,
+    "cases": 4,
+    "requests": 43,
+    "requests_per_case_all_in": 10.75,
+    "role": "calibration reference for the operational ON cap only; never the upper bound",
+    "source": "Study 1 real run receipt (private), figures already published in the Hebrew Study 1 readout"
+  },
+  "theoretical_on_bound": {
+    "formula": "82 + 61 x N logical calls at MAX_QA_ROUNDS=10 with every answer route taken, each up to 3 parse attempts",
+    "note": "exceeds the ceiling at any N >= 4 under full-output reservation; therefore the enforced ceiling is the per-request guard, and the operational caps decide admission"
+  },
+  "total_request_cap": {
+    "formula": "floor(guard_ceiling_usd / per_request_reserve_usd)",
+    "value": 267
+  },
+  "whole_study_reservation_usd": 5.8241
+}

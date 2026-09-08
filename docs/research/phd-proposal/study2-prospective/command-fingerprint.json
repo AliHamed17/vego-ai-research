@@ -1,0 +1,35 @@
+{
+  "frozen_at": "2026-09-08T19:07:01Z",
+  "manifest_sha256": "38a7e0c6b97bb17af6506d36690129ce0e7ee562aea5af1794436be65a8e6453",
+  "note": "the private root is substituted by the placeholder token; <CI_GREEN_HEAD> is replaced by the exact CI-green commit at execution and recorded in the receipt",
+  "planned_command": {
+    "argv_public": [
+      "execute",
+      "--private-root",
+      "${VEGO_PRIVATE_EVIDENCE_ROOT}",
+      "--expected-head",
+      "<CI_GREEN_HEAD>",
+      "--authorize-live-provider"
+    ],
+    "argv_sha256": "7487b3507c730bc96bf55df229ff430ac3f5d73560c22a4ff02c6a21b4431617",
+    "entrypoint": "scripts/study2_prospective_run.py",
+    "entrypoint_sha256": "7efbb9778d7a88cd5fb6bd4f034c859100d3cd9630aa21dddc6ec4dc77f49378",
+    "package_sha256": "979a2e0d25a4a594fad31a726b3b52e5d8de4488ec850da375278d103927dd9b",
+    "python_major_minor": "3.11"
+  },
+  "preflight_command": {
+    "argv_public": [
+      "preflight",
+      "--private-root",
+      "${VEGO_PRIVATE_EVIDENCE_ROOT}",
+      "--fake-mode",
+      "two_rounds"
+    ],
+    "argv_sha256": "7e5935ca44a652a7f451e169c814b2a8eb7b311b713b1007a41b5e8655cf861c",
+    "entrypoint": "scripts/study2_prospective_run.py",
+    "entrypoint_sha256": "7efbb9778d7a88cd5fb6bd4f034c859100d3cd9630aa21dddc6ec4dc77f49378",
+    "package_sha256": "979a2e0d25a4a594fad31a726b3b52e5d8de4488ec850da375278d103927dd9b",
+    "python_major_minor": "3.11"
+  },
+  "schema_version": "study2-prospective-command-fingerprint-v1"
+}

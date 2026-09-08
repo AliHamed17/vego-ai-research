@@ -1,0 +1,352 @@
+{
+  "archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+  "corpus_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+  "corpus_id": "text2uml_airtravel_253b26dc",
+  "domain_description": {
+    "bytes": 1477,
+    "relative_path": "domain_description/description.md",
+    "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2",
+    "upstream_path": "description.md"
+  },
+  "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+  "eligible_case_count": 21,
+  "eligible_cases": [
+    {
+      "bytes": 1686,
+      "case_id": "01",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/01_result_one_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+      "source_generator_model": "Qwen_Qwen2.5-3B-Instruct"
+    },
+    {
+      "bytes": 1096,
+      "case_id": "02",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/02_result_one_Qwen_Qwen3.5-4B.txt",
+      "sha256": "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+      "source_generator_model": "Qwen_Qwen3.5-4B"
+    },
+    {
+      "bytes": 1248,
+      "case_id": "03",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/03_result_one_claude-sonnet-4-6.txt",
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "source_generator_model": "claude-sonnet-4-6"
+    },
+    {
+      "bytes": 1272,
+      "case_id": "04",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/04_result_one_codestral-2508.txt",
+      "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+      "source_generator_model": "codestral-2508"
+    },
+    {
+      "bytes": 10461,
+      "case_id": "05",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/05_result_one_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+      "source_generator_model": "deepseek-ai_DeepSeek-R1-Distill-Qwen-7B"
+    },
+    {
+      "bytes": 1324,
+      "case_id": "06",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/06_result_one_deepseek-chat.txt",
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "source_generator_model": "deepseek-chat"
+    },
+    {
+      "bytes": 1231,
+      "case_id": "07",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/07_result_one_gemini-2.5-flash.txt",
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "source_generator_model": "gemini-2.5-flash"
+    },
+    {
+      "bytes": 7042,
+      "case_id": "08",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/08_result_one_google_gemma-3-4b-it.txt",
+      "sha256": "b72fc5eaa682ce27912086dd2dcb3ea192c7fbe14285457cdcea23b0b6222f0b",
+      "source_generator_model": "google_gemma-3-4b-it"
+    },
+    {
+      "bytes": 1255,
+      "case_id": "09",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/09_result_one_gpt-3.5-turbo.txt",
+      "sha256": "81abd4b6b848b9e9102418d023d2af4656931fe162358f336f6132ab11a817c5",
+      "source_generator_model": "gpt-3.5-turbo"
+    },
+    {
+      "bytes": 1240,
+      "case_id": "10",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/10_result_one_gpt-4o-mini.txt",
+      "sha256": "49e3989e341eba1414f6366b50d12b946ab3ceb16884e8faf1c0f6945ea8d4e9",
+      "source_generator_model": "gpt-4o-mini"
+    },
+    {
+      "bytes": 1299,
+      "case_id": "11",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/11_result_one_gpt-5-mini.txt",
+      "sha256": "4590b62dc0ea047e9a7789739a6482b5221e0deaa0fd5dc8004643863911ba36",
+      "source_generator_model": "gpt-5-mini"
+    },
+    {
+      "bytes": 1185,
+      "case_id": "12",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/12_result_one_gpt-5-nano.txt",
+      "sha256": "6fad455a7d4831a5baba0cb7f4336f24fa338f4cd0c14f02236305664aebdfab",
+      "source_generator_model": "gpt-5-nano"
+    },
+    {
+      "bytes": 1288,
+      "case_id": "13",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/13_result_one_gpt-5.2.txt",
+      "sha256": "559769d3653cd690966e7873a5647da7834532148fa4ec64ee34e3bc8e056d18",
+      "source_generator_model": "gpt-5.2"
+    },
+    {
+      "bytes": 7161,
+      "case_id": "14",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/14_result_one_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "sha256": "7e65f088e45f47a1eb0c39c7b1e70eb05b77ec6a6836e9454f89babf81bba26e",
+      "source_generator_model": "meta-llama_Llama-3.2-3B-Instruct"
+    },
+    {
+      "bytes": 7466,
+      "case_id": "15",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/15_result_one_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "06ea010da3a8e4f21e38a4cb5c3b279cc036d3f0a1af5e15f8363efad5e4a36f",
+      "source_generator_model": "microsoft_Phi-4-mini-instruct"
+    },
+    {
+      "bytes": 1327,
+      "case_id": "16",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/16_result_one_microsoft_phi-4.txt",
+      "sha256": "9d1a6cb2d9113e0425d0a69d8dd483cb403b0db89c2052cd621fd4728373248a",
+      "source_generator_model": "microsoft_phi-4"
+    },
+    {
+      "bytes": 1255,
+      "case_id": "17",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/17_result_one_mistral-large-2411.txt",
+      "sha256": "70ccdd6576d3c15d3215b946b23cf1ed0c40d463a05a7a4fbe0956f27dfba266",
+      "source_generator_model": "mistral-large-2411"
+    },
+    {
+      "bytes": 1208,
+      "case_id": "18",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/18_result_one_mistral-small-2506.txt",
+      "sha256": "77cdd113ce541a0bfffed798cbbfe3000d92d23fca88e41a344806373d551b1e",
+      "source_generator_model": "mistral-small-2506"
+    },
+    {
+      "bytes": 7182,
+      "case_id": "19",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/19_result_one_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "sha256": "3d8bb9c8564e086f0ba9e948b101def6c1fb50eefb1f2d20d71e591a491b1819",
+      "source_generator_model": "mistralai_Mistral-7B-Instruct-v0.3"
+    },
+    {
+      "bytes": 1207,
+      "case_id": "20",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/20_result_one_o3-mini.txt",
+      "sha256": "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a",
+      "source_generator_model": "o3-mini"
+    },
+    {
+      "bytes": 1177,
+      "case_id": "21",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/21_result_one_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "7e3fccfff40f578aa80ab5aec866e5842bae6009cc4c8fd6c580f90a5f623d35",
+      "source_generator_model": "tiiuae_Falcon-H1-7B-Instruct"
+    }
+  ],
+  "excluded_case_ids": [
+    "04",
+    "09",
+    "10",
+    "11",
+    "13",
+    "14",
+    "16",
+    "17",
+    "19"
+  ],
+  "excluded_reason": "not drawn by the seeded sample under the frozen cost bound",
+  "frame": "complete eligible population, not a sample",
+  "frozen_at": "2026-09-08T19:07:01Z",
+  "runtime_root_template": "${VEGO_PRIVATE_EVIDENCE_ROOT}/fullframe_runtime",
+  "sample_size": 12,
+  "schema_version": "study2-prospective-case-selection-v1",
+  "selected_case_ids": [
+    "01",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "12",
+    "15",
+    "18",
+    "20",
+    "21"
+  ],
+  "selected_cases": [
+    {
+      "bytes": 1686,
+      "case_id": "01",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/01_result_one_Qwen_Qwen2.5-3B-Instruct.txt",
+      "sha256": "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+      "source_generator_model": "Qwen_Qwen2.5-3B-Instruct"
+    },
+    {
+      "bytes": 1096,
+      "case_id": "02",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/02_result_one_Qwen_Qwen3.5-4B.txt",
+      "sha256": "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+      "source_generator_model": "Qwen_Qwen3.5-4B"
+    },
+    {
+      "bytes": 1248,
+      "case_id": "03",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/03_result_one_claude-sonnet-4-6.txt",
+      "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "source_generator_model": "claude-sonnet-4-6"
+    },
+    {
+      "bytes": 10461,
+      "case_id": "05",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/05_result_one_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "sha256": "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+      "source_generator_model": "deepseek-ai_DeepSeek-R1-Distill-Qwen-7B"
+    },
+    {
+      "bytes": 1324,
+      "case_id": "06",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/06_result_one_deepseek-chat.txt",
+      "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "source_generator_model": "deepseek-chat"
+    },
+    {
+      "bytes": 1231,
+      "case_id": "07",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/07_result_one_gemini-2.5-flash.txt",
+      "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "source_generator_model": "gemini-2.5-flash"
+    },
+    {
+      "bytes": 7042,
+      "case_id": "08",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/08_result_one_google_gemma-3-4b-it.txt",
+      "sha256": "b72fc5eaa682ce27912086dd2dcb3ea192c7fbe14285457cdcea23b0b6222f0b",
+      "source_generator_model": "google_gemma-3-4b-it"
+    },
+    {
+      "bytes": 1185,
+      "case_id": "12",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/12_result_one_gpt-5-nano.txt",
+      "sha256": "6fad455a7d4831a5baba0cb7f4336f24fa338f4cd0c14f02236305664aebdfab",
+      "source_generator_model": "gpt-5-nano"
+    },
+    {
+      "bytes": 7466,
+      "case_id": "15",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/15_result_one_microsoft_Phi-4-mini-instruct.txt",
+      "sha256": "06ea010da3a8e4f21e38a4cb5c3b279cc036d3f0a1af5e15f8363efad5e4a36f",
+      "source_generator_model": "microsoft_Phi-4-mini-instruct"
+    },
+    {
+      "bytes": 1208,
+      "case_id": "18",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/18_result_one_mistral-small-2506.txt",
+      "sha256": "77cdd113ce541a0bfffed798cbbfe3000d92d23fca88e41a344806373d551b1e",
+      "source_generator_model": "mistral-small-2506"
+    },
+    {
+      "bytes": 1207,
+      "case_id": "20",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/20_result_one_o3-mini.txt",
+      "sha256": "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a",
+      "source_generator_model": "o3-mini"
+    },
+    {
+      "bytes": 1177,
+      "case_id": "21",
+      "eligibility_predicate": "classification=GENERATED_CANDIDATE_MODEL and path starts result_one_ and bytes>0 and syntax_validation=WRAPPER_PRESENT and sha256 is 64 hex",
+      "eligible": true,
+      "relative_path": "candidate_models/21_result_one_tiiuae_Falcon-H1-7B-Instruct.txt",
+      "sha256": "7e3fccfff40f578aa80ab5aec866e5842bae6009cc4c8fd6c580f90a5f623d35",
+      "source_generator_model": "tiiuae_Falcon-H1-7B-Instruct"
+    }
+  ],
+  "selection_rule": "sorted(random.Random(seed).sample(sorted(eligible_case_ids), sample_size)); executed once before any provider output was observed; no substitution afterwards",
+  "selection_seed": 20260908,
+  "study1_overlap_by_digest": {
+    "03": "01",
+    "06": "03",
+    "07": "04"
+  }
+}

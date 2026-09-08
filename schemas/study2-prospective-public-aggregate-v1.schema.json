@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study2-prospective-public-aggregate-v1.schema.json",
+  "title": "Study 2 prospective redacted public aggregate",
+  "type": "object",
+  "required": [
+    "schema_version", "study_id", "run_id", "mode", "evidence_class", "execution_git_sha", "manifest_sha256",
+    "case_selection_sha256", "receipt_binding_sha256", "started_at", "completed_at", "model", "budget", "gates",
+    "case_ids", "conditions", "paired", "claim_boundary", "aggregate_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "study2-prospective-public-aggregate-v1"},
+    "mode": {"enum": ["LIVE", "PREFLIGHT_FAKE_PROVIDER"]},
+    "evidence_class": {"enum": ["PROSPECTIVE EMPIRICAL EVIDENCE", "ENGINEERING-ONLY FIXTURE"]},
+    "execution_git_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "conditions": {
+      "type": "object",
+      "required": ["VEGO_AI_ON", "VEGO_AI_OFF"],
+      "properties": {
+        "VEGO_AI_OFF": {"type": "object", "required": ["detector_v1"], "properties": {"detector_v1": {"const": "NOT_APPLICABLE"}}},
+        "VEGO_AI_ON": {"type": "object", "required": ["detector_v1"], "properties": {"detector_v1": {"const": "APPLICABLE"}}}
+      }
+    },
+    "paired": {"type": "array", "minItems": 4, "items": {"type": "object", "required": ["case_id", "both_completed", "on_status", "off_status", "off_detector_v1"], "properties": {"off_detector_v1": {"const": "NOT_APPLICABLE"}}}},
+    "aggregate_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
