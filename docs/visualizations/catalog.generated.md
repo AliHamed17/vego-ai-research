@@ -2,7 +2,7 @@
 
 Generated deterministically from Git-tracked shareable files.
 
-Totals: **8** Mermaid · **30** SVG · **14** HTML.
+Totals: **8** Mermaid · **30** SVG · **18** HTML.
 
 <details><summary>All diagram/graph files</summary>
 
@@ -24,6 +24,10 @@ Totals: **8** Mermaid · **30** SVG · **14** HTML.
 - `docs/research/phd-proposal/figures/fig2-routes.svg`
 - `docs/research/phd-proposal/figures/fig3-episodes.svg`
 - `docs/research/phd-proposal/figures/fig4-baseline.svg`
+- `docs/research/phd-proposal/figures/study1-hotspot-business-he.html`
+- `docs/research/phd-proposal/figures/study1-hotspot-evidence-index-he.html`
+- `docs/research/phd-proposal/figures/study1-hotspot-map-he.html`
+- `docs/research/phd-proposal/figures/study1-hotspot-report-he.html`
 - `docs/research/phd-proposal/figures/study1-results-dossier.html`
 - `docs/research/phd-proposal/figures/study1-results-source.html`
 - `docs/research/phd-proposal/figures/study1-supervisor-report.html`
