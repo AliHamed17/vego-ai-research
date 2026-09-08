@@ -7,6 +7,17 @@ staleness_threshold_days: 14
 
 Durable decisions for this project.
 
+## 2026-09-08 - Study 1C: spend the USD 6 authorisation on the complete eligible frame
+
+- Decision: Spend the 2026-09-08 USD 6.00 authorisation on two provider-backed runs over the **complete 21-case eligible AirTravel frame**, rather than on a larger sample of the existing four-case set. Running the whole eligible population removes the selection-provenance limitation recorded in `scripts/study1_case_selection.py` at its root: when the frame is the population, no selection rule needs justifying and no selection bias needs bounding.
+- Decision: Both preregistrations were committed **before** the runs they govern. The full-frame preregistration (`2026-09-08-study1c-full-frame-preregistration.md`) was committed before any provider call; the stability-repeat preregistration (`2026-09-08-study1c-stability-repeat-preregistration.md`) was committed while run 1 was still executing and before any of its output was observed, so the two-run design is fixed independently of run 1's outcome.
+- Decision: The call cap rests on **measured control flow**, not on an extrapolated cost. An offline preflight against the deterministic local fake at frame sizes 4, 8, 14 and 21 fits `calls = 10 + 9N` exactly; the cap of 272 is 1.37x the 199-call structural requirement at N=21. Two independent brakes are declared: a reserve-based worst case of USD 5.783 and a rolling actual-spend ceiling.
+- Decision: A new harness, `scripts/airtravel_full_frame_run.py`, **imports** the budget, egress and credential machinery from the frozen `airtravel_real_run.py` rather than reimplementing it, so those guarantees are the same objects. `N=4` and the pinned four-file contract were the only blockers, and neither protected file was modified.
+- Decision: Runs are reported side by side and **never pooled**. The case count differs, so the configuration differs.
+- Reason: The credential became available at User scope, and the largest gap in Study 1 was a denominator of three episodes on a purposively chosen quarter of the eligible frame.
+- Consequence: `FULLFRAME-01` `TECHNICAL_SUCCESS`, N=21, 11 complete episodes, 98 calls of a 272 cap, USD 0.360827, 0 truncated calls, 0 blocked egress. Its receipt self-binds the event-log digest, a lifecycle summary, both harness digests and `MAX_QA_ROUNDS`, and carries a privacy-safe 98-row per-call ledger whose count matches the budget guard, making `outbound_requests` independently recomputable for the first time. Detector-v1 unchanged.
+- Consequence (scientific): The accepted run's "all episodes in one class" observation is **an artefact of its denominator**. At n=3 five trivial baselines reproduced Detector-v1 exactly, including `ALWAYS_ALERT`; at n=11 over the full frame **none do**, and the rule assigns two classes. Review load is nevertheless 1.0 in both runs and under every round bound, so the D6 dosage target stays unmet.
+
 ## 2026-09-08 - Instrument experiments under the USD 6 authorisation
 
 - Decision: Use the 2026-09-08 USD 6.00 authorisation first for zero-cost instrument experiments (extended detector envelope truth table, event-order/aggregation robustness on the accepted log, reserve-versus-actual cost calibration) and spend nothing until one reserve-bound menu row is preregistered, pilot gates 4 and 6 are closed, and a credential is present (decision D8 in `2026-09-06-final-decision-table.md`).

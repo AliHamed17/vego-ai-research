@@ -146,13 +146,19 @@ The model is a property of the rule under an explicit independence assumption th
 verify. Its agreement with the outcome is a consistency check, **not** confirmation of the
 assumption and not evidence about any alert's correctness.
 
-## 7. Three escalation mechanisms, three different answers
+## 7. Four escalation mechanisms, four different answers
 
 | Mechanism | Unit | Full frame (21 cases) |
 |---|---|---|
-| Detector-v1 | Q&A episode | flags **8 of 21** cases |
+| Detector-v1 | Q&A episode | flags **8 of 21** cases, and all 11 episodes |
 | Fragment severity and label | uncovered fragment | records domain mistakes in **15 of 21** cases |
 | `requires_human_review` | variability pattern | **false on all 25** patterns |
+| **The human-review queue** | queued item | **0 items** |
+
+The fourth is the one that matters operationally: it is the only mechanism whose output would
+actually reach a person, and across all 21 cases **it is empty**. Detector-v1 flags every episode
+it can see; the queue that a reviewer would open contains nothing. The accepted run produced no
+queue artefact at all, so this is reported for the full-frame run only.
 
 Case-level co-occurrence:
 
@@ -168,7 +174,7 @@ cases produced no Q&A episode. Nine of them carry domain-mistake labels from the
 case 09 has six, cases 06 and 20 have five and four. The detector's coverage is conditional on
 the pipeline having chosen to ask a question, a decision made upstream of it.
 
-None of the three is ground truth. Agreement would not make any of them correct, and disagreement
+None of the four is ground truth. Agreement would not make any of them correct, and disagreement
 does not show any of them wrong. This is co-occurrence, reported as co-occurrence.
 
 ## 8. Review against the recorded directives
@@ -177,7 +183,7 @@ does not show any of them wrong. This is co-occurrence, reported as co-occurrenc
 |---|---|---|
 | **D6** — dosage, load target ≤ 0.5, recorded unmet | Load is now measured on two runs: **1.0 in both**. Re-scoring under every round bound from 1 to 10 leaves it at 1.0. At bound 1 the split shifts to 8 STRONG / 3 WEAK, but nothing becomes `NO_ALERT`. | **Target missed on all evidence**, measured rather than assumed |
 | **D10** — bounded interaction, two-round pilot candidate | The full-frame run *already* behaves like a bounded regime — maximum round index 2 — and that is precisely where the rule separates. But a bound does not reduce load, and it cannot: an episode cut off at the bound terminates `TERMINATED_MAX_ROUNDS`, which is itself a strong signal. | Quantified; the two-round candidate improves *separation*, not *load* |
-| **D2** — intervene early, not only post-Agent-4 | §7 shows the gap concretely: 13 of 21 cases are never assessed by the detector because they never triggered a question, 9 of them carrying domain-mistake labels. | New evidence, at frame scale |
+| **D2** — intervene early, not only post-Agent-4 | §7 shows the gap concretely: 13 of 21 cases are never assessed by the detector because they never triggered a question, 9 of them carrying domain-mistake labels — and the queue a reviewer would actually open is empty. | New evidence, at frame scale |
 | **D5** — the human expert is real, never simulated | No human judgement was simulated, requested or synthesised. The resampled curve in §6 is labelled `ANALYTIC_MODEL_NOT_OBSERVATION`. | Respected |
 | **IE-09** — macro-F1 as primary classification metric | Not computed and **not computable**: it needs the independent labels still at 0 of 24. | Correctly unavailable |
 | "A trigger count is not a verified error count" | Every instrument refuses to compute accuracy and says so in its own output and command-line help, enforced by tests. | Respected |

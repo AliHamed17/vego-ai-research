@@ -1,6 +1,6 @@
 """Compare the independent escalation mechanisms the system already contains.
 
-The pipeline does not have one notion of "this needs a person". It has at least three, produced
+The pipeline does not have one notion of "this needs a person". It has at least four, produced
 by different components at different stages, and they do not agree:
 
   * **Detector-v1** classifies a Q&A *episode* from conversation state alone — answer confidence,
@@ -9,13 +9,16 @@ by different components at different stages, and they do not agree:
     writes about recurring representations across cases.
   * **Fragment severity and label** are per-*fragment* judgements the coverage stage writes about
     individual uncovered statements, including a `Domain Mistake` label and a severity.
+  * **The human-review queue** is the only one of the four whose output would actually reach a
+    person, and it is therefore the one whose size matters operationally.
 
 Reporting these side by side is worth doing precisely because they disagree. That disagreement is
 a describable property of the system as built, and it is the concrete form of the open question
 of *when* to escalate.
 
-**None of the three is ground truth, and this module does not treat any of them as ground truth.**
-They operate on different units of analysis — episodes, patterns and fragments — so they are not
+**None of them is ground truth, and this module does not treat any of them as ground truth.**
+They operate on different units of analysis — episodes, patterns, fragments and queued items — so
+they are not
 substitutes for one another, agreement between them would not make any of them correct, and
 disagreement between them does not show that any one is wrong. No accuracy is computed, because
 none is computable without human labels that do not exist for this corpus.
@@ -117,11 +120,28 @@ def variability_summary(output_dir: Path) -> dict[str, Any]:
     }
 
 
+def review_queue_summary(output_dir: Path) -> dict[str, Any]:
+    """The queue is the only mechanism whose output would actually reach a person."""
+    path = output_dir / "human_review_queue.jsonl"
+    if not path.is_file():
+        return {"present": False, "note": "this run produced no human-review queue artefact"}
+    rows = [line for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    return {
+        "present": True,
+        "queued_items": len(rows),
+        "note": (
+            "the queue is the pipeline's own escalation output; its size is reported as an "
+            "observation and is not evidence that the queue is right or wrong"
+        ),
+    }
+
+
 def analyse(label: str, output_dir: Path) -> dict[str, Any]:
     detector, detector_totals = detector_by_case(output_dir)
     fragments = fragments_by_case(output_dir)
     compliance = compliance_by_case(output_dir)
     variability = variability_summary(output_dir)
+    queue = review_queue_summary(output_dir)
 
     cases = sorted(set(fragments) | set(compliance) | {k for k in detector if k != "RUN_GLOBAL"})
     rows = []
@@ -163,6 +183,7 @@ def analyse(label: str, output_dir: Path) -> dict[str, Any]:
         "detector_v1_totals_all_episodes": detector_totals,
         "detector_v1_global_episode_classes": dict(Counter(detector.get("RUN_GLOBAL", []))),
         "variability_stage": variability,
+        "human_review_queue": queue,
         "per_case": rows,
         "case_level_crosstab": {
             "note": (
@@ -195,6 +216,7 @@ def main() -> int:
             "detector_v1": "Q&A episode",
             "requires_human_review": "recurring variability pattern",
             "fragment_severity_and_label": "individual uncovered fragment",
+            "human_review_queue": "whatever the pipeline actually queues for a person",
         },
         "no_ground_truth": (
             "none of these mechanisms is ground truth; agreement would not make any of them "
