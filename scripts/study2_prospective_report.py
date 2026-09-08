@@ -72,10 +72,10 @@ def main() -> int:
     selection = json.loads((DOCS_DIR / "case-selection-manifest.json").read_text(encoding="utf-8"))
     budget_doc = json.loads((DOCS_DIR / "budget-reservation.json").read_text(encoding="utf-8"))
     analysis = build_analysis(aggregate, manifest)
-    (public_dir / "analysis.json").write_text(json.dumps(analysis, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    (public_dir / "analysis.json").write_text(json.dumps(analysis, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
     validation = validate_public(output_root, public_dir / "public-aggregate.json")
-    (public_dir / "validation.json").write_text(json.dumps(validation, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (public_dir / "validation.json").write_text(json.dumps(validation, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     cards = build_cards(output_root, public_dir)
     if cards.get("cards"):
         build_cards_docx(output_root / "human-review" / "cards.json", output_root / "human-review" / "cards.he.docx")
@@ -84,12 +84,12 @@ def main() -> int:
     for path in charts.values():
         shutil.copy2(path, deliverables / path.name)
 
-    (public_dir / "technical-appendix.md").write_text(technical_appendix(analysis, manifest, validation, cards), encoding="utf-8")
-    (public_dir / "case-selection-receipt.md").write_text(case_selection_receipt(selection, analysis), encoding="utf-8")
-    (public_dir / "budget-spend-receipt.md").write_text(budget_spend_receipt(analysis, budget_doc), encoding="utf-8")
-    (public_dir / "claims-and-limitations-table.md").write_text(claims_table(analysis), encoding="utf-8")
-    (public_dir / "executive-summary.md").write_text(executive_summary(analysis), encoding="utf-8")
-    (public_dir / "supervisor-email.he.md").write_text(supervisor_email_he(analysis, args.pr_url, deliverables), encoding="utf-8")
+    (public_dir / "technical-appendix.md").write_text(technical_appendix(analysis, manifest, validation, cards), encoding="utf-8", newline="\n")
+    (public_dir / "case-selection-receipt.md").write_text(case_selection_receipt(selection, analysis), encoding="utf-8", newline="\n")
+    (public_dir / "budget-spend-receipt.md").write_text(budget_spend_receipt(analysis, budget_doc), encoding="utf-8", newline="\n")
+    (public_dir / "claims-and-limitations-table.md").write_text(claims_table(analysis), encoding="utf-8", newline="\n")
+    (public_dir / "executive-summary.md").write_text(executive_summary(analysis), encoding="utf-8", newline="\n")
+    (public_dir / "supervisor-email.he.md").write_text(supervisor_email_he(analysis, args.pr_url, deliverables), encoding="utf-8", newline="\n")
 
     produced: dict[str, Path] = {}
     base = f"VEGO_AI_Study2_Prospective_{args.run_id}"
@@ -123,7 +123,7 @@ def main() -> int:
     for row in aggregate["conditions"]["VEGO_AI_ON"]["cases"] + aggregate["conditions"]["VEGO_AI_OFF"]["cases"]:
         if row.get("output_sha256"):
             private_bindings[f"{row['condition']} case {row['case_id']} artifact"] = row["output_sha256"]
-    (public_dir / "evidence-index.md").write_text(evidence_index(analysis, public_dir, produced, private_bindings), encoding="utf-8")
+    (public_dir / "evidence-index.md").write_text(evidence_index(analysis, public_dir, produced, private_bindings), encoding="utf-8", newline="\n")
     shutil.copy2(public_dir / "evidence-index.md", deliverables / "evidence-index.md")
 
     summary = {

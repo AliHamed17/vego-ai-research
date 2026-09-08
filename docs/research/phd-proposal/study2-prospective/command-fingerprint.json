@@ -1,6 +1,6 @@
 {
-  "frozen_at": "2026-09-08T19:07:01Z",
-  "manifest_sha256": "38a7e0c6b97bb17af6506d36690129ce0e7ee562aea5af1794436be65a8e6453",
+  "frozen_at": "2026-09-08T19:14:54Z",
+  "manifest_sha256": "d05ece7e2d15aed1f2b4696f1c7939792f435790dfcd568e25b41d9691abae08",
   "note": "the private root is substituted by the placeholder token; <CI_GREEN_HEAD> is replaced by the exact CI-green commit at execution and recorded in the receipt",
   "planned_command": {
     "argv_public": [

@@ -99,8 +99,8 @@ def build_cards(output_root: Path, public_dir: Path, *, seed: int = c.SELECTION_
     key.sort(key=lambda row: order[row["card_id"]])
     cards_path = review_dir / "cards.json"
     key_path = review_dir / "card-key.json"
-    cards_path.write_text(json.dumps(cards, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    key_path.write_text(json.dumps(key, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    cards_path.write_text(json.dumps(cards, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    key_path.write_text(json.dumps(key, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     summary = {
         "cards": len(cards),
         "exchanges": sum(len(card["exchanges"]) for card in cards),
@@ -117,4 +117,4 @@ def build_cards(output_root: Path, public_dir: Path, *, seed: int = c.SELECTION_
 
 def _write_public(public_dir: Path, summary: dict[str, Any]) -> None:
     public_dir.mkdir(parents=True, exist_ok=True)
-    (public_dir / "human-review-cards.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (public_dir / "human-review-cards.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")

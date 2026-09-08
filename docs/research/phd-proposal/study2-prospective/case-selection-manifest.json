@@ -214,7 +214,7 @@
   ],
   "excluded_reason": "not drawn by the seeded sample under the frozen cost bound",
   "frame": "complete eligible population, not a sample",
-  "frozen_at": "2026-09-08T19:07:01Z",
+  "frozen_at": "2026-09-08T19:14:54Z",
   "runtime_root_template": "${VEGO_PRIVATE_EVIDENCE_ROOT}/fullframe_runtime",
   "sample_size": 12,
   "schema_version": "study2-prospective-case-selection-v1",

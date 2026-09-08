@@ -15,7 +15,7 @@
     "price_in_per_1m_usd": 0.2,
     "price_out_per_1m_usd": 1.2,
     "reservation_path": "docs/research/phd-proposal/study2-prospective/budget-reservation.json",
-    "reservation_sha256": "9223b55f96c49fe8b396249cee713b8f504f182bddc1564e55d36a2f07cdb3c2",
+    "reservation_sha256": "f6abc5510de5fefc6baa2a252eaf4de62d8d799e063c963301b40f86cfc9c1b0",
     "reserve_input_tokens": 12000,
     "safety_margin_usd": 0.1,
     "whole_study_reservation_usd": 5.8241
@@ -47,7 +47,7 @@
       "20",
       "21"
     ],
-    "sha256": "29e19d53f48ca57c674a42250c29d3196b773923cf63f4834e10bb09c8d20fba"
+    "sha256": "23756aa8a3c4b194097542dd9ee8bc42e0994e3105e0b7040734daaa7dbb6ad3"
   },
   "concurrency": {
     "VEGO_AI_OFF": 2,
@@ -172,7 +172,7 @@
     "A model judgement is a human judgement.",
     "Results generalise beyond this corpus, model, day and configuration."
   ],
-  "frozen_at": "2026-09-08T19:07:01Z",
+  "frozen_at": "2026-09-08T19:14:54Z",
   "human_assessment": {
     "actions": [
       "verify",
@@ -200,7 +200,7 @@
     "status": "NOT_MEASURED"
   },
   "language_name": "UML",
-  "manifest_sha256": "38a7e0c6b97bb17af6506d36690129ce0e7ee562aea5af1794436be65a8e6453",
+  "manifest_sha256": "d05ece7e2d15aed1f2b4696f1c7939792f435790dfcd568e25b41d9691abae08",
   "metrics": [
     {
       "conditions": [
