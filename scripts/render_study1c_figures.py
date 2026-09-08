@@ -51,7 +51,7 @@ def load(path: Path) -> Any:
 
 
 def figure_operating_characteristic(report: dict[str, Any], out: Path) -> None:
-    fig, ax = plt.subplots(figsize=(5.4, 3.2))
+    fig, ax = plt.subplots(figsize=(5.8, 3.6))
     grid = sorted(report["analytic_grid"], key=lambda row: row["low_rate"])
     for shade, row in zip(SEQUENTIAL, grid):
         rate = row["low_rate"]
@@ -67,29 +67,33 @@ def figure_operating_characteristic(report: dict[str, Any], out: Path) -> None:
             label=f"p(Low) = {rate:g}{note}",
         )
 
-    observed = report["runs"][0]["observed_episodes"]
-    for row in observed:
-        ax.plot(
-            [row["answer_count"], row["answer_count"]],
-            [1.05, 1.10],
-            color=WARM,
-            linewidth=1.6,
-            solid_capstyle="butt",
-        )
-    ax.plot([], [], color=WARM, linewidth=1.6, label="observed episode lengths")
+    rug_colours = (WARM, "#7a3fb5", "#0f766e")
+    for index, run in enumerate(report["runs"]):
+        base = 1.02 + index * 0.045
+        colour = rug_colours[index % len(rug_colours)]
+        for row in run["observed_episodes"]:
+            ax.plot(
+                [row["answer_count"], row["answer_count"]],
+                [base, base + 0.035],
+                color=colour,
+                linewidth=1.7,
+                solid_capstyle="butt",
+            )
+        ax.plot([], [], color=colour, linewidth=1.7, label=f"episodes: {run['run_label']}")
     ax.axhline(0.95, color=MUTED, linewidth=0.8, linestyle=(0, (4, 3)))
     ax.annotate("0.95", (1.05, 0.965), fontsize=7, color=MUTED)
 
     ax.set_xscale("log")
     ax.set_xlabel("answers in the episode")
     ax.set_ylabel("P(STRONG_ALERT)")
-    ax.set_ylim(0, 1.14)
+    ax.set_ylim(0, 1.02 + 0.045 * max(1, len(report["runs"])) + 0.05)
     ax.set_xticks([1, 2, 5, 10, 20, 50])
     ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
     ax.grid(axis="y", color=GRID, linewidth=0.6)
     ax.set_axisbelow(True)
     handles, texts = ax.get_legend_handles_labels()
-    order = list(reversed(range(len(handles) - 1))) + [len(handles) - 1]
+    curves = len(report["analytic_grid"])
+    order = list(reversed(range(curves))) + list(range(curves, len(handles)))
     ax.legend(
         [handles[i] for i in order],
         [texts[i] for i in order],
@@ -100,8 +104,8 @@ def figure_operating_characteristic(report: dict[str, Any], out: Path) -> None:
         labelspacing=0.35,
     )
     ax.set_title(
-        "Detector-v1 fires more readily on longer episodes\n"
-        "analytic property of the rule; not an empirical result",
+        "Episode length decides the verdict, and it is not controlled\n"
+        "curves are an analytic property of the rule, not an empirical result",
         fontsize=9,
         loc="left",
         color=INK,
