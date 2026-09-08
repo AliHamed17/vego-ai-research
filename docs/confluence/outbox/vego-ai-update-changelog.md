@@ -1,20 +1,8 @@
-﻿# VEGO-AI Update Changelog
+# VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-08 07:35 +03:00.
+Generated from repository memory on 2026-09-08 16:14 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-05 00:03 +03:00 - Codex - AirTravel v3.2.1 CI gate recorded
-
-- Request: Record final CI outcomes after pushing the hardened verifier.
-- Actions taken:
-  - Pushed c9c674e; reproduced CI run 33919095658; source gate stale release manifest and merge gate failed while all four Python jobs passed.
-- Files changed:
-  - AirTravel v3.2.1 report
-- Commands/checks:
-  - gh run watch 33919095658; gh run view --log-failed
-- Status: TECHNICAL NO-GO; CI red; no provider calls
-- Next steps: Human policy process must resolve stale manifest, protected observer authorization, model/budget and paid-run authorization.
 
 ## 2026-09-05 00:04 +03:00 - Codex - AirTravel v3.2.1 final CI run recorded
 
@@ -386,7 +374,7 @@ Showing the latest 20 session entries.
   - gh workflow run supervisor-package.yml --ref study1/closure-and-study2-prep
   - gh run view 34162596621 --json status,conclusion,headSha,jobs
   - gh pr edit 41 --body <sanitized final status>
-- Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW â€” NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
+- Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW — NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
 - Next steps: Mount and validate the accepted private binding manifest/event log; semantically rebase PR #41 onto current origin/main 158714064; obtain supervisor and independent review before any scientific reporting or merge.
 
 ## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
@@ -439,3 +427,40 @@ Showing the latest 20 session entries.
   - Full scripts/root/VEGO-AI pytest suites; Ruff; compileall; privacy/security/evidence checks; verify-source.ps1; gh run watch 34187274766
 - Status: completed
 - Next steps: Supervisor review of the transparency package; private accepted-run evidence remains unavailable in this worktree; no scientific reporting or merge until reviewed.
+
+## 2026-09-08 16:08 +03:00 - Claude - Study 1 instrument experiments: extended envelope truth table, log robustness, cost calibration, adversarial review corrections
+
+- Request: Keep running experiments under the USD 6 authorisation: more results, more baselines, gaps not checked before, high quality; show a PDF with all results.
+- Actions taken:
+  - Added scripts/airtravel_detector_envelope_extended.py: nine deterministic fixture modes drive the protected orchestrator; 9/9 conform with exact signal sets; WEAK_ALERT, S1, S2, S3 (empty and null encodings) and S6 are each reached in isolation end-to-end; orchestrator output goes to a gitignored scratch dir under external_data and is deleted after projection; provider-SDK module audit after each mode.
+  - Added scripts/study1_instrument_robustness.py on the accepted log: event-order invariance 500/500 permutations + 3 named reorderings; value domain clean (44 answers, Low 16 / Medium 25 / High 3, no UNKNOWN, no missing evidence); denominator sensitivity; aggregation sensitivity with the frozen rule re-applied per summary (0 of 3 classifications depend on the any aggregation; the S1 signal in 1 of 3 episodes does; S7 preserves that episode).
+  - Added scripts/study1_cost_calibration.py: reserve-to-actual 6.77x (Study 1B bound) and 2.08x (pilot bound) on the one receipt; 16 of 30 enumerated protocols fit USD 6.00, 5 fit USD 2.00; Study 1B frozen bound 34.6551; per-call maxima and per-episode cost NOT_AVAILABLE; bounds are reserve bounds under the 8,000-token input-reserve assumption.
+  - Folded the three analyses into the results dossier (sections 2, 8, 11; authorisation block with credential presence measured at build time and a receipt scan; NOT_AVAILABLE degradation when an analysis file is missing) and regenerated the three-page Hebrew PDF locally (gitignored).
+  - Ran an adversarial review workflow (3 lenses, 27 agents, paired refuters). Fixed the confirmed blocking finding: the first draft compared confidence labels instead of re-applied classes and claimed one classification depended on the any aggregation; the max-rounds episode stays STRONG_ALERT through S7, so the claim was withdrawn and a correction record added. Also fixed ledger-row indexing under concurrency, the non-reentrant mode swap, the majority vs ordinal-median mislabel, the leave-one-out denominator, hard-coded literals, novelty wording and loanwords, and temp residue (removed 44 fixture-output directories containing corpus text from system TEMP).
+  - Wrote docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md, indexed it in the proposal README, added decision D8 and new descriptive/engineering rows to the final decision table, and updated current-state, progress, issues (ISS-060 open, ISS-061 resolved) and decisions.
+  - OPENAI_API_KEY absent (presence-only check); USD 6.00 authorisation unused; provider calls 0; Detector-v1 unchanged.
+- Files changed:
+  - scripts/airtravel_detector_envelope_extended.py
+  - scripts/study1_instrument_robustness.py
+  - scripts/study1_cost_calibration.py
+  - scripts/build_study1_results_dossier.py
+  - scripts/render_study1_results_dossier.py
+  - scripts/tests/test_airtravel_detector_envelope_extended.py
+  - scripts/tests/test_study1_instrument_robustness.py
+  - docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/phd-proposal/README.md
+  - docs/research/phd-proposal/figures/study1-results-dossier.html
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+- Commands/checks:
+  - py -3.13 -m pytest scripts/tests -> 778 passed, 23 skipped
+  - py -3.13 scripts/build_hardening_manifests.py; --check -> PASS
+  - check_repository_privacy, check_evidence_consistency --check, check_hlayer_change_authorization --base origin/main, security_audit --history -> PASS
+  - headless Chrome print of docs/research/phd-proposal/figures/study1-results-dossier.html -> 3-page PDF (gitignored)
+  - Workflow study1-new-experiments-adversarial-review (27 agents; 1 verifier hit the session limit)
+- Status: completed; ENGINEERING_FIXTURE_NOT_SCIENTIFIC and descriptive instrument analyses only; 0 provider calls; Detector-v1 unchanged
+- Next steps: Commit and push to study1/closure-and-study2-prep (PR #41) and confirm CI. To spend under the USD 6.00 authorisation: set OPENAI_API_KEY in the execution environment, close pilot gate 4 (independent review) and gate 6 (frozen model, ceiling, caps), preregister exactly one reserve-bound menu row (D8), then run with BudgetGuard at 6.00. Candidate zero-cost follow-ups: mixed-confidence multi-answer fixture episodes; a per-call ledger in the real-run harness so maxima and per-episode cost stop being NOT_AVAILABLE.

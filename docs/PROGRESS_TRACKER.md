@@ -130,12 +130,12 @@ M4B-2 · Agent 4 changes · LLM/API calls · embeddings · policy v1.1 · baseli
 
 ## 7b. Recent activity (latest session-log entries)
 <!-- AUTO:activity:start -->
+- 2026-09-08 16:08 +03:00 - Claude - Study 1 instrument experiments: extended envelope truth table, log robustness, cost calibration, adversarial review corrections
 - 2026-09-08 07:35 +03:00 - Codex - Study 1 supervisor transparency correction and CI hardening
 - 2026-09-08 01:59 +03:00 - Codex - Study 1 supervisor transparency correction integration
 - 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
 - 2026-09-08 00:21 +03:00 - Codex - Study 1 transparency package CI and PR finalization
 - 2026-09-08 00:11 +03:00 - Codex - Transparency manifest and clean-checkout hardening
-- 2026-09-07 23:48 +03:00 - Codex - Study 1 transparency package finalization
 <!-- AUTO:activity:end -->
 
 ---
