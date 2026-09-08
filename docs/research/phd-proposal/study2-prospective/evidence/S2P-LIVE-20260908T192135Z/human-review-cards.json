@@ -1,0 +1,10 @@
+{
+  "blinding": "no case id, episode id, condition, detector label or timestamp on any card; order shuffled with a fixed seed",
+  "cards": 14,
+  "cards_sha256": "bfaad81770c09d29a6ce208c702356f2f43d2771f319f5b85acbd564c8fcc53a",
+  "exchanges": 235,
+  "key_sha256": "68ed3b4946602bbe08d9d2af6cc8d26fce6fc47e0d9fabefbf67f16a6c58aff4",
+  "location": "${VEGO_PRIVATE_EVIDENCE_ROOT}/study2-prospective/S2P-LIVE-20260908T192135Z/human-review/",
+  "raters_scored": 0,
+  "status": "NOT_MEASURED"
+}

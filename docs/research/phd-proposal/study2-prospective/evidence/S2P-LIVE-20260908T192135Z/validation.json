@@ -1,0 +1,11 @@
+{
+  "ledger_cost_usd": 0.955908,
+  "ledger_matches_receipt": false,
+  "ledger_requests": 239,
+  "match": true,
+  "published_sha256": "df71bcaa0f3773f89c96f557f2e36f6baf7e8580876794e590593f14e91f880e",
+  "receipt_binding_valid": true,
+  "receipt_cost_usd": 0.955908,
+  "receipt_requests": 240,
+  "recomputed_sha256": "df71bcaa0f3773f89c96f557f2e36f6baf7e8580876794e590593f14e91f880e"
+}

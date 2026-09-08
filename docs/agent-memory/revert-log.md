@@ -529,3 +529,17 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-08-study1-supervisor-email-he.md
 - Rollback note: Revert the readout package and its tracking entry; it changes no protected runtime or empirical evidence.
 - Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).
+
+## 2026-09-08 23:02 +03:00 - Claude - Study 2 prospective paired ON/OFF run executed and packaged
+
+- Files changed:
+  - src/vego_study2/prospective/
+  - scripts/study2_prospective_run.py
+  - scripts/study2_prospective_freeze.py
+  - scripts/study2_prospective_report.py
+  - schemas/study2-prospective-*.schema.json
+  - docs/research/phd-proposal/study2-prospective/
+  - tests/test_study2_prospective.py
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the study2/prospective-on-off-paired branch commits; private evidence under the f2 root is untouched by Git.
+- Git commit: none recorded by script.

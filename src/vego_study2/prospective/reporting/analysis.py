@@ -114,6 +114,10 @@ def condition_summary(aggregate: dict[str, Any]) -> dict[str, dict[str, Any]]:
             "mapping_rows_total": sum((r.get("metrics") or {}).get("mapping_rows", 0) for r in completed),
             "uncovered_total": sum((r.get("metrics") or {}).get("uncovered_fragments", 0) for r in completed),
             "summary_consistent_count": sum(1 for r in completed if (r.get("metrics") or {}).get("coverage_summary_consistent")),
+            "mapping_rows_per_case": [(r.get("metrics") or {}).get("mapping_rows", 0) for r in completed],
+            "uncovered_per_case": [(r.get("metrics") or {}).get("uncovered_fragments", 0) for r in completed],
+            "fragment_labels_total": _sum_counters((r.get("metrics") or {}).get("fragment_labels", {}) for r in completed),
+            "compliance_status_total": _sum_counters((r.get("metrics") or {}).get("coverage_summary_recomputed", {}) for r in completed),
         }
         if name == c.CONDITION_ON:
             out[name].update({
@@ -125,6 +129,14 @@ def condition_summary(aggregate: dict[str, Any]) -> dict[str, dict[str, Any]]:
                 "routes": block["routes"],
             })
     return out
+
+
+def _sum_counters(mappings) -> dict[str, int]:
+    total: Counter = Counter()
+    for mapping in mappings:
+        for key, value in (mapping or {}).items():
+            total[key] += int(value or 0)
+    return dict(sorted(total.items()))
 
 
 def paired_differences(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -199,9 +211,29 @@ def human_section() -> dict[str, Any]:
     }
 
 
+def accounting(aggregate: dict[str, Any]) -> dict[str, Any]:
+    """Reconcile guard-counted requests with ledger rows; charge any gap at full reserve."""
+    budget = aggregate["budget"]
+    ledger_rows = sum(block["requests"] for block in aggregate["conditions"].values())
+    unrecorded = max(0, budget["requests"] - ledger_rows)
+    return {
+        "receipt_requests": budget["requests"],
+        "ledger_requests": ledger_rows,
+        "unrecorded_in_flight_requests": unrecorded,
+        "recorded_cost_usd": budget["actual_cost_usd"],
+        "spend_upper_bound_usd": round(budget["actual_cost_usd"] + unrecorded * budget["per_request_reserve_usd"], 6),
+        "note": (
+            "a request reserved by the guard but cancelled in flight when a cap stopped the condition returns no usage; "
+            "it is counted as issued and charged at the full per-request reservation in the upper bound"
+            if unrecorded else "every issued request has a ledger row"
+        ),
+    }
+
+
 def build_analysis(aggregate: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]:
     rows = paired_table(aggregate)
     return {
+        "accounting": accounting(aggregate),
         "run_id": aggregate["run_id"],
         "mode": aggregate["mode"],
         "evidence_class": aggregate["evidence_class"],

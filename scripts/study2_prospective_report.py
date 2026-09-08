@@ -72,6 +72,10 @@ def main() -> int:
     selection = json.loads((DOCS_DIR / "case-selection-manifest.json").read_text(encoding="utf-8"))
     budget_doc = json.loads((DOCS_DIR / "budget-reservation.json").read_text(encoding="utf-8"))
     analysis = build_analysis(aggregate, manifest)
+    state_path = output_root / "on" / "pipeline" / "pipeline_state.json"
+    if state_path.is_file():
+        guidelines = (json.loads(state_path.read_text(encoding="utf-8")).get("reference_guidelines") or {}).get("reference_guidelines")
+        analysis["on_reference_guideline_count"] = len(guidelines) if isinstance(guidelines, list) else None
     (public_dir / "analysis.json").write_text(json.dumps(analysis, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
     validation = validate_public(output_root, public_dir / "public-aggregate.json")

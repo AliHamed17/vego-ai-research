@@ -322,6 +322,12 @@ def build_report(analysis: dict[str, Any], manifest: dict[str, Any], selection: 
         ["אפיזודות שאלה–תשובה (M6)", str(det["episodes_total"]), "אין מבנית (NOT_AVAILABLE)"],
         ["Detector-v1", "רלוונטי", "לא רלוונטי"],
     ], size=8.5, widths_cm=[6.2, 5.6, 5.2])
+    acc = analysis["accounting"]
+    if acc["unrecorded_in_flight_requests"]:
+        para(doc, f"הערת חשבונאות: השומר ספר {acc['receipt_requests']} בקשות שהונפקו, אך ביומן הקריאות {acc['ledger_requests']} שורות. {acc['unrecorded_in_flight_requests']} בקשה/ות שהיו בטיסה ברגע שהתקרה עצרה את התנאי בוטלו ולא החזירו נתוני שימוש; הן נספרות כבקשות שהונפקו ומחויבות ברזרבציה המלאה, ולכן חסם עליון להוצאה בפועל הוא {acc['spend_upper_bound_usd']:.4f} דולר (מול {acc['recorded_cost_usd']:.4f} שנרשמו).", size=9.5, italic=True)
+    on_status = on["status"]
+    if on_status == "STOPPED_AT_CAP":
+        para(doc, f"ON נעצר בתקרת הבקשות התפעולית הקפואה ({analysis['caps'][c.CONDITION_ON]} בקשות) לאחר {on['completed']} מתוך {on['planned']} מקרים; המקרים שלא הופקו נותרו בראיות כ-NOT_PRODUCED, ושלב 4 (חוקר השונות) לא הופעל. זהו תוצא שנרשם מראש במדיניות הכשלים הטכניים, לא כשל של המודל.", size=9.5, italic=True)
     para(doc, "טבלה מזווגת לפי מקרה (מספרי המקרים לפי מספור המסגרת המלאה):", size=10, bold=True, align=WD_ALIGN_PARAGRAPH.RIGHT)
     table(doc, ["מקרה", "סטטוס ON", "סטטוס OFF", "שורות מיפוי ON/OFF", "לא מכוסים ON/OFF", "בקשות ON/OFF", "עלות ON/OFF ($)", "זמן ON~/OFF (ש׳)", "אפיזודות ON"], [
         [r["case_id"], r["on_status"], r["off_status"], f"{_f(r['on_mapping_rows'])}/{_f(r['off_mapping_rows'])}",
@@ -401,6 +407,8 @@ def build_report(analysis: dict[str, Any], manifest: dict[str, Any], selection: 
         "מודל ספק אחד ביום אחד בטמפרטורת ברירת המחדל; ריצה נוספת עשויה להיות שונה.",
         "עלות וזמן לכל מקרה ב-ON הם שיוכים תחת מקביליות, לא מדידות מבודדות; עלות רמת ההגדרה משותפת.",
         "מדדים מבניים מתארים פריטים ואינם שופטים נכונות; תוויות Detector-v1 הן מועמדות בלבד.",
+        "ספירות שורות המיפוי אינן ניתנות להשוואה ישירה בין התנאים: ON ממפה מול הנחיות שיצר יועץ התחום, OFF מול הנחיות שגזר בעצמו מתיאור התחום, משום שההנחיה הקפואה של OFF אינה כוללת רשימת הנחיות משותפת.",
+        "ON נעצר בתקרת הבקשות התפעולית לאחר תשעה מקרים ולפני שלב חוקר השונות; שלושה מקרים לא הופקו ב-ON, ולכן ההשוואה המזווגת המלאה מכסה תשעה זוגות.",
     ):
         bullet(doc, text)
 
@@ -445,8 +453,14 @@ def _found_he(analysis: dict[str, Any]) -> list[str]:
     on, off = cond[c.CONDITION_ON], cond[c.CONDITION_OFF]
     det = analysis["detector"]
     diff = analysis["differences"]
+    on_rows, off_rows = on.get("mapping_rows_per_case") or [0], off.get("mapping_rows_per_case") or [0]
+    on_unc, off_unc = on.get("uncovered_per_case") or [0], off.get("uncovered_per_case") or [0]
+    guideline_count = analysis.get("on_reference_guideline_count")
+    guideline_text = f" ({guideline_count} הנחיות ייחוס הופקו על ידי יועץ התחום)" if guideline_count is not None else ""
     found = [
         f"שני הזרמים הפיקו פריטים תקפים סכמטית ברוב המקרים: ON {on['completed']}/{on['planned']}, OFF {off['completed']}/{off['planned']}; שניהם יחד ב-{diff['both_completed']} מקרים.",
+        f"מבנה הפריטים שונה מהותית: פריטי ON הכילו {min(on_rows)}–{max(on_rows)} שורות מיפוי לכל מקרה{guideline_text}, ואילו OFF, שאינו מקבל רשימת הנחיות, גזר בעצמו {min(off_rows)}–{max(off_rows)} הנחיות לכל מקרה. במקביל ON סימן {min(on_unc)}–{max(on_unc)} פרגמנטים לא מכוסים לכל מקרה (סה\"כ {on['uncovered_total']}: {fmt_counts(on.get('fragment_labels_total'))}) לעומת {min(off_unc)}–{max(off_unc)} ב-OFF (סה\"כ {off['uncovered_total']}: {fmt_counts(off.get('fragment_labels_total'))}). אלה פירוקים שונים של אותה משימה, לא מדד איכות.",
+        f"Detector-v1 סימן {det['candidate_alerts']} מתוך {det['scientific_complete']} האפיזודות השלמות כמועמדות, רובן STRONG בגלל S1 (ביטחון נמוך של היועץ, {det['reason_codes'].get('S1_LOW_ANSWER_CONFIDENCE', 0)} אפיזודות); כאשר הכלל הקפוא מסמן כמעט כל אפיזודה, כושר ההבחנה שלו בריצה זו נמוך — תצפית תיאורית, לא טענה על נכונות.",
         f"ON דרש {on['requests']} בקשות לעומת {off['requests']} ב-OFF, ועלה {on['cost_usd']:.4f} דולר לעומת {off['cost_usd']:.4f}; סך הריצה {analysis['budget']['actual_cost_usd']:.4f} דולר, הרחק מתחת לתקרה.",
         f"ON יצר {det['episodes_total']} אפיזודות שאלה–תשובה מתועדות, ו-Detector-v1 סימן {det['candidate_alerts']} מהן כמועמדות לבדיקה ({fmt_counts(det['classifications'])}).",
         f"הפרשי מבנה: שורות מיפוי — ON גבוה ב-{diff['mapping_rows']['on_higher']} מקרים, OFF ב-{diff['mapping_rows']['off_higher']}, שווה ב-{diff['mapping_rows']['equal']}; פרגמנטים לא מכוסים — ON גבוה ב-{diff['uncovered_fragments']['on_higher']}, OFF ב-{diff['uncovered_fragments']['off_higher']}.",
@@ -472,7 +486,7 @@ def build_executive_summary(analysis: dict[str, Any], out_path: Path) -> Path:
         f"שלמות: ON {on['completed']}/{on['planned']}, OFF {off['completed']}/{off['planned']}; שניהם השלימו {diff['both_completed']} מקרים.",
         f"תקינות מבנית: ON {on['summary_consistent_count']}/{on['completed']} עם סיכום כיסוי עקבי; OFF {off['summary_consistent_count']}/{off['completed']}.",
         f"בקשות: ON {on['requests']} (רמת הגדרה {on['setting_level_requests']}), OFF {off['requests']}; סך {analysis['budget']['requests']} מתוך תקרה {analysis['budget']['total_request_cap']}.",
-        f"עלות: ON {on['cost_usd']:.4f}$, OFF {off['cost_usd']:.4f}$; סך {analysis['budget']['actual_cost_usd']:.4f}$ מול רזרבציה {analysis['whole_study_reservation_usd']:.4f}$ ותקרה 6.00$.",
+        f"עלות: ON {on['cost_usd']:.4f}$, OFF {off['cost_usd']:.4f}$; סך נרשם {analysis['budget']['actual_cost_usd']:.4f}$ (חסם עליון {analysis['accounting']['spend_upper_bound_usd']:.4f}$ עם {analysis['accounting']['unrecorded_in_flight_requests']} בקשה בטיסה שחויבה ברזרבציה מלאה) מול רזרבציה {analysis['whole_study_reservation_usd']:.4f}$ ותקרה 6.00$.",
         f"זמן: ON {_s(on['elapsed_seconds'])} שניות, OFF {_s(off['elapsed_seconds'])} שניות לכל התנאי.",
         f"כשלים טכניים: ON {on['technical_failures']}, OFF {off['technical_failures']}; ניסיונות תעבורה חוזרים: ON {on['retried_requests']}, OFF {off['retried_requests']}.",
         f"ראיות תקשורת: ON {det['episodes_total']} אפיזודות ({det['scientific_complete']} שלמות); OFF — אין מבנית.",

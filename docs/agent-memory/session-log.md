@@ -842,3 +842,27 @@ Chronological prompt history for Codex and Claude.
 - Status: completed
 - Next steps: Independent supervisor-package review; no new empirical claim or provider run is authorized by this documentation package.
 - Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).
+
+## 2026-09-08 23:02 +03:00 - Claude - Study 2 prospective paired ON/OFF run executed and packaged
+
+- Request: Design, freeze, gate, execute once (USD 6.00 ceiling, gpt-5.6-luna only), analyse and package the prospective VEGO_AI_ON vs VEGO_AI_OFF experiment; draft PR only, no merge.
+- Actions taken:
+  - Unknown
+- Files changed:
+  - src/vego_study2/prospective/
+  - scripts/study2_prospective_run.py
+  - scripts/study2_prospective_freeze.py
+  - scripts/study2_prospective_report.py
+  - schemas/study2-prospective-*.schema.json
+  - docs/research/phd-proposal/study2-prospective/
+  - tests/test_study2_prospective.py
+  - docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - uv run python -m pytest tests/test_study2_prospective.py -> 25 passed
+  - full inventory: VEGO-AI/tests 134, scripts/tests 789, tests 112, hlayer_offline 46 passed
+  - CI run 34268089402 green on 3a62d91a48205e3a78cebf9a352e95e6615b97b8
+  - study2_prospective_run.py execute --expected-head 3a62d91 (run S2P-LIVE-20260908T192135Z): OFF 12/12, ON 9/12 STOPPED_AT_CAP, 240 requests, USD 0.9559 recorded
+  - study2_prospective_run.py validate -> match true, receipt binding valid
+  - study2_prospective_report.py -> Hebrew report (9 pp), slides (10), executive summary, E2E visual, 14 blinded cards
+- Status: completed
+- Next steps: Two independent raters score the 14 blinded cards with human-rater-rubric.he.md; then compute agreement. PR #45 stays a draft; no merge without supervisor review.

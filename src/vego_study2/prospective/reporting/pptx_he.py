@@ -162,7 +162,7 @@ def build_presentation(analysis: dict[str, Any], manifest: dict[str, Any], selec
         (f"תקציב: תקרה 6.00$ · שומר 5.90$ · רזרבציה לבקשה {analysis['budget']['per_request_reserve_usd']:.5f}$ (12k קלט + 16,384 פלט) · תקרת בקשות {analysis['budget']['total_request_cap']}", 15, False),
         (f"תפריט: A — 12 מקרים (רזרבציה {analysis['whole_study_reservation_usd']:.2f}$) · B — 6×2 חזרות (זהה) · C — 4 מקרים (1.94$) → נבחר A: יחידות מזווגות נפרדות חשובות יותר מחזרות", 15, False),
         ("", 6, False),
-        (f"בפועל: {analysis['budget']['requests']} בקשות · {analysis['budget']['actual_cost_usd']:.4f}$ · {analysis['budget']['prompt_tokens']} אסימוני קלט · {analysis['budget']['completion_tokens']} אסימוני פלט · חריגות שומר: {len(analysis['budget']['refusals'])}", 15, True),
+        (f"בפועל: {analysis['budget']['requests']} בקשות · {analysis['budget']['actual_cost_usd']:.4f}$ נרשמו (חסם עליון {analysis['accounting']['spend_upper_bound_usd']:.4f}$) · {analysis['budget']['prompt_tokens']} אסימוני קלט · {analysis['budget']['completion_tokens']} אסימוני פלט · סירובי שומר: {len(analysis['budget']['refusals'])}", 15, True),
     ])
     _footer(s, analysis, "שקף 4")
 
@@ -201,7 +201,8 @@ def build_presentation(analysis: dict[str, Any], manifest: dict[str, Any], selec
     _textbox(s, 17.5, 4.0, 15.5, 6.5, [("נמצא", 16, True),
                                        (f"שני הזרמים הפיקו פריטים תקפים ברוב המקרים ({diff['both_completed']} יחד)", 12.5, False),
                                        (f"ON: {on['requests']} בקשות, {on['cost_usd']:.4f}$; OFF: {off['requests']}, {off['cost_usd']:.4f}$", 12.5, False),
-                                       (f"ON יצר {det['episodes_total']} אפיזודות; {det['candidate_alerts']} מועמדות לבדיקה", 12.5, False)], color="1F4E79")
+                                       (f"ON יצר {det['episodes_total']} אפיזודות; {det['candidate_alerts']} מועמדות לבדיקה", 12.5, False),
+                                       (f"מבנה שונה: ON {on['mapping_rows_total']} שורות מיפוי / {on['uncovered_total']} פרגמנטים ב-{on['completed']} פריטים; OFF {off['mapping_rows_total']} / {off['uncovered_total']} ב-{off['completed']} — לא בר-השוואה כאיכות", 12.5, False)], color="1F4E79")
     _textbox(s, 1.0, 4.0, 15.5, 6.5, [("לא נמצא", 16, True),
                                       ("איזה זרם מפיק ניתוח טוב יותר (אין אמת-קרקע, אין ניקוד)", 12.5, False),
                                       ("האם תוויות הגלאי נכונות (אין תוויות אנושיות)", 12.5, False),
