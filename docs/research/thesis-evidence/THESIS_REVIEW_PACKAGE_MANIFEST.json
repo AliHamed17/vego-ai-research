@@ -3,7 +3,7 @@
   "generatedAt": "2026-07-26T00:33:42+00:00",
   "packageDate": "2026-07-25",
   "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
-  "packageRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
+  "packageRevision": "608537253ae96d0177e4aa365da78d6f087dd646",
   "sourceTreeHash": "2a3648a8195ef591cb0bcb2737cb1debb5b6fa6aafc34e5c3c6bdf8f751a327f",
   "canonicalSourcesDirtyAtGeneration": false,
   "claimBoundary": "Mechanism, traceability, governance, and evaluation readiness only. At 0/24 supplied independent labels, empirical performance metrics remain null; accuracy improvement, generalization, reduced human effort, and benchmark superiority are not established.",
@@ -22,7 +22,7 @@
     },
     "interactiveHtml": {
       "path": "VEGO-AI-Thesis-Baseline-Progress.html",
-      "sha256": "944ec443381ce6efd8746f4ce9202b7dbb7b6cb62d1b0258f9fd4fb79021479d",
+      "sha256": "22a7215d32cc087947df816714193f3256cde35efdf8dae06009588e3d7efe17",
       "bytes": 81914,
       "tracked": true
     }
