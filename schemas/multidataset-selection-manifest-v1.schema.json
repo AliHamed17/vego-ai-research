@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/multidataset-selection-manifest-v1.schema.json",
+  "title": "VEGO-AI multi-dataset deterministic selection manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dataset_id", "seed", "selection_rule", "selected_case_ids", "case_input_hashes", "selection_sha256"],
+  "properties": {
+    "schema_version": {"const": "vego-multidataset-selection-v1"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "seed": {"type": "string", "minLength": 1},
+    "selection_rule": {"type": "string", "minLength": 1},
+    "selected_case_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "case_input_hashes": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "selection_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

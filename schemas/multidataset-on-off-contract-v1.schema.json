@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/multidataset-on-off-contract-v1.schema.json",
+  "title": "VEGO-AI multi-dataset ON/OFF contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "shared_controls", "VEGO_AI_ON", "VEGO_AI_OFF"],
+  "properties": {
+    "schema_version": {"const": "vego-multidataset-on-off-contract-v1"},
+    "shared_controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider", "model_id", "model_version", "model_freeze_status", "model_approval_sha256",
+        "temperature", "max_output_tokens", "timeout_seconds", "retry_policy", "concurrency",
+        "budget_ceiling_usd", "call_ceiling", "output_schema", "egress"
+      ],
+      "properties": {
+        "provider": {"const": "OpenAI"},
+        "model_id": {"type": "string", "minLength": 1},
+        "model_version": {"type": "string", "minLength": 1},
+        "model_freeze_status": {"enum": ["USER_NOT_FROZEN", "USER_FROZEN_MODEL_AND_VERSION"]},
+        "model_approval_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "temperature": {"type": "number", "minimum": 0, "maximum": 2},
+        "max_output_tokens": {"type": "integer", "minimum": 1},
+        "timeout_seconds": {"type": "integer", "minimum": 1},
+        "retry_policy": {"const": "ONE_TRANSPORT_RETRY_BEFORE_VALID_OUTPUT"},
+        "concurrency": {"type": "integer", "minimum": 1},
+        "budget_ceiling_usd": {"type": "number", "exclusiveMinimum": 0, "maximum": 6},
+        "call_ceiling": {"type": "integer", "minimum": 1},
+        "output_schema": {"type": "string", "minLength": 1},
+        "egress": {"const": "PROVIDER_ENDPOINT_ONLY_DURING_AUTHORIZED_EXECUTION"}
+      }
+    },
+    "VEGO_AI_ON": {"type": "object"},
+    "VEGO_AI_OFF": {"type": "object"}
+  }
+}

@@ -529,3 +529,13 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-08-study1-supervisor-email-he.md
 - Rollback note: Revert the readout package and its tracking entry; it changes no protected runtime or empirical evidence.
 - Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).
+
+## 2026-09-08 23:24 +03:00 - Codex - Study 1 multi-dataset admission privacy hardening
+
+- Files changed:
+  - src/vego_multidataset/admission.py
+  - schemas/multidataset-data-card-v1.schema.json
+  - tests/test_multidataset_admission.py
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert commits e32b41a, daab6bd, and f51bf7c to remove the admission-card hardening and regenerated manifest.
+- Git commit: none recorded by script.

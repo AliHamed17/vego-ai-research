@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/multidataset-engineering-preflight-receipt-v1.schema.json",
+  "title": "VEGO-AI multi-dataset engineering-only preflight receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "evidence_class", "scientific_result_status", "study1_pooled", "execution_code_sha",
+    "provider_calls", "external_provider_calls", "network_policy",
+    "blocked_egress_attempts", "fake_client_requests", "conditions", "receipt_binding"
+  ],
+  "properties": {
+    "schema_version": {"const": "vego-multidataset-engineering-preflight-receipt-v1"},
+    "evidence_class": {"const": "ENGINEERING_FIXTURE_ONLY"},
+    "scientific_result_status": {"const": "NOT_EXECUTED"},
+    "study1_pooled": {"const": false},
+    "execution_code_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "provider_calls": {"const": 0},
+    "external_provider_calls": {"const": 0},
+    "network_policy": {"const": "DISABLED"},
+    "blocked_egress_attempts": {"type": "integer", "minimum": 0},
+    "fake_client_requests": {"type": "integer", "minimum": 0},
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["VEGO_AI_ON", "VEGO_AI_OFF"],
+      "properties": {
+        "VEGO_AI_ON": {"$ref": "#/$defs/on_condition"},
+        "VEGO_AI_OFF": {"$ref": "#/$defs/off_condition"}
+      }
+    },
+    "receipt_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "content_sha256"],
+      "properties": {
+        "algorithm": {"const": "SHA-256"},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  },
+  "$defs": {
+    "condition_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition", "case_input_hashes", "fake_client_requests", "call_manifest_sha256",
+        "agent_decomposition", "inter_agent_qa", "round_loop", "qa_envelope_episodes",
+        "detector_v1", "agent4_invoked", "raw_content_persisted"
+      ],
+      "properties": {
+        "condition": {"type": "string"},
+        "case_input_hashes": {
+          "type": "object",
+          "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "fake_client_requests": {"type": "integer", "minimum": 0},
+        "call_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "agent_decomposition": {"type": "boolean"},
+        "inter_agent_qa": {"type": "boolean"},
+        "round_loop": {"type": "boolean"},
+        "qa_envelope_episodes": {"type": "integer", "minimum": 0},
+        "detector_v1": {"type": "string"},
+        "agent4_invoked": {"type": "boolean"},
+        "raw_content_persisted": {"const": false}
+      }
+    },
+    "on_condition": {
+      "allOf": [
+        {"$ref": "#/$defs/condition_base"},
+        {"properties": {
+          "condition": {"const": "VEGO_AI_ON"},
+          "agent_decomposition": {"const": true},
+          "inter_agent_qa": {"const": true},
+          "round_loop": {"const": true},
+          "qa_envelope_episodes": {"minimum": 1},
+          "detector_v1": {"const": "NOT_EXECUTED_ENGINEERING_ENVELOPE_ONLY"},
+          "agent4_invoked": {"const": false}
+        }}
+      ]
+    },
+    "off_condition": {
+      "allOf": [
+        {"$ref": "#/$defs/condition_base"},
+        {"properties": {
+          "condition": {"const": "VEGO_AI_OFF"},
+          "agent_decomposition": {"const": false},
+          "inter_agent_qa": {"const": false},
+          "round_loop": {"const": false},
+          "qa_envelope_episodes": {"const": 0},
+          "detector_v1": {"const": "NOT_APPLICABLE"},
+          "agent4_invoked": {"const": false}
+        }}
+      ]
+    }
+  }
+}

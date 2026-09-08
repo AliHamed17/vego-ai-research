@@ -89,6 +89,7 @@ async def run_pair(
     results = []
     progress = progress if progress is not None else {}
     count = len(cfg.get("case_models", [])) if fixture_only else 4
+    original_client, original_registry = module.LLMClient, module.QARegistry
     try:
         for side in ("baseline", "instrumented"):
             observed = side == "instrumented"
@@ -172,6 +173,11 @@ async def run_pair(
             recorder.close_open_episodes()
         raise
     finally:
+        # ``run_pair`` replaces these module-level dependencies for its local
+        # deterministic fixture.  Restore them here, rather than relying on a
+        # particular caller's outer guard, so a completed preflight cannot
+        # leak an observed registry into a later independent test or run.
+        module.LLMClient, module.QARegistry = original_client, original_registry
         # run_setting lacks a failure-finally around its handler; close only this run's handlers.
         for handler in list(logging.getLogger().handlers):
             filename = getattr(handler, "baseFilename", None)
