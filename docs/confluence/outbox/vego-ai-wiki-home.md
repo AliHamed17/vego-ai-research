@@ -1,6 +1,6 @@
-# VEGO-AI Wiki Home
+﻿# VEGO-AI Wiki Home
 
-Generated from repository memory on 2026-09-08 06:50 +03:00.
+Generated from repository memory on 2026-09-08 07:35 +03:00.
 
 This Confluence wiki is a curated external view. The Git repository and docs/agent-memory/ remain the source of truth.
 
@@ -198,19 +198,19 @@ and processes.
 
 **U-RQ:** How can human judgment be captured, governed, and used to support
 agentic-AI-driven variability exploration in guideline operationalization
-scenarios, enabling reliable human–AI co-reasoning?
+scenarios, enabling reliable humanâ€“AI co-reasoning?
 
 **2026-08-10 status note:** this wording was refined live during the 2026-08-05
 supervisor call (Iris Reinhartz-Berger and Arnon Sturm), replacing the 2026-07-30
 working draft below. It is **provisional working wording, not supervisor-approved**
-— sign-off is tracked as decision `D-RQ-01` in
+â€” sign-off is tracked as decision `D-RQ-01` in
 `docs/research/phd-proposal/2026-08-05-rq-decision-pack.md` and remains `Pending`
 until Ali verifies the exact text against his own saved working draft from the call
 and a supervisor decision is logged. Evidence, with caveats, is in
 `docs/research/meetings/2026-08-05-supervisor-meeting.md` (items E5-E10) and
 `docs/research/meetings/2026-08-05-supervisor-provenance-manifest.md`; the canonical
 working hierarchy is also recorded in
-`docs/research/phd-proposal/legacy-rq-crosswalk.md` §1.
+`docs/research/phd-proposal/legacy-rq-crosswalk.md` Â§1.
 
 *Prior working draft (2026-07-30, superseded above pending sign-off):* "How can
 reusable human judgment be captured, governed, and reused in agentic AI assessment
@@ -249,7 +249,7 @@ This project studies how human review can move from episodic validation to reusa
 **2026-08-10 status note:** the Question column below was refined live during the
 2026-08-05 supervisor call (Iris Reinhartz-Berger and Arnon Sturm) from the
 2026-07-30 working draft. This is **provisional working wording, not
-supervisor-approved** — sign-off is tracked as decision `D-RQ-02` in
+supervisor-approved** â€” sign-off is tracked as decision `D-RQ-02` in
 `docs/research/phd-proposal/2026-08-05-rq-decision-pack.md` and remains `Pending`
 until Ali verifies the exact text against his own saved working draft from the call
 and a supervisor decision is logged. SQ3 in particular changed from a "to what
@@ -262,7 +262,7 @@ Evidence, with caveats, is in
 | ID | Question | Study and evidence path |
 | --- | --- | --- |
 | SQ1 | When and how, in variability exploration scenarios, should an agentic assessment system request human judgment so that important uncertainties are addressed without unnecessary expert burden? | Study 1: event/trigger analysis, intervention-policy comparison, offline conformance testing, and existing VEGO-AI model cases. |
-| SQ2 | How should expert judgment — including the system's core reasoning — be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority? | Study 2: structured-feedback cases, provenance/conflict tests, expert review, and safe memory-retrieval/reuse analysis. |
+| SQ2 | How should expert judgment â€” including the system's core reasoning â€” be represented, validated, reconciled, and stored so it can be reused transparently without unsafe generalization or loss of human authority? | Study 2: structured-feedback cases, provenance/conflict tests, expert review, and safe memory-retrieval/reuse analysis. |
 | SQ3 | How can expert judgment be reused and transferred across different guideline-operationalization contexts without unsafe generalization or loss of human authority, first in software/modeling and, when governance and access permit, in healthcare? | Study 3: controlled comparisons, real expert labels, paired outcomes, workload/usability evidence, and external replication. Plan B completes this in software/modeling; Plan A may add a gated medical transfer pilot. |
 
 *Prior working draft (2026-07-30, superseded above pending sign-off):* SQ1 "When

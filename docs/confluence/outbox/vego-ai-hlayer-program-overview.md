@@ -1,4 +1,4 @@
-# VEGO-AI H-Layer Program Overview
+﻿# VEGO-AI H-Layer Program Overview
 
 This page mirrors the generated unified program overview (replay suite, conformance suite,
 program validation, EXP-005 gate, decision snapshot, accepted iterations, and metric

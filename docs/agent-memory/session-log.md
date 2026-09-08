@@ -774,3 +774,15 @@ Chronological prompt history for Codex and Claude.
   - privacy, security, evidence consistency and manifest checks
 - Status: completed; awaiting PR CI and human review
 - Next steps: Review CI and supervisor package; mount private evidence only through its binding manifest before numeric reporting
+
+## 2026-09-08 07:35 +03:00 - Codex - Study 1 supervisor transparency correction and CI hardening
+
+- Request: Implement the nine-blocker Study 1 transparency corrections, harden cross-platform Study 2 output containment, refresh deterministic manifests, and verify complete offline suites and CI.
+- Actions taken:
+  - Corrected Agent-4 path, case/model availability, canonical S6, C1/C2/C3, worked example, CI coverage, byte-identity wording, portable symlink checks, and generated manifests; ran offline suites, privacy/security gates, clone-safe verifier, and green six-job CI.
+- Files changed:
+  - src/vego_study2/paths.py; VEGO-AI-Thesis-Baseline-Progress.html; docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json; docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - Full scripts/root/VEGO-AI pytest suites; Ruff; compileall; privacy/security/evidence checks; verify-source.ps1; gh run watch 34187274766
+- Status: completed
+- Next steps: Supervisor review of the transparency package; private accepted-run evidence remains unavailable in this worktree; no scientific reporting or merge until reviewed.

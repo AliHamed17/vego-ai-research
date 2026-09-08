@@ -1,20 +1,8 @@
-# VEGO-AI Update Changelog
+﻿# VEGO-AI Update Changelog
 
-Generated from repository memory on 2026-09-08 06:50 +03:00.
+Generated from repository memory on 2026-09-08 07:35 +03:00.
 
 Showing the latest 20 session entries.
-
-## 2026-09-05 00:00 +03:00 - Codex - AirTravel v3.2.1 adversarial test completion
-
-- Request: Complete offline adversarial coverage and final verification without provider execution.
-- Actions taken:
-  - Add strict adversarial tests for wrong manifests, mappings, runtime files and configuration
-- Files changed:
-  - scripts/tests/test_audit_historical_case_recovery_v3_2.py and audit report
-- Commands/checks:
-  - 353 scripts tests; focused 16; root 46; VEGO-AI 134; ruff compile privacy security evidence pass
-- Status: TECHNICAL NO-GO; no provider calls
-- Next steps: Synchronize, commit and push; await protected authorization, green CI and explicit paid-run authorization.
 
 ## 2026-09-05 00:03 +03:00 - Codex - AirTravel v3.2.1 CI gate recorded
 
@@ -398,7 +386,7 @@ Showing the latest 20 session entries.
   - gh workflow run supervisor-package.yml --ref study1/closure-and-study2-prep
   - gh run view 34162596621 --json status,conclusion,headSha,jobs
   - gh pr edit 41 --body <sanitized final status>
-- Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW — NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
+- Status: READY FOR SUPERVISOR TRANSPARENCY REVIEW â€” NOT A NEW SCIENTIFIC RESULT; CI green on 60db152; private accepted-run evidence remains unavailable in the reviewed worktree.
 - Next steps: Mount and validate the accepted private binding manifest/event log; semantically rebase PR #41 onto current origin/main 158714064; obtain supervisor and independent review before any scientific reporting or merge.
 
 ## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
@@ -439,3 +427,15 @@ Showing the latest 20 session entries.
   - privacy, security, evidence consistency and manifest checks
 - Status: completed; awaiting PR CI and human review
 - Next steps: Review CI and supervisor package; mount private evidence only through its binding manifest before numeric reporting
+
+## 2026-09-08 07:35 +03:00 - Codex - Study 1 supervisor transparency correction and CI hardening
+
+- Request: Implement the nine-blocker Study 1 transparency corrections, harden cross-platform Study 2 output containment, refresh deterministic manifests, and verify complete offline suites and CI.
+- Actions taken:
+  - Corrected Agent-4 path, case/model availability, canonical S6, C1/C2/C3, worked example, CI coverage, byte-identity wording, portable symlink checks, and generated manifests; ran offline suites, privacy/security gates, clone-safe verifier, and green six-job CI.
+- Files changed:
+  - src/vego_study2/paths.py; VEGO-AI-Thesis-Baseline-Progress.html; docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json; docs/research/hardening/release-manifest-v3.json
+- Commands/checks:
+  - Full scripts/root/VEGO-AI pytest suites; Ruff; compileall; privacy/security/evidence checks; verify-source.ps1; gh run watch 34187274766
+- Status: completed
+- Next steps: Supervisor review of the transparency package; private accepted-run evidence remains unavailable in this worktree; no scientific reporting or merge until reviewed.
