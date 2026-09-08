@@ -60,7 +60,7 @@
   "evidence_classes": {
     "fake_provider_preflight": "ENGINEERING-ONLY FIXTURE",
     "prior_airtravel_runs": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE",
-    "this_run": "PROSPECTIVE EMPIRICAL EVIDENCE once executed under this manifest",
+    "this_run": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE at best, and only once the receipt, event log and ledger are verifiable from the published head. It may never be labelled PROSPECTIVE EMPIRICAL EVIDENCE",
     "unavailable_outcomes": "NOT_AVAILABLE"
   },
   "forbidden_claims": [
@@ -74,8 +74,8 @@
     "pooling or averaging runs that differ in configuration",
     "that a larger episode count is stronger evidence unless it was frozen before outputs"
   ],
-  "frozen_against_head": "6da9b4feb767cb0210eb96003b239c66c180ea98",
-  "frozen_at": "2026-09-08T17:59:14Z",
+  "frozen_against_head": "c682707a9b08d94026d9755e167c43b203100d85",
+  "frozen_at": "2026-09-08T20:11:41Z",
   "human_review_rubric": {
     "adjudication_rule": "an episode is HUMAN_REVIEW_WORTHY when both raters answer Yes; NOT_WORTHY when both answer No; INSUFFICIENT when both answer Insufficient information; and DISAGREEMENT otherwise. A DISAGREEMENT is resolved only by a third supervisor-authorized adjudicator, is never resolved by the study author, and is reported as DISAGREEMENT until that adjudication exists.",
     "blinding": {
@@ -186,6 +186,8 @@
     "technical_failure_rule": "a technical failure is preserved and reported with its cost; it is never deleted and never re-run to improve a result",
     "temperature": "provider default, not overridden"
   },
+  "sample_class": "PILOT_INFORMED_POST_OUTCOME",
+  "sample_class_reason": "the draw seed was fixed after the full-frame run outcomes were already known to the author, so no pre-commitment record predates them. Mechanical reproducibility of the draw is not the same as prospective registration",
   "schema_version": "study1-hotspot-manifest-v1",
   "selection": {
     "outcome_independence": "the draw depends only on the seed and the pinned inventory, so it cannot depend on predicted or observed alert status",

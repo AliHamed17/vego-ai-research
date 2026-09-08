@@ -45,21 +45,25 @@ def h2(title: str, evidence_class: str | None = None) -> str:
 
 
 def build_correction(recon: dict[str, Any], ledger: dict[str, Any]) -> str:
+    def cell(value):
+        return NA_HE if value in (None, "NOT_AVAILABLE") else str(value)
+
     rows = []
     for run in recon["runs"]:
-        if run.get("status") == "NOT_AVAILABLE":
-            rows.append([esc(run["run_id"]), esc(NA_HE), "", "", "", "", ""])
-            continue
-        cost = run["cost"]
+        cost = run.get("cost", {})
         rows.append(
             [
                 esc(run["run_id"]),
-                esc(run["status"]),
-                str(run["complete_episodes"]),
-                f'{run["STRONG_ALERT"]} / {run["WEAK_ALERT"]} / {run["NO_ALERT"]}',
-                str(run["episodes_selected_for_review"]),
-                str(run["unvalidated_screening_fraction"]),
-                f'{cost["status"]} {cost.get("usd", "")}',
+                esc(run["execution_status"]),
+                cell(run.get("complete_episodes")),
+                "%s / %s / %s" % (
+                    cell(run.get("detector_class_STRONG_ALERT")),
+                    cell(run.get("detector_class_WEAK_ALERT")),
+                    cell(run.get("detector_class_NO_ALERT")),
+                ),
+                cell(run.get("episodes_selected_for_review")),
+                cell(run.get("unvalidated_screening_fraction")),
+                esc(cost.get("status", NA_HE)) + " " + str(cost.get("usd", "")),
             ]
         )
     body = (
@@ -78,8 +82,10 @@ def build_correction(recon: dict[str, Any], ledger: dict[str, Any]) -> str:
         "מתאים״ נכתב בלי לציין את הרמה, ולכן היה <b>שגוי ברמה הבינארית</b>. מכאן ואילך כל "
         "אמירה על התאמה חייבת לנקוב ברמה.</p>"
         + "<p><b>תיקון ב׳ — ״אף שיחה מעולם לא קיבלה ללא־התרעה״ נאמר בלי היקף.</b> הקביעה "
-        "נכונה עבור ההרצה המאושרת ושתי הרצות המסגרת המלאה. הרצת פיילוט מאוחרת רשמה שיחה "
-        "אחת ללא התרעה. אין סתירה ברגע שכל קביעה מנוסחת עם ההיקף שלה.</p>"
+        "נכונה עבור ההרצה המאושרת ושתי הרצות המסגרת המלאה, וזה ההיקף שיש לכתוב. המילה "
+        "״מעולם״ בלי היקף חלה גם על הרצות שה-head אינו יכול לאמת, ולכן אינה ניתנת להערכה. "
+        "הניסוח הנכון: <b>״בהרצה המאושרת ובשתי הרצות המסגרת המלאה, אף שיחה שהושלמה לא "
+        "סווגה ללא־התרעה״</b>.</p>"
         + "<p><b>תיקון ג׳ — שבר סינון תואר כהקטנת עומס.</b> בחירה בפחות שיחות אינה עבודה "
         "אנושית שנחסכה. הכמות נקראת מעתה <code>UNVALIDATED_SCREENING_FRACTION</code>, ואינה "
         "ראיה לתועלת, לשימור, לנכונות או לבטיחות.</p>"
@@ -102,15 +108,21 @@ def build_correction(recon: dict[str, Any], ledger: dict[str, Any]) -> str:
         "ואיחוד המכנים היה מתאר הרצה שמעולם לא בוצעה.</p>"
         + caption(
             meaning="כל ההרצות זו לצד זו, בלי איחוד",
-            numerator="4 הרצות",
+            numerator=f"{len(rows)} הרצות",
             denominator="כל אחת והמכנה שלה בלבד",
             source="study1c-reconciliation.json",
             limitation="שבר סינון אינו חיסכון בעבודה אנושית ואינו תועלת",
         )
-        + h2("3. מעמד מחקר המוקדים", UNAVAILABLE)
-        + "<p>המניפסט המעקב מצהיר <code>PREREGISTERED_NOT_EXECUTED</code>, ואין קבלה מעקב "
-        "במאגר. הקבלה הפרטית קיימת מקומית, אך <b>ארטיפקט פרטי אינו יכול לשדרג מעמד ציבורי</b>. "
-        "לכן המעמד שקורא יכול לאמת מן המאגר נותר: <b>מוקפא, לא בוצע</b>.</p>"
+        + h2("3. מעמד מחקר המוקדים ומשיכת חבילת התוצאות", UNAVAILABLE)
+        + "<p>המניפסט המעקב מצהיר <code>PREREGISTERED_NOT_EXECUTED</code>, ואין קבלה, יומן "
+        "אירועים או פנקס קריאות מעקב במאגר. ארטיפקטים פרטיים קיימים מקומית, אך <b>ארטיפקט "
+        "פרטי הוא ראיה לבעליו ולא לאיש אחר</b>. לכן המעמד הוא "
+        "<code>PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED</code>.</p>"
+        "<p class=\"warn\"><b>חבילת תוצאות המוקדים נמשכה מן ה-head.</b> הדוח, המצגת, "
+        "הסיכום העסקי, המפה ומפתח הראיות הוסרו. הם דיווחו על הרצה שקורא אינו יכול לאמת, "
+        "וסיימו בהכרעת <code>CONDITIONAL GO</code> שאיש לא אימת. המספרים שלהם <b>אינם "
+        "מפורסמים כאן מחדש</b>, משום שפרסומם היה מציג הרצה בלתי־מאומתת כהרצה שבוצעה. "
+        "ההיסטוריה נשמרה; דבר לא נכתב מחדש.</p>"
         "<p>בנוסף, זרע ההגרלה נקבע <b>לאחר</b> שתוצאות המסגרת המלאה כבר היו ידועות. ההגרלה "
         "ניתנת לשחזור, אך אין רישום התחייבות שקדם לתוצאות. לכן הדגימה מסווגת "
         "<code>PILOT_INFORMED_POST_OUTCOME</code> ו<b>אינה פרוספקטיבית</b>.</p>"
@@ -122,7 +134,15 @@ def build_correction(recon: dict[str, Any], ledger: dict[str, Any]) -> str:
             limitation="מעמד אינו תוצאה; הוא רק קובע מה מותר לטעון",
         )
         + '<div class="pb"></div>'
-        + h2("4. הממצא החזק ביותר שניתן להגנה", ARCHIVAL)
+        + h2("4. ההכרעה הנוכחית", UNAVAILABLE)
+        + '<p class="verdict"><b>DESCRIPTIVE_RULE_BEHAVIOUR_ONLY / '
+        "NOT_READY_FOR_SCIENTIFIC_CONCLUSION</b></p>"
+        "<p>אין דירוגים אנושיים עיוורים ואין מדידת זמן בדיקה, ולכן אף טענה על דיוק, תועלת, "
+        "עומס, שימור, סיבתיות, הכללה או תקפות מוקדים אינה ניתנת לחישוב. מה שנותר הוא "
+        "התנהגות הכלל על קלטים שנרשמו.</p>"
+        "<p class=\"warn\"><code>CONDITIONAL GO</code> נמשכה. הכרעה כזו מרמזת על תחום שבו "
+        "הבסיס מבוסס; איש לא אימת שרשרת ראיות שלמה ואיש לא הגדיר תחום כזה.</p>"
+        + h2("5. הממצא החזק ביותר שניתן להגנה", ARCHIVAL)
         + '<p class="verdict">תחת הכלל הרשום, סיווג ההתרעה רגיש מאוד לאורך שיחת השאלה־תשובה; '
         "שיחות ארוכות נוטות להיסחף אל ״התרעה חזקה״. זהו ממצא על <b>התנהגות הכלל</b>, "
         "ואינו אימות של צורך אמיתי בהתערבות אנושית.</p>"

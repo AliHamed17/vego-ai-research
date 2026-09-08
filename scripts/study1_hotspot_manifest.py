@@ -6,9 +6,11 @@ that a reader can tell the difference between a finding and a decision made afte
 
 Two properties matter most and are enforced here rather than promised in prose:
 
-  * **Selection cannot depend on outcomes.** The sample is a deterministic draw from the full
-    eligible frame using a seed fixed in this module. Anyone can recompute the draw from the seed
-    and the pinned inventory; there is no place for a human choice to enter.
+  * **The draw is mechanically reproducible.** The sample is a deterministic draw from the full
+    eligible frame using a seed fixed in this module, so anyone can recompute it. That is a
+    weaker property than it first appears: the seed itself was chosen after the full-frame run
+    outcomes were already known, so reproducibility of the draw is not a pre-commitment against
+    those outcomes. The sample is therefore `PILOT_INFORMED_POST_OUTCOME`, never prospective.
   * **The rubric predates the labels.** The rating question set, the response options, the
     adjudication rule and the metrics are all frozen here, before a single rater sees a card,
     so the rubric cannot be reshaped to fit whatever the labels turn out to be.
@@ -303,8 +305,18 @@ def build() -> dict[str, Any]:
                 "prioritized set defined as STRONG_ALERT only, versus STRONG_ALERT or WEAK_ALERT"
             ],
         },
+        "sample_class": "PILOT_INFORMED_POST_OUTCOME",
+        "sample_class_reason": (
+            "the draw seed was fixed after the full-frame run outcomes were already known to the "
+            "author, so no pre-commitment record predates them. Mechanical reproducibility of the "
+            "draw is not the same as prospective registration"
+        ),
         "evidence_classes": {
-            "this_run": "PROSPECTIVE EMPIRICAL EVIDENCE once executed under this manifest",
+            "this_run": (
+                "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE at best, and only once the receipt, "
+                "event log and ledger are verifiable from the published head. It may never be "
+                "labelled PROSPECTIVE EMPIRICAL EVIDENCE"
+            ),
             "prior_airtravel_runs": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE",
             "fake_provider_preflight": "ENGINEERING-ONLY FIXTURE",
             "unavailable_outcomes": "NOT_AVAILABLE",

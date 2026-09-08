@@ -231,7 +231,12 @@ def execute(grant: dict[str, Any]) -> int:
     receipt["study_id"] = "STUDY1-HOTSPOT"
     receipt["grant_id"] = grant["grant_id"]
     receipt["manifest_sha256"] = bindings["manifest_sha256"]
-    receipt["evidence_class"] = "PROSPECTIVE EMPIRICAL EVIDENCE"
+    receipt["evidence_class"] = "PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED"
+    receipt["sample_class"] = "PILOT_INFORMED_POST_OUTCOME"
+    receipt["evidence_class_note"] = (
+        "a receipt cannot promote itself. This run is unverified until its receipt, event log and "
+        "ledger are published in the head a reader is looking at"
+    )
     target = OUTPUT_ROOT / "run-receipt.json"
     with target.open("xb") as handle:
         handle.write(

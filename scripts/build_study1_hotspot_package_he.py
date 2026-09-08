@@ -524,6 +524,35 @@ def build_evidence_index(manifest: dict[str, Any], analysis_path: Path,
     return page("מפתח ראיות", DOC_CSS, body)
 
 
+class UnverifiableRunError(RuntimeError):
+    """Raised when a results package would publish a run this head cannot verify."""
+
+
+def refuse_unverifiable(reconciliation: Path) -> None:
+    """A results package may not represent an unverified run as an executed one.
+
+    The hotspot receipt, event log and ledger are git-ignored. A reader with only this repository
+    cannot check them, so publishing their counts would assert something the head does not
+    support. The builder refuses rather than emitting a document that has to be believed.
+    """
+    if not reconciliation.is_file():
+        raise UnverifiableRunError(
+            f"{reconciliation.name} is absent; run scripts/study1c_reconciliation.py first"
+        )
+    payload = json.loads(reconciliation.read_text(encoding="utf-8"))
+    blocked = [
+        row["run_id"]
+        for row in payload["runs"]
+        if row["execution_status"] == "PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED"
+    ]
+    if blocked:
+        raise UnverifiableRunError(
+            "refusing to build a results package: "
+            f"{', '.join(blocked)} is not verifiable from this head. See "
+            "2026-09-09-study1-hotspot-withdrawal-record.md"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--analysis", type=Path, required=True)
@@ -537,6 +566,7 @@ def main() -> int:
     parser.add_argument("--verdict-reason", required=True)
     args = parser.parse_args()
 
+    refuse_unverifiable(ROOT / "docs/research/phd-proposal/study1c-reconciliation.json")
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     analysis = json.loads(args.analysis.read_text(encoding="utf-8"))
     verdict = {"label": args.verdict_label, "reason": args.verdict_reason}

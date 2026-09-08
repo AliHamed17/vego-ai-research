@@ -137,8 +137,27 @@ def unavailable(reason: str, missing: list[str]) -> dict[str, Any]:
     }
 
 
+class PooledDenominatorError(RuntimeError):
+    """Raised when rows from more than one run reach a table that scores a single denominator."""
+
+
+def assert_single_run(rows: list[dict[str, Any]]) -> None:
+    """Pooling is impossible by default, not merely discouraged.
+
+    Every table here scores one run against its own denominator. If rows from two runs arrive the
+    resulting rate would describe a run nobody executed, so the call fails rather than returning a
+    number that looks fine and means nothing.
+    """
+    labels = {row.get("run_label") for row in rows if row.get("run_label")}
+    if len(labels) > 1:
+        raise PooledDenominatorError(
+            f"rows span {len(labels)} runs {sorted(labels)}; runs are never pooled"
+        )
+
+
 def table_b(rows: list[dict[str, Any]], verdicts: dict[str, str] | None,
             key: dict[str, str] | None) -> dict[str, Any]:
+    assert_single_run(rows)
     complete = [row for row in rows if row["complete"]]
     alert_rate = (
         round(sum(1 for row in complete if row["classification"] in ALERT_CLASSES) / len(complete), 4)
@@ -196,6 +215,7 @@ def table_b(rows: list[dict[str, Any]], verdicts: dict[str, str] | None,
 def table_c(rows: list[dict[str, Any]], verdicts: dict[str, str] | None,
             key: dict[str, str] | None, receipts: list[dict[str, Any]],
             minutes: dict[str, float] | None) -> dict[str, Any]:
+    assert_single_run(rows)
     complete = [row for row in rows if row["complete"]]
     prioritized = [row for row in complete if row["classification"] in PRIORITIZED_DEFAULT]
     cost = sum(
@@ -203,19 +223,19 @@ def table_c(rows: list[dict[str, Any]], verdicts: dict[str, str] | None,
     )
     cases = sum((receipt.get("N") or 0) for receipt in receipts)
     result: dict[str, Any] = {
-        "all_episodes_review_workload": len(complete),
-        "detector_prioritized_review_workload": len(prioritized),
+        "all_complete_episodes": len(complete),
+        "episodes_selected_for_review": len(prioritized),
         "prioritized_set_definition": "STRONG_ALERT, fixed in the manifest before results",
-        "workload_reduction_fraction": (
+        "unvalidated_screening_fraction": (
             round(1 - len(prioritized) / len(complete), 4) if complete else None
         ),
         "provider_cost_usd": round(cost, 6),
         "cost_per_completed_case_usd": round(cost / cases, 6) if cases else NOT_AVAILABLE,
     }
     if not verdicts or not key:
-        result["proportion_of_human_worthy_retained"] = NOT_AVAILABLE
+        result["share_of_human_worthy_in_selected_set"] = NOT_AVAILABLE
         result["cost_per_human_confirmed_review_worthy_episode_usd"] = NOT_AVAILABLE
-        result["review_minutes_saved"] = NOT_AVAILABLE
+        result["review_minutes_difference"] = NOT_AVAILABLE
         result["unavailable"] = unavailable(
             "retention, cost per confirmed episode and minutes saved are defined against human "
             "ratings that do not exist",
@@ -226,7 +246,7 @@ def table_c(rows: list[dict[str, Any]], verdicts: dict[str, str] | None,
     by_episode = {key[card]: verdict for card, verdict in verdicts.items() if card in key}
     worthy = [row for row in complete if by_episode.get(row["episode_id"]) == WORTHY]
     retained = [row for row in worthy if row["classification"] in PRIORITIZED_DEFAULT]
-    result["proportion_of_human_worthy_retained"] = (
+    result["share_of_human_worthy_in_selected_set"] = (
         round(len(retained) / len(worthy), 4) if worthy else None
     )
     result["cost_per_human_confirmed_review_worthy_episode_usd"] = (
@@ -238,10 +258,10 @@ def table_c(rows: list[dict[str, Any]], verdicts: dict[str, str] | None,
             for card, verdict in verdicts.items()
             if key.get(card) in {row["episode_id"] for row in prioritized}
         )
-        result["review_minutes_saved"] = round(saved, 2)
+        result["review_minutes_difference"] = round(saved, 2)
         result["review_minutes_basis"] = "measured per-card times supplied by raters"
     else:
-        result["review_minutes_saved"] = NOT_AVAILABLE
+        result["review_minutes_difference"] = NOT_AVAILABLE
         result["review_minutes_basis"] = (
             "raters did not record per-card time; minutes saved may not be estimated"
         )
@@ -290,8 +310,8 @@ def sensitivity(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "preregistered": True,
         "prioritized_set_definition": "STRONG_ALERT or WEAK_ALERT",
-        "detector_prioritized_review_workload": len(wide),
-        "workload_reduction_fraction": (
+        "episodes_selected_for_review": len(wide),
+        "unvalidated_screening_fraction": (
             round(1 - len(wide) / len(complete), 4) if complete else None
         ),
         "note": "the only sensitivity analysis permitted by the manifest",

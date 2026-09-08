@@ -180,30 +180,30 @@ class TestMissingLabelsProduceRefusal:
         assert table["alert_rate"] == 1.0
         assert table["denominator_complete_episodes"] == 3
 
-    def test_table_c_refuses_retention_and_minutes_without_raters(self):
+    def test_table_c_refuses_the_human_dependent_quantities_without_raters(self):
         table = analysis.table_c(self.rows(), None, None, [], None)
-        assert table["proportion_of_human_worthy_retained"] == analysis.NOT_AVAILABLE
-        assert table["review_minutes_saved"] == analysis.NOT_AVAILABLE
+        assert table["share_of_human_worthy_in_selected_set"] == analysis.NOT_AVAILABLE
+        assert table["review_minutes_difference"] == analysis.NOT_AVAILABLE
         assert table["unavailable"]["substitution_permitted"] is False
 
-    def test_table_c_reports_the_workload_split_which_needs_no_raters(self):
+    def test_table_c_reports_the_selection_split_which_needs_no_raters(self):
         table = analysis.table_c(self.rows(), None, None, [], None)
-        assert table["all_episodes_review_workload"] == 3
-        assert table["detector_prioritized_review_workload"] == 2
-        assert table["workload_reduction_fraction"] == pytest.approx(1 / 3, abs=1e-4)
+        assert table["all_complete_episodes"] == 3
+        assert table["episodes_selected_for_review"] == 2
+        assert table["unvalidated_screening_fraction"] == pytest.approx(1 / 3, abs=1e-4)
 
     def test_minutes_are_never_estimated_when_unmeasured(self):
         verdicts = {"CARD-001": analysis.WORTHY}
         key = {"CARD-001": "EP-0"}
         table = analysis.table_c(self.rows(), verdicts, key, [], None)
-        assert table["review_minutes_saved"] == analysis.NOT_AVAILABLE
+        assert table["review_minutes_difference"] == analysis.NOT_AVAILABLE
         assert "may not be estimated" in table["review_minutes_basis"]
 
     def test_the_wide_prioritized_set_is_degenerate_at_an_alert_rate_of_one(self):
         """The reason the manifest fixes the prioritized set to STRONG_ALERT before results."""
         result = analysis.sensitivity(self.rows())
         assert result["preregistered"] is True
-        assert result["workload_reduction_fraction"] == 0.0
+        assert result["unvalidated_screening_fraction"] == 0.0
 
 
 class TestExecutionGates:

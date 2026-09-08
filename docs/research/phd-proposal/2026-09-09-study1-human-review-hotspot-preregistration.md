@@ -10,13 +10,28 @@ reasoning.
 
 ---
 
+> **CORRECTION — 2026-09-09.** Two statements in this preregistration were wrong and are corrected
+> here. (1) The sample is **not prospective**: the draw seed was fixed after the full-frame run
+> outcomes were already known, so it is `PILOT_INFORMED_POST_OUTCOME`. Mechanical reproducibility
+> of a draw is not a pre-commitment against outcomes already seen. (2) No artefact of this study
+> may be labelled `PROSPECTIVE EMPIRICAL EVIDENCE`. The study status is
+> `PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED`; see
+> [the withdrawal record](2026-09-09-study1-hotspot-withdrawal-record.md).
+
+
 ## 1. The primary question
 
 > **Among complete Q&A episodes, how well does Detector-v1 prioritize episodes that blinded human
 > raters independently judge as requiring human review?**
 
-The outcome of interest is **not** whether the AI was correct. It is whether the detector
-**reduces review workload while retaining the episodes humans judge worth reviewing**.
+The outcome of interest is **not** whether the AI was correct. It is whether the set of episodes
+the rule selects corresponds to the set blinded human raters independently judge worth reviewing.
+
+**Wording discipline.** Until measured review time and blinded ratings both exist, the share of
+episodes a rule declines to select is called `UNVALIDATED_SCREENING_FRACTION`, and the words
+*workload reduction*, *saving* and *retention* are not used for it. A reduced number of episodes
+selected by a rule is not evidence of reduced human workload, retained useful cases, correctness,
+benefit, or safety without blinded human ratings and measured review time.
 
 ### 1.1 The primary outcome cannot be produced without human raters
 
@@ -47,7 +62,8 @@ This study is designed so that the moment two raters are available, the analysis
 | Eligible frame | **21 cases**, by the predicate already recorded in `study1_case_selection.py` |
 | Sample size | **6** |
 | Selection rule | deterministic seeded shuffle of the full eligible frame, take the first 6, sort by path |
-| Seed | **20260909**, fixed in code before the draw |
+| Seed | **20260909**, fixed in code before the draw but **after** the full-frame outcomes were known |
+| Sample class | **`PILOT_INFORMED_POST_OUTCOME`** — never prospective |
 
 **Selected cases** (all 21 eligible are listed in the manifest):
 
@@ -55,8 +71,10 @@ This study is designed so that the moment two raters are available, the analysis
 `result_one_meta-llama_Llama-3.2-3B-Instruct.txt` ·
 `result_one_mistralai_Mistral-7B-Instruct-v0.3.txt` · `result_one_o3-mini.txt`
 
-The draw depends only on the seed and the pinned inventory. **It cannot depend on predicted or
-observed alert status**, and anyone can recompute it. Two of the six are large outputs (7,161 and
+The draw depends only on the seed and the pinned inventory, and anyone can recompute it.
+**That is weaker than it sounds:** the seed was fixed after the full-frame run outcomes were
+already known to the author, so reproducibility of the draw is not a pre-commitment against
+outcomes already seen. The sample is `PILOT_INFORMED_POST_OUTCOME`. Two of the six are large outputs (7,161 and
 7,182 bytes) and four are compact; that spread is a consequence of the draw, not a choice, and
 file size is recorded as an observable property, never as a quality or difficulty measure.
 
@@ -111,15 +129,17 @@ Fourteen complete episodes with retrievable Q&A text already exist from prior ru
 **ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE**. A new run is authorized here for reasons that
 adding episodes to a rating pile would not justify on its own:
 
-1. It is the only way to obtain **PROSPECTIVE EMPIRICAL EVIDENCE** for pipeline reliability
-   (Table A), because that requires generation under a preregistration that predates it.
+1. ~~It is the only way to obtain **PROSPECTIVE EMPIRICAL EVIDENCE** for pipeline reliability.~~
+   **Withdrawn.** The seed was chosen after the full-frame outcomes were known, so nothing this
+   run produces is prospective. At best it is archival, and only once its evidence chain is
+   verifiable from the published head.
 2. It supplies an independent test of the one quantity that decides the workload question:
    **whether any episode is ever `NO_ALERT`.** Across all 25 episodes observed to date, the count
    is zero. A further independent run returning zero again is substantive evidence about the
    detector's operating point; a run returning one would change the picture.
 
-**More episodes are not treated as stronger evidence.** The archival and prospective sets keep
-separate denominators and are never pooled.
+**More episodes are not treated as stronger evidence.** Every run keeps its own denominator and
+runs are never pooled.
 
 ## 6. Human validation — frozen rubric
 
@@ -183,7 +203,8 @@ is permitted.
 
 | Label | Applies to |
 |---|---|
-| **PROSPECTIVE EMPIRICAL EVIDENCE** | the single run executed under this manifest |
+| ~~**PROSPECTIVE EMPIRICAL EVIDENCE**~~ | **withdrawn — unattainable for this study** |
+| **`PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED`** | this study, until its receipt, event log and ledger are verifiable from the published head |
 | **ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE** | the accepted AirTravel run and the earlier full-frame runs |
 | **ENGINEERING-ONLY FIXTURE** | the offline fake-provider preflight and any fixture-derived label |
 | **NOT_AVAILABLE** | every outcome requiring human raters, until those raters exist |

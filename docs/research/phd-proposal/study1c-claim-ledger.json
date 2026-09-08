@@ -1,7 +1,7 @@
 {
   "counts": {
-    "permitted": 7,
-    "prohibited": 10
+    "permitted": 8,
+    "prohibited": 14
   },
   "evidence_class_vocabulary": [
     "PROSPECTIVE EMPIRICAL EVIDENCE",
@@ -27,14 +27,14 @@
     {
       "claim": "Detector-v1 selected every complete episode for review in the accepted run and in both Study 1C runs, so its UNVALIDATED_SCREENING_FRACTION there is 0.",
       "evidence_class": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE",
-      "evidence_source": "external_data/airtravel-pr38/reconciliation.json",
+      "evidence_source": "docs/research/phd-proposal/study1c-reconciliation.json",
       "limitation": "a screening fraction is not saved human work and not a benefit",
       "status": "PERMITTED"
     },
     {
       "claim": "Per-run counts of complete episodes, incomplete technical episodes, STRONG/WEAK/NO_ALERT, calls and cost, each on its own denominator.",
       "evidence_class": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE",
-      "evidence_source": "external_data/airtravel-pr38/reconciliation.json",
+      "evidence_source": "docs/research/phd-proposal/study1c-reconciliation.json",
       "limitation": "runs differ in configuration and are never pooled or averaged",
       "status": "PERMITTED"
     },
@@ -53,14 +53,49 @@
       "status": "PERMITTED"
     },
     {
-      "claim": "The hotspot study is preregistered; its manifest declares PREREGISTERED_NOT_EXECUTED and no run receipt is tracked in this repository.",
+      "claim": "The hotspot study is preregistered; its manifest declares PREREGISTERED_NOT_EXECUTED and no run receipt is tracked in this repository, so its status is PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED.",
       "evidence_class": "REPOSITORY-VERIFIABLE STATUS",
       "evidence_source": "docs/research/phd-proposal/study1-hotspot-manifest.json",
       "limitation": "a private local receipt cannot upgrade a public status",
       "status": "PERMITTED"
+    },
+    {
+      "claim": "The current overall verdict is DESCRIPTIVE_RULE_BEHAVIOUR_ONLY / NOT_READY_FOR_SCIENTIFIC_CONCLUSION.",
+      "evidence_class": "REPOSITORY-VERIFIABLE STATUS",
+      "evidence_source": "docs/research/phd-proposal/study1c-reconciliation.json",
+      "limitation": "no independent reviewer has verified a complete evidence chain",
+      "status": "PERMITTED"
     }
   ],
   "prohibited": [
+    {
+      "claim": "CONDITIONAL GO, or any verdict implying an established baseline.",
+      "evidence_class_if_ever_available": "NOT_AVAILABLE",
+      "required_wording_instead": "DESCRIPTIVE_RULE_BEHAVIOUR_ONLY / NOT_READY_FOR_SCIENTIFIC_CONCLUSION",
+      "status": "PROHIBITED",
+      "why_prohibited": "no independent reviewer verified a complete evidence chain and no limited scope was defined; the primary outcome does not exist"
+    },
+    {
+      "claim": "Detector-v1 demonstrably prioritizes.",
+      "evidence_class_if_ever_available": "NOT_AVAILABLE",
+      "required_wording_instead": "the rule selected N of M complete episodes under the stated binary rule",
+      "status": "PROHIBITED",
+      "why_prohibited": "prioritization implies an ordering validated against something; nothing validates it here"
+    },
+    {
+      "claim": "The only remaining blocker is two human raters.",
+      "evidence_class_if_ever_available": "NOT_AVAILABLE",
+      "required_wording_instead": "list every open blocker, including evidence verifiability",
+      "status": "PROHIBITED",
+      "why_prohibited": "false; the hotspot evidence chain is also not verifiable from the published head"
+    },
+    {
+      "claim": "Retention of review-worthy episodes.",
+      "evidence_class_if_ever_available": "NOT_AVAILABLE",
+      "required_wording_instead": "share_of_human_worthy_in_selected_set, once ratings exist",
+      "status": "PROHIBITED",
+      "why_prohibited": "retention is defined against blinded human ratings that do not exist"
+    },
     {
       "claim": "Detector-v1 reduces human review workload.",
       "evidence_class_if_ever_available": "NOT_AVAILABLE",
@@ -85,9 +120,9 @@
     {
       "claim": "No episode has ever been NO_ALERT.",
       "evidence_class_if_ever_available": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE",
-      "required_wording_instead": "scope the sentence to the runs it describes",
+      "required_wording_instead": "scope the sentence to the runs it describes: 'across the accepted run and both full-frame runs, no complete episode was NO_ALERT'",
       "status": "PROHIBITED",
-      "why_prohibited": "unscoped. True of the accepted run and both full-frame runs; a later pilot run recorded one"
+      "why_prohibited": "unscoped. It is true of the accepted run and both full-frame runs, and an unscoped 'ever' would also range over runs this head cannot verify"
     },
     {
       "claim": "A case on which Detector-v1 is silent is safe, or contains no problem.",

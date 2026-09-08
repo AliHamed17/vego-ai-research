@@ -26,8 +26,8 @@ ARCHIVAL = "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE"
 FIXTURE = "ENGINEERING-ONLY FIXTURE"
 UNAVAILABLE = "NOT_AVAILABLE"
 
-RECON = "external_data/airtravel-pr38/reconciliation.json"
-BASELINES = "external_data/airtravel-pr38/analysis-baselines/detector-baselines.json"
+RECON = "docs/research/phd-proposal/study1c-reconciliation.json"
+BASELINES = "external_data/airtravel-pr38/analysis-baselines/detector-baselines.json"  # private
 MANIFEST = "docs/research/phd-proposal/study1-hotspot-manifest.json"
 
 PERMITTED = [
@@ -77,14 +77,51 @@ PERMITTED = [
     },
     {
         "claim": "The hotspot study is preregistered; its manifest declares "
-                 "PREREGISTERED_NOT_EXECUTED and no run receipt is tracked in this repository.",
+                 "PREREGISTERED_NOT_EXECUTED and no run receipt is tracked in this repository, so "
+                 "its status is PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED.",
         "evidence_source": MANIFEST,
         "evidence_class": "REPOSITORY-VERIFIABLE STATUS",
         "limitation": "a private local receipt cannot upgrade a public status",
     },
+    {
+        "claim": "The current overall verdict is DESCRIPTIVE_RULE_BEHAVIOUR_ONLY / "
+                 "NOT_READY_FOR_SCIENTIFIC_CONCLUSION.",
+        "evidence_source": RECON,
+        "evidence_class": "REPOSITORY-VERIFIABLE STATUS",
+        "limitation": "no independent reviewer has verified a complete evidence chain",
+    },
 ]
 
 PROHIBITED = [
+    {
+        "claim": "CONDITIONAL GO, or any verdict implying an established baseline.",
+        "why_prohibited": "no independent reviewer verified a complete evidence chain and no "
+                          "limited scope was defined; the primary outcome does not exist",
+        "required_wording_instead": "DESCRIPTIVE_RULE_BEHAVIOUR_ONLY / "
+                                    "NOT_READY_FOR_SCIENTIFIC_CONCLUSION",
+        "evidence_class_if_ever_available": UNAVAILABLE,
+    },
+    {
+        "claim": "Detector-v1 demonstrably prioritizes.",
+        "why_prohibited": "prioritization implies an ordering validated against something; nothing "
+                          "validates it here",
+        "required_wording_instead": "the rule selected N of M complete episodes under the stated "
+                                    "binary rule",
+        "evidence_class_if_ever_available": UNAVAILABLE,
+    },
+    {
+        "claim": "The only remaining blocker is two human raters.",
+        "why_prohibited": "false; the hotspot evidence chain is also not verifiable from the "
+                          "published head",
+        "required_wording_instead": "list every open blocker, including evidence verifiability",
+        "evidence_class_if_ever_available": UNAVAILABLE,
+    },
+    {
+        "claim": "Retention of review-worthy episodes.",
+        "why_prohibited": "retention is defined against blinded human ratings that do not exist",
+        "required_wording_instead": "share_of_human_worthy_in_selected_set, once ratings exist",
+        "evidence_class_if_ever_available": UNAVAILABLE,
+    },
     {
         "claim": "Detector-v1 reduces human review workload.",
         "why_prohibited": "no human review time was measured and no human-review outcome exists; "
@@ -107,9 +144,11 @@ PROHIBITED = [
     },
     {
         "claim": "No episode has ever been NO_ALERT.",
-        "why_prohibited": "unscoped. True of the accepted run and both full-frame runs; a later "
-                          "pilot run recorded one",
-        "required_wording_instead": "scope the sentence to the runs it describes",
+        "why_prohibited": "unscoped. It is true of the accepted run and both full-frame runs, and "
+                          "an unscoped 'ever' would also range over runs this head cannot verify",
+        "required_wording_instead": "scope the sentence to the runs it describes: 'across the "
+                                    "accepted run and both full-frame runs, no complete episode "
+                                    "was NO_ALERT'",
         "evidence_class_if_ever_available": ARCHIVAL,
     },
     {
