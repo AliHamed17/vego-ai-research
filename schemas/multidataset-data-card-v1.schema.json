@@ -17,7 +17,17 @@
     "dataset_name": {"type": "string", "minLength": 1},
     "evidence_class": {"type": "string", "minLength": 1},
     "owner_or_publisher": {"type": "string", "minLength": 1},
-    "official_source": {"type": "object"},
+    "official_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "concept_doi": {"type": ["string", "null"], "maxLength": 256},
+        "record_doi": {"type": ["string", "null"], "maxLength": 256},
+        "record_url": {"type": ["string", "null"], "maxLength": 512},
+        "retrieved_at": {"type": ["string", "null"], "maxLength": 128},
+        "source": {"type": ["string", "null"], "maxLength": 256}
+      }
+    },
     "licence": {
       "type": "object",
       "required": ["status", "name", "url"],
@@ -28,7 +38,14 @@
       },
       "additionalProperties": false
     },
-    "date_or_version": {"type": "object"},
+    "date_or_version": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "published": {"type": ["string", "null"], "maxLength": 128},
+        "version": {"type": ["string", "null"], "maxLength": 256}
+      }
+    },
     "raw_artifact": {
       "type": "object",
       "required": ["sha256", "file_inventory", "storage"],
@@ -36,9 +53,29 @@
         "sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
         "bytes": {"type": ["integer", "null"], "minimum": 0},
         "file_inventory": {"type": "array"},
-        "storage": {"const": "GITIGNORED_LOCAL_ONLY"}
+        "storage": {"const": "GITIGNORED_LOCAL_ONLY"},
+        "parser_version": {"type": ["string", "null"], "maxLength": 256},
+        "inventory_method": {"type": ["string", "null"], "maxLength": 256}
       },
-      "additionalProperties": true
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "properties": {
+            "file_inventory": {
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "bytes", "sha256"],
+                "properties": {
+                  "name": {"type": "string", "minLength": 1, "maxLength": 256},
+                  "bytes": {"type": "integer", "minimum": 0},
+                  "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "source_file_count": {"type": ["integer", "null"], "minimum": 0},
     "analysis_unit": {"type": "string", "minLength": 1},
@@ -51,7 +88,22 @@
     "prohibited_claims": {"type": "array", "items": {"type": "string"}},
     "decision": {"enum": ["ADMITTED", "ADMITTED_WITH_LIMITATIONS", "NOT_ADMITTED"]},
     "admission_blockers": {"type": "array", "items": {"type": "string"}},
-    "review_status": {"type": "string", "minLength": 1}
+    "review_status": {"type": "string", "minLength": 1, "maxLength": 256},
+    "label_role": {"type": "string", "minLength": 1, "maxLength": 256},
+    "metadata_inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_class", "top_level", "extension_counts", "content_inspection"],
+      "properties": {
+        "source_class": {"type": "string", "minLength": 1, "maxLength": 256},
+        "top_level": {"type": "string", "minLength": 1, "maxLength": 256},
+        "extension_counts": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        },
+        "content_inspection": {"type": "string", "minLength": 1, "maxLength": 256}
+      }
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

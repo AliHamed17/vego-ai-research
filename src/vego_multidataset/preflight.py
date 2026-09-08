@@ -110,8 +110,8 @@ class EngineeringPreflightRunner:
         approved_root: Path,
         execution_code_sha: str,
     ) -> None:
-        if getattr(client, "offline_only", False) is not True:
-            raise EngineeringPreflightError("preflight requires a declared offline-only fixture client")
+        if type(client) is not DeterministicOfflineFixtureClient:
+            raise EngineeringPreflightError("preflight requires the trusted deterministic fixture client")
         if not cases:
             raise EngineeringPreflightError("preflight requires at least one engineering fixture")
         if any(case.dataset_id != _FIXTURE_MARKER for case in cases):
@@ -228,7 +228,7 @@ def validate_engineering_preflight_receipt(path: Path) -> dict[str, Any]:
     if receipt.get("provider_calls") != 0 or receipt.get("external_provider_calls") != 0:
         raise EngineeringPreflightError("receipt reports a provider or external call")
     conditions = receipt.get("conditions")
-    if not isinstance(conditions, Mapping):
+    if not isinstance(conditions, Mapping) or set(conditions) != {"VEGO_AI_ON", "VEGO_AI_OFF"}:
         raise EngineeringPreflightError("receipt conditions are unavailable")
     off = conditions.get("VEGO_AI_OFF")
     on = conditions.get("VEGO_AI_ON")
@@ -237,10 +237,23 @@ def validate_engineering_preflight_receipt(path: Path) -> dict[str, Any]:
     if on.get("detector_v1") != "NOT_EXECUTED_ENGINEERING_ENVELOPE_ONLY":
         raise EngineeringPreflightError("ON detector boundary is invalid")
     if (
+        on.get("agent_decomposition") is not True
+        or on.get("inter_agent_qa") is not True
+        or on.get("round_loop") is not True
+        or not isinstance(on.get("qa_envelope_episodes"), int)
+        or on["qa_envelope_episodes"] < 1
+        or on.get("agent4_invoked") is not False
+        or on.get("raw_content_persisted") is not False
+    ):
+        raise EngineeringPreflightError("ON boundary is invalid")
+    if (
         off.get("detector_v1") != "NOT_APPLICABLE"
+        or off.get("agent_decomposition") is not False
         or off.get("inter_agent_qa") is not False
         or off.get("round_loop") is not False
+        or off.get("qa_envelope_episodes") != 0
         or off.get("agent4_invoked") is not False
+        or off.get("raw_content_persisted") is not False
     ):
         raise EngineeringPreflightError("OFF boundary is invalid")
     return receipt

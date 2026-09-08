@@ -20,6 +20,7 @@ class AdmissionError(ValueError):
 _SHA256_RE = re.compile(r"^[a-f0-9]{64}$")
 _DECISIONS = {"ADMITTED", "ADMITTED_WITH_LIMITATIONS", "NOT_ADMITTED"}
 _PRIVATE_MARKERS = ("external_data/", "external_data\\", "c:\\users\\", "c:/users/")
+_ABSOLUTE_PATH_RE = re.compile(r"^(?:[a-z]:[\\/]|\\\\|/|~[\\/]|file:)", re.IGNORECASE)
 _REQUIRED_FIELDS = {
     "schema_version",
     "dataset_id",
@@ -46,7 +47,12 @@ _REQUIRED_FIELDS = {
 
 
 def _known_licence(value: object) -> bool:
-    return isinstance(value, Mapping) and isinstance(value.get("name"), str) and bool(value["name"].strip())
+    return (
+        isinstance(value, Mapping)
+        and value.get("status") == "VERIFIED"
+        and isinstance(value.get("name"), str)
+        and bool(value["name"].strip())
+    )
 
 
 def _valid_sha256(value: object) -> bool:
@@ -57,7 +63,13 @@ def _safe_text(value: object) -> bool:
     if not isinstance(value, str):
         return True
     lowered = value.lower()
-    return not any(marker in lowered for marker in _PRIVATE_MARKERS)
+    return (
+        len(value) <= 512
+        and "\n" not in value
+        and "\r" not in value
+        and not _ABSOLUTE_PATH_RE.match(value)
+        and not any(marker in lowered for marker in _PRIVATE_MARKERS)
+    )
 
 
 def _ensure_safe_values(value: Any) -> None:
@@ -94,7 +106,9 @@ def validate_data_card(card: Mapping[str, Any]) -> None:
     inventory = raw.get("file_inventory")
     if card["decision"] in {"ADMITTED", "ADMITTED_WITH_LIMITATIONS"}:
         if not _known_licence(card["licence"]):
-            raise AdmissionError("an admitted dataset requires a known licence")
+            raise AdmissionError("an admitted dataset requires a verified licence")
+        if card["admission_blockers"]:
+            raise AdmissionError("an admitted dataset cannot retain admission blockers")
         if not _valid_sha256(raw.get("sha256")):
             raise AdmissionError("an admitted dataset requires a raw SHA-256")
         if not isinstance(inventory, list) or not inventory:

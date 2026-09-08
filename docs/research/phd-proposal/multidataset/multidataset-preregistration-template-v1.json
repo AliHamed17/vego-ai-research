@@ -23,6 +23,8 @@
     "provider": "OpenAI",
     "model_id": "NOT_FROZEN_BY_USER",
     "model_version": "NOT_FROZEN_BY_USER",
+    "model_freeze_status": "USER_NOT_FROZEN",
+    "model_approval_sha256": null,
     "total_budget_ceiling_usd": 6.0,
     "fallback_or_switching": "FORBIDDEN",
     "retry_policy": "ONE_TRANSPORT_RETRY_BEFORE_VALID_OUTPUT_ONLY",

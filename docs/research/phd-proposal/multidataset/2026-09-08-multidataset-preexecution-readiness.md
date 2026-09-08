@@ -38,6 +38,8 @@ human benefit, VEGO-AI superiority, generalisation, or model performance.
    official pinned record, or receive licensor confirmation.
 2. Establish provenance, licence, and a declared task for the VEGO_SE archive.
 3. Freeze one explicit OpenAI model and version, supplied by the user.
+   The freeze must include an immutable approval-record SHA-256; a model-like
+   string alone is not a freeze.
 4. Freeze case selection, model configuration, call ceiling, and conservative
    USD-6 arithmetic before any output is read.
 5. Run the appropriate private, full ON/OFF fake preflight, push the immutable

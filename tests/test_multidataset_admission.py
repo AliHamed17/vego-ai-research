@@ -57,6 +57,29 @@ def test_data_card_rejects_admitted_decision_when_licence_is_unknown() -> None:
         validate_data_card(card)
 
 
+def test_data_card_rejects_named_but_unverified_licence_and_unsafe_metadata() -> None:
+    source = _qure_source(licence="CC-BY-4.0")
+    source["raw_file_sha256"] = "a" * 64
+    source["file_inventory"] = [{"name": "QuRE.csv", "bytes": 1, "sha256": "a" * 64}]
+    card = build_qure_data_card(source)
+
+    named_but_unverified = dict(card)
+    named_but_unverified["licence"] = {"status": "UNVERIFIED", "name": "CC-BY-4.0", "url": None}
+    with pytest.raises(AdmissionError, match="licence"):
+        validate_data_card(named_but_unverified)
+
+    unsafe_extra = dict(card)
+    unsafe_extra["unreviewed_raw_content"] = "a requirement copied from a private dataset"
+    with pytest.raises(AdmissionError, match="schema"):
+        validate_data_card(unsafe_extra)
+
+    unsafe_path = dict(card)
+    unsafe_path["official_source"] = dict(card["official_source"])
+    unsafe_path["official_source"]["source"] = r"\\server\restricted\dataset"
+    with pytest.raises(AdmissionError, match="private path"):
+        validate_data_card(unsafe_path)
+
+
 def test_vego_archive_without_provenance_or_licence_is_not_admitted() -> None:
     card = build_vego_se_archive_card(
         {

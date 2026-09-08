@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/build_multidataset_admission.py"
+PREREGISTRATION = ROOT / "docs/research/phd-proposal/multidataset/multidataset-preregistration-template-v1.json"
 
 
 def _load_builder():
@@ -36,3 +37,12 @@ def test_admission_builder_generates_safe_consistent_blocked_artifacts(tmp_path:
     assert "external_data/" not in tracked_text
     assert "C:\\Users" not in tracked_text
     assert "ENGINEERING_FIXTURE_NOT_SCIENTIFIC" not in tracked_text
+
+
+def test_preregistration_requires_explicit_user_model_freeze_binding() -> None:
+    template = json.loads(PREREGISTRATION.read_text(encoding="utf-8"))
+    policy = template["provider_policy"]
+
+    assert policy["model_freeze_status"] == "USER_NOT_FROZEN"
+    assert policy["model_approval_sha256"] is None
+    assert policy["provider_calls_permitted"] is False

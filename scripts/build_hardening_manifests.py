@@ -99,12 +99,14 @@ SOURCE_PREFIXES = (
     "schemas/",
     "scripts/hlayer_offline/",
     "scripts/tests/",
+    "src/vego_multidataset/",
     "src/vego_hlayer/",
     "tests/hlayer_offline/",
     "VEGO-AI/tests/",
 )
 SOURCE_EXTRA = (
     "scripts/build-hlayer-experiments.ps1",
+    "scripts/build_multidataset_admission.py",
     "scripts/build_bigui.py",
     "scripts/build_hardening_manifests.py",
     "scripts/study1_case_selection.py",
@@ -115,6 +117,7 @@ SOURCE_EXTRA = (
     "scripts/check_quality_ratchet.py",
     "scripts/check_evidence_consistency.py",
     "scripts/run_hlayer_architecture.py",
+    "scripts/run_multidataset_engineering_preflight.py",
     "scripts/security_audit.py",
     "scripts/evaluate_independent_ground_truth.py",
     "scripts/freeze_independent_calibration.py",
@@ -144,6 +147,12 @@ SOURCE_EXTRA = (
     "VEGO-AI/tests/test_memory_informed_classifier.py",
     "VEGO-AI/tests/test_visualizer_helpers.py",
     "VEGO-AI/vego_visualizer_delivery/visualizer_utils.py",
+    "tests/test_multidataset_adapter.py",
+    "tests/test_multidataset_admission.py",
+    "tests/test_multidataset_admission_report.py",
+    "tests/test_multidataset_preflight.py",
+    "tests/test_multidataset_protocol.py",
+    "tests/test_multidataset_release_binding.py",
 )
 
 

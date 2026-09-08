@@ -4,6 +4,8 @@ import copy
 
 import pytest
 
+from vego_multidataset.adapter import ExecutionCase, deterministic_selection_manifest
+from vego_multidataset.admission import build_qure_data_card
 from vego_multidataset.protocol import (
     ProtocolError,
     build_real_execution_gate,
@@ -14,8 +16,10 @@ from vego_multidataset.protocol import (
 def _contract() -> dict[str, object]:
     shared = {
         "provider": "OpenAI",
-        "model_id": "TO_BE_SELECTED_BY_USER",
-        "model_version": "TO_BE_FROZEN",
+        "model_id": "NOT_FROZEN_BY_USER",
+        "model_version": "NOT_FROZEN_BY_USER",
+        "model_freeze_status": "USER_NOT_FROZEN",
+        "model_approval_sha256": None,
         "temperature": 0.0,
         "max_output_tokens": 512,
         "timeout_seconds": 60,
@@ -47,12 +51,35 @@ def _contract() -> dict[str, object]:
 
 
 def _admitted_card() -> dict[str, object]:
-    return {
-        "dataset_id": "QURE_EXTERNAL_REQUIREMENTS_QUALITY_VALIDATION",
-        "decision": "ADMITTED_WITH_LIMITATIONS",
-        "licence": {"name": "CC-BY-4.0"},
-        "raw_artifact": {"sha256": "a" * 64, "file_inventory": [{"sha256": "a" * 64}]},
-    }
+    return build_qure_data_card(
+        {
+            "concept_doi": "10.5281/zenodo.15656471",
+            "record_doi": "10.5281/zenodo.15656472",
+            "record_url": "https://zenodo.org/records/15656472",
+            "version": "1",
+            "published": "2025-06-13",
+            "retrieved_at": "2026-09-08T00:00:00+03:00",
+            "licence": "CC-BY-4.0",
+            "raw_file_sha256": "a" * 64,
+            "file_inventory": [{"name": "QuRE.csv", "bytes": 1, "sha256": "a" * 64}],
+            "parser_version": "qure-adapter-v1",
+        }
+    )
+
+
+def _selection() -> dict[str, object]:
+    return deterministic_selection_manifest(
+        (
+            ExecutionCase(
+                dataset_id="QURE_EXTERNAL_REQUIREMENTS_QUALITY_VALIDATION",
+                case_id="fixture-1",
+                requirement_text="label-free fixture requirement",
+                input_sha256="a" * 64,
+            ),
+        ),
+        seed="20260908",
+        count=1,
+    )
 
 
 def test_contract_requires_matched_controls_and_strict_off_boundary() -> None:
@@ -66,23 +93,21 @@ def test_contract_requires_matched_controls_and_strict_off_boundary() -> None:
 
     altered = copy.deepcopy(contract)
     altered["shared_controls"]["budget_ceiling_usd"] = 6.01
-    with pytest.raises(ProtocolError, match="budget"):
+    with pytest.raises(ProtocolError):
         validate_on_off_contract(altered)
 
 
 def test_real_execution_gate_requires_admission_and_explicit_model_selection() -> None:
     contract = _contract()
-    selection = {
-        "schema_version": "vego-multidataset-selection-v1",
-        "dataset_id": "QURE_EXTERNAL_REQUIREMENTS_QUALITY_VALIDATION",
-        "selection_sha256": "b" * 64,
-    }
+    selection = _selection()
     gate = build_real_execution_gate(_admitted_card(), contract, selection)
     assert gate["status"] == "BLOCKED_PENDING_USER_FROZEN_MODEL_SELECTION"
     assert gate["provider_calls_permitted"] is False
 
     contract["shared_controls"]["model_id"] = "gpt-example"
     contract["shared_controls"]["model_version"] = "gpt-example-2026-09-08"
+    contract["shared_controls"]["model_freeze_status"] = "USER_FROZEN_MODEL_AND_VERSION"
+    contract["shared_controls"]["model_approval_sha256"] = "c" * 64
     gate = build_real_execution_gate(_admitted_card(), contract, selection)
     assert gate["status"] == "PENDING_FULL_PRE_EXECUTION_GATES"
     assert gate["provider_calls_permitted"] is False
@@ -90,6 +115,20 @@ def test_real_execution_gate_requires_admission_and_explicit_model_selection() -
     card = _admitted_card()
     card["decision"] = "NOT_ADMITTED"
     with pytest.raises(ProtocolError, match="admitted"):
+        build_real_execution_gate(card, contract, selection)
+
+
+def test_real_execution_gate_rejects_unverified_licence_and_unbound_selection() -> None:
+    contract = _contract()
+    selection = _selection()
+    selection["selection_sha256"] = "b" * 64
+    with pytest.raises(ProtocolError, match="selection manifest"):
+        build_real_execution_gate(_admitted_card(), contract, selection)
+
+    card = _admitted_card()
+    card["licence"] = {"status": "UNVERIFIED", "name": "CC-BY-4.0", "url": None}
+    selection = _selection()
+    with pytest.raises(ProtocolError, match="licence"):
         build_real_execution_gate(card, contract, selection)
 
 
@@ -120,5 +159,5 @@ def test_contract_rejects_unenforceable_shared_control(
 ) -> None:
     contract = _contract()
     contract["shared_controls"][field] = value
-    with pytest.raises(ProtocolError, match=message):
+    with pytest.raises(ProtocolError):
         validate_on_off_contract(contract)

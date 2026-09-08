@@ -12,6 +12,7 @@ import re
 from collections.abc import Mapping
 from typing import Any
 
+from .admission import AdmissionError, validate_data_card
 from .schemas import SchemaError, validate_named
 
 
@@ -24,6 +25,8 @@ _CONTROL_FIELDS = {
     "provider",
     "model_id",
     "model_version",
+    "model_freeze_status",
+    "model_approval_sha256",
     "temperature",
     "max_output_tokens",
     "timeout_seconds",
@@ -114,6 +117,25 @@ def validate_on_off_contract(contract: Mapping[str, Any]) -> None:
         raise ProtocolError("retry policy must allow only one pre-valid-output transport retry")
     if controls.get("egress") != "PROVIDER_ENDPOINT_ONLY_DURING_AUTHORIZED_EXECUTION":
         raise ProtocolError("egress policy is not sufficiently restrictive")
+    freeze_status = controls.get("model_freeze_status")
+    approval_sha256 = controls.get("model_approval_sha256")
+    if freeze_status == "USER_NOT_FROZEN":
+        if (
+            controls["model_id"] != "NOT_FROZEN_BY_USER"
+            or controls["model_version"] != "NOT_FROZEN_BY_USER"
+            or approval_sha256 is not None
+        ):
+            raise ProtocolError("unfrozen model state must not name a model or approval")
+    elif freeze_status == "USER_FROZEN_MODEL_AND_VERSION":
+        if not _is_sha256(approval_sha256):
+            raise ProtocolError("a frozen model requires a user-approval SHA-256 binding")
+        if any(
+            controls[field].upper().startswith(("TO_BE_", "NOT_FROZEN", "UNSET", "PENDING"))
+            for field in ("model_id", "model_version")
+        ):
+            raise ProtocolError("a frozen model must use explicit model and version values")
+    else:
+        raise ProtocolError("model freeze status must be explicit and user-bound")
     for condition, expected in (("VEGO_AI_ON", _ON_EXPECTED), ("VEGO_AI_OFF", _OFF_EXPECTED)):
         observed = contract.get(condition)
         if not isinstance(observed, Mapping):
@@ -135,24 +157,40 @@ def build_real_execution_gate(
     """
 
     validate_on_off_contract(contract)
+    try:
+        validate_data_card(data_card)
+    except AdmissionError as exc:
+        raise ProtocolError(f"invalid data-admission card: {exc}") from exc
+    try:
+        validate_named(selection_manifest, "multidataset-selection-manifest-v1.schema.json")
+    except SchemaError as exc:
+        raise ProtocolError(f"invalid selection manifest: {exc}") from exc
+    selection_unsigned = dict(selection_manifest)
+    selection_binding = selection_unsigned.pop("selection_sha256", None)
+    if selection_binding != _canonical_sha256(selection_unsigned):
+        raise ProtocolError("selection manifest binding mismatch")
     if data_card.get("decision") not in {"ADMITTED", "ADMITTED_WITH_LIMITATIONS"}:
         raise ProtocolError("the dataset must be admitted before execution planning")
     licence = data_card.get("licence")
     raw = data_card.get("raw_artifact")
-    if not isinstance(licence, Mapping) or not isinstance(licence.get("name"), str):
-        raise ProtocolError("an admitted execution dataset requires a known licence")
+    if (
+        not isinstance(licence, Mapping)
+        or licence.get("status") != "VERIFIED"
+        or not isinstance(licence.get("name"), str)
+    ):
+        raise ProtocolError("an admitted execution dataset requires a verified licence")
+    if data_card.get("admission_blockers"):
+        raise ProtocolError("an execution dataset cannot retain admission blockers")
     if not isinstance(raw, Mapping) or not _is_sha256(raw.get("sha256")):
         raise ProtocolError("an admitted execution dataset requires a raw SHA-256")
     if selection_manifest.get("dataset_id") != data_card.get("dataset_id"):
         raise ProtocolError("selection manifest dataset does not match the data card")
-    if not _is_sha256(selection_manifest.get("selection_sha256")):
-        raise ProtocolError("selection manifest must be hash-bound")
     controls = contract["shared_controls"]
     model_id = controls["model_id"]
     model_version = controls["model_version"]
     if not isinstance(model_id, str) or not isinstance(model_version, str):
         raise ProtocolError("model fields must be strings")
-    model_pending = model_id.startswith("TO_BE_") or model_version.startswith("TO_BE_")
+    model_pending = controls["model_freeze_status"] != "USER_FROZEN_MODEL_AND_VERSION"
     status = "BLOCKED_PENDING_USER_FROZEN_MODEL_SELECTION" if model_pending else "PENDING_FULL_PRE_EXECUTION_GATES"
     return {
         "schema_version": "vego-multidataset-real-execution-gate-v1",
@@ -162,7 +200,13 @@ def build_real_execution_gate(
         "dataset_raw_sha256": raw["sha256"],
         "selection_sha256": selection_manifest["selection_sha256"],
         "on_off_contract_sha256": _canonical_sha256(contract),
-        "model": {"provider": controls["provider"], "model_id": model_id, "model_version": model_version},
+        "model": {
+            "provider": controls["provider"],
+            "model_id": model_id,
+            "model_version": model_version,
+            "freeze_status": controls["model_freeze_status"],
+            "approval_sha256": controls["model_approval_sha256"],
+        },
         "remaining_gates": [
             "EXACT_HEAD_GREEN_CI",
             "FULL_OFFLINE_FAKE_PREFLIGHT",
