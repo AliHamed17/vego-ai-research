@@ -241,7 +241,7 @@ async def execute(args: argparse.Namespace, *, live: bool) -> dict[str, Any]:
     completed = utc_now()
     output_manifest = _output_manifest(output_root, exclude={"pipeline-output-manifest.json", "run-receipt.json"})
     (output_root / "pipeline-output-manifest.json").write_text(
-        json.dumps(output_manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        json.dumps(output_manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n"
     )
     receipt = {
         "schema_version": c.RECEIPT_SCHEMA,
@@ -297,7 +297,7 @@ async def execute(args: argparse.Namespace, *, live: bool) -> dict[str, Any]:
     public_dir = Path(args.public_dir) if args.public_dir else DOCS_DIR / "evidence" / run_id
     public_dir.mkdir(parents=True, exist_ok=True)
     (public_dir / "public-aggregate.json").write_text(
-        json.dumps(aggregate, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(aggregate, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
     )
     summary = {
         "run_id": run_id, "mode": mode, "status": {k: v["status"] for k, v in conditions.items()},
