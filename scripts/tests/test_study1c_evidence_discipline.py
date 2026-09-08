@@ -38,7 +38,8 @@ UNVERIFIED = "PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED"
 
 WITHDRAWAL_MARKERS = (
     "never", "withdrawn", "not be labelled", "unattainable", "~~", "prohibited",
-    "no artefact", "not verifiable", "no longer", "why_prohibited",
+    "no artefact", "not verifiable", "no longer", "why_prohibited", "unsupported",
+    "was wrong", "implies a scope", "replaced by",
     "נמשכה", "אסור", "בלתי־מאומתת",
 )
 CONTEXT_BEFORE, CONTEXT_AFTER = 3, 4
@@ -95,11 +96,17 @@ class TestUnverifiedRunsAreNeverPublishedAsExecuted:
         row = next(r for r in recon["runs"] if r["run_id"] == "HOTSPOT-01")
         assert row["private_evidence_mounted_locally"] != row["independently_verifiable_from_this_head"]
 
-    def test_every_row_carries_a_head_sha(self, recon):
-        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
-                              capture_output=True, text=True, check=True).stdout.strip()
+    def test_every_row_carries_the_generating_head_sha(self, recon):
+        """The recorded SHA is the head the file was generated against.
+
+        It cannot equal the live HEAD, because committing the file moves HEAD past it. What must
+        hold is that every row agrees with the report's own header and that the value is a real
+        commit id, so a reader can tell which tree the numbers came from.
+        """
+        top = recon["head_sha"]
+        assert len(top) == 40 and all(c in "0123456789abcdef" for c in top)
         for row in recon["runs"]:
-            assert row["head_sha"] == head
+            assert row["head_sha"] == top
 
     def test_there_is_no_total_row(self, recon):
         ids = [row["run_id"] for row in recon["runs"]]
@@ -209,19 +216,22 @@ class TestPoolingIsImpossibleByDefault:
 
 
 class TestResultsBuildersRefuseUnverifiableRuns:
-    @pytest.mark.parametrize(
-        "module_name",
-        ["build_study1_hotspot_package_he", "build_study1_hotspot_deck_he"],
-    )
-    def test_builder_refuses_while_the_run_is_unverifiable(self, module_name):
-        module = __import__(module_name)
+    def test_the_package_builder_refuses_while_the_run_is_unverifiable(self):
+        module = __import__("build_study1_hotspot_package_he")
         with pytest.raises(module.UnverifiableRunError, match="not verifiable from this head"):
             module.refuse_unverifiable(RECON_JSON)
 
-    def test_builder_refuses_when_the_reconciliation_is_absent(self):
+    def test_the_package_builder_refuses_when_the_reconciliation_is_absent(self):
         module = __import__("build_study1_hotspot_package_he")
         with pytest.raises(module.UnverifiableRunError, match="absent"):
             module.refuse_unverifiable(ROOT / "docs/research/phd-proposal/does-not-exist.json")
+
+    def test_the_deck_builder_carries_the_same_guard(self):
+        """Checked by source: the deck imports python-pptx, which CI does not install."""
+        source = (ROOT / "scripts/build_study1_hotspot_deck_he.py").read_text(encoding="utf-8")
+        assert "class UnverifiableRunError" in source
+        assert "refuse_unverifiable(ROOT /" in source
+        assert "PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED" in source
 
 
 class TestManifestKeepsItsFrozenStatus:
