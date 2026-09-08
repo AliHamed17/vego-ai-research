@@ -137,6 +137,10 @@
     "schemas/metric-observation-v1.schema.json",
     "schemas/metric-observation-v2.schema.json",
     "schemas/model-execution-manifest-v1.schema.json",
+    "schemas/multidataset-data-card-v1.schema.json",
+    "schemas/multidataset-engineering-preflight-receipt-v1.schema.json",
+    "schemas/multidataset-on-off-contract-v1.schema.json",
+    "schemas/multidataset-selection-manifest-v1.schema.json",
     "schemas/paper-baseline-snapshot-v1.schema.json",
     "schemas/pilot-repeat-receipt-v1.schema.json",
     "schemas/policy-candidate-record-v1.schema.json",
@@ -264,6 +268,7 @@
     "scripts/tests/test_validate_research_records_gjr.py",
     "scripts/tests/test_verify_iris_preliminary_pilot.py",
     "scripts/tests/test_verify_text2uml_airtravel_runtime.py",
+    "scripts/tests/test_zz_airtravel_global_state.py",
     "scripts/tests/thesis_progress_browser_smoke.mjs",
     "scripts/validate_hlayer_offline.py",
     "scripts/validate_hlayer_program.py",
@@ -289,7 +294,7 @@
     "tests/hlayer_offline/test_validator.py",
     "uv.lock"
   ],
-  "sourceTreeSha256": "1cd8764c1360425421398cba0d4c628c2095215aa58777994ca159470e8c9d98",
+  "sourceTreeSha256": "7cd68ce2b30c7982f2d4b388bec7add049f770078187007785b8acbd49cceca9",
   "toolVersions": {
     "jsonschema": "4.26.0",
     "openai": "1.109.1",
