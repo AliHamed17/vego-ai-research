@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study2-condition-output-v1.schema.json",
+  "title": "Study 2 strict per-case condition output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "condition",
+    "skill_version",
+    "case_id",
+    "existing_mapping",
+    "coverage_summary",
+    "uncovered_fragments"
+  ],
+  "properties": {
+    "schema_version": {"const": "study2-condition-output-v1"},
+    "condition": {"enum": ["VEGO_AI_ON", "VEGO_AI_OFF"]},
+    "skill_version": {"type": "string", "minLength": 1},
+    "case_id": {"type": "string", "pattern": "^[0-9]{2}$"},
+    "existing_mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["guideline_id", "evidence", "compliance_status", "notes"],
+        "properties": {
+          "guideline_id": {"type": "string", "minLength": 1},
+          "evidence": {"type": "string"},
+          "compliance_status": {"enum": ["Satisfied", "Partially-Satisfied", "Not-Satisfied"]},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "coverage_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["satisfied", "partially_satisfied", "not_satisfied"],
+      "properties": {
+        "satisfied": {"type": "integer", "minimum": 0},
+        "partially_satisfied": {"type": "integer", "minimum": 0},
+        "not_satisfied": {"type": "integer", "minimum": 0}
+      }
+    },
+    "uncovered_fragments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fragment", "label", "severity", "reason"],
+        "properties": {
+          "fragment": {"type": "string"},
+          "label": {"enum": ["Alternative", "Domain Mistake", "Language Mistake"]},
+          "severity": {"enum": ["High", "Medium", "Low", "N/A"]},
+          "reason": {"type": "string"}
+        }
+      }
+    }
+  }
+}

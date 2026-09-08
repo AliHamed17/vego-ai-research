@@ -2,7 +2,26 @@
 
 This file is the compact shared resource index for Codex and Claude. It points agents to reusable research resources without forcing every prompt to reload downloaded source files.
 
-Last updated: 2026-09-03 by Codex.
+Last updated: 2026-09-08 by Codex.
+
+## September 8 Study 1 E2E Hebrew supervisor readout
+
+- Readout: `docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-readout-he.pdf`; deck: `2026-09-08-study1-e2e-supervisor-slides-he.pptx` and `.pdf`; index: `2026-09-08-study1-e2e-evidence-index.md`; email: `2026-09-08-study1-supervisor-email-he.md`.
+- Boundary: supervisor communication only. Archival figures remain retrospective/descriptive; the three new checks are engineering-only. No new empirical evidence, accuracy/benefit claim, provider/API call, corpus change, or Detector-v1 change.
+
+## September 7 Study 1 data/log/pattern transparency
+
+- Builder: `scripts/build_study1_transparency_package.py`; focused tests: `scripts/tests/test_study1_transparency_package.py`.
+- Tracked outputs: `docs/research/phd-proposal/study1-data-provenance-v1.json`, `study1-log-contract-matrix-v1.csv`, `detector-v1-criteria-to-log-fields-v1.csv`, `study1-transparency-data-dictionary-v1.json`, `study1-transparency-metrics-v1.json`, and Hebrew supervisor materials.
+- Evidence boundary: public AirTravel and VEGO-AI v2.1.5.3 source hashes are verified from temporary archives; the accepted private Study 1 event log is not mounted, so scientific tables remain `NOT_AVAILABLE_IN_WORKTREE`. No provider/API/model call or new experiment was run.
+
+## September 7 Study 1B closure and bounded pilot
+
+- Closure receipt: `docs/research/phd-proposal/study1b-offline-preflight-receipt.json` (historical Study 1B closure; no provider calls).
+- Pilot controller: `scripts/pilot_budget_constrained_runner.py`; offline preflight: `scripts/pilot_budget_constrained_preflight.py`; receipt schema: `schemas/pilot-repeat-receipt-v1.schema.json`.
+- Pilot protocol: `docs/research/phd-proposal/2026-09-06-budget-constrained-exploratory-pilot-preregistration.md`.
+- Supervisor-facing Hebrew materials: `docs/research/phd-proposal/2026-09-07-study1b-pilot-technical-note.he.md` and `docs/research/phd-proposal/2026-09-07-study1b-pilot-email-draft.he.md`.
+- Evidence boundary: preflight is `PREPARED_OFFLINE_ONLY`; fake requests are engineering checks, provider/API calls are zero, and no scientific denominator or result is generated.
 
 ## September 3 Preliminary Human-Intervention One-Pager
 

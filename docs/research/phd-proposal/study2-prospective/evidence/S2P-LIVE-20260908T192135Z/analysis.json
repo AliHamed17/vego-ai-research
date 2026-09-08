@@ -1,0 +1,834 @@
+{
+  "accounting": {
+    "ledger_requests": 239,
+    "note": "a request reserved by the guard but cancelled in flight when a cap stopped the condition returns no usage; it is counted as issued and charged at the full per-request reservation in the upper bound",
+    "receipt_requests": 240,
+    "recorded_cost_usd": 0.955908,
+    "spend_upper_bound_usd": 0.977969,
+    "unrecorded_in_flight_requests": 1
+  },
+  "budget": {
+    "actual_cost_usd": 0.955908,
+    "completion_tokens": 352599,
+    "condition_request_caps": {
+      "VEGO_AI_OFF": 36,
+      "VEGO_AI_ON": 228
+    },
+    "guard_ceiling_usd": 5.9,
+    "hard_ceiling_usd": 6.0,
+    "per_request_reserve_usd": 0.0220608,
+    "price_input_per_1m_usd": 0.2,
+    "price_output_per_1m_usd": 1.2,
+    "prompt_tokens": 2663948,
+    "refusals": [
+      {
+        "code": "CONDITION_REQUEST_CAP",
+        "condition": "VEGO_AI_ON",
+        "detail": "VEGO_AI_ON request cap 228 reached"
+      },
+      {
+        "code": "CONDITION_REQUEST_CAP",
+        "condition": "VEGO_AI_ON",
+        "detail": "VEGO_AI_ON request cap 228 reached"
+      }
+    ],
+    "requests": 240,
+    "requests_by_condition": {
+      "VEGO_AI_OFF": 12,
+      "VEGO_AI_ON": 228
+    },
+    "total_request_cap": 267,
+    "total_tokens": 3016547,
+    "within_hard_ceiling": true
+  },
+  "caps": {
+    "VEGO_AI_OFF": 36,
+    "VEGO_AI_ON": 228,
+    "off_requests_per_case": 3,
+    "on_requests_per_case": 19,
+    "total_requests": 267
+  },
+  "case_ids": [
+    "01",
+    "02",
+    "03",
+    "05",
+    "06",
+    "07",
+    "08",
+    "12",
+    "15",
+    "18",
+    "20",
+    "21"
+  ],
+  "claim_boundary": [
+    "Prospective exploratory paired comparison of two system workflows on one public LLM-generated corpus.",
+    "No claim of system superiority, human benefit, alert correctness, accuracy, recall, precision, F1, causality, representativeness or generalisation.",
+    "Detector-v1 output is a reporting-only candidate-for-human-review label with no human labels behind it.",
+    "Detector-v1 is NOT_APPLICABLE under VEGO_AI_OFF because no inter-agent episodes exist there; that is not zero alerts.",
+    "Human assessment outcomes are NOT_MEASURED until two independent raters score the blinded cards."
+  ],
+  "completed_at": "2026-09-08T19:54:15.824Z",
+  "conditions": {
+    "VEGO_AI_OFF": {
+      "completed": 12,
+      "completion_tokens": 41361,
+      "compliance_status_total": {
+        "not_satisfied": 36,
+        "partially_satisfied": 77,
+        "satisfied": 89
+      },
+      "cost_per_completed_artifact_usd": 0.00442,
+      "cost_usd": 0.053045,
+      "detector_v1": "NOT_APPLICABLE",
+      "elapsed_seconds": 238.696,
+      "failure_rate": 0.0,
+      "finish_reasons": {
+        "stop": 12
+      },
+      "fragment_labels_total": {
+        "Alternative": 13,
+        "Domain Mistake": 18,
+        "Language Mistake": 11
+      },
+      "mapping_rows_per_case": [
+        12,
+        16,
+        17,
+        13,
+        20,
+        20,
+        14,
+        21,
+        11,
+        17,
+        21,
+        20
+      ],
+      "mapping_rows_total": 202,
+      "planned": 12,
+      "prompt_tokens": 17061,
+      "provider_errors": 0,
+      "requests": 12,
+      "requests_per_completed_artifact": 1.0,
+      "response_models": {
+        "gpt-5.6-luna": 12
+      },
+      "retried_requests": 0,
+      "schema_invalid": 0,
+      "status": "COMPLETED",
+      "successful_requests": 12,
+      "summary_consistent_count": 7,
+      "technical_failures": 0,
+      "transport_errors": 0,
+      "uncovered_per_case": [
+        6,
+        2,
+        3,
+        5,
+        3,
+        2,
+        3,
+        3,
+        5,
+        2,
+        3,
+        5
+      ],
+      "uncovered_total": 42
+    },
+    "VEGO_AI_ON": {
+      "case_attributed_cost_usd": 0.895406,
+      "case_attributed_requests": 225,
+      "completed": 9,
+      "completion_tokens": 311238,
+      "compliance_status_total": {
+        "not_satisfied": 1,
+        "partially_satisfied": 2,
+        "satisfied": 6
+      },
+      "cost_per_completed_artifact_usd": 0.100318,
+      "cost_usd": 0.902863,
+      "detector_v1": "APPLICABLE",
+      "elapsed_seconds": 1712.78,
+      "episode_summary": {
+        "answers": 250,
+        "detector_v1_classifications": {
+          "EXCLUDED": 2,
+          "STRONG_ALERT": 13,
+          "WEAK_ALERT": 1
+        },
+        "detector_v1_reason_codes": {
+          "S1_LOW_ANSWER_CONFIDENCE": 13,
+          "S2_MEDIUM_ANSWER_CONFIDENCE": 11,
+          "S6_MULTIPLE_QA_ROUNDS": 14,
+          "S7_TERMINATED_MAX_ROUNDS": 5
+        },
+        "episodes": 16,
+        "questions": 255,
+        "scientific_complete": 14,
+        "termination_reasons": {
+          "CONVERGED": 9,
+          "INCOMPLETE_TECHNICAL": 2,
+          "TERMINATED_MAX_ROUNDS": 5
+        }
+      },
+      "failure_rate": 0.25,
+      "finish_reasons": {
+        "stop": 227
+      },
+      "fragment_labels_total": {
+        "Alternative": 75,
+        "Domain Mistake": 77,
+        "Language Mistake": 6
+      },
+      "mapping_rows_per_case": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mapping_rows_total": 9,
+      "planned": 12,
+      "prompt_tokens": 2646887,
+      "provider_errors": 0,
+      "requests": 227,
+      "requests_per_completed_artifact": 25.22,
+      "response_models": {
+        "gpt-5.6-luna": 227
+      },
+      "retried_requests": 0,
+      "routes": {
+        "answer_count": 250,
+        "episode_count": 16,
+        "protected_orchestrator_fake_episode_count": 16,
+        "protected_orchestrator_fake_route_count": 2,
+        "protected_orchestrator_fake_route_pair_count": 2,
+        "protected_orchestrator_fake_route_pairs": [
+          {
+            "source_agent": "agent3",
+            "target_agent": "agent1"
+          },
+          {
+            "source_agent": "agent3",
+            "target_agent": "agent2"
+          }
+        ],
+        "question_count": 255,
+        "routes": [
+          {
+            "question_count": 64,
+            "source_agent": "agent3",
+            "target_agent": "agent1"
+          },
+          {
+            "question_count": 191,
+            "source_agent": "agent3",
+            "target_agent": "agent2"
+          }
+        ]
+      },
+      "schema_invalid": 0,
+      "setting_level_cost_usd": 0.007457,
+      "setting_level_requests": 2,
+      "status": "STOPPED_AT_CAP",
+      "successful_requests": 227,
+      "summary_consistent_count": 9,
+      "technical_failures": 3,
+      "transport_errors": 0,
+      "uncovered_per_case": [
+        20,
+        20,
+        20,
+        15,
+        17,
+        19,
+        13,
+        15,
+        19
+      ],
+      "uncovered_total": 158
+    }
+  },
+  "detector": {
+    "applies_to": {
+      "VEGO_AI_OFF": "NOT_APPLICABLE",
+      "VEGO_AI_ON": "APPLICABLE"
+    },
+    "candidate_alerts": 14,
+    "cases_with_no_episode": [
+      "21"
+    ],
+    "classifications": {
+      "EXCLUDED": 2,
+      "STRONG_ALERT": 13,
+      "WEAK_ALERT": 1
+    },
+    "episodes_per_case": {
+      "01": 2,
+      "02": 1,
+      "03": 1,
+      "05": 2,
+      "06": 1,
+      "07": 1,
+      "08": 2,
+      "12": 2,
+      "15": 2,
+      "18": 1,
+      "20": 1
+    },
+    "episodes_total": 16,
+    "human_labels": "NONE; correctness, precision, recall and F1 are NOT_MEASURED",
+    "reason_codes": {
+      "S1_LOW_ANSWER_CONFIDENCE": 13,
+      "S2_MEDIUM_ANSWER_CONFIDENCE": 11,
+      "S6_MULTIPLE_QA_ROUNDS": 14,
+      "S7_TERMINATED_MAX_ROUNDS": 5
+    },
+    "scientific_complete": 14,
+    "setting_level_episodes": 0,
+    "share_of_cases_with_any_candidate": 0.75,
+    "termination_reasons": {
+      "CONVERGED": 9,
+      "INCOMPLETE_TECHNICAL": 2,
+      "TERMINATED_MAX_ROUNDS": 5
+    }
+  },
+  "differences": {
+    "both_completed": 9,
+    "cost_usd": {
+      "equal": 0,
+      "mean_delta_on_minus_off": 0.0702,
+      "median_delta_on_minus_off": 0.0456,
+      "off_higher": 1,
+      "on_higher": 11,
+      "pairs": 12
+    },
+    "elapsed_seconds": {
+      "equal": 0,
+      "mean_delta_on_minus_off": 242.4735,
+      "median_delta_on_minus_off": 148.292,
+      "off_higher": 0,
+      "on_higher": 11,
+      "pairs": 11
+    },
+    "mapping_rows": {
+      "equal": 0,
+      "mean_delta_on_minus_off": -15.0,
+      "median_delta_on_minus_off": -15,
+      "off_higher": 9,
+      "on_higher": 0,
+      "pairs": 9
+    },
+    "neither_completed": 0,
+    "only_off_completed": 3,
+    "only_on_completed": 0,
+    "requests": {
+      "equal": 0,
+      "mean_delta_on_minus_off": 17.75,
+      "median_delta_on_minus_off": 12.5,
+      "off_higher": 1,
+      "on_higher": 11,
+      "pairs": 12
+    },
+    "uncovered_fragments": {
+      "equal": 0,
+      "mean_delta_on_minus_off": 14.0,
+      "median_delta_on_minus_off": 14,
+      "off_higher": 0,
+      "on_higher": 9,
+      "pairs": 9
+    }
+  },
+  "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+  "execution_git_sha": "3a62d91a48205e3a78cebf9a352e95e6615b97b8",
+  "gates": {
+    "corpus_hashes_verified_at_load": {
+      "detail": "domain description and every selected case match the frozen digests",
+      "passed": true
+    },
+    "credential_present_value_unread": {
+      "detail": "OPENAI_API_KEY present in process environment, value never read by the harness",
+      "passed": true
+    },
+    "eligible_inventory_verified": {
+      "detail": "21 eligible cases, every digest re-verified",
+      "passed": true
+    },
+    "expected_head_supplied": {
+      "detail": "live execution requires --expected-head",
+      "passed": true
+    },
+    "frozen_model_and_host": {
+      "detail": "gpt-5.6-luna via ['api.openai.com']",
+      "passed": true
+    },
+    "frozen_selection_document_matches": {
+      "detail": "case ids and digests agree",
+      "passed": true
+    },
+    "git_head_matches_expected": {
+      "detail": "HEAD 3a62d91a4820",
+      "passed": true
+    },
+    "manifest_loaded_and_self_bound": {
+      "detail": "d05ece7e2d15aed1",
+      "passed": true
+    },
+    "minimum_paired_cases": {
+      "detail": "12 paired cases",
+      "passed": true
+    },
+    "off_isolation_before_start": {
+      "detail": "no orchestration, Q&A, detector or queue module loaded",
+      "passed": true
+    },
+    "on_unit_reservation_before_start": {
+      "detail": "265 reservable requests remain, ON cap 228",
+      "passed": true
+    },
+    "output_root_fresh": {
+      "detail": "output root must not exist yet",
+      "passed": true
+    },
+    "output_root_safe": {
+      "detail": "absolute, inside the private root, no symlink or reparse point",
+      "passed": true
+    },
+    "private_runtime_root_present": {
+      "detail": "fullframe_runtime under the private root",
+      "passed": true
+    },
+    "selection_reproduced_from_seed": {
+      "detail": "01,02,03,05,06,07,08,12,15,18,20,21",
+      "passed": true
+    },
+    "whole_study_reservation_within_guard": {
+      "detail": "264 requests x 0.0220608 = 5.8241 USD",
+      "passed": true
+    },
+    "working_tree_clean": {
+      "detail": "tracked files must be unmodified",
+      "passed": true
+    }
+  },
+  "human": {
+    "actions": [
+      "verify",
+      "clarify",
+      "revise guideline",
+      "no action"
+    ],
+    "agreement": "NOT_MEASURED",
+    "benefit": "NOT_MEASURED",
+    "correctness": "NOT_MEASURED",
+    "decisions": [
+      "REVIEW_WORTHY",
+      "NOT_REVIEW_WORTHY",
+      "INSUFFICIENT_INFORMATION"
+    ],
+    "f1": "NOT_MEASURED",
+    "precision": "NOT_MEASURED",
+    "raters_required": 2,
+    "raters_scored": 0,
+    "recall": "NOT_MEASURED",
+    "status": "NOT_MEASURED",
+    "workload": "NOT_MEASURED"
+  },
+  "manifest_sha256": "d05ece7e2d15aed1f2b4696f1c7939792f435790dfcd568e25b41d9691abae08",
+  "mode": "LIVE",
+  "model": {
+    "allowed_hosts": [
+      "api.openai.com"
+    ],
+    "api_mode": "chat.completions",
+    "model": "gpt-5.6-luna",
+    "provider": "openai",
+    "request_parameters": {
+      "identical_for_both_conditions": true,
+      "max_completion_tokens": 16384,
+      "message_roles": [
+        "system",
+        "user"
+      ],
+      "request_timeout_seconds": 180,
+      "response_format": "NOT_SENT",
+      "seed": "NOT_SENT",
+      "temperature": "PROVIDER_DEFAULT_NOT_SENT",
+      "tools": "NOT_SENT"
+    }
+  },
+  "on_reference_guideline_count": 1,
+  "paired": [
+    {
+      "case_id": "01",
+      "off_completion_tokens": 3447,
+      "off_cost_usd": 0.004363,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 42.789,
+      "off_mapping_rows": 12,
+      "off_prompt_tokens": 1134,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 6,
+      "off_valid": true,
+      "on_answers": 12,
+      "on_completion_tokens": 21299,
+      "on_cost_usd": 0.038729,
+      "on_detector_v1": {
+        "STRONG_ALERT": 2
+      },
+      "on_elapsed_span_s": 191.081,
+      "on_episodes": 2,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 65853,
+      "on_questions": 12,
+      "on_requests": 18,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 20,
+      "on_valid": true
+    },
+    {
+      "case_id": "02",
+      "off_completion_tokens": 3694,
+      "off_cost_usd": 0.004635,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 40.002,
+      "off_mapping_rows": 16,
+      "off_prompt_tokens": 1011,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": false,
+      "off_uncovered": 2,
+      "off_valid": true,
+      "on_answers": 26,
+      "on_completion_tokens": 40560,
+      "on_cost_usd": 0.064392,
+      "on_detector_v1": {
+        "STRONG_ALERT": 1
+      },
+      "on_elapsed_span_s": 395.625,
+      "on_episodes": 1,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 78600,
+      "on_questions": 26,
+      "on_requests": 22,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 20,
+      "on_valid": true
+    },
+    {
+      "case_id": "03",
+      "off_completion_tokens": 3242,
+      "off_cost_usd": 0.004103,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 34.808,
+      "off_mapping_rows": 17,
+      "off_prompt_tokens": 1062,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": false,
+      "off_uncovered": 3,
+      "off_valid": true,
+      "on_answers": 5,
+      "on_completion_tokens": 14283,
+      "on_cost_usd": 0.026038,
+      "on_detector_v1": {
+        "STRONG_ALERT": 1
+      },
+      "on_elapsed_span_s": 136.689,
+      "on_episodes": 1,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 44492,
+      "on_questions": 5,
+      "on_requests": 9,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 20,
+      "on_valid": true
+    },
+    {
+      "case_id": "05",
+      "off_completion_tokens": 2942,
+      "off_cost_usd": 0.004133,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 33.356,
+      "off_mapping_rows": 13,
+      "off_prompt_tokens": 3015,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 5,
+      "off_valid": true,
+      "on_answers": 28,
+      "on_completion_tokens": 31315,
+      "on_cost_usd": 0.098406,
+      "on_detector_v1": {
+        "STRONG_ALERT": 2
+      },
+      "on_elapsed_span_s": 348.848,
+      "on_episodes": 2,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 304139,
+      "on_questions": 28,
+      "on_requests": 33,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 15,
+      "on_valid": true
+    },
+    {
+      "case_id": "06",
+      "off_completion_tokens": 4036,
+      "off_cost_usd": 0.005058,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 49.988,
+      "off_mapping_rows": 20,
+      "off_prompt_tokens": 1076,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 3,
+      "off_valid": true,
+      "on_answers": 32,
+      "on_completion_tokens": 42695,
+      "on_cost_usd": 0.098878,
+      "on_detector_v1": {
+        "STRONG_ALERT": 1
+      },
+      "on_elapsed_span_s": 437.522,
+      "on_episodes": 1,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 238219,
+      "on_questions": 32,
+      "on_requests": 28,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 17,
+      "on_valid": true
+    },
+    {
+      "case_id": "07",
+      "off_completion_tokens": 3355,
+      "off_cost_usd": 0.004234,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 33.802,
+      "off_mapping_rows": 20,
+      "off_prompt_tokens": 1038,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 2,
+      "off_valid": true,
+      "on_answers": 6,
+      "on_completion_tokens": 13025,
+      "on_cost_usd": 0.036522,
+      "on_detector_v1": {
+        "STRONG_ALERT": 1
+      },
+      "on_elapsed_span_s": 110.772,
+      "on_episodes": 1,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 104460,
+      "on_questions": 6,
+      "on_requests": 8,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 19,
+      "on_valid": true
+    },
+    {
+      "case_id": "08",
+      "off_completion_tokens": 2881,
+      "off_cost_usd": 0.003912,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 32.178,
+      "off_mapping_rows": 14,
+      "off_prompt_tokens": 2275,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": false,
+      "off_uncovered": 3,
+      "off_valid": true,
+      "on_answers": 5,
+      "on_completion_tokens": 8330,
+      "on_cost_usd": 0.033683,
+      "on_detector_v1": {
+        "STRONG_ALERT": 1,
+        "WEAK_ALERT": 1
+      },
+      "on_elapsed_span_s": 63.844,
+      "on_episodes": 2,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 118433,
+      "on_questions": 5,
+      "on_requests": 8,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 13,
+      "on_valid": true
+    },
+    {
+      "case_id": "12",
+      "off_completion_tokens": 3773,
+      "off_cost_usd": 0.004731,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 38.048,
+      "off_mapping_rows": 21,
+      "off_prompt_tokens": 1019,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 3,
+      "off_valid": true,
+      "on_answers": 67,
+      "on_completion_tokens": 57344,
+      "on_cost_usd": 0.167008,
+      "on_detector_v1": {
+        "STRONG_ALERT": 2
+      },
+      "on_elapsed_span_s": 597.817,
+      "on_episodes": 2,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 490977,
+      "on_questions": 67,
+      "on_requests": 32,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 15,
+      "on_valid": true
+    },
+    {
+      "case_id": "15",
+      "off_completion_tokens": 3078,
+      "off_cost_usd": 0.004158,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 32.931,
+      "off_mapping_rows": 11,
+      "off_prompt_tokens": 2322,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": false,
+      "off_uncovered": 5,
+      "off_valid": true,
+      "on_answers": 54,
+      "on_completion_tokens": 58664,
+      "on_cost_usd": 0.241296,
+      "on_detector_v1": {
+        "STRONG_ALERT": 2
+      },
+      "on_elapsed_span_s": 636.104,
+      "on_episodes": 2,
+      "on_mapping_rows": 1,
+      "on_prompt_tokens": 854497,
+      "on_questions": 54,
+      "on_requests": 53,
+      "on_status": "COMPLETED",
+      "on_summary_consistent": true,
+      "on_uncovered": 19,
+      "on_valid": true
+    },
+    {
+      "case_id": "18",
+      "off_completion_tokens": 3669,
+      "off_cost_usd": 0.00461,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 41.253,
+      "off_mapping_rows": 17,
+      "off_prompt_tokens": 1037,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 2,
+      "off_valid": true,
+      "on_answers": 10,
+      "on_completion_tokens": 13878,
+      "on_cost_usd": 0.061462,
+      "on_detector_v1": {
+        "EXCLUDED": 1
+      },
+      "on_elapsed_span_s": 110.148,
+      "on_episodes": 1,
+      "on_mapping_rows": null,
+      "on_prompt_tokens": 224041,
+      "on_questions": 15,
+      "on_requests": 9,
+      "on_status": "NOT_PRODUCED",
+      "on_summary_consistent": null,
+      "on_uncovered": null,
+      "on_valid": false
+    },
+    {
+      "case_id": "20",
+      "off_completion_tokens": 3283,
+      "off_cost_usd": 0.004148,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 29.569,
+      "off_mapping_rows": 21,
+      "off_prompt_tokens": 1042,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": true,
+      "off_uncovered": 3,
+      "off_valid": true,
+      "on_answers": 5,
+      "on_completion_tokens": 4916,
+      "on_cost_usd": 0.028992,
+      "on_detector_v1": {
+        "EXCLUDED": 1
+      },
+      "on_elapsed_span_s": 47.483,
+      "on_episodes": 1,
+      "on_mapping_rows": null,
+      "on_prompt_tokens": 115465,
+      "on_questions": 5,
+      "on_requests": 5,
+      "on_status": "NOT_PRODUCED",
+      "on_summary_consistent": null,
+      "on_uncovered": null,
+      "on_valid": false
+    },
+    {
+      "case_id": "21",
+      "off_completion_tokens": 3961,
+      "off_cost_usd": 0.004959,
+      "off_detector_v1": "NOT_APPLICABLE",
+      "off_elapsed_s": 34.59,
+      "off_mapping_rows": 20,
+      "off_prompt_tokens": 1030,
+      "off_requests": 1,
+      "off_status": "COMPLETED",
+      "off_summary_consistent": false,
+      "off_uncovered": 5,
+      "off_valid": true,
+      "on_answers": 0,
+      "on_completion_tokens": 0,
+      "on_cost_usd": 0,
+      "on_detector_v1": {
+        "NO_EPISODE": 1
+      },
+      "on_elapsed_span_s": null,
+      "on_episodes": 0,
+      "on_mapping_rows": null,
+      "on_prompt_tokens": 0,
+      "on_questions": 0,
+      "on_requests": 0,
+      "on_status": "NOT_PRODUCED",
+      "on_summary_consistent": null,
+      "on_uncovered": null,
+      "on_valid": false
+    }
+  ],
+  "run_id": "S2P-LIVE-20260908T192135Z",
+  "started_at": "2026-09-08T19:21:36.106Z",
+  "whole_study_reservation_usd": 5.8241
+}

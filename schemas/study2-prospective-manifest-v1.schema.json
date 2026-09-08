@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/study2-prospective-manifest-v1.schema.json",
+  "title": "Study 2 prospective ON/OFF frozen experiment manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "study_id", "protocol_option", "frozen_at", "setting_id", "corpus_id", "corpus_commit",
+    "language_name", "case_selection", "corpus_hashes", "provider", "request_parameters", "conditions",
+    "execution_order", "concurrency", "run_timeouts_seconds", "retry_policy", "caps", "budget",
+    "output_root_template", "runtime_root_template", "output_schema", "detector_v1", "metrics",
+    "planned_charts", "technical_failure_policy", "stopping_rule", "evidence_class", "documents",
+    "human_assessment", "forbidden_conclusions", "manifest_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "study2-prospective-manifest-v1"},
+    "study_id": {"const": "VEGO-AI-STUDY-2-PROSPECTIVE"},
+    "protocol_option": {"enum": ["A_HIGHEST_COVERAGE", "B_REPEATABILITY", "C_MINIMUM_VIABLE"]},
+    "frozen_at": {"type": "string"},
+    "setting_id": {"const": "cd_airtravel"},
+    "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+    "corpus_commit": {"const": "253b26dc704d523209a5cba79686f8f7fab57d63"},
+    "language_name": {"const": "UML"},
+    "case_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "seed", "sample_size", "eligible_case_count", "selected_case_ids", "rule"],
+      "properties": {
+        "path": {"type": "string"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "seed": {"type": "integer"},
+        "sample_size": {"type": "integer", "minimum": 4},
+        "eligible_case_count": {"type": "integer", "minimum": 4},
+        "selected_case_ids": {"type": "array", "minItems": 4, "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9]{2}$"}},
+        "rule": {"type": "string"}
+      }
+    },
+    "corpus_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain_description", "cases"],
+      "properties": {
+        "domain_description": {"$ref": "#/$defs/sha256"},
+        "cases": {"type": "object", "additionalProperties": {"$ref": "#/$defs/sha256"}}
+      }
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "model", "api_mode", "allowed_hosts", "credential_env", "fallback_model", "model_switching"],
+      "properties": {
+        "name": {"const": "openai"},
+        "model": {"const": "gpt-5.6-luna"},
+        "api_mode": {"const": "chat.completions"},
+        "allowed_hosts": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"const": "api.openai.com"}},
+        "credential_env": {"const": "OPENAI_API_KEY"},
+        "fallback_model": {"type": "null"},
+        "model_switching": {"const": "FORBIDDEN"}
+      }
+    },
+    "request_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_completion_tokens", "temperature", "seed", "response_format", "tools", "message_roles", "request_timeout_seconds", "identical_for_both_conditions"],
+      "properties": {
+        "max_completion_tokens": {"const": 16384},
+        "temperature": {"const": "PROVIDER_DEFAULT_NOT_SENT"},
+        "seed": {"const": "NOT_SENT"},
+        "response_format": {"const": "NOT_SENT"},
+        "tools": {"const": "NOT_SENT"},
+        "message_roles": {"const": ["system", "user"]},
+        "request_timeout_seconds": {"const": 180},
+        "identical_for_both_conditions": {"const": true}
+      }
+    },
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["VEGO_AI_ON", "VEGO_AI_OFF"],
+      "properties": {
+        "VEGO_AI_ON": {"type": "object", "required": ["workflow", "agent_decomposition", "inter_agent_qa", "round_loop", "detector_v1", "protected_runtime_sha256", "detector_v1_sha256"]},
+        "VEGO_AI_OFF": {"type": "object", "required": ["workflow", "agent_decomposition", "inter_agent_qa", "round_loop", "detector_v1", "prompt_template_sha256", "skill_version", "forbidden_modules"]}
+      }
+    },
+    "execution_order": {"const": ["VEGO_AI_OFF", "VEGO_AI_ON"]},
+    "concurrency": {"type": "object", "required": ["VEGO_AI_ON", "VEGO_AI_OFF"], "additionalProperties": {"type": "integer", "minimum": 1}},
+    "run_timeouts_seconds": {"type": "object", "required": ["VEGO_AI_ON", "VEGO_AI_OFF"], "additionalProperties": {"type": "integer", "minimum": 1}},
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transport_retries_per_request", "retry_condition", "valid_but_undesirable_result", "parse_reattempts", "counts_against_caps_and_budget"],
+      "properties": {
+        "transport_retries_per_request": {"const": 1},
+        "retry_condition": {"type": "string"},
+        "valid_but_undesirable_result": {"const": "NEVER_RETRIED"},
+        "parse_reattempts": {"type": "string"},
+        "counts_against_caps_and_budget": {"const": true}
+      }
+    },
+    "caps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_requests", "VEGO_AI_ON", "VEGO_AI_OFF", "on_requests_per_case", "off_requests_per_case"],
+      "properties": {
+        "total_requests": {"type": "integer", "minimum": 8},
+        "VEGO_AI_ON": {"type": "integer", "minimum": 4},
+        "VEGO_AI_OFF": {"type": "integer", "minimum": 4},
+        "on_requests_per_case": {"type": "integer", "minimum": 1},
+        "off_requests_per_case": {"type": "integer", "minimum": 1}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hard_ceiling_usd", "guard_ceiling_usd", "safety_margin_usd", "per_request_reserve_usd", "reserve_input_tokens", "max_output_tokens", "price_in_per_1m_usd", "price_out_per_1m_usd", "whole_study_reservation_usd", "reservation_path", "reservation_sha256", "includes"],
+      "properties": {
+        "hard_ceiling_usd": {"const": 6.0},
+        "guard_ceiling_usd": {"const": 5.9},
+        "safety_margin_usd": {"type": "number", "minimum": 0},
+        "per_request_reserve_usd": {"type": "number", "exclusiveMinimum": 0},
+        "reserve_input_tokens": {"type": "integer", "minimum": 1},
+        "max_output_tokens": {"const": 16384},
+        "price_in_per_1m_usd": {"const": 0.2},
+        "price_out_per_1m_usd": {"const": 1.2},
+        "whole_study_reservation_usd": {"type": "number", "maximum": 5.9},
+        "reservation_path": {"type": "string"},
+        "reservation_sha256": {"$ref": "#/$defs/sha256"},
+        "includes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "output_root_template": {"type": "string", "pattern": "^\\$\\{VEGO_PRIVATE_EVIDENCE_ROOT\\}/"},
+    "runtime_root_template": {"type": "string", "pattern": "^\\$\\{VEGO_PRIVATE_EVIDENCE_ROOT\\}/"},
+    "output_schema": {"type": "object", "required": ["name", "path", "sha256"], "properties": {"name": {"const": "study2-condition-output-v1"}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "detector_v1": {
+      "type": "object",
+      "required": ["path", "sha256", "applies_to", "role", "thresholds_modified"],
+      "properties": {
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "applies_to": {"type": "object", "required": ["VEGO_AI_ON", "VEGO_AI_OFF"], "properties": {"VEGO_AI_ON": {"const": "APPLICABLE"}, "VEGO_AI_OFF": {"const": "NOT_APPLICABLE"}}},
+        "thresholds_modified": {"const": false}
+      }
+    },
+    "metrics": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "section", "definition", "denominator", "conditions", "evidence_class"]}},
+    "planned_charts": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "title", "metric_ids", "conditions", "denominator", "limitation"]}},
+    "technical_failure_policy": {"type": "object"},
+    "stopping_rule": {"type": "string"},
+    "evidence_class": {"const": "PROSPECTIVE EMPIRICAL EVIDENCE"},
+    "documents": {"type": "object", "additionalProperties": {"type": "object", "required": ["path", "sha256"]}},
+    "human_assessment": {"type": "object", "required": ["status", "rubric_path", "raters_required", "decisions", "actions", "not_measured_until_two_raters"]},
+    "forbidden_conclusions": {"type": "array", "minItems": 5, "items": {"type": "string"}},
+    "manifest_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

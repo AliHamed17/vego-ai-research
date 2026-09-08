@@ -17,6 +17,8 @@ import sys
 from collections import Counter
 from typing import Any
 
+from study1_signal_contract import s6_fires
+
 try:
     from qa_communication import build_episode_projection, load_event_stream
 except ImportError:  # pragma: no cover - direct script execution without repo path
@@ -201,7 +203,7 @@ def _round_snapshot_summary(root: pathlib.Path) -> dict[str, Any]:
         "round_snapshot_questions": len(records),
         "round_snapshot_unique_normalized_questions": len(set(row[3] for row in records if row[3])),
         "round_snapshot_repeated_normalized_questions": sum(count > 1 for count in repeated.values()),
-        "round_snapshot_multiple_round_episodes": "NOT COMPUTABLE FROM FROZEN EVIDENCE",
+        "round_snapshot_s6_projection": "NOT COMPUTABLE FROM FROZEN EVIDENCE",
     }
 
 
@@ -253,7 +255,9 @@ def build_feature_inventory(root: pathlib.Path, events: list[dict[str, Any]]) ->
         "F3_answer_evidence_missing": {"available": False, "count": sum(event.get("answered") and event.get("evidence_present") is False for event in events), "deterministic": True, "rule": "answered and evidence_present == false", "limitation": "answers are not persisted"},
         "F4_lower_priority_source": {"available": False, "count": 0, "deterministic": True, "rule": "explicit source-priority field", "limitation": "no source-priority field"},
         "F5_answer_not_persisted": {"available": True, "count": sum(not event["answered"] for event in events), "deterministic": True, "rule": "answer_status == ANSWER_NOT_PERSISTED", "escalation_signal": False, "limitation": "data-availability condition only; not evidence of agent uncertainty or a human-escalation need"},
-        "F6_multiple_rounds": {"available": False, "count": 0, "deterministic": True, "rule": "same episode has round_index > 1", "limitation": "episode linkage is not persisted"},
+        # Retired legacy feature name: this is not a second Detector-v1 S6
+        # count.  The sole S6 definition lives in study1_signal_contract.py.
+        "F6_LEGACY_ROUND_COUNT_UNAVAILABLE": {"available": False, "count": "NOT_AVAILABLE_IN_WORKTREE", "deterministic": True, "rule": "not operationalized outside the canonical S6 episode projection", "limitation": "episode linkage is not persisted"},
         "F7_repeated_question": {"available": True, "count": sum(event["repeated_question"] for event in events), "deterministic": True, "rule": "normalized question text repeats", "limitation": "canonical final snapshot has no repeats"},
         "F8_follow_up_clarification": {"available": False, "count": 0, "deterministic": True, "rule": "follow_up_observed == true", "limitation": "follow-up linkage is not persisted"},
         "F9_high_question_count": {"available": False, "count": 0, "deterministic": True, "rule": "declared per-case/claim count threshold", "limitation": "case/claim scope unavailable on Q&A rows"},
@@ -324,7 +328,7 @@ def detect_detector_v1(episode: dict[str, Any]) -> dict[str, Any]:
         strong.append("S7_TERMINATED_MAX_ROUNDS")
     if any(row.get("answer_confidence") == "Medium" for row in answers):
         weak.append("S2_MEDIUM_ANSWER_CONFIDENCE")
-    if episode.get("round_count", 0) > 1:
+    if s6_fires(episode):
         weak.append("S6_MULTIPLE_QA_ROUNDS")
     all_signals_fired = strong + weak
     if strong:
@@ -490,7 +494,7 @@ def extract_frozen_corpus(root: pathlib.Path) -> dict[str, Any]:
         "medium_confidence_answers": sum(event.get("answer_confidence") == "Medium" for event in events),
         "low_confidence_answers": sum(event.get("answer_confidence") == "Low" for event in events),
         "answers_without_evidence": sum(event["answered"] and event["evidence_present"] is False for event in events),
-        "questions_with_multiple_rounds": "NOT COMPUTABLE FROM FROZEN EVIDENCE",
+        "questions_with_s6_rounds": "NOT COMPUTABLE FROM FROZEN EVIDENCE",
         "repeated_normalized_questions": sum(event["repeated_question"] for event in events),
         "cases_with_multiple_questions": "NOT COMPUTABLE FROM FROZEN EVIDENCE",
         "episodes_reaching_max_qa_rounds": "NOT COMPUTABLE FROM FROZEN EVIDENCE",

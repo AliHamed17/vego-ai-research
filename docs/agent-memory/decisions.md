@@ -1,11 +1,27 @@
 <!--
-last_updated: 2026-07-04
+last_updated: 2026-09-08
 staleness_threshold_days: 14
 -->
 
 # Decisions
 
 Durable decisions for this project.
+
+## 2026-09-08 - Instrument experiments under the USD 6 authorisation
+
+- Decision: Use the 2026-09-08 USD 6.00 authorisation first for zero-cost instrument experiments (extended detector envelope truth table, event-order/aggregation robustness on the accepted log, reserve-versus-actual cost calibration) and spend nothing until one reserve-bound menu row is preregistered, pilot gates 4 and 6 are closed, and a credential is present (decision D8 in `2026-09-06-final-decision-table.md`).
+- Decision: The extended envelope subclasses the accepted-lineage fixture client and never modifies `scripts/airtravel_local_observer.py`; the three legacy modes run the parent untouched so the original envelope rows stay comparable.
+- Decision: The aggregation-sensitivity columns (majority, first round, final round, plurality) are descriptive summaries of the recorded answers and are never presented as alternative detectors. Detector-v1 and its `any` aggregation remain frozen; the dependence of the S1 signal (not the classification, which S7 preserves) on `any` in one of three episodes is disclosed in the dossier (section 2) and the decision table (section 2); the same-day draft that claimed a class-level dependence was withdrawn after adversarial review and a correction record was added to the addendum.
+- Decision: The first-attempt confound — forcing fixture questions through the parent's `max_rounds` mode also injected the `agent4/classify` variability row and altered the pipeline phase structure — is disclosed as a methodological note in the dossier (section 8) and the addendum rather than silently corrected.
+- Reason: The credential is absent and the pilot review gate is outstanding, so paid execution is not yet permitted, while real instrument gaps existed: `WEAK_ALERT` and S3 had never been produced end-to-end, and no robustness or cost-calibration analysis had been run.
+- Consequence: Provider calls 0; Detector-v1 unchanged; three new gitignored analysis artifacts under `external_data/airtravel-pr38/v4-real-run/analysis/`; the dossier PDF grows to three pages with sections 2, 8 and 11; `docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md` records the experiments.
+
+## 2026-09-07 - Study 1 transparency evidence boundary
+
+- Decision: Publish a sanitized data/log/pattern transparency package with public provenance and exact Detector-v1 traceability, while keeping accepted private-run metrics `NOT_AVAILABLE_IN_WORKTREE` until the original binding manifest and event log are mounted and byte-verified.
+- Decision: Treat `qa_events.jsonl` as the Q&A source of truth only when its run-level provenance is validated; `interaction_log.json`, `user_actions.log`, and UI exports cannot substitute for answer-level Q&A evidence without the required fields. Detector-v1 remains a reporting-level candidate label and never writes the separate Agent-4 queue.
+- Reason: The reviewed worktree contains no accepted private event-log chain. Producing numeric results or empirical patterns from narrative values would violate the evidence boundary.
+- Consequence: The package is ready for supervisor transparency review, but no scientific counts, effectiveness/accuracy claims, charts, new run, provider call, or synthetic scientific evidence is authorized by this change.
 
 ## Decision Lifecycle Registry
 
@@ -487,6 +503,21 @@ Durable decisions for this project.
 - Reason: Offline parity, schema, ordering, duplicate-ID, follow-up, termination, privacy, and route-representation checks pass. A direct production edit would weaken the protected-runtime evidence boundary.
 - Consequence: The technical verification is `PARTIAL`; no one-setting run can proceed until case-model inputs and a reviewed runtime integration are available.
 
+## 2026-09-06 - Study 1 controlling verdict and route notation
+
+- Decision: The controlling verdict for every Study 1 supervisor document is `PARTIAL_EVIDENCE_ONLY / DESCRIPTIVE_REPORTING_WITH_RETROSPECTIVE_PROVENANCE`. The verdict appears as a banner at the top of each document and print source, and a retrospective-provenance marker is published beside every table and every figure caption.
+- Decision: Supervisor acknowledgement is no longer a route to removing the provenance caveat. The earlier statement in `docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md` §6, which listed explicit acknowledgement as an alternative to a self-binding receipt, is revoked. Provenance is fixed at execution time; only a new authorized run whose receipt self-binds the event-log hash, the lifecycle summary and the execution-code SHA can remove it.
+- Decision: Directed-route notation in Study 1 Hebrew documents and figures uses explicit asking-agent / answering-agent columns (`סוכן שואל` / `סוכן משיב`), never arrows. An arrow inside an RTL paragraph does not carry an unambiguous direction for a reader.
+- Decision: `reporting_code_sha` is documented as a document-generation stamp outside the evidence chain; `execution_code_sha` is the value bound to the evidence. This resolves the mismatch between documents generated at different commits without retrofitting either value.
+- Reason: The published numbers reproduce exactly from the raw evidence (evidence validator: 17 PASS, 0 value failures, 3 provenance gaps), but the run's provenance was established after execution rather than at execution. Reporting the numbers without that status beside them would overstate what the receipt supports.
+- Consequence: Study 1 remains descriptive-only with the permitted-claim boundary unchanged (one public-external run, N=4, denominator 3, no ground truth; no correctness, accuracy, benefit, representativeness, generalization or ON/OFF superiority). Study 2 remains `PREPARED_NOT_EXECUTED` and unpooled. Detector-v1 and preregistration v1.0.1/v1.0.2 are untouched.
+
+## 2026-09-07 - Study 1B closure and bounded pilot separation
+
+- Decision: Close Study 1B permanently under the frozen protocol as `BUDGET_BLOCKED_UNDER_FROZEN_PROTOCOL`; do not shrink, reopen, relabel, or partially execute its five-repeat design.
+- Decision: Maintain a separate `BUDGET_CONSTRAINED_EXPLORATORY_PILOT` with exactly three repeats, prospective per-repeat binding, complete budget reservation before any response, 90-request/repeat cap, truncation exclusion, and private ignored outputs. The controller and preflight are offline-only engineering artifacts; they do not create scientific results.
+- Reason: The frozen Study 1B worst-case call/cost envelope cannot fit the reserved USD 2. A bounded pilot is a different protocol and must not be pooled with Study 1B or the accepted Study 1 run.
+- Consequence: No provider/API/model call, paid run, Detector-v1 experiment, or synthetic scientific-data generation occurred. Independent human review and a fresh one-time grant remain required for any future provider-backed pilot.
 ## 2026-09-06 - Literature evidence-closure audit: gap verdicts and protocol amendment
 
 - Decision: Record all three gap verdicts as **NARROWED**, not supported and not refuted. GAP-1, GAP-2 and GAP-3 each survive as a residual conjunction after the adjacent literatures were searched; no gap was refuted, and no claim was classified `REFUTED`.
@@ -500,3 +531,13 @@ Durable decisions for this project.
 - Decision: Never use Crossref as a substitute for ACM Digital Library coverage. Reference [13] has a valid ACM DOI that Crossref does not index; a verification pipeline keyed only to Crossref would flag a correctly cited paper as unverifiable.
 - Reason: The proposal's own §2.6 names business-process work-item/resource allocation and knowledge-base curation/truth maintenance/belief revision as the greatest threats to its gaps and registers them as required search targets. Both were searched here at reconnaissance depth. Both narrowed the corresponding gap without closing it, and the registered protocol as written could not have reached either.
 - Consequence: Four new deliverables under `literature/` and `docs/research/phd-proposal/`. Chapter 2 is unchanged. Eleven citations are recommended for addition; two page ranges need correction; two `LIKELY_FALSE` statements need correcting before the chapter is shown again. Four supervisor decisions are open, listed in the protocol audit §19.
+
+## 2026-09-08 - Claude - Study 2 prospective paired run design
+
+- Decision: Use the complete 21-case Text2UML AirTravel full-frame contract as the eligible frame and draw 12 cases by `random.Random(20260908).sample` (protocol A, highest coverage) rather than reusing Study 1's four cases or running repeats (B) or the minimum (C).
+- Decision: Enforce the USD 6.00 ceiling with a per-request reservation guard (12,000 input + 16,384 output tokens at 0.20/1.20 USD per 1M, guard ceiling 5.90) and operational caps of 19 ON / 3 OFF requests per case; the theoretical ON bound (82 + 61N) exceeds the ceiling at any N >= 4, so caps decide admission and the guard enforces spend.
+- Decision: Freeze temperature as PROVIDER_DEFAULT_NOT_SENT for both conditions because the protected `LLMClient` never sends it; OFF reuses the same client class so request shape and parse re-attempts are identical by construction.
+- Decision: Run OFF before ON so every paired unit is covered before the expensive condition starts; whole-study reservation checked before the first request, ON admission re-checked after OFF.
+- Decision: Publish only a redacted aggregate (counts, enums, digests, ids); rater cards stay in the private root with published digests only. Hash-bound documents are written with LF so digests equal the normalised checkout.
+- Reason: The brief required a prospective exploratory paired comparison under a one-time USD 6.00 authorisation with no superiority claim; these choices maximise paired coverage while keeping the ceiling unbreakable and the evidence recomputable.
+- Consequence: Run `S2P-LIVE-20260908T192135Z` on head `3a62d91a48205e3a78cebf9a352e95e6615b97b8`; ON 9/12 artifacts, 227 requests, 0.9029 USD, 1713 s; OFF 12/12 artifacts, 12 requests, 0.0530 USD, 239 s; total 240 requests / 0.9559 USD of the 6.00 ceiling; ON episodes 16 (14 complete), Detector-v1 {'EXCLUDED': 2, 'STRONG_ALERT': 13, 'WEAK_ALERT': 1}; OFF Detector-v1 NOT_APPLICABLE; human assessment NOT_MEASURED.

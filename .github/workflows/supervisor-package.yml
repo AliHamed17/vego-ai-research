@@ -46,6 +46,8 @@ jobs:
         run: |
           uv run python -m pytest VEGO-AI/tests -q -p no:cacheprovider
           uv run python -m pytest scripts/tests -q -p no:cacheprovider
+          uv run python -m pytest tests -q -p no:cacheprovider
+          uv run python -m pytest tests/test_study2_documents_and_schema.py tests/test_study2_off_baseline.py tests/test_study2_on_off.py -q -p no:cacheprovider
           uv run python -m pytest tests/hlayer_offline -q -p no:cacheprovider
 
   source-security-and-documents:

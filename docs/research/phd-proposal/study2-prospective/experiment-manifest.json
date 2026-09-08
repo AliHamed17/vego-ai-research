@@ -1,0 +1,460 @@
+{
+  "budget": {
+    "guard_ceiling_usd": 5.9,
+    "hard_ceiling_usd": 6.0,
+    "includes": [
+      "successful calls",
+      "failed calls",
+      "transport retries",
+      "parse re-attempts",
+      "both conditions",
+      "preflight fake runs cost nothing and share no budget"
+    ],
+    "max_output_tokens": 16384,
+    "per_request_reserve_usd": 0.0220608,
+    "price_in_per_1m_usd": 0.2,
+    "price_out_per_1m_usd": 1.2,
+    "reservation_path": "docs/research/phd-proposal/study2-prospective/budget-reservation.json",
+    "reservation_sha256": "f6abc5510de5fefc6baa2a252eaf4de62d8d799e063c963301b40f86cfc9c1b0",
+    "reserve_input_tokens": 12000,
+    "safety_margin_usd": 0.1,
+    "whole_study_reservation_usd": 5.8241
+  },
+  "caps": {
+    "VEGO_AI_OFF": 36,
+    "VEGO_AI_ON": 228,
+    "off_requests_per_case": 3,
+    "on_requests_per_case": 19,
+    "total_requests": 267
+  },
+  "case_selection": {
+    "eligible_case_count": 21,
+    "path": "docs/research/phd-proposal/study2-prospective/case-selection-manifest.json",
+    "rule": "sorted(random.Random(seed).sample(sorted(eligible_case_ids), sample_size)); executed once before any provider output was observed; no substitution afterwards",
+    "sample_size": 12,
+    "seed": 20260908,
+    "selected_case_ids": [
+      "01",
+      "02",
+      "03",
+      "05",
+      "06",
+      "07",
+      "08",
+      "12",
+      "15",
+      "18",
+      "20",
+      "21"
+    ],
+    "sha256": "23756aa8a3c4b194097542dd9ee8bc42e0994e3105e0b7040734daaa7dbb6ad3"
+  },
+  "concurrency": {
+    "VEGO_AI_OFF": 2,
+    "VEGO_AI_ON": 2
+  },
+  "conditions": {
+    "VEGO_AI_OFF": {
+      "agent_decomposition": false,
+      "detector_v1": "NOT_APPLICABLE",
+      "forbidden_modules": [
+        "orchestrator",
+        "qa_registry",
+        "qa_communication",
+        "agent1_language_advisor",
+        "agent2_domain_advisor",
+        "agent3_model_inspector",
+        "agent4_variability_explorer",
+        "human_review_queue",
+        "extract_qa_escalation_features",
+        "selective_intervention_policy",
+        "study1_signal_contract",
+        "airtravel_local_observer",
+        "vego_study2.prospective.on_runner"
+      ],
+      "inter_agent_qa": false,
+      "prompt_template_sha256": "8d4e1d8fe03e5fe87db48d2cb679921102a7cb8f098e2c1e7ff6cd5e1e7d27b8",
+      "round_loop": "NONE",
+      "skill_version": "off-baseline-v1",
+      "workflow": "one direct per-case call with the same model, domain description, candidate model, output schema and ceiling"
+    },
+    "VEGO_AI_ON": {
+      "agent_decomposition": true,
+      "detector_v1": "APPLICABLE",
+      "detector_v1_sha256": "38c8fe3cb5b912e7ed597e83e119ab18c3149adeb9174e5a6910b36d7ed97bd1",
+      "inter_agent_qa": true,
+      "prompts": "protected agent prompt templates, bound by the runtime digests above",
+      "protected_runtime_sha256": {
+        "agent1_language_advisor.py": "13e152fe4ec3b417a8c515bbe1bdb28ff952766579ce1ed6463a7ad9fa5b724e",
+        "agent2_domain_advisor.py": "fdf330b99295e871ad3cc3e5e934bb04a15f996a5060ea35d43fa13243d16d79",
+        "agent3_model_inspector.py": "4d0042777040f76abc1ca616a6e1dddcda591ddec54478fa2491b5020a817fa4",
+        "agent4_variability_explorer.py": "6b043c5643f9211d93ac402a9bf98685727e2cd92cab3377d1462dc3417df2ff",
+        "llm_client.py": "1a36b4ee860619db97a6ff84ecf64b4845a292ef67cf432c17a86eacd56f55da",
+        "orchestrator.py": "fca4b885ee07381db0f02e558b1aebf25bdc7c27da1c471fd3103d7e0e2d5b88",
+        "qa_communication.py": "9f2cda1dc52fe919be22ac2ea42d61dce3ed22d3fae7ae27077b3db821594236",
+        "qa_registry.py": "ab189d3fd954ea03ba891f5746b36eff8889baeff73d7594f820e68f8762ad5f",
+        "state.py": "d8492a623804065b86905d6183979c322d6f83376bf91026e718c615eea1730d"
+      },
+      "round_loop": "MAX_QA_ROUNDS as shipped in the protected orchestrator",
+      "workflow": "unmodified four-agent VEGO-AI pipeline: Language Advisor, Domain Advisor, Model Inspector, Variability Explorer"
+    }
+  },
+  "corpus_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+  "corpus_hashes": {
+    "cases": {
+      "01": "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+      "02": "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+      "03": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+      "05": "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+      "06": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+      "07": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+      "08": "b72fc5eaa682ce27912086dd2dcb3ea192c7fbe14285457cdcea23b0b6222f0b",
+      "12": "6fad455a7d4831a5baba0cb7f4336f24fa338f4cd0c14f02236305664aebdfab",
+      "15": "06ea010da3a8e4f21e38a4cb5c3b279cc036d3f0a1af5e15f8363efad5e4a36f",
+      "18": "77cdd113ce541a0bfffed798cbbfe3000d92d23fca88e41a344806373d551b1e",
+      "20": "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a",
+      "21": "7e3fccfff40f578aa80ab5aec866e5842bae6009cc4c8fd6c580f90a5f623d35"
+    },
+    "domain_description": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2"
+  },
+  "corpus_id": "text2uml_airtravel_253b26dc",
+  "detector_v1": {
+    "applies_to": {
+      "VEGO_AI_OFF": "NOT_APPLICABLE",
+      "VEGO_AI_ON": "APPLICABLE"
+    },
+    "path": "scripts/extract_qa_escalation_features.py",
+    "role": "reporting-only candidate-for-human-review label on recorded ON episodes; never writes a human queue, never alters an answer or model, never causes a retry",
+    "sha256": "38c8fe3cb5b912e7ed597e83e119ab18c3149adeb9174e5a6910b36d7ed97bd1",
+    "thresholds_modified": false
+  },
+  "documents": {
+    "claims_and_limitations_contract": {
+      "path": "docs/research/phd-proposal/study2-prospective/claims-and-limitations-contract.md",
+      "sha256": "26f241981c4dc8f1f88b930e016f11b640cda8aaabc195dfc7f9015629cf5a60"
+    },
+    "human_rater_rubric_he": {
+      "path": "docs/research/phd-proposal/study2-prospective/human-rater-rubric.he.md",
+      "sha256": "781f7f996d5952e67900fa6d67887d75e07005b8baafbfc1356aa088e4c67815"
+    },
+    "manifest_schema": {
+      "path": "schemas/study2-prospective-manifest-v1.schema.json",
+      "sha256": "35286e94a58160c6e8beee36e203cc44ff481ca49b62153ce030f437b4009d05"
+    },
+    "preregistration": {
+      "path": "docs/research/phd-proposal/study2-prospective/preregistration.md",
+      "sha256": "99c19cb55d651e31e532e23e3ec239bf6a326a477dd015ea3aaa409ea2b88ad8"
+    },
+    "public_aggregate_schema": {
+      "path": "schemas/study2-prospective-public-aggregate-v1.schema.json",
+      "sha256": "e4a9afc7cd7c62d2b06f0a06e39eeafa0c2ac4498f10dc519fcfa9ddfbea4628"
+    },
+    "receipt_schema": {
+      "path": "schemas/study2-prospective-receipt-v1.schema.json",
+      "sha256": "37ecf27720bfc377bdc82d0882753dc915f11ceba8d90790b96c608899d7893f"
+    },
+    "redaction_privacy_policy": {
+      "path": "docs/research/phd-proposal/study2-prospective/redaction-privacy-policy.md",
+      "sha256": "e627ac7b62f168338b40d600b62ff0b29cf9fff82c0e53638b288fa163ceacce"
+    }
+  },
+  "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+  "execution_order": [
+    "VEGO_AI_OFF",
+    "VEGO_AI_ON"
+  ],
+  "forbidden_conclusions": [
+    "Detector-v1 alerts are correct (no human labels exist).",
+    "VEGO-AI is universally better, or better on quality (no ground truth, no rated quality yet).",
+    "One condition is superior because of cost alone.",
+    "OFF produced zero alerts (Detector-v1 is NOT_APPLICABLE under OFF).",
+    "Fixture or preflight output is empirical evidence.",
+    "A model judgement is a human judgement.",
+    "Results generalise beyond this corpus, model, day and configuration."
+  ],
+  "frozen_at": "2026-09-08T19:14:54Z",
+  "human_assessment": {
+    "actions": [
+      "verify",
+      "clarify",
+      "revise guideline",
+      "no action"
+    ],
+    "cards": "blinded redacted cards generated into the private root; only their count and digests are published",
+    "decisions": [
+      "REVIEW_WORTHY",
+      "NOT_REVIEW_WORTHY",
+      "INSUFFICIENT_INFORMATION"
+    ],
+    "not_measured_until_two_raters": [
+      "agreement",
+      "correctness",
+      "precision",
+      "recall",
+      "F1",
+      "workload",
+      "benefit"
+    ],
+    "raters_required": 2,
+    "rubric_path": "docs/research/phd-proposal/study2-prospective/human-rater-rubric.he.md",
+    "status": "NOT_MEASURED"
+  },
+  "language_name": "UML",
+  "manifest_sha256": "d05ece7e2d15aed1f2b4696f1c7939792f435790dfcd568e25b41d9691abae08",
+  "metrics": [
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "output completeness: per-case shared-contract artifact produced (COMPLETED) versus NOT_PRODUCED/SCHEMA_INVALID/TECHNICAL_FAILURE",
+      "denominator": "planned paired cases",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M1",
+      "section": "A"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "structural validity: artifact validates against study2-condition-output-v1 with consistent coverage summary",
+      "denominator": "produced artifacts per condition",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M2",
+      "section": "A"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "execution cost: provider requests, prompt and completion tokens, priced USD from recorded usage",
+      "denominator": "per condition, with ON setting-level cost shown separately and per case attributed",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M3",
+      "section": "A"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "elapsed wall-clock seconds per condition; OFF per case exact, ON per case as first-to-last attributed request span under concurrency 2",
+      "denominator": "per condition and per case",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M4",
+      "section": "A"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "technical failure rate: cases with TECHNICAL_FAILURE, STOPPED_AT_CAP or NOT_PRODUCED; retried requests counted",
+      "denominator": "planned paired cases",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M5",
+      "section": "A"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "availability of explainable communication evidence: recorded inter-agent Q&A episodes, questions, answers per case",
+      "denominator": "paired cases; OFF is structurally zero by design, reported as NOT_AVAILABLE not as a deficit",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M6",
+      "section": "A"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON"
+      ],
+      "definition": "communication metrics: episodes, rounds, termination reasons, source-target routes, answer confidence distribution",
+      "denominator": "scientifically complete ON episodes",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M7",
+      "section": "B"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON"
+      ],
+      "definition": "Detector-v1 candidate labels: STRONG_ALERT, WEAK_ALERT, NO_ALERT, EXCLUDED per episode; NO_EPISODE per case without episodes",
+      "denominator": "scientifically complete ON episodes; NOT_APPLICABLE under OFF",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M8",
+      "section": "C"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "definition": "business-relevance descriptors: cost per completed artifact, requests per completed artifact, share of cases with any candidate-for-review label",
+      "denominator": "completed artifacts per condition",
+      "evidence_class": "PROSPECTIVE EMPIRICAL EVIDENCE",
+      "id": "M9",
+      "section": "D"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON"
+      ],
+      "definition": "blinded human assessment: REVIEW_WORTHY / NOT_REVIEW_WORTHY / INSUFFICIENT_INFORMATION per redacted card; agreement, correctness, precision, recall, F1, workload, benefit",
+      "denominator": "cards scored by two independent raters",
+      "evidence_class": "NOT_MEASURED",
+      "id": "M10",
+      "section": "E"
+    }
+  ],
+  "output_root_template": "${VEGO_PRIVATE_EVIDENCE_ROOT}/study2-prospective/<run_id>",
+  "output_schema": {
+    "name": "study2-condition-output-v1",
+    "path": "schemas/study2-condition-output-v1.schema.json",
+    "sha256": "d8257f8d2caa10e934c0716661b4f339bf9bb30cf48dcbcbca30fa8b8f3f8f02"
+  },
+  "planned_charts": [
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "denominator": "12 planned paired cases",
+      "id": "C1",
+      "limitation": "one corpus, one model, no ground truth; completion is not correctness",
+      "metric_ids": [
+        "M1",
+        "M2"
+      ],
+      "title": "Paired artifact completion and structural validity per case"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "denominator": "all recorded requests including retries",
+      "id": "C2",
+      "limitation": "cost from recorded usage at frozen list prices; not a superiority claim",
+      "metric_ids": [
+        "M3"
+      ],
+      "title": "Provider requests and priced cost per condition, ON split into setting-level and case-attributed"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "denominator": "per condition; ON per case approximate under concurrency",
+      "id": "C3",
+      "limitation": "wall-clock includes provider latency variance on one day",
+      "metric_ids": [
+        "M4"
+      ],
+      "title": "Elapsed time per condition and per case"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON"
+      ],
+      "denominator": "recorded episodes",
+      "id": "C4",
+      "limitation": "OFF has no episodes by design; absence is structural, not a measured deficit",
+      "metric_ids": [
+        "M6",
+        "M7"
+      ],
+      "title": "Inter-agent Q&A episodes, questions and answers per case (ON only)"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON"
+      ],
+      "denominator": "scientifically complete episodes",
+      "id": "C5",
+      "limitation": "no human labels; a label is a candidate for inspection, not a confirmed problem",
+      "metric_ids": [
+        "M8"
+      ],
+      "title": "Detector-v1 candidate labels per episode (ON only, reporting-only)"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON",
+        "VEGO_AI_OFF"
+      ],
+      "denominator": "completed artifacts",
+      "id": "C6",
+      "limitation": "counts are structural descriptors, not quality judgements",
+      "metric_ids": [
+        "M1",
+        "M9"
+      ],
+      "title": "Mapping rows and uncovered fragments per paired case"
+    },
+    {
+      "conditions": [
+        "VEGO_AI_ON"
+      ],
+      "denominator": "NOT_MEASURED",
+      "id": "C7",
+      "limitation": "no rater has scored; nothing is plotted until two raters return",
+      "metric_ids": [
+        "M10"
+      ],
+      "title": "Human assessment placeholder"
+    }
+  ],
+  "protocol_option": "A_HIGHEST_COVERAGE",
+  "provider": {
+    "allowed_hosts": [
+      "api.openai.com"
+    ],
+    "api_mode": "chat.completions",
+    "credential_env": "OPENAI_API_KEY",
+    "fallback_model": null,
+    "model": "gpt-5.6-luna",
+    "model_switching": "FORBIDDEN",
+    "name": "openai"
+  },
+  "request_parameters": {
+    "identical_for_both_conditions": true,
+    "max_completion_tokens": 16384,
+    "message_roles": [
+      "system",
+      "user"
+    ],
+    "request_timeout_seconds": 180,
+    "response_format": "NOT_SENT",
+    "seed": "NOT_SENT",
+    "temperature": "PROVIDER_DEFAULT_NOT_SENT",
+    "tools": "NOT_SENT"
+  },
+  "retry_policy": {
+    "counts_against_caps_and_budget": true,
+    "parse_reattempts": "protected LLMClient MAX_PARSE_RETRIES=2 applies identically to both conditions; each re-attempt is a metered request",
+    "retry_condition": "APIConnectionError, APITimeoutError, RateLimitError, InternalServerError, asyncio timeout; never on a valid response",
+    "transport_retries_per_request": 1,
+    "valid_but_undesirable_result": "NEVER_RETRIED"
+  },
+  "run_timeouts_seconds": {
+    "VEGO_AI_OFF": 1800,
+    "VEGO_AI_ON": 5400
+  },
+  "runtime_root_template": "${VEGO_PRIVATE_EVIDENCE_ROOT}/fullframe_runtime",
+  "schema_version": "study2-prospective-manifest-v1",
+  "setting_id": "cd_airtravel",
+  "stopping_rule": "run every planned unit once; stop only on cap, ceiling, run timeout, model mismatch, credential absence or gate failure; never on observed results",
+  "study_id": "VEGO-AI-STUDY-2-PROSPECTIVE",
+  "technical_failure_policy": {
+    "NOT_PRODUCED": "no artifact for that case and condition; stays in the denominator of M1 and M5",
+    "SCHEMA_INVALID": "artifact fails the shared contract; counted in M2, excluded from structural descriptors, never repaired",
+    "STOPPED_AT_CAP": "a cap or the ceiling was reached; remaining cases reported as not produced",
+    "TECHNICAL_FAILURE": "provider, parse, model-mismatch or secret-detection failure; reported per case with request count",
+    "ZERO_EPISODES_UNDER_ON": "valid observation, Detector-v1 contribution NO_EPISODE, distinct from NO_ALERT and NOT_APPLICABLE"
+  }
+}

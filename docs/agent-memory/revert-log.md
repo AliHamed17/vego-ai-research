@@ -322,6 +322,164 @@ Record file changes and rollback notes here.
 - Rollback note: Revert commit 93bd2c7 to remove v3.2.1 artifacts; ignored external_data remains local-only
 - Git commit: none recorded by script.
 
+## 2026-09-06 00:07 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the authorization-repair commit only; preserve rejected v3 artifacts.
+- Git commit: none recorded by script.
+
+## 2026-09-06 00:19 +03:00 - Codex - AirTravel v4 authorization repair
+
+- Files changed:
+  - scripts/airtravel_v4_contract.py
+  - scripts/airtravel_v4_execution.py
+  - scripts/prepare_airtravel_v4.py
+  - schemas/airtravel-fake-grant-v2.schema.json
+  - schemas/airtravel-technical-receipt-v2.schema.json
+  - scripts/tests/test_airtravel_v4_contract.py
+  - docs/research/phd-proposal/2026-09-05-airtravel-protected-fake-preflight-authorization-packet-v4.md
+  - docs/research/phd-proposal/2026-09-05-airtravel-v4-correction-record.md
+  - docs/research/phd-proposal/airtravel-pr38-correction/airtravel-v4-packet-manifest.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the repair commit only; preserve the rejected v3 run and all prior evidence.
+- Git commit: none recorded by script.
+
+## 2026-09-06 01:54 +03:00 - Codex - AirTravel Study 1 execution evidence reconciliation
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-presentation-he.md
+  - docs/research/phd-proposal/2026-09-05-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+- Rollback note: Revert commit 89495c2 to remove the report reconciliation and receipt additions.
+- Git commit: none recorded by script.
+
+## 2026-09-06 14:53 +03:00 - Claude - Study 1 transparency correction: retrospective-provenance verdict and unambiguous route columns
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/agent-memory/decisions.md
+- Rollback note: git revert ffe8fc0 restores the previous Study 1 document wording; the PDFs are gitignored artifacts and would need regeneration from the reverted HTML sources.
+- Git commit: none recorded by script.
+
+## 2026-09-06 16:19 +03:00 - Claude - Study 1 close-out: 92-check revalidation, C2/C3 correction, RTL figure repair; Study 2 review and preregistration v2
+
+- Files changed:
+  - scripts/study1_validate_evidence.py
+  - scripts/airtravel_extended_analytics.py
+  - scripts/tests/test_study1_validate_evidence.py
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-preliminary-results-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-technical-appendix-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-six-slides-he.md
+  - docs/research/phd-proposal/2026-09-06-study1-airtravel-execution-and-analysis-receipt.md
+  - docs/research/phd-proposal/2026-09-06-study1-evidence-status-he.md
+  - docs/research/phd-proposal/2026-09-06-study2-preregistration-draft.md
+  - docs/research/phd-proposal/2026-09-06-study2-implementation-review.md
+  - docs/research/phd-proposal/figures/fig1-confidence.svg
+  - docs/research/phd-proposal/figures/fig2-routes.svg
+  - docs/research/phd-proposal/figures/fig3-episodes.svg
+  - docs/research/phd-proposal/figures/fig4-baseline.svg
+  - docs/research/phd-proposal/figures/study1-results-source.html
+  - docs/research/phd-proposal/figures/study1-supervisor-report.html
+  - docs/research/phd-proposal/figures/study1-technical-appendix.html
+  - docs/dashboards/results-dashboard.md
+  - docs/agent-memory/current-state.md
+- Rollback note: git revert d075cf8 restores the previous document wording; 08d9549 and f25ca5d restore the earlier validator and analytics behaviour. PDFs are gitignored and regenerate from the HTML sources.
+- Git commit: none recorded by script.
+
+## 2026-09-06 17:03 +03:00 - Codex - Study 1/Study 2 evidence-bound implementation and validation
+
+- Files changed:
+  - scripts/study1_evidence_recovery.py
+  - scripts/study1_validate_evidence.py
+  - scripts/build_study1_signal_traceability.py
+  - src/vego_study2/
+  - scripts/study2_on_off_experiment.py
+  - schemas/study1-evidence-binding-v1.schema.json
+  - schemas/study2-*.schema.json
+  - docs/research/phd-proposal/study1-*
+  - docs/research/phd-proposal/study2-*
+  - scripts/tests/test_study1_*.py
+  - scripts/tests/test_study2_contract.py
+  - tests/test_study2_*.py
+- Rollback note: Revert commit b7c13fe and prior focused commits on this isolated branch; no protected runtime or Detector-v1 file was modified.
+- Git commit: none recorded by script.
+
+## 2026-09-07 13:28 +03:00 - Claude - Study 1B variance preregistered and prepared; binding-manifest obstacle recorded
+
+- Files changed:
+  - scripts/airtravel_real_run.py
+  - scripts/study1b_variance_runs.py
+  - scripts/tests/test_study1b_variance_budget.py
+  - docs/research/phd-proposal/2026-09-06-study1b-variance-preregistration.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: git revert the study1b commit removes the variance harness and preregistration; BudgetGuard defaults are unchanged so the Study 1 accepted-run behaviour is unaffected either way.
+- Git commit: none recorded by script.
+
+## 2026-09-07 16:51 +03:00 - Codex - Study 1B closure and bounded pilot readiness
+
+- Files changed:
+  - scripts/pilot_budget_constrained_runner.py
+  - scripts/pilot_budget_constrained_preflight.py
+  - scripts/study1b_variance_runs.py
+  - scripts/study1b_offline_preflight.py
+  - schemas/pilot-repeat-receipt-v1.schema.json
+  - docs/research/phd-proposal/2026-09-07-study1b-pilot-technical-note.he.md
+  - docs/research/phd-proposal/2026-09-07-study1b-pilot-email-draft.he.md
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+- Rollback note: Revert commit 454f95f2fd9410f18227f75e3ef6b4796225457a and this tracking update if rollback is approved; private ignored outputs remain outside Git.
+- Git commit: pending.
+
+## 2026-09-07 23:48 +03:00 - Codex - Study 1 transparency package finalization
+
+- Files changed:
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+  - docs/agent-memory/resource-memory.md
+  - docs/agent-memory/session-log.md
+- Rollback note: Revert the transparency-package commit and associated memory entries if the package is rejected; do not restore or commit private evidence.
+- Git commit: none recorded by script.
+
+## 2026-09-08 00:11 +03:00 - Codex - Transparency manifest and clean-checkout hardening
+
+- Files changed:
+  - scripts/build_study1_transparency_package.py
+  - scripts/tests/test_study1_transparency_package.py
+  - docs/research/phd-proposal/study1-transparency-figures-manifest-v1.json
+- Rollback note: Revert the consolidated transparency package commit if rejected; generated private artifacts remain outside Git.
+- Git commit: none recorded by script.
+
+## 2026-09-08 00:21 +03:00 - Codex - Study 1 transparency package CI and PR finalization
+
+- Files changed:
+  - docs/research/hardening/release-manifest-v3.json
+  - PR #41 metadata only
+- Rollback note: Revert commit 60db152 to restore the previous release-manifest source-tree hash if needed; PR metadata can be restored from its prior body.
 ## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
 
 - Files changed:
@@ -330,4 +488,58 @@ Record file changes and rollback notes here.
   - docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md
   - docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md
 - Rollback note: All four deliverables are new files. Delete literature/2026-09-06-gap-refutation-matrix.csv, literature/2026-09-06-high-priority-literature-map.csv, docs/research/phd-proposal/2026-09-06-literature-search-protocol-audit.md and docs/research/phd-proposal/2026-09-06-chapter2-claim-audit.md to revert. No existing proposal, Chapter 2, or Study 1 file was modified.
+- Git commit: none recorded by script.
+
+## 2026-09-08 01:59 +03:00 - Codex - Study 1 supervisor transparency correction integration
+
+- Files changed:
+  - transparency package scripts, schemas, tests, generated documentation and workflow; no private artifacts
+- Rollback note: Revert the transparency correction commits and merge commit if rollback is required; private ignored evidence remains untouched
+- Git commit: none recorded by script.
+
+## 2026-09-08 16:08 +03:00 - Claude - Study 1 instrument experiments: extended envelope truth table, log robustness, cost calibration, adversarial review corrections
+
+- Files changed:
+  - scripts/airtravel_detector_envelope_extended.py
+  - scripts/study1_instrument_robustness.py
+  - scripts/study1_cost_calibration.py
+  - scripts/build_study1_results_dossier.py
+  - scripts/render_study1_results_dossier.py
+  - scripts/tests/test_airtravel_detector_envelope_extended.py
+  - scripts/tests/test_study1_instrument_robustness.py
+  - docs/research/phd-proposal/2026-09-08-study1-instrument-experiments-addendum.md
+  - docs/research/phd-proposal/2026-09-06-final-decision-table.md
+  - docs/research/phd-proposal/README.md
+  - docs/research/phd-proposal/figures/study1-results-dossier.html
+  - docs/research/hardening/release-manifest-v3.json
+  - docs/agent-memory/current-state.md
+  - docs/agent-memory/progress.md
+  - docs/agent-memory/issues.md
+  - docs/agent-memory/decisions.md
+- Rollback note: Revert the single commit on study1/closure-and-study2-prep. Generated analysis JSON and the PDF are gitignored and regenerate from the scripts. The removed system-TEMP fixture residue was never evidence and is not recoverable.
+- Git commit: none recorded by script.
+
+## 2026-09-08 18:18 +03:00 - Codex - Study 1 Hebrew supervisor E2E readout
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-readout-he.pdf
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-slides-he.pptx
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-supervisor-slides-he.pdf
+  - docs/research/phd-proposal/2026-09-08-study1-e2e-evidence-index.md
+  - docs/research/phd-proposal/2026-09-08-study1-supervisor-email-he.md
+- Rollback note: Revert the readout package and its tracking entry; it changes no protected runtime or empirical evidence.
+- Git commit: `90ddf83a8644638afaa3165c28fa0a98c06aa033` (`docs: add bounded Hebrew Study 1 supervisor readout`).
+
+## 2026-09-08 23:02 +03:00 - Claude - Study 2 prospective paired ON/OFF run executed and packaged
+
+- Files changed:
+  - src/vego_study2/prospective/
+  - scripts/study2_prospective_run.py
+  - scripts/study2_prospective_freeze.py
+  - scripts/study2_prospective_report.py
+  - schemas/study2-prospective-*.schema.json
+  - docs/research/phd-proposal/study2-prospective/
+  - tests/test_study2_prospective.py
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Revert the study2/prospective-on-off-paired branch commits; private evidence under the f2 root is untouched by Git.
 - Git commit: none recorded by script.
