@@ -850,7 +850,9 @@ Chronological prompt history for Codex and Claude.
   - Added fail-closed semantic validation for public QuRE and metadata-only archive data cards.
   - Rejected traversal, separator, reserved-character, and Unicode-control inventory names at build and validation time.
   - Confirmed QuRE public record metadata but retained NOT_ADMITTED because the official record has no explicit licence or SHA-256 binding.
-  - Ran no provider/API/model call or experiment; spend USD 0.
+  - Ran no AI-provider/model call or experiment; spend USD 0. Read only the
+    public Zenodo record metadata needed for the QuRE admission decision; no
+    raw dataset download occurred.
 - Files changed:
   - src/vego_multidataset/admission.py
   - schemas/multidataset-data-card-v1.schema.json
