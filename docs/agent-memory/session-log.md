@@ -866,3 +866,32 @@ Chronological prompt history for Codex and Claude.
   - study2_prospective_report.py -> Hebrew report (9 pp), slides (10), executive summary, E2E visual, 14 blinded cards
 - Status: completed
 - Next steps: Two independent raters score the 14 blinded cards with human-rater-rubric.he.md; then compute agreement. PR #45 stays a draft; no merge without supervisor review.
+
+## 2026-09-09 00:49 +03:00 - Codex - Bilingual visual human-intervention baseline
+
+- Request: Create concise 3-4 page English and Hebrew supervisor PDFs with baselines, plots, experiments, conclusions, and Iris/Arnon questions.
+- Actions taken:
+  - Built one evidence-bound four-page visual readout in English and Hebrew from pinned tracked evidence
+  - Added an ON/OFF workflow diagram, operational baseline plots, Detector-v1 interpretation, agent-route coverage, and the human-validation gate
+  - Rendered and inspected all eight pages; normalized volatile PDF timestamps for reproducible hashes
+  - Preserved the frozen archival-retrospective, engineering-only fixture, prospective empirical, accepted-run robustness, and NOT_MEASURED evidence classes
+- Files changed:
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-facts.json
+  - docs/visualizations/catalog.generated.md
+  - docs/PROGRESS_TRACKER.md
+  - docs/agent-memory/session-log.md
+  - docs/agent-memory/revert-log.md
+  - docs/agent-memory/revert-log-archive.md
+  - scripts/build_study1_visual_baseline_bilingual.py
+  - tests/test_study1_visual_baseline_bilingual.py
+- Commands/checks:
+  - Focused report tests: 9 passed
+  - Full inventories: VEGO-AI 134 passed; scripts 789 passed, 23 skipped, 7 subtests; root 120 passed, 1 skipped
+  - PDF QA: 4 A4-landscape pages per language, embedded Unicode fonts, selectable text, no clipping
+  - Privacy, evidence consistency, security history, pip-audit, npm audit, Ruff, compile, and repository builders passed
+- Status: ready for draft PR review
+- Next steps: Open a stacked draft PR against study2/prospective-on-off-paired; require green CI; human raters remain NOT_MEASURED.

@@ -2152,3 +2152,23 @@ Historical entries.
 - Rollback note: Merge commit a78c1bf on main; feature branch docs/iris-july29-phd-execution retained (not deleted) at commit 20b04fc for reference.
 - Git commit: none recorded by script.
 
+## 2026-08-10 18:59 +03:00 - Claude - Aug-5 call: master plan, Chapter-3 draft, literature map, repairs, full verification
+
+- Files changed:
+  - docs/research/meetings/2026-08-05-master-plan.md
+  - docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md
+  - literature/per-rq-literature-map.md
+  - docs/research/meetings/2026-08-12-walkthrough-outline.md
+  - docs/research/meetings/2026-08-05-tracking.md
+  - docs/research/meetings/2026-08-10-work-report.md
+  - docs/research/phd-proposal/master-traceability-register.md
+  - docs/research/phd-proposal/three-study-contract.md
+  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
+  - docs/research/meetings/2026-08-05-supervisor-source-manifest.json
+  - docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json
+  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
+  - docs/research/bigui/experiment-catalog-snapshot-v1.json
+  - docs/research/hardening/release-manifest-v3.json
+- Rollback note: Commits 0595590..2ed820c on main; all repairs additive or manifest rebinds; b605937's content preserved unchanged.
+- Git commit: none recorded by script.
+

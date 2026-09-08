@@ -41,25 +41,6 @@ Record file changes and rollback notes here.
 - Branch backup: pushed 6 local-only, unmerged branches to origin as plain backup refs (no PR opened): `feature/m4a-test-compat`, `feature/memory-advisor`, `feature/memory-informed-comparison`, `feature/results-dashboard`, `feature/visualizer-ux-refresh`, `fix/m4b-schema-hardening`.
 - Rollback note: Deck/literature changes live only on PR branches (`docs/literature-awesome-index-and-root-cleanup`) or already-merged history (via PR #19, once merged) - nothing was pushed directly to `main`. To undo the branch backups, delete the remote refs (`git push origin --delete <branch>`); this does not affect `main` or either PR.
 
-## 2026-08-10 18:59 +03:00 - Claude - Aug-5 call: master plan, Chapter-3 draft, literature map, repairs, full verification
-
-- Files changed:
-  - docs/research/meetings/2026-08-05-master-plan.md
-  - docs/research/phd-proposal/chapter-3-gap-and-research-questions-draft.md
-  - literature/per-rq-literature-map.md
-  - docs/research/meetings/2026-08-12-walkthrough-outline.md
-  - docs/research/meetings/2026-08-05-tracking.md
-  - docs/research/meetings/2026-08-10-work-report.md
-  - docs/research/phd-proposal/master-traceability-register.md
-  - docs/research/phd-proposal/three-study-contract.md
-  - docs/research/meetings/2026-07-29-iris-supervisor-provenance-manifest.md
-  - docs/research/meetings/2026-08-05-supervisor-source-manifest.json
-  - docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json
-  - docs/research/thesis-evidence/THESIS_REVIEW_PACKAGE_MANIFEST.json
-  - docs/research/bigui/experiment-catalog-snapshot-v1.json
-  - docs/research/hardening/release-manifest-v3.json
-- Rollback note: Commits 0595590..2ed820c on main; all repairs additive or manifest rebinds; b605937's content preserved unchanged.
-- Git commit: none recorded by script.
 ## 2026-08-11 00:24 +03:00 - Claude - Full project-wide gaps, blockers, and deferred-work audit
 
 - Files changed:
@@ -480,6 +461,7 @@ Record file changes and rollback notes here.
   - docs/research/hardening/release-manifest-v3.json
   - PR #41 metadata only
 - Rollback note: Revert commit 60db152 to restore the previous release-manifest source-tree hash if needed; PR metadata can be restored from its prior body.
+
 ## 2026-09-07 11:52 +03:00 - Claude - Literature evidence-closure audit: protocol audit, gap-refutation matrix, claim audit
 
 - Files changed:
@@ -542,4 +524,22 @@ Record file changes and rollback notes here.
   - tests/test_study2_prospective.py
   - docs/research/hardening/release-manifest-v3.json
 - Rollback note: Revert the study2/prospective-on-off-paired branch commits; private evidence under the f2 root is untouched by Git.
+- Git commit: none recorded by script.
+
+## 2026-09-09 00:49 +03:00 - Codex - Bilingual visual human-intervention baseline
+
+- Files changed:
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-en.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.html
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-he.pdf
+  - docs/research/phd-proposal/2026-09-09-vego-ai-human-intervention-baseline-facts.json
+  - docs/visualizations/catalog.generated.md
+  - docs/PROGRESS_TRACKER.md
+  - docs/agent-memory/session-log.md
+  - docs/agent-memory/revert-log.md
+  - docs/agent-memory/revert-log-archive.md
+  - scripts/build_study1_visual_baseline_bilingual.py
+  - tests/test_study1_visual_baseline_bilingual.py
+- Rollback note: Revert the single feature commit to remove the generated reports, their builder/tests, visualization catalog entries, and this session record.
 - Git commit: none recorded by script.
