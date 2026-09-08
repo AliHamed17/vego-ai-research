@@ -6,14 +6,23 @@ $env:PYTHONUTF8 = "1"
 $root = Split-Path -Parent $PSScriptRoot
 $accepted = Join-Path $root "external_data\airtravel-pr38\v4-real-run\output"
 $frame = Join-Path $root "external_data\airtravel-pr38\full-frame-run\output"
+$frame2 = Join-Path $root "external_data\airtravel-pr38\full-frame-run-02\output"
 $out = Join-Path $root "external_data\airtravel-pr38\analysis-baselines"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
 $runs = @(@{ Label = "ACCEPTED_RUN_N4"; Dir = $accepted })
-if (Test-Path (Join-Path $frame "qa_events.jsonl")) {
-    $runs += @{ Label = "FULL_FRAME_N21"; Dir = $frame }
-} else {
-    Write-Output "!! full-frame event log absent; reporting the accepted run only"
+# A run is analysable only once its receipt exists. An in-flight run has a partial event
+# log, and scoring that would report a denominator the run had not finished producing.
+foreach ($candidate in @(
+    @{ Label = "FULL_FRAME_N21_RUN1"; Dir = $frame },
+    @{ Label = "FULL_FRAME_N21_RUN2"; Dir = $frame2 })) {
+    if (Test-Path (Join-Path $candidate.Dir "run-receipt.json")) {
+        $runs += $candidate
+    } elseif (Test-Path (Join-Path $candidate.Dir "qa_events.jsonl")) {
+        Write-Output "!! $($candidate.Label) has no receipt yet (still running); EXCLUDED"
+    } else {
+        Write-Output "!! $($candidate.Label) not present; excluded"
+    }
 }
 
 $eventArgs = @()
@@ -48,7 +57,7 @@ Write-Output "== escalation mechanism comparison"
 & py -3.13 (Join-Path $PSScriptRoot "study1_escalation_mechanism_comparison.py") @dirArgs `
     --out (Join-Path $out "escalation-mechanisms.json") | Out-Null
 
-$index = if ($runs.Count -gt 1) { 1 } else { 0 }
+$index = if ($runs.Count -gt 1) { 1 } else { 0 }   # figures use full-frame run 1
 Write-Output "== figures (run index $index)"
 & py -3.13 (Join-Path $PSScriptRoot "render_study1c_figures.py") `
     --characteristic (Join-Path $out "operating-characteristic.json") `
