@@ -18,25 +18,59 @@
     "evidence_class": {"type": "string", "minLength": 1},
     "owner_or_publisher": {"type": "string", "minLength": 1},
     "official_source": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "concept_doi": {"type": ["string", "null"], "maxLength": 256},
-        "record_doi": {"type": ["string", "null"], "maxLength": 256},
-        "record_url": {"type": ["string", "null"], "maxLength": 512},
-        "retrieved_at": {"type": ["string", "null"], "maxLength": 128},
-        "source": {"type": ["string", "null"], "maxLength": 256}
-      }
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["concept_doi", "record_doi", "record_url", "retrieved_at"],
+          "properties": {
+            "concept_doi": {"const": "10.5281/zenodo.15656471"},
+            "record_doi": {"const": "10.5281/zenodo.15656472"},
+            "record_url": {"const": "https://zenodo.org/records/15656472"},
+            "retrieved_at": {
+              "type": "string",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2}))$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source"],
+          "properties": {
+            "source": {"const": "AUTHORIZED_LOCAL_ARCHIVE_METADATA_ONLY"}
+          }
+        }
+      ]
     },
     "licence": {
-      "type": "object",
-      "required": ["status", "name", "url"],
-      "properties": {
-        "status": {"enum": ["VERIFIED", "UNVERIFIED"]},
-        "name": {"type": ["string", "null"]},
-        "url": {"type": ["string", "null"]}
-      },
-      "additionalProperties": false
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "name", "url"],
+          "properties": {
+            "status": {"const": "UNVERIFIED"},
+            "name": {"const": null},
+            "url": {"const": null}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "name", "url"],
+          "properties": {
+            "status": {"const": "VERIFIED"},
+            "name": {"const": "CC-BY-4.0"},
+            "url": {
+              "oneOf": [
+                {"const": null},
+                {"const": "https://creativecommons.org/licenses/by/4.0/"}
+              ]
+            }
+          }
+        }
+      ]
     },
     "date_or_version": {
       "type": "object",
@@ -54,8 +88,8 @@
         "bytes": {"type": ["integer", "null"], "minimum": 0},
         "file_inventory": {"type": "array"},
         "storage": {"const": "GITIGNORED_LOCAL_ONLY"},
-        "parser_version": {"type": ["string", "null"], "maxLength": 256},
-        "inventory_method": {"type": ["string", "null"], "maxLength": 256}
+        "parser_version": {"type": ["string", "null"], "pattern": "^qure-adapter-v[1-9][0-9]*$"},
+        "inventory_method": {"enum": [null, "ZIP_CENTRAL_DIRECTORY_METADATA_ONLY", "UNVERIFIED"]}
       },
       "additionalProperties": false,
       "allOf": [
@@ -67,7 +101,12 @@
                 "additionalProperties": false,
                 "required": ["name", "bytes", "sha256"],
                 "properties": {
-                  "name": {"type": "string", "minLength": 1, "maxLength": 256},
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^(?!\\.{1,2}$)[^/\\\\]+$"
+                  },
                   "bytes": {"type": "integer", "minimum": 0},
                   "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
                 }
@@ -95,13 +134,24 @@
       "additionalProperties": false,
       "required": ["source_class", "top_level", "extension_counts", "content_inspection"],
       "properties": {
-        "source_class": {"type": "string", "minLength": 1, "maxLength": 256},
-        "top_level": {"type": "string", "minLength": 1, "maxLength": 256},
+        "source_class": {"enum": ["USER_SUPPLIED_PROJECT_BACKUP_ARCHIVE", "UNVERIFIED"]},
+        "top_level": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "^(?!\\.{1,2}$)[^/\\\\]+$"
+        },
         "extension_counts": {
           "type": "object",
+          "propertyNames": {"pattern": "^\\.[a-z0-9]{1,16}$"},
           "additionalProperties": {"type": "integer", "minimum": 0}
         },
-        "content_inspection": {"type": "string", "minLength": 1, "maxLength": 256}
+        "content_inspection": {
+          "enum": [
+            "NOT_PERFORMED_PENDING_PROVENANCE_LICENCE_AND_TASK_ADMISSION",
+            "UNVERIFIED"
+          ]
+        }
       }
     }
   },
