@@ -10,6 +10,12 @@ class UnsafeOutputPathError(ValueError):
 
 def _has_reparse_point(path: Path) -> bool:
     try:
+        # ``st_file_attributes`` is Windows-specific.  Check the portable
+        # symlink predicate first so the same containment policy is enforced
+        # on CI hosts that do not expose reparse-point attributes (for
+        # example, Linux/macOS runners).
+        if path.is_symlink():
+            return True
         return bool(path.lstat().st_file_attributes & getattr(os, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400))
     except (AttributeError, FileNotFoundError, OSError):
         return False
