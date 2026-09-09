@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AirTravel v4 machine authorization manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version", "packet_version", "packet_path", "base_sha",
+    "implementation_commit_ancestor", "reviewed_head", "setting_id",
+    "corpus_id", "N", "runtime_archive_sha256", "runtime_files", "protected_manifest_path",
+    "protected_manifest_sha256", "harness_code_hashes", "schema_hashes", "run_root",
+    "control_root", "output_root", "verification_root", "required_layout",
+    "required_evidence_files", "command_template", "timeout_seconds",
+    "minimum_calls_per_pass", "maximum_calls_per_pass", "maximum_invocations",
+    "network_forbidden", "external_provider_calls_allowed",
+    "detector_v1_forbidden", "renderer_forbidden", "allowed_write_roots",
+    "prohibited_write_roots", "provider_execution_enabled"
+  ],
+  "properties": {
+    "manifest_version": {"const": "airtravel-v4-packet-manifest-v1"},
+    "packet_version": {"const": "v4"},
+    "packet_path": {"type": "string", "pattern": "^docs/research/phd-proposal/[^\\\\]+$"},
+    "base_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "implementation_commit_ancestor": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "reviewed_head": {"const": "GRANT_BOUND_REVIEWED_HEAD"},
+    "setting_id": {"const": "cd_airtravel"},
+    "corpus_id": {"const": "text2uml_airtravel_253b26dc"},
+    "N": {"const": 4},
+    "runtime_archive_sha256": {"$ref": "#/$defs/hash"},
+    "runtime_files": {
+      "type": "object", "minProperties": 5, "maxProperties": 5,
+      "additionalProperties": {
+        "type": "object", "required": ["sha256", "bytes"],
+        "additionalProperties": false,
+        "properties": {"sha256": {"$ref": "#/$defs/hash"}, "bytes": {"type": "integer", "minimum": 1}}
+      }
+    },
+    "protected_manifest_path": {"const": "docs/research/phd-proposal/airtravel-pr38-correction/protected-hashes.json"},
+    "protected_manifest_sha256": {"$ref": "#/$defs/hash"},
+    "harness_code_hashes": {
+      "type": "object", "minProperties": 2, "maxProperties": 2,
+      "additionalProperties": {"$ref": "#/$defs/hash"}
+    },
+    "schema_hashes": {
+      "type": "object", "minProperties": 3, "maxProperties": 3,
+      "additionalProperties": {"$ref": "#/$defs/hash"}
+    },
+    "run_root": {"const": "external_data/airtravel-pr38/v4-authorized-fake-run"},
+    "control_root": {"const": "external_data/airtravel-pr38/v4-authorized-fake-run/control"},
+    "output_root": {"const": "external_data/airtravel-pr38/v4-authorized-fake-run/output"},
+    "verification_root": {"const": "external_data/airtravel-pr38/v4-authorized-fake-run/verification"},
+    "required_layout": {"type": "object"},
+    "required_evidence_files": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "command_template": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "timeout_seconds": {"const": 1800},
+    "minimum_calls_per_pass": {"const": 16},
+    "maximum_calls_per_pass": {"const": 326},
+    "maximum_invocations": {"const": 1},
+    "network_forbidden": {"const": true},
+    "external_provider_calls_allowed": {"const": 0},
+    "detector_v1_forbidden": {"const": true},
+    "renderer_forbidden": {"const": true},
+    "allowed_write_roots": {"const": ["external_data/airtravel-pr38/v4-authorized-fake-run"]},
+    "prohibited_write_roots": {"type": "array", "items": {"type": "string"}},
+    "provider_execution_enabled": {"const": false}
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

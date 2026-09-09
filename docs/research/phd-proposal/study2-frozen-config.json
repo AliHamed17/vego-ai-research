@@ -1,0 +1,124 @@
+{
+  "schema_version": "study2-frozen-config-v1",
+  "study_id": "VEGO-AI-STUDY-2",
+  "status": "PREPARED_NOT_EXECUTED",
+  "run_id": "STUDY2-PREFLIGHT-UNEXECUTED",
+  "intervention": {
+    "type": "SYSTEM_COMPARISON",
+    "varying_factor": "VEGO-AI system workflow: multi-agent decomposition with inter-agent Q&A versus one direct per-case workflow",
+    "on": "Current VEGO-AI multi-agent workflow with role-scoped agents, inter-agent Q&A, and bounded rounds",
+    "off": "One direct per-case model workflow with no agents, inter-agent Q&A, or round loop"
+  },
+  "setting_id": "cd_airtravel",
+  "corpus_id": "text2uml_airtravel_253b26dc",
+  "case_ids": ["01", "02", "03", "04"],
+  "corpus": {
+    "source_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+    "source_manifest_sha256": "82f0a14a577f3d5cdb8d0b1de774e4201990dbd6f032002db5d09abea3a500c3",
+    "files": [
+      {
+        "case_id": "DOMAIN",
+        "path": "description.md",
+        "bytes": 1477,
+        "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2",
+        "role": "domain_description"
+      },
+      {
+        "case_id": "01",
+        "path": "result_one_claude-sonnet-4-6.txt",
+        "bytes": 1248,
+        "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+        "role": "candidate_model"
+      },
+      {
+        "case_id": "02",
+        "path": "result_one_codestral-2508.txt",
+        "bytes": 1272,
+        "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+        "role": "candidate_model"
+      },
+      {
+        "case_id": "03",
+        "path": "result_one_deepseek-chat.txt",
+        "bytes": 1324,
+        "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+        "role": "candidate_model"
+      },
+      {
+        "case_id": "04",
+        "path": "result_one_gemini-2.5-flash.txt",
+        "bytes": 1231,
+        "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+        "role": "candidate_model"
+      }
+    ]
+  },
+  "model": {
+    "provider": "TO_BE_FROZEN_BEFORE_FIRST_CALL",
+    "model_id": "TO_BE_FROZEN_BEFORE_FIRST_CALL",
+    "temperature": 0.0,
+    "max_output_tokens": 2048
+  },
+  "execution": {
+    "timeout_seconds": 180,
+    "run_timeout_seconds": 3600,
+    "retries": 1,
+    "concurrency": 2,
+    "cost_ceiling_usd": 10.0,
+    "call_ceiling": 326,
+    "network_policy": {
+      "mode": "DISABLED",
+      "provider_hosts": []
+    }
+  },
+  "privacy": {
+    "raw_content_persisted": false,
+    "secrets_fail_closed": true,
+    "private_output_root": "external_data/study2-airtravel/"
+  },
+  "output": {
+    "schema_id": "study2-result-v1",
+    "root": "external_data/study2-airtravel/",
+    "persisted_artifacts": [
+      "VEGO_AI_ON/result.json",
+      "VEGO_AI_ON/events.jsonl",
+      "VEGO_AI_ON/pipeline-output-manifest.json",
+      "VEGO_AI_OFF/result.json",
+      "VEGO_AI_OFF/events.jsonl",
+      "VEGO_AI_OFF/pipeline-output-manifest.json",
+      "run-receipt.json"
+    ]
+  },
+  "conditions": {
+    "VEGO_AI_ON": {
+      "agent_decomposition": true,
+      "inter_agent_qa": true,
+      "round_loop": true,
+      "detector_v1": "APPLICABLE"
+    },
+    "VEGO_AI_OFF": {
+      "agent_decomposition": false,
+      "inter_agent_qa": false,
+      "round_loop": false,
+      "detector_v1": "NOT_APPLICABLE"
+    }
+  },
+  "detector_v1": {
+    "VEGO_AI_ON": "APPLICABLE",
+    "VEGO_AI_OFF": "NOT_APPLICABLE"
+  },
+  "stopping_rules": [
+    "Stop a condition on the first unresolvable schema, privacy, path, cost, call, timeout, or retry failure.",
+    "Do not retry a completed condition or expand the corpus after a failure.",
+    "No scientific result is reportable from the deterministic fixture suite."
+  ],
+  "prompt_contract": {
+    "on_template_id": "study2-on-orchestrated-v1",
+    "off_template_id": "study2-off-direct-v1",
+    "hash_rule": "SHA-256 of canonical UTF-8 JSON {system,user}; raw prompt text is not persisted."
+  },
+  "study_separation": {
+    "pooled_with_study1": false,
+    "note": "Study 1 descriptive and retrospective-provenance records remain separate from Study 2 engineering fixtures and future observations."
+  }
+}

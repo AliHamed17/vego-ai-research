@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>מחקר 1C — דוח תיקון ופרשנות</title><style>@page { size:A4; margin:11mm 12mm 12mm; } body { font-size:8.4pt; }
+* { box-sizing: border-box; }
+body { font-family:"Segoe UI",Arial,sans-serif; color:rgb(11,11,11); margin:0; line-height:1.34; }
+h1 { font-size:15pt; margin:0 0 1mm; color:rgb(20,55,94); }
+h2 { font-size:10.4pt; margin:2.6mm 0 1.2mm; padding-bottom:0.8mm; color:rgb(20,55,94);
+     border-bottom:1.6px solid rgb(42,120,214); }
+h3 { font-size:8.8pt; margin:1.8mm 0 0.8mm; color:rgb(20,55,94); }
+p { margin:0 0 1.1mm; }
+.sub { color:rgb(82,81,78); font-size:8pt; margin:0 0 2mm; }
+.lead { font-size:9.4pt; margin:0 0 1.8mm; }
+table { width:100%; border-collapse:collapse; font-size:7.6pt; margin:0 0 1mm; }
+th,td { border:1px solid rgb(216,216,212); padding:0.9mm 1.2mm; text-align:right; vertical-align:top; }
+th { background:rgb(244,245,243); font-weight:600; }
+td.n, th.n { text-align:center; font-variant-numeric:tabular-nums; }
+code { font-family:Consolas,monospace; font-size:7pt; background:rgb(244,245,243);
+       padding:0 0.6mm; direction:ltr; unicode-bidi:isolate; }
+.num { unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+.f { font-family:Consolas,monospace; direction:ltr; unicode-bidi:isolate; font-size:8.6pt;
+     display:block; text-align:center; background:rgb(244,245,243); border-radius:1mm;
+     padding:1.1mm; margin:0 0 1mm; }
+.chip { display:inline-block; font-size:6.8pt; font-weight:700; padding:0.5mm 1.6mm;
+        border-radius:1mm; margin:0 0 1mm; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin:2mm 0; }
+.two h3 { margin:0 0 1mm; font-size:9pt; color:rgb(20,55,94); }
+.two ul { margin:0; padding-inline-start:4mm; }
+.chip.pro  { background:rgb(232,226,253); color:rgb(48,26,110); border:1px solid rgb(112,72,220); }
+.chip.arch { background:rgb(226,238,253); color:rgb(20,55,94); border:1px solid rgb(42,120,214); }
+.chip.fix  { background:rgb(253,236,229); color:rgb(150,58,18); border:1px solid rgb(235,104,52); }
+.chip.pub  { background:rgb(230,244,233); color:rgb(20,80,40); border:1px solid rgb(60,150,90); }
+.chip.def  { background:rgb(240,240,238); color:rgb(60,60,58); border:1px solid rgb(170,170,166); }
+.chip.na   { background:rgb(238,238,238); color:rgb(70,70,70); border:1px solid rgb(150,150,150); }
+.cap { font-size:6.9pt; color:rgb(82,81,78); margin:0.5mm 0 1.6mm; }
+.cap b { color:rgb(40,40,38); }
+.key  { background:rgb(238,244,252); border-right:3px solid rgb(42,120,214);
+        padding:1.6mm 2.2mm; font-size:8.4pt; margin:0 0 1.8mm; }
+.warn { background:rgb(253,242,238); border-right:3px solid rgb(235,104,52);
+        padding:1.6mm 2.2mm; font-size:8pt; margin:0 0 1.8mm; }
+.na   { background:rgb(242,242,242); border-right:3px solid rgb(140,140,140);
+        padding:1.6mm 2.2mm; font-size:8pt; margin:0 0 1.8mm; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3.4mm; align-items:start; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.6mm; align-items:start; }
+.grid4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:2.2mm; align-items:start; }
+.kpi { border:1px solid rgb(216,216,212); border-radius:1.8mm; padding:1.8mm; text-align:center; }
+.kpi .v { font-size:13pt; font-weight:700; color:rgb(20,55,94); line-height:1.05; }
+.kpi .l { font-size:7pt; color:rgb(82,81,78); margin-top:0.6mm; }
+.kpi .d { font-size:6.4pt; color:rgb(120,118,114); margin-top:0.3mm; }
+.row { display:flex; align-items:center; gap:1.6mm; margin:0.6mm 0; }
+.lbl { flex:0 0 42mm; font-size:7.4pt; text-align:right; }
+.track { flex:1 1 auto; position:relative; height:3.8mm; background:rgb(244,245,243);
+         border-radius:0.8mm; }
+.bar { position:absolute; top:0; right:0; height:100%; background:rgb(42,120,214);
+       border-radius:0.8mm; }
+.bar.fixbar { background:rgb(235,104,52); }
+.bar.zero { background:rgb(170,170,166); width:0.8mm !important; }
+.val { position:absolute; left:1.4mm; top:0.15mm; font-size:7pt; font-weight:700;
+       color:rgb(20,55,94); }
+.stage { border:1.4px solid rgb(42,120,214); border-radius:1.8mm; padding:1.6mm 1.4mm;
+         background:rgb(250,252,255); text-align:center; }
+.stage .n { display:inline-block; width:4.6mm; height:4.6mm; line-height:4.6mm; border-radius:50%;
+            background:rgb(42,120,214); color:#fff; font-size:7pt; font-weight:700; }
+.stage .t { font-size:7.8pt; font-weight:700; color:rgb(20,55,94); margin:0.7mm 0 0.3mm; }
+.stage .s { font-size:6.7pt; color:rgb(82,81,78); }
+.aside { border:1.4px dashed rgb(235,104,52); border-radius:1.8mm; padding:1.6mm;
+         background:rgb(254,249,246); }
+.ok { color:rgb(20,110,50); font-weight:700; }
+.no { color:rgb(150,40,40); font-weight:700; }
+ul, ol { margin:0 0 1.2mm; padding-right:4.6mm; padding-left:0; }
+li { font-size:8pt; margin:0 0 0.5mm; }
+tr, .key, .warn, .na, .kpi, .stage, .aside, figure { page-break-inside:avoid; }
+.pb { page-break-before:always; }
+</style></head><body><h1>מחקר 1C — דוח תיקון ופרשנות</h1><p class="sub">מה היה שגוי, מה מתוקן, ומה מותר לטעון מכאן ואילך</p><h2>1. שלושה תיקונים, לפני כל תוצאה</h2><p><b>תיקון א׳ — המילה ״התאמה״ הייתה דו־משמעית.</b> ההשוואה בין כלל בסיס לגלאי־v1 אפשרית בשתי רמות שונות, והתשובה שונה בכל אחת:</p><div class="two"><div><h3>רמת שלוש המחלקות</h3><p>משווים את התווית עצמה: התרעה חזקה / חלשה / ללא התרעה. בהרצה 1 <b>אף כלל בסיס אינו זהה</b> לגלאי ברמה הזו.</p></div><div><h3>רמת ההחלטה הבינארית</h3><p>משווים רק את ההחלטה ״לשלוח לבדיקה או לא״. בהרצה 1 הגלאי שלח את <b>כל</b> 11 השיחות, ולכן הכלל ״תמיד התרעה״ <b>זהה לו לחלוטין</b> ברמה הזו.</p></div></div><p class="warn">שתי הקביעות נכונות, והן אינן סותרות. המשפט ״אף כלל בסיס אינו מתאים״ נכתב בלי לציין את הרמה, ולכן היה <b>שגוי ברמה הבינארית</b>. מכאן ואילך כל אמירה על התאמה חייבת לנקוב ברמה.</p><p><b>תיקון ב׳ — ״אף שיחה מעולם לא קיבלה ללא־התרעה״ נאמר בלי היקף.</b> הקביעה נכונה עבור ההרצה המאושרת ושתי הרצות המסגרת המלאה, וזה ההיקף שיש לכתוב. המילה ״מעולם״ בלי היקף חלה גם על הרצות שה-head אינו יכול לאמת, ולכן אינה ניתנת להערכה. הניסוח הנכון: <b>״בהרצה המאושרת ובשתי הרצות המסגרת המלאה, אף שיחה שהושלמה לא סווגה ללא־התרעה״</b>.</p><p><b>תיקון ג׳ — שבר סינון תואר כהקטנת עומס.</b> בחירה בפחות שיחות אינה עבודה אנושית שנחסכה. הכמות נקראת מעתה <code>UNVALIDATED_SCREENING_FRACTION</code>, ואינה ראיה לתועלת, לשימור, לנכונות או לבטיחות.</p><p class="cap"><b>מה מוצג:</b> שלושת התיקונים ומה שהם מחליפים · <b>מונה:</b> 3 תיקונים · <b>מכנה:</b> החבילה כפי שפורסמה קודם · <b>מקור:</b> <code>study1c-reconciliation.json</code> · <b>מה אינו מוכיח:</b> תיקון ניסוח אינו ראיה חדשה ואינו משנה אף מספר שנמדד</p><div class="pb"></div><h2>2. טבלת ההתאמה — כל הרצה על המכנה של עצמה <span class="chip arch">ראיה ארכיונית־רטרוספקטיבית תיאורית</span></h2><table><tr><th>הרצה</th><th>סטטוס</th><th class="n">שיחות שהושלמו</th><th class="n">חזקה / חלשה / ללא</th><th class="n">נשלחו לבדיקה</th><th class="n">שבר סינון</th><th class="n">עלות</th></tr><tr><td>REAL-efe686a-20260905T2303Z</td><td>EXECUTED</td><td class="n">3</td><td class="n">3 / 0 / 0</td><td class="n">3</td><td class="n">0.0</td><td class="n">LOWER_BOUND 0.134972</td></tr><tr><td>FULLFRAME-01</td><td>EXECUTED</td><td class="n">11</td><td class="n">7 / 4 / 0</td><td class="n">11</td><td class="n">0.0</td><td class="n">EXACT 0.360827</td></tr><tr><td>FULLFRAME-02</td><td>EXECUTED</td><td class="n">11</td><td class="n">11 / 0 / 0</td><td class="n">11</td><td class="n">0.0</td><td class="n">LOWER_BOUND 1.600173</td></tr><tr><td>HOTSPOT-01</td><td>PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED</td><td class="n">אינו זמין</td><td class="n">אינו זמין / אינו זמין / אינו זמין</td><td class="n">אינו זמין</td><td class="n">אינו זמין</td><td class="n">NOT_AVAILABLE </td></tr><tr><td>OFFLINE_FIXTURES</td><td>OFFLINE_NO_PROVIDER_CALLS</td><td class="n">אינו זמין</td><td class="n">אינו זמין / אינו זמין / אינו זמין</td><td class="n">אינו זמין</td><td class="n">אינו זמין</td><td class="n">EXACT 0.0</td></tr></table><p class="warn">אין שורת סיכום, ולא תהיה. ההרצות נבדלות במספר המקרים ובתצורה, ואיחוד המכנים היה מתאר הרצה שמעולם לא בוצעה.</p><p class="cap"><b>מה מוצג:</b> כל ההרצות זו לצד זו, בלי איחוד · <b>מונה:</b> 5 הרצות · <b>מכנה:</b> כל אחת והמכנה שלה בלבד · <b>מקור:</b> <code>study1c-reconciliation.json</code> · <b>מה אינו מוכיח:</b> שבר סינון אינו חיסכון בעבודה אנושית ואינו תועלת</p><h2>3. מעמד מחקר המוקדים ומשיכת חבילת התוצאות <span class="chip na">אינו זמין — ולא אפס</span></h2><p>המניפסט המעקב מצהיר <code>PREREGISTERED_NOT_EXECUTED</code>, ואין קבלה, יומן אירועים או פנקס קריאות מעקב במאגר. ארטיפקטים פרטיים קיימים מקומית, אך <b>ארטיפקט פרטי הוא ראיה לבעליו ולא לאיש אחר</b>. לכן המעמד הוא <code>PREREGISTERED_NOT_EXECUTED_OR_UNVERIFIED</code>.</p><p class="warn"><b>חבילת תוצאות המוקדים נמשכה מן ה-head.</b> הדוח, המצגת, הסיכום העסקי, המפה ומפתח הראיות הוסרו. הם דיווחו על הרצה שקורא אינו יכול לאמת, וסיימו בהכרעת <code>CONDITIONAL GO</code> שאיש לא אימת. המספרים שלהם <b>אינם מפורסמים כאן מחדש</b>, משום שפרסומם היה מציג הרצה בלתי־מאומתת כהרצה שבוצעה. ההיסטוריה נשמרה; דבר לא נכתב מחדש.</p><p>בנוסף, זרע ההגרלה נקבע <b>לאחר</b> שתוצאות המסגרת המלאה כבר היו ידועות. ההגרלה ניתנת לשחזור, אך אין רישום התחייבות שקדם לתוצאות. לכן הדגימה מסווגת <code>PILOT_INFORMED_POST_OUTCOME</code> ו<b>אינה פרוספקטיבית</b>.</p><p class="cap"><b>מה מוצג:</b> המעמד הניתן לאימות מן המאגר · <b>מונה:</b> 1 מחקר · <b>מכנה:</b> הראיות המעקב בלבד · <b>מקור:</b> <code>study1-hotspot-manifest.json</code> · <b>מה אינו מוכיח:</b> מעמד אינו תוצאה; הוא רק קובע מה מותר לטעון</p><div class="pb"></div><h2>4. ההכרעה הנוכחית <span class="chip na">אינו זמין — ולא אפס</span></h2><p class="verdict"><b>DESCRIPTIVE_RULE_BEHAVIOUR_ONLY / NOT_READY_FOR_SCIENTIFIC_CONCLUSION</b></p><p>אין דירוגים אנושיים עיוורים ואין מדידת זמן בדיקה, ולכן אף טענה על דיוק, תועלת, עומס, שימור, סיבתיות, הכללה או תקפות מוקדים אינה ניתנת לחישוב. מה שנותר הוא התנהגות הכלל על קלטים שנרשמו.</p><p class="warn"><code>CONDITIONAL GO</code> נמשכה. הכרעה כזו מרמזת על תחום שבו הבסיס מבוסס; איש לא אימת שרשרת ראיות שלמה ואיש לא הגדיר תחום כזה.</p><h2>5. הממצא החזק ביותר שניתן להגנה <span class="chip arch">ראיה ארכיונית־רטרוספקטיבית תיאורית</span></h2><p class="verdict">תחת הכלל הרשום, סיווג ההתרעה רגיש מאוד לאורך שיחת השאלה־תשובה; שיחות ארוכות נוטות להיסחף אל ״התרעה חזקה״. זהו ממצא על <b>התנהגות הכלל</b>, ואינו אימות של צורך אמיתי בהתערבות אנושית.</p><p>מה שאינו נובע מכך: אין כאן זיהוי מוקדים, אין יעילות תיעדוף, אין דיוק או היזכרות, אין תועלת אנושית, אין סיבתיות, אין הכללה, ואין עדיפות של VEGO-AI. כל אחד מאלה דורש תוויות אנושיות עצמאיות שאינן קיימות.</p><div class="kpis"><div class="kpi"><div class="v">8</div><div class="l">טענות מותרות</div></div><div class="kpi"><div class="v">14</div><div class="l">טענות אסורות</div></div><div class="kpi"><div class="v">אינו זמין</div><div class="l">דיוק · היזכרות · F1</div></div><div class="kpi"><div class="v">אינו זמין</div><div class="l">חיסכון בזמן בדיקה</div></div></div><p class="cap"><b>מה מוצג:</b> הממצא המותר וגבולותיו · <b>מונה:</b> 1 ממצא · <b>מכנה:</b> ההרצות שתועדו · <b>מקור:</b> <code>study1c-claim-ledger.json</code> · <b>מה אינו מוכיח:</b> ממצא על התנהגות כלל אינו ממצא על העולם</p></body></html>

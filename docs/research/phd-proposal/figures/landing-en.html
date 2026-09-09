@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8"><title>Can a simple rule pick which AI conversations a person should check?</title><style>
+@page { size: A4; margin: 12mm 13mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color: rgb(27,27,31); margin: 0;
+       font-size: 9.6pt; line-height: 1.45; }
+.page { page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+h1 { font-size: 17.5pt; color: rgb(20,55,94); margin: 0 0 1mm; line-height: 1.18; }
+h2 { font-size: 12pt; color: rgb(20,55,94); margin: 3.4mm 0 1.6mm;
+     border-bottom: 2px solid rgb(42,120,214); padding-bottom: 1mm; }
+h3 { font-size: 10pt; color: rgb(20,55,94); margin: 0 0 1mm; }
+p { margin: 0 0 2mm; }
+.sub { color: rgb(107,107,118); font-size: 9.6pt; margin-bottom: 2.5mm; }
+img { width: 100%; display: block; margin: 1mm 0; }
+.cap { font-size: 8.2pt; color: rgb(82,81,78); background: rgb(246,247,249);
+       border-inline-start: 3px solid rgb(42,120,214); padding: 1.6mm 2.4mm; margin: 0 0 3mm; }
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2mm; margin: 2.2mm 0; }
+.kpi { background: rgb(246,247,249); border: 1px solid rgb(227,227,234); border-radius: 2mm;
+       padding: 1.8mm 1.2mm; text-align: center; }
+.kpi .v { font-size: 14.5pt; font-weight: 700; color: rgb(20,55,94); line-height: 1; }
+.kpi .l { font-size: 7.6pt; color: rgb(82,81,78); margin-top: 1mm; }
+.flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.5mm; margin: 2mm 0; }
+.step { background: rgb(238,244,252); border: 1px solid rgb(207,224,245); border-radius: 2mm;
+        padding: 1.5mm 1.2mm; text-align: center; }
+.step .n { display: inline-block; width: 5mm; height: 5mm; line-height: 5mm; border-radius: 50%;
+           background: rgb(42,120,214); color: rgb(255,255,255); font-size: 8pt; font-weight: 700; }
+.step .t { font-size: 8.4pt; font-weight: 700; color: rgb(20,55,94); margin-top: 1mm; }
+.step .s { font-size: 7.2pt; color: rgb(82,81,78); }
+.gloss { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8mm; margin: 1.6mm 0; }
+.term { background: rgb(255,255,255); border: 1px solid rgb(227,227,234); border-radius: 2mm;
+        padding: 1.5mm 2mm; }
+.term b { color: rgb(20,55,94); font-size: 9pt; }
+.term span { display: block; font-size: 8.2pt; color: rgb(82,81,78); margin-top: 0.6mm; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.good, .bad { border-radius: 2mm; padding: 2.4mm 3mm; }
+.good { background: rgb(238,247,241); border: 1px solid rgb(191,224,203); }
+.bad { background: rgb(253,240,234); border: 1px solid rgb(242,198,176); }
+.good h3 { color: rgb(39,110,66); }
+.bad h3 { color: rgb(168,67,24); }
+ul { margin: 0; padding-inline-start: 4.5mm; }
+li { margin-bottom: 1.2mm; font-size: 8.8pt; }
+.verdict { background: rgb(20,55,94); color: rgb(255,255,255); border-radius: 2mm;
+           padding: 3mm 4mm; margin-top: 3mm; }
+.verdict .t { font-size: 8.4pt; opacity: .82; }
+.verdict .v { font-size: 12.5pt; font-weight: 700; letter-spacing: .3px; }
+.note { font-size: 8pt; color: rgb(107,107,118); margin-top: 2mm; }
+table { width: 100%; border-collapse: collapse; font-size: 8.4pt; margin: 2mm 0; }
+th { background: rgb(20,55,94); color: rgb(255,255,255); padding: 1.6mm 2mm; text-align: start;
+     font-weight: 600; font-size: 8.2pt; }
+td { padding: 1.5mm 2mm; border-bottom: 1px solid rgb(227,227,234); }
+tr.grey td { color: rgb(107,107,118); background: rgb(248,248,250); font-style: italic; }
+</style></head><body><div class="page"><h1>Can a simple rule pick which AI conversations a person should check?</h1><p class="sub">VEGO-AI · Study 1 · a plain-language summary of everything we ran</p><div class="kpis"><div class="kpi"><div class="v">21</div><div class="l">public cases</div></div><div class="kpi"><div class="v">3</div><div class="l">verified runs</div></div><div class="kpi"><div class="v">25</div><div class="l">conversations</div></div><div class="kpi"><div class="v">$1.96</div><div class="l">total spent</div></div><div class="kpi"><div class="v">0</div><div class="l">human ratings</div></div></div><h2>Why we did this</h2><p>Several AI agents talk to each other to build a model. Sometimes an agent is unsure. We want to know: can an automatic rule pick out the conversations a person should look at, so a person does not have to read all of them?</p><h2>How it works, end to end</h2><div class="flow"><div class="step"><span class="n">1</span><div class="t">Public data</div><div class="s">21 airline cases</div></div><div class="step"><span class="n">2</span><div class="t">AI agents</div><div class="s">ask and answer</div></div><div class="step"><span class="n">3</span><div class="t">Recording</div><div class="s">every question saved</div></div><div class="step"><span class="n">4</span><div class="t">The rule</div><div class="s">reads the recording</div></div><div class="step"><span class="n">5</span><div class="t">A flag</div><div class="s">HIGH / LOW / none</div></div><div class="step"><span class="n">6</span><div class="t">A person</div><div class="s">not done yet</div></div></div><h2>Words we use, in plain language</h2><div class="gloss"><div class="term"><b>Conversation</b><span>One agent asks, another answers, until they stop. We recorded 25.</span></div><div class="term"><b>The rule</b><span>A fixed check written down before we saw any result. It never changed.</span></div><div class="term"><b>Flag HIGH</b><span>The rule says a person should look. It does <b>not</b> mean an error.</span></div><div class="term"><b>Flag LOW</b><span>A weaker signal. Still sent to a person.</span></div><div class="term"><b>Baseline</b><span>A very simple rule we compare against, to see if ours adds anything.</span></div><div class="term"><b>Not verified</b><span>We cannot prove it from the published files, so we do not report it.</span></div></div><h2>What we ran</h2><img src="landing/landing-runs-en.png" alt=""><p class="cap">Three runs we can verify. Each bar is one run; each block is one conversation. The grey bar is a pilot we cannot verify from the published files, so no numbers are shown for it.</p></div><div class="page"><h2>The main finding</h2><img src="landing/landing-length-en.png" alt=""><p class="cap">Each dot is one conversation. Short ones get both flags. Long ones are always flagged HIGH. Length is not something we controlled - it came out differently in each run.</p><h2>What we built and what we fixed</h2><div class="gloss"><div class="term"><b>Used every case, not a sample</b><span>All 21 cases, so nobody can ask why we picked those.</span></div><div class="term"><b>Checked the data is genuine</b><span>Re-downloaded it; every file matched its fingerprint exactly.</span></div><div class="term"><b>Logged every call</b><span>So the cost can be checked, not just believed.</span></div><div class="term"><b>Turned off silent retries</b><span>So the spending limit counts real calls.</span></div><div class="term"><b>Compared in two ways</b><span>This found a claim of ours that was wrong.</span></div><div class="term"><b>Removed an unproven result</b><span>A pilot we cannot verify was taken out of the report.</span></div></div><p class="note">Every number here is recomputed from the saved recordings. The rule was never changed.</p></div><div class="page"><h2>The baselines - the most important test</h2><img src="landing/landing-baselines-en.png" alt=""><p class="cap">We compared our rule against very simple rules. Left: does the simple rule give the exact same label? Right: does it send the same conversations to a person?</p><ul><li>Left panel (a): <b>no</b> simple rule gives the same exact label as ours.</li><li>Right panel (b): <b>&ldquo;always flag everything&rdquo;</b> sends exactly the same conversations to a person - 100%.</li><li>So our rule looks different only when comparing labels, not when comparing who gets sent to a person.</li></ul><h2>Two checkers, two answers</h2><img src="landing/landing-mechanisms-en.png" alt=""><p class="cap">The system already has another checker that looks at single sentences. It found problems in cases where our rule said nothing. Neither one is the truth - they look at different things.</p></div><div class="page"><h2>What we can say · What we cannot say</h2><div class="two"><div class="good"><h3>What we can say</h3><ul><li>The pipeline runs end to end; everything is recorded and hash-checked.</li><li>Long conversations are almost always flagged HIGH. That is how the rule is built.</li><li>At the &ldquo;send to a person&rdquo; level, a rule that flags everything does the same as ours.</li><li>Cost is small: $1.96 for all three runs.</li></ul></div><div class="bad"><h3>What we cannot say</h3><ul><li>We cannot say a flag was <b>correct</b>. Nobody has judged the conversations yet.</li><li>We cannot say it <b>saves work</b>. Nobody measured review time.</li><li>No accuracy, no benefit, no comparison against other systems.</li><li>The pilot run is <b>not verified</b>, so it is not counted anywhere.</li></ul></div></div><div class="verdict"><div class="t">Current status</div><div class="v">DESCRIPTIVE RULE BEHAVIOUR ONLY - NOT READY FOR A SCIENTIFIC CONCLUSION</div></div><p class="note">Next step: two independent people rate the conversations without seeing the rule&#x27;s flag. Everything is built and waiting for that.</p><h2>Every run, side by side</h2><table><tr><th>Run</th><th>Status</th><th>Conversations</th><th>HIGH</th><th>LOW</th><th>Sent to a person</th><th>Cost</th></tr><tr><td>Run 0</td><td>OK</td><td>3</td><td>3</td><td>0</td><td>3</td><td>$0.13</td></tr><tr><td>Run 1</td><td>OK</td><td>11</td><td>7</td><td>4</td><td>11</td><td>$0.36</td></tr><tr><td>Run 2</td><td>OK</td><td>11</td><td>11</td><td>0</td><td>11</td><td>$1.60</td></tr><tr class="grey"><td>Pilot</td><td>not verified</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr class="grey"><td>Test data</td><td>no AI used</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr></table><p class="cap">We never add these rows together. Each run used a different setup, so a combined total would describe a run that never happened.</p></div></body></html>

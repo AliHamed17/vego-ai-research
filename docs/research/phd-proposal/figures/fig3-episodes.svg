@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 276" width="560" height="276" font-family="Segoe UI,Arial,sans-serif">
+<rect width="560" height="276" fill="#fcfcfb"/>
+<text x="548" y="24" text-anchor="start" font-size="14" font-weight="600" fill="#0b0b0b" direction="rtl">איור 3 — סיום אפיזודות וסיווג Detector-v1</text>
+<text x="548" y="44" text-anchor="start" font-size="11.5" fill="#52514e" direction="rtl">N = 3 אפיזודות שלמות · ספירות בלבד (N קטן מדי לאחוזים)</text>
+<text x="548" y="76" text-anchor="start" font-size="12" fill="#0b0b0b" direction="rtl">CONVERGED</text>
+<rect x="152.66666666666666" y="65" width="205.33333333333334" height="14" rx="4" fill="#2a78d6"/>
+<text x="144.66666666666666" y="76" text-anchor="end" font-size="12" font-weight="600" fill="#0b0b0b">2</text>
+<text x="548" y="106" text-anchor="start" font-size="12" fill="#0b0b0b" direction="rtl">TERMINATED_MAX_ROUNDS</text>
+<rect x="255.33333333333331" y="95" width="102.66666666666667" height="14" rx="4" fill="#2a78d6"/>
+<text x="247.33333333333331" y="106" text-anchor="end" font-size="12" font-weight="600" fill="#0b0b0b">1</text>
+<text x="548" y="136" text-anchor="start" font-size="12" fill="#0b0b0b" direction="rtl">INCOMPLETE_TECHNICAL</text>
+<rect x="356" y="125" width="2" height="14" rx="4" fill="#2a78d6"/>
+<text x="348" y="136" text-anchor="end" font-size="12" font-weight="600" fill="#0b0b0b">0</text>
+<text x="548" y="166" text-anchor="start" font-size="12" fill="#0b0b0b" direction="rtl">STRONG_ALERT</text>
+<rect x="50.0" y="155" width="308.0" height="14" rx="4" fill="#2a78d6"/>
+<text x="42.0" y="166" text-anchor="end" font-size="12" font-weight="600" fill="#0b0b0b">3</text>
+<text x="548" y="196" text-anchor="start" font-size="12" fill="#0b0b0b" direction="rtl">WEAK_ALERT</text>
+<rect x="356" y="185" width="2" height="14" rx="4" fill="#2a78d6"/>
+<text x="348" y="196" text-anchor="end" font-size="12" font-weight="600" fill="#0b0b0b">0</text>
+<text x="548" y="226" text-anchor="start" font-size="12" fill="#0b0b0b" direction="rtl">NO_ALERT</text>
+<rect x="356" y="215" width="2" height="14" rx="4" fill="#2a78d6"/>
+<text x="348" y="226" text-anchor="end" font-size="12" font-weight="600" fill="#0b0b0b">0</text>
+<text x="548" y="264" text-anchor="start" font-size="11" fill="#52514e" direction="rtl">המכנה המדעי הוא 3 אפיזודות שלמות; אפס הוחרגו</text>
+</svg>

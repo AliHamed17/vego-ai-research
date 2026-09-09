@@ -1,0 +1,18 @@
+{
+  "EP-577319bf": {
+    "basis": "No validated case-to-model artifact is mounted in the reviewed worktree.",
+    "canonical_episode_id": "EP-577319bf37c87",
+    "case_linkage": "case 02",
+    "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+    "inference_from_model_config": "PROHIBITED",
+    "model_availability": "UNAVAILABLE"
+  },
+  "EP-81b2c98d": {
+    "basis": "No validated case-to-model artifact is mounted in the reviewed worktree.",
+    "canonical_episode_id": "EP-81b2c98d59125",
+    "case_linkage": "cross-case episode",
+    "evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+    "inference_from_model_config": "PROHIBITED",
+    "model_availability": "UNAVAILABLE"
+  }
+}

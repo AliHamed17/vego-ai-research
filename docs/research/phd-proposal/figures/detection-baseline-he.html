@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>מתי המערכת מזהה שהיא צריכה אדם?</title><style>
+@page { size: A4; margin: 11mm 12mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color: rgb(27,27,31); margin: 0;
+       font-size: 9.4pt; line-height: 1.42; }
+.page { page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+h1 { font-size: 18pt; color: rgb(20,55,94); margin: 0 0 1mm; line-height: 1.16; }
+h2 { font-size: 11.5pt; color: rgb(20,55,94); margin: 3mm 0 1.4mm;
+     border-bottom: 2px solid rgb(42,120,214); padding-bottom: 0.8mm; }
+h3 { font-size: 9.6pt; color: rgb(20,55,94); margin: 0 0 1mm; }
+p { margin: 0 0 1.8mm; }
+.sub { color: rgb(107,107,118); font-size: 9.4pt; margin-bottom: 2.5mm; }
+img { width: 100%; display: block; margin: 0.8mm 0; }
+.cap { font-size: 8pt; color: rgb(82,81,78); background: rgb(246,247,249);
+       border-inline-start: 3px solid rgb(42,120,214); padding: 1.4mm 2.2mm; margin: 0 0 2.4mm; }
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.8mm; margin: 2.2mm 0; }
+.kpi { background: rgb(246,247,249); border: 1px solid rgb(227,227,234); border-radius: 2mm;
+       padding: 1.8mm 1.2mm; text-align: center; }
+.kpi .v { font-size: 14pt; font-weight: 700; color: rgb(20,55,94); line-height: 1.05; }
+.kpi .l { font-size: 7.4pt; color: rgb(82,81,78); margin-top: 0.8mm; }
+.gloss { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8mm; margin: 1.6mm 0; }
+.term { background: rgb(255,255,255); border: 1px solid rgb(227,227,234); border-radius: 2mm;
+        padding: 1.5mm 2mm; }
+.term b { color: rgb(20,55,94); font-size: 8.8pt; }
+.term span { display: block; font-size: 8pt; color: rgb(82,81,78); margin-top: 0.5mm; }
+.hero { background: rgb(238,244,252); border: 1px solid rgb(207,224,245); border-radius: 2mm;
+        padding: 2.6mm 3.4mm; margin: 2.4mm 0; }
+.hero .n { font-size: 15pt; font-weight: 700; color: rgb(194,65,12); }
+.hero .t { font-size: 9.2pt; color: rgb(20,55,94); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm; }
+.good, .bad { border-radius: 2mm; padding: 2.2mm 2.8mm; }
+.good { background: rgb(238,247,241); border: 1px solid rgb(191,224,203); }
+.bad { background: rgb(253,240,234); border: 1px solid rgb(242,198,176); }
+.good h3 { color: rgb(39,110,66); }
+.bad h3 { color: rgb(168,67,24); }
+ul { margin: 0; padding-inline-start: 4.2mm; }
+li { margin-bottom: 1mm; font-size: 8.6pt; }
+.verdict { background: rgb(20,55,94); color: rgb(255,255,255); border-radius: 2mm;
+           padding: 2.6mm 3.6mm; margin-top: 2.4mm; }
+.verdict .t { font-size: 8.2pt; opacity: .82; }
+.verdict .v { font-size: 11.5pt; font-weight: 700; }
+.note { font-size: 7.8pt; color: rgb(107,107,118); margin-top: 1.6mm; }
+</style></head><body><div class="page"><h1>מתי המערכת מזהה שהיא צריכה אדם?</h1><p class="sub">VEGO-AI · מחקר 1 · בסיס הזיהוי, בשפה פשוטה</p><div class="kpis"><div class="kpi"><div class="v">21</div><div class="l">מקרים בהרצות הגדולות</div></div><div class="kpi"><div class="v">3</div><div class="l">הרצות שניתן לאמת</div></div><div class="kpi"><div class="v">25</div><div class="l">שיחות שנרשמו</div></div><div class="kpi"><div class="v">75%+</div><div class="l">תשובות שאינן בטוחות לגמרי</div></div><div class="kpi"><div class="v">0</div><div class="l">דירוגים אנושיים עד כה</div></div></div><h2>ארבע מילים, לפני התרשימים</h2><div class="gloss"><div class="term"><b>שיחה</b><span>סוכן אחד שואל, אחר עונה, עד שמפסיקים.</span></div><div class="term"><b>סבב</b><span>הלוך ושוב אחד. שיחה יכולה להימשך עד 10 סבבים.</span></div><div class="term"><b>לא בטוח</b><span>מילותיו של הסוכן המשיב על תשובתו. זה <b>אינו</b> אומר שהתשובה שגויה.</span></div><div class="term"><b>זיהוי</b><span>הרגע הראשון שבו לכלל יש על מה להידלק. זה <b>אינו</b> אומר שקרתה בעיה.</span></div></div><h2>שאלה 1 · שאלות ידועות ולא ידועות</h2><img src="detect/detect-known-he.png" alt=""><p class="cap">השורה העליונה: תשובות בודדות. השורה התחתונה: שיחות שלמות. כרבע מהתשובות חזרו בביטחון מלא — אך אף שיחה לא הייתה בטוחה מתחילתה ועד סופה.</p><div class="hero"><span class="n">0 שיחות</span> &nbsp; <span class="t">אף שיחה מוקלטת לא נענתה בביטחון מלא לאורך כל הדרך. זו הסיבה שכל שיחה מגיעה בסוף לאדם, וזו הסיבה ששום דבר כאן אינו חיסכון בזמן אדם.</span></div><div class="two"><div class="good"><h3>מה התרשימים מראים</h3><ul><li>רוב התשובות <b>לא היו בטוחות לגמרי</b> — בין 75% ל-93% בכל הרצה.</li><li>הזיהוי קורה ב<b>סבב 1</b> ב-9 עד 10 מכל 10 שיחות.</li><li>רק <b>שתיים</b> מחמש סיבות האזעקה עושות את רוב העבודה.</li><li>״אין ראיה״ <b>מעולם</b> לא נדלק — כל תשובה נשאה ראיה.</li><li><b>כל</b> שיחה סומנה. אף אחת לא נוקתה.</li></ul></div><div class="bad"><h3>מה הם אינם מראים</h3><ul><li>לא אם תשובה כלשהי <b>נכונה או שגויה</b>. איש לא בדק.</li><li>לא ששיחה שסומנה מכילה <b>בעיה</b>.</li><li>לא שמקרה אפור הוא <b>תקין</b>.</li><li>לא חיסכון כלשהו בזמן אדם — <b>איש לא מדד אותו</b>.</li><li>כלל שמסמן <b>הכול</b> עדיין לא מיין דבר.</li></ul></div></div></div><div class="page"><h2>שאלה 2 · כמה בטוחות היו התשובות?</h2><img src="detect/detect-confidence-he.png" alt=""><p class="cap">כל תשובה בכל הרצה, לפי כמה הסוכן המשיב אמר שהוא בטוח. רוב התשובות לא היו בטוחות לגמרי. ההרצות מוצגות בנפרד ולעולם אינן מחוברות.</p><h2>שאלה 3 · נקודת הזיהוי</h2><img src="detect/detect-detection-he.png" alt=""><p class="cap">כל עמודה סופרת שיחות שבהן התשובה הראשונה שאינה בטוחה הגיעה באותו סבב. כתום הוא סבב 1.</p></div><div class="page"><h2>שאלה 4 · כמה מהר הכול מזוהה?</h2><img src="detect/detect-cumulative-he.png" alt=""><p class="cap">אותו דבר, בהצטברות. הקו המקווקו הוא כלל השיחות באותה הרצה.</p><div class="hero"><span class="n">סבב 1</span> &nbsp; <span class="t">בכל הרצה, 9 או 10 מכל 10 שיחות כבר היו ניתנות לזיהוי בתשובה הראשונה ממש, וכולן עד סבב 2. סבבים 3 עד 10 עלו כסף ולא שינו אף סימון.</span></div><h2>שאלה 5 · מה הכלל החליט לגבי כל שיחה</h2><img src="detect/detect-alerts-he.png" alt=""><p class="cap">כל ריבוע הוא שיחה אמיתית אחת. המשבצת האפורה במקרא נשארה ריקה בכל הרצה: הכלל מעולם לא אמר אף פעם שאין צורך באדם.</p></div><div class="page"><h2>שאלה 6 · סיבות האזעקה</h2><img src="detect/detect-signals-he.png" alt=""><p class="cap">לכלל יש חמש סיבות להידלק. אפור פירושו שלא נדלק כלל באותה הרצה. ״אין ראיה״ לא נדלק בשום מקום — כל תשובה נשאה ראיה כלשהי.</p><h2>שאלה 7 · אורך השיחות</h2><img src="detect/detect-lengths-he.png" alt=""><p class="cap">מספר התשובות בכל שיחה. הרצה 1 נשארה קצרה; הרצה 2 התארכה. דבר בהגדרות לא שונה ביניהן.</p></div><div class="page"><h2>שאלה 8 · ראיות בתשובות</h2><img src="detect/detect-evidence-he.png" alt=""><p class="cap">אורך הראיה שצורפה לכל תשובה, בתווים. אף תשובה לא חזרה ריקה, ולכן אזעקת ״אין ראיה״ מעולם לא נדלקה.</p><h2>שאלה 9 · כיסוי, והשטח המת</h2><img src="detect/detect-cases-he.png" alt=""><p class="cap">ריבוע אפור על קו הבסיס מסמן מקרה שלא יצר שיחה כלל, ולכן הכלל מעולם לא ראה אותו. זהו שטח מת, לא אישור תקינות.</p><div class="verdict"><div class="t">מעמד</div><div class="v">תיאור התנהגות הכלל בלבד - לא בשל למסקנה מדעית</div></div><p class="note">כל המספרים מחושבים מחדש מההקלטות השמורות. הכלל מעולם לא שונה. קיימת הרצת פיילוט רביעית שאי אפשר לאמת מהקבצים שפורסמו, ולכן היא אינה מופיעה באף תרשים כאן.</p></div></body></html>

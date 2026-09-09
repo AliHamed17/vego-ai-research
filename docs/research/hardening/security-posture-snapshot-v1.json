@@ -13,7 +13,7 @@
   "exceptions": [],
   "inputHashes": {
     "package-lock.json": "186f2bfecc4c4655ba4e12059c51b1abf993d5fd69a9cd9183328c898ca44c0e",
-    "pyproject.toml": "c1a0092f6f969b7a5a41220bdc6cff6b6acfcd45b40209e1147c4726811e295e",
+    "pyproject.toml": "fb6bdcd89d766e0ad9d86ab1d22bf383b1cb3504b1c5a11df9617d62e7bb5ca7",
     "uv.lock": "ae3820df9477c87b9bba86438df47ad4774fbde5725a4b629cd960a6dbe4635d"
   },
   "privacy": {

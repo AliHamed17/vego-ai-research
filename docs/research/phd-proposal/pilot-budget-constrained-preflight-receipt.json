@@ -1,0 +1,157 @@
+{
+  "bound": {
+    "call_cap_per_repeat": 90,
+    "ceiling_usd": 2.0,
+    "fits": true,
+    "headroom_usd": 0.240896,
+    "method": "every permitted call priced at the full reserve; retries counted against the call cap; not extrapolated from any prior run",
+    "per_request_worst_case_usd": 0.0065152,
+    "repeats": 3,
+    "total_worst_case_usd": 1.759104
+  },
+  "checks": [
+    {
+      "actual": "$1.759104",
+      "check": "total worst-case bound fits the ceiling before run 1",
+      "expected": "<= $2.00",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "as computed",
+      "check": "bound prices every permitted call at the full reserve",
+      "expected": "reserve x cap x repeats",
+      "note": "not extrapolated from any prior run",
+      "status": "PASS"
+    },
+    {
+      "actual": 90,
+      "check": "call cap clears the protocol minimum",
+      "expected": ">= 16",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": [
+        "PILOT-01",
+        "PILOT-02",
+        "PILOT-03"
+      ],
+      "check": "three repeats with distinct frozen identifiers",
+      "expected": [
+        "PILOT-01",
+        "PILOT-02",
+        "PILOT-03"
+      ],
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "$0.840462",
+      "check": "a realistic-length run stays well inside the ceiling",
+      "expected": "<= $2.00",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": [
+        "REPORTABLE",
+        "REPORTABLE",
+        "REPORTABLE"
+      ],
+      "check": "an untruncated repeat is reportable",
+      "expected": "REPORTABLE x3",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 90,
+      "check": "the per-repeat call cap is enforced",
+      "expected": 90,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "STOPPED_AT_CALL_CAP",
+      "check": "a capped repeat is labelled partial, not successful",
+      "expected": "STOPPED_AT_CALL_CAP",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 0.586368,
+      "check": "a capped repeat cannot exceed the per-repeat worst case",
+      "expected": "<= cap x reserve",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 3,
+      "check": "a truncated call is detected",
+      "expected": "> 0",
+      "note": "finish_reason == 'length'",
+      "status": "PASS"
+    },
+    {
+      "actual": "TRUNCATION_AFFECTED",
+      "check": "a repeat with truncation is marked TRUNCATION_AFFECTED",
+      "expected": "TRUNCATION_AFFECTED",
+      "note": "signals were computed over material the provider cut short",
+      "status": "PASS"
+    },
+    {
+      "actual": "TECHNICAL_SUCCESS",
+      "check": "truncation does not trigger a re-run or a cap increase",
+      "expected": "reported, not repaired",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "TECHNICAL_FAILURE_NO_RECEIPT",
+      "check": "a technical failure is preserved, not replaced",
+      "expected": "TECHNICAL_FAILURE_NO_RECEIPT",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 0.0,
+      "check": "a failed repeat costs nothing and is excluded from completed",
+      "expected": 0.0,
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": "raised",
+      "check": "raising a limit past the ceiling blocks the pilot",
+      "expected": "BoundExceedsCeiling",
+      "note": "",
+      "status": "PASS"
+    },
+    {
+      "actual": 262,
+      "check": "fake requests measured during preflight",
+      "expected": "> 0",
+      "note": "provider calls remain disabled",
+      "status": "PASS"
+    },
+    {
+      "actual": 0,
+      "check": "provider calls remain disabled during preflight",
+      "expected": 0,
+      "note": "fake requests are counted separately",
+      "status": "PASS"
+    }
+  ],
+  "checks_failed": 0,
+  "checks_run": 17,
+  "config_sha256": "f7dc940649cab9317785d9e6248dbe38788883513070366933c07e83306f457e",
+  "evidence_class": "ENGINEERING_FIXTURE_NOT_SCIENTIFIC",
+  "fake_calls": 262,
+  "generated_at": "2026-09-07T13:18:09.383571Z",
+  "not_a_replication_of_study1": true,
+  "note": "Engineering fixture only. Produces no scientific value, enters no denominator, and is never reported as a result. Execution remains blocked pending Codex approval, green CI on the execution head, and a fresh one-time authorization.",
+  "provider_calls": 0,
+  "schema_version": "pilot-budget-constrained-preflight-v1",
+  "status": "PASS",
+  "study_class": "BUDGET_CONSTRAINED_EXPLORATORY_PILOT"
+}

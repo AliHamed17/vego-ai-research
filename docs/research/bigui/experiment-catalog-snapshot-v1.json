@@ -1,7 +1,7 @@
 {
   "schemaVersion": "ExperimentCatalogSnapshot-v1",
   "generatedAt": "2026-07-26T16:00:00+03:00",
-  "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+  "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
   "publicationTier": "tracked_sanitized",
   "programState": {
     "latestAcceptedIteration": 15,
@@ -1162,7 +1162,7 @@
       }
     ],
     "generatedAt": "2026-07-26T14:16:00+03:00",
-    "normalizedSha256": "7a092cc217f384a9734948c3493bcc2a1e91d3474c2052d58070674f2b0ab9ae",
+    "normalizedSha256": "b2835490423890ffbbd61f8b2e0a73173c82b6bff037c5df18bcffef92de5394",
     "paperBaseline": {
       "caseModels": 178,
       "occasional": 18,
@@ -1175,7 +1175,7 @@
     "sources": {
       "docs/research/bigui/architecture-fixture-results-v1.json": "7fcf650512b37dfb7063b48c5fef95d73d7b8db36a268926d6178329aef73ba5",
       "docs/research/bigui/paper-baseline-snapshot-v1.json": "78b6701caea4feee131980e2e8ae84f436451e53853ca0e779a0d161a6ad966a",
-      "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "experiments/accepted-runs": "a5e256650ceb63933fcf70abdc6105dc83e80abe179e2e2e2dbe3bc598299f96",
       "experiments/current-run-index-v1.json#comparison-dependencies": "23968d95c255f890bad6269c9962cfa9c41215b3722c62417f91e3f153d1b588"
     }
@@ -1488,7 +1488,7 @@
     "schemaVersion": "ExperimentBenchmarkSnapshot-v1",
     "generatedAt": "2026-07-26T16:00:00+03:00",
     "publicationTier": "tracked_sanitized",
-    "inputProjectionSha256": "9e3c244ab21e7233b0b3e4d2d92288ac9ab84383e25b5513081fd66d4c3a438d",
+    "inputProjectionSha256": "e8f2a329725a0614dbecc0bba0cbf7f40897e28771968b6e88abc53818ad4b36",
     "standardSha256": "1b9a814e3498ac97ac5da84e5eb15894c15583c87456491af363c3a805e3c7c5",
     "programState": {
       "registeredExperiments": 41,
@@ -7612,7 +7612,7 @@
       },
       {
         "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-        "sha256": "616dc299b67294f924365add5ea22ec2155272eae9f454de87519686f3d764c9",
+        "sha256": "7efc8400d6e4dc6f95f48b356b0bf1fe2a24b1a4617fcc8b3153908bea60ae1a",
         "role": "Paper, architecture, comparison, and thesis-readiness results."
       }
     ]
@@ -9823,7 +9823,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9840,7 +9840,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9857,7 +9857,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9874,7 +9874,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9891,7 +9891,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9908,7 +9908,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9925,7 +9925,7 @@
       "direction": "lower_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9942,7 +9942,7 @@
       "direction": "neutral",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "evaluation_ready",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9959,7 +9959,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9976,7 +9976,7 @@
       "direction": "target",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -9993,7 +9993,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10010,7 +10010,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10027,7 +10027,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10044,7 +10044,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10061,7 +10061,7 @@
       "direction": "higher_is_better",
       "confidenceInterval": null,
       "sourcePath": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sourceSha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sourceSha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "evidenceClass": "blocked",
       "observationDate": "2026-07-25",
       "cohortHash": "fdf816bcf5a814f73726dfe864f4ce55a76f531b15100c20f4944347b4692c7f",
@@ -10452,7 +10452,7 @@
       "direction": "target",
       "confidenceInterval": null,
       "sourcePath": "docs/research/hardening/security-posture-snapshot-v1.json",
-      "sourceSha256": "9737a9b5469592e9f779ac739de95587b08ed664a1764b9363687bb720d47633",
+      "sourceSha256": "f4700913b64a2596ed378310a70dedb9a51982fe2fc8223a997264b7d14fe43a",
       "evidenceClass": "mechanism",
       "observationDate": "2026-07-26",
       "cohortHash": null,
@@ -42358,7 +42358,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "3a8e0c1b476e418f4f31ea0b766a048d1d21d7d3e268074442420fe7c8d373b7"
@@ -42387,7 +42387,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "3a8e0c1b476e418f4f31ea0b766a048d1d21d7d3e268074442420fe7c8d373b7"
@@ -42416,7 +42416,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "3a8e0c1b476e418f4f31ea0b766a048d1d21d7d3e268074442420fe7c8d373b7"
@@ -42445,7 +42445,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "3a8e0c1b476e418f4f31ea0b766a048d1d21d7d3e268074442420fe7c8d373b7"
@@ -42474,7 +42474,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "3a8e0c1b476e418f4f31ea0b766a048d1d21d7d3e268074442420fe7c8d373b7"
@@ -42503,7 +42503,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "3a8e0c1b476e418f4f31ea0b766a048d1d21d7d3e268074442420fe7c8d373b7"
@@ -42532,7 +42532,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af"
@@ -42561,7 +42561,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af"
@@ -42590,7 +42590,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af"
@@ -42619,7 +42619,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af"
@@ -42648,7 +42648,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af"
@@ -42677,7 +42677,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T00:30:26+00:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {},
       "outputHashes": {
         "normalized": "8c458da3755870930900d29f6fff8e8161214eb60dabfaa1edd919b05588a7af"
@@ -42706,7 +42706,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T14:16:00+03:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {
         "scripts/run_bigui_architecture_experiments.py": "e039b68a97258d365d758dc4acaf002acf561b64c062e9e9a4c0bb6396278790",
         "experiments/bigui-program-v1.json": "9aef5ac80b7e15a03668b3982dbd9051b8f3922728a1f741b1b97ab5e2869439",
@@ -42744,7 +42744,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T14:16:00+03:00",
       "evidenceClass": "offline",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {
         "scripts/run_bigui_architecture_experiments.py": "e039b68a97258d365d758dc4acaf002acf561b64c062e9e9a4c0bb6396278790",
         "experiments/bigui-program-v1.json": "9aef5ac80b7e15a03668b3982dbd9051b8f3922728a1f741b1b97ab5e2869439",
@@ -42781,7 +42781,7 @@
       "acceptanceStatus": "accepted",
       "acceptedAt": "2026-07-26T14:16:00+03:00",
       "evidenceClass": "synthetic",
-      "sourceRevision": "2fbdc223fd7645cc6128aadd2402f092ea342309",
+      "sourceRevision": "8b34829b1341f4ee668f461e3f896d2be4905f09",
       "inputHashes": {
         "scripts/run_bigui_architecture_experiments.py": "e039b68a97258d365d758dc4acaf002acf561b64c062e9e9a4c0bb6396278790",
         "experiments/bigui-program-v1.json": "9aef5ac80b7e15a03668b3982dbd9051b8f3922728a1f741b1b97ab5e2869439",
@@ -92866,7 +92866,7 @@
     {
       "id": "thesis-evidence",
       "path": "docs/research/thesis-evidence/thesis-evidence-snapshot-v1.json",
-      "sha256": "b1f929637fec1826fc45b71ebafe30f6e61f26ba5912a06a5f04a353f61a67e5",
+      "sha256": "3fd2372a99dcac78b32a7087129e1922401a069e42bb308ad43a74c717af9d78",
       "role": "Mechanism counts, B0–B5 evidence ladder, and claim gates"
     },
     {
@@ -92884,7 +92884,7 @@
     {
       "id": "security-posture",
       "path": "docs/research/hardening/security-posture-snapshot-v1.json",
-      "sha256": "9737a9b5469592e9f779ac739de95587b08ed664a1764b9363687bb720d47633",
+      "sha256": "f4700913b64a2596ed378310a70dedb9a51982fe2fc8223a997264b7d14fe43a",
       "role": "Reproducible security and privacy status"
     },
     {
@@ -92902,7 +92902,7 @@
     {
       "id": "baseline-comparison",
       "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-      "sha256": "616dc299b67294f924365add5ea22ec2155272eae9f454de87519686f3d764c9",
+      "sha256": "7efc8400d6e4dc6f95f48b356b0bf1fe2a24b1a4617fcc8b3153908bea60ae1a",
       "role": "EXP-037–EXP-040 baseline, comparison, and thesis-readiness results"
     },
     {
@@ -92914,7 +92914,7 @@
     {
       "id": "experiment-benchmark",
       "path": "docs/research/bigui/experiment-benchmark-snapshot-v1.json",
-      "sha256": "f9e8f8866c6245e512a5cacf228d5eb9b87da004c906bdc10fb317b5e9f2cd4a",
+      "sha256": "459ea3ba55802ec2521e282bfd7ffa3c32dc68e9849f90a47a927f7e0ab04067",
       "role": "All-experiment evaluation records, program analytics, findings, and recommendations"
     },
     {

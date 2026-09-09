@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8"><title>When does the system notice it needs a human?</title><style>
+@page { size: A4; margin: 11mm 12mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; color: rgb(27,27,31); margin: 0;
+       font-size: 9.4pt; line-height: 1.42; }
+.page { page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+h1 { font-size: 18pt; color: rgb(20,55,94); margin: 0 0 1mm; line-height: 1.16; }
+h2 { font-size: 11.5pt; color: rgb(20,55,94); margin: 3mm 0 1.4mm;
+     border-bottom: 2px solid rgb(42,120,214); padding-bottom: 0.8mm; }
+h3 { font-size: 9.6pt; color: rgb(20,55,94); margin: 0 0 1mm; }
+p { margin: 0 0 1.8mm; }
+.sub { color: rgb(107,107,118); font-size: 9.4pt; margin-bottom: 2.5mm; }
+img { width: 100%; display: block; margin: 0.8mm 0; }
+.cap { font-size: 8pt; color: rgb(82,81,78); background: rgb(246,247,249);
+       border-inline-start: 3px solid rgb(42,120,214); padding: 1.4mm 2.2mm; margin: 0 0 2.4mm; }
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.8mm; margin: 2.2mm 0; }
+.kpi { background: rgb(246,247,249); border: 1px solid rgb(227,227,234); border-radius: 2mm;
+       padding: 1.8mm 1.2mm; text-align: center; }
+.kpi .v { font-size: 14pt; font-weight: 700; color: rgb(20,55,94); line-height: 1.05; }
+.kpi .l { font-size: 7.4pt; color: rgb(82,81,78); margin-top: 0.8mm; }
+.gloss { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8mm; margin: 1.6mm 0; }
+.term { background: rgb(255,255,255); border: 1px solid rgb(227,227,234); border-radius: 2mm;
+        padding: 1.5mm 2mm; }
+.term b { color: rgb(20,55,94); font-size: 8.8pt; }
+.term span { display: block; font-size: 8pt; color: rgb(82,81,78); margin-top: 0.5mm; }
+.hero { background: rgb(238,244,252); border: 1px solid rgb(207,224,245); border-radius: 2mm;
+        padding: 2.6mm 3.4mm; margin: 2.4mm 0; }
+.hero .n { font-size: 15pt; font-weight: 700; color: rgb(194,65,12); }
+.hero .t { font-size: 9.2pt; color: rgb(20,55,94); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm; }
+.good, .bad { border-radius: 2mm; padding: 2.2mm 2.8mm; }
+.good { background: rgb(238,247,241); border: 1px solid rgb(191,224,203); }
+.bad { background: rgb(253,240,234); border: 1px solid rgb(242,198,176); }
+.good h3 { color: rgb(39,110,66); }
+.bad h3 { color: rgb(168,67,24); }
+ul { margin: 0; padding-inline-start: 4.2mm; }
+li { margin-bottom: 1mm; font-size: 8.6pt; }
+.verdict { background: rgb(20,55,94); color: rgb(255,255,255); border-radius: 2mm;
+           padding: 2.6mm 3.6mm; margin-top: 2.4mm; }
+.verdict .t { font-size: 8.2pt; opacity: .82; }
+.verdict .v { font-size: 11.5pt; font-weight: 700; }
+.note { font-size: 7.8pt; color: rgb(107,107,118); margin-top: 1.6mm; }
+</style></head><body><div class="page"><h1>When does the system notice it needs a human?</h1><p class="sub">VEGO-AI · Study 1 · the detection baseline, in plain language</p><div class="kpis"><div class="kpi"><div class="v">21</div><div class="l">cases in the big runs</div></div><div class="kpi"><div class="v">3</div><div class="l">runs we can verify</div></div><div class="kpi"><div class="v">25</div><div class="l">conversations recorded</div></div><div class="kpi"><div class="v">75%+</div><div class="l">answers not fully sure</div></div><div class="kpi"><div class="v">0</div><div class="l">human ratings so far</div></div></div><h2>Four words, before the charts</h2><div class="gloss"><div class="term"><b>Conversation</b><span>One agent asks, another answers, until they stop.</span></div><div class="term"><b>Round</b><span>One back-and-forth. A conversation can take up to 10.</span></div><div class="term"><b>Not sure</b><span>The answering agent's own words about its answer. It does <b>not</b> mean the answer was wrong.</span></div><div class="term"><b>Detection</b><span>The first moment the rule has something to fire on. It does <b>not</b> mean a problem happened.</span></div></div><h2>Question 1 · Known and unknown questions</h2><img src="detect/detect-known-en.png" alt=""><p class="cap">Top row: single answers. Bottom row: whole conversations. About a quarter of answers came back fully sure - but not one conversation was fully sure from start to finish.</p><div class="hero"><span class="n">0 conversations</span> &nbsp; <span class="t">Not one recorded conversation was answered with full confidence all the way through. That is why every conversation ends up in front of a human, and why nothing here can be called a saving of human time.</span></div><div class="two"><div class="good"><h3>What these charts show</h3><ul><li>Most answers were <b>not fully sure</b> — between 75% and 93% in each run.</li><li>Detection happens at <b>round 1</b> in 9-10 of every 10 conversations.</li><li>Only <b>two</b> of the five alarm reasons do most of the work.</li><li>'No evidence' <b>never</b> fired — every answer carried evidence.</li><li><b>Every</b> conversation was flagged. Not one was cleared.</li></ul></div><div class="bad"><h3>What they do not show</h3><ul><li>Not whether any answer was <b>right or wrong</b>. Nobody has checked.</li><li>Not that a flagged conversation contains a <b>problem</b>.</li><li>Not that a grey case is <b>safe</b>.</li><li>Not any saving of human time — <b>nobody measured it</b>.</li><li>A rule that flags <b>everything</b> has not sorted anything yet.</li></ul></div></div></div><div class="page"><h2>Question 2 · How sure were the answers?</h2><img src="detect/detect-confidence-en.png" alt=""><p class="cap">Every answer in each run, sorted by how sure the answering agent said it was. Most answers were not fully sure. Runs are shown separately and never added together.</p><h2>Question 3 · The detection point</h2><img src="detect/detect-detection-en.png" alt=""><p class="cap">Each bar counts conversations whose first not-sure answer landed in that round. Orange is round 1.</p></div><div class="page"><h2>Question 4 · How fast is everything detected?</h2><img src="detect/detect-cumulative-en.png" alt=""><p class="cap">The same thing, added up. The dashed line is all conversations in that run.</p><div class="hero"><span class="n">Round 1</span> &nbsp; <span class="t">In every run, 9 or 10 out of every 10 conversations were already detectable at the very first answer, and all of them by round 2. Rounds 3 to 10 cost money and changed no flag.</span></div><h2>Question 5 · What the rule decided for each conversation</h2><img src="detect/detect-alerts-en.png" alt=""><p class="cap">One square is one real conversation. The grey slot in the legend stayed empty in every run: the rule never once said &#x27;no human needed&#x27;.</p></div><div class="page"><h2>Question 6 · The alarm reasons</h2><img src="detect/detect-signals-en.png" alt=""><p class="cap">The rule has five reasons it can fire. Grey means it never fired in that run. &#x27;No evidence&#x27; never fired anywhere — every answer carried some evidence.</p><h2>Question 7 · Conversation length</h2><img src="detect/detect-lengths-en.png" alt=""><p class="cap">Number of answers per conversation. Run 1 stayed short; Run 2 ran long. Nothing in the setup was changed between them.</p></div><div class="page"><h2>Question 8 · Evidence in the answers</h2><img src="detect/detect-evidence-en.png" alt=""><p class="cap">Length in characters of the evidence attached to each answer. No answer came back empty, which is why the &#x27;no evidence&#x27; alarm never fired.</p><h2>Question 9 · Coverage, and the blind spot</h2><img src="detect/detect-cases-en.png" alt=""><p class="cap">A grey square on the baseline marks a case that produced no conversation at all, so the rule never saw it. That is a blind spot, not a clean bill of health.</p><div class="verdict"><div class="t">Status</div><div class="v">DESCRIPTIVE RULE BEHAVIOUR ONLY - NOT READY FOR A SCIENTIFIC CONCLUSION</div></div><p class="note">All numbers recomputed from the saved recordings. The rule was never changed. A fourth pilot run exists but cannot be verified from the published files, so it is left out of every chart here.</p></div></body></html>

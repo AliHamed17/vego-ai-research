@@ -1,0 +1,232 @@
+{
+  "budget": {
+    "basis": "every permitted call, including retries and failed calls, is priced at the full worst-case reserve; this is a bound, not an extrapolation from a prior run",
+    "call_cap": 240,
+    "ceiling_usd": 6.0,
+    "fits": true,
+    "headroom_usd": 0.897408,
+    "per_request_worst_case_usd": 0.0212608,
+    "run_count": 1,
+    "whole_study_reservation_usd": 5.102592
+  },
+  "corpus": {
+    "archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+    "corpus_id": "text2uml_airtravel_253b26dc",
+    "eligible_case_count": 21,
+    "eligible_case_paths": [
+      "result_one_Qwen_Qwen2.5-3B-Instruct.txt",
+      "result_one_Qwen_Qwen3.5-4B.txt",
+      "result_one_claude-sonnet-4-6.txt",
+      "result_one_codestral-2508.txt",
+      "result_one_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.txt",
+      "result_one_deepseek-chat.txt",
+      "result_one_gemini-2.5-flash.txt",
+      "result_one_google_gemma-3-4b-it.txt",
+      "result_one_gpt-3.5-turbo.txt",
+      "result_one_gpt-4o-mini.txt",
+      "result_one_gpt-5-mini.txt",
+      "result_one_gpt-5-nano.txt",
+      "result_one_gpt-5.2.txt",
+      "result_one_meta-llama_Llama-3.2-3B-Instruct.txt",
+      "result_one_microsoft_Phi-4-mini-instruct.txt",
+      "result_one_microsoft_phi-4.txt",
+      "result_one_mistral-large-2411.txt",
+      "result_one_mistral-small-2506.txt",
+      "result_one_mistralai_Mistral-7B-Instruct-v0.3.txt",
+      "result_one_o3-mini.txt",
+      "result_one_tiiuae_Falcon-H1-7B-Instruct.txt"
+    ],
+    "pinned_commit": "253b26dc704d523209a5cba79686f8f7fab57d63"
+  },
+  "detector_v1": {
+    "code_sha256": {
+      "scripts/extract_qa_escalation_features.py": "38c8fe3cb5b912e7ed597e83e119ab18c3149adeb9174e5a6910b36d7ed97bd1",
+      "scripts/study1_signal_contract.py": "9c47430c9ac364a7acc575f74dca96aac219b5f174642d88d64cbd4edb753d84"
+    },
+    "modified": false,
+    "scope": "episode-level and reporting-only; Detector-v1 does not create, feed or modify any human queue, and it is a different mechanism from Agent-4's queue",
+    "thresholds": {
+      "EXCLUDED": "episode is not scientific_complete",
+      "NO_ALERT": "otherwise",
+      "S1": "any answer confidence == Low",
+      "S2": "any answer confidence == Medium",
+      "S3": "any answer evidence reference is null or length 0",
+      "S6": "round_count > 1",
+      "S7": "termination_reason == TERMINATED_MAX_ROUNDS",
+      "STRONG_ALERT": "S1 or S3 or S7",
+      "WEAK_ALERT": "not STRONG and (S2 or S6)"
+    }
+  },
+  "evidence_classes": {
+    "fake_provider_preflight": "ENGINEERING-ONLY FIXTURE",
+    "prior_airtravel_runs": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE",
+    "this_run": "ARCHIVAL / RETROSPECTIVE DESCRIPTIVE EVIDENCE at best, and only once the receipt, event log and ledger are verifiable from the published head. It may never be labelled PROSPECTIVE EMPIRICAL EVIDENCE",
+    "unavailable_outcomes": "NOT_AVAILABLE"
+  },
+  "forbidden_claims": [
+    "that any Detector-v1 alert was correct",
+    "accuracy, precision, recall or F1 as a confirmatory result",
+    "effectiveness, human benefit or workload reduction without measured rater time",
+    "causality or any ON/OFF advantage",
+    "representativeness or generalization beyond this corpus and configuration",
+    "that Detector-v1 creates or feeds a human queue",
+    "that Agent-4's queue mechanism and Detector-v1 are the same mechanism",
+    "pooling or averaging runs that differ in configuration",
+    "that a larger episode count is stronger evidence unless it was frozen before outputs"
+  ],
+  "frozen_against_head": "c682707a9b08d94026d9755e167c43b203100d85",
+  "frozen_at": "2026-09-08T20:11:41Z",
+  "human_review_rubric": {
+    "adjudication_rule": "an episode is HUMAN_REVIEW_WORTHY when both raters answer Yes; NOT_WORTHY when both answer No; INSUFFICIENT when both answer Insufficient information; and DISAGREEMENT otherwise. A DISAGREEMENT is resolved only by a third supervisor-authorized adjudicator, is never resolved by the study author, and is reported as DISAGREEMENT until that adjudication exists.",
+    "blinding": {
+      "shown": [
+        "question text",
+        "answer text",
+        "evidence presence and length, not the evidence text",
+        "directed route, as asking agent and answering agent",
+        "round count and question count"
+      ],
+      "withheld": [
+        "the Detector-v1 classification and every signal name",
+        "the per-answer confidence label",
+        "the run identifier, the case identifier and the generating model name",
+        "any other rater's responses"
+      ]
+    },
+    "confidence_withheld_because": "the per-answer confidence label is Detector-v1's dominant input, so showing it would make the human judgement partly a readback of the detector rather than an independent judgement; the cost is that raters see less than an operator would, and that is recorded as a limitation",
+    "independence": "raters do not see each other's responses at any point",
+    "questions": [
+      {
+        "id": "R1_WORTHY",
+        "note": "'Insufficient information' is a distinct outcome and is never merged into 'No'.",
+        "options": [
+          "Yes",
+          "No",
+          "Insufficient information"
+        ],
+        "prompt": "Is this episode worthy of human review?"
+      },
+      {
+        "id": "R2_REASON",
+        "note": "Multiple selections permitted; recorded verbatim.",
+        "options": [
+          "Low confidence",
+          "Missing evidence",
+          "Repeated clarification",
+          "Non-convergence",
+          "Other"
+        ],
+        "prompt": "Why?"
+      },
+      {
+        "id": "R3_ACTION",
+        "note": "Exactly one selection.",
+        "options": [
+          "Verify",
+          "Clarify",
+          "Revise guideline",
+          "No action"
+        ],
+        "prompt": "What action would be appropriate?"
+      }
+    ],
+    "raters": 2,
+    "review_time_rule": "review minutes are reported only if raters actually record time per card; otherwise minutes saved is NOT_AVAILABLE and may not be estimated"
+  },
+  "planned_metrics": {
+    "A_pipeline_reliability": [
+      "selected cases",
+      "completed cases",
+      "complete episodes",
+      "incomplete technical episodes",
+      "calls",
+      "cost",
+      "elapsed time",
+      "termination states"
+    ],
+    "B_detector_to_human_agreement": [
+      "alert rate",
+      "human-review-worthy rate",
+      "confusion matrix of alert or no-alert against Yes, No and Insufficient",
+      "precision and recall, exploratory only and only when denominators are valid",
+      "redacted false-positive and false-negative episode cards"
+    ],
+    "C_operational_baseline": [
+      "all-episodes review workload",
+      "detector-prioritized review workload",
+      "proportion of human-worthy episodes retained by the prioritized set",
+      "review minutes saved, only if raters measured time",
+      "provider cost per completed case and per human-confirmed review-worthy episode"
+    ],
+    "D_robustness": [
+      "per-case results",
+      "per-run results",
+      "route distribution",
+      "termination distribution"
+    ],
+    "prioritized_set_definition": "the prioritized set is the STRONG_ALERT episodes. This is fixed now because Detector-v1's alert rate including WEAK_ALERT has been 1.0 on every episode observed to date, which would make an alert-versus-no-alert split degenerate.",
+    "sensitivity_analyses_preregistered": [
+      "prioritized set defined as STRONG_ALERT only, versus STRONG_ALERT or WEAK_ALERT"
+    ]
+  },
+  "primary_outcome_requires": "two independent blinded human raters and the adjudication rule below; without them the primary outcome is NOT_AVAILABLE and no substitute is permitted",
+  "primary_question": "Among complete Q&A episodes, how well does Detector-v1 prioritize episodes that blinded human raters independently judge as requiring human review?",
+  "protocol": {
+    "input_reserve_tokens": 8000,
+    "max_concurrent_cases": 2,
+    "max_output_tokens": 16384,
+    "max_qa_rounds": 10,
+    "model": "gpt-5.6-luna",
+    "prompts": "unmodified protected runtime prompts; no prompt is authored for this study",
+    "request_timeout_seconds": 180,
+    "retry_rule": "at most 3 per call, permitted only for a documented transport or provider failure before a valid response is received; every retry counts against the call cap and the budget and is recorded",
+    "run_count": 1,
+    "run_timeout_seconds": 10800,
+    "stop_rule": "the run stops when the call cap or the budget ceiling is reached and is reported STOPPED_AT_CAP and partial; it is never re-run and never replaced",
+    "technical_failure_rule": "a technical failure is preserved and reported with its cost; it is never deleted and never re-run to improve a result",
+    "temperature": "provider default, not overridden"
+  },
+  "sample_class": "PILOT_INFORMED_POST_OUTCOME",
+  "sample_class_reason": "the draw seed was fixed after the full-frame run outcomes were already known to the author, so no pre-commitment record predates them. Mechanical reproducibility of the draw is not the same as prospective registration",
+  "schema_version": "study1-hotspot-manifest-v1",
+  "selection": {
+    "outcome_independence": "the draw depends only on the seed and the pinned inventory, so it cannot depend on predicted or observed alert status",
+    "rule": "deterministic seeded shuffle of the full eligible frame, take the first 6, then sort by path",
+    "sample_size": 6,
+    "seed": 20260909,
+    "selected": [
+      {
+        "bytes": 1096,
+        "path": "result_one_Qwen_Qwen3.5-4B.txt",
+        "sha256": "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f"
+      },
+      {
+        "bytes": 1255,
+        "path": "result_one_gpt-3.5-turbo.txt",
+        "sha256": "81abd4b6b848b9e9102418d023d2af4656931fe162358f336f6132ab11a817c5"
+      },
+      {
+        "bytes": 1288,
+        "path": "result_one_gpt-5.2.txt",
+        "sha256": "559769d3653cd690966e7873a5647da7834532148fa4ec64ee34e3bc8e056d18"
+      },
+      {
+        "bytes": 7161,
+        "path": "result_one_meta-llama_Llama-3.2-3B-Instruct.txt",
+        "sha256": "7e65f088e45f47a1eb0c39c7b1e70eb05b77ec6a6836e9454f89babf81bba26e"
+      },
+      {
+        "bytes": 7182,
+        "path": "result_one_mistralai_Mistral-7B-Instruct-v0.3.txt",
+        "sha256": "3d8bb9c8564e086f0ba9e948b101def6c1fb50eefb1f2d20d71e591a491b1819"
+      },
+      {
+        "bytes": 1207,
+        "path": "result_one_o3-mini.txt",
+        "sha256": "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a"
+      }
+    ]
+  },
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "study_id": "STUDY1-HOTSPOT"
+}

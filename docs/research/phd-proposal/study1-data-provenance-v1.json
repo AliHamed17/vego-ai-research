@@ -1,0 +1,335 @@
+{
+  "canonical_project_artifacts": {
+    "signal_dictionary": {
+      "path": "docs/research/phd-proposal/study1-signal-dictionary-v1.json",
+      "sha256": "931d5b352da124e390c605f44c6c4c90557c239dc12e17d0c4e990c7ffb72ef1"
+    },
+    "traceability_matrix": {
+      "path": "docs/research/phd-proposal/study1-signal-traceability-matrix-v1.csv",
+      "sha256": "9e2a10e4b78206b8c7961017e75f651af61ef3f282b428593205aacd2cd32087"
+    }
+  },
+  "dataset": {
+    "airtravel_source_verification": {
+      "extra_count": 0,
+      "matched_count": 143,
+      "method": "temporary public codeload archive; file-level SHA-256; raw bytes not committed",
+      "mismatched_count": 0,
+      "missing_count": 0,
+      "observed_file_count": 143,
+      "status": "PASS"
+    },
+    "airtravel_verification_receipt": {
+      "archive_path_class": "temporary_public_codeload_archive",
+      "archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+      "duplicate_members": [],
+      "expected_archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+      "expected_file_count": 143,
+      "extra": [],
+      "extra_count": 0,
+      "manifest_path": "docs/research/phd-proposal/text2uml-airtravel/source-manifest.json",
+      "manifest_sha256": "82f0a14a577f3d5cdb8d0b1de774e4201990dbd6f032002db5d09abea3a500c3",
+      "matched_count": 143,
+      "mismatched": [],
+      "mismatched_count": 0,
+      "missing": [],
+      "missing_count": 0,
+      "observed_file_count": 143,
+      "status": "PASS",
+      "upstream_commit": "253b26dc704d523209a5cba79686f8f7fab57d63"
+    },
+    "allowed_claims": [
+      "public corpus and selection provenance",
+      "code-defined logging and detector contracts",
+      "descriptive Q&A observations only after a validated run artifact is mounted"
+    ],
+    "archive_sha256": "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
+    "archive_url": "https://github.com/IlKaiser/text2uml/archive/253b26dc704d523209a5cba79686f8f7fab57d63.zip",
+    "authorship_and_scope": {
+      "correctness_ground_truth": false,
+      "educational_representativeness": false,
+      "external_llm_generated_outputs_in_source": true,
+      "human_intervention_effectiveness": false,
+      "note": "The feasibility corpus is not Cheers/ParkWise data and is not evidence of student behavior.",
+      "student_or_historical_vego_data": false
+    },
+    "classification": "PUBLIC_EXTERNAL",
+    "corpus_id": "text2uml_airtravel_253b26dc",
+    "excluded_data": [
+      "private accepted-run prompts, answers, event logs and output files",
+      "Cheers/ParkWise historical records",
+      "student submissions and supervisor labels",
+      "reference-only PlantUML and extramaterial files",
+      "Detector-v1 accuracy, benefit, causal, generalization and superiority claims"
+    ],
+    "forbidden_claims": [
+      "student or human representativeness",
+      "alert correctness or accuracy",
+      "human benefit, workload reduction or intervention effectiveness",
+      "generalization or policy superiority"
+    ],
+    "is_student_or_historical_vego_data": false,
+    "selected_case_ids": [
+      "01_result_one_claude-sonnet-4-6",
+      "02_result_one_codestral-2508",
+      "03_result_one_deepseek-chat",
+      "04_result_one_gemini-2.5-flash"
+    ],
+    "selected_runtime_files": [
+      {
+        "bytes": 1477,
+        "path": "domain_description/description.md",
+        "role": "domain_description",
+        "sha256": "96bc8a6fbf2c2fdd93592fdbf6fac7c2b9db403494fe2d5a45e0a2bcbf0167e2"
+      },
+      {
+        "bytes": 1248,
+        "path": "candidate_models/01_result_one_claude-sonnet-4-6.txt",
+        "role": "candidate_model",
+        "sha256": "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91"
+      },
+      {
+        "bytes": 1272,
+        "path": "candidate_models/02_result_one_codestral-2508.txt",
+        "role": "candidate_model",
+        "sha256": "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6"
+      },
+      {
+        "bytes": 1324,
+        "path": "candidate_models/03_result_one_deepseek-chat.txt",
+        "role": "candidate_model",
+        "sha256": "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a"
+      },
+      {
+        "bytes": 1231,
+        "path": "candidate_models/04_result_one_gemini-2.5-flash.txt",
+        "role": "candidate_model",
+        "sha256": "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
+      }
+    ],
+    "selection": {
+      "eligible_case_count": 21,
+      "eligible_case_hashes": [
+        "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+        "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+        "786fa79f56dea0e3af5d0c4df0c18838fe88f20615a155949b7c04faec3ffea5",
+        "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+        "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a",
+        "b72fc5eaa682ce27912086dd2dcb3ea192c7fbe14285457cdcea23b0b6222f0b",
+        "81abd4b6b848b9e9102418d023d2af4656931fe162358f336f6132ab11a817c5",
+        "49e3989e341eba1414f6366b50d12b946ab3ceb16884e8faf1c0f6945ea8d4e9",
+        "4590b62dc0ea047e9a7789739a6482b5221e0deaa0fd5dc8004643863911ba36",
+        "6fad455a7d4831a5baba0cb7f4336f24fa338f4cd0c14f02236305664aebdfab",
+        "559769d3653cd690966e7873a5647da7834532148fa4ec64ee34e3bc8e056d18",
+        "7e65f088e45f47a1eb0c39c7b1e70eb05b77ec6a6836e9454f89babf81bba26e",
+        "06ea010da3a8e4f21e38a4cb5c3b279cc036d3f0a1af5e15f8363efad5e4a36f",
+        "9d1a6cb2d9113e0425d0a69d8dd483cb403b0db89c2052cd621fd4728373248a",
+        "70ccdd6576d3c15d3215b946b23cf1ed0c40d463a05a7a4fbe0956f27dfba266",
+        "77cdd113ce541a0bfffed798cbbfe3000d92d23fca88e41a344806373d551b1e",
+        "3d8bb9c8564e086f0ba9e948b101def6c1fb50eefb1f2d20d71e591a491b1819",
+        "a844ee45eb8a4fd15a798ad0c67d7c654479dafdd53a80f270d14b2e0129232a",
+        "2a7de3f3aad9ce230d0bda92f3660e8f403ef2c79447ff80262b5ab052865093",
+        "83f4f2c7d481a13b2fe3c805531213199e0245e7b86a41ab959eeac98e69a57f",
+        "7e3fccfff40f578aa80ab5aec866e5842bae6009cc4c8fd6c580f90a5f623d35"
+      ],
+      "predicate": "eligible iff classification=GENERATED_CANDIDATE_MODEL, path starts result_one_, bytes>0, syntax_validation=WRAPPER_PRESENT, and sha256 is 64 hex",
+      "reason": "Inventory predicate identifies 21 eligible cases; it does not contain case-level ranking/selection metadata for the four selected cases. The four-case choice is therefore purposive and non-reproducible among 21 eligible cases.",
+      "selected_case_hashes": [
+        "240b034834e383b9844e9a3e9796f6be9b3d47fc95de6606ed022d278d751f91",
+        "08399ca9432c1399f3f9784d34741314e4d39e40307a6efb14fa92a1c138b1d6",
+        "ee4d689d59c9ce3a5e8ff385747641954bd4821f2efeb18e581dcd1d5441d20a",
+        "1c3d15eac71fcaab138857dbbc7153833b3df55ab57925ac756a79dc28dc847a"
+      ],
+      "selected_case_paths": [
+        "result_one_claude-sonnet-4-6.txt",
+        "result_one_codestral-2508.txt",
+        "result_one_deepseek-chat.txt",
+        "result_one_gemini-2.5-flash.txt"
+      ],
+      "selection_basis": "recorded_purposive_choice_not_derived_by_predicate",
+      "status": "PURPOSIVE_NON_REPRODUCIBLE"
+    },
+    "selection_limitation": "Inventory predicate identifies 21 eligible cases; it does not contain case-level ranking/selection metadata for the four selected cases. The four-case choice is therefore purposive and non-reproducible among 21 eligible cases.",
+    "selection_rule": "eligible iff classification=GENERATED_CANDIDATE_MODEL, path starts result_one_, bytes>0, syntax_validation=WRAPPER_PRESENT, and sha256 is 64 hex",
+    "selection_status": "PURPOSIVE_NON_REPRODUCIBLE",
+    "setting_id": "cd_airtravel",
+    "source_file_count": 143,
+    "source_manifest": {
+      "entry_count": 143,
+      "note": "Manifest metadata is tracked; source bytes are verified separately from a temporary public codeload archive.",
+      "path": "docs/research/phd-proposal/text2uml-airtravel/source-manifest.json",
+      "sha256": "82f0a14a577f3d5cdb8d0b1de774e4201990dbd6f032002db5d09abea3a500c3",
+      "status": "TRACKED_MANIFEST_PRESENT"
+    },
+    "source_manifest_entry_count": 143,
+    "upstream_commit": "253b26dc704d523209a5cba79686f8f7fab57d63",
+    "upstream_repository": "https://github.com/IlKaiser/text2uml",
+    "upstream_scenario_path": "dataset/AirTravel"
+  },
+  "official_vego_release": {
+    "archive_sha256": "f7c2f62c927f280c25ecfaec667515e6a8ef8ad8a4104f168f27a1401b4f98b6",
+    "archive_url": "https://github.com/ieiris/VEGO-AI/archive/refs/tags/v2.1.5.3.zip",
+    "archive_verification": "PASS",
+    "artifact_note": "The release ships source code, not a runtime interaction_log.json, user_actions.log or qa_events.jsonl artifact.",
+    "commit": "f7457cf1a8e7d2e6f6bdbb9991a47abf7e14e495",
+    "release": "v2.1.5.3",
+    "release_url": "https://github.com/ieiris/VEGO-AI/releases/tag/v2.1.5.3",
+    "repository": "https://github.com/ieiris/VEGO-AI",
+    "source_files_expected": [
+      {
+        "bytes": 7907,
+        "path": "GUI/Controller/action_logger.py",
+        "sha256": "00c3b1556294122ffc51df1ad41e2bfa1e7a7c893276172f8d8232d84253af75"
+      },
+      {
+        "bytes": 9701,
+        "path": "GUI/View/GUI_Common.py",
+        "sha256": "baae722c100a4b2d8e7b8bddf72da55719e2d7406e027a724cf005525df2debd"
+      },
+      {
+        "bytes": 9769,
+        "path": "framework/llm_client.py",
+        "sha256": "0abf4d3b04449aeb4502bdb02fdbfcf0d0890410b040922ac0483a220420ed05"
+      },
+      {
+        "bytes": 30340,
+        "path": "framework/orchestrator.py",
+        "sha256": "cefd98a97f6616ab056dd444920dae99a658cd3d5083b4fe1cd2cdf3a8a90281"
+      },
+      {
+        "bytes": 146713,
+        "path": "GUI/View/Agent3Tab.py",
+        "sha256": "f1e3717b404b3a385e89b5f5de2c491e55ea0d4b69579d32536500f5b0170e7c"
+      },
+      {
+        "bytes": 60081,
+        "path": "GUI/View/Agent4Tab.py",
+        "sha256": "4d609ec00766bfd2d2d2c7d5ecc09fb18507e174ada65af5db5367815555f32d"
+      },
+      {
+        "bytes": 34681,
+        "path": "eval/evaluator.py",
+        "sha256": "132aab96daca2d7d88a3cc1d26b0d09e708acabade48928b7c60357cc8ece73d"
+      },
+      {
+        "bytes": 3281,
+        "path": "eval/agentD_variability_evaluator.py",
+        "sha256": "53b2cc4aae3a3cb4a903872359bbf60c060e7c62d03a15b3834b8f7db7503c14"
+      }
+    ],
+    "source_files_inspected": [
+      {
+        "bytes": 7907,
+        "path": "GUI/Controller/action_logger.py",
+        "sha256": "00c3b1556294122ffc51df1ad41e2bfa1e7a7c893276172f8d8232d84253af75"
+      },
+      {
+        "bytes": 9701,
+        "path": "GUI/View/GUI_Common.py",
+        "sha256": "baae722c100a4b2d8e7b8bddf72da55719e2d7406e027a724cf005525df2debd"
+      },
+      {
+        "bytes": 9769,
+        "path": "framework/llm_client.py",
+        "sha256": "0abf4d3b04449aeb4502bdb02fdbfcf0d0890410b040922ac0483a220420ed05"
+      },
+      {
+        "bytes": 30340,
+        "path": "framework/orchestrator.py",
+        "sha256": "cefd98a97f6616ab056dd444920dae99a658cd3d5083b4fe1cd2cdf3a8a90281"
+      },
+      {
+        "bytes": 146713,
+        "path": "GUI/View/Agent3Tab.py",
+        "sha256": "f1e3717b404b3a385e89b5f5de2c491e55ea0d4b69579d32536500f5b0170e7c"
+      },
+      {
+        "bytes": 60081,
+        "path": "GUI/View/Agent4Tab.py",
+        "sha256": "4d609ec00766bfd2d2d2c7d5ecc09fb18507e174ada65af5db5367815555f32d"
+      },
+      {
+        "bytes": 34681,
+        "path": "eval/evaluator.py",
+        "sha256": "132aab96daca2d7d88a3cc1d26b0d09e708acabade48928b7c60357cc8ece73d"
+      },
+      {
+        "bytes": 3281,
+        "path": "eval/agentD_variability_evaluator.py",
+        "sha256": "53b2cc4aae3a3cb4a903872359bbf60c060e7c62d03a15b3834b8f7db7503c14"
+      }
+    ],
+    "source_verification_receipt": {
+      "archive_path_class": "temporary_public_release_codeload_archive",
+      "archive_sha256": "f7c2f62c927f280c25ecfaec667515e6a8ef8ad8a4104f168f27a1401b4f98b6",
+      "duplicate_members": [],
+      "expected_archive_sha256": "f7c2f62c927f280c25ecfaec667515e6a8ef8ad8a4104f168f27a1401b4f98b6",
+      "expected_file_count": 8,
+      "inspected_file_count": 8,
+      "matched_count": 8,
+      "mismatched": [],
+      "mismatched_count": 0,
+      "missing": [],
+      "missing_count": 0,
+      "release_commit": "f7457cf1a8e7d2e6f6bdbb9991a47abf7e14e495",
+      "source_files": [
+        {
+          "bytes": 7907,
+          "path": "GUI/Controller/action_logger.py",
+          "sha256": "00c3b1556294122ffc51df1ad41e2bfa1e7a7c893276172f8d8232d84253af75"
+        },
+        {
+          "bytes": 9701,
+          "path": "GUI/View/GUI_Common.py",
+          "sha256": "baae722c100a4b2d8e7b8bddf72da55719e2d7406e027a724cf005525df2debd"
+        },
+        {
+          "bytes": 9769,
+          "path": "framework/llm_client.py",
+          "sha256": "0abf4d3b04449aeb4502bdb02fdbfcf0d0890410b040922ac0483a220420ed05"
+        },
+        {
+          "bytes": 30340,
+          "path": "framework/orchestrator.py",
+          "sha256": "cefd98a97f6616ab056dd444920dae99a658cd3d5083b4fe1cd2cdf3a8a90281"
+        },
+        {
+          "bytes": 146713,
+          "path": "GUI/View/Agent3Tab.py",
+          "sha256": "f1e3717b404b3a385e89b5f5de2c491e55ea0d4b69579d32536500f5b0170e7c"
+        },
+        {
+          "bytes": 60081,
+          "path": "GUI/View/Agent4Tab.py",
+          "sha256": "4d609ec00766bfd2d2d2c7d5ecc09fb18507e174ada65af5db5367815555f32d"
+        },
+        {
+          "bytes": 34681,
+          "path": "eval/evaluator.py",
+          "sha256": "132aab96daca2d7d88a3cc1d26b0d09e708acabade48928b7c60357cc8ece73d"
+        },
+        {
+          "bytes": 3281,
+          "path": "eval/agentD_variability_evaluator.py",
+          "sha256": "53b2cc4aae3a3cb4a903872359bbf60c060e7c62d03a15b3834b8f7db7503c14"
+        }
+      ],
+      "status": "PASS"
+    }
+  },
+  "private_accepted_run_evidence": {
+    "binding_manifest": "NOT_AVAILABLE_IN_WORKTREE",
+    "reason": "No accepted private binding manifest is mounted in the reviewed worktree; no scientific aggregate is emitted.",
+    "status": "NOT_AVAILABLE_IN_WORKTREE"
+  },
+  "record_type": "safe_public_and_evidence_boundary",
+  "review_context": {
+    "origin_main_sha": "158714064a2ecc40f5eda8561240978ebfe1b371",
+    "pr_number": 41,
+    "pr_state": "OPEN_DRAFT_UNMERGED",
+    "reviewed_pr_head_sha": "6d7f9dcef6c033c98dc1717e973a0714034aea82"
+  },
+  "schema_version": "study1-data-provenance-v1",
+  "verification_boundary": "READY_FOR_SUPERVISOR_TRANSPARENCY_REVIEW_NOT_A_NEW_SCIENTIFIC_RESULT",
+  "verification_date": "2026-09-08"
+}

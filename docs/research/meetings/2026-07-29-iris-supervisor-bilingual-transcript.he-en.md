@@ -16,7 +16,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0001"></a>
 ### S-0001 | 00:00:01.060–00:00:20.050
 
-**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)  
+**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -30,7 +30,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0002"></a>
 ### S-0002 | 00:00:20.050–00:00:33.690
 
-**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)  
+**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -44,7 +44,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0003"></a>
 ### S-0003 | 00:00:34.770–00:00:49.330
 
-**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)  
+**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -58,7 +58,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0004"></a>
 ### S-0004 | 00:00:49.330–00:00:59.350
 
-**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)  
+**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -72,7 +72,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0005"></a>
 ### S-0005 | 00:01:02.200–00:01:12.180
 
-**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)  
+**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -86,7 +86,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0006"></a>
 ### S-0006 | 00:01:12.180–00:01:20.920
 
-**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)  
+**Speaker:** Iris Reinhartz-Berger — high confidence (visual lip motion + conversational cue)
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -100,7 +100,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0007"></a>
 ### S-0007 | 00:01:21.880–00:01:36.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -114,7 +114,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0008"></a>
 ### S-0008 | 00:01:36.940–00:01:49.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -128,7 +128,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0009"></a>
 ### S-0009 | 00:01:49.360–00:01:58.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -142,7 +142,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0010"></a>
 ### S-0010 | 00:01:58.780–00:02:12.860
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -156,7 +156,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0011"></a>
 ### S-0011 | 00:02:13.320–00:02:18.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -170,7 +170,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0012"></a>
 ### S-0012 | 00:02:18.780–00:02:28.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -184,7 +184,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0013"></a>
 ### S-0013 | 00:02:28.180–00:02:33.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -198,7 +198,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0014"></a>
 ### S-0014 | 00:02:34.440–00:02:42.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -212,7 +212,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0015"></a>
 ### S-0015 | 00:02:42.000–00:02:48.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -226,7 +226,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0016"></a>
 ### S-0016 | 00:02:48.820–00:02:53.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -240,7 +240,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0017"></a>
 ### S-0017 | 00:02:55.060–00:03:04.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -254,7 +254,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0018"></a>
 ### S-0018 | 00:03:04.340–00:03:07.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -268,7 +268,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0019"></a>
 ### S-0019 | 00:03:07.600–00:03:13.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -282,7 +282,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0020"></a>
 ### S-0020 | 00:03:13.780–00:03:18.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -296,7 +296,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0021"></a>
 ### S-0021 | 00:03:18.640–00:03:22.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -310,7 +310,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0022"></a>
 ### S-0022 | 00:03:22.260–00:03:28.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -324,7 +324,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0023"></a>
 ### S-0023 | 00:03:29.580–00:03:34.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -338,7 +338,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0024"></a>
 ### S-0024 | 00:03:34.260–00:03:39.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -352,7 +352,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0025"></a>
 ### S-0025 | 00:03:39.820–00:03:45.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -366,7 +366,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0026"></a>
 ### S-0026 | 00:03:45.820–00:03:51.420
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -380,7 +380,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0027"></a>
 ### S-0027 | 00:03:51.920–00:03:56.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -394,7 +394,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0028"></a>
 ### S-0028 | 00:03:56.820–00:04:01.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -408,7 +408,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0029"></a>
 ### S-0029 | 00:04:01.200–00:04:05.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -422,7 +422,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0030"></a>
 ### S-0030 | 00:04:06.400–00:04:11.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -436,7 +436,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0031"></a>
 ### S-0031 | 00:04:11.990–00:04:15.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -450,7 +450,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0032"></a>
 ### S-0032 | 00:04:15.850–00:04:19.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -464,7 +464,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0033"></a>
 ### S-0033 | 00:04:20.390–00:04:24.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -478,7 +478,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0034"></a>
 ### S-0034 | 00:04:24.570–00:04:30.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -492,7 +492,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0035"></a>
 ### S-0035 | 00:04:30.980–00:04:38.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -506,7 +506,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0036"></a>
 ### S-0036 | 00:04:38.700–00:04:43.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -520,7 +520,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0037"></a>
 ### S-0037 | 00:04:43.620–00:04:46.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -534,7 +534,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0038"></a>
 ### S-0038 | 00:04:46.620–00:04:50.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -548,7 +548,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0039"></a>
 ### S-0039 | 00:04:50.360–00:04:54.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -562,7 +562,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0040"></a>
 ### S-0040 | 00:04:55.280–00:04:57.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -576,7 +576,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0041"></a>
 ### S-0041 | 00:04:57.960–00:05:00.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -590,7 +590,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0042"></a>
 ### S-0042 | 00:05:00.940–00:05:03.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -604,7 +604,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0043"></a>
 ### S-0043 | 00:05:03.140–00:05:07.320
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -618,7 +618,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0044"></a>
 ### S-0044 | 00:05:07.720–00:05:10.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -632,7 +632,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0045"></a>
 ### S-0045 | 00:05:10.600–00:05:14.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -646,7 +646,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0046"></a>
 ### S-0046 | 00:05:14.660–00:05:19.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -660,7 +660,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0047"></a>
 ### S-0047 | 00:05:19.860–00:05:22.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -674,7 +674,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0048"></a>
 ### S-0048 | 00:05:22.380–00:05:25.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -688,7 +688,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0049"></a>
 ### S-0049 | 00:05:25.780–00:05:27.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -702,7 +702,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0050"></a>
 ### S-0050 | 00:05:27.540–00:05:31.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -716,7 +716,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0051"></a>
 ### S-0051 | 00:05:31.400–00:05:34.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -730,7 +730,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0052"></a>
 ### S-0052 | 00:05:35.020–00:05:37.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -744,7 +744,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0053"></a>
 ### S-0053 | 00:05:37.940–00:05:43.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -758,7 +758,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0054"></a>
 ### S-0054 | 00:05:43.660–00:05:46.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -772,7 +772,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0055"></a>
 ### S-0055 | 00:05:46.900–00:05:49.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -786,7 +786,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0056"></a>
 ### S-0056 | 00:05:49.320–00:05:56.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -800,7 +800,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0057"></a>
 ### S-0057 | 00:05:56.740–00:06:02.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -814,7 +814,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0058"></a>
 ### S-0058 | 00:06:02.330–00:06:05.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -828,7 +828,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0059"></a>
 ### S-0059 | 00:06:05.630–00:06:06.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -842,7 +842,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0060"></a>
 ### S-0060 | 00:06:06.770–00:06:08.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -856,7 +856,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0061"></a>
 ### S-0061 | 00:06:08.250–00:06:10.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -870,7 +870,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0062"></a>
 ### S-0062 | 00:06:10.750–00:06:11.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -884,7 +884,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0063"></a>
 ### S-0063 | 00:06:11.470–00:06:13.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -898,7 +898,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0064"></a>
 ### S-0064 | 00:06:13.100–00:06:16.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -912,7 +912,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0065"></a>
 ### S-0065 | 00:06:17.440–00:06:18.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -926,7 +926,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0066"></a>
 ### S-0066 | 00:06:18.700–00:06:20.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -940,7 +940,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0067"></a>
 ### S-0067 | 00:06:20.900–00:06:23.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -954,7 +954,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0068"></a>
 ### S-0068 | 00:06:23.740–00:06:25.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -968,7 +968,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0069"></a>
 ### S-0069 | 00:06:25.340–00:06:27.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -982,7 +982,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0070"></a>
 ### S-0070 | 00:06:27.200–00:06:27.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -996,7 +996,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0071"></a>
 ### S-0071 | 00:06:27.840–00:06:29.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1010,7 +1010,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0072"></a>
 ### S-0072 | 00:06:29.360–00:06:30.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1024,7 +1024,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0073"></a>
 ### S-0073 | 00:06:30.720–00:06:34.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1038,7 +1038,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0074"></a>
 ### S-0074 | 00:06:34.480–00:06:36.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1052,7 +1052,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0075"></a>
 ### S-0075 | 00:06:38.460–00:06:40.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1066,7 +1066,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0076"></a>
 ### S-0076 | 00:06:40.200–00:06:41.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1080,7 +1080,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0077"></a>
 ### S-0077 | 00:06:41.900–00:06:44.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1094,7 +1094,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0078"></a>
 ### S-0078 | 00:06:44.620–00:06:46.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1108,7 +1108,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0079"></a>
 ### S-0079 | 00:06:46.420–00:06:49.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1122,7 +1122,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0080"></a>
 ### S-0080 | 00:06:49.800–00:06:50.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1136,7 +1136,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0081"></a>
 ### S-0081 | 00:06:50.720–00:06:53.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1150,7 +1150,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0082"></a>
 ### S-0082 | 00:06:53.080–00:06:53.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1164,7 +1164,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0083"></a>
 ### S-0083 | 00:06:54.000–00:06:54.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1178,7 +1178,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0084"></a>
 ### S-0084 | 00:06:55.040–00:06:57.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1192,7 +1192,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0085"></a>
 ### S-0085 | 00:06:57.680–00:07:00.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1206,7 +1206,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0086"></a>
 ### S-0086 | 00:07:00.500–00:07:01.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1220,7 +1220,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0087"></a>
 ### S-0087 | 00:07:01.500–00:07:04.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1234,7 +1234,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0088"></a>
 ### S-0088 | 00:07:04.620–00:07:04.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1248,7 +1248,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0089"></a>
 ### S-0089 | 00:07:05.180–00:07:06.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1262,7 +1262,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0090"></a>
 ### S-0090 | 00:07:06.900–00:07:08.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1276,7 +1276,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0091"></a>
 ### S-0091 | 00:07:08.740–00:07:10.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1290,7 +1290,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0092"></a>
 ### S-0092 | 00:07:10.980–00:07:11.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1304,7 +1304,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0093"></a>
 ### S-0093 | 00:07:12.420–00:07:14.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1318,7 +1318,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0094"></a>
 ### S-0094 | 00:07:14.780–00:07:15.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1332,7 +1332,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0095"></a>
 ### S-0095 | 00:07:15.640–00:07:17.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1346,7 +1346,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0096"></a>
 ### S-0096 | 00:07:17.880–00:07:18.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1360,7 +1360,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0097"></a>
 ### S-0097 | 00:07:19.000–00:07:19.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1374,7 +1374,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0098"></a>
 ### S-0098 | 00:07:19.760–00:07:20.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1388,7 +1388,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0099"></a>
 ### S-0099 | 00:07:20.680–00:07:22.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1402,7 +1402,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0100"></a>
 ### S-0100 | 00:07:23.540–00:07:25.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1416,7 +1416,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0101"></a>
 ### S-0101 | 00:07:25.440–00:07:27.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1430,7 +1430,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0102"></a>
 ### S-0102 | 00:07:27.340–00:07:28.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1444,7 +1444,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0103"></a>
 ### S-0103 | 00:07:28.140–00:07:29.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1458,7 +1458,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0104"></a>
 ### S-0104 | 00:07:30.080–00:07:30.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1472,7 +1472,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0105"></a>
 ### S-0105 | 00:07:30.800–00:07:32.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1486,7 +1486,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0106"></a>
 ### S-0106 | 00:07:32.680–00:07:35.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1500,7 +1500,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0107"></a>
 ### S-0107 | 00:07:36.120–00:07:38.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1514,7 +1514,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0108"></a>
 ### S-0108 | 00:07:39.180–00:07:39.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1528,7 +1528,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0109"></a>
 ### S-0109 | 00:07:40.020–00:07:43.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1542,7 +1542,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0110"></a>
 ### S-0110 | 00:07:43.780–00:07:44.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1556,7 +1556,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0111"></a>
 ### S-0111 | 00:07:44.300–00:07:45.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1570,7 +1570,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0112"></a>
 ### S-0112 | 00:07:45.480–00:07:46.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1584,7 +1584,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0113"></a>
 ### S-0113 | 00:07:46.900–00:07:48.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1598,7 +1598,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0114"></a>
 ### S-0114 | 00:07:48.980–00:07:50.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1612,7 +1612,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0115"></a>
 ### S-0115 | 00:07:51.660–00:07:53.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1626,7 +1626,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0116"></a>
 ### S-0116 | 00:07:53.360–00:07:55.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1640,7 +1640,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0117"></a>
 ### S-0117 | 00:07:56.080–00:07:57.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1654,7 +1654,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0118"></a>
 ### S-0118 | 00:07:57.920–00:07:59.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1668,7 +1668,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0119"></a>
 ### S-0119 | 00:07:59.700–00:08:02.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1682,7 +1682,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0120"></a>
 ### S-0120 | 00:08:02.560–00:08:03.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1696,7 +1696,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0121"></a>
 ### S-0121 | 00:08:03.680–00:08:05.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1710,7 +1710,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0122"></a>
 ### S-0122 | 00:08:05.580–00:08:07.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1724,7 +1724,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0123"></a>
 ### S-0123 | 00:08:07.640–00:08:11.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1738,7 +1738,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0124"></a>
 ### S-0124 | 00:08:12.000–00:08:13.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1752,7 +1752,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0125"></a>
 ### S-0125 | 00:08:14.780–00:08:16.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1766,7 +1766,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0126"></a>
 ### S-0126 | 00:08:16.900–00:08:19.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1780,7 +1780,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0127"></a>
 ### S-0127 | 00:08:21.690–00:08:25.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1794,7 +1794,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0128"></a>
 ### S-0128 | 00:08:25.710–00:08:26.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1808,7 +1808,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0129"></a>
 ### S-0129 | 00:08:27.110–00:08:28.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1822,7 +1822,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0130"></a>
 ### S-0130 | 00:08:28.530–00:08:29.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1836,7 +1836,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0131"></a>
 ### S-0131 | 00:08:29.970–00:08:30.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1850,7 +1850,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0132"></a>
 ### S-0132 | 00:08:31.030–00:08:31.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1864,7 +1864,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0133"></a>
 ### S-0133 | 00:08:31.790–00:08:34.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1878,7 +1878,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0134"></a>
 ### S-0134 | 00:08:34.990–00:08:36.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1892,7 +1892,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0135"></a>
 ### S-0135 | 00:08:36.130–00:08:36.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1906,7 +1906,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0136"></a>
 ### S-0136 | 00:08:37.650–00:08:39.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1920,7 +1920,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0137"></a>
 ### S-0137 | 00:08:39.930–00:08:41.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1934,7 +1934,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0138"></a>
 ### S-0138 | 00:08:41.210–00:08:41.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1948,7 +1948,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0139"></a>
 ### S-0139 | 00:08:41.670–00:08:46.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1962,7 +1962,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0140"></a>
 ### S-0140 | 00:08:46.750–00:08:49.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1976,7 +1976,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0141"></a>
 ### S-0141 | 00:08:49.990–00:08:51.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -1990,7 +1990,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0142"></a>
 ### S-0142 | 00:08:51.610–00:08:52.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2004,7 +2004,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0143"></a>
 ### S-0143 | 00:08:52.410–00:08:53.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2018,7 +2018,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0144"></a>
 ### S-0144 | 00:08:54.030–00:08:56.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2032,7 +2032,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0145"></a>
 ### S-0145 | 00:08:56.230–00:08:57.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2046,7 +2046,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0146"></a>
 ### S-0146 | 00:08:57.090–00:08:58.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2060,7 +2060,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0147"></a>
 ### S-0147 | 00:08:59.530–00:09:00.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2074,7 +2074,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0148"></a>
 ### S-0148 | 00:09:00.110–00:09:01.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2088,7 +2088,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0149"></a>
 ### S-0149 | 00:09:02.090–00:09:03.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2102,7 +2102,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0150"></a>
 ### S-0150 | 00:09:03.690–00:09:04.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2116,7 +2116,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0151"></a>
 ### S-0151 | 00:09:04.450–00:09:06.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2130,7 +2130,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0152"></a>
 ### S-0152 | 00:09:07.870–00:09:10.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2144,7 +2144,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0153"></a>
 ### S-0153 | 00:09:11.630–00:09:11.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2158,7 +2158,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0154"></a>
 ### S-0154 | 00:09:12.870–00:09:14.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2172,7 +2172,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0155"></a>
 ### S-0155 | 00:09:14.130–00:09:15.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2186,7 +2186,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0156"></a>
 ### S-0156 | 00:09:15.630–00:09:17.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2200,7 +2200,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0157"></a>
 ### S-0157 | 00:09:17.690–00:09:18.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2214,7 +2214,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0158"></a>
 ### S-0158 | 00:09:18.870–00:09:20.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2228,7 +2228,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0159"></a>
 ### S-0159 | 00:09:20.870–00:09:22.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2242,7 +2242,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0160"></a>
 ### S-0160 | 00:09:22.640–00:09:22.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2256,7 +2256,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0161"></a>
 ### S-0161 | 00:09:23.800–00:09:25.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2270,7 +2270,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0162"></a>
 ### S-0162 | 00:09:25.180–00:09:27.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2284,7 +2284,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0163"></a>
 ### S-0163 | 00:09:27.220–00:09:28.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2298,7 +2298,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0164"></a>
 ### S-0164 | 00:09:29.020–00:09:29.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2312,7 +2312,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0165"></a>
 ### S-0165 | 00:09:30.000–00:09:30.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2326,7 +2326,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0166"></a>
 ### S-0166 | 00:09:31.040–00:09:31.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2340,7 +2340,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0167"></a>
 ### S-0167 | 00:09:31.860–00:09:32.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2354,7 +2354,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0168"></a>
 ### S-0168 | 00:09:32.160–00:09:33.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2368,7 +2368,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0169"></a>
 ### S-0169 | 00:09:33.680–00:09:35.960
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2382,7 +2382,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0170"></a>
 ### S-0170 | 00:09:36.400–00:09:37.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2396,7 +2396,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0171"></a>
 ### S-0171 | 00:09:37.720–00:09:39.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2410,7 +2410,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0172"></a>
 ### S-0172 | 00:09:39.640–00:09:41.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2424,7 +2424,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0173"></a>
 ### S-0173 | 00:09:41.640–00:09:44.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2438,7 +2438,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0174"></a>
 ### S-0174 | 00:09:44.040–00:09:46.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2452,7 +2452,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0175"></a>
 ### S-0175 | 00:09:46.860–00:09:47.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2466,7 +2466,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0176"></a>
 ### S-0176 | 00:09:48.450–00:09:51.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2480,7 +2480,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0177"></a>
 ### S-0177 | 00:09:51.330–00:09:52.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2494,7 +2494,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0178"></a>
 ### S-0178 | 00:09:52.530–00:09:55.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2508,7 +2508,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0179"></a>
 ### S-0179 | 00:09:55.550–00:09:57.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2522,7 +2522,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0180"></a>
 ### S-0180 | 00:09:57.810–00:09:58.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2536,7 +2536,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0181"></a>
 ### S-0181 | 00:09:58.510–00:10:01.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2550,7 +2550,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0182"></a>
 ### S-0182 | 00:10:01.850–00:10:03.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2564,7 +2564,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0183"></a>
 ### S-0183 | 00:10:03.650–00:10:04.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2578,7 +2578,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0184"></a>
 ### S-0184 | 00:10:05.030–00:10:08.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2592,7 +2592,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0185"></a>
 ### S-0185 | 00:10:08.690–00:10:10.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2606,7 +2606,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0186"></a>
 ### S-0186 | 00:10:10.990–00:10:15.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2620,7 +2620,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0187"></a>
 ### S-0187 | 00:10:15.310–00:10:17.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2634,7 +2634,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0188"></a>
 ### S-0188 | 00:10:17.370–00:10:18.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2648,7 +2648,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0189"></a>
 ### S-0189 | 00:10:18.870–00:10:21.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2662,7 +2662,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0190"></a>
 ### S-0190 | 00:10:23.040–00:10:23.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2676,7 +2676,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0191"></a>
 ### S-0191 | 00:10:23.400–00:10:24.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2690,7 +2690,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0192"></a>
 ### S-0192 | 00:10:24.560–00:10:25.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2704,7 +2704,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0193"></a>
 ### S-0193 | 00:10:26.250–00:10:27.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2718,7 +2718,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0194"></a>
 ### S-0194 | 00:10:27.950–00:10:28.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2732,7 +2732,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0195"></a>
 ### S-0195 | 00:10:28.730–00:10:30.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2746,7 +2746,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0196"></a>
 ### S-0196 | 00:10:30.830–00:10:37.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2760,7 +2760,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0197"></a>
 ### S-0197 | 00:10:38.030–00:10:39.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2774,7 +2774,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0198"></a>
 ### S-0198 | 00:10:40.450–00:10:42.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2788,7 +2788,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0199"></a>
 ### S-0199 | 00:10:43.070–00:10:45.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2802,7 +2802,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0200"></a>
 ### S-0200 | 00:10:45.670–00:10:49.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2816,7 +2816,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0201"></a>
 ### S-0201 | 00:10:49.230–00:10:52.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2830,7 +2830,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0202"></a>
 ### S-0202 | 00:10:52.630–00:10:54.320
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2844,7 +2844,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0203"></a>
 ### S-0203 | 00:10:54.320–00:10:54.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2858,7 +2858,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0204"></a>
 ### S-0204 | 00:10:56.060–00:10:56.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2872,7 +2872,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0205"></a>
 ### S-0205 | 00:10:56.760–00:11:01.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2886,7 +2886,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0206"></a>
 ### S-0206 | 00:11:01.260–00:11:06.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2900,7 +2900,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0207"></a>
 ### S-0207 | 00:11:06.680–00:11:11.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2914,7 +2914,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0208"></a>
 ### S-0208 | 00:11:11.980–00:11:19.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2928,7 +2928,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0209"></a>
 ### S-0209 | 00:11:19.300–00:11:22.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2942,7 +2942,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0210"></a>
 ### S-0210 | 00:11:24.120–00:11:26.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2956,7 +2956,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0211"></a>
 ### S-0211 | 00:11:29.150–00:11:33.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2970,7 +2970,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0212"></a>
 ### S-0212 | 00:11:33.590–00:11:36.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2984,7 +2984,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0213"></a>
 ### S-0213 | 00:11:36.650–00:11:39.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -2998,7 +2998,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0214"></a>
 ### S-0214 | 00:11:39.470–00:11:42.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3012,7 +3012,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0215"></a>
 ### S-0215 | 00:11:42.870–00:11:45.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3026,7 +3026,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0216"></a>
 ### S-0216 | 00:11:46.090–00:11:48.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3040,7 +3040,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0217"></a>
 ### S-0217 | 00:11:48.290–00:11:52.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3054,7 +3054,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0218"></a>
 ### S-0218 | 00:11:53.370–00:11:57.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3068,7 +3068,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0219"></a>
 ### S-0219 | 00:11:57.970–00:12:00.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3082,7 +3082,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0220"></a>
 ### S-0220 | 00:12:00.410–00:12:03.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3096,7 +3096,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0221"></a>
 ### S-0221 | 00:12:03.750–00:12:07.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3110,7 +3110,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0222"></a>
 ### S-0222 | 00:12:08.010–00:12:13.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3124,7 +3124,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0223"></a>
 ### S-0223 | 00:12:13.710–00:12:15.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3138,7 +3138,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0224"></a>
 ### S-0224 | 00:12:15.610–00:12:20.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3152,7 +3152,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0225"></a>
 ### S-0225 | 00:12:20.850–00:12:26.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3166,7 +3166,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0226"></a>
 ### S-0226 | 00:12:26.030–00:12:30.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3180,7 +3180,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0227"></a>
 ### S-0227 | 00:12:30.850–00:12:33.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3194,7 +3194,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0228"></a>
 ### S-0228 | 00:12:33.750–00:12:35.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3208,7 +3208,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0229"></a>
 ### S-0229 | 00:12:36.570–00:12:38.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3222,7 +3222,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0230"></a>
 ### S-0230 | 00:12:38.730–00:12:42.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3236,7 +3236,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0231"></a>
 ### S-0231 | 00:12:43.190–00:12:45.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3250,7 +3250,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0232"></a>
 ### S-0232 | 00:12:45.930–00:12:48.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3264,7 +3264,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0233"></a>
 ### S-0233 | 00:12:49.130–00:12:50.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3278,7 +3278,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0234"></a>
 ### S-0234 | 00:12:50.530–00:12:52.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3292,7 +3292,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0235"></a>
 ### S-0235 | 00:12:52.790–00:12:55.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3306,7 +3306,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0236"></a>
 ### S-0236 | 00:12:55.050–00:13:00.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3320,7 +3320,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0237"></a>
 ### S-0237 | 00:13:01.050–00:13:02.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3334,7 +3334,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0238"></a>
 ### S-0238 | 00:13:02.370–00:13:07.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3348,7 +3348,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0239"></a>
 ### S-0239 | 00:13:08.150–00:13:12.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3362,7 +3362,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0240"></a>
 ### S-0240 | 00:13:13.140–00:13:14.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3376,7 +3376,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0241"></a>
 ### S-0241 | 00:13:14.300–00:13:19.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3390,7 +3390,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0242"></a>
 ### S-0242 | 00:13:19.790–00:13:21.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3404,7 +3404,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0243"></a>
 ### S-0243 | 00:13:21.850–00:13:24.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3418,7 +3418,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0244"></a>
 ### S-0244 | 00:13:24.810–00:13:26.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3432,7 +3432,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0245"></a>
 ### S-0245 | 00:13:27.070–00:13:30.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3446,7 +3446,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0246"></a>
 ### S-0246 | 00:13:31.110–00:13:32.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3460,7 +3460,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0247"></a>
 ### S-0247 | 00:13:32.790–00:13:34.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3474,7 +3474,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0248"></a>
 ### S-0248 | 00:13:34.410–00:13:36.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3488,7 +3488,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0249"></a>
 ### S-0249 | 00:13:37.510–00:13:40.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3502,7 +3502,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0250"></a>
 ### S-0250 | 00:13:40.070–00:13:40.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3516,7 +3516,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0251"></a>
 ### S-0251 | 00:13:41.130–00:13:43.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3530,7 +3530,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0252"></a>
 ### S-0252 | 00:13:44.310–00:13:46.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3544,7 +3544,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0253"></a>
 ### S-0253 | 00:13:46.790–00:13:48.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3558,7 +3558,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0254"></a>
 ### S-0254 | 00:13:48.890–00:13:50.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3572,7 +3572,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0255"></a>
 ### S-0255 | 00:13:50.830–00:13:53.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3586,7 +3586,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0256"></a>
 ### S-0256 | 00:13:56.030–00:13:57.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3600,7 +3600,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0257"></a>
 ### S-0257 | 00:13:58.290–00:14:00.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3614,7 +3614,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0258"></a>
 ### S-0258 | 00:14:00.070–00:14:01.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3628,7 +3628,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0259"></a>
 ### S-0259 | 00:14:01.910–00:14:04.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3642,7 +3642,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0260"></a>
 ### S-0260 | 00:14:04.410–00:14:06.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3656,7 +3656,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0261"></a>
 ### S-0261 | 00:14:06.750–00:14:07.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3670,7 +3670,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0262"></a>
 ### S-0262 | 00:14:08.070–00:14:09.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3684,7 +3684,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0263"></a>
 ### S-0263 | 00:14:10.010–00:14:11.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3698,7 +3698,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0264"></a>
 ### S-0264 | 00:14:11.770–00:14:15.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3712,7 +3712,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0265"></a>
 ### S-0265 | 00:14:16.070–00:14:16.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3726,7 +3726,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0266"></a>
 ### S-0266 | 00:14:18.000–00:14:21.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3740,7 +3740,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0267"></a>
 ### S-0267 | 00:14:21.620–00:14:25.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3754,7 +3754,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0268"></a>
 ### S-0268 | 00:14:25.920–00:14:28.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3768,7 +3768,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0269"></a>
 ### S-0269 | 00:14:28.500–00:14:31.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3782,7 +3782,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0270"></a>
 ### S-0270 | 00:14:31.920–00:14:33.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3796,7 +3796,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0271"></a>
 ### S-0271 | 00:14:33.620–00:14:34.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3810,7 +3810,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0272"></a>
 ### S-0272 | 00:14:35.690–00:14:37.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3824,7 +3824,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0273"></a>
 ### S-0273 | 00:14:38.980–00:14:40.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3838,7 +3838,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0274"></a>
 ### S-0274 | 00:14:40.620–00:14:41.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3852,7 +3852,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0275"></a>
 ### S-0275 | 00:14:41.920–00:14:43.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3866,7 +3866,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0276"></a>
 ### S-0276 | 00:14:44.180–00:14:45.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3880,7 +3880,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0277"></a>
 ### S-0277 | 00:14:46.420–00:14:48.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3894,7 +3894,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0278"></a>
 ### S-0278 | 00:14:49.040–00:14:51.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3908,7 +3908,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0279"></a>
 ### S-0279 | 00:14:52.270–00:14:53.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3922,7 +3922,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0280"></a>
 ### S-0280 | 00:14:53.130–00:14:55.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3936,7 +3936,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0281"></a>
 ### S-0281 | 00:14:55.170–00:14:57.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3950,7 +3950,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0282"></a>
 ### S-0282 | 00:14:57.090–00:14:59.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3964,7 +3964,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0283"></a>
 ### S-0283 | 00:15:01.710–00:15:04.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3978,7 +3978,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0284"></a>
 ### S-0284 | 00:15:05.050–00:15:09.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -3992,7 +3992,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0285"></a>
 ### S-0285 | 00:15:10.590–00:15:13.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4006,7 +4006,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0286"></a>
 ### S-0286 | 00:15:13.430–00:15:13.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4020,7 +4020,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0287"></a>
 ### S-0287 | 00:15:17.090–00:15:21.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4034,7 +4034,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0288"></a>
 ### S-0288 | 00:15:22.130–00:15:23.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4048,7 +4048,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0289"></a>
 ### S-0289 | 00:15:24.050–00:15:27.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4062,7 +4062,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0290"></a>
 ### S-0290 | 00:15:27.850–00:15:31.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4076,7 +4076,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0291"></a>
 ### S-0291 | 00:15:32.950–00:15:35.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4090,7 +4090,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0292"></a>
 ### S-0292 | 00:15:36.790–00:15:38.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4104,7 +4104,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0293"></a>
 ### S-0293 | 00:15:39.450–00:15:40.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4118,7 +4118,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0294"></a>
 ### S-0294 | 00:15:40.530–00:15:43.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4132,7 +4132,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0295"></a>
 ### S-0295 | 00:15:44.130–00:15:45.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4146,7 +4146,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0296"></a>
 ### S-0296 | 00:15:45.910–00:15:47.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4160,7 +4160,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0297"></a>
 ### S-0297 | 00:15:47.570–00:15:48.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4174,7 +4174,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0298"></a>
 ### S-0298 | 00:15:50.100–00:15:52.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4188,7 +4188,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0299"></a>
 ### S-0299 | 00:15:52.400–00:15:54.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4202,7 +4202,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0300"></a>
 ### S-0300 | 00:15:54.800–00:15:56.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4216,7 +4216,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0301"></a>
 ### S-0301 | 00:15:56.180–00:15:58.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4230,7 +4230,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0302"></a>
 ### S-0302 | 00:15:58.920–00:16:00.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4244,7 +4244,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0303"></a>
 ### S-0303 | 00:16:00.880–00:16:01.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4258,7 +4258,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0304"></a>
 ### S-0304 | 00:16:01.940–00:16:03.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4272,7 +4272,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0305"></a>
 ### S-0305 | 00:16:06.260–00:16:07.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4286,7 +4286,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0306"></a>
 ### S-0306 | 00:16:07.380–00:16:08.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4300,7 +4300,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0307"></a>
 ### S-0307 | 00:16:08.760–00:16:10.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4314,7 +4314,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0308"></a>
 ### S-0308 | 00:16:10.220–00:16:11.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4328,7 +4328,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0309"></a>
 ### S-0309 | 00:16:11.160–00:16:13.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4342,7 +4342,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0310"></a>
 ### S-0310 | 00:16:13.760–00:16:14.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4356,7 +4356,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0311"></a>
 ### S-0311 | 00:16:15.220–00:16:18.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4370,7 +4370,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0312"></a>
 ### S-0312 | 00:16:18.100–00:16:21.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4384,7 +4384,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0313"></a>
 ### S-0313 | 00:16:21.700–00:16:24.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4398,7 +4398,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0314"></a>
 ### S-0314 | 00:16:24.840–00:16:27.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4412,7 +4412,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0315"></a>
 ### S-0315 | 00:16:28.340–00:16:29.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4426,7 +4426,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0316"></a>
 ### S-0316 | 00:16:29.940–00:16:31.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4440,7 +4440,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0317"></a>
 ### S-0317 | 00:16:32.040–00:16:33.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4454,7 +4454,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0318"></a>
 ### S-0318 | 00:16:34.120–00:16:35.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4468,7 +4468,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0319"></a>
 ### S-0319 | 00:16:35.860–00:16:37.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4482,7 +4482,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0320"></a>
 ### S-0320 | 00:16:37.940–00:16:41.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4496,7 +4496,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0321"></a>
 ### S-0321 | 00:16:41.340–00:16:42.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4510,7 +4510,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0322"></a>
 ### S-0322 | 00:16:42.660–00:16:43.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4524,7 +4524,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0323"></a>
 ### S-0323 | 00:16:43.120–00:16:44.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4538,7 +4538,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0324"></a>
 ### S-0324 | 00:16:44.420–00:16:45.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4552,7 +4552,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0325"></a>
 ### S-0325 | 00:16:48.040–00:16:48.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4566,7 +4566,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0326"></a>
 ### S-0326 | 00:16:48.500–00:16:49.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4580,7 +4580,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0327"></a>
 ### S-0327 | 00:16:49.920–00:16:50.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4594,7 +4594,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0328"></a>
 ### S-0328 | 00:16:50.580–00:16:51.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4608,7 +4608,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0329"></a>
 ### S-0329 | 00:16:51.380–00:16:52.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4622,7 +4622,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0330"></a>
 ### S-0330 | 00:16:52.280–00:16:54.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4636,7 +4636,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0331"></a>
 ### S-0331 | 00:16:56.340–00:16:57.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4650,7 +4650,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0332"></a>
 ### S-0332 | 00:16:57.640–00:16:59.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4664,7 +4664,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0333"></a>
 ### S-0333 | 00:16:59.020–00:17:03.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4678,7 +4678,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0334"></a>
 ### S-0334 | 00:17:03.940–00:17:04.740
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4692,7 +4692,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0335"></a>
 ### S-0335 | 00:17:04.840–00:17:05.740
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4706,7 +4706,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0336"></a>
 ### S-0336 | 00:17:06.260–00:17:08.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4720,7 +4720,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0337"></a>
 ### S-0337 | 00:17:09.020–00:17:10.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4734,7 +4734,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0338"></a>
 ### S-0338 | 00:17:10.680–00:17:12.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4748,7 +4748,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0339"></a>
 ### S-0339 | 00:17:12.180–00:17:13.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4762,7 +4762,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0340"></a>
 ### S-0340 | 00:17:14.540–00:17:16.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4776,7 +4776,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0341"></a>
 ### S-0341 | 00:17:16.340–00:17:18.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4790,7 +4790,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0342"></a>
 ### S-0342 | 00:17:18.880–00:17:23.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4804,7 +4804,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0343"></a>
 ### S-0343 | 00:17:23.640–00:17:24.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4818,7 +4818,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0344"></a>
 ### S-0344 | 00:17:24.980–00:17:26.740
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4832,7 +4832,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0345"></a>
 ### S-0345 | 00:17:26.740–00:17:31.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4846,7 +4846,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0346"></a>
 ### S-0346 | 00:17:31.400–00:17:32.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4860,7 +4860,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0347"></a>
 ### S-0347 | 00:17:32.600–00:17:34.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4874,7 +4874,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0348"></a>
 ### S-0348 | 00:17:34.860–00:17:37.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4888,7 +4888,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0349"></a>
 ### S-0349 | 00:17:38.080–00:17:38.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4902,7 +4902,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0350"></a>
 ### S-0350 | 00:17:38.900–00:17:40.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4916,7 +4916,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0351"></a>
 ### S-0351 | 00:17:40.200–00:17:42.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4930,7 +4930,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0352"></a>
 ### S-0352 | 00:17:42.520–00:17:46.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4944,7 +4944,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0353"></a>
 ### S-0353 | 00:17:46.920–00:17:49.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4958,7 +4958,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0354"></a>
 ### S-0354 | 00:17:49.200–00:17:51.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4972,7 +4972,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0355"></a>
 ### S-0355 | 00:17:52.490–00:17:54.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -4986,7 +4986,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0356"></a>
 ### S-0356 | 00:17:54.570–00:17:56.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5000,7 +5000,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0357"></a>
 ### S-0357 | 00:17:56.170–00:17:59.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5014,7 +5014,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0358"></a>
 ### S-0358 | 00:17:59.410–00:18:00.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5028,7 +5028,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0359"></a>
 ### S-0359 | 00:18:00.610–00:18:01.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5042,7 +5042,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0360"></a>
 ### S-0360 | 00:18:01.430–00:18:03.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5056,7 +5056,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0361"></a>
 ### S-0361 | 00:18:03.670–00:18:05.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5070,7 +5070,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0362"></a>
 ### S-0362 | 00:18:05.650–00:18:06.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5084,7 +5084,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0363"></a>
 ### S-0363 | 00:18:06.950–00:18:08.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5098,7 +5098,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0364"></a>
 ### S-0364 | 00:18:09.130–00:18:11.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5112,7 +5112,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0365"></a>
 ### S-0365 | 00:18:12.190–00:18:13.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5126,7 +5126,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0366"></a>
 ### S-0366 | 00:18:13.410–00:18:14.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5140,7 +5140,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0367"></a>
 ### S-0367 | 00:18:14.090–00:18:15.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5154,7 +5154,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0368"></a>
 ### S-0368 | 00:18:15.150–00:18:16.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5168,7 +5168,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0369"></a>
 ### S-0369 | 00:18:17.090–00:18:17.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5182,7 +5182,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0370"></a>
 ### S-0370 | 00:18:17.990–00:18:18.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5196,7 +5196,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0371"></a>
 ### S-0371 | 00:18:18.890–00:18:19.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5210,7 +5210,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0372"></a>
 ### S-0372 | 00:18:19.970–00:18:21.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5224,7 +5224,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0373"></a>
 ### S-0373 | 00:18:21.470–00:18:24.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5238,7 +5238,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0374"></a>
 ### S-0374 | 00:18:24.430–00:18:25.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5252,7 +5252,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0375"></a>
 ### S-0375 | 00:18:25.490–00:18:29.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5266,7 +5266,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0376"></a>
 ### S-0376 | 00:18:30.650–00:18:32.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5280,7 +5280,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0377"></a>
 ### S-0377 | 00:18:33.070–00:18:33.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5294,7 +5294,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0378"></a>
 ### S-0378 | 00:18:34.070–00:18:34.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5308,7 +5308,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0379"></a>
 ### S-0379 | 00:18:34.970–00:18:35.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5322,7 +5322,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0380"></a>
 ### S-0380 | 00:18:35.990–00:18:36.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5336,7 +5336,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0381"></a>
 ### S-0381 | 00:18:36.930–00:18:37.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5350,7 +5350,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0382"></a>
 ### S-0382 | 00:18:37.590–00:18:38.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5364,7 +5364,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0383"></a>
 ### S-0383 | 00:18:38.790–00:18:39.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5378,7 +5378,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0384"></a>
 ### S-0384 | 00:18:39.770–00:18:41.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5392,7 +5392,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0385"></a>
 ### S-0385 | 00:18:41.430–00:18:41.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5406,7 +5406,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0386"></a>
 ### S-0386 | 00:18:41.710–00:18:48.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5420,7 +5420,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0387"></a>
 ### S-0387 | 00:18:48.190–00:18:49.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5434,7 +5434,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0388"></a>
 ### S-0388 | 00:18:49.110–00:18:50.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5448,7 +5448,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0389"></a>
 ### S-0389 | 00:18:51.110–00:18:53.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5462,7 +5462,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0390"></a>
 ### S-0390 | 00:18:53.470–00:18:54.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5476,7 +5476,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0391"></a>
 ### S-0391 | 00:18:55.390–00:18:56.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5490,7 +5490,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0392"></a>
 ### S-0392 | 00:18:57.150–00:19:00.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5504,7 +5504,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0393"></a>
 ### S-0393 | 00:19:01.490–00:19:02.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5518,7 +5518,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0394"></a>
 ### S-0394 | 00:19:02.610–00:19:03.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5532,7 +5532,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0395"></a>
 ### S-0395 | 00:19:03.290–00:19:05.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5546,7 +5546,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0396"></a>
 ### S-0396 | 00:19:05.250–00:19:07.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5560,7 +5560,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0397"></a>
 ### S-0397 | 00:19:07.190–00:19:08.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5574,7 +5574,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0398"></a>
 ### S-0398 | 00:19:08.570–00:19:09.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5588,7 +5588,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0399"></a>
 ### S-0399 | 00:19:09.510–00:19:10.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5602,7 +5602,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0400"></a>
 ### S-0400 | 00:19:10.450–00:19:11.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5616,7 +5616,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0401"></a>
 ### S-0401 | 00:19:11.470–00:19:14.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5630,7 +5630,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0402"></a>
 ### S-0402 | 00:19:14.230–00:19:15.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5644,7 +5644,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0403"></a>
 ### S-0403 | 00:19:16.250–00:19:19.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5658,7 +5658,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0404"></a>
 ### S-0404 | 00:19:19.730–00:19:21.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5672,7 +5672,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0405"></a>
 ### S-0405 | 00:19:21.630–00:19:22.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5686,7 +5686,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0406"></a>
 ### S-0406 | 00:19:22.570–00:19:23.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5700,7 +5700,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0407"></a>
 ### S-0407 | 00:19:24.390–00:19:25.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5714,7 +5714,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0408"></a>
 ### S-0408 | 00:19:25.610–00:19:27.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5728,7 +5728,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0409"></a>
 ### S-0409 | 00:19:27.830–00:19:28.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5742,7 +5742,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0410"></a>
 ### S-0410 | 00:19:28.290–00:19:30.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5756,7 +5756,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0411"></a>
 ### S-0411 | 00:19:30.710–00:19:32.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5770,7 +5770,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0412"></a>
 ### S-0412 | 00:19:32.630–00:19:34.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5784,7 +5784,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0413"></a>
 ### S-0413 | 00:19:35.350–00:19:36.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5798,7 +5798,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0414"></a>
 ### S-0414 | 00:19:36.750–00:19:38.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5812,7 +5812,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0415"></a>
 ### S-0415 | 00:19:38.190–00:19:41.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5826,7 +5826,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0416"></a>
 ### S-0416 | 00:19:41.610–00:19:44.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5840,7 +5840,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0417"></a>
 ### S-0417 | 00:19:44.950–00:19:46.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5854,7 +5854,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0418"></a>
 ### S-0418 | 00:19:46.370–00:19:47.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5868,7 +5868,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0419"></a>
 ### S-0419 | 00:19:47.590–00:19:48.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5882,7 +5882,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0420"></a>
 ### S-0420 | 00:19:48.610–00:19:49.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5896,7 +5896,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0421"></a>
 ### S-0421 | 00:19:49.390–00:19:49.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5910,7 +5910,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0422"></a>
 ### S-0422 | 00:19:49.930–00:19:51.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5924,7 +5924,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0423"></a>
 ### S-0423 | 00:19:51.870–00:19:52.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5938,7 +5938,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0424"></a>
 ### S-0424 | 00:19:52.530–00:19:53.150
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5952,7 +5952,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0425"></a>
 ### S-0425 | 00:19:53.210–00:19:54.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5966,7 +5966,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0426"></a>
 ### S-0426 | 00:19:54.330–00:19:55.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5980,7 +5980,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0427"></a>
 ### S-0427 | 00:19:55.650–00:19:55.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -5994,7 +5994,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0428"></a>
 ### S-0428 | 00:20:08.190–00:20:11.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6008,7 +6008,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0429"></a>
 ### S-0429 | 00:20:12.160–00:20:13.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6022,7 +6022,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0430"></a>
 ### S-0430 | 00:20:14.300–00:20:15.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6036,7 +6036,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0431"></a>
 ### S-0431 | 00:20:15.840–00:20:17.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6050,7 +6050,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0432"></a>
 ### S-0432 | 00:20:17.640–00:20:19.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6064,7 +6064,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0433"></a>
 ### S-0433 | 00:20:19.940–00:20:20.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6078,7 +6078,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0434"></a>
 ### S-0434 | 00:20:21.040–00:20:22.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6092,7 +6092,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0435"></a>
 ### S-0435 | 00:20:22.980–00:20:23.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6106,7 +6106,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0436"></a>
 ### S-0436 | 00:20:24.500–00:20:27.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6120,7 +6120,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0437"></a>
 ### S-0437 | 00:20:27.360–00:20:30.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6134,7 +6134,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0438"></a>
 ### S-0438 | 00:20:30.780–00:20:31.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6148,7 +6148,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0439"></a>
 ### S-0439 | 00:20:31.840–00:20:33.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6162,7 +6162,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0440"></a>
 ### S-0440 | 00:20:33.180–00:20:35.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6176,7 +6176,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0441"></a>
 ### S-0441 | 00:20:35.580–00:20:36.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6190,7 +6190,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0442"></a>
 ### S-0442 | 00:20:36.860–00:20:38.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6204,7 +6204,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0443"></a>
 ### S-0443 | 00:20:39.160–00:20:41.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6218,7 +6218,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0444"></a>
 ### S-0444 | 00:20:41.140–00:20:42.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6232,7 +6232,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0445"></a>
 ### S-0445 | 00:20:42.160–00:20:43.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6246,7 +6246,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0446"></a>
 ### S-0446 | 00:20:44.280–00:20:45.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6260,7 +6260,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0447"></a>
 ### S-0447 | 00:20:45.820–00:20:47.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6274,7 +6274,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0448"></a>
 ### S-0448 | 00:20:47.940–00:20:50.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6288,7 +6288,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0449"></a>
 ### S-0449 | 00:20:50.060–00:20:51.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6302,7 +6302,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0450"></a>
 ### S-0450 | 00:20:51.080–00:20:53.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6316,7 +6316,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0451"></a>
 ### S-0451 | 00:20:53.520–00:20:54.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6330,7 +6330,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0452"></a>
 ### S-0452 | 00:20:54.760–00:20:55.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6344,7 +6344,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0453"></a>
 ### S-0453 | 00:20:55.920–00:20:57.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6358,7 +6358,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0454"></a>
 ### S-0454 | 00:20:59.190–00:21:00.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6372,7 +6372,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0455"></a>
 ### S-0455 | 00:21:00.210–00:21:04.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6386,7 +6386,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0456"></a>
 ### S-0456 | 00:21:04.830–00:21:06.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6400,7 +6400,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0457"></a>
 ### S-0457 | 00:21:06.070–00:21:07.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6414,7 +6414,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0458"></a>
 ### S-0458 | 00:21:08.350–00:21:10.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6428,7 +6428,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0459"></a>
 ### S-0459 | 00:21:10.670–00:21:12.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6442,7 +6442,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0460"></a>
 ### S-0460 | 00:21:12.550–00:21:13.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6456,7 +6456,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0461"></a>
 ### S-0461 | 00:21:14.470–00:21:16.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6470,7 +6470,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0462"></a>
 ### S-0462 | 00:21:16.950–00:21:17.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6484,7 +6484,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0463"></a>
 ### S-0463 | 00:21:17.870–00:21:19.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6498,7 +6498,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0464"></a>
 ### S-0464 | 00:21:19.770–00:21:20.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6512,7 +6512,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0465"></a>
 ### S-0465 | 00:21:20.950–00:21:23.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6526,7 +6526,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0466"></a>
 ### S-0466 | 00:21:23.490–00:21:24.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6540,7 +6540,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0467"></a>
 ### S-0467 | 00:21:25.430–00:21:29.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6554,7 +6554,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0468"></a>
 ### S-0468 | 00:21:29.530–00:21:32.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6568,7 +6568,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0469"></a>
 ### S-0469 | 00:21:32.250–00:21:33.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6582,7 +6582,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0470"></a>
 ### S-0470 | 00:21:33.930–00:21:35.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6596,7 +6596,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0471"></a>
 ### S-0471 | 00:21:35.590–00:21:40.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6610,7 +6610,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0472"></a>
 ### S-0472 | 00:21:40.230–00:21:41.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6624,7 +6624,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0473"></a>
 ### S-0473 | 00:21:41.390–00:21:42.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6638,7 +6638,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0474"></a>
 ### S-0474 | 00:21:42.130–00:21:43.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6652,7 +6652,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0475"></a>
 ### S-0475 | 00:21:44.490–00:21:47.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6666,7 +6666,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0476"></a>
 ### S-0476 | 00:21:47.470–00:21:48.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6680,7 +6680,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0477"></a>
 ### S-0477 | 00:21:49.580–00:21:49.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6694,7 +6694,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0478"></a>
 ### S-0478 | 00:21:50.400–00:21:52.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6708,7 +6708,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0479"></a>
 ### S-0479 | 00:21:53.980–00:21:56.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6722,7 +6722,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0480"></a>
 ### S-0480 | 00:21:56.320–00:21:57.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6736,7 +6736,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0481"></a>
 ### S-0481 | 00:21:57.260–00:21:58.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6750,7 +6750,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0482"></a>
 ### S-0482 | 00:21:59.040–00:22:01.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6764,7 +6764,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0483"></a>
 ### S-0483 | 00:22:02.320–00:22:04.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6778,7 +6778,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0484"></a>
 ### S-0484 | 00:22:05.390–00:22:07.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6792,7 +6792,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0485"></a>
 ### S-0485 | 00:22:07.590–00:22:08.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6806,7 +6806,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0486"></a>
 ### S-0486 | 00:22:08.610–00:22:09.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6820,7 +6820,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0487"></a>
 ### S-0487 | 00:22:10.670–00:22:13.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6834,7 +6834,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0488"></a>
 ### S-0488 | 00:22:13.550–00:22:17.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6848,7 +6848,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0489"></a>
 ### S-0489 | 00:22:17.450–00:22:18.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6862,7 +6862,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0490"></a>
 ### S-0490 | 00:22:18.450–00:22:19.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6876,7 +6876,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0491"></a>
 ### S-0491 | 00:22:19.710–00:22:23.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6890,7 +6890,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0492"></a>
 ### S-0492 | 00:22:24.190–00:22:25.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6904,7 +6904,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0493"></a>
 ### S-0493 | 00:22:25.810–00:22:28.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6918,7 +6918,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0494"></a>
 ### S-0494 | 00:22:28.450–00:22:31.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6932,7 +6932,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0495"></a>
 ### S-0495 | 00:22:31.310–00:22:32.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6946,7 +6946,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0496"></a>
 ### S-0496 | 00:22:32.950–00:22:35.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6960,7 +6960,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0497"></a>
 ### S-0497 | 00:22:35.370–00:22:37.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6974,7 +6974,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0498"></a>
 ### S-0498 | 00:22:38.190–00:22:40.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -6988,7 +6988,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0499"></a>
 ### S-0499 | 00:22:40.330–00:22:42.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7002,7 +7002,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0500"></a>
 ### S-0500 | 00:22:42.100–00:22:42.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7016,7 +7016,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0501"></a>
 ### S-0501 | 00:22:42.400–00:22:46.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7030,7 +7030,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0502"></a>
 ### S-0502 | 00:22:46.540–00:22:47.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7044,7 +7044,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0503"></a>
 ### S-0503 | 00:22:48.180–00:22:50.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7058,7 +7058,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0504"></a>
 ### S-0504 | 00:22:50.080–00:22:52.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7072,7 +7072,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0505"></a>
 ### S-0505 | 00:22:53.120–00:22:55.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7086,7 +7086,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0506"></a>
 ### S-0506 | 00:22:55.840–00:22:59.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7100,7 +7100,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0507"></a>
 ### S-0507 | 00:23:00.100–00:23:02.640
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7114,7 +7114,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0508"></a>
 ### S-0508 | 00:23:02.640–00:23:03.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7128,7 +7128,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0509"></a>
 ### S-0509 | 00:23:05.700–00:23:07.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7142,7 +7142,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0510"></a>
 ### S-0510 | 00:23:08.910–00:23:09.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7156,7 +7156,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0511"></a>
 ### S-0511 | 00:23:11.280–00:23:13.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7170,7 +7170,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0512"></a>
 ### S-0512 | 00:23:13.400–00:23:14.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7184,7 +7184,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0513"></a>
 ### S-0513 | 00:23:15.060–00:23:15.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7198,7 +7198,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0514"></a>
 ### S-0514 | 00:23:16.450–00:23:17.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7212,7 +7212,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0515"></a>
 ### S-0515 | 00:23:17.930–00:23:18.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7226,7 +7226,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0516"></a>
 ### S-0516 | 00:23:18.250–00:23:19.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7240,7 +7240,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0517"></a>
 ### S-0517 | 00:23:19.570–00:23:22.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7254,7 +7254,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0518"></a>
 ### S-0518 | 00:23:22.930–00:23:25.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7268,7 +7268,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0519"></a>
 ### S-0519 | 00:23:26.220–00:23:28.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7282,7 +7282,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0520"></a>
 ### S-0520 | 00:23:28.700–00:23:31.420
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7296,7 +7296,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0521"></a>
 ### S-0521 | 00:23:31.540–00:23:33.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7310,7 +7310,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0522"></a>
 ### S-0522 | 00:23:33.000–00:23:34.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7324,7 +7324,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0523"></a>
 ### S-0523 | 00:23:34.730–00:23:36.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7338,7 +7338,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0524"></a>
 ### S-0524 | 00:23:36.770–00:23:38.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7352,7 +7352,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0525"></a>
 ### S-0525 | 00:23:38.090–00:23:40.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7366,7 +7366,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0526"></a>
 ### S-0526 | 00:23:42.470–00:23:45.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7380,7 +7380,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0527"></a>
 ### S-0527 | 00:23:45.830–00:23:50.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7394,7 +7394,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0528"></a>
 ### S-0528 | 00:23:50.730–00:23:53.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7408,7 +7408,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0529"></a>
 ### S-0529 | 00:23:53.590–00:23:56.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7422,7 +7422,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0530"></a>
 ### S-0530 | 00:23:56.570–00:23:57.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7436,7 +7436,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0531"></a>
 ### S-0531 | 00:23:57.810–00:24:01.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7450,7 +7450,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0532"></a>
 ### S-0532 | 00:24:01.510–00:24:06.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7464,7 +7464,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0533"></a>
 ### S-0533 | 00:24:06.850–00:24:09.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7478,7 +7478,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0534"></a>
 ### S-0534 | 00:24:10.240–00:24:10.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7492,7 +7492,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0535"></a>
 ### S-0535 | 00:24:11.000–00:24:11.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7506,7 +7506,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0536"></a>
 ### S-0536 | 00:24:12.260–00:24:12.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7520,7 +7520,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0537"></a>
 ### S-0537 | 00:24:13.140–00:24:17.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7534,7 +7534,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0538"></a>
 ### S-0538 | 00:24:18.000–00:24:20.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7548,7 +7548,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0539"></a>
 ### S-0539 | 00:24:22.320–00:24:22.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7562,7 +7562,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0540"></a>
 ### S-0540 | 00:24:22.860–00:24:23.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7576,7 +7576,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0541"></a>
 ### S-0541 | 00:24:23.680–00:24:26.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7590,7 +7590,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0542"></a>
 ### S-0542 | 00:24:28.180–00:24:31.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7604,7 +7604,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0543"></a>
 ### S-0543 | 00:24:32.240–00:24:35.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7618,7 +7618,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0544"></a>
 ### S-0544 | 00:24:37.760–00:24:39.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7632,7 +7632,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0545"></a>
 ### S-0545 | 00:24:40.040–00:24:42.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7646,7 +7646,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0546"></a>
 ### S-0546 | 00:24:42.240–00:24:43.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7660,7 +7660,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0547"></a>
 ### S-0547 | 00:24:43.940–00:24:45.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7674,7 +7674,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0548"></a>
 ### S-0548 | 00:24:45.810–00:24:49.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7688,7 +7688,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0549"></a>
 ### S-0549 | 00:24:49.350–00:24:50.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7702,7 +7702,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0550"></a>
 ### S-0550 | 00:24:50.790–00:24:51.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7716,7 +7716,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0551"></a>
 ### S-0551 | 00:24:52.730–00:24:56.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7730,7 +7730,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0552"></a>
 ### S-0552 | 00:24:56.250–00:25:01.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7744,7 +7744,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0553"></a>
 ### S-0553 | 00:25:02.030–00:25:04.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7758,7 +7758,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0554"></a>
 ### S-0554 | 00:25:04.670–00:25:06.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7772,7 +7772,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0555"></a>
 ### S-0555 | 00:25:06.750–00:25:07.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7786,7 +7786,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0556"></a>
 ### S-0556 | 00:25:07.990–00:25:09.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7800,7 +7800,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0557"></a>
 ### S-0557 | 00:25:09.650–00:25:11.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7814,7 +7814,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0558"></a>
 ### S-0558 | 00:25:12.570–00:25:13.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7828,7 +7828,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0559"></a>
 ### S-0559 | 00:25:13.670–00:25:14.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7842,7 +7842,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0560"></a>
 ### S-0560 | 00:25:14.650–00:25:15.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7856,7 +7856,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0561"></a>
 ### S-0561 | 00:25:15.650–00:25:16.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7870,7 +7870,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0562"></a>
 ### S-0562 | 00:25:16.990–00:25:18.150
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7884,7 +7884,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0563"></a>
 ### S-0563 | 00:25:18.150–00:25:20.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7898,7 +7898,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0564"></a>
 ### S-0564 | 00:25:20.670–00:25:23.150
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7912,7 +7912,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0565"></a>
 ### S-0565 | 00:25:23.950–00:25:26.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7926,7 +7926,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0566"></a>
 ### S-0566 | 00:25:26.430–00:25:27.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7940,7 +7940,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0567"></a>
 ### S-0567 | 00:25:28.110–00:25:29.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7954,7 +7954,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0568"></a>
 ### S-0568 | 00:25:29.690–00:25:30.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7968,7 +7968,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0569"></a>
 ### S-0569 | 00:25:30.890–00:25:32.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7982,7 +7982,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0570"></a>
 ### S-0570 | 00:25:32.510–00:25:34.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -7996,7 +7996,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0571"></a>
 ### S-0571 | 00:25:34.190–00:25:35.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8010,7 +8010,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0572"></a>
 ### S-0572 | 00:25:36.390–00:25:38.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8024,7 +8024,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0573"></a>
 ### S-0573 | 00:25:38.270–00:25:39.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8038,7 +8038,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0574"></a>
 ### S-0574 | 00:25:40.540–00:25:40.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8052,7 +8052,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0575"></a>
 ### S-0575 | 00:25:40.780–00:25:42.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8066,7 +8066,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0576"></a>
 ### S-0576 | 00:25:45.640–00:25:45.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8080,7 +8080,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0577"></a>
 ### S-0577 | 00:25:45.820–00:25:48.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8094,7 +8094,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0578"></a>
 ### S-0578 | 00:25:48.380–00:25:49.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8108,7 +8108,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0579"></a>
 ### S-0579 | 00:25:49.540–00:25:51.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8122,7 +8122,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0580"></a>
 ### S-0580 | 00:25:51.440–00:25:52.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8136,7 +8136,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0581"></a>
 ### S-0581 | 00:25:52.580–00:25:52.960
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8150,7 +8150,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0582"></a>
 ### S-0582 | 00:25:52.980–00:25:54.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8164,7 +8164,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0583"></a>
 ### S-0583 | 00:25:54.140–00:25:54.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8178,7 +8178,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0584"></a>
 ### S-0584 | 00:25:55.200–00:25:56.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8192,7 +8192,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0585"></a>
 ### S-0585 | 00:25:57.550–00:25:59.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8206,7 +8206,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0586"></a>
 ### S-0586 | 00:25:59.950–00:26:00.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8220,7 +8220,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0587"></a>
 ### S-0587 | 00:26:00.850–00:26:02.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8234,7 +8234,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0588"></a>
 ### S-0588 | 00:26:02.750–00:26:03.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8248,7 +8248,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0589"></a>
 ### S-0589 | 00:26:03.250–00:26:04.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8262,7 +8262,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0590"></a>
 ### S-0590 | 00:26:04.890–00:26:08.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8276,7 +8276,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0591"></a>
 ### S-0591 | 00:26:09.010–00:26:12.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8290,7 +8290,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0592"></a>
 ### S-0592 | 00:26:13.010–00:26:14.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8304,7 +8304,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0593"></a>
 ### S-0593 | 00:26:14.750–00:26:15.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8318,7 +8318,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0594"></a>
 ### S-0594 | 00:26:15.190–00:26:16.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8332,7 +8332,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0595"></a>
 ### S-0595 | 00:26:16.990–00:26:18.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8346,7 +8346,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0596"></a>
 ### S-0596 | 00:26:18.330–00:26:18.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8360,7 +8360,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0597"></a>
 ### S-0597 | 00:26:18.850–00:26:19.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8374,7 +8374,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0598"></a>
 ### S-0598 | 00:26:19.770–00:26:20.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8388,7 +8388,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0599"></a>
 ### S-0599 | 00:26:20.390–00:26:21.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8402,7 +8402,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0600"></a>
 ### S-0600 | 00:26:21.540–00:26:23.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8416,7 +8416,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0601"></a>
 ### S-0601 | 00:26:23.020–00:26:24.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8430,7 +8430,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0602"></a>
 ### S-0602 | 00:26:24.960–00:26:26.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8444,7 +8444,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0603"></a>
 ### S-0603 | 00:26:26.500–00:26:28.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8458,7 +8458,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0604"></a>
 ### S-0604 | 00:26:28.480–00:26:30.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8472,7 +8472,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0605"></a>
 ### S-0605 | 00:26:30.500–00:26:31.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8486,7 +8486,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0606"></a>
 ### S-0606 | 00:26:32.220–00:26:32.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8500,7 +8500,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0607"></a>
 ### S-0607 | 00:26:32.600–00:26:34.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8514,7 +8514,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0608"></a>
 ### S-0608 | 00:26:34.720–00:26:34.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8528,7 +8528,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0609"></a>
 ### S-0609 | 00:26:35.080–00:26:35.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8542,7 +8542,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0610"></a>
 ### S-0610 | 00:26:35.660–00:26:36.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8556,7 +8556,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0611"></a>
 ### S-0611 | 00:26:36.300–00:26:36.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8570,7 +8570,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0612"></a>
 ### S-0612 | 00:26:36.940–00:26:38.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8584,7 +8584,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0613"></a>
 ### S-0613 | 00:26:38.520–00:26:40.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8598,7 +8598,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0614"></a>
 ### S-0614 | 00:26:40.720–00:26:41.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8612,7 +8612,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0615"></a>
 ### S-0615 | 00:26:41.120–00:26:42.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8626,7 +8626,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0616"></a>
 ### S-0616 | 00:26:42.260–00:26:43.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8640,7 +8640,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0617"></a>
 ### S-0617 | 00:26:43.520–00:26:44.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8654,7 +8654,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0618"></a>
 ### S-0618 | 00:26:44.800–00:26:45.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8668,7 +8668,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0619"></a>
 ### S-0619 | 00:26:46.220–00:26:46.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8682,7 +8682,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0620"></a>
 ### S-0620 | 00:26:46.700–00:26:48.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8696,7 +8696,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0621"></a>
 ### S-0621 | 00:26:48.720–00:26:52.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8710,7 +8710,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0622"></a>
 ### S-0622 | 00:26:53.460–00:26:54.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8724,7 +8724,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0623"></a>
 ### S-0623 | 00:26:55.280–00:26:57.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8738,7 +8738,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0624"></a>
 ### S-0624 | 00:26:57.520–00:26:59.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8752,7 +8752,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0625"></a>
 ### S-0625 | 00:26:59.480–00:27:01.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8766,7 +8766,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0626"></a>
 ### S-0626 | 00:27:01.260–00:27:02.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8780,7 +8780,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0627"></a>
 ### S-0627 | 00:27:02.940–00:27:04.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8794,7 +8794,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0628"></a>
 ### S-0628 | 00:27:04.100–00:27:05.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8808,7 +8808,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0629"></a>
 ### S-0629 | 00:27:05.220–00:27:06.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8822,7 +8822,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0630"></a>
 ### S-0630 | 00:27:06.720–00:27:07.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8836,7 +8836,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0631"></a>
 ### S-0631 | 00:27:08.000–00:27:08.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8850,7 +8850,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0632"></a>
 ### S-0632 | 00:27:08.540–00:27:09.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8864,7 +8864,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0633"></a>
 ### S-0633 | 00:27:10.120–00:27:10.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8878,7 +8878,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0634"></a>
 ### S-0634 | 00:27:10.620–00:27:11.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8892,7 +8892,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0635"></a>
 ### S-0635 | 00:27:11.880–00:27:12.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8906,7 +8906,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0636"></a>
 ### S-0636 | 00:27:13.040–00:27:13.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8920,7 +8920,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0637"></a>
 ### S-0637 | 00:27:13.440–00:27:16.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8934,7 +8934,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0638"></a>
 ### S-0638 | 00:27:16.380–00:27:18.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8948,7 +8948,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0639"></a>
 ### S-0639 | 00:27:18.300–00:27:21.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8962,7 +8962,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0640"></a>
 ### S-0640 | 00:27:21.280–00:27:22.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8976,7 +8976,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0641"></a>
 ### S-0641 | 00:27:22.660–00:27:24.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -8990,7 +8990,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0642"></a>
 ### S-0642 | 00:27:24.900–00:27:26.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9004,7 +9004,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0643"></a>
 ### S-0643 | 00:27:26.700–00:27:28.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9018,7 +9018,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0644"></a>
 ### S-0644 | 00:27:28.660–00:27:28.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9032,7 +9032,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0645"></a>
 ### S-0645 | 00:27:29.570–00:27:31.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9046,7 +9046,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0646"></a>
 ### S-0646 | 00:27:31.710–00:27:32.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9060,7 +9060,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0647"></a>
 ### S-0647 | 00:27:32.750–00:27:33.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9074,7 +9074,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0648"></a>
 ### S-0648 | 00:27:33.790–00:27:35.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9088,7 +9088,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0649"></a>
 ### S-0649 | 00:27:36.010–00:27:37.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9102,7 +9102,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0650"></a>
 ### S-0650 | 00:27:37.210–00:27:38.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9116,7 +9116,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0651"></a>
 ### S-0651 | 00:27:38.430–00:27:40.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9130,7 +9130,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0652"></a>
 ### S-0652 | 00:27:40.510–00:27:41.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9144,7 +9144,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0653"></a>
 ### S-0653 | 00:27:41.910–00:27:43.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9158,7 +9158,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0654"></a>
 ### S-0654 | 00:27:43.930–00:27:45.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9172,7 +9172,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0655"></a>
 ### S-0655 | 00:27:45.530–00:27:47.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9186,7 +9186,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0656"></a>
 ### S-0656 | 00:27:47.450–00:27:48.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9200,7 +9200,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0657"></a>
 ### S-0657 | 00:27:48.510–00:27:50.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9214,7 +9214,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0658"></a>
 ### S-0658 | 00:27:50.650–00:27:52.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9228,7 +9228,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0659"></a>
 ### S-0659 | 00:27:53.470–00:27:54.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9242,7 +9242,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0660"></a>
 ### S-0660 | 00:27:54.950–00:27:55.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9256,7 +9256,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0661"></a>
 ### S-0661 | 00:27:56.690–00:28:00.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9270,7 +9270,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0662"></a>
 ### S-0662 | 00:28:00.450–00:28:03.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9284,7 +9284,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0663"></a>
 ### S-0663 | 00:28:03.790–00:28:06.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9298,7 +9298,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0664"></a>
 ### S-0664 | 00:28:07.010–00:28:08.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9312,7 +9312,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0665"></a>
 ### S-0665 | 00:28:08.310–00:28:08.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9326,7 +9326,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0666"></a>
 ### S-0666 | 00:28:08.790–00:28:09.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9340,7 +9340,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0667"></a>
 ### S-0667 | 00:28:10.010–00:28:10.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9354,7 +9354,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0668"></a>
 ### S-0668 | 00:28:12.930–00:28:13.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9368,7 +9368,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0669"></a>
 ### S-0669 | 00:28:15.180–00:28:15.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9382,7 +9382,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0670"></a>
 ### S-0670 | 00:28:15.940–00:28:16.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9396,7 +9396,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0671"></a>
 ### S-0671 | 00:28:17.290–00:28:18.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9410,7 +9410,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0672"></a>
 ### S-0672 | 00:28:20.170–00:28:20.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9424,7 +9424,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0673"></a>
 ### S-0673 | 00:28:20.970–00:28:21.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9438,7 +9438,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0674"></a>
 ### S-0674 | 00:28:21.430–00:28:22.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9452,7 +9452,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0675"></a>
 ### S-0675 | 00:28:22.590–00:28:23.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9466,7 +9466,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0676"></a>
 ### S-0676 | 00:28:24.170–00:28:25.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9480,7 +9480,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0677"></a>
 ### S-0677 | 00:28:25.850–00:28:27.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9494,7 +9494,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0678"></a>
 ### S-0678 | 00:28:27.770–00:28:28.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9508,7 +9508,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0679"></a>
 ### S-0679 | 00:28:29.550–00:28:31.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9522,7 +9522,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0680"></a>
 ### S-0680 | 00:28:31.230–00:28:31.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9536,7 +9536,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0681"></a>
 ### S-0681 | 00:28:31.730–00:28:32.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9550,7 +9550,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0682"></a>
 ### S-0682 | 00:28:32.650–00:28:34.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9564,7 +9564,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0683"></a>
 ### S-0683 | 00:28:35.230–00:28:37.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9578,7 +9578,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0684"></a>
 ### S-0684 | 00:28:37.650–00:28:37.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9592,7 +9592,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0685"></a>
 ### S-0685 | 00:28:38.430–00:28:40.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9606,7 +9606,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0686"></a>
 ### S-0686 | 00:28:40.690–00:28:41.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9620,7 +9620,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0687"></a>
 ### S-0687 | 00:28:41.890–00:28:43.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9634,7 +9634,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0688"></a>
 ### S-0688 | 00:28:43.390–00:28:44.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9648,7 +9648,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0689"></a>
 ### S-0689 | 00:28:45.550–00:28:46.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9662,7 +9662,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0690"></a>
 ### S-0690 | 00:28:47.210–00:28:48.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9676,7 +9676,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0691"></a>
 ### S-0691 | 00:28:48.990–00:28:49.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9690,7 +9690,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0692"></a>
 ### S-0692 | 00:28:49.230–00:28:49.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9704,7 +9704,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0693"></a>
 ### S-0693 | 00:28:50.090–00:28:50.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9718,7 +9718,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0694"></a>
 ### S-0694 | 00:28:50.330–00:28:51.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9732,7 +9732,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0695"></a>
 ### S-0695 | 00:28:51.550–00:28:52.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9746,7 +9746,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0696"></a>
 ### S-0696 | 00:28:52.390–00:28:55.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9760,7 +9760,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0697"></a>
 ### S-0697 | 00:28:55.630–00:28:57.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9774,7 +9774,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0698"></a>
 ### S-0698 | 00:28:57.910–00:29:00.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9788,7 +9788,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0699"></a>
 ### S-0699 | 00:29:00.910–00:29:02.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9802,7 +9802,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0700"></a>
 ### S-0700 | 00:29:02.570–00:29:05.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9816,7 +9816,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0701"></a>
 ### S-0701 | 00:29:06.980–00:29:07.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9830,7 +9830,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0702"></a>
 ### S-0702 | 00:29:07.820–00:29:08.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9844,7 +9844,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0703"></a>
 ### S-0703 | 00:29:08.700–00:29:09.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9858,7 +9858,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0704"></a>
 ### S-0704 | 00:29:10.600–00:29:14.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9872,7 +9872,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0705"></a>
 ### S-0705 | 00:29:15.060–00:29:17.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9886,7 +9886,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0706"></a>
 ### S-0706 | 00:29:19.010–00:29:21.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9900,7 +9900,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0707"></a>
 ### S-0707 | 00:29:21.170–00:29:24.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9914,7 +9914,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0708"></a>
 ### S-0708 | 00:29:24.990–00:29:26.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9928,7 +9928,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0709"></a>
 ### S-0709 | 00:29:26.310–00:29:27.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9942,7 +9942,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0710"></a>
 ### S-0710 | 00:29:27.730–00:29:29.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9956,7 +9956,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0711"></a>
 ### S-0711 | 00:29:30.580–00:29:30.860
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9970,7 +9970,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0712"></a>
 ### S-0712 | 00:29:31.520–00:29:33.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9984,7 +9984,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0713"></a>
 ### S-0713 | 00:29:34.220–00:29:35.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -9998,7 +9998,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0714"></a>
 ### S-0714 | 00:29:35.280–00:29:36.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10012,7 +10012,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0715"></a>
 ### S-0715 | 00:29:36.660–00:29:38.240
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10026,7 +10026,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0716"></a>
 ### S-0716 | 00:29:39.080–00:29:40.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10040,7 +10040,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0717"></a>
 ### S-0717 | 00:29:40.580–00:29:42.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10054,7 +10054,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0718"></a>
 ### S-0718 | 00:29:42.920–00:29:46.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10068,7 +10068,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0719"></a>
 ### S-0719 | 00:29:47.090–00:29:49.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10082,7 +10082,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0720"></a>
 ### S-0720 | 00:29:49.890–00:29:51.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10096,7 +10096,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0721"></a>
 ### S-0721 | 00:29:51.710–00:29:56.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10110,7 +10110,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0722"></a>
 ### S-0722 | 00:29:56.950–00:29:57.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10124,7 +10124,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0723"></a>
 ### S-0723 | 00:29:58.070–00:30:01.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10138,7 +10138,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0724"></a>
 ### S-0724 | 00:30:01.970–00:30:02.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10152,7 +10152,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0725"></a>
 ### S-0725 | 00:30:02.450–00:30:03.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10166,7 +10166,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0726"></a>
 ### S-0726 | 00:30:03.770–00:30:04.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10180,7 +10180,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0727"></a>
 ### S-0727 | 00:30:06.090–00:30:07.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10194,7 +10194,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0728"></a>
 ### S-0728 | 00:30:07.910–00:30:08.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10208,7 +10208,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0729"></a>
 ### S-0729 | 00:30:08.330–00:30:08.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10222,7 +10222,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0730"></a>
 ### S-0730 | 00:30:08.770–00:30:11.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10236,7 +10236,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0731"></a>
 ### S-0731 | 00:30:11.810–00:30:13.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10250,7 +10250,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0732"></a>
 ### S-0732 | 00:30:13.390–00:30:14.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10264,7 +10264,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0733"></a>
 ### S-0733 | 00:30:14.890–00:30:17.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10278,7 +10278,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0734"></a>
 ### S-0734 | 00:30:17.310–00:30:20.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10292,7 +10292,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0735"></a>
 ### S-0735 | 00:30:21.190–00:30:22.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10306,7 +10306,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0736"></a>
 ### S-0736 | 00:30:23.190–00:30:26.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10320,7 +10320,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0737"></a>
 ### S-0737 | 00:30:26.310–00:30:27.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10334,7 +10334,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0738"></a>
 ### S-0738 | 00:30:28.190–00:30:28.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10348,7 +10348,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0739"></a>
 ### S-0739 | 00:30:29.470–00:30:34.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10362,7 +10362,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0740"></a>
 ### S-0740 | 00:30:34.450–00:30:35.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10376,7 +10376,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0741"></a>
 ### S-0741 | 00:30:35.970–00:30:37.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10390,7 +10390,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0742"></a>
 ### S-0742 | 00:30:38.010–00:30:40.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10404,7 +10404,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0743"></a>
 ### S-0743 | 00:30:40.890–00:30:42.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10418,7 +10418,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0744"></a>
 ### S-0744 | 00:30:43.830–00:30:44.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10432,7 +10432,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0745"></a>
 ### S-0745 | 00:30:44.630–00:30:44.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10446,7 +10446,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0746"></a>
 ### S-0746 | 00:30:45.030–00:30:45.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10460,7 +10460,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0747"></a>
 ### S-0747 | 00:30:45.610–00:30:46.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10474,7 +10474,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0748"></a>
 ### S-0748 | 00:30:47.290–00:30:48.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10488,7 +10488,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0749"></a>
 ### S-0749 | 00:30:48.470–00:30:49.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10502,7 +10502,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0750"></a>
 ### S-0750 | 00:30:50.030–00:30:51.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10516,7 +10516,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0751"></a>
 ### S-0751 | 00:30:51.110–00:30:53.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10530,7 +10530,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0752"></a>
 ### S-0752 | 00:30:53.610–00:30:54.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10544,7 +10544,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0753"></a>
 ### S-0753 | 00:30:54.750–00:30:56.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10558,7 +10558,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0754"></a>
 ### S-0754 | 00:30:56.110–00:30:59.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10572,7 +10572,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0755"></a>
 ### S-0755 | 00:30:59.370–00:31:00.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10586,7 +10586,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0756"></a>
 ### S-0756 | 00:31:00.630–00:31:01.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10600,7 +10600,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0757"></a>
 ### S-0757 | 00:31:02.090–00:31:03.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10614,7 +10614,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0758"></a>
 ### S-0758 | 00:31:04.410–00:31:05.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10628,7 +10628,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0759"></a>
 ### S-0759 | 00:31:05.650–00:31:07.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10642,7 +10642,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0760"></a>
 ### S-0760 | 00:31:07.630–00:31:09.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10656,7 +10656,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0761"></a>
 ### S-0761 | 00:31:10.330–00:31:10.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10670,7 +10670,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0762"></a>
 ### S-0762 | 00:31:11.170–00:31:11.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10684,7 +10684,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0763"></a>
 ### S-0763 | 00:31:11.870–00:31:13.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10698,7 +10698,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0764"></a>
 ### S-0764 | 00:31:13.430–00:31:15.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10712,7 +10712,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0765"></a>
 ### S-0765 | 00:31:15.670–00:31:17.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10726,7 +10726,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0766"></a>
 ### S-0766 | 00:31:17.570–00:31:19.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10740,7 +10740,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0767"></a>
 ### S-0767 | 00:31:19.770–00:31:19.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10754,7 +10754,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0768"></a>
 ### S-0768 | 00:31:20.730–00:31:21.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10768,7 +10768,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0769"></a>
 ### S-0769 | 00:31:21.850–00:31:26.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10782,7 +10782,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0770"></a>
 ### S-0770 | 00:31:26.270–00:31:27.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10796,7 +10796,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0771"></a>
 ### S-0771 | 00:31:27.730–00:31:30.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10810,7 +10810,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0772"></a>
 ### S-0772 | 00:31:30.770–00:31:34.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10824,7 +10824,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0773"></a>
 ### S-0773 | 00:31:34.770–00:31:36.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10838,7 +10838,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0774"></a>
 ### S-0774 | 00:31:36.690–00:31:38.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10852,7 +10852,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0775"></a>
 ### S-0775 | 00:31:38.870–00:31:42.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10866,7 +10866,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0776"></a>
 ### S-0776 | 00:31:43.230–00:31:47.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10880,7 +10880,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0777"></a>
 ### S-0777 | 00:31:47.550–00:31:49.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10894,7 +10894,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0778"></a>
 ### S-0778 | 00:31:49.910–00:31:52.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10908,7 +10908,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0779"></a>
 ### S-0779 | 00:31:52.490–00:31:55.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10922,7 +10922,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0780"></a>
 ### S-0780 | 00:31:55.910–00:31:58.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10936,7 +10936,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0781"></a>
 ### S-0781 | 00:31:59.070–00:32:01.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10950,7 +10950,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0782"></a>
 ### S-0782 | 00:32:01.730–00:32:02.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10964,7 +10964,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0783"></a>
 ### S-0783 | 00:32:03.010–00:32:04.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10978,7 +10978,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0784"></a>
 ### S-0784 | 00:32:04.770–00:32:06.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -10992,7 +10992,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0785"></a>
 ### S-0785 | 00:32:06.910–00:32:10.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11006,7 +11006,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0786"></a>
 ### S-0786 | 00:32:10.350–00:32:11.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11020,7 +11020,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0787"></a>
 ### S-0787 | 00:32:13.170–00:32:15.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11034,7 +11034,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0788"></a>
 ### S-0788 | 00:32:15.670–00:32:16.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11048,7 +11048,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0789"></a>
 ### S-0789 | 00:32:16.590–00:32:17.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11062,7 +11062,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0790"></a>
 ### S-0790 | 00:32:17.590–00:32:20.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11076,7 +11076,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0791"></a>
 ### S-0791 | 00:32:21.150–00:32:22.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11090,7 +11090,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0792"></a>
 ### S-0792 | 00:32:22.370–00:32:23.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11104,7 +11104,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0793"></a>
 ### S-0793 | 00:32:23.690–00:32:24.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11118,7 +11118,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0794"></a>
 ### S-0794 | 00:32:25.370–00:32:26.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11132,7 +11132,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0795"></a>
 ### S-0795 | 00:32:27.470–00:32:31.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11146,7 +11146,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0796"></a>
 ### S-0796 | 00:32:31.710–00:32:33.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11160,7 +11160,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0797"></a>
 ### S-0797 | 00:32:33.390–00:32:34.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11174,7 +11174,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0798"></a>
 ### S-0798 | 00:32:34.470–00:32:37.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11188,7 +11188,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0799"></a>
 ### S-0799 | 00:32:37.570–00:32:39.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11202,7 +11202,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0800"></a>
 ### S-0800 | 00:32:39.170–00:32:41.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11216,7 +11216,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0801"></a>
 ### S-0801 | 00:32:43.400–00:32:46.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11230,7 +11230,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0802"></a>
 ### S-0802 | 00:32:46.980–00:32:51.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11244,7 +11244,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0803"></a>
 ### S-0803 | 00:32:51.980–00:32:55.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11258,7 +11258,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0804"></a>
 ### S-0804 | 00:32:56.040–00:33:02.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11272,7 +11272,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0805"></a>
 ### S-0805 | 00:33:03.100–00:33:03.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11286,7 +11286,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0806"></a>
 ### S-0806 | 00:33:03.360–00:33:04.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11300,7 +11300,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0807"></a>
 ### S-0807 | 00:33:05.040–00:33:07.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11314,7 +11314,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0808"></a>
 ### S-0808 | 00:33:07.300–00:33:10.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11328,7 +11328,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0809"></a>
 ### S-0809 | 00:33:10.640–00:33:11.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11342,7 +11342,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0810"></a>
 ### S-0810 | 00:33:11.760–00:33:13.420
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11356,7 +11356,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0811"></a>
 ### S-0811 | 00:33:13.500–00:33:14.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11370,7 +11370,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0812"></a>
 ### S-0812 | 00:33:14.680–00:33:15.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11384,7 +11384,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0813"></a>
 ### S-0813 | 00:33:16.420–00:33:17.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11398,7 +11398,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0814"></a>
 ### S-0814 | 00:33:17.880–00:33:20.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11412,7 +11412,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0815"></a>
 ### S-0815 | 00:33:20.740–00:33:23.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11426,7 +11426,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0816"></a>
 ### S-0816 | 00:33:24.100–00:33:25.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11440,7 +11440,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0817"></a>
 ### S-0817 | 00:33:25.280–00:33:26.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11454,7 +11454,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0818"></a>
 ### S-0818 | 00:33:27.340–00:33:33.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11468,7 +11468,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0819"></a>
 ### S-0819 | 00:33:33.020–00:33:35.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11482,7 +11482,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0820"></a>
 ### S-0820 | 00:33:35.900–00:33:37.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11496,7 +11496,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0821"></a>
 ### S-0821 | 00:33:38.620–00:33:39.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11510,7 +11510,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0822"></a>
 ### S-0822 | 00:33:40.540–00:33:40.960
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11524,7 +11524,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0823"></a>
 ### S-0823 | 00:33:43.430–00:33:44.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11538,7 +11538,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0824"></a>
 ### S-0824 | 00:33:47.290–00:33:48.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11552,7 +11552,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0825"></a>
 ### S-0825 | 00:33:48.350–00:33:51.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11566,7 +11566,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0826"></a>
 ### S-0826 | 00:33:51.570–00:33:53.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11580,7 +11580,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0827"></a>
 ### S-0827 | 00:33:55.310–00:34:01.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11594,7 +11594,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0828"></a>
 ### S-0828 | 00:34:01.530–00:34:05.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11608,7 +11608,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0829"></a>
 ### S-0829 | 00:34:05.330–00:34:12.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11622,7 +11622,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0830"></a>
 ### S-0830 | 00:34:12.850–00:34:15.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11636,7 +11636,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0831"></a>
 ### S-0831 | 00:34:15.890–00:34:17.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11650,7 +11650,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0832"></a>
 ### S-0832 | 00:34:17.350–00:34:18.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11664,7 +11664,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0833"></a>
 ### S-0833 | 00:34:18.850–00:34:22.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11678,7 +11678,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0834"></a>
 ### S-0834 | 00:34:22.610–00:34:24.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11692,7 +11692,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0835"></a>
 ### S-0835 | 00:34:24.930–00:34:28.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11706,7 +11706,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0836"></a>
 ### S-0836 | 00:34:28.330–00:34:35.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11720,7 +11720,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0837"></a>
 ### S-0837 | 00:34:35.480–00:34:40.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11734,7 +11734,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0838"></a>
 ### S-0838 | 00:34:41.050–00:34:42.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11748,7 +11748,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0839"></a>
 ### S-0839 | 00:34:43.030–00:34:47.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11762,7 +11762,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0840"></a>
 ### S-0840 | 00:34:48.240–00:34:49.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11776,7 +11776,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0841"></a>
 ### S-0841 | 00:34:54.420–00:34:56.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11790,7 +11790,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0842"></a>
 ### S-0842 | 00:34:58.480–00:35:03.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11804,7 +11804,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0843"></a>
 ### S-0843 | 00:35:03.540–00:35:07.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11818,7 +11818,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0844"></a>
 ### S-0844 | 00:35:07.500–00:35:10.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11832,7 +11832,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0845"></a>
 ### S-0845 | 00:35:11.110–00:35:13.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11846,7 +11846,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0846"></a>
 ### S-0846 | 00:35:13.370–00:35:14.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11860,7 +11860,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0847"></a>
 ### S-0847 | 00:35:14.670–00:35:16.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11874,7 +11874,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0848"></a>
 ### S-0848 | 00:35:17.090–00:35:18.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11888,7 +11888,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0849"></a>
 ### S-0849 | 00:35:19.310–00:35:19.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11902,7 +11902,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0850"></a>
 ### S-0850 | 00:35:20.450–00:35:21.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11916,7 +11916,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0851"></a>
 ### S-0851 | 00:35:22.130–00:35:22.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11930,7 +11930,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0852"></a>
 ### S-0852 | 00:35:24.050–00:35:25.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11944,7 +11944,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0853"></a>
 ### S-0853 | 00:35:25.490–00:35:28.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11958,7 +11958,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0854"></a>
 ### S-0854 | 00:35:28.600–00:35:28.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11972,7 +11972,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0855"></a>
 ### S-0855 | 00:35:30.010–00:35:31.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -11986,7 +11986,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0856"></a>
 ### S-0856 | 00:35:31.590–00:35:32.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12000,7 +12000,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0857"></a>
 ### S-0857 | 00:35:32.890–00:35:34.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12014,7 +12014,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0858"></a>
 ### S-0858 | 00:35:35.710–00:35:38.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12028,7 +12028,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0859"></a>
 ### S-0859 | 00:35:39.340–00:35:40.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12042,7 +12042,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0860"></a>
 ### S-0860 | 00:35:40.220–00:35:42.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12056,7 +12056,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0861"></a>
 ### S-0861 | 00:35:42.600–00:35:44.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12070,7 +12070,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0862"></a>
 ### S-0862 | 00:35:44.480–00:35:46.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12084,7 +12084,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0863"></a>
 ### S-0863 | 00:35:46.760–00:35:49.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12098,7 +12098,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0864"></a>
 ### S-0864 | 00:35:49.580–00:35:51.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12112,7 +12112,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0865"></a>
 ### S-0865 | 00:35:51.740–00:35:54.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12126,7 +12126,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0866"></a>
 ### S-0866 | 00:35:55.140–00:35:57.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12140,7 +12140,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0867"></a>
 ### S-0867 | 00:35:58.220–00:36:01.860
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12154,7 +12154,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0868"></a>
 ### S-0868 | 00:36:02.180–00:36:03.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12168,7 +12168,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0869"></a>
 ### S-0869 | 00:36:03.880–00:36:07.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12182,7 +12182,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0870"></a>
 ### S-0870 | 00:36:07.400–00:36:10.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12196,7 +12196,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0871"></a>
 ### S-0871 | 00:36:10.700–00:36:11.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12210,7 +12210,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0872"></a>
 ### S-0872 | 00:36:11.840–00:36:13.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12224,7 +12224,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0873"></a>
 ### S-0873 | 00:36:13.840–00:36:16.840
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12238,7 +12238,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0874"></a>
 ### S-0874 | 00:36:17.260–00:36:21.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12252,7 +12252,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0875"></a>
 ### S-0875 | 00:36:21.780–00:36:22.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12266,7 +12266,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0876"></a>
 ### S-0876 | 00:36:23.620–00:36:26.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12280,7 +12280,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0877"></a>
 ### S-0877 | 00:36:26.040–00:36:31.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12294,7 +12294,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0878"></a>
 ### S-0878 | 00:36:32.350–00:36:32.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12308,7 +12308,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0879"></a>
 ### S-0879 | 00:36:33.110–00:36:33.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12322,7 +12322,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0880"></a>
 ### S-0880 | 00:36:33.990–00:36:37.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12336,7 +12336,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0881"></a>
 ### S-0881 | 00:36:37.290–00:36:38.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12350,7 +12350,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0882"></a>
 ### S-0882 | 00:36:39.270–00:36:41.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12364,7 +12364,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0883"></a>
 ### S-0883 | 00:36:41.750–00:36:42.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12378,7 +12378,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0884"></a>
 ### S-0884 | 00:36:42.930–00:36:44.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12392,7 +12392,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0885"></a>
 ### S-0885 | 00:36:45.010–00:36:47.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12406,7 +12406,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0886"></a>
 ### S-0886 | 00:36:48.070–00:36:52.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12420,7 +12420,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0887"></a>
 ### S-0887 | 00:36:52.090–00:36:52.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12434,7 +12434,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0888"></a>
 ### S-0888 | 00:36:52.870–00:36:54.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12448,7 +12448,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0889"></a>
 ### S-0889 | 00:36:54.650–00:36:57.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12462,7 +12462,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0890"></a>
 ### S-0890 | 00:36:57.310–00:37:01.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12476,7 +12476,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0891"></a>
 ### S-0891 | 00:37:01.810–00:37:03.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12490,7 +12490,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0892"></a>
 ### S-0892 | 00:37:03.890–00:37:04.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12504,7 +12504,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0893"></a>
 ### S-0893 | 00:37:04.750–00:37:05.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12518,7 +12518,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0894"></a>
 ### S-0894 | 00:37:05.590–00:37:07.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12532,7 +12532,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0895"></a>
 ### S-0895 | 00:37:07.590–00:37:08.150
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12546,7 +12546,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0896"></a>
 ### S-0896 | 00:37:08.810–00:37:09.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12560,7 +12560,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0897"></a>
 ### S-0897 | 00:37:09.810–00:37:10.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12574,7 +12574,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0898"></a>
 ### S-0898 | 00:37:12.190–00:37:13.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12588,7 +12588,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0899"></a>
 ### S-0899 | 00:37:13.530–00:37:15.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12602,7 +12602,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0900"></a>
 ### S-0900 | 00:37:15.470–00:37:17.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12616,7 +12616,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0901"></a>
 ### S-0901 | 00:37:17.930–00:37:19.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12630,7 +12630,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0902"></a>
 ### S-0902 | 00:37:19.950–00:37:20.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12644,7 +12644,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0903"></a>
 ### S-0903 | 00:37:20.330–00:37:20.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12658,7 +12658,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0904"></a>
 ### S-0904 | 00:37:21.170–00:37:23.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12672,7 +12672,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0905"></a>
 ### S-0905 | 00:37:23.870–00:37:25.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12686,7 +12686,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0906"></a>
 ### S-0906 | 00:37:25.030–00:37:26.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12700,7 +12700,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0907"></a>
 ### S-0907 | 00:37:26.570–00:37:27.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12714,7 +12714,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0908"></a>
 ### S-0908 | 00:37:29.230–00:37:30.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12728,7 +12728,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0909"></a>
 ### S-0909 | 00:37:30.350–00:37:32.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12742,7 +12742,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0910"></a>
 ### S-0910 | 00:37:32.830–00:37:34.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12756,7 +12756,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0911"></a>
 ### S-0911 | 00:37:34.290–00:37:36.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12770,7 +12770,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0912"></a>
 ### S-0912 | 00:37:38.480–00:37:39.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12784,7 +12784,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0913"></a>
 ### S-0913 | 00:37:39.860–00:37:40.440
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12798,7 +12798,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0914"></a>
 ### S-0914 | 00:37:40.460–00:37:42.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12812,7 +12812,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0915"></a>
 ### S-0915 | 00:37:42.280–00:37:44.320
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12826,7 +12826,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0916"></a>
 ### S-0916 | 00:37:44.880–00:37:45.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12840,7 +12840,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0917"></a>
 ### S-0917 | 00:37:45.780–00:37:46.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12854,7 +12854,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0918"></a>
 ### S-0918 | 00:37:48.160–00:37:49.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12868,7 +12868,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0919"></a>
 ### S-0919 | 00:37:49.380–00:37:51.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12882,7 +12882,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0920"></a>
 ### S-0920 | 00:37:51.520–00:37:52.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12896,7 +12896,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0921"></a>
 ### S-0921 | 00:37:52.700–00:37:53.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12910,7 +12910,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0922"></a>
 ### S-0922 | 00:37:53.540–00:37:54.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12924,7 +12924,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0923"></a>
 ### S-0923 | 00:37:55.100–00:37:57.420
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12938,7 +12938,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0924"></a>
 ### S-0924 | 00:37:57.500–00:37:58.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12952,7 +12952,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0925"></a>
 ### S-0925 | 00:37:58.320–00:37:59.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12966,7 +12966,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0926"></a>
 ### S-0926 | 00:37:59.900–00:38:02.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12980,7 +12980,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0927"></a>
 ### S-0927 | 00:38:02.600–00:38:04.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -12994,7 +12994,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0928"></a>
 ### S-0928 | 00:38:04.200–00:38:05.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13008,7 +13008,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0929"></a>
 ### S-0929 | 00:38:05.460–00:38:13.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13022,7 +13022,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0930"></a>
 ### S-0930 | 00:38:13.260–00:38:15.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13036,7 +13036,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0931"></a>
 ### S-0931 | 00:38:16.120–00:38:16.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13050,7 +13050,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0932"></a>
 ### S-0932 | 00:38:18.050–00:38:18.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13064,7 +13064,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0933"></a>
 ### S-0933 | 00:38:18.730–00:38:19.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13078,7 +13078,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0934"></a>
 ### S-0934 | 00:38:19.740–00:38:19.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13092,7 +13092,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0935"></a>
 ### S-0935 | 00:38:21.700–00:38:22.520
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13106,7 +13106,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0936"></a>
 ### S-0936 | 00:38:22.760–00:38:24.260
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13120,7 +13120,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0937"></a>
 ### S-0937 | 00:38:26.820–00:38:28.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13134,7 +13134,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0938"></a>
 ### S-0938 | 00:38:29.000–00:38:30.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13148,7 +13148,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0939"></a>
 ### S-0939 | 00:38:30.120–00:38:31.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13162,7 +13162,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0940"></a>
 ### S-0940 | 00:38:31.880–00:38:35.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13176,7 +13176,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0941"></a>
 ### S-0941 | 00:38:35.760–00:38:37.340
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13190,7 +13190,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0942"></a>
 ### S-0942 | 00:38:37.400–00:38:38.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13204,7 +13204,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0943"></a>
 ### S-0943 | 00:38:38.340–00:38:38.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13218,7 +13218,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0944"></a>
 ### S-0944 | 00:38:39.060–00:38:40.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13232,7 +13232,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0945"></a>
 ### S-0945 | 00:38:40.580–00:38:43.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13246,7 +13246,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0946"></a>
 ### S-0946 | 00:38:43.700–00:38:44.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13260,7 +13260,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0947"></a>
 ### S-0947 | 00:38:44.560–00:38:45.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13274,7 +13274,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0948"></a>
 ### S-0948 | 00:38:45.660–00:38:47.460
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13288,7 +13288,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0949"></a>
 ### S-0949 | 00:38:47.560–00:38:48.740
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13302,7 +13302,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0950"></a>
 ### S-0950 | 00:38:50.080–00:38:51.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13316,7 +13316,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0951"></a>
 ### S-0951 | 00:38:51.980–00:38:52.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13330,7 +13330,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0952"></a>
 ### S-0952 | 00:38:52.580–00:38:53.800
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13344,7 +13344,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0953"></a>
 ### S-0953 | 00:38:54.040–00:38:55.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13358,7 +13358,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0954"></a>
 ### S-0954 | 00:38:56.660–00:38:59.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13372,7 +13372,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0955"></a>
 ### S-0955 | 00:38:59.820–00:39:01.760
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13386,7 +13386,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0956"></a>
 ### S-0956 | 00:39:01.860–00:39:03.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13400,7 +13400,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0957"></a>
 ### S-0957 | 00:39:03.280–00:39:05.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13414,7 +13414,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0958"></a>
 ### S-0958 | 00:39:08.510–00:39:11.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13428,7 +13428,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0959"></a>
 ### S-0959 | 00:39:11.500–00:39:11.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13442,7 +13442,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0960"></a>
 ### S-0960 | 00:39:11.900–00:39:13.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13456,7 +13456,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0961"></a>
 ### S-0961 | 00:39:13.790–00:39:13.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13470,7 +13470,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0962"></a>
 ### S-0962 | 00:39:14.150–00:39:23.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13484,7 +13484,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0963"></a>
 ### S-0963 | 00:39:24.150–00:39:25.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13498,7 +13498,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0964"></a>
 ### S-0964 | 00:39:26.150–00:39:28.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13512,7 +13512,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0965"></a>
 ### S-0965 | 00:39:30.970–00:39:33.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13526,7 +13526,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0966"></a>
 ### S-0966 | 00:39:33.870–00:39:36.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13540,7 +13540,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0967"></a>
 ### S-0967 | 00:39:36.970–00:39:44.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13554,7 +13554,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0968"></a>
 ### S-0968 | 00:39:44.430–00:39:49.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13568,7 +13568,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0969"></a>
 ### S-0969 | 00:39:49.990–00:39:55.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13582,7 +13582,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0970"></a>
 ### S-0970 | 00:39:55.110–00:39:57.410
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13596,7 +13596,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0971"></a>
 ### S-0971 | 00:39:59.830–00:40:00.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13610,7 +13610,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0972"></a>
 ### S-0972 | 00:40:00.950–00:40:04.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13624,7 +13624,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0973"></a>
 ### S-0973 | 00:40:04.790–00:40:09.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13638,7 +13638,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0974"></a>
 ### S-0974 | 00:40:10.360–00:40:13.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13652,7 +13652,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0975"></a>
 ### S-0975 | 00:40:17.380–00:40:19.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13666,7 +13666,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0976"></a>
 ### S-0976 | 00:40:19.080–00:40:20.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13680,7 +13680,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0977"></a>
 ### S-0977 | 00:40:20.990–00:40:22.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13694,7 +13694,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0978"></a>
 ### S-0978 | 00:40:25.890–00:40:26.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13708,7 +13708,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0979"></a>
 ### S-0979 | 00:40:26.810–00:40:29.450
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13722,7 +13722,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0980"></a>
 ### S-0980 | 00:40:30.070–00:40:33.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13736,7 +13736,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0981"></a>
 ### S-0981 | 00:40:34.410–00:40:35.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13750,7 +13750,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0982"></a>
 ### S-0982 | 00:40:36.560–00:40:38.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13764,7 +13764,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0983"></a>
 ### S-0983 | 00:40:39.020–00:40:41.040
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13778,7 +13778,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0984"></a>
 ### S-0984 | 00:40:41.080–00:40:42.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13792,7 +13792,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0985"></a>
 ### S-0985 | 00:40:42.480–00:40:50.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13806,7 +13806,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0986"></a>
 ### S-0986 | 00:40:51.290–00:40:54.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13820,7 +13820,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0987"></a>
 ### S-0987 | 00:40:56.120–00:41:03.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13834,7 +13834,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0988"></a>
 ### S-0988 | 00:41:04.230–00:41:08.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13848,7 +13848,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0989"></a>
 ### S-0989 | 00:41:09.160–00:41:10.320
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13862,7 +13862,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0990"></a>
 ### S-0990 | 00:41:11.420–00:41:14.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13876,7 +13876,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0991"></a>
 ### S-0991 | 00:41:21.730–00:41:23.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13890,7 +13890,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0992"></a>
 ### S-0992 | 00:41:23.850–00:41:29.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13904,7 +13904,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0993"></a>
 ### S-0993 | 00:41:30.340–00:41:43.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13918,7 +13918,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0994"></a>
 ### S-0994 | 00:41:43.380–00:41:49.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13932,7 +13932,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0995"></a>
 ### S-0995 | 00:41:49.950–00:42:04.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13946,7 +13946,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0996"></a>
 ### S-0996 | 00:42:04.500–00:42:06.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13960,7 +13960,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0997"></a>
 ### S-0997 | 00:42:09.020–00:42:10.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13974,7 +13974,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0998"></a>
 ### S-0998 | 00:42:12.110–00:42:12.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -13988,7 +13988,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-0999"></a>
 ### S-0999 | 00:42:12.930–00:42:14.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14002,7 +14002,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1000"></a>
 ### S-1000 | 00:42:15.510–00:42:16.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14016,7 +14016,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1001"></a>
 ### S-1001 | 00:42:16.650–00:42:19.560
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14030,7 +14030,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1002"></a>
 ### S-1002 | 00:42:19.560–00:42:20.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14044,7 +14044,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1003"></a>
 ### S-1003 | 00:42:20.140–00:42:21.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14058,7 +14058,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1004"></a>
 ### S-1004 | 00:42:21.160–00:42:22.420
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14072,7 +14072,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1005"></a>
 ### S-1005 | 00:42:22.660–00:42:22.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14086,7 +14086,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1006"></a>
 ### S-1006 | 00:42:23.260–00:42:23.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14100,7 +14100,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1007"></a>
 ### S-1007 | 00:42:23.880–00:42:25.420
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14114,7 +14114,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1008"></a>
 ### S-1008 | 00:42:25.420–00:42:25.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14128,7 +14128,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1009"></a>
 ### S-1009 | 00:42:27.130–00:42:27.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14142,7 +14142,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1010"></a>
 ### S-1010 | 00:42:27.670–00:42:28.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14156,7 +14156,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1011"></a>
 ### S-1011 | 00:42:29.260–00:42:30.120
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14170,7 +14170,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1012"></a>
 ### S-1012 | 00:42:30.660–00:42:32.880
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14184,7 +14184,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1013"></a>
 ### S-1013 | 00:42:33.000–00:42:33.300
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14198,7 +14198,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1014"></a>
 ### S-1014 | 00:42:33.300–00:42:34.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14212,7 +14212,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1015"></a>
 ### S-1015 | 00:42:34.660–00:42:35.080
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14226,7 +14226,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1016"></a>
 ### S-1016 | 00:42:35.080–00:42:37.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14240,7 +14240,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1017"></a>
 ### S-1017 | 00:42:37.200–00:42:38.400
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14254,7 +14254,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1018"></a>
 ### S-1018 | 00:42:38.400–00:42:39.220
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14268,7 +14268,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1019"></a>
 ### S-1019 | 00:42:39.580–00:42:41.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14282,7 +14282,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1020"></a>
 ### S-1020 | 00:42:41.180–00:42:43.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14296,7 +14296,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1021"></a>
 ### S-1021 | 00:42:43.110–00:42:43.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14310,7 +14310,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1022"></a>
 ### S-1022 | 00:42:49.790–00:42:51.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14324,7 +14324,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1023"></a>
 ### S-1023 | 00:42:51.830–00:42:52.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14338,7 +14338,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1024"></a>
 ### S-1024 | 00:42:52.590–00:42:53.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14352,7 +14352,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1025"></a>
 ### S-1025 | 00:42:53.710–00:42:54.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14366,7 +14366,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1026"></a>
 ### S-1026 | 00:42:54.770–00:42:56.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14380,7 +14380,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1027"></a>
 ### S-1027 | 00:42:58.430–00:42:59.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14394,7 +14394,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1028"></a>
 ### S-1028 | 00:42:59.610–00:43:01.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14408,7 +14408,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1029"></a>
 ### S-1029 | 00:43:02.710–00:43:05.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14422,7 +14422,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1030"></a>
 ### S-1030 | 00:43:05.970–00:43:06.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14436,7 +14436,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1031"></a>
 ### S-1031 | 00:43:06.750–00:43:11.740
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14450,7 +14450,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1032"></a>
 ### S-1032 | 00:43:11.800–00:43:12.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14464,7 +14464,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1033"></a>
 ### S-1033 | 00:43:13.600–00:43:14.540
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14478,7 +14478,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1034"></a>
 ### S-1034 | 00:43:14.640–00:43:16.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14492,7 +14492,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1035"></a>
 ### S-1035 | 00:43:16.480–00:43:16.860
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14506,7 +14506,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1036"></a>
 ### S-1036 | 00:43:17.180–00:43:18.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14520,7 +14520,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1037"></a>
 ### S-1037 | 00:43:18.360–00:43:19.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14534,7 +14534,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1038"></a>
 ### S-1038 | 00:43:19.580–00:43:22.780
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14548,7 +14548,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1039"></a>
 ### S-1039 | 00:43:22.780–00:43:23.920
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14562,7 +14562,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1040"></a>
 ### S-1040 | 00:43:23.980–00:43:24.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14576,7 +14576,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1041"></a>
 ### S-1041 | 00:43:24.700–00:43:25.960
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14590,7 +14590,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1042"></a>
 ### S-1042 | 00:43:26.700–00:43:28.900
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14604,7 +14604,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1043"></a>
 ### S-1043 | 00:43:28.940–00:43:30.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14618,7 +14618,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1044"></a>
 ### S-1044 | 00:43:30.200–00:43:31.100
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14632,7 +14632,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1045"></a>
 ### S-1045 | 00:43:32.330–00:43:32.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14646,7 +14646,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1046"></a>
 ### S-1046 | 00:43:32.990–00:43:34.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14660,7 +14660,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1047"></a>
 ### S-1047 | 00:43:34.870–00:43:35.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14674,7 +14674,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1048"></a>
 ### S-1048 | 00:43:35.950–00:43:36.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14688,7 +14688,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1049"></a>
 ### S-1049 | 00:43:37.010–00:43:37.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14702,7 +14702,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1050"></a>
 ### S-1050 | 00:43:37.490–00:43:38.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14716,7 +14716,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1051"></a>
 ### S-1051 | 00:43:38.110–00:43:38.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14730,7 +14730,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1052"></a>
 ### S-1052 | 00:43:38.730–00:43:39.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14744,7 +14744,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1053"></a>
 ### S-1053 | 00:43:39.230–00:43:40.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14758,7 +14758,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1054"></a>
 ### S-1054 | 00:43:42.040–00:43:43.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14772,7 +14772,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1055"></a>
 ### S-1055 | 00:43:43.020–00:43:44.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14786,7 +14786,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1056"></a>
 ### S-1056 | 00:43:44.620–00:43:45.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14800,7 +14800,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1057"></a>
 ### S-1057 | 00:43:45.360–00:43:46.000
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14814,7 +14814,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1058"></a>
 ### S-1058 | 00:43:46.790–00:43:47.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14828,7 +14828,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1059"></a>
 ### S-1059 | 00:43:47.310–00:43:48.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14842,7 +14842,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1060"></a>
 ### S-1060 | 00:43:48.290–00:43:49.680
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14856,7 +14856,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1061"></a>
 ### S-1061 | 00:43:49.680–00:43:50.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14870,7 +14870,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1062"></a>
 ### S-1062 | 00:43:50.280–00:43:51.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14884,7 +14884,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1063"></a>
 ### S-1063 | 00:43:52.300–00:43:52.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14898,7 +14898,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1064"></a>
 ### S-1064 | 00:43:52.980–00:43:53.360
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14912,7 +14912,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1065"></a>
 ### S-1065 | 00:43:54.680–00:43:56.720
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14926,7 +14926,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1066"></a>
 ### S-1066 | 00:43:56.720–00:43:57.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14940,7 +14940,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1067"></a>
 ### S-1067 | 00:43:57.700–00:44:00.200
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14954,7 +14954,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1068"></a>
 ### S-1068 | 00:44:00.690–00:44:00.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14968,7 +14968,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1069"></a>
 ### S-1069 | 00:44:01.980–00:44:02.580
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14982,7 +14982,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1070"></a>
 ### S-1070 | 00:44:02.580–00:44:03.180
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -14996,7 +14996,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1071"></a>
 ### S-1071 | 00:44:03.180–00:44:03.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15010,7 +15010,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1072"></a>
 ### S-1072 | 00:44:03.660–00:44:04.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15024,7 +15024,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1073"></a>
 ### S-1073 | 00:44:05.570–00:44:06.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15038,7 +15038,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1074"></a>
 ### S-1074 | 00:44:07.110–00:44:07.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15052,7 +15052,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1075"></a>
 ### S-1075 | 00:44:07.730–00:44:08.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15066,7 +15066,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1076"></a>
 ### S-1076 | 00:44:08.830–00:44:09.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15080,7 +15080,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1077"></a>
 ### S-1077 | 00:44:09.630–00:44:10.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15094,7 +15094,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1078"></a>
 ### S-1078 | 00:44:10.510–00:44:11.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15108,7 +15108,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1079"></a>
 ### S-1079 | 00:44:11.110–00:44:12.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15122,7 +15122,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1080"></a>
 ### S-1080 | 00:44:12.610–00:44:14.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15136,7 +15136,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1081"></a>
 ### S-1081 | 00:44:14.910–00:44:15.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15150,7 +15150,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1082"></a>
 ### S-1082 | 00:44:18.230–00:44:21.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15164,7 +15164,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1083"></a>
 ### S-1083 | 00:44:21.450–00:44:23.250
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15178,7 +15178,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1084"></a>
 ### S-1084 | 00:44:23.350–00:44:24.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15192,7 +15192,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1085"></a>
 ### S-1085 | 00:44:24.610–00:44:25.370
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15206,7 +15206,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1086"></a>
 ### S-1086 | 00:44:25.370–00:44:26.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15220,7 +15220,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1087"></a>
 ### S-1087 | 00:44:26.210–00:44:28.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15234,7 +15234,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1088"></a>
 ### S-1088 | 00:44:28.150–00:44:28.610
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15248,7 +15248,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1089"></a>
 ### S-1089 | 00:44:28.610–00:44:28.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15262,7 +15262,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1090"></a>
 ### S-1090 | 00:44:29.530–00:44:31.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15276,7 +15276,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1091"></a>
 ### S-1091 | 00:44:32.470–00:44:32.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15290,7 +15290,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1092"></a>
 ### S-1092 | 00:44:32.890–00:44:34.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15304,7 +15304,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1093"></a>
 ### S-1093 | 00:44:34.110–00:44:34.730
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15318,7 +15318,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1094"></a>
 ### S-1094 | 00:44:34.770–00:44:35.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15332,7 +15332,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1095"></a>
 ### S-1095 | 00:44:35.710–00:44:36.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15346,7 +15346,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1096"></a>
 ### S-1096 | 00:44:36.190–00:44:36.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15360,7 +15360,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1097"></a>
 ### S-1097 | 00:44:36.950–00:44:37.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15374,7 +15374,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1098"></a>
 ### S-1098 | 00:44:37.550–00:44:38.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15388,7 +15388,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1099"></a>
 ### S-1099 | 00:44:39.350–00:44:40.030
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15402,7 +15402,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1100"></a>
 ### S-1100 | 00:44:40.030–00:44:40.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15416,7 +15416,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1101"></a>
 ### S-1101 | 00:44:41.500–00:44:41.700
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15430,7 +15430,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1102"></a>
 ### S-1102 | 00:44:41.780–00:44:42.940
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15444,7 +15444,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1103"></a>
 ### S-1103 | 00:44:43.180–00:44:44.600
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15458,7 +15458,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1104"></a>
 ### S-1104 | 00:44:44.600–00:44:45.020
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15472,7 +15472,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1105"></a>
 ### S-1105 | 00:44:45.020–00:44:45.980
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15486,7 +15486,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1106"></a>
 ### S-1106 | 00:44:45.980–00:44:50.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15500,7 +15500,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1107"></a>
 ### S-1107 | 00:44:50.570–00:44:51.330
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15514,7 +15514,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1108"></a>
 ### S-1108 | 00:44:51.330–00:44:52.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15528,7 +15528,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1109"></a>
 ### S-1109 | 00:44:55.490–00:44:57.510
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15542,7 +15542,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1110"></a>
 ### S-1110 | 00:44:57.550–00:44:58.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15556,7 +15556,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1111"></a>
 ### S-1111 | 00:44:58.670–00:44:59.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15570,7 +15570,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1112"></a>
 ### S-1112 | 00:44:59.350–00:45:00.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15584,7 +15584,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1113"></a>
 ### S-1113 | 00:45:00.910–00:45:01.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15598,7 +15598,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1114"></a>
 ### S-1114 | 00:45:01.270–00:45:01.290
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15612,7 +15612,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1115"></a>
 ### S-1115 | 00:45:01.290–00:45:03.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15626,7 +15626,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1116"></a>
 ### S-1116 | 00:45:03.750–00:45:04.930
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15640,7 +15640,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1117"></a>
 ### S-1117 | 00:45:04.930–00:45:06.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15654,7 +15654,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1118"></a>
 ### S-1118 | 00:45:06.270–00:45:07.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15668,7 +15668,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1119"></a>
 ### S-1119 | 00:45:07.310–00:45:07.950
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15682,7 +15682,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1120"></a>
 ### S-1120 | 00:45:08.910–00:45:09.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15696,7 +15696,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1121"></a>
 ### S-1121 | 00:45:09.870–00:45:10.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15710,7 +15710,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1122"></a>
 ### S-1122 | 00:45:10.550–00:45:11.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15724,7 +15724,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1123"></a>
 ### S-1123 | 00:45:11.110–00:45:12.150
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15738,7 +15738,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1124"></a>
 ### S-1124 | 00:45:12.670–00:45:13.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15752,7 +15752,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1125"></a>
 ### S-1125 | 00:45:13.970–00:45:14.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15766,7 +15766,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1126"></a>
 ### S-1126 | 00:45:14.350–00:45:14.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15780,7 +15780,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1127"></a>
 ### S-1127 | 00:45:14.670–00:45:15.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15794,7 +15794,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1128"></a>
 ### S-1128 | 00:45:16.150–00:45:16.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15808,7 +15808,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1129"></a>
 ### S-1129 | 00:45:16.990–00:45:17.690
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15822,7 +15822,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1130"></a>
 ### S-1130 | 00:45:17.690–00:45:18.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15836,7 +15836,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1131"></a>
 ### S-1131 | 00:45:18.870–00:45:19.590
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15850,7 +15850,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1132"></a>
 ### S-1132 | 00:45:19.590–00:45:19.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15864,7 +15864,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1133"></a>
 ### S-1133 | 00:45:20.070–00:45:20.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15878,7 +15878,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1134"></a>
 ### S-1134 | 00:45:20.670–00:45:21.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15892,7 +15892,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1135"></a>
 ### S-1135 | 00:45:21.270–00:45:23.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15906,7 +15906,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1136"></a>
 ### S-1136 | 00:45:23.710–00:45:24.710
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15920,7 +15920,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1137"></a>
 ### S-1137 | 00:45:24.730–00:45:25.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15934,7 +15934,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1138"></a>
 ### S-1138 | 00:45:25.310–00:45:25.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15948,7 +15948,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1139"></a>
 ### S-1139 | 00:45:25.650–00:45:26.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15962,7 +15962,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1140"></a>
 ### S-1140 | 00:45:26.230–00:45:27.310
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15976,7 +15976,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1141"></a>
 ### S-1141 | 00:45:27.750–00:45:28.390
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -15990,7 +15990,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1142"></a>
 ### S-1142 | 00:45:28.390–00:45:29.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16004,7 +16004,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1143"></a>
 ### S-1143 | 00:45:29.330–00:45:30.270
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16018,7 +16018,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1144"></a>
 ### S-1144 | 00:45:30.270–00:45:32.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16032,7 +16032,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1145"></a>
 ### S-1145 | 00:45:32.190–00:45:33.350
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16046,7 +16046,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1146"></a>
 ### S-1146 | 00:45:34.970–00:45:36.210
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16060,7 +16060,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1147"></a>
 ### S-1147 | 00:45:36.210–00:45:36.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16074,7 +16074,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1148"></a>
 ### S-1148 | 00:45:36.850–00:45:37.530
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16088,7 +16088,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1149"></a>
 ### S-1149 | 00:45:37.530–00:45:39.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16102,7 +16102,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1150"></a>
 ### S-1150 | 00:45:39.410–00:45:39.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16116,7 +16116,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1151"></a>
 ### S-1151 | 00:45:39.890–00:45:40.430
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16130,7 +16130,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1152"></a>
 ### S-1152 | 00:45:40.430–00:45:40.770
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16144,7 +16144,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1153"></a>
 ### S-1153 | 00:45:40.810–00:45:42.170
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16158,7 +16158,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1154"></a>
 ### S-1154 | 00:45:42.170–00:45:43.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16172,7 +16172,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1155"></a>
 ### S-1155 | 00:45:43.130–00:45:43.830
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16186,7 +16186,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1156"></a>
 ### S-1156 | 00:45:43.830–00:45:45.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16200,7 +16200,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1157"></a>
 ### S-1157 | 00:45:45.090–00:45:45.890
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16214,7 +16214,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1158"></a>
 ### S-1158 | 00:45:46.890–00:45:47.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16228,7 +16228,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1159"></a>
 ### S-1159 | 00:45:47.750–00:45:48.970
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16242,7 +16242,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1160"></a>
 ### S-1160 | 00:45:48.970–00:45:51.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16256,7 +16256,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1161"></a>
 ### S-1161 | 00:45:51.070–00:45:52.190
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16270,7 +16270,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1162"></a>
 ### S-1162 | 00:45:52.190–00:45:53.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16284,7 +16284,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1163"></a>
 ### S-1163 | 00:45:53.230–00:45:54.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16298,7 +16298,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1164"></a>
 ### S-1164 | 00:45:54.970–00:45:55.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16312,7 +16312,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1165"></a>
 ### S-1165 | 00:45:55.650–00:45:57.670
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16326,7 +16326,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1166"></a>
 ### S-1166 | 00:45:57.670–00:45:58.490
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16340,7 +16340,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1167"></a>
 ### S-1167 | 00:45:58.490–00:45:59.630
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16354,7 +16354,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1168"></a>
 ### S-1168 | 00:46:00.330–00:46:00.790
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16368,7 +16368,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1169"></a>
 ### S-1169 | 00:46:00.790–00:46:01.870
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16382,7 +16382,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1170"></a>
 ### S-1170 | 00:46:02.690–00:46:02.990
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16396,7 +16396,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1171"></a>
 ### S-1171 | 00:46:03.450–00:46:03.810
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16410,7 +16410,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1172"></a>
 ### S-1172 | 00:46:04.600–00:46:05.140
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16424,7 +16424,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1173"></a>
 ### S-1173 | 00:46:06.100–00:46:06.480
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16438,7 +16438,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1174"></a>
 ### S-1174 | 00:46:06.640–00:46:07.060
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16452,7 +16452,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1175"></a>
 ### S-1175 | 00:46:07.420–00:46:07.820
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16466,7 +16466,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1176"></a>
 ### S-1176 | 00:46:07.880–00:46:08.660
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16480,7 +16480,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1177"></a>
 ### S-1177 | 00:46:08.720–00:46:09.160
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16494,7 +16494,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1178"></a>
 ### S-1178 | 00:46:09.160–00:46:09.500
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16508,7 +16508,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1179"></a>
 ### S-1179 | 00:46:09.500–00:46:12.280
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16522,7 +16522,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1180"></a>
 ### S-1180 | 00:46:12.280–00:46:13.380
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16536,7 +16536,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1181"></a>
 ### S-1181 | 00:46:13.380–00:46:14.620
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16550,7 +16550,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1182"></a>
 ### S-1182 | 00:46:15.690–00:46:16.050
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16564,7 +16564,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1183"></a>
 ### S-1183 | 00:46:16.230–00:46:16.650
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16578,7 +16578,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1184"></a>
 ### S-1184 | 00:46:16.770–00:46:17.070
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16592,7 +16592,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1185"></a>
 ### S-1185 | 00:46:17.730–00:46:18.110
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16606,7 +16606,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1186"></a>
 ### S-1186 | 00:46:18.110–00:46:18.230
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16620,7 +16620,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1187"></a>
 ### S-1187 | 00:46:19.830–00:46:20.470
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16634,7 +16634,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1188"></a>
 ### S-1188 | 00:46:20.470–00:46:20.750
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16648,7 +16648,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1189"></a>
 ### S-1189 | 00:46:20.930–00:46:21.570
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16662,7 +16662,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1190"></a>
 ### S-1190 | 00:46:21.570–00:46:23.090
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16676,7 +16676,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1191"></a>
 ### S-1191 | 00:46:23.250–00:46:23.550
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16690,7 +16690,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1192"></a>
 ### S-1192 | 00:46:23.830–00:46:24.130
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16704,7 +16704,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1193"></a>
 ### S-1193 | 00:46:24.450–00:46:24.850
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16718,7 +16718,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1194"></a>
 ### S-1194 | 00:46:24.850–00:46:24.910
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**
@@ -16732,7 +16732,7 @@ This transcript contains **1,195** aligned segments covering `00:00:01.060–00:
 <a id="s-1195"></a>
 ### S-1195 | 00:46:24.910–00:46:25.010
 
-**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues  
+**Speaker:** Unattributed — mixed Zoom track; see report for range-level cues
 **ASR review flag:** No automatic flag
 
 **Hebrew ASR (unreviewed)**

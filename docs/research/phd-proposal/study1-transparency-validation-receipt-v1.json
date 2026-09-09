@@ -1,0 +1,16 @@
+{
+  "claim_boundary": "READY FOR SUPERVISOR TRANSPARENCY REVIEW — NOT A NEW SCIENTIFIC RESULT",
+  "credentials_read": 0,
+  "detector_criteria_status": "PASS",
+  "detector_experimental_run": 0,
+  "mechanism_separation_status": "PASS",
+  "new_scientific_run": 0,
+  "paid_calls": 0,
+  "private_evidence_status": "NOT_AVAILABLE_IN_WORKTREE",
+  "protected_runtime_changes": 0,
+  "provenance_status": "PASS",
+  "provider_api_model_calls": 0,
+  "schema_version": "study1-transparency-validation-receipt-v1",
+  "status": "PASS_SAFE_PACKAGE_NO_PRIVATE_EVIDENCE",
+  "synthetic_scientific_evidence": 0
+}

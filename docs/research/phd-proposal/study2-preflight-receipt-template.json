@@ -1,0 +1,24 @@
+{
+  "schema_version": "study2-run-receipt-v1",
+  "evidence_class": "ENGINEERING_FIXTURE_ONLY",
+  "scientific_result_status": "NOT_EXECUTED",
+  "status": "TEMPLATE_NOT_EXECUTED",
+  "provider_calls": 0,
+  "external_calls": 0,
+  "study1_pooled": false,
+  "required_runtime_fields": [
+    "run_id",
+    "code_sha256",
+    "configuration_sha256",
+    "corpus_hashes",
+    "condition_result_hashes",
+    "pipeline_manifest_hashes",
+    "event_log_hashes",
+    "lifecycle_summaries",
+    "prompt_hashes",
+    "attempt_markers",
+    "token_and_cost_counters",
+    "privacy_counters"
+  ],
+  "note": "Template only. A generated receipt must be created by the offline fixture runner and must not be treated as scientific evidence."
+}
