@@ -114,6 +114,24 @@ class LedgerEntry:
     output_tokens: int | None = None
     spent_usd: Decimal = Decimal("0")
     physical_attempted: bool = False
+    deadline_monotonic_ns: int | None = None
+
+
+def _check_attempt_deadline(entry: LedgerEntry) -> None:
+    import time
+
+    if (
+        entry.deadline_monotonic_ns is not None
+        and time.monotonic_ns() >= entry.deadline_monotonic_ns
+    ):
+        raise TechnicalProviderFailure("TIMEOUT")
+
+
+@dataclass
+class _AttemptPermission:
+    entry: LedgerEntry
+    owner: Any = None
+    request_permitted: bool = True
 
 
 class BudgetLedger:
@@ -199,7 +217,13 @@ class BudgetLedger:
             ) / Decimal("1000000")
 
     def _reserve(
-        self, descriptor: PromptDescriptor, label: str, *, external: bool, retry_of: int | None
+        self,
+        descriptor: PromptDescriptor,
+        label: str,
+        *,
+        external: bool,
+        retry_of: int | None,
+        deadline_monotonic_ns: int | None = None,
     ) -> LedgerEntry:
         if type(label) is not str or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_./:-]{0,127}", label):
             raise TechnicalProviderFailure("INVALID_LABEL")
@@ -246,12 +270,14 @@ class BudgetLedger:
                 external,
                 retry_of,
                 depth,
+                deadline_monotonic_ns=deadline_monotonic_ns,
             )
             self._entries.append(entry)
             return entry
 
     def _begin_attempt(self, entry: LedgerEntry) -> None:
         with self._lock:
+            _check_attempt_deadline(entry)
             if self._entries[entry.attempt_id - 1] is not entry or entry.status != "RESERVED":
                 raise TechnicalProviderFailure("UNRESERVED_REQUEST")
             self._entries[entry.attempt_id - 1] = replace(entry, physical_attempted=True)
@@ -265,6 +291,8 @@ class BudgetLedger:
         output_tokens: int | None = None,
     ) -> None:
         with self._lock:
+            if code == "OK":
+                _check_attempt_deadline(entry)
             self._entries[entry.attempt_id - 1] = replace(
                 self._entries[entry.attempt_id - 1],
                 status=code,
@@ -388,7 +416,21 @@ async def guarded_call(
         raise TechnicalProviderFailure("PROMPT_BINDING_MISMATCH")
     # Detach the mutable caller mapping before an await or physical request.
     request_prompt = dict(prompt)
-    entry = ledger._reserve(actual, label, external=external, retry_of=retry_of)
+    deadline_ns = None
+    if external:
+        import time
+
+        deadline_ns = min(
+            time.monotonic_ns() + ledger.config.timeout_seconds * 1_000_000_000,
+            provider._deadline_monotonic_ns,
+        )
+    entry = ledger._reserve(
+        actual,
+        label,
+        external=external,
+        retry_of=retry_of,
+        deadline_monotonic_ns=deadline_ns,
+    )
     try:
         if external:
             value = await provider._call_reserved(request_prompt, label=label, _entry=entry)
@@ -476,8 +518,9 @@ class OpenAIProvider:
         provider = cls(_token=_TOKEN)
         provider._ledger = ledger
         provider._grant = grant
-        provider._deadline = time.monotonic() + config.run_timeout_seconds
-        provider._request_permitted = False
+        provider._deadline_monotonic_ns = (
+            time.monotonic_ns() + config.run_timeout_seconds * 1_000_000_000
+        )
         provider._attempt_context = ContextVar("airtravel_reserved_attempt", default=None)
         provider._closed = False
         try:
@@ -517,18 +560,23 @@ class OpenAIProvider:
             raise TechnicalProviderFailure("PROVIDER_CLOSED")
         if datetime.now(timezone.utc) >= self._grant.expires_at_utc:
             raise TechnicalProviderFailure("INVALID_GRANT")
-        if time.monotonic() >= self._deadline:
+        if time.monotonic_ns() >= self._deadline_monotonic_ns:
             raise TechnicalProviderFailure("RUN_TIMEOUT")
 
     async def _before_request(self, request: Any) -> None:
+        import asyncio
+
         if request.method != "POST" or str(request.url) != REQUEST_URL:
             raise TechnicalProviderFailure("HOST_REJECTED")
-        entry = self._attempt_context.get()
-        if not self._request_permitted or entry is None:
+        permission = self._attempt_context.get()
+        if permission is None or permission.owner is not asyncio.current_task():
+            raise TechnicalProviderFailure("UNRESERVED_REQUEST")
+        _check_attempt_deadline(permission.entry)
+        if not permission.request_permitted:
             raise TechnicalProviderFailure("UNRESERVED_REQUEST")
         self._check_ready(self._ledger)
-        self._ledger._begin_attempt(entry)
-        self._request_permitted = False
+        self._ledger._begin_attempt(permission.entry)
+        permission.request_permitted = False
 
     async def _after_response(self, response: Any) -> None:
         if 300 <= response.status_code < 400:
@@ -558,22 +606,47 @@ class OpenAIProvider:
             or self._ledger.entries[-1] is not _entry
             or _entry.status != "RESERVED"
             or not _entry.external
+            or _entry.deadline_monotonic_ns is None
         ):
             raise TechnicalProviderFailure("UNRESERVED_REQUEST")
-        self._request_permitted = True
-        token = self._attempt_context.set(_entry)
+        permission = _AttemptPermission(_entry)
         cfg = self._ledger.config
-        try:
-            result = await asyncio.wait_for(
-                self._client.chat.completions.create(
+
+        async def owned_request():
+            # ContextVar values are inherited by child tasks, but task identity
+            # is not. Only this exact task may use the request permission.
+            permission.owner = asyncio.current_task()
+            token = self._attempt_context.set(permission)
+            try:
+                return await self._client.chat.completions.create(
                     model=cfg.model,
                     messages=[{"role": key, "content": prompt[key]} for key in ("system", "user")],
                     max_completion_tokens=cfg.max_output_tokens,
                     response_format={"type": "json_object"},
                     stream=False,
+                )
+            finally:
+                self._attempt_context.reset(token)
+
+        worker = asyncio.create_task(owned_request())
+
+        def consume_worker_outcome(task):
+            # Cancellation suppression must not keep the caller waiting or
+            # cause late SDK exceptions to be emitted by the event-loop logger.
+            if not task.cancelled():
+                task.exception()
+
+        try:
+            done, _ = await asyncio.wait(
+                {worker},
+                timeout=max(
+                    0, (_entry.deadline_monotonic_ns - time.monotonic_ns()) / 1_000_000_000
                 ),
-                timeout=min(cfg.timeout_seconds, max(0, self._deadline - time.monotonic())),
             )
+            if not done:
+                raise TechnicalProviderFailure("TIMEOUT")
+            result = worker.result()
+            _check_attempt_deadline(_entry)
             if len(result.choices) != 1 or result.choices[0].finish_reason != "stop":
                 raise TechnicalProviderFailure("MALFORMED_RESPONSE")
 
@@ -594,8 +667,12 @@ class OpenAIProvider:
         except (AttributeError, TypeError, ValueError, IndexError):
             raise TechnicalProviderFailure("MALFORMED_RESPONSE") from None
         finally:
-            self._request_permitted = False
-            self._attempt_context.reset(token)
+            # Revoke before cancel: a cancellation-suppressing worker may keep
+            # running, but can no longer dispatch under this reservation.
+            permission.request_permitted = False
+            if not worker.done():
+                worker.cancel()
+            worker.add_done_callback(consume_worker_outcome)
 
     async def aclose(self) -> None:
         """Release the owned SDK/HTTP client; later calls remain blocked."""

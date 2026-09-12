@@ -7,6 +7,7 @@ import builtins
 import importlib
 import json
 import sys
+import time
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
@@ -118,6 +119,7 @@ class LocalSDK:
         self.outcome = "ok"
         self.closed = False
         self.before_transport = None
+        self.before_response = None
 
     def install(self, monkeypatch):
         def transport(**kwargs):
@@ -165,6 +167,8 @@ class LocalSDK:
         if self.outcome == "redirect":
             for hook in self.http_options["event_hooks"]["response"]:
                 await hook(SimpleNamespace(status_code=307))
+        if self.before_response:
+            await self.before_response()
         return SimpleNamespace(
             choices=[
                 SimpleNamespace(
@@ -592,3 +596,121 @@ def test_async_timeout_type_on_python310_is_controlled(monkeypatch):
     with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
         asyncio.run(provider.call(PROMPT, label="first"))
     assert ledger.reserved_usd == Decimal("0.25")
+
+
+def test_inherited_child_task_cannot_consume_parent_reservation(monkeypatch):
+    p, provider, ledger, sdk = constructed(monkeypatch)
+    child_codes = []
+
+    async def spawn_child_inside_sdk():
+        async def child_request():
+            hook = sdk.http_options["event_hooks"]["request"][0]
+            try:
+                await hook(
+                    SimpleNamespace(method="POST", url="https://api.openai.com/v1/chat/completions")
+                )
+            except p.TechnicalProviderFailure as error:
+                child_codes.append(error.code)
+            else:
+                child_codes.append("ALLOWED")
+
+        # This child inherits the SDK callback's ContextVars, unlike the prior
+        # regression that invoked the hook from an unrelated task context.
+        await asyncio.create_task(child_request())
+        assert ledger.physical_call_count == 0
+
+    sdk.before_transport = spawn_child_inside_sdk
+    parent_result = None
+    parent_error = None
+    try:
+        parent_result = asyncio.run(provider.call(PROMPT, label="first"))
+    except p.TechnicalProviderFailure as error:
+        parent_error = error.code
+    assert child_codes == ["UNRESERVED_REQUEST"]
+    assert parent_error is None
+    assert parent_result["output"] == {"ok": True}
+    assert ledger.physical_call_count == ledger.external_provider_call_count == 1
+    assert len(sdk.requests) == 1
+    assert ledger.entries[0].status == "OK"
+
+
+def test_cancellation_suppressed_late_dispatch_stays_blocked(monkeypatch):
+    p, provider, ledger, sdk = constructed(monkeypatch)
+    cancelled = []
+    dispatch_codes = []
+
+    async def check():
+        dispatch_finished = asyncio.Event()
+        hook = sdk.http_options["event_hooks"]["request"][0]
+
+        async def observed_hook(request):
+            try:
+                await hook(request)
+            except p.TechnicalProviderFailure as error:
+                dispatch_codes.append(error.code)
+                raise
+            finally:
+                dispatch_finished.set()
+
+        async def suppress_cancellation_before_dispatch():
+            try:
+                await asyncio.Event().wait()
+            except asyncio.CancelledError:
+                cancelled.append(True)
+                # A cancellation-suppressing SDK continues toward dispatch.
+
+        sdk.http_options["event_hooks"]["request"] = [observed_hook]
+        sdk.before_transport = suppress_cancellation_before_dispatch
+        with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
+            await provider.call(PROMPT, label="first")
+        await asyncio.wait_for(dispatch_finished.wait(), timeout=1)
+
+    asyncio.run(check())
+    assert cancelled == [True]
+    assert dispatch_codes == ["TIMEOUT"]
+    assert sdk.requests == []
+    assert ledger.physical_call_count == ledger.external_provider_call_count == 0
+    assert ledger.entries[0].status == "TIMEOUT"
+    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.spent_usd == 0
+
+
+def test_cancellation_suppressed_late_result_cannot_settle_success(monkeypatch):
+    p, provider, ledger, sdk = constructed(monkeypatch)
+    cancelled = []
+
+    async def suppress_cancellation_before_result():
+        try:
+            await asyncio.Event().wait()
+        except asyncio.CancelledError:
+            cancelled.append(True)
+            # The SDK returns a well-formed result, but it is already too late.
+
+    sdk.before_response = suppress_cancellation_before_result
+    with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
+        asyncio.run(provider.call(PROMPT, label="first"))
+    assert cancelled == [True]
+    assert len(sdk.requests) == 1
+    assert ledger.physical_call_count == 1
+    assert ledger.entries[0].status == "TIMEOUT"
+    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.spent_usd == 0
+
+
+def test_deadline_expired_without_cancellation_cannot_settle_success(monkeypatch):
+    p, provider, ledger, sdk = constructed(monkeypatch)
+    instant = time.monotonic_ns()
+    monkeypatch.setattr(time, "monotonic_ns", lambda: instant)
+
+    async def advance_past_attempt_deadline():
+        # Deterministic monotonic-clock advance; the event loop timer need not
+        # have run for a too-late response to be rejected at settlement.
+        monkeypatch.setattr(time, "monotonic_ns", lambda: instant + 2_000_000_000)
+
+    sdk.before_response = advance_past_attempt_deadline
+    with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
+        asyncio.run(provider.call(PROMPT, label="first"))
+    assert ledger.physical_call_count == 1
+    assert ledger.entries[0].status == "TIMEOUT"
+    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.spent_usd == 0
