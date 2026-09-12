@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/airtravel-api-execution-receipt-v1.schema.json",
+  "title": "AirTravel private execution receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "mode",
+    "status",
+    "created_at_utc",
+    "code_sha",
+    "input_manifest_sha256",
+    "config_sha256",
+    "model",
+    "provider_host",
+    "price_schedule_sha256",
+    "max_usd",
+    "physical_call_count",
+    "external_provider_call_count",
+    "input_token_count",
+    "output_token_count",
+    "spent_usd",
+    "reserved_usd",
+    "scientific_result_count",
+    "technical_error_code",
+    "event_log_sha256",
+    "pipeline_output_sha256",
+    "ledger_sha256",
+    "detector_version",
+    "agent4_queue_status",
+    "containment_check",
+    "lifecycle_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "airtravel-api-execution-receipt-v1"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^(?!con$|prn$|aux$|nul$|com[1-9]$|lpt[1-9]$)[a-z0-9][a-z0-9_-]{0,63}$"
+    },
+    "mode": {
+      "enum": [
+        "prepare",
+        "preflight",
+        "execute"
+      ]
+    },
+    "status": {
+      "enum": [
+        "NOT_STARTED",
+        "PASS",
+        "BLOCKED",
+        "INCOMPLETE_TECHNICAL"
+      ]
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    },
+    "code_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "input_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "config_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "provider_host": {
+      "type": "string",
+      "const": "api.openai.com"
+    },
+    "price_schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "max_usd": {
+      "const": "6.00"
+    },
+    "physical_call_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "external_provider_call_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "input_token_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "output_token_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "spent_usd": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(?:[0-9]{2}|[0-9]{2,}[1-9])$"
+    },
+    "reserved_usd": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(?:[0-9]{2}|[0-9]{2,}[1-9])$"
+    },
+    "scientific_result_count": {
+      "const": 0
+    },
+    "technical_error_code": {
+      "enum": [
+        "NONE",
+        "GRANT_INVALID",
+        "BUDGET_EXCEEDED",
+        "CALL_CAP_EXCEEDED",
+        "TIMEOUT",
+        "MALFORMED_RESPONSE",
+        "EGRESS_BLOCKED",
+        "INTERNAL_FAILURE"
+      ]
+    },
+    "event_log_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pipeline_output_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ledger_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "detector_version": {
+      "const": "Detector-v1"
+    },
+    "agent4_queue_status": {
+      "const": "NOT_AVAILABLE"
+    },
+    "containment_check": {
+      "enum": [
+        "NOT_CHECKED",
+        "PASS",
+        "BLOCKED"
+      ]
+    },
+    "lifecycle_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "CONVERGED",
+        "TERMINATED_MAX_ROUNDS",
+        "INCOMPLETE_TECHNICAL"
+      ],
+      "properties": {
+        "CONVERGED": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "TERMINATED_MAX_ROUNDS": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "INCOMPLETE_TECHNICAL": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

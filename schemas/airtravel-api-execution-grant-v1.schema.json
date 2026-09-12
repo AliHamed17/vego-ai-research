@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vego-ai.local/schemas/airtravel-api-execution-grant-v1.schema.json",
+  "title": "AirTravel private execution grant v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "nonce",
+    "invocation_id",
+    "run_id",
+    "mode",
+    "issued_at_utc",
+    "expires_at_utc",
+    "consumed",
+    "code_sha",
+    "input_manifest_sha256",
+    "config_sha256",
+    "model",
+    "provider_host",
+    "price_schedule_sha256",
+    "timeout_seconds",
+    "run_timeout_seconds",
+    "max_retries",
+    "concurrency",
+    "max_calls",
+    "max_input_tokens",
+    "max_output_tokens",
+    "max_usd",
+    "command_sha256",
+    "private_root"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "airtravel-api-execution-grant-v1"
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "invocation_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f-]{36}$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^(?!con$|prn$|aux$|nul$|com[1-9]$|lpt[1-9]$)[a-z0-9][a-z0-9_-]{0,63}$"
+    },
+    "mode": {
+      "const": "execute"
+    },
+    "issued_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    },
+    "expires_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    },
+    "consumed": {
+      "const": false
+    },
+    "code_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "input_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "config_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "provider_host": {
+      "type": "string",
+      "const": "api.openai.com"
+    },
+    "price_schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "run_timeout_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_retries": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_calls": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_input_tokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_output_tokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_usd": {
+      "type": "string",
+      "const": "6.00"
+    },
+    "command_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "private_root": {
+      "type": "string",
+      "pattern": "^external_data/airtravel-api-runs/(?!con$|prn$|aux$|nul$|com[1-9]$|lpt[1-9]$)[a-z0-9][a-z0-9_-]{0,63}$"
+    }
+  }
+}
