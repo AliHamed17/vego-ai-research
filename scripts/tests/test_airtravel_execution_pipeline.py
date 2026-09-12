@@ -42,6 +42,7 @@ def config(**changes):
             model="test-model", provider_host="api.openai.com", max_usd=Decimal("6.00"),
             timeout_seconds=1, run_timeout_seconds=30, max_retries=0, concurrency=1,
             max_calls=100, max_input_tokens=10000, max_output_tokens=1000,
+            max_rounds=2,
             price_schedule=contract.PriceSchedule(
                 "https://openai.com/api/pricing/", datetime(2026, 9, 12, tzinfo=timezone.utc),
                 Decimal("1"), Decimal("1"),
@@ -65,6 +66,7 @@ def frame(cfg, *, run_id="synthetic-run", max_rounds=2):
         verification_sha256="b" * 64, source_inventory_sha256="c" * 64,
         source_archive_sha256=contract.PUBLIC_AIRTRAVEL_ARCHIVE_SHA256,
         source_commit=contract.PUBLIC_AIRTRAVEL_COMMIT,
+        max_rounds=cfg.max_rounds, call_inventory_sha256=cfg.call_inventory_sha256,
         runtime_files=tuple(
             contract.RuntimeFileBinding(path, path, len(text.encode()), hashlib.sha256(text.encode()).hexdigest())
             for path, text in files
@@ -74,6 +76,19 @@ def frame(cfg, *, run_id="synthetic-run", max_rounds=2):
         run_id=run_id, setting_id="cd_airtravel", corpus_id="text2uml_airtravel_253b26dc",
         input_manifest=manifest, domain_description=domain, cases=cases, max_rounds=max_rounds,
     )
+
+
+def test_frame_round_policy_cannot_differ_from_bound_manifest():
+    with pytest.raises(module().PipelineFailure):
+        frame(config(), max_rounds=3)
+
+
+def test_pipeline_rejects_round_mismatch_even_with_rebound_config_hash(tmp_path):
+    cfg = config(max_rounds=3)
+    original = frame(config())
+    rebound = replace(original, input_manifest=replace(original.input_manifest, config_sha256=cfg.sha256))
+    with pytest.raises(module().PipelineFailure):
+        run_fixture(tmp_path, cfg=cfg, frame_value=rebound)
 
 
 def envelope(output):

@@ -33,6 +33,7 @@ from airtravel_execution_contract import (
     ExecutionConfig,
     VerifiedInputManifest,
     assert_safe_run_id,
+    build_call_inventory,
     canonical_json_sha256,
 )
 from airtravel_execution_provider import (
@@ -111,29 +112,6 @@ def _source_tier(value: Any) -> bool:
     return value is None or (type(value) is str and value in _SOURCE_TIERS)
 
 
-def build_call_inventory(max_rounds: int) -> dict[str, Any]:
-    """New-lane branches only, not the legacy Study-1 16/326 formula.
-
-    No implicit retries: every stage round has one generation and at most one
-    advisor call. Four Agent-1 context calls are outside the three stage loops.
-    Configuration call/budget limits may stop this inventory early.
-    """
-    if type(max_rounds) is not int or not 1 <= max_rounds <= 10:
-        raise PipelineFailure()
-    return {
-        "schema_version": "airtravel-isolated-call-inventory-v1",
-        "case_count": 4,
-        "context_calls_per_case": 1,
-        "stage_count_per_case": 3,
-        "generation_calls_per_round": 1,
-        "maximum_answer_calls_per_round": 1,
-        "max_rounds": max_rounds,
-        "minimum_calls": 4 * (1 + 3),
-        "maximum_calls": 4 * (1 + 3 * max_rounds * 2),
-        "automatic_retries": 0,
-    }
-
-
 @dataclass(frozen=True)
 class PipelineCase:
     case_id: str
@@ -158,6 +136,10 @@ class VerifiedPipelineFrame:
     cases: tuple[PipelineCase, ...]
     max_rounds: int
 
+    @property
+    def call_inventory_sha256(self) -> str:
+        return self.input_manifest.call_inventory_sha256
+
     def __post_init__(self) -> None:
         try:
             assert_safe_run_id(self.run_id)
@@ -166,6 +148,8 @@ class VerifiedPipelineFrame:
                 self.setting_id != "cd_airtravel"
                 or self.corpus_id != "text2uml_airtravel_253b26dc"
                 or type(self.input_manifest) is not VerifiedInputManifest
+                or self.max_rounds != self.input_manifest.max_rounds
+                or canonical_json_sha256(build_call_inventory(self.max_rounds)) != self.input_manifest.call_inventory_sha256
                 or type(self.cases) is not tuple
                 or len(self.cases) != 4
                 or any(type(case) is not PipelineCase for case in self.cases)
@@ -478,6 +462,7 @@ async def run_airtravel_pipeline(
         type(frame) is not VerifiedPipelineFrame or type(config) is not ExecutionConfig
         or type(ledger) is not BudgetLedger or ledger.config != config or ledger.entries
         or frame.input_manifest.config_sha256 != config.sha256 or frame.max_rounds != max_rounds
+        or frame.max_rounds != config.max_rounds or frame.call_inventory_sha256 != config.call_inventory_sha256
         or recorder.run_id != frame.run_id or recorder.events
         or recorder.path != runtime_root / "qa_events.jsonl"
     ):

@@ -16,9 +16,13 @@
     "max_input_tokens",
     "max_output_tokens",
     "max_usd",
+    "max_rounds",
+    "call_inventory_sha256",
     "price_schedule"
   ],
   "properties": {
+    "max_rounds": {"type": "integer", "minimum": 1, "maximum": 10},
+    "call_inventory_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"},
     "schema_version": {
       "const": "airtravel-api-execution-config-v1"
     },

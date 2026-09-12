@@ -47,7 +47,9 @@ def config_data() -> dict:
         "run_timeout_seconds": 900,
         "max_retries": 0,
         "concurrency": 1,
-        "max_calls": 16,
+        "max_calls": 28,
+        "max_rounds": 1,
+        "call_inventory_sha256": contract.canonical_json_sha256(contract.build_call_inventory(1)),
         "max_input_tokens": 10000,
         "max_output_tokens": 2000,
         "price_schedule": {
@@ -139,6 +141,8 @@ def bindings():
         "max_retries": config.max_retries,
         "concurrency": config.concurrency,
         "max_calls": config.max_calls,
+        "max_rounds": config.max_rounds,
+        "call_inventory_sha256": config.call_inventory_sha256,
         "max_input_tokens": config.max_input_tokens,
         "max_output_tokens": config.max_output_tokens,
         "max_usd": "6.00",
@@ -174,6 +178,61 @@ def test_canonical_hash_is_order_independent_and_decimal_exact():
     expected = hashlib.sha256(b'{"a":1,"b":"6.00"}').hexdigest()
     assert contract.canonical_json_sha256(value) == expected
     assert contract.canonical_json_sha256({"a": 1, "b": Decimal("6")}) == expected
+
+
+def test_round_inventory_is_bound_and_cannot_be_replaced():
+    assert hasattr(contract, "build_call_inventory"), "provider-free canonical inventory missing"
+    cfg, manifest, raw = bindings()
+    assert contract.build_call_inventory(1)["maximum_calls"] == 28
+    assert contract.build_call_inventory(2)["maximum_calls"] == 52
+    assert manifest.max_rounds == 1
+    assert manifest.call_inventory_sha256 == cfg.call_inventory_sha256
+    bad = config_data()
+    bad["call_inventory_sha256"] = "f" * 64
+    with pytest.raises(contract.ContractValidationError):
+        contract.ExecutionConfig.from_dict(bad)
+    changed = replace(cfg, max_rounds=2)
+    assert changed.sha256 != cfg.sha256
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), config=changed)
+
+
+def test_manifest_rounds_cannot_be_rebound_under_an_unchanged_config_hash():
+    cfg, manifest, raw = bindings()
+    changed = replace(
+        manifest,
+        max_rounds=2,
+        call_inventory_sha256=contract.canonical_json_sha256(contract.build_call_inventory(2)),
+    )
+    raw["input_manifest_sha256"] = changed.sha256
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), config=cfg, manifest=changed)
+    with pytest.raises(contract.ContractValidationError):
+        contract.build_receipt_skeleton(
+            config=cfg, manifest=changed, run_id="run-001", mode="execute"
+        )
+
+
+def test_grant_and_receipt_refuse_noncanonical_inventory_hashes():
+    cfg, manifest, raw = bindings()
+    raw["call_inventory_sha256"] = "f" * 64
+    with pytest.raises(contract.GrantValidationError):
+        contract.ExecutionGrant.from_dict(raw)
+    receipt = contract.build_receipt_skeleton(
+        config=cfg, manifest=manifest, run_id="run-001", mode="execute"
+    )
+    receipt["call_inventory_sha256"] = "f" * 64
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(receipt)
+
+
+@pytest.mark.parametrize("field", ["max_rounds", "call_inventory_sha256"])
+def test_persisted_manifest_requires_explicit_round_bindings(field):
+    _, manifest, _ = bindings()
+    raw = manifest.to_dict()
+    del raw[field]
+    with pytest.raises(contract.ContractValidationError):
+        contract.VerifiedInputManifest.from_dict(raw)
 
 
 @pytest.mark.parametrize("value", [1.2, float("nan"), Decimal("NaN"), {1: "bad"}, {"x": object()}])

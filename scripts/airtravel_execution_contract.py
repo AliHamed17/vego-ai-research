@@ -171,6 +171,31 @@ class PriceSchedule:
         return canonical_json_sha256(self.to_dict())
 
 
+def build_call_inventory(max_rounds: int) -> dict[str, Any]:
+    """Canonical isolated-lane inventory, independent of provider imports/caps.
+
+    Four context calls plus three stages per case, each with one generation
+    and at most one answer per round. No implicit retries or legacy formula.
+    """
+    if type(max_rounds) is not int or not 1 <= max_rounds <= 10:
+        raise ContractValidationError("invalid bounded round policy")
+    return {
+        "schema_version": "airtravel-isolated-call-inventory-v1",
+        "case_count": 4,
+        "context_calls_per_case": 1,
+        "stage_count_per_case": 3,
+        "generation_calls_per_round": 1,
+        "maximum_answer_calls_per_round": 1,
+        "max_rounds": max_rounds,
+        "minimum_calls": 16,
+        "maximum_calls": 4 * (1 + 3 * max_rounds * 2),
+        "automatic_retries": 0,
+    }
+
+
+_ONE_ROUND_SHA256 = canonical_json_sha256(build_call_inventory(1))
+
+
 @dataclass(frozen=True)
 class ExecutionConfig:
     """Frozen configuration; the only permitted total cap is exactly USD 6.00."""
@@ -186,6 +211,11 @@ class ExecutionConfig:
     max_input_tokens: int
     max_output_tokens: int
     price_schedule: PriceSchedule
+    max_rounds: int = 1
+
+    @property
+    def call_inventory_sha256(self) -> str:
+        return canonical_json_sha256(build_call_inventory(self.max_rounds))
 
     def __post_init__(self) -> None:
         if not isinstance(self.price_schedule, PriceSchedule):
@@ -205,6 +235,8 @@ class ExecutionConfig:
             "max_retries": self.max_retries,
             "concurrency": self.concurrency,
             "max_calls": self.max_calls,
+            "max_rounds": self.max_rounds,
+            "call_inventory_sha256": self.call_inventory_sha256,
             "max_input_tokens": self.max_input_tokens,
             "max_output_tokens": self.max_output_tokens,
             "price_schedule": self.price_schedule.to_dict(),
@@ -219,12 +251,16 @@ class ExecutionConfig:
         _schema_validate("config", value)
         data = dict(value)
         data.pop("schema_version")
+        inventory_sha256 = data.pop("call_inventory_sha256")
         price = dict(data.pop("price_schedule"))
         price["checked_at_utc"] = _parse_timestamp(price["checked_at_utc"])
         for name in ("input_usd_per_million_tokens", "output_usd_per_million_tokens"):
             price[name] = Decimal(price[name])
         data["max_usd"] = Decimal(data["max_usd"])
-        return cls(**data, price_schedule=PriceSchedule(**price))
+        result = cls(**data, price_schedule=PriceSchedule(**price))
+        if result.call_inventory_sha256 != inventory_sha256:
+            raise ContractValidationError("call inventory hash mismatch")
+        return result
 
     @classmethod
     def from_json(cls, path: Path) -> ExecutionConfig:
@@ -304,9 +340,33 @@ class VerifiedInputManifest:
     source_archive_sha256: str
     source_commit: str
     runtime_files: tuple[RuntimeFileBinding, ...]
+    max_rounds: int = 1
+    call_inventory_sha256: str = _ONE_ROUND_SHA256
+    verification_inputs: tuple[tuple[str, str], ...] = ()
 
     def __post_init__(self) -> None:
         _commit(self.code_sha)
+        if self.call_inventory_sha256 != canonical_json_sha256(
+            build_call_inventory(self.max_rounds)
+        ):
+            raise ContractValidationError("manifest inventory mismatch")
+        if type(self.verification_inputs) is not tuple:
+            raise ContractValidationError("immutable verification paths required")
+        names = set()
+        for row in self.verification_inputs:
+            if type(row) is not tuple or len(row) != 2 or row[0] in names:
+                raise ContractValidationError("invalid verification path binding")
+            names.add(row[0])
+            if row[0] not in {
+                "archive",
+                "source_root",
+                "source_manifest",
+                "amendment_manifest",
+                "runtime_root",
+                "reference_root",
+            }:
+                raise ContractValidationError("unknown verification path")
+            _relative_file(row[1])
         for value in (self.config_sha256, self.verification_sha256, self.source_inventory_sha256):
             _digest(value)
         if (
@@ -327,6 +387,9 @@ class VerifiedInputManifest:
             "source_commit": self.source_commit,
             "selection_rule": "verified-v1.0.2-source-to-runtime-mapping",
             "runtime_files": [row.to_dict() for row in self.runtime_files],
+            "max_rounds": self.max_rounds,
+            "call_inventory_sha256": self.call_inventory_sha256,
+            "verification_inputs": dict(self.verification_inputs),
         }
 
     @property
@@ -337,24 +400,35 @@ class VerifiedInputManifest:
     def from_dict(cls, value: Mapping[str, Any]) -> VerifiedInputManifest:
         try:
             data = dict(value)
+            if not {"max_rounds", "call_inventory_sha256"} <= data.keys():
+                raise ContractValidationError("explicit manifest inventory required")
             if (
                 data.pop("schema_version") != "airtravel-api-input-manifest-v1"
                 or data.pop("selection_rule") != "verified-v1.0.2-source-to-runtime-mapping"
             ):
                 raise ContractValidationError("invalid manifest identity")
             rows = []
+            inputs = data.pop("verification_inputs")
+            if not isinstance(inputs, Mapping):
+                raise ContractValidationError("invalid verification inputs")
             for raw in data.pop("runtime_files"):
                 row = dict(raw)
                 if row.pop("byte_transformation") != "NONE":
                     raise ContractValidationError("invalid byte transformation")
                 rows.append(RuntimeFileBinding(**row))
-            return cls(**data, runtime_files=tuple(rows))
+            return cls(
+                **data, runtime_files=tuple(rows), verification_inputs=tuple(sorted(inputs.items()))
+            )
         except (ValueError, TypeError, KeyError):
             raise ContractValidationError("malformed input manifest") from None
 
 
 def build_input_manifest(
-    *, verification: Mapping[str, Any], config: ExecutionConfig, code_sha: str
+    *,
+    verification: Mapping[str, Any],
+    config: ExecutionConfig,
+    code_sha: str,
+    verification_inputs: tuple[tuple[str, str], ...] = (),
 ) -> VerifiedInputManifest:
     """Bind all Task 1 evidence and derive runtime digests from its source inventory.
 
@@ -438,6 +512,9 @@ def build_input_manifest(
             source_archive_sha256=archive["actual_sha256"],
             source_commit=archive["expected_commit"],
             runtime_files=tuple(sorted(rows, key=lambda row: row.path)),
+            max_rounds=config.max_rounds,
+            call_inventory_sha256=config.call_inventory_sha256,
+            verification_inputs=verification_inputs,
         )
     except (KeyError, TypeError, AttributeError, ValueError):
         raise ContractValidationError("missing or invalid verifier evidence") from None
@@ -615,10 +692,16 @@ class ExecutionGrant:
     max_usd: Decimal
     command_sha256: str
     private_root: str
+    max_rounds: int = 1
+    call_inventory_sha256: str = _ONE_ROUND_SHA256
 
     def __post_init__(self) -> None:
         try:
             _schema_validate("grant", self.to_dict())
+            if self.call_inventory_sha256 != canonical_json_sha256(
+                build_call_inventory(self.max_rounds)
+            ):
+                raise GrantValidationError("grant inventory mismatch")
             assert_safe_run_id(self.run_id)
             if self.private_root != f"{PRIVATE_PARENT}/{self.run_id}":
                 raise GrantValidationError("output root binding mismatch")
@@ -678,6 +761,11 @@ def validate_execution_grant(
             raise GrantValidationError("grant expired, not yet valid, or consumed")
         if grant.config_sha256 != config.sha256 or manifest.config_sha256 != config.sha256:
             raise GrantValidationError("configuration hash mismatch")
+        if (
+            manifest.max_rounds != config.max_rounds
+            or manifest.call_inventory_sha256 != config.call_inventory_sha256
+        ):
+            raise GrantValidationError("manifest inventory mismatch")
         if grant.input_manifest_sha256 != manifest.sha256:
             raise GrantValidationError("input manifest hash mismatch")
         if grant.code_sha != _commit(current_commit) or manifest.code_sha != current_commit:
@@ -693,6 +781,8 @@ def validate_execution_grant(
             "max_retries",
             "concurrency",
             "max_calls",
+            "max_rounds",
+            "call_inventory_sha256",
             "max_input_tokens",
             "max_output_tokens",
         ):
@@ -717,6 +807,10 @@ def validate_execution_grant(
 def parse_execution_receipt(value: Mapping[str, Any]) -> dict[str, Any]:
     """Validate a private receipt and return a detached copy without trimming strings."""
     _schema_validate("receipt", value)
+    if value["call_inventory_sha256"] != canonical_json_sha256(
+        build_call_inventory(value["max_rounds"])
+    ):
+        raise ContractValidationError("receipt inventory mismatch")
     _parse_timestamp(value["created_at_utc"])
     return _json_value(value)
 
@@ -731,7 +825,11 @@ def build_receipt_skeleton(
 ) -> dict[str, Any]:
     """Return a private zero-call engineering receipt, never an execution claim."""
     assert_safe_run_id(run_id)
-    if manifest.config_sha256 != config.sha256:
+    if (
+        manifest.config_sha256 != config.sha256
+        or manifest.max_rounds != config.max_rounds
+        or manifest.call_inventory_sha256 != config.call_inventory_sha256
+    ):
         raise ContractValidationError("configuration hash mismatch")
     receipt = {
         "schema_version": "airtravel-api-execution-receipt-v1",
@@ -746,6 +844,8 @@ def build_receipt_skeleton(
         "provider_host": config.provider_host,
         "price_schedule_sha256": config.price_schedule.sha256,
         "max_usd": _decimal_string(config.max_usd),
+        "max_rounds": config.max_rounds,
+        "call_inventory_sha256": config.call_inventory_sha256,
         "physical_call_count": 0,
         "external_provider_call_count": 0,
         "input_token_count": 0,
