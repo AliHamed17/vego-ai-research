@@ -1,0 +1,45 @@
+{
+  "schema": "vego-ai.aug20.zoom-public-evidence-manifest.v1",
+  "meeting_date": "2026-08-20",
+  "recording_duration": "00:32:59.200",
+  "source_media": [
+    {
+      "filename": "audio1646966080.m4a",
+      "sha256": "84CCC6F80A5ADCCEE40B1D86E72C2EC796DE33EA99A25BD872597AEB27C0AD2C",
+      "technical_summary": "AAC stereo audio"
+    },
+    {
+      "filename": "video1646966080.mp4",
+      "sha256": "A1639A9BD20AAB2C2026429835FE7B2CA0A21DD96E6D33954029D7E4CEC7FE8B",
+      "technical_summary": "H.264 2560x1440 at 25 fps"
+    },
+    {
+      "filename": "recording.conf",
+      "sha256": "A7245AE1BF446F9EF5227955E4149431FEE37496939E17EE2C4B48D3B50DDE7F",
+      "technical_summary": "Zoom recording configuration"
+    }
+  ],
+  "public_boundary": {
+    "excluded": [
+      "raw audio and video",
+      "full transcript text",
+      "screenshots and keyframes",
+      "exact URLs and browser/email content",
+      "Drive identifiers and links",
+      "absolute local paths",
+      "speaker attribution beyond neutral labels"
+    ],
+    "included": [
+      "source hashes",
+      "recording duration",
+      "redacted evidence boundary",
+      "redacted requirement metadata"
+    ]
+  },
+  "human_review": {
+    "requirements": "Pending human confirmation",
+    "translation": "Pending bilingual review",
+    "speaker_attribution": "Not asserted",
+    "drive_upload": "Not executed: intended parent was not restricted"
+  }
+}
