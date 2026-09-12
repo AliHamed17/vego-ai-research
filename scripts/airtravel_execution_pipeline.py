@@ -20,6 +20,8 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import importlib.machinery
+import importlib.util
 import json
 import re
 import stat
@@ -43,23 +45,48 @@ from airtravel_execution_provider import (
     guarded_call,
 )
 
-try:
-    from qa_communication import (
-        QACommunicationRecorder,
-        QACommunicationValidationError,
-        build_episode_projection,
-        load_event_stream,
-        validate_event_stream,
-    )
-except ImportError:  # Direct script import, without pytest's configured path.
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "VEGO-AI" / "framework"))
-    from qa_communication import (
-        QACommunicationRecorder,
-        QACommunicationValidationError,
-        build_episode_projection,
-        load_event_stream,
-        validate_event_stream,
-    )
+
+def _load_canonical_qa():
+    """Load only the exact QA source checked by the gate, never a bare-name shadow."""
+    repository = Path(__file__).resolve().parents[1]
+    expected = repository / "VEGO-AI" / "framework" / "qa_communication.py"
+    for part in (expected, *expected.parents):
+        info = part.lstat()
+        if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 1024):
+            raise ImportError("unsafe QA module origin")
+    for name in ("qa_communication.py", "qa_communication.pyc", "qa_communication"):
+        shadow = repository / "scripts" / name
+        if shadow.exists() or shadow.is_symlink():
+            raise ImportError("QA module shadow rejected")
+    discovered = importlib.machinery.PathFinder.find_spec("qa_communication")
+    if discovered is not None and (
+        not discovered.origin or Path(discovered.origin).resolve() != expected
+    ):
+        raise ImportError("QA module search origin mismatch")
+    loaded = sys.modules.get("qa_communication")
+    if loaded is not None:
+        if not getattr(loaded, "__file__", None) or Path(loaded.__file__).resolve() != expected:
+            raise ImportError("loaded QA module origin mismatch")
+        return loaded
+    specification = importlib.util.spec_from_file_location("qa_communication", expected)
+    if specification is None or specification.loader is None:
+        raise ImportError("canonical QA module unavailable")
+    module = importlib.util.module_from_spec(specification)
+    sys.modules["qa_communication"] = module
+    try:
+        specification.loader.exec_module(module)
+    except BaseException:
+        sys.modules.pop("qa_communication", None)
+        raise
+    return module
+
+
+_qa = _load_canonical_qa()
+QACommunicationRecorder = _qa.QACommunicationRecorder
+QACommunicationValidationError = _qa.QACommunicationValidationError
+build_episode_projection = _qa.build_episode_projection
+load_event_stream = _qa.load_event_stream
+validate_event_stream = _qa.validate_event_stream
 
 STAGES = (
     ("agent2", "phase2_guideline_build", "build_guidelines"),

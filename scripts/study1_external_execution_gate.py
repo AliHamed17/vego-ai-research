@@ -98,6 +98,10 @@ class _Decision(Mapping):
 
 def current_commit() -> str:
     """Bind committed execution code, rejecting dirty, missing and untracked code."""
+    for name in ("qa_communication.py", "qa_communication.pyc", "qa_communication"):
+        shadow = contract.REPOSITORY_ROOT / "scripts" / name
+        if shadow.exists() or shadow.is_symlink():
+            raise contract.ContractValidationError("QA module shadow rejected")
     result = contract._git("rev-parse", "HEAD")
     if result.returncode:
         raise contract.ContractValidationError("code identity unavailable")
@@ -158,8 +162,6 @@ def checked_input(value: str, *, private: bool = False, directory: bool = False)
     contract._relative_file(value)
     path = contract.REPOSITORY_ROOT / value
     contract._check_path_components(path if directory else path.parent)
-    if private and not value.startswith(contract.PRIVATE_PARENT + "/"):
-        raise contract.ContainmentError("input is not under private parent")
     info = path.lstat()
     if (
         stat.S_ISLNK(info.st_mode)
@@ -173,9 +175,15 @@ def checked_input(value: str, *, private: bool = False, directory: bool = False)
     for sibling in path.parent.iterdir():
         if sibling.name.casefold() == path.name.casefold() and sibling.name != path.name:
             raise contract.ContainmentError("input case collision")
+    # Reject lexical aliases first; only then resolve the accepted filesystem
+    # object and use that canonical relative spelling for Git's exact matching.
+    path = path.resolve(strict=True)
+    relative = path.relative_to(contract.REPOSITORY_ROOT.resolve(strict=True)).as_posix()
+    if private and not relative.startswith(contract.PRIVATE_PARENT + "/"):
+        raise contract.ContainmentError("input is not under private parent")
     if private:
-        ignored = contract._git("check-ignore", "--no-index", "--quiet", "--", value)
-        tracked = contract._git("ls-files", "--", value)
+        ignored = contract._git("check-ignore", "--no-index", "--quiet", "--", relative)
+        tracked = contract._git("ls-files", "--", relative)
         if ignored.returncode or tracked.returncode or tracked.stdout.strip():
             raise contract.ContainmentError("input is not private")
     return path

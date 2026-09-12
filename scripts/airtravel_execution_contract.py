@@ -285,6 +285,13 @@ def _relative_file(value: str) -> str:
     path = PurePosixPath(value)
     if path.is_absolute() or ".." in path.parts or path.as_posix() != value or value == ".":
         raise ContractValidationError("unsafe manifest path")
+    if any(
+        part.endswith((".", " "))
+        or part.split(".", 1)[0].casefold() in RESERVED_NAMES
+        or any(ord(char) < 32 or char in '<>"|?*' for char in part)
+        for part in path.parts
+    ):
+        raise ContractValidationError("Windows path component alias rejected")
     return value
 
 

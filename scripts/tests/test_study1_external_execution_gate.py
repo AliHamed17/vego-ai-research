@@ -13,9 +13,10 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
-from test_airtravel_execution_contract import config_data, verification_data
+from test_airtravel_execution_contract import config_data
 from test_verify_text2uml_airtravel_runtime import make_verified_inputs
 
 contract = importlib.import_module("airtravel_execution_contract")
@@ -38,6 +39,68 @@ def modules():
 
 def test_composition_gate_and_strict_cli_are_available():
     modules()
+
+
+def test_untracked_qa_shadow_blocks_gate_and_is_never_imported(workspace):
+    gate, _, root, _, _, _ = workspace
+    marker = root / "shadow-executed.txt"
+    shadow = root / "scripts" / "qa_communication.py"
+    shadow.write_text(
+        "from pathlib import Path\n"
+        f"Path({str(marker)!r}).write_text('executed', encoding='utf-8')\n"
+        "QACommunicationRecorder = QACommunicationValidationError = None\n"
+        "build_episode_projection = load_event_stream = validate_event_stream = None\n",
+        encoding="utf-8",
+    )
+    script = """
+import sys
+sys.path.insert(0, 'scripts')
+try:
+    import airtravel_execution_pipeline
+except (ImportError, ValueError):
+    print('BLOCKED')
+else:
+    print('IMPORTED')
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", script], cwd=root, capture_output=True, text=True
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "BLOCKED"
+    assert not marker.exists(), "untracked QA shadow executed before rejection"
+    with pytest.raises(contract.ContractValidationError):
+        gate.current_commit()
+
+
+@pytest.mark.parametrize(
+    "relative,directory",
+    [
+        ("scripts/study1_external_execution_gate.py.", False),
+        ("scripts/study1_external_execution_gate.py ", False),
+        ("scripts./study1_external_execution_gate.py", False),
+        ("scripts /study1_external_execution_gate.py", False),
+        ("scripts.", True),
+        ("scripts ", True),
+    ],
+)
+def test_checked_input_rejects_windows_component_aliases(workspace, relative, directory):
+    gate, _, _, _, _, _ = workspace
+    with pytest.raises(contract.ContractValidationError):
+        gate.checked_input(relative, directory=directory)
+
+
+@pytest.mark.parametrize(
+    "alias",
+    ["inputs/config.json.", "inputs/config.json ", "inputs./config.json", "inputs /config.json"],
+)
+def test_private_input_alias_cannot_hide_a_tracked_canonical_target(workspace, alias):
+    gate, _, root, _, cfg_path, _ = workspace
+    canonical = cfg_path.relative_to(root).as_posix()
+    git(root, "add", "--force", "--", canonical)
+    with pytest.raises(contract.ContainmentError):
+        gate.checked_input(canonical, private=True)
+    with pytest.raises(contract.ContractValidationError):
+        gate.checked_input(f"{contract.PRIVATE_PARENT}/{alias}", private=True)
 
 
 def write(path, value):
@@ -169,6 +232,23 @@ def grant_for(cfg, manifest, command, mode="execute"):
 
 def forbid_provider_imports(monkeypatch):
     original = builtins.__import__
+    attempts = []
+
+    class RecordingConstructor:
+        def __init__(self, *args, **kwargs):
+            attempts.append("constructor")
+
+        @classmethod
+        def construct_after_grant(cls, *args, **kwargs):
+            attempts.append("construct_after_grant")
+            return None
+
+    blocked_module = SimpleNamespace(
+        OpenAIProvider=RecordingConstructor,
+        AsyncOpenAI=RecordingConstructor,
+        BudgetLedger=RecordingConstructor,
+        DeterministicFakeProvider=RecordingConstructor,
+    )
 
     def guarded(name, *args, **kwargs):
         if name in {
@@ -177,14 +257,16 @@ def forbid_provider_imports(monkeypatch):
             "airtravel_execution_provider",
             "airtravel_execution_pipeline",
         }:
-            raise AssertionError("provider import before authorization")
+            attempts.append("import:" + name)
+            return blocked_module
         return original(name, *args, **kwargs)
 
     monkeypatch.setattr(builtins, "__import__", guarded)
+    return attempts
 
 
 def test_prepare_and_unauthorized_preflight_are_provider_free(workspace, monkeypatch, capsys):
-    forbid_provider_imports(monkeypatch)
+    attempts = forbid_provider_imports(monkeypatch)
     _, runner, root, _, _, prepare = workspace
     manifest, path = prepare_manifest(workspace)
     assert manifest.max_rounds == 1
@@ -197,6 +279,7 @@ def test_prepare_and_unauthorized_preflight_are_provider_free(workspace, monkeyp
     assert runner.main(prepare) == 2  # immutable/reused output is not overwritten
     for line in capsys.readouterr().out.splitlines():
         assert set(json.loads(line)) == {"status", "receipt_sha256"}
+    assert attempts == []
 
 
 def test_authorized_fake_preflight_has_full_hash_bound_zero_external_receipt(workspace):
@@ -222,15 +305,6 @@ def test_authorized_fake_preflight_has_full_hash_bound_zero_external_receipt(wor
     ):
         assert receipt[field] == hashlib.sha256((output / filename).read_bytes()).hexdigest()
     assert receipt["scientific_result_count"] == 0
-    assert not gate.evaluate_gate(
-        mode="execute",
-        config=cfg,
-        verification=verification_data(),
-        input_manifest=manifest,
-        grant=grant_for(cfg, manifest, command, "preflight"),
-        current_commit=manifest.code_sha,
-        command=command,
-    )["provider_construction_permitted"]
 
 
 @pytest.mark.parametrize(
@@ -238,23 +312,54 @@ def test_authorized_fake_preflight_has_full_hash_bound_zero_external_receipt(wor
     [
         "missing",
         "expired",
+        "replayed",
         "wrong_manifest",
         "wrong_command",
         "wrong_inventory",
         "wrong_code",
+        "wrong_mode",
+        "wrong_host",
+        "wrong_model",
+        "wrong_cap",
         "bad_verification",
-        "low_cap",
     ],
 )
 def test_execute_gate_denies_before_provider_import(workspace, monkeypatch, change):
-    gate, _, _, inputs, cfg_path, _ = workspace
+    gate, _, root, inputs, cfg_path, _ = workspace
     manifest, path = prepare_manifest(workspace)
     cfg = contract.ExecutionConfig.from_json(cfg_path)
     command = command_for(workspace, "execute", path, "execute-gate")
-    raw = grant_for(cfg, manifest, command)
+    baseline = grant_for(cfg, manifest, command)
+    raw = dict(baseline)
     evidence = verifier.verify_pack(**inputs)
+    run_root = contract.assert_private_empty_run_root(Path(contract.PRIVATE_PARENT), "execute-gate")
+    args = dict(
+        mode="execute",
+        config=cfg,
+        verification=evidence,
+        input_manifest=manifest,
+        grant=raw,
+        current_commit=manifest.code_sha,
+        command=command,
+        run_root=run_root,
+    )
+    # Establish that every unmodified grant binding is valid before testing the
+    # single changed binding. The positive counterfactual below also exercises
+    # the actual exclusive-root/code/marker path, without constructing a provider.
+    contract.validate_execution_grant(
+        contract.ExecutionGrant.from_dict(baseline),
+        config=cfg,
+        manifest=manifest,
+        current_commit=manifest.code_sha,
+        command=command,
+    )
+    attempts = forbid_provider_imports(monkeypatch)
+    if change == "replayed":
+        assert gate.evaluate_gate(**args)["provider_construction_permitted"] is True
     if change == "expired":
-        raw["expires_at_utc"] = raw["issued_at_utc"]
+        raw["expires_at_utc"] = (
+            (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat().replace("+00:00", "Z")
+        )
     if change == "wrong_manifest":
         raw["input_manifest_sha256"] = "f" * 64
     if change == "wrong_command":
@@ -263,23 +368,35 @@ def test_execute_gate_denies_before_provider_import(workspace, monkeypatch, chan
         raw["max_rounds"] = 2
     if change == "wrong_code":
         raw["code_sha"] = "f" * 40
+    if change == "wrong_mode":
+        raw["mode"] = "preflight"
+    if change == "wrong_host":
+        raw["provider_host"] = "unauthorized.example.invalid"
+    if change == "wrong_model":
+        raw["model"] = "other-synthetic-model"
+    if change == "wrong_cap":
+        raw["max_calls"] = cfg.max_calls + 1
     if change == "bad_verification":
         evidence["status"] = "BLOCKED"
-    if change == "low_cap":
-        cfg = replace(cfg, max_calls=16)
-    forbid_provider_imports(monkeypatch)
-    decision = gate.evaluate_gate(
-        mode="execute",
-        config=cfg,
-        verification=evidence,
-        input_manifest=manifest,
-        grant=None if change == "missing" else raw,
-        current_commit=manifest.code_sha,
-        command=command,
-    )
+    if change == "missing":
+        args["grant"] = None
+    decision = gate.evaluate_gate(**args)
     assert decision["status"] == "BLOCKED"
+    assert decision["technical_error_code"] == "GRANT_INVALID"
+    assert decision["provider_construction_permitted"] is False
     with pytest.raises(contract.GrantValidationError):
         gate.require_execute_authorization(decision)
+    assert attempts == []
+    if change != "replayed":
+        assert not (root / gate.CONTROL_PARENT).exists(), (
+            "rejection reached authorization consumption"
+        )
+        # Revert only the changed binding (including derived verifier status).
+        evidence["status"] = "PASS"
+        corrected = gate.evaluate_gate(**dict(args, grant=baseline))
+        assert corrected["status"] == "PASS", "fixture failed for an unrelated reason"
+        assert corrected["provider_construction_permitted"] is True
+    assert attempts == []
 
 
 def test_exclusive_durable_attempt_survives_output_deletion_and_races(workspace):
@@ -390,15 +507,26 @@ def test_fresh_source_verification_and_dirty_code_block_fake_preflight(workspace
 def test_runner_import_does_not_import_provider_or_network_modules():
     script = """
 import builtins, sys
+from types import SimpleNamespace
 sys.path.insert(0, 'scripts')
 real = builtins.__import__
+attempts = []
+class RecordingConstructor:
+    def __init__(self, *args, **kwargs):
+        attempts.append('constructor')
+    @classmethod
+    def construct_after_grant(cls, *args, **kwargs):
+        attempts.append('construct_after_grant')
+stub = SimpleNamespace(OpenAIProvider=RecordingConstructor, AsyncOpenAI=RecordingConstructor)
 def guarded(name, *args, **kwargs):
     if name in {'openai','httpx','airtravel_execution_provider','airtravel_execution_pipeline'}:
-        raise RuntimeError('unexpected provider import')
+        attempts.append('import:' + name)
+        return stub
     return real(name, *args, **kwargs)
 builtins.__import__ = guarded
 import study1_airtravel_external_runner
 assert study1_airtravel_external_runner.main(['prepare', '--config=x']) == 2
+assert attempts == [], attempts
 """
     result = subprocess.run(
         [sys.executable, "-c", script], cwd=ROOT, capture_output=True, text=True
@@ -487,7 +615,7 @@ def test_private_async_entry_requires_auth_even_for_fake_mode(monkeypatch):
     import asyncio
 
     _, runner = modules()
-    forbid_provider_imports(monkeypatch)
+    attempts = forbid_provider_imports(monkeypatch)
     with pytest.raises(contract.GrantValidationError):
         asyncio.run(
             runner._run(
@@ -502,6 +630,7 @@ def test_private_async_entry_requires_auth_even_for_fake_mode(monkeypatch):
                 ledger=None,
             )
         )
+    assert attempts == []
 
 
 def test_failure_after_fake_authorization_persists_sanitized_receipt(
