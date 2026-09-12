@@ -329,6 +329,48 @@ def test_malformed_manifest_rows_or_fields_block(
     assert result["status"] == "BLOCKED"
 
 
+def test_source_entry_boolean_byte_length_blocks_for_one_byte_content(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    inputs = make_verified_inputs(tmp_path)
+    source_file = inputs["source_root"] / "candidate_models/01_case.txt"
+    source_file.write_bytes(b"x")
+    _write_source_archive(inputs["archive"], inputs["source_root"])
+    _refresh_source_manifest(inputs)
+    source_manifest = read_json(inputs["source_manifest"])
+    source_entries = source_manifest["source_entries"]
+    source_entry = next(entry for entry in source_entries if entry["path"] == "candidate_models/01_case.txt")
+    source_entry["bytes"] = True
+    write_json(inputs["source_manifest"], source_manifest)
+
+    result = _verify_synthetic_public_pack(inputs, monkeypatch)
+
+    assert result["status"] == "BLOCKED"
+    assert result["source_entries"]["status"] == "BLOCKED"
+
+
+def test_mapping_boolean_byte_length_blocks_for_one_byte_content(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    inputs = make_verified_inputs(tmp_path)
+    relative_path = "candidate_models/01_case.txt"
+    (inputs["source_root"] / relative_path).write_bytes(b"x")
+    (inputs["runtime_root"] / relative_path).write_bytes(b"x")
+    _write_source_archive(inputs["archive"], inputs["source_root"])
+    _refresh_source_manifest(inputs)
+    _refresh_amendment(inputs)
+    amendment = read_json(inputs["amendment_manifest"])
+    runtime_files = amendment["runtime_files"]
+    mapping = next(entry for entry in runtime_files if entry["path"] == relative_path)
+    mapping["bytes"] = True
+    write_json(inputs["amendment_manifest"], amendment)
+
+    result = _verify_synthetic_public_pack(inputs, monkeypatch)
+
+    assert result["status"] == "BLOCKED"
+    assert result["source_to_runtime"]["status"] == "BLOCKED"
+
+
 def test_runtime_symlink_or_equivalent_reparse_blocks(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

@@ -57,6 +57,10 @@ def _safe_relative_path(value: object) -> str | None:
     return normalised if normalised == value and normalised != "." else None
 
 
+def _is_strict_int(value: object) -> bool:
+    return type(value) is int
+
+
 def _row_from_path(root: Path, path: Path) -> dict[str, Any]:
     return {
         "path": path.relative_to(root).as_posix(),
@@ -99,7 +103,7 @@ def _canonical_rows(rows: object) -> tuple[list[tuple[str, int, str]], list[str]
         path = _safe_relative_path(row.get("path"))
         size = row.get("bytes")
         digest = row.get("sha256")
-        if path is None or not isinstance(size, int) or size < 0 or not isinstance(digest, str):
+        if path is None or not _is_strict_int(size) or size < 0 or not isinstance(digest, str):
             errors.append(f"row {index} is malformed")
             continue
         digest = digest.lower()
@@ -216,7 +220,7 @@ def verify_source_to_runtime_mapping(
         if (
             source_path is None
             or runtime_path is None
-            or not isinstance(declared_size, int)
+            or not _is_strict_int(declared_size)
             or declared_size < 0
             or not isinstance(declared_digest, str)
             or not SHA256_RE.fullmatch(declared_digest.lower())
