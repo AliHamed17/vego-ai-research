@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import importlib
 import json
@@ -406,6 +407,128 @@ def test_command_fingerprint_preserves_every_argument_and_boundary():
             contract.command_fingerprint(bad)
 
 
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        ["--run-id=run-002"],
+        ["--private-root=../outside"],
+        ["--run-id=run-002", "--private-root=../outside"],
+        ["--run-id=run-001"],
+        ["--private-root=external_data/airtravel-api-runs"],
+    ],
+)
+def test_refingerprinted_equals_overrides_cannot_change_argparse_output(overrides):
+    parser = argparse.ArgumentParser(allow_abbrev=False)
+    parser.add_argument("--run-id")
+    parser.add_argument("--private-root")
+    actual = parser.parse_args([*COMMAND[3:], *overrides])
+    if "--run-id=run-002" in overrides:
+        assert actual.run_id == "run-002"
+    if "--private-root=../outside" in overrides:
+        assert actual.private_root == "../outside"
+    _, _, raw = bindings()
+    command = [*COMMAND, *overrides]
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+@pytest.mark.parametrize(
+    "option",
+    ["--config", "--input-manifest", "--grant", "--run-id", "--private-root"],
+)
+@pytest.mark.parametrize("spelling", ["equals", "duplicate", "mixed"])
+def test_shared_command_grammar_rejects_every_bound_option_override(option, spelling):
+    command = list(COMMAND)
+    if option not in command:
+        command.extend([option, "private-original.json"])
+    if spelling == "equals":
+        index = command.index(option)
+        command[index : index + 2] = [option + "=" + command[index + 1]]
+    elif spelling == "duplicate":
+        command.extend([option, "private-changed.json"])
+    else:
+        command.append(option + "=private-changed.json")
+    _, _, raw = bindings()
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), command=command)
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_command(command)
+
+
+def test_shared_command_grammar_preserves_canonical_values_for_cli_reuse():
+    command = [
+        *COMMAND,
+        "--config",
+        "private config.json",
+        "--input-manifest",
+        "manifest.json",
+        "--grant",
+        "grant.json",
+    ]
+    parsed = contract.parse_execution_command(command)
+    assert parsed == {
+        "mode": "execute",
+        "private_root": "external_data/airtravel-api-runs",
+        "run_id": "run-001",
+        "config": "private config.json",
+        "input_manifest": "manifest.json",
+        "grant": "grant.json",
+    }
+    assert contract.parse_execution_command(command[2:]) == parsed
+    _, _, raw = bindings()
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight"])
+def test_shared_command_grammar_supports_nonexecute_cli_modes_without_authorization(mode):
+    command = [mode, *COMMAND[3:], "--config", "config.json"]
+    if mode == "prepare":
+        command.extend(
+            [
+                "--archive",
+                "archive.zip",
+                "--source-root",
+                "source",
+                "--source-manifest",
+                "source.json",
+                "--runtime-root",
+                "runtime",
+                "--amendment",
+                "amendment.json",
+                "--reference-root",
+                "reference",
+            ]
+        )
+    else:
+        command.extend(["--input-manifest", "manifest.json"])
+    parsed = contract.parse_execution_command(command)
+    assert parsed["mode"] == mode and parsed["run_id"] == "run-001"
+    _, _, raw = bindings()
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+@pytest.mark.parametrize(
+    "extra",
+    [
+        ["--run", "run-002"],
+        ["--", "--run-id", "run-002"],
+        ["--unknown", "x"],
+        ["extra-positional"],
+        ["--config"],
+        ["--config", "--grant"],
+        ["--config", "private\n.json"],
+    ],
+)
+def test_shared_command_grammar_rejects_aliases_terminators_and_ambiguous_values(extra):
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_command([*COMMAND, *extra])
+
+
 @pytest.fixture
 def private_repo(tmp_path, monkeypatch):
     subprocess.run(["git", "init", "--quiet", str(tmp_path)], check=True)
@@ -540,3 +663,103 @@ def test_contract_import_does_not_load_provider_sdk_or_network_clients():
         "assert not any(k in sys.modules for k in ('openai', 'httpx', 'requests', 'aiohttp'))"
     )
     subprocess.run([sys.executable, "-I", "-c", script], cwd=ROOT, check=True)
+
+
+NEWLINE_CASES = (
+    [
+        ("config", field)
+        for field in (
+            "model",
+            "provider_host",
+            "max_usd",
+            "price_schedule.source",
+            "price_schedule.checked_at_utc",
+            "price_schedule.input_usd_per_million_tokens",
+            "price_schedule.output_usd_per_million_tokens",
+        )
+    ]
+    + [
+        ("grant", field)
+        for field in (
+            "nonce",
+            "invocation_id",
+            "run_id",
+            "model",
+            "provider_host",
+            "max_usd",
+            "code_sha",
+            "input_manifest_sha256",
+            "config_sha256",
+            "price_schedule_sha256",
+            "command_sha256",
+            "private_root",
+            "issued_at_utc",
+            "expires_at_utc",
+        )
+    ]
+    + [
+        ("receipt", field)
+        for field in (
+            "run_id",
+            "model",
+            "provider_host",
+            "max_usd",
+            "code_sha",
+            "input_manifest_sha256",
+            "config_sha256",
+            "price_schedule_sha256",
+            "event_log_sha256",
+            "pipeline_output_sha256",
+            "ledger_sha256",
+            "spent_usd",
+            "reserved_usd",
+            "created_at_utc",
+        )
+    ]
+)
+
+
+def contract_instance(kind):
+    config, manifest, grant = bindings()
+    if kind == "config":
+        return config_data()
+    if kind == "grant":
+        return grant
+    return contract.build_receipt_skeleton(
+        config=config, manifest=manifest, run_id="run-001", mode="prepare", now=NOW
+    )
+
+
+def parse_contract_instance(kind, value):
+    if kind == "config":
+        return contract.ExecutionConfig.from_dict(value).to_dict()
+    if kind == "grant":
+        return contract.ExecutionGrant.from_dict(value).to_dict()
+    return contract.parse_execution_receipt(value)
+
+
+@pytest.mark.parametrize(("kind", "field"), NEWLINE_CASES)
+@pytest.mark.parametrize("boundary", ["schema", "parser"])
+def test_trailing_newline_rejected_without_normalization(kind, field, boundary):
+    value = contract_instance(kind)
+    target = value
+    parts = field.split(".")
+    for key in parts[:-1]:
+        target = target[key]
+    canonical = target[parts[-1]]
+    if canonical is None:
+        canonical = "a" * 64
+    target[parts[-1]] = canonical + "\n"
+    if boundary == "schema":
+        assert list(validator(kind).iter_errors(value)), f"{kind}.{field} accepted newline"
+    else:
+        with pytest.raises(contract.ContractValidationError):
+            parse_contract_instance(kind, value)
+    assert target[parts[-1]] == canonical + "\n"
+
+
+@pytest.mark.parametrize("kind", ["config", "grant", "receipt"])
+def test_canonical_contracts_remain_schema_and_parser_valid(kind):
+    value = contract_instance(kind)
+    validator(kind).validate(value)
+    assert parse_contract_instance(kind, value) == value

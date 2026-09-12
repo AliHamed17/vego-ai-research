@@ -534,6 +534,60 @@ def command_fingerprint(command: Sequence[str]) -> str:
     return canonical_json_sha256({"argv": list(command)})
 
 
+def parse_execution_command(command: Sequence[str]) -> dict[str, str]:
+    """Parse the shared CLI grammar without argparse's aliases or override rules.
+
+    Grammar: ``[launcher ...] MODE (EXACT_OPTION VALUE)*``. The optional launcher
+    consists only of non-option tokens (for example ``uv run python runner.py``).
+    Every mode option is a single known ``--name`` followed by one value, and
+    occurs at most once. Equals-form options, abbreviations, option-like values,
+    control characters, ``--``, and extra positional arguments are rejected.
+
+    A CLI can pass its mode-and-options argv directly and consume this returned
+    mapping; it must not reinterpret argv with a more permissive parser. Values
+    are preserved verbatim. Parsing is not authorization, file containment, or
+    validation that all mode-specific input files have been supplied.
+    """
+    command_fingerprint(command)  # Apply the same primitive argv constraints.
+    argv = list(command)
+    if any(any(ord(char) < 32 or ord(char) == 127 for char in arg) for arg in argv):
+        raise ContractValidationError("control character in command")
+    modes = {"prepare", "preflight", "execute"}
+    mode_index = next((i for i, arg in enumerate(argv) if arg in modes), None)
+    if mode_index is None or any(arg.startswith("-") for arg in argv[:mode_index]):
+        raise ContractValidationError("missing mode or invalid command launcher")
+    mode = argv[mode_index]
+    options = {"--config", "--private-root", "--run-id"}
+    if mode == "prepare":
+        options.update(
+            {
+                "--archive",
+                "--source-root",
+                "--source-manifest",
+                "--runtime-root",
+                "--amendment",
+                "--reference-root",
+            }
+        )
+    else:
+        options.add("--input-manifest")
+        if mode == "execute":
+            options.add("--grant")
+    tail = argv[mode_index + 1 :]
+    if len(tail) % 2:
+        raise ContractValidationError("command options require separated values")
+    parsed = {"mode": mode}
+    for index in range(0, len(tail), 2):
+        option, value = tail[index : index + 2]
+        if option not in options or value.startswith("-"):
+            raise ContractValidationError("unknown or noncanonical command option")
+        key = option[2:].replace("-", "_")
+        if key in parsed:
+            raise ContractValidationError("duplicate command option")
+        parsed[key] = value
+    return parsed
+
+
 @dataclass(frozen=True)
 class ExecutionGrant:
     """Immutable exact execute bindings; validation never consumes authorization."""
@@ -646,15 +700,11 @@ def validate_execution_grant(
                 raise GrantValidationError("provider or cap binding mismatch")
         if grant.command_sha256 != command_fingerprint(command):
             raise GrantValidationError("command fingerprint mismatch")
-        argv = list(command)
-        first_option = next((i for i, arg in enumerate(argv) if arg.startswith("--")), len(argv))
-        modes = [arg for arg in argv[:first_option] if arg in {"prepare", "preflight", "execute"}]
-        if modes != ["execute"]:
+        parsed = parse_execution_command(command)
+        if parsed["mode"] != "execute":
             raise GrantValidationError("command is not exact execute mode")
-        for option, expected in (("--run-id", grant.run_id), ("--private-root", PRIVATE_PARENT)):
-            if argv.count(option) != 1 or argv.index(option) + 1 >= len(argv):
-                raise GrantValidationError("missing or duplicated output argument")
-            if argv[argv.index(option) + 1] != expected:
+        for option, expected in (("run_id", grant.run_id), ("private_root", PRIVATE_PARENT)):
+            if parsed.get(option) != expected:
                 raise GrantValidationError("command output binding mismatch")
         if grant.private_root != f"{PRIVATE_PARENT}/{grant.run_id}":
             raise GrantValidationError("private root binding mismatch")
@@ -662,6 +712,13 @@ def validate_execution_grant(
         raise
     except (ContractValidationError, TypeError, AttributeError):
         raise GrantValidationError("invalid execution binding") from None
+
+
+def parse_execution_receipt(value: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate a private receipt and return a detached copy without trimming strings."""
+    _schema_validate("receipt", value)
+    _parse_timestamp(value["created_at_utc"])
+    return _json_value(value)
 
 
 def build_receipt_skeleton(
@@ -709,5 +766,4 @@ def build_receipt_skeleton(
             "INCOMPLETE_TECHNICAL": 0,
         },
     }
-    _schema_validate("receipt", receipt)
-    return receipt
+    return parse_execution_receipt(receipt)
