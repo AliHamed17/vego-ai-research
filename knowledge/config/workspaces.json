@@ -1,0 +1,10 @@
+{
+  "schema": "vego-ai.knowledge-workspaces.v1",
+  "workspaces": {
+    "vego-ai": {
+      "repositories": ["AliHamed17/vego-ai-research"],
+      "drive_alias": "restricted-meeting-evidence",
+      "codecium_alias": null
+    }
+  }
+}

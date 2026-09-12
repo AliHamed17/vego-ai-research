@@ -1,0 +1,6 @@
+{
+  "status": "disabled",
+  "reason": "Configure only after the exact product, workspace, API authentication, retention, and approved write scope are known.",
+  "workspace_alias": null,
+  "base_url": null
+}
