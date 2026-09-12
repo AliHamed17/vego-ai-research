@@ -510,11 +510,139 @@ def test_inconsistent_stage_lifecycle_response_fails_closed(tmp_path, complete, 
 
 def test_stage_cannot_switch_episode_identity_mid_loop(tmp_path):
     rows = outcomes(qa_cases=("01",), rounds=2)
-    rows[3]["output"]["questions"][0]["pattern_id"] = "different-pattern"
+    rows[3]["output"]["questions"][0]["pattern_id"] = "p-0123456789abcdef"
     fields = identity()
-    fields["pattern_id"] = "different-pattern"
+    fields["pattern_id"] = "p-0123456789abcdef"
     rows[4] = answer(fields, round_index=2)
     result, _, _ = run_fixture(tmp_path, rows=rows)
     assert result.status == "INCOMPLETE_TECHNICAL"
     assert result.receipt["technical_error_code"] == "MALFORMED_RESPONSE"
     assert result.detector_path is None
+
+
+def test_two_outstanding_questions_cannot_have_their_answers_swapped(tmp_path, monkeypatch):
+    pipeline = module()
+    original_call = boundary.DeterministicFakeProvider.call
+
+    async def interleave(self, prompt, *, label):
+        await asyncio.sleep(0)
+        return await original_call(self, prompt, label=label)
+
+    class SwappingRecorder(QACommunicationRecorder):
+        def emit_answer(self, **kwargs):
+            original_question = kwargs["question"]
+            kwargs["question"] = next(
+                event for event in self.events
+                if event["event_type"] == "QUESTION_EMITTED"
+                and event["question_id"] != original_question["question_id"]
+            )
+            return super().emit_answer(**kwargs)
+
+    monkeypatch.setattr(boundary.DeterministicFakeProvider, "call", interleave)
+    recorder = SwappingRecorder(tmp_path / "qa_events.jsonl", run_id="synthetic-run")
+
+    async def ask(case_id):
+        return await pipeline.route_question_answer(
+            asking_agent="agent2", answering_agent="agent1", case_id=case_id,
+            stage=STAGES[0][1], skill=STAGES[0][2], scope="language",
+            question_text="Synthetic question shared by two distinct cases.",
+            provider=boundary.DeterministicFakeProvider([answer(identity(case_id=case_id))]),
+            ledger=boundary.BudgetLedger(config()), recorder=recorder,
+            run_id="synthetic-run", setting_id="cd_airtravel", round_index=1,
+        )
+
+    async def both():
+        return await asyncio.gather(ask("01"), ask("02"), return_exceptions=True)
+
+    results = asyncio.run(both())
+    assert all(isinstance(result, pipeline.PipelineFailure) for result in results)
+    assert all(result.code == "MALFORMED_RESPONSE" for result in results)
+    terminals = [event for event in recorder.events if event["event_type"] == "EPISODE_TERMINATED"]
+    assert len(terminals) == 2
+    assert all(event["termination_reason"] == "INCOMPLETE_TECHNICAL" for event in terminals)
+
+
+@pytest.mark.parametrize("metadata_field", ["source_tier", "guideline_id", "pattern_id"])
+@pytest.mark.parametrize("private_value", [
+    "SENSITIVE_SENTINEL_SYNTHETIC_PRIVATE_CONTENT",
+    "Synthetic raw answer text must never be an identifier.",
+    "Synthetic/Private/Source.txt", "x" * 200,
+])
+def test_model_metadata_cannot_persist_raw_or_sensitive_content(tmp_path, metadata_field, private_value):
+    rows = outcomes(qa_cases=("01",))
+    if metadata_field == "source_tier":
+        rows[2]["output"][metadata_field] = private_value
+    else:
+        rows[1]["output"]["questions"][0][metadata_field] = private_value
+        fields = identity()
+        fields[metadata_field] = private_value
+        rows[2] = answer(fields)
+    result, _, _ = run_fixture(tmp_path, rows=rows)
+    assert result.status == "INCOMPLETE_TECHNICAL"
+    assert result.receipt["technical_error_code"] == "MALFORMED_RESPONSE"
+    for path in tmp_path.iterdir():
+        assert private_value not in path.read_text(encoding="utf-8")
+    assert result.detector_path is None
+
+
+@pytest.mark.parametrize("mutation", [
+    {"round_index": 2},
+    {"termination_reason": "TERMINATED_MAX_ROUNDS", "converged": False},
+    {"question_id": "wrong-question"}, {"source_agent": "agent4"},
+    {"target_agent": "agent2"}, {"case_id": "04"},
+    {"source_stage": "wrong-stage"}, {"source_skill": "wrong-skill"},
+])
+def test_terminal_substitution_cannot_create_false_detector_signals(tmp_path, mutation):
+    class ChangedTerminalRecorder(QACommunicationRecorder):
+        def emit_termination(self, **kwargs):
+            return super().emit_termination(**{**kwargs, **mutation})
+
+    result, _, _ = run_fixture(tmp_path, rows=outcomes(qa_cases=("01",)),
+                               recorder_type=ChangedTerminalRecorder)
+    assert result.status == "INCOMPLETE_TECHNICAL"
+    assert result.receipt["technical_error_code"] == "MALFORMED_RESPONSE"
+    assert result.detector_path is None
+    assert not (tmp_path / "detector_v1.json").exists()
+
+
+def test_terminal_return_must_be_the_exact_persisted_event(tmp_path):
+    class DetachedTerminalRecorder(QACommunicationRecorder):
+        def emit_termination(self, **kwargs):
+            return dict(super().emit_termination(**kwargs))
+
+    result, _, _ = run_fixture(tmp_path, rows=outcomes(qa_cases=("01",)),
+                               recorder_type=DetachedTerminalRecorder)
+    assert result.status == "INCOMPLETE_TECHNICAL"
+    assert result.receipt["technical_error_code"] == "MALFORMED_RESPONSE"
+    assert result.detector_path is None
+
+
+def test_opaque_metadata_identifiers_and_allowlisted_source_category_are_preserved(tmp_path):
+    rows = outcomes(qa_cases=("01",))
+    opaque = {"guideline_id": "g-0123456789abcdef", "pattern_id": "p-fedcba9876543210"}
+    rows[1]["output"]["questions"][0].update(opaque)
+    rows[2] = answer({**identity(), **opaque}, source_tier="domain_description")
+    result, recorder, _ = run_fixture(tmp_path, rows=rows)
+    assert result.status == "PASS"
+    assert all(event["guideline_id"] == opaque["guideline_id"] for event in recorder.events)
+    assert all(event["pattern_id"] == opaque["pattern_id"] for event in recorder.events)
+    assert recorder.events[1]["answer_source_tier"] == "domain_description"
+
+
+@pytest.mark.parametrize("metadata_field", ["guideline_id", "pattern_id"])
+def test_direct_route_rejects_raw_identifier_before_recording(tmp_path, metadata_field):
+    private_value = "SENSITIVE_SENTINEL_SYNTHETIC_PRIVATE_CONTENT"
+    fields = {**identity(), metadata_field: private_value}
+    recorder = QACommunicationRecorder(tmp_path / "qa_events.jsonl", run_id="synthetic-run")
+    provider = boundary.DeterministicFakeProvider([answer(fields)])
+    with pytest.raises(module().PipelineFailure, match="MALFORMED_RESPONSE"):
+        asyncio.run(module().route_question_answer(
+            asking_agent="agent2", answering_agent="agent1", case_id="01", stage=STAGES[0][1],
+            skill=STAGES[0][2], scope="language", question_text="Synthetic actual question.",
+            provider=provider, ledger=boundary.BudgetLedger(config()), recorder=recorder,
+            run_id="synthetic-run", setting_id="cd_airtravel", round_index=1,
+            **{metadata_field: private_value},
+        ))
+    assert recorder.events == []
+    assert provider.physical_call_count == 0
+    assert not recorder.path.exists()
