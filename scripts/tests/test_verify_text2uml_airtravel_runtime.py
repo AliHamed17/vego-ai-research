@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib
 import json
 import os
 import pathlib
@@ -14,7 +15,15 @@ import pytest
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from verify_text2uml_airtravel_runtime import verify_pack  # noqa: E402
+verifier = importlib.import_module("verify_text2uml_airtravel_runtime")
+
+
+PUBLIC_AIRTRAVEL_COMMIT = "253b26dc704d523209a5cba79686f8f7fab57d63"
+PUBLIC_AIRTRAVEL_ARCHIVE_SHA256 = "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701"
+PUBLIC_AIRTRAVEL_SOURCE_ENTRY_COUNT = 143
+
+
+verify_pack = verifier.verify_pack
 
 
 def _digest(path: Path) -> str:
@@ -46,9 +55,7 @@ def _write_source_archive(archive: Path, source_root: Path) -> None:
 
 def _refresh_source_manifest(inputs: dict[str, Path]) -> None:
     source_root = inputs["source_root"]
-    archive = inputs["archive"]
     manifest = read_json(inputs["source_manifest"])
-    manifest["archive_sha256"] = _digest(archive)
     manifest["source_entries"] = [
         _file_row(source_root, path)
         for path in sorted(source_root.rglob("*"))
@@ -90,8 +97,13 @@ def make_verified_inputs(tmp_path: Path) -> dict[str, Path]:
         "candidate_models/03_case.txt": b"@startuml\nAlice -> Bob: change\n@enduml\n",
         "candidate_models/04_case.txt": b"@startuml\nAlice -> Bob: pay\n@enduml\n",
     }
+    values.update({
+        f"source_only/{index:03d}.txt": f"synthetic source entry {index}\n".encode()
+        for index in range(1, 139)
+    })
     for rel, content in values.items():
-        for root in (source_root, runtime_root):
+        roots = (source_root,) if rel.startswith("source_only/") else (source_root, runtime_root)
+        for root in roots:
             path = root / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(content)
@@ -111,8 +123,8 @@ def make_verified_inputs(tmp_path: Path) -> dict[str, Path]:
         "reference_root": reference_root,
     }
     write_json(source_manifest, {
-        "archive_sha256": _digest(archive),
-        "commit": "public-airtravel-fixture-commit",
+        "archive_sha256": PUBLIC_AIRTRAVEL_ARCHIVE_SHA256,
+        "commit": PUBLIC_AIRTRAVEL_COMMIT,
         "source_entries": [_file_row(source_root, source_root / rel) for rel in sorted(values)],
     })
     write_json(amendment_manifest, {
@@ -124,15 +136,41 @@ def make_verified_inputs(tmp_path: Path) -> dict[str, Path]:
     return inputs
 
 
-def test_verified_source_and_five_file_runtime_pass(tmp_path: Path) -> None:
+def _verify_synthetic_public_pack(inputs: dict[str, Path], monkeypatch: pytest.MonkeyPatch) -> dict[str, object]:
+    archive = inputs["archive"]
+
+    def archive_authority_digest(path: Path) -> str:
+        return PUBLIC_AIRTRAVEL_ARCHIVE_SHA256 if path == archive else _digest(path)
+
+    monkeypatch.setattr(verifier, "sha256", archive_authority_digest)
+    return verify_pack(**inputs)
+
+
+def test_verified_source_and_five_file_runtime_pass(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     inputs = make_verified_inputs(tmp_path)
+
+    result = _verify_synthetic_public_pack(inputs, monkeypatch)
+
+    assert result["status"] == "PASS"
+    assert result["source_entries"]["matched"] == 143
+    assert result["runtime_pack"]["observed_count"] == 5
+    assert result["source_to_runtime"]["byte_identical"] is True
+    assert result["source_archive"]["expected_sha256"] == PUBLIC_AIRTRAVEL_ARCHIVE_SHA256
+    assert result["source_archive"]["expected_commit"] == PUBLIC_AIRTRAVEL_COMMIT
+
+
+def test_self_consistent_mutable_source_authority_still_blocks(tmp_path: Path) -> None:
+    inputs = make_verified_inputs(tmp_path)
+    source_manifest = read_json(inputs["source_manifest"])
+    source_manifest["archive_sha256"] = _digest(inputs["archive"])
+    source_manifest["commit"] = "substituted-commit"
+    write_json(inputs["source_manifest"], source_manifest)
 
     result = verify_pack(**inputs)
 
-    assert result["status"] == "PASS"
-    assert result["source_entries"]["matched"] == 5
-    assert result["runtime_pack"]["observed_count"] == 5
-    assert result["source_to_runtime"]["byte_identical"] is True
+    assert result["status"] == "BLOCKED"
+    assert result["source_archive"]["expected_sha256"] == PUBLIC_AIRTRAVEL_ARCHIVE_SHA256
+    assert result["source_archive"]["commit_binding"] is False
 
 
 def test_archive_or_mapping_drift_blocks(tmp_path: Path) -> None:
@@ -246,3 +284,71 @@ def test_empty_manifest_blocks(tmp_path: Path, manifest_name: str) -> None:
     result = verify_pack(**inputs)
 
     assert result["status"] == "BLOCKED"
+
+
+@pytest.mark.parametrize("version", [None, "text2uml-airtravel-v1.0.3"])
+def test_amendment_identity_must_match_v102(tmp_path: Path, version: str | None) -> None:
+    inputs = make_verified_inputs(tmp_path)
+    amendment = read_json(inputs["amendment_manifest"])
+    if version is None:
+        amendment.pop("amendment_version")
+    else:
+        amendment["amendment_version"] = version
+    write_json(inputs["amendment_manifest"], amendment)
+
+    result = verify_pack(**inputs)
+
+    assert result["status"] == "BLOCKED"
+    assert result["runtime_pack"]["status"] == "BLOCKED"
+
+
+@pytest.mark.parametrize(
+    ("manifest_name", "row_key", "value"),
+    [
+        ("source_manifest", "row", 42),
+        ("source_manifest", "sha256", "not-a-digest"),
+        ("source_manifest", "path", "../outside.txt"),
+        ("amendment_manifest", "byte_transformation", "COPY"),
+        ("amendment_manifest", "source_path", "../outside.txt"),
+    ],
+)
+def test_malformed_manifest_rows_or_fields_block(
+    tmp_path: Path, manifest_name: str, row_key: str, value: object
+) -> None:
+    inputs = make_verified_inputs(tmp_path)
+    manifest = read_json(inputs[manifest_name])
+    rows = manifest["source_entries"] if manifest_name == "source_manifest" else manifest["runtime_files"]
+    if row_key == "row":
+        rows[0] = value
+    else:
+        rows[0][row_key] = value
+    write_json(inputs[manifest_name], manifest)
+
+    result = verify_pack(**inputs)
+
+    assert result["status"] == "BLOCKED"
+
+
+def test_runtime_symlink_or_equivalent_reparse_blocks(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    inputs = make_verified_inputs(tmp_path)
+    runtime_file = inputs["runtime_root"] / "candidate_models/01_case.txt"
+    link = inputs["runtime_root"] / "candidate_models/runtime-link.txt"
+    fallback_used = False
+    try:
+        os.symlink(runtime_file, link)
+    except OSError:
+        fallback_used = True
+        original = verifier._is_link_or_reparse
+        monkeypatch.setattr(
+            verifier,
+            "_is_link_or_reparse",
+            lambda path: path == runtime_file or original(path),
+        )
+
+    result = verify_pack(**inputs)
+
+    assert result["status"] == "BLOCKED"
+    assert result["runtime_pack"]["status"] == "BLOCKED"
+    assert fallback_used or "candidate_models/runtime-link.txt" in result["runtime_pack"]["unsafe_paths"]

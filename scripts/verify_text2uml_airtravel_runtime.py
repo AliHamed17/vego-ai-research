@@ -19,6 +19,10 @@ from typing import Any
 
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 RUNTIME_FILE_COUNT = 5
+PUBLIC_AIRTRAVEL_COMMIT = "253b26dc704d523209a5cba79686f8f7fab57d63"
+PUBLIC_AIRTRAVEL_ARCHIVE_SHA256 = "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701"
+PUBLIC_AIRTRAVEL_SOURCE_ENTRY_COUNT = 143
+AIRTRAVEL_AMENDMENT_VERSION = "text2uml-airtravel-v1.0.2"
 
 
 def sha256(path: Path) -> str:
@@ -124,16 +128,20 @@ def _load_manifest(path: Path) -> Mapping[str, Any] | None:
 def verify_source_archive(archive: Path, expected_sha256: str, expected_commit: str) -> dict[str, Any]:
     """Return archive digest, commit binding, member inventory, and status."""
     result = _blocked(
-        expected_sha256=expected_sha256,
-        expected_commit=expected_commit,
+        expected_sha256=PUBLIC_AIRTRAVEL_ARCHIVE_SHA256,
+        expected_commit=PUBLIC_AIRTRAVEL_COMMIT,
+        declared_sha256=expected_sha256,
+        declared_commit=expected_commit,
         actual_sha256=None,
         member_inventory=[],
         duplicate_members=[],
         commit_binding=False,
     )
-    if not archive.is_file() or not isinstance(expected_sha256, str) or not SHA256_RE.fullmatch(expected_sha256.lower()):
-        return result
-    if not isinstance(expected_commit, str) or not expected_commit.strip():
+    authority_matches = (
+        expected_sha256 == PUBLIC_AIRTRAVEL_ARCHIVE_SHA256
+        and expected_commit == PUBLIC_AIRTRAVEL_COMMIT
+    )
+    if not archive.is_file() or _is_link_or_reparse(archive) or not authority_matches:
         return result
     try:
         actual_sha256 = sha256(archive)
@@ -148,13 +156,13 @@ def verify_source_archive(archive: Path, expected_sha256: str, expected_commit: 
             ]
     except (OSError, zipfile.BadZipFile, RuntimeError, ValueError):
         return result
-    digest_matches = actual_sha256 == expected_sha256.lower()
+    digest_matches = actual_sha256 == PUBLIC_AIRTRAVEL_ARCHIVE_SHA256
     result.update({
         "actual_sha256": actual_sha256,
         "member_inventory": sorted(inventory, key=lambda row: row["path"]),
         "duplicate_members": duplicate_members,
         "invalid_members": invalid_members,
-        "commit_binding": True,
+        "commit_binding": authority_matches,
     })
     if digest_matches and not duplicate_members and not invalid_members:
         result["status"] = "PASS"
@@ -174,7 +182,12 @@ def verify_source_entries(source_root: Path, source_manifest: Mapping[str, Any])
         unsafe_paths=unsafe_paths,
         manifest_errors=errors,
     )
-    if not errors and not unsafe_paths and expected == observed:
+    if (
+        not errors
+        and not unsafe_paths
+        and len(expected) == PUBLIC_AIRTRAVEL_SOURCE_ENTRY_COUNT
+        and expected == observed
+    ):
         result["status"] = "PASS"
     return result
 
@@ -262,6 +275,7 @@ def verify_runtime_pack(runtime_root: Path, amendment: Mapping[str, Any]) -> dic
     observed_rows, unsafe_paths = _tree_rows(runtime_root)
     observed = _canonical_observed(observed_rows)
     configuration = amendment.get("allowed_configuration")
+    amendment_identity = amendment.get("amendment_version") == AIRTRAVEL_AMENDMENT_VERSION
     allowed_configuration = (
         isinstance(configuration, Mapping)
         and configuration.get("provider_run_permitted") is False
@@ -274,8 +288,9 @@ def verify_runtime_pack(runtime_root: Path, amendment: Mapping[str, Any]) -> dic
         unsafe_paths=unsafe_paths,
         manifest_errors=errors,
         allowed_configuration=allowed_configuration,
+        amendment_identity=amendment_identity,
     )
-    if not errors and not unsafe_paths and allowed_configuration and expected == observed:
+    if not errors and not unsafe_paths and allowed_configuration and amendment_identity and expected == observed:
         result["status"] = "PASS"
     return result
 
