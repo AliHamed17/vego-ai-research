@@ -62,12 +62,16 @@ def config_data() -> dict:
 
 
 def verification_data() -> dict:
+    source_paths = ["description.md"] + [
+        f"result_one_{name}.txt"
+        for name in ("claude-sonnet-4-6", "codestral-2508", "deepseek-chat", "gemini-2.5-flash")
+    ]
     paths = ["domain_description/description.md"] + [
-        f"candidate_models/{i:02d}.txt" for i in range(1, 5)
+        f"candidate_models/{i:02d}_{name}" for i, name in enumerate(source_paths[1:], 1)
     ]
     inventory = [
         {"path": path, "bytes": i + 1, "sha256": hashlib.sha256(path.encode()).hexdigest()}
-        for i, path in enumerate(paths)
+        for i, path in enumerate(source_paths)
     ]
     inventory += [
         {"path": f"source_only/{i}.txt", "bytes": 1, "sha256": "b" * 64} for i in range(138)
@@ -87,6 +91,12 @@ def verification_data() -> dict:
             "member_inventory": inventory,
             "duplicate_members": [],
             "invalid_members": [],
+            "ambiguous_members": [],
+            "selected_prefix": f"text2uml-{UPSTREAM}/dataset/AirTravel/",
+            "observed_count": 143,
+            "missing": [],
+            "extra": [],
+            "mismatched": [],
         },
         "source_entries": {
             "status": "PASS",
@@ -101,7 +111,10 @@ def verification_data() -> dict:
             "byte_identical": True,
             "mapping_count": 5,
             "errors": [],
-            "mappings": [{"source_path": p, "path": p, "byte_identical": True} for p in paths],
+            "mappings": [
+                {"source_path": s, "path": p, "byte_identical": True}
+                for s, p in zip(source_paths, paths, strict=True)
+            ],
         },
         "runtime_pack": {
             "status": "PASS",
@@ -109,10 +122,20 @@ def verification_data() -> dict:
             "observed_count": 5,
             "unsafe_paths": [],
             "manifest_errors": [],
-            "allowed_configuration": True,
+            "runtime_identity": True,
             "amendment_identity": True,
         },
-        "reference_separation": {"status": "PASS", "reference_count": 1, "leaked_paths": []},
+        "reference_separation": {
+            "status": "PASS",
+            "reference_count": 3,
+            "leaked_paths": [],
+            "declared_reference_match": True,
+            "source_reference_match": True,
+            "errors": [],
+            "missing": [],
+            "extra": [],
+            "mismatched": [],
+        },
     }
 
 
@@ -297,14 +320,15 @@ def test_manifest_binds_full_verification_five_hashes_config_and_code():
     rows = {row.path: row for row in manifest.runtime_files}
     row = rows["domain_description/description.md"]
     assert row.bytes == 1
-    assert row.sha256 == hashlib.sha256(b"domain_description/description.md").hexdigest()
+    assert row.source_path == "description.md"
+    assert row.sha256 == hashlib.sha256(b"description.md").hexdigest()
     assert manifest.verification_sha256 == contract.canonical_json_sha256(verification_data())
     assert manifest.config_sha256 == config.sha256
     assert manifest.code_sha == COMMIT
     assert manifest.source_archive_sha256 == ARCHIVE
     assert contract.VerifiedInputManifest.from_dict(manifest.to_dict()) == manifest
     raw = verification_data()
-    raw["reference_separation"]["reference_count"] = 2
+    raw["source_archive"]["nonselected_member_count"] = 2
     changed = contract.build_input_manifest(verification=raw, config=config, code_sha=COMMIT)
     assert changed.sha256 != manifest.sha256
     with pytest.raises(FrozenInstanceError):
@@ -328,6 +352,11 @@ def test_manifest_binds_full_verification_five_hashes_config_and_code():
         "false_reference",
         "missing_evidence",
         "bool_bytes",
+        "empty_reference",
+        "unbound_reference",
+        "unbound_source_reference",
+        "archive_prefix",
+        "archive_ambiguity",
     ],
 )
 def test_manifest_rejects_incomplete_or_failed_verifier_evidence(mutation):
@@ -360,6 +389,16 @@ def test_manifest_rejects_incomplete_or_failed_verifier_evidence(mutation):
         raw["reference_separation"]["leaked_paths"] = ["reference.txt"]
     elif mutation == "missing_evidence":
         del raw["runtime_pack"]["amendment_identity"]
+    elif mutation == "empty_reference":
+        raw["reference_separation"]["reference_count"] = 0
+    elif mutation == "unbound_reference":
+        raw["reference_separation"]["declared_reference_match"] = False
+    elif mutation == "unbound_source_reference":
+        raw["reference_separation"]["source_reference_match"] = False
+    elif mutation == "archive_prefix":
+        raw["source_archive"]["selected_prefix"] = "dataset/AirTravel/"
+    elif mutation == "archive_ambiguity":
+        raw["source_archive"]["ambiguous_members"] = ["alternate-root/dataset/AirTravel/model.txt"]
     else:
         raw["source_archive"]["member_inventory"][0]["bytes"] = True
     with pytest.raises(contract.ContractValidationError):
@@ -851,9 +890,20 @@ def test_public_grant_template_cannot_be_mistaken_for_execution_authority():
     assert "TEMPLATE_ONLY_NOT_AUTHORIZATION" in text
     assert "human" in text and "one-time" in text
     for field in (
-        "model", "price_schedule", "checked_at_utc", "max_calls", "max_rounds",
-        "call_inventory_sha256", "command_sha256", "private_root", "expires_at_utc",
-        "nonce", "invocation_id", "code_sha", "input_manifest_sha256", "config_sha256",
+        "model",
+        "price_schedule",
+        "checked_at_utc",
+        "max_calls",
+        "max_rounds",
+        "call_inventory_sha256",
+        "command_sha256",
+        "private_root",
+        "expires_at_utc",
+        "nonce",
+        "invocation_id",
+        "code_sha",
+        "input_manifest_sha256",
+        "config_sha256",
     ):
         assert f"`{field}`" in text
     assert "does not authorize VEGO ZIP or QuRE" in text

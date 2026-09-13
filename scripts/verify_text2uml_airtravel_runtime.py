@@ -4,6 +4,7 @@ The verifier only compares supplied bytes and manifests.  It never creates a
 model, provider, or API client, and treats incomplete or malformed evidence as
 blocking.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -22,7 +23,21 @@ RUNTIME_FILE_COUNT = 5
 PUBLIC_AIRTRAVEL_COMMIT = "253b26dc704d523209a5cba79686f8f7fab57d63"
 PUBLIC_AIRTRAVEL_ARCHIVE_SHA256 = "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701"
 PUBLIC_AIRTRAVEL_SOURCE_ENTRY_COUNT = 143
-AIRTRAVEL_AMENDMENT_VERSION = "text2uml-airtravel-v1.0.2"
+AIRTRAVEL_AMENDMENT_VERSION = "1.0.2"
+PUBLIC_AIRTRAVEL_ARCHIVE_ROOT = f"text2uml-{PUBLIC_AIRTRAVEL_COMMIT}/"
+PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX = PUBLIC_AIRTRAVEL_ARCHIVE_ROOT + "dataset/AirTravel/"
+FROZEN_SOURCE_RUNTIME_PATHS = (
+    ("description.md", "domain_description/description.md"),
+    ("result_one_claude-sonnet-4-6.txt", "candidate_models/01_result_one_claude-sonnet-4-6.txt"),
+    ("result_one_codestral-2508.txt", "candidate_models/02_result_one_codestral-2508.txt"),
+    ("result_one_deepseek-chat.txt", "candidate_models/03_result_one_deepseek-chat.txt"),
+    ("result_one_gemini-2.5-flash.txt", "candidate_models/04_result_one_gemini-2.5-flash.txt"),
+)
+FROZEN_REFERENCE_PATHS = (
+    "reference_only/plantuml.txt",
+    "reference_only/plantuml_adjusted.txt",
+    "reference_only/extramaterial/AirTravel.cd4a",
+)
 
 
 def sha256(path: Path) -> str:
@@ -51,7 +66,14 @@ def _safe_relative_path(value: object) -> str | None:
     if not isinstance(value, str) or not value:
         return None
     candidate = PurePosixPath(value)
-    if candidate.is_absolute() or ".." in candidate.parts or "\\" in value:
+    if (
+        candidate.is_absolute()
+        or ".." in candidate.parts
+        or "\\" in value
+        or ":" in value
+        or any(part.endswith((".", " ")) for part in candidate.parts)
+        or any(ord(char) < 32 for char in value)
+    ):
         return None
     normalised = candidate.as_posix()
     return normalised if normalised == value and normalised != "." else None
@@ -112,7 +134,7 @@ def _canonical_rows(rows: object) -> tuple[list[tuple[str, int, str]], list[str]
             continue
         canonical.append((path, size, digest))
     paths = [row[0] for row in canonical]
-    if len(paths) != len(set(paths)):
+    if len(paths) != len({path.casefold() for path in paths}):
         errors.append("duplicate paths in manifest")
     return sorted(canonical), errors
 
@@ -129,7 +151,9 @@ def _load_manifest(path: Path) -> Mapping[str, Any] | None:
     return value if isinstance(value, Mapping) else None
 
 
-def verify_source_archive(archive: Path, expected_sha256: str, expected_commit: str) -> dict[str, Any]:
+def verify_source_archive(
+    archive: Path, expected_sha256: str, expected_commit: str
+) -> dict[str, Any]:
     """Return archive digest, commit binding, member inventory, and status."""
     result = _blocked(
         expected_sha256=PUBLIC_AIRTRAVEL_ARCHIVE_SHA256,
@@ -139,6 +163,10 @@ def verify_source_archive(archive: Path, expected_sha256: str, expected_commit: 
         actual_sha256=None,
         member_inventory=[],
         duplicate_members=[],
+        invalid_members=[],
+        ambiguous_members=[],
+        selected_prefix=PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX,
+        observed_count=0,
         commit_binding=False,
     )
     authority_matches = (
@@ -149,33 +177,75 @@ def verify_source_archive(archive: Path, expected_sha256: str, expected_commit: 
         return result
     try:
         actual_sha256 = sha256(archive)
+        result["actual_sha256"] = actual_sha256
+        if actual_sha256 != PUBLIC_AIRTRAVEL_ARCHIVE_SHA256:
+            return result
         with zipfile.ZipFile(archive) as handle:
-            members = [info for info in handle.infolist() if not info.is_dir()]
-            member_names = [info.filename for info in members]
-            duplicate_members = sorted(name for name, count in Counter(member_names).items() if count > 1)
+            all_members = handle.infolist()
+            member_names = [info.filename.rstrip("/") for info in all_members]
+            duplicate_members = sorted(
+                name for name, count in Counter(member_names).items() if count > 1
+            )
             invalid_members = [name for name in member_names if _safe_relative_path(name) is None]
+            ambiguous_members = [
+                info.filename
+                for info in all_members
+                if (
+                    not info.filename.startswith(PUBLIC_AIRTRAVEL_ARCHIVE_ROOT)
+                    or (
+                        "/dataset/airtravel/" in info.filename.casefold()
+                        and not info.filename.startswith(PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX)
+                    )
+                )
+            ]
+            folded = Counter(name.casefold() for name in member_names)
+            ambiguous_members.extend(name for name in member_names if folded[name.casefold()] > 1)
+            invalid_members.extend(
+                info.filename for info in all_members if stat.S_ISLNK(info.external_attr >> 16)
+            )
+            members = [
+                info
+                for info in all_members
+                if not info.is_dir() and info.filename.startswith(PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX)
+            ]
             inventory = [
-                {"path": info.filename, "bytes": info.file_size, "sha256": hashlib.sha256(handle.read(info)).hexdigest()}
+                {
+                    "path": info.filename.removeprefix(PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX),
+                    "bytes": info.file_size,
+                    "sha256": hashlib.sha256(handle.read(info)).hexdigest(),
+                }
                 for info in members
             ]
     except (OSError, zipfile.BadZipFile, RuntimeError, ValueError):
         return result
     digest_matches = actual_sha256 == PUBLIC_AIRTRAVEL_ARCHIVE_SHA256
-    result.update({
-        "actual_sha256": actual_sha256,
-        "member_inventory": sorted(inventory, key=lambda row: row["path"]),
-        "duplicate_members": duplicate_members,
-        "invalid_members": invalid_members,
-        "commit_binding": authority_matches,
-    })
-    if digest_matches and not duplicate_members and not invalid_members:
+    result.update(
+        {
+            "actual_sha256": actual_sha256,
+            "member_inventory": sorted(inventory, key=lambda row: row["path"]),
+            "duplicate_members": duplicate_members,
+            "invalid_members": invalid_members,
+            "ambiguous_members": sorted(set(ambiguous_members)),
+            "observed_count": len(inventory),
+            "commit_binding": authority_matches,
+        }
+    )
+    if (
+        digest_matches
+        and not duplicate_members
+        and not invalid_members
+        and not ambiguous_members
+        and len(inventory) == PUBLIC_AIRTRAVEL_SOURCE_ENTRY_COUNT
+    ):
         result["status"] = "PASS"
     return result
 
 
 def verify_source_entries(source_root: Path, source_manifest: Mapping[str, Any]) -> dict[str, Any]:
     """Compare every expected source entry by path, byte length, and digest."""
-    expected, errors = _canonical_rows(source_manifest.get("source_entries"))
+    expected, errors = _canonical_rows(source_manifest.get("files"))
+    if source_manifest.get("upstream_commit") != PUBLIC_AIRTRAVEL_COMMIT:
+        errors.append("source manifest commit mismatch")
     observed_rows, unsafe_paths = _tree_rows(source_root)
     observed = _canonical_observed(observed_rows)
     matched = sum(1 for row in expected if row in observed)
@@ -196,24 +266,61 @@ def verify_source_entries(source_root: Path, source_manifest: Mapping[str, Any])
     return result
 
 
+def _amendment_identity(amendment: Mapping[str, Any]) -> bool:
+    return (
+        amendment.get("amendment_version") == AIRTRAVEL_AMENDMENT_VERSION
+        and amendment.get("upstream_commit") == PUBLIC_AIRTRAVEL_COMMIT
+        and amendment.get("setting_id") == "cd_airtravel"
+        and amendment.get("corpus_id") == "text2uml_airtravel_253b26dc"
+        and type(amendment.get("N")) is int
+        and amendment["N"] == 4
+    )
+
+
+def _runtime_declarations(
+    amendment: Mapping[str, Any],
+) -> tuple[list[tuple[str, int, str]], list[str]]:
+    expected, errors = _canonical_rows(amendment.get("runtime_files"))
+    if {row[0] for row in expected} != {row[1] for row in FROZEN_SOURCE_RUNTIME_PATHS}:
+        errors.append("runtime paths differ from frozen five-file selection")
+    for row in (
+        amendment.get("runtime_files", [])
+        if isinstance(amendment.get("runtime_files"), list)
+        else []
+    ):
+        if not isinstance(row, Mapping):
+            continue
+        expected_role = (
+            "domain_description"
+            if row.get("path") == "domain_description/description.md"
+            else "candidate_model"
+        )
+        if row.get("role") != expected_role:
+            errors.append("runtime role mismatch")
+    return expected, errors
+
+
 def verify_source_to_runtime_mapping(
     source_root: Path, runtime_root: Path, amendment: Mapping[str, Any]
 ) -> dict[str, Any]:
     """Require exactly five unique, byte-identical source-to-runtime mappings."""
-    rows = amendment.get("runtime_files")
-    errors: list[str] = []
+    rows = amendment.get("source_to_runtime_mapping")
+    declared_runtime, errors = _runtime_declarations(amendment)
+    declared_by_path = {path: (size, digest) for path, size, digest in declared_runtime}
+    if not _amendment_identity(amendment):
+        errors.append("amendment identity mismatch")
     comparisons: list[dict[str, Any]] = []
     source_paths: list[str] = []
     runtime_paths: list[str] = []
     if not isinstance(rows, list) or len(rows) != RUNTIME_FILE_COUNT:
-        errors.append("runtime_files must contain exactly five mappings")
+        errors.append("source_to_runtime_mapping must contain exactly five mappings")
         rows = rows if isinstance(rows, list) else []
     for index, row in enumerate(rows):
         if not isinstance(row, Mapping):
             errors.append(f"mapping {index} is not an object")
             continue
         source_path = _safe_relative_path(row.get("source_path"))
-        runtime_path = _safe_relative_path(row.get("path"))
+        runtime_path = _safe_relative_path(row.get("runtime_path"))
         declared_size = row.get("bytes")
         declared_digest = row.get("sha256")
         transformation = row.get("byte_transformation")
@@ -225,6 +332,14 @@ def verify_source_to_runtime_mapping(
             or not isinstance(declared_digest, str)
             or not SHA256_RE.fullmatch(declared_digest.lower())
             or transformation != "NONE"
+            or (source_path, runtime_path) not in FROZEN_SOURCE_RUNTIME_PATHS
+            or row.get("transformation")
+            != (
+                "BYTE_IDENTICAL_RELOCATION"
+                if source_path == "description.md"
+                else "BYTE_IDENTICAL_RELOCATION_AND_CASE_ID_PREFIX"
+            )
+            or declared_by_path.get(runtime_path) != (declared_size, declared_digest.lower())
         ):
             errors.append(f"mapping {index} is malformed")
             continue
@@ -248,21 +363,19 @@ def verify_source_to_runtime_mapping(
                 )
             except OSError:
                 identical = False
-        comparisons.append({"source_path": source_path, "path": runtime_path, "byte_identical": identical})
+        comparisons.append(
+            {"source_path": source_path, "path": runtime_path, "byte_identical": identical}
+        )
     if len(source_paths) != len(set(source_paths)):
         errors.append("duplicate source mapping path")
     if len(runtime_paths) != len(set(runtime_paths)):
         errors.append("duplicate runtime mapping path")
-    if sum(path.startswith("domain_description/") for path in source_paths) != 1:
-        errors.append("mappings must contain one domain description source")
-    if sum(path.startswith("candidate_models/") for path in source_paths) != 4:
-        errors.append("mappings must contain four candidate model sources")
-    if sum(path.startswith("domain_description/") for path in runtime_paths) != 1:
-        errors.append("mappings must contain one domain description runtime path")
-    if sum(path.startswith("candidate_models/") for path in runtime_paths) != 4:
-        errors.append("mappings must contain four candidate model runtime paths")
-    byte_identical = not errors and len(comparisons) == RUNTIME_FILE_COUNT and all(
-        comparison["byte_identical"] for comparison in comparisons
+    if set(zip(source_paths, runtime_paths, strict=True)) != set(FROZEN_SOURCE_RUNTIME_PATHS):
+        errors.append("mappings differ from frozen five-file selection")
+    byte_identical = (
+        not errors
+        and len(comparisons) == RUNTIME_FILE_COUNT
+        and all(comparison["byte_identical"] for comparison in comparisons)
     )
     return {
         "status": "PASS" if byte_identical else "BLOCKED",
@@ -274,16 +387,12 @@ def verify_source_to_runtime_mapping(
 
 
 def verify_runtime_pack(runtime_root: Path, amendment: Mapping[str, Any]) -> dict[str, Any]:
-    """Require the exact five runtime files and a restrictive configuration."""
-    expected, errors = _canonical_rows(amendment.get("runtime_files"))
+    """Verify the five runtime bytes; execution configuration is a separate gate."""
+    expected, errors = _runtime_declarations(amendment)
     observed_rows, unsafe_paths = _tree_rows(runtime_root)
     observed = _canonical_observed(observed_rows)
-    configuration = amendment.get("allowed_configuration")
     amendment_identity = amendment.get("amendment_version") == AIRTRAVEL_AMENDMENT_VERSION
-    allowed_configuration = (
-        isinstance(configuration, Mapping)
-        and configuration.get("provider_run_permitted") is False
-    )
+    runtime_identity = _amendment_identity(amendment)
     if len(expected) != RUNTIME_FILE_COUNT:
         errors.append("runtime manifest must contain exactly five files")
     result = _blocked(
@@ -291,15 +400,27 @@ def verify_runtime_pack(runtime_root: Path, amendment: Mapping[str, Any]) -> dic
         observed_count=len(observed),
         unsafe_paths=unsafe_paths,
         manifest_errors=errors,
-        allowed_configuration=allowed_configuration,
+        runtime_identity=runtime_identity,
         amendment_identity=amendment_identity,
     )
-    if not errors and not unsafe_paths and allowed_configuration and amendment_identity and expected == observed:
+    if (
+        not errors
+        and not unsafe_paths
+        and runtime_identity
+        and amendment_identity
+        and expected == observed
+    ):
         result["status"] = "PASS"
     return result
 
 
-def _verify_reference_separation(runtime_root: Path, reference_root: Path | None) -> dict[str, Any]:
+def _verify_reference_separation(
+    runtime_root: Path,
+    reference_root: Path | None,
+    source_root: Path,
+    source_manifest: Mapping[str, Any],
+    amendment: Mapping[str, Any],
+) -> dict[str, Any]:
     if reference_root is None:
         return _blocked(reason="reference root was not supplied")
     reference_rows, unsafe_paths = _tree_rows(reference_root)
@@ -308,14 +429,62 @@ def _verify_reference_separation(runtime_root: Path, reference_root: Path | None
     runtime_rows, runtime_unsafe = _tree_rows(runtime_root)
     if runtime_unsafe:
         return _blocked(unsafe_paths=runtime_unsafe)
-    reference_bytes = {(row["bytes"], row["sha256"]) for row in reference_rows}
+    expected, errors = _canonical_rows(amendment.get("excluded_references"))
+    if {row[0] for row in expected} != set(FROZEN_REFERENCE_PATHS):
+        errors.append("excluded references differ from frozen declaration")
+    expected_local = [
+        (path.removeprefix("reference_only/"), size, digest) for path, size, digest in expected
+    ]
+    source_rows, source_errors = _canonical_rows(source_manifest.get("files"))
+    errors.extend(source_errors)
+    source_reference_match = all(row in source_rows for row in expected_local)
+    for path, size, digest in expected_local:
+        source_path = source_root / path
+        try:
+            if (
+                _is_link_or_reparse(source_path)
+                or source_path.stat().st_size != size
+                or sha256(source_path) != digest
+            ):
+                source_reference_match = False
+        except OSError:
+            source_reference_match = False
+    expected_local = sorted(expected_local)
+    observed = _canonical_observed(reference_rows)
+    declared_reference_match = (
+        not errors and len(expected_local) == 3 and expected_local == observed
+    )
+    if (
+        runtime_root.resolve() == reference_root.resolve()
+        or runtime_root.resolve() in reference_root.resolve().parents
+        or reference_root.resolve() in runtime_root.resolve().parents
+    ):
+        errors.append("reference and runtime roots overlap")
+    reference_bytes = {(size, digest) for _, size, digest in expected}
     leaked_paths = [
         row["path"] for row in runtime_rows if (row["bytes"], row["sha256"]) in reference_bytes
     ]
     return {
-        "status": "PASS" if not leaked_paths else "BLOCKED",
+        "status": "PASS"
+        if declared_reference_match and source_reference_match and not errors and not leaked_paths
+        else "BLOCKED",
         "reference_count": len(reference_rows),
+        "declared_reference_match": declared_reference_match,
+        "source_reference_match": source_reference_match,
+        "errors": errors,
+        **_comparison(expected_local, observed),
         "leaked_paths": leaked_paths,
+    }
+
+
+def _comparison(
+    expected: list[tuple[str, int, str]], observed: list[tuple[str, int, str]]
+) -> dict[str, Any]:
+    want, got = {row[0]: row[1:] for row in expected}, {row[0]: row[1:] for row in observed}
+    return {
+        "missing": sorted(want.keys() - got.keys()),
+        "extra": sorted(got.keys() - want.keys()),
+        "mismatched": sorted(path for path in want.keys() & got.keys() if want[path] != got[path]),
     }
 
 
@@ -342,11 +511,12 @@ def verify_pack(
     source_archive = verify_source_archive(
         archive,
         source.get("archive_sha256", ""),
-        source.get("commit", ""),
+        source.get("upstream_commit", ""),
     )
     source_entries = verify_source_entries(source_root, source)
-    expected_entries, entry_errors = _canonical_rows(source.get("source_entries"))
+    expected_entries, entry_errors = _canonical_rows(source.get("files"))
     archive_entries, archive_errors = _canonical_rows(source_archive.get("member_inventory"))
+    source_archive.update(_comparison(expected_entries, archive_entries))
     if entry_errors or archive_errors or expected_entries != archive_entries:
         source_archive["status"] = "BLOCKED"
         source_archive["inventory_matches_manifest"] = False
@@ -354,7 +524,9 @@ def verify_pack(
         source_archive["inventory_matches_manifest"] = True
     source_to_runtime = verify_source_to_runtime_mapping(source_root, runtime_root, amendment)
     runtime_pack = verify_runtime_pack(runtime_root, amendment)
-    reference_separation = _verify_reference_separation(runtime_root, reference_root)
+    reference_separation = _verify_reference_separation(
+        runtime_root, reference_root, source_root, source, amendment
+    )
     checks = (source_archive, source_entries, source_to_runtime, runtime_pack, reference_separation)
     return {
         "status": "PASS" if all(check["status"] == "PASS" for check in checks) else "BLOCKED",

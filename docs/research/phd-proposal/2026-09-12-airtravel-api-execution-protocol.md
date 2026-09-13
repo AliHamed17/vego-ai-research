@@ -17,6 +17,16 @@ authorized by this document.
   Missing, extra, duplicate, changed, linked, or reference-leaking files block.
 - Reference models remain outside provider-visible inputs. No raw upstream
   bytes are published by this implementation.
+- The source authority uses `files` and `upstream_commit`. The v1.0.2 amendment
+  uses `source_to_runtime_mapping`: original source filenames map to the five
+  relocated runtime filenames with no byte transformation. The verifier selects
+  only the pinned codeload `dataset/AirTravel/` subtree and checks all 143 entries.
+- Reference separation requires all three declared `excluded_references` to
+  match both verified source bytes and the separate local reference directory.
+  An empty or arbitrary reference directory cannot establish separation.
+  The amendment has no `allowed_configuration` field: runtime-byte verification
+  does not authorize execution; the separately validated execution config and
+  fresh grant remain mandatory.
 - **VEGO ZIP is not sent to an external provider.** Student/historical models,
   expert sheets, GUI exports, interaction logs, and user logs are excluded.
 - **QuRE: `NOT_ADMITTED`.** Exact identity, licence, suitability, and separate

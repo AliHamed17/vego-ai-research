@@ -53,9 +53,16 @@ def config(**changes):
 
 def authorization(cfg):
     now = datetime.now(timezone.utc)
+    source_paths = ["description.md"] + [
+        f"result_one_{name}.txt"
+        for name in ("claude-sonnet-4-6", "codestral-2508", "deepseek-chat", "gemini-2.5-flash")
+    ]
+    runtime_paths = ["domain_description/description.md"] + [
+        f"candidate_models/{i:02d}_{name}" for i, name in enumerate(source_paths[1:], 1)
+    ]
     files = tuple(
-        contract.RuntimeFileBinding(p, p, 1, "b" * 64)
-        for p in ["domain_description/a.txt", *(f"candidate_models/{i}.txt" for i in range(4))]
+        contract.RuntimeFileBinding(source, runtime, 1, "b" * 64)
+        for source, runtime in zip(source_paths, runtime_paths, strict=True)
     )
     manifest = contract.VerifiedInputManifest(
         code_sha="a" * 40,

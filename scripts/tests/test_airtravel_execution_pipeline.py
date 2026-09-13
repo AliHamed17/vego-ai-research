@@ -54,11 +54,15 @@ def config(**changes):
 def frame(cfg, *, run_id="synthetic-run", max_rounds=2):
     pipeline = module()
     domain = "Synthetic domain description; no real source content."
+    source_paths = ["description.md"] + [
+        f"result_one_{name}.txt"
+        for name in ("claude-sonnet-4-6", "codestral-2508", "deepseek-chat", "gemini-2.5-flash")
+    ]
     cases = tuple(
-        pipeline.PipelineCase(f"{i:02}", f"candidate_models/{i}.txt", f"Synthetic model {i}.")
-        for i in range(1, 5)
+        pipeline.PipelineCase(f"{i:02}", f"candidate_models/{i:02d}_{name}", f"Synthetic model {i}.")
+        for i, name in enumerate(source_paths[1:], 1)
     )
-    files = (("domain_description/synthetic.txt", domain),) + tuple(
+    files = (("domain_description/description.md", domain),) + tuple(
         (row.candidate_path, row.candidate_text) for row in cases
     )
     manifest = contract.VerifiedInputManifest(
@@ -68,8 +72,8 @@ def frame(cfg, *, run_id="synthetic-run", max_rounds=2):
         source_commit=contract.PUBLIC_AIRTRAVEL_COMMIT,
         max_rounds=cfg.max_rounds, call_inventory_sha256=cfg.call_inventory_sha256,
         runtime_files=tuple(
-            contract.RuntimeFileBinding(path, path, len(text.encode()), hashlib.sha256(text.encode()).hexdigest())
-            for path, text in files
+            contract.RuntimeFileBinding(source, path, len(text.encode()), hashlib.sha256(text.encode()).hexdigest())
+            for source, (path, text) in zip(source_paths, files, strict=True)
         ),
     )
     return pipeline.VerifiedPipelineFrame(

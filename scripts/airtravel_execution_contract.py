@@ -22,6 +22,8 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 from verify_text2uml_airtravel_runtime import (
+    FROZEN_SOURCE_RUNTIME_PATHS,
+    PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX,
     PUBLIC_AIRTRAVEL_ARCHIVE_SHA256,
     PUBLIC_AIRTRAVEL_COMMIT,
 )
@@ -328,12 +330,10 @@ def _five_files(rows: tuple[RuntimeFileBinding, ...]) -> None:
         raise ContractValidationError("exactly five immutable runtime bindings required")
     for name in ("source_path", "path"):
         paths = [getattr(row, name) for row in rows]
-        if (
-            len({path.casefold() for path in paths}) != 5
-            or sum(path.startswith("domain_description/") for path in paths) != 1
-            or sum(path.startswith("candidate_models/") for path in paths) != 4
-        ):
+        if len({path.casefold() for path in paths}) != 5:
             raise ContractValidationError("invalid five-file selection")
+    if {(row.source_path, row.path) for row in rows} != set(FROZEN_SOURCE_RUNTIME_PATHS):
+        raise ContractValidationError("unapproved source-to-runtime selection")
 
 
 @dataclass(frozen=True)
@@ -459,15 +459,26 @@ def build_input_manifest(
             (archive, "inventory_matches_manifest", True),
             (archive, "duplicate_members", []),
             (archive, "invalid_members", []),
+            (archive, "ambiguous_members", []),
+            (archive, "selected_prefix", PUBLIC_AIRTRAVEL_ARCHIVE_PREFIX),
+            (archive, "missing", []),
+            (archive, "extra", []),
+            (archive, "mismatched", []),
             (entries, "unsafe_paths", []),
             (entries, "manifest_errors", []),
             (mapping, "byte_identical", True),
             (mapping, "errors", []),
             (runtime, "unsafe_paths", []),
             (runtime, "manifest_errors", []),
-            (runtime, "allowed_configuration", True),
+            (runtime, "runtime_identity", True),
             (runtime, "amendment_identity", True),
             (reference, "leaked_paths", []),
+            (reference, "declared_reference_match", True),
+            (reference, "source_reference_match", True),
+            (reference, "errors", []),
+            (reference, "missing", []),
+            (reference, "extra", []),
+            (reference, "mismatched", []),
         )
         for section, field, expected in required:
             actual = section[field]
@@ -475,12 +486,13 @@ def build_input_manifest(
                 raise ContractValidationError("incomplete verification evidence")
         for section, names, count in (
             (entries, ("expected_count", "observed_count", "matched"), 143),
+            (archive, ("observed_count",), 143),
             (runtime, ("expected_count", "observed_count"), 5),
             (mapping, ("mapping_count",), 5),
         ):
             if any(type(section[name]) is not int or section[name] != count for name in names):
                 raise ContractValidationError("invalid verification counts")
-        if type(reference["reference_count"]) is not int or reference["reference_count"] < 0:
+        if type(reference["reference_count"]) is not int or reference["reference_count"] != 3:
             raise ContractValidationError("invalid reference count")
         if any(
             archive[name] != PUBLIC_AIRTRAVEL_ARCHIVE_SHA256
@@ -515,7 +527,7 @@ def build_input_manifest(
             code_sha=_commit(code_sha),
             config_sha256=config.sha256,
             verification_sha256=canonical_json_sha256(verification),
-            source_inventory_sha256=canonical_json_sha256({"source_entries": inventory}),
+            source_inventory_sha256=canonical_json_sha256({"files": inventory}),
             source_archive_sha256=archive["actual_sha256"],
             source_commit=archive["expected_commit"],
             runtime_files=tuple(sorted(rows, key=lambda row: row.path)),
