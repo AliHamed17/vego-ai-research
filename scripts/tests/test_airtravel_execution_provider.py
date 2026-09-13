@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import asyncio
-import builtins
 import importlib
 import json
+import subprocess
 import sys
 import time
 from dataclasses import replace
@@ -289,32 +289,41 @@ def test_input_bound_blocks_before_attempt():
     assert fake.physical_call_count == 0
 
 
-def test_import_and_fake_provider_do_not_load_network_or_sdk(monkeypatch):
-    p = module()
-    original = builtins.__import__
-
-    def deny(name, *args, **kwargs):
-        if name.split(".")[0] in {
-            "openai",
-            "httpx",
-            "httpcore",
-            "socket",
-            "ssl",
-            "requests",
-            "urllib",
-            "asyncio",
-        }:
-            raise AssertionError("unexpected external-capability import")
-        return original(name, *args, **kwargs)
-
-    monkeypatch.setattr(builtins, "__import__", deny)
-    p = importlib.reload(p)
-    fake = p.DeterministicFakeProvider(["ok"])
-    call = fake.call(PROMPT, label="first")
-    with pytest.raises(StopIteration) as done:
-        call.send(None)
-    assert done.value.value["output"] == {"ok": True}
-    assert fake.external_provider_call_count == 0
+def test_import_and_fake_provider_do_not_load_network_or_sdk():
+    # A shared-process reload replaces class identities already bound by the
+    # pipeline. Probe a genuinely fresh import without mutating those bindings.
+    ledger_type = module().BudgetLedger
+    probe = """
+import builtins
+import sys
+sys.path.insert(0, 'scripts')
+original = builtins.__import__
+forbidden = {'openai', 'httpx', 'httpcore', 'socket', 'ssl', 'requests', 'urllib', 'asyncio'}
+assert not any(name.split('.')[0] in forbidden for name in sys.modules)
+def deny(name, *args, **kwargs):
+    if name.split('.')[0] in forbidden:
+        raise AssertionError('unexpected external-capability import')
+    return original(name, *args, **kwargs)
+builtins.__import__ = deny
+import airtravel_execution_provider as provider
+fake = provider.DeterministicFakeProvider(['ok'])
+call = fake.call({'system': 'Return JSON.', 'user': 'Synthetic fixture.'}, label='first')
+try:
+    call.send(None)
+except StopIteration as done:
+    assert done.value['output'] == {'ok': True}
+else:
+    raise AssertionError('fake unexpectedly yielded')
+assert fake.external_provider_call_count == 0
+assert not any(name.split('.')[0] in forbidden for name in sys.modules)
+print('PASS')
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", probe], cwd=ROOT, capture_output=True, text=True, timeout=30
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "PASS"
+    assert module().BudgetLedger is ledger_type
 
 
 def test_constructor_requires_valid_exact_grant_before_sdk_import(monkeypatch):
