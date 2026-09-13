@@ -822,3 +822,57 @@ def test_canonical_contracts_remain_schema_and_parser_valid(kind):
     value = contract_instance(kind)
     validator(kind).validate(value)
     assert parse_contract_instance(kind, value) == value
+
+
+PUBLIC_DOC_ROOT = ROOT / "docs" / "research" / "phd-proposal"
+
+
+def public_document(name: str) -> str:
+    path = PUBLIC_DOC_ROOT / f"2026-09-12-airtravel-api-{name}.md"
+    assert path.is_file(), f"missing public review document: {path.name}"
+    return " ".join(path.read_text(encoding="utf-8").split())
+
+
+def test_public_protocol_preserves_data_and_claim_boundaries():
+    text = public_document("execution-protocol")
+    assert "VEGO ZIP" in text and "not sent to an external provider" in text
+    assert "QuRE" in text and "NOT_ADMITTED" in text
+    assert "public AirTravel" in text and "N=4" in text
+    assert "does not establish accuracy" in text
+    assert "reporting-only" in text and "no automatic correction" in text
+    assert "Agent-4" in text and "NOT_AVAILABLE" in text
+    assert "$6" in text and "6.00" in text
+    assert "<API_KEY>" not in text
+    assert "external_data/airtravel-api-runs/<run_id>" not in text
+
+
+def test_public_grant_template_cannot_be_mistaken_for_execution_authority():
+    text = public_document("execution-grant-template")
+    assert "TEMPLATE_ONLY_NOT_AUTHORIZATION" in text
+    assert "human" in text and "one-time" in text
+    for field in (
+        "model", "price_schedule", "checked_at_utc", "max_calls", "max_rounds",
+        "call_inventory_sha256", "command_sha256", "private_root", "expires_at_utc",
+        "nonce", "invocation_id", "code_sha", "input_manifest_sha256", "config_sha256",
+    ):
+        assert f"`{field}`" in text
+    assert "does not authorize VEGO ZIP or QuRE" in text
+    assert "fresh" in text and "fake_preflight_authorization.json" in text
+    assert "no private hash or actual grant" in text
+
+
+def test_public_review_packet_preserves_unexecuted_preflight_and_boundaries():
+    text = public_document("preflight-review-packet")
+    assert "PREFLIGHT_PREPARED_AWAITING_FRESH_EXECUTION_GRANT" in text
+    assert "documented but unexecuted" in text
+    assert "fresh, hash-bound local fake-preflight authorization" in text
+    assert "external_provider_call_count=0" in text
+    assert "scientific_result_count=0" in text
+    assert "does not size the isolated lane" in text
+    assert "max_rounds" in text and "call_inventory_sha256" in text
+    assert "api.openai.com" in text and "not an operating-system sandbox" in text
+    assert (
+        "uv run python scripts/study1_airtravel_external_runner.py preflight "
+        "--config <private-config> --input-manifest <private-manifest> "
+        "--private-root external_data/airtravel-api-runs --run-id preflight-<safe-id>"
+    ) in text
