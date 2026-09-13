@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import pathlib
 import sys
+from dataclasses import FrozenInstanceError
+
+import pytest
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -56,3 +59,58 @@ def test_call_bound_breakdown_accounts_for_max_rounds() -> None:
     assert breakdown["minimum_formula"] == "4 + 3N"
     assert breakdown["worst_case_formula"] == "82 + 61N"
     assert breakdown["worst_case_calls"] == 326
+
+
+@pytest.mark.parametrize(("n", "minimum", "maximum"), [(0, 4, 82), (1, 7, 143), (4, 16, 326)])
+def test_call_site_plan_derives_historical_bounds(n, minimum, maximum) -> None:
+    assert hasattr(bound, "derive_call_bounds"), "inspectable call plan is missing"
+    result = bound.derive_call_bounds(n)
+    assert result["minimum_calls"] == minimum
+    assert result["worst_case_calls"] == maximum
+    assert result["scope"] == "LEGACY_STATIC_REFERENCE_NOT_EXECUTION_BUDGET"
+    assert result["status"] == "PASS"
+    assert result["phase_minimum_calls"] == {"phase1": 1, "phase2": 1, "phase3": 3 * n, "phase4": 2}
+    assert result["phase_worst_case_calls"] == {
+        "phase1": 1,
+        "phase2": 30,
+        "phase3": 61 * n,
+        "phase4": 51,
+    }
+
+
+def test_call_plan_is_immutable() -> None:
+    assert hasattr(bound, "CALL_SITES"), "inspectable call plan is missing"
+    assert isinstance(bound.CALL_SITES, tuple)
+    with pytest.raises(FrozenInstanceError):
+        bound.CALL_SITES[0].minimum_visits = 20
+
+
+@pytest.mark.parametrize("value", [-1, True, 1.5, "4"])
+def test_all_bound_consumers_reject_invalid_case_counts(value) -> None:
+    for fn in (bound.minimum_calls, bound.worst_case_calls, bound.call_bound_breakdown):
+        with pytest.raises(ValueError):
+            fn(value)
+
+
+@pytest.mark.parametrize(
+    ("old", "new"),
+    [
+        ('label="agent1/build_language_template"', 'label="drift"'),
+        ("MAX_QA_ROUNDS = 10", "MAX_QA_ROUNDS = 11"),
+        ("range(1, MAX_QA_ROUNDS + 1)", "range(1, MAX_QA_ROUNDS + 2)"),
+    ],
+)
+def test_static_source_drift_blocks_reference_claim(tmp_path, old, new) -> None:
+    assert hasattr(bound, "derive_call_bounds"), "static source verification is missing"
+    source = (ROOT / "VEGO-AI/framework/orchestrator.py").read_text(encoding="utf-8")
+    changed = tmp_path / "orchestrator.py"
+    changed.write_text(source.replace(old, new, 1), encoding="utf-8")
+    result = bound.derive_call_bounds(4, source_path=changed)
+    assert result["status"] == "BLOCKED"
+    assert result["minimum_calls"] is None
+    assert result["worst_case_calls"] is None
+
+
+def test_missing_source_fails_closed(tmp_path) -> None:
+    assert hasattr(bound, "derive_call_bounds"), "static source verification is missing"
+    assert bound.derive_call_bounds(4, source_path=tmp_path / "missing")["status"] == "BLOCKED"

@@ -1,0 +1,1206 @@
+"""Synthetic, local-only execution contract tests; no grant/config artifacts are tracked."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import importlib
+import json
+import os
+import stat
+import subprocess
+import sys
+from dataclasses import FrozenInstanceError, replace
+from datetime import datetime, timezone
+from decimal import Decimal
+from pathlib import Path
+from types import SimpleNamespace
+
+import pytest
+from jsonschema import Draft202012Validator, FormatChecker
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts"))
+contract = importlib.import_module("airtravel_execution_contract")
+NOW = datetime(2026, 9, 13, 12, tzinfo=timezone.utc)
+COMMIT = "a" * 40
+ARCHIVE = "8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701"
+UPSTREAM = "253b26dc704d523209a5cba79686f8f7fab57d63"
+COMMAND = [
+    "python",
+    "runner.py",
+    "execute",
+    "--private-root",
+    "external_data/airtravel-api-runs",
+    "--run-id",
+    "run-001",
+]
+
+
+def config_data() -> dict:
+    data = {
+        "schema_version": "airtravel-api-execution-config-v1",
+        "model": "test-model",
+        "provider_host": "api.openai.com",
+        "max_usd": "6.00",
+        "timeout_seconds": 30,
+        "run_timeout_seconds": 900,
+        "max_retries": 0,
+        "concurrency": 1,
+        "max_calls": 28,
+        "max_rounds": 1,
+        "call_inventory_sha256": contract.canonical_json_sha256(contract.build_call_inventory(1)),
+        "max_input_tokens": 10000,
+        "max_output_tokens": 2000,
+        "price_schedule": {
+            "source": "https://openai.com/api/pricing/",
+            "checked_at_utc": "2026-09-13T11:00:00Z",
+            "input_usd_per_million_tokens": "0.15",
+            "output_usd_per_million_tokens": "0.60",
+        },
+    }
+    reservation = contract.FullRunReservation(
+        28, data["call_inventory_sha256"], 10000, 2000,
+        contract.PriceSchedule(
+            "https://openai.com/api/pricing/", datetime(2026, 9, 13, 11, tzinfo=timezone.utc),
+            Decimal("0.15"), Decimal("0.60"),
+        ),
+    )
+    data.update(contract._budget_binding(reservation))
+    return data
+
+
+def full_budget_config(total: str = "6.00"):
+    """100 authorized slots, 1,000 input/output tokens; hand-derived cost."""
+    cfg = contract.ExecutionConfig.from_dict(config_data())
+    return replace(
+        cfg, max_rounds=4, max_calls=100, max_input_tokens=1000, max_output_tokens=1000,
+        price_schedule=replace(
+            cfg.price_schedule, input_usd_per_million_tokens=Decimal("30.00")
+            if total == "6.00" else Decimal("30.10"),
+            output_usd_per_million_tokens=Decimal("30.00"),
+        ),
+    )
+
+
+def test_full_run_reservation_uses_all_authorized_slots_and_exact_decimal_boundary():
+    cfg = full_budget_config()
+    reservation = cfg.full_run_reservation.to_dict()
+    assert reservation["authorized_call_count"] == 100
+    assert reservation["per_call_usd"] == "0.06"
+    assert reservation["full_run_usd"] == "6.00"
+    assert contract.require_full_run_budget(cfg).full_run_usd == Decimal("6.00")
+    with pytest.raises(contract.ContractValidationError, match="full-run budget"):
+        contract.require_full_run_budget(full_budget_config("6.01"))
+
+
+@pytest.mark.parametrize("count", [99, 101])
+def test_full_run_budget_rejects_call_cap_not_equal_to_inventory(count):
+    with pytest.raises(contract.ContractValidationError, match="authorized call count"):
+        contract.require_full_run_budget(replace(full_budget_config(), max_calls=count))
+
+
+@pytest.mark.parametrize("kind", ["config", "manifest", "grant", "receipt"])
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("authorized_call_count", 27),
+        ("full_run_reservation_sha256", "f" * 64),
+        ("per_call_usd", "0.01"),
+        ("full_run_usd", "0.01"),
+        ("max_input_tokens", 1),
+        ("max_output_tokens", 1),
+        ("price_schedule_sha256", "f" * 64),
+        ("policy", "PER_ATTEMPT_ONLY"),
+        ("call_inventory_sha256", "f" * 64),
+        ("remove_reservation", None),
+    ],
+)
+def test_all_contracts_reject_reservation_calculation_tampering(kind, field, value):
+    cfg, manifest, grant = bindings()
+    raw, parse = {
+        "config": (cfg.to_dict(), contract.ExecutionConfig.from_dict),
+        "manifest": (manifest.to_dict(), contract.VerifiedInputManifest.from_dict),
+        "grant": (grant, contract.ExecutionGrant.from_dict),
+        "receipt": (
+            contract.build_receipt_skeleton(config=cfg, manifest=manifest, run_id="run-001", mode="execute"),
+            contract.parse_execution_receipt,
+        ),
+    }[kind]
+    parse(raw)  # prove the unmodified counterpart is valid
+    if field == "remove_reservation":
+        del raw["full_run_reservation"]
+    elif field in {"authorized_call_count", "full_run_reservation_sha256"}:
+        raw[field] = value
+    else:
+        raw["full_run_reservation"][field] = value
+        # Rehash the tampered object: validation must recompute the arithmetic,
+        # not merely compare a supplied digest to the supplied object.
+        raw["full_run_reservation_sha256"] = contract.canonical_json_sha256(raw["full_run_reservation"])
+    with pytest.raises(contract.ContractValidationError):
+        parse(raw)
+
+
+def verification_data() -> dict:
+    source_paths = ["description.md"] + [
+        f"result_one_{name}.txt"
+        for name in ("claude-sonnet-4-6", "codestral-2508", "deepseek-chat", "gemini-2.5-flash")
+    ]
+    paths = ["domain_description/description.md"] + [
+        f"candidate_models/{i:02d}_{name}" for i, name in enumerate(source_paths[1:], 1)
+    ]
+    inventory = [
+        {"path": path, "bytes": i + 1, "sha256": hashlib.sha256(path.encode()).hexdigest()}
+        for i, path in enumerate(source_paths)
+    ]
+    inventory += [
+        {"path": f"source_only/{i}.txt", "bytes": 1, "sha256": "b" * 64} for i in range(138)
+    ]
+    return {
+        "status": "PASS",
+        "provider_call_made": False,
+        "source_archive": {
+            "status": "PASS",
+            "expected_sha256": ARCHIVE,
+            "declared_sha256": ARCHIVE,
+            "actual_sha256": ARCHIVE,
+            "expected_commit": UPSTREAM,
+            "declared_commit": UPSTREAM,
+            "commit_binding": True,
+            "inventory_matches_manifest": True,
+            "member_inventory": inventory,
+            "duplicate_members": [],
+            "invalid_members": [],
+            "ambiguous_members": [],
+            "selected_prefix": f"text2uml-{UPSTREAM}/dataset/AirTravel/",
+            "observed_count": 143,
+            "missing": [],
+            "extra": [],
+            "mismatched": [],
+        },
+        "source_entries": {
+            "status": "PASS",
+            "expected_count": 143,
+            "observed_count": 143,
+            "matched": 143,
+            "unsafe_paths": [],
+            "manifest_errors": [],
+        },
+        "source_to_runtime": {
+            "status": "PASS",
+            "byte_identical": True,
+            "mapping_count": 5,
+            "errors": [],
+            "mappings": [
+                {"source_path": s, "path": p, "byte_identical": True}
+                for s, p in zip(source_paths, paths, strict=True)
+            ],
+        },
+        "runtime_pack": {
+            "status": "PASS",
+            "expected_count": 5,
+            "observed_count": 5,
+            "unsafe_paths": [],
+            "manifest_errors": [],
+            "runtime_identity": True,
+            "amendment_identity": True,
+        },
+        "reference_separation": {
+            "status": "PASS",
+            "reference_count": 3,
+            "leaked_paths": [],
+            "declared_reference_match": True,
+            "source_reference_match": True,
+            "errors": [],
+            "missing": [],
+            "extra": [],
+            "mismatched": [],
+        },
+    }
+
+
+def bindings():
+    config = contract.ExecutionConfig.from_dict(config_data())
+    manifest = contract.build_input_manifest(
+        verification=verification_data(), config=config, code_sha=COMMIT
+    )
+    grant = {
+        "schema_version": "airtravel-api-execution-grant-v1",
+        "mode": "execute",
+        "nonce": "c" * 64,
+        "invocation_id": "b5cd2d0c-021c-4300-81cc-296d66b5bb17",
+        "run_id": "run-001",
+        "issued_at_utc": "2026-09-13T11:59:00Z",
+        "expires_at_utc": "2026-09-13T12:05:00Z",
+        "consumed": False,
+        "code_sha": COMMIT,
+        "input_manifest_sha256": manifest.sha256,
+        "config_sha256": config.sha256,
+        "model": config.model,
+        "provider_host": config.provider_host,
+        "price_schedule_sha256": config.price_schedule.sha256,
+        "timeout_seconds": config.timeout_seconds,
+        "run_timeout_seconds": config.run_timeout_seconds,
+        "max_retries": config.max_retries,
+        "concurrency": config.concurrency,
+        "max_calls": config.max_calls,
+        "max_rounds": config.max_rounds,
+        "call_inventory_sha256": config.call_inventory_sha256,
+        "max_input_tokens": config.max_input_tokens,
+        "max_output_tokens": config.max_output_tokens,
+        "max_usd": "6.00",
+        "command_sha256": contract.command_fingerprint(COMMAND),
+        "private_root": "external_data/airtravel-api-runs/run-001",
+        **contract._budget_binding(config.full_run_reservation),
+    }
+    return config, manifest, grant
+
+
+def validator(kind: str):
+    schema = json.loads(
+        (ROOT / "schemas" / f"airtravel-api-execution-{kind}-v1.schema.json").read_text()
+    )
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(schema, format_checker=FormatChecker())
+
+
+def validate(grant, config=None, manifest=None, **kwargs):
+    base_config, base_manifest, _ = bindings()
+    return contract.validate_execution_grant(
+        grant,
+        config=config or base_config,
+        manifest=manifest or base_manifest,
+        current_commit=kwargs.pop("current_commit", COMMIT),
+        command=kwargs.pop("command", COMMAND),
+        now=kwargs.pop("now", NOW),
+        **kwargs,
+    )
+
+
+def test_canonical_hash_is_order_independent_and_decimal_exact():
+    value = {"b": Decimal("6.00"), "a": 1}
+    expected = hashlib.sha256(b'{"a":1,"b":"6.00"}').hexdigest()
+    assert contract.canonical_json_sha256(value) == expected
+    assert contract.canonical_json_sha256({"a": 1, "b": Decimal("6")}) == expected
+
+
+def test_round_inventory_is_bound_and_cannot_be_replaced():
+    assert hasattr(contract, "build_call_inventory"), "provider-free canonical inventory missing"
+    cfg, manifest, raw = bindings()
+    assert contract.build_call_inventory(1)["maximum_calls"] == 28
+    assert contract.build_call_inventory(2)["maximum_calls"] == 52
+    assert manifest.max_rounds == 1
+    assert manifest.call_inventory_sha256 == cfg.call_inventory_sha256
+    bad = config_data()
+    bad["call_inventory_sha256"] = "f" * 64
+    with pytest.raises(contract.ContractValidationError):
+        contract.ExecutionConfig.from_dict(bad)
+    changed = replace(cfg, max_rounds=2)
+    assert changed.sha256 != cfg.sha256
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), config=changed)
+
+
+def test_manifest_rounds_cannot_be_rebound_under_an_unchanged_config_hash():
+    cfg, manifest, raw = bindings()
+    changed = replace(
+        manifest,
+        max_rounds=2,
+        call_inventory_sha256=contract.canonical_json_sha256(contract.build_call_inventory(2)),
+        full_run_reservation=replace(
+            manifest.full_run_reservation,
+            call_inventory_sha256=contract.canonical_json_sha256(contract.build_call_inventory(2)),
+        ),
+    )
+    raw["input_manifest_sha256"] = changed.sha256
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), config=cfg, manifest=changed)
+    with pytest.raises(contract.ContractValidationError):
+        contract.build_receipt_skeleton(
+            config=cfg, manifest=changed, run_id="run-001", mode="execute"
+        )
+
+
+def test_grant_and_receipt_refuse_noncanonical_inventory_hashes():
+    cfg, manifest, raw = bindings()
+    raw["call_inventory_sha256"] = "f" * 64
+    with pytest.raises(contract.GrantValidationError):
+        contract.ExecutionGrant.from_dict(raw)
+    receipt = contract.build_receipt_skeleton(
+        config=cfg, manifest=manifest, run_id="run-001", mode="execute"
+    )
+    receipt["call_inventory_sha256"] = "f" * 64
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(receipt)
+
+
+@pytest.mark.parametrize("field", ["max_rounds", "call_inventory_sha256"])
+def test_persisted_manifest_requires_explicit_round_bindings(field):
+    _, manifest, _ = bindings()
+    raw = manifest.to_dict()
+    del raw[field]
+    with pytest.raises(contract.ContractValidationError):
+        contract.VerifiedInputManifest.from_dict(raw)
+
+
+@pytest.mark.parametrize("value", [1.2, float("nan"), Decimal("NaN"), {1: "bad"}, {"x": object()}])
+def test_canonical_hash_rejects_ambiguous_or_non_json_values(value):
+    with pytest.raises(contract.ContractValidationError):
+        contract.canonical_json_sha256({"value": value})
+
+
+def test_config_roundtrip_freezes_nested_prices_and_uses_decimal():
+    raw = config_data()
+    config = contract.ExecutionConfig.from_dict(raw)
+    raw["price_schedule"]["input_usd_per_million_tokens"] = "999.00"
+    assert config.max_usd == Decimal("6.00") and isinstance(config.max_usd, Decimal)
+    assert config.price_schedule.input_usd_per_million_tokens == Decimal("0.15")
+    assert config.to_dict() == config_data()
+    with pytest.raises(FrozenInstanceError):
+        config.price_schedule.source = "changed"
+    validator("config").validate(config.to_dict())
+
+
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [
+        ("max_usd", "6.01"),
+        ("max_usd", "5.99"),
+        ("max_usd", 6.0),
+        ("max_usd", "6"),
+        ("provider_host", "api.openai.com.evil.test"),
+        ("provider_host", "https://api.openai.com"),
+        ("provider_host", "127.0.0.1"),
+        ("concurrency", 0),
+        ("concurrency", True),
+        ("max_retries", -1),
+        ("max_calls", 0),
+        ("max_output_tokens", 0),
+        ("model", ""),
+        ("unexpected", "private content"),
+    ],
+)
+def test_config_schema_and_parser_reject_invalid_boundaries(key, value):
+    raw = config_data()
+    raw[key] = value
+    assert list(validator("config").iter_errors(raw))
+    with pytest.raises(contract.ContractValidationError):
+        contract.ExecutionConfig.from_dict(raw)
+
+
+def test_json_loader_rejects_duplicate_keys_and_missing_file(tmp_path):
+    path = tmp_path / "private.json"
+    with pytest.raises(contract.ContractValidationError):
+        contract.ExecutionConfig.from_json(path)
+    path.write_text('{"model":"one","model":"two"}', encoding="utf-8")
+    with pytest.raises(contract.ContractValidationError):
+        contract.ExecutionConfig.from_json(path)
+    path.write_text(json.dumps(config_data()), encoding="utf-8")
+    assert contract.ExecutionConfig.from_json(path).to_dict() == config_data()
+
+
+def test_manifest_binds_full_verification_five_hashes_config_and_code():
+    config, manifest, _ = bindings()
+    assert len(manifest.runtime_files) == 5
+    rows = {row.path: row for row in manifest.runtime_files}
+    row = rows["domain_description/description.md"]
+    assert row.bytes == 1
+    assert row.source_path == "description.md"
+    assert row.sha256 == hashlib.sha256(b"description.md").hexdigest()
+    assert manifest.verification_sha256 == contract.canonical_json_sha256(verification_data())
+    assert manifest.config_sha256 == config.sha256
+    assert manifest.code_sha == COMMIT
+    assert manifest.source_archive_sha256 == ARCHIVE
+    assert contract.VerifiedInputManifest.from_dict(manifest.to_dict()) == manifest
+    raw = verification_data()
+    raw["source_archive"]["nonselected_member_count"] = 2
+    changed = contract.build_input_manifest(verification=raw, config=config, code_sha=COMMIT)
+    assert changed.sha256 != manifest.sha256
+    with pytest.raises(FrozenInstanceError):
+        manifest.runtime_files[0].path = "changed"
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "blocked",
+        "missing_check",
+        "provider_called",
+        "missing_hash",
+        "missing_bytes",
+        "missing_source",
+        "duplicate_runtime",
+        "bad_mapping",
+        "missing_mapping",
+        "wrong_archive",
+        "wrong_commit",
+        "false_reference",
+        "missing_evidence",
+        "bool_bytes",
+        "empty_reference",
+        "unbound_reference",
+        "unbound_source_reference",
+        "archive_prefix",
+        "archive_ambiguity",
+    ],
+)
+def test_manifest_rejects_incomplete_or_failed_verifier_evidence(mutation):
+    raw = verification_data()
+    if mutation == "blocked":
+        raw["status"] = "BLOCKED"
+    elif mutation == "missing_check":
+        del raw["source_entries"]
+    elif mutation == "provider_called":
+        raw["provider_call_made"] = True
+    elif mutation in ("missing_hash", "missing_bytes"):
+        del raw["source_archive"]["member_inventory"][0][
+            "sha256" if mutation == "missing_hash" else "bytes"
+        ]
+    elif mutation == "missing_source":
+        raw["source_to_runtime"]["mappings"][0]["source_path"] = "missing.txt"
+    elif mutation == "duplicate_runtime":
+        raw["source_to_runtime"]["mappings"][0]["path"] = raw["source_to_runtime"]["mappings"][1][
+            "path"
+        ]
+    elif mutation == "bad_mapping":
+        raw["source_to_runtime"]["mappings"][0]["byte_identical"] = False
+    elif mutation == "missing_mapping":
+        raw["source_to_runtime"]["mappings"].pop()
+    elif mutation == "wrong_archive":
+        raw["source_archive"]["actual_sha256"] = "f" * 64
+    elif mutation == "wrong_commit":
+        raw["source_archive"]["expected_commit"] = "f" * 40
+    elif mutation == "false_reference":
+        raw["reference_separation"]["leaked_paths"] = ["reference.txt"]
+    elif mutation == "missing_evidence":
+        del raw["runtime_pack"]["amendment_identity"]
+    elif mutation == "empty_reference":
+        raw["reference_separation"]["reference_count"] = 0
+    elif mutation == "unbound_reference":
+        raw["reference_separation"]["declared_reference_match"] = False
+    elif mutation == "unbound_source_reference":
+        raw["reference_separation"]["source_reference_match"] = False
+    elif mutation == "archive_prefix":
+        raw["source_archive"]["selected_prefix"] = "dataset/AirTravel/"
+    elif mutation == "archive_ambiguity":
+        raw["source_archive"]["ambiguous_members"] = ["alternate-root/dataset/AirTravel/model.txt"]
+    else:
+        raw["source_archive"]["member_inventory"][0]["bytes"] = True
+    with pytest.raises(contract.ContractValidationError):
+        contract.build_input_manifest(
+            verification=raw,
+            config=contract.ExecutionConfig.from_dict(config_data()),
+            code_sha=COMMIT,
+        )
+
+
+def test_grant_binds_config_manifest_and_commit_without_consuming():
+    config, manifest, raw = bindings()
+    validator("grant").validate(raw)
+    grant = contract.ExecutionGrant.from_dict(raw)
+    validate(grant)
+    assert grant.consumed is False
+    assert grant.to_dict() == raw
+    with pytest.raises(contract.GrantValidationError, match="configuration hash"):
+        validate(grant, config=replace(config, concurrency=2))
+    with pytest.raises(contract.GrantValidationError):
+        validate(grant, manifest=replace(manifest, verification_sha256="d" * 64))
+    with pytest.raises(contract.GrantValidationError):
+        validate(grant, current_commit="b" * 40)
+
+
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [
+        ("mode", "preflight"),
+        ("provider_host", "evil.test"),
+        ("model", "other-model"),
+        ("consumed", True),
+        ("max_usd", "6.01"),
+        ("max_calls", 17),
+        ("max_retries", 1),
+        ("max_input_tokens", 9999),
+        ("max_output_tokens", 999),
+        ("timeout_seconds", 29),
+        ("run_timeout_seconds", 899),
+        ("concurrency", 2),
+        ("price_schedule_sha256", "f" * 64),
+        ("private_root", "external_data/airtravel-api-runs/run-002"),
+        ("private_root", "external_data/airtravel-api-runs-evil/run-001"),
+        ("issued_at_utc", "2026-09-13T12:01:00Z"),
+        ("expires_at_utc", "2026-09-13T12:00:00Z"),
+        ("expires_at_utc", "2026-09-13T13:00:00+01:00"),
+        ("expires_at_utc", "2026-09-13T13:00:00"),
+        ("nonce", ""),
+        ("invocation_id", "not-a-uuid"),
+        ("extra", "exception private text"),
+    ],
+)
+def test_grant_rejects_wrong_binding_or_invalid_schema(key, value):
+    _, _, raw = bindings()
+    raw[key] = value
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw))
+
+
+def test_missing_grant_field_or_file_blocks(tmp_path):
+    with pytest.raises(contract.GrantValidationError):
+        validate(None)
+    with pytest.raises(contract.GrantValidationError):
+        contract.ExecutionGrant.from_json(tmp_path / "missing.json")
+    _, _, raw = bindings()
+    for field in raw:
+        incomplete = {k: v for k, v in raw.items() if k != field}
+        assert list(validator("grant").iter_errors(incomplete))
+        with pytest.raises(contract.GrantValidationError):
+            contract.ExecutionGrant.from_dict(incomplete)
+
+
+def test_wrong_command_mode_root_run_id_and_naive_clock_block():
+    _, _, raw = bindings()
+    grant = contract.ExecutionGrant.from_dict(raw)
+    for command in (
+        COMMAND + ["--extra"],
+        COMMAND[:-1] + ["run-002"],
+        ["execute"],
+        ["python", "runner.py", "preflight", *COMMAND[3:]],
+    ):
+        with pytest.raises(contract.GrantValidationError):
+            validate(grant, command=command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(grant, mode="preflight")
+    with pytest.raises(contract.GrantValidationError):
+        validate(grant, now=NOW.replace(tzinfo=None))
+    # Even a re-fingerprinted grant cannot call the preflight command or redirect output.
+    for command in (
+        ["preflight", *COMMAND[3:]],
+        COMMAND[:-1] + ["run-002"],
+        ["execute", "--private-root", "../sibling", "--run-id", "run-001"],
+    ):
+        raw["command_sha256"] = contract.command_fingerprint(command)
+        with pytest.raises(contract.GrantValidationError):
+            validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+def test_command_fingerprint_preserves_every_argument_and_boundary():
+    assert contract.command_fingerprint(["a", "b c"]) != contract.command_fingerprint(["a b", "c"])
+    assert contract.command_fingerprint(["a", " b "]) != contract.command_fingerprint(["a", "b"])
+    for bad in ("execute", [], ["execute", ""], ["execute", "x\0y"], ["execute", 1]):
+        with pytest.raises(contract.ContractValidationError):
+            contract.command_fingerprint(bad)
+
+
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        ["--run-id=run-002"],
+        ["--private-root=../outside"],
+        ["--run-id=run-002", "--private-root=../outside"],
+        ["--run-id=run-001"],
+        ["--private-root=external_data/airtravel-api-runs"],
+    ],
+)
+def test_refingerprinted_equals_overrides_cannot_change_argparse_output(overrides):
+    parser = argparse.ArgumentParser(allow_abbrev=False)
+    parser.add_argument("--run-id")
+    parser.add_argument("--private-root")
+    actual = parser.parse_args([*COMMAND[3:], *overrides])
+    if "--run-id=run-002" in overrides:
+        assert actual.run_id == "run-002"
+    if "--private-root=../outside" in overrides:
+        assert actual.private_root == "../outside"
+    _, _, raw = bindings()
+    command = [*COMMAND, *overrides]
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+@pytest.mark.parametrize(
+    "option",
+    ["--config", "--input-manifest", "--grant", "--run-id", "--private-root"],
+)
+@pytest.mark.parametrize("spelling", ["equals", "duplicate", "mixed"])
+def test_shared_command_grammar_rejects_every_bound_option_override(option, spelling):
+    command = list(COMMAND)
+    if option not in command:
+        command.extend([option, "private-original.json"])
+    if spelling == "equals":
+        index = command.index(option)
+        command[index : index + 2] = [option + "=" + command[index + 1]]
+    elif spelling == "duplicate":
+        command.extend([option, "private-changed.json"])
+    else:
+        command.append(option + "=private-changed.json")
+    _, _, raw = bindings()
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), command=command)
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_command(command)
+
+
+def test_shared_command_grammar_preserves_canonical_values_for_cli_reuse():
+    command = [
+        *COMMAND,
+        "--config",
+        "private config.json",
+        "--input-manifest",
+        "manifest.json",
+        "--grant",
+        "grant.json",
+    ]
+    parsed = contract.parse_execution_command(command)
+    assert parsed == {
+        "mode": "execute",
+        "private_root": "external_data/airtravel-api-runs",
+        "run_id": "run-001",
+        "config": "private config.json",
+        "input_manifest": "manifest.json",
+        "grant": "grant.json",
+    }
+    assert contract.parse_execution_command(command[2:]) == parsed
+    _, _, raw = bindings()
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight"])
+def test_shared_command_grammar_supports_nonexecute_cli_modes_without_authorization(mode):
+    command = [mode, *COMMAND[3:], "--config", "config.json"]
+    if mode == "prepare":
+        command.extend(
+            [
+                "--archive",
+                "archive.zip",
+                "--source-root",
+                "source",
+                "--source-manifest",
+                "source.json",
+                "--runtime-root",
+                "runtime",
+                "--amendment",
+                "amendment.json",
+                "--reference-root",
+                "reference",
+            ]
+        )
+    else:
+        command.extend(["--input-manifest", "manifest.json"])
+    parsed = contract.parse_execution_command(command)
+    assert parsed["mode"] == mode and parsed["run_id"] == "run-001"
+    _, _, raw = bindings()
+    raw["command_sha256"] = contract.command_fingerprint(command)
+    with pytest.raises(contract.GrantValidationError):
+        validate(contract.ExecutionGrant.from_dict(raw), command=command)
+
+
+@pytest.mark.parametrize(
+    "extra",
+    [
+        ["--run", "run-002"],
+        ["--", "--run-id", "run-002"],
+        ["--unknown", "x"],
+        ["extra-positional"],
+        ["--config"],
+        ["--config", "--grant"],
+        ["--config", "private\n.json"],
+    ],
+)
+def test_shared_command_grammar_rejects_aliases_terminators_and_ambiguous_values(extra):
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_command([*COMMAND, *extra])
+
+
+@pytest.fixture
+def private_repo(tmp_path, monkeypatch):
+    subprocess.run(["git", "init", "--quiet", str(tmp_path)], check=True)
+    (tmp_path / ".gitignore").write_text("external_data/**\n", encoding="utf-8")
+    monkeypatch.setattr(contract, "REPOSITORY_ROOT", tmp_path)
+    return tmp_path / "external_data" / "airtravel-api-runs"
+
+
+@pytest.mark.parametrize(
+    "run_id",
+    [
+        "",
+        "../x",
+        "C:/outside",
+        "C:outside",
+        "/tmp/x",
+        "run/child",
+        "run\\child",
+        "run-001 ",
+        ".",
+        "..",
+        "RUN-001",
+        "con",
+        "nul",
+        "aux",
+        "com1",
+        "lpt9",
+        "run.001",
+        "run:001",
+        "run-ä",
+        "a" * 65,
+    ],
+)
+def test_safe_run_id_rejects_cross_platform_escapes_and_collisions(run_id):
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_safe_run_id(run_id)
+
+
+def test_private_root_creates_only_approved_empty_ignored_directory_and_rejects_reuse(private_repo):
+    root = contract.assert_private_empty_run_root(private_repo, "run-001")
+    assert root == private_repo / "run-001" and list(root.iterdir()) == []
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_private_empty_run_root(private_repo, "run-001")
+    (root / "receipt.json").write_text("{}", encoding="utf-8")
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_private_empty_run_root(private_repo, "run-001")
+
+
+def test_private_root_rejects_sibling_traversal_nonignored_and_casefold(private_repo):
+    for bad in (
+        private_repo.with_name("airtravel-api-runs-evil"),
+        private_repo.parent.parent,
+        private_repo / ".." / "airtravel-api-runs",
+        Path("../external_data/airtravel-api-runs"),
+    ):
+        with pytest.raises(contract.ContainmentError):
+            contract.assert_private_empty_run_root(bad, "run-001")
+    (private_repo.parents[1] / ".gitignore").write_text("", encoding="utf-8")
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_private_empty_run_root(private_repo, "run-001")
+    (private_repo.parents[1] / ".gitignore").write_text("external_data/**\n", encoding="utf-8")
+    private_repo.mkdir(parents=True, exist_ok=True)
+    (private_repo / "RUN-001").mkdir()
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_private_empty_run_root(private_repo, "run-001")
+
+
+def test_private_root_rejects_symlink_or_real_windows_junction(private_repo, tmp_path):
+    target = tmp_path / "outside"
+    target.mkdir()
+    private_repo.parent.mkdir()
+    if os.name == "nt":
+        subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(private_repo), str(target)],
+            check=True,
+            capture_output=True,
+        )
+    else:
+        private_repo.symlink_to(target, target_is_directory=True)
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_private_empty_run_root(private_repo, "run-001")
+    assert not (target / "run-001").exists()
+
+
+def test_reparse_attribute_is_blocked_even_without_symlink(private_repo, monkeypatch):
+    private_repo.mkdir(parents=True)
+    original = Path.lstat
+
+    def reparse_metadata(path, *args, **kwargs):
+        if path == private_repo:
+            return SimpleNamespace(
+                st_file_attributes=stat.FILE_ATTRIBUTE_REPARSE_POINT, st_mode=stat.S_IFDIR
+            )
+        return original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "lstat", reparse_metadata)
+    with pytest.raises(contract.ContainmentError):
+        contract.assert_private_empty_run_root(private_repo, "run-001")
+
+
+def test_receipt_skeleton_is_controlled_and_contains_no_text_payloads():
+    config, manifest, _ = bindings()
+    receipt = contract.build_receipt_skeleton(
+        config=config, manifest=manifest, run_id="run-001", mode="prepare", now=NOW
+    )
+    validator("receipt").validate(receipt)
+    assert receipt["technical_error_code"] == "NONE"
+    assert receipt["external_provider_call_count"] == 0 and receipt["physical_call_count"] == 0
+    assert receipt["spent_usd"] == "0.00" and receipt["scientific_result_count"] == 0
+    assert receipt["status"] == "NOT_STARTED" and receipt["containment_check"] == "NOT_CHECKED"
+    for key in ("prompt", "answer", "exception", "raw_response"):
+        assert list(validator("receipt").iter_errors({**receipt, key: "private text"}))
+    for code in (
+        "NONE",
+        "GRANT_INVALID",
+        "BUDGET_EXCEEDED",
+        "CALL_CAP_EXCEEDED",
+        "TIMEOUT",
+        "MALFORMED_RESPONSE",
+        "EGRESS_BLOCKED",
+        "INTERNAL_FAILURE",
+    ):
+        validator("receipt").validate({**receipt, "technical_error_code": code})
+    assert list(
+        validator("receipt").iter_errors({**receipt, "technical_error_code": "provider said..."})
+    )
+
+
+def accounting_receipt(mode="execute", status="PASS", *, total="6.00"):
+    """Hand-calculated synthetic accounting only; no pipeline/provider execution."""
+    cfg = full_budget_config(total)
+    manifest = contract.build_input_manifest(
+        verification=verification_data(), config=cfg, code_sha=COMMIT
+    )
+    value = contract.build_receipt_skeleton(
+        config=cfg, manifest=manifest, run_id="accounting-only", mode=mode, now=NOW
+    )
+    value.update(status=status, containment_check="PASS")
+    if status in {"BLOCKED", "INCOMPLETE_TECHNICAL"}:
+        value["technical_error_code"] = "BUDGET_EXCEEDED" if status == "BLOCKED" else "TIMEOUT"
+    if mode != "prepare" and status in {"PASS", "INCOMPLETE_TECHNICAL"}:
+        # PASS: 16 successful calls. Incomplete: one success and one failed call.
+        success = 16 if status == "PASS" else 1
+        value.update(
+            physical_call_count=16 if status == "PASS" else 2,
+            external_provider_call_count=(16 if status == "PASS" else 2) if mode == "execute" else 0,
+            input_token_count=success * 1000,
+            output_token_count=success * 1000,
+            ledger_sha256="d" * 64,
+            event_log_sha256="e" * 64,
+            pipeline_output_sha256="f" * 64,
+        )
+        if total == "6.00":
+            cost, reserve = ("0.96", "5.04") if status == "PASS" else ("0.06", "5.94")
+        else:
+            cost, reserve = ("0.9616", "5.0484") if status == "PASS" else ("0.0601", "5.9499")
+        value["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = cost
+        value["reserved_usd"] = reserve
+    return value
+
+
+def rehashed_accounting_receipt(value):
+    """Recompute supplied nested hashes; rejection must be semantic, not hash-only."""
+    reservation = value["full_run_reservation"]
+    reservation["price_schedule_sha256"] = contract.canonical_json_sha256(reservation["price_schedule"])
+    value["price_schedule_sha256"] = reservation["price_schedule_sha256"]
+    value["full_run_reservation_sha256"] = contract.canonical_json_sha256(reservation)
+    # Round-trip under its new external receipt digest, as a rehashed stored file.
+    raw = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    assert hashlib.sha256(raw).hexdigest() == contract.canonical_json_sha256(value)
+    return json.loads(raw)
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight", "execute"])
+@pytest.mark.parametrize("status", ["NOT_STARTED", "PASS", "BLOCKED"])
+def test_receipt_status_accounting_accepts_legitimate_states(mode, status):
+    value = accounting_receipt(mode, status)
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight", "execute"])
+@pytest.mark.parametrize("status", ["NOT_STARTED", "BLOCKED"])
+def test_receipt_admission_can_report_unaffordable_plan_without_spend(mode, status):
+    value = accounting_receipt(mode, status, total="6.01")
+    assert value["full_run_reservation"]["full_run_usd"] == "6.01"
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight", "execute"])
+def test_receipt_pass_rejects_rehashed_but_unaffordable_full_reservation(mode):
+    value = accounting_receipt(mode, total="6.01")
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+@pytest.mark.parametrize("status", ["PASS", "INCOMPLETE_TECHNICAL"])
+@pytest.mark.parametrize(
+    "field,bad",
+    [
+        ("physical_call_count", 101),
+        ("external_provider_call_count", 101),
+        ("reserved_usd", "6.01"),
+        ("reserved_usd", "5.039"),  # not an integral number of held call slots
+        ("reserved_usd", "0.00"),  # releases more slots than physical calls
+        ("input_token_count", 100001),
+        ("output_token_count", 100001),
+        ("ledger_sha256", None),
+        ("active_cost", "6.01"),
+        ("active_cost", "0.95"),  # plausible under cap, wrong for token usage
+        ("active_cost", "0.00"),
+    ],
+)
+def test_receipt_rejects_rehashed_impossible_accounting(mode, status, field, bad):
+    value = accounting_receipt(mode, status)
+    contract.parse_execution_receipt(value)
+    if field == "active_cost":
+        field = "simulated_spent_usd" if mode == "preflight" else "spent_usd"
+    value[field] = bad
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_pass_cannot_hide_failed_calls_or_skip_minimum_workflow(mode):
+    failed = accounting_receipt(mode, "INCOMPLETE_TECHNICAL")
+    # Meet the minimum with 16 physical calls, but only 15 successful releases.
+    failed.update(
+        physical_call_count=16, external_provider_call_count=16 if mode == "execute" else 0,
+        input_token_count=15000, output_token_count=15000, reserved_usd="5.10",
+    )
+    failed["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "0.90"
+    contract.parse_execution_receipt(failed)
+    failed.update(status="PASS", technical_error_code="NONE")
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(failed))
+    skipped = accounting_receipt(mode)
+    skipped.update(
+        physical_call_count=1, external_provider_call_count=1 if mode == "execute" else 0,
+        input_token_count=1000, output_token_count=1000, reserved_usd="5.94",
+    )
+    skipped["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "0.06"
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(skipped))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_incomplete_preserves_unknown_failed_call_reservations(mode):
+    value = accounting_receipt(mode, "INCOMPLETE_TECHNICAL")
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+    value.update(input_token_count=0, output_token_count=0, reserved_usd="6.00")
+    value["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "0.00"
+    # Two attempted, unbillable/unknown outcomes: both full slots remain held.
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+    value.update(physical_call_count=0, external_provider_call_count=0)
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_exact_full_cap_is_valid_but_no_fictitious_running_or_failed_status(mode):
+    value = accounting_receipt(mode)
+    value.update(
+        physical_call_count=100, external_provider_call_count=100 if mode == "execute" else 0,
+        input_token_count=100000, output_token_count=100000, reserved_usd="0.00",
+    )
+    value["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "6.00"
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+    for status in ("RUNNING", "FAILED"):
+        with pytest.raises(contract.ContractValidationError):
+            contract.parse_execution_receipt({**value, "status": status})
+
+
+@pytest.mark.parametrize("mode,status", [("prepare", "PASS"), ("execute", "NOT_STARTED"), ("preflight", "BLOCKED")])
+@pytest.mark.parametrize("field,bad", [("physical_call_count", 1), ("input_token_count", 1), ("output_token_count", 1), ("reserved_usd", "0.06"), ("ledger_sha256", "a" * 64)])
+def test_receipt_admission_and_prepare_cannot_claim_live_accounting(mode, status, field, bad):
+    value = accounting_receipt(mode, status)
+    value[field] = bad
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+def test_receipt_execute_cannot_hide_external_attempts_as_fake_calls():
+    value = accounting_receipt()
+    value["external_provider_call_count"] = 15
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("status,code", [("PASS", "TIMEOUT"), ("NOT_STARTED", "TIMEOUT"), ("BLOCKED", "NONE"), ("INCOMPLETE_TECHNICAL", "NONE")])
+def test_receipt_status_cannot_contradict_technical_error(status, code):
+    value = accounting_receipt(status=status)
+    value["technical_error_code"] = code
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_cannot_round_away_reservation_tampering(mode):
+    value = accounting_receipt(mode)
+    value["reserved_usd"] = "5.04" + "0" * 150 + "1"
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+def test_receipt_incomplete_does_not_authorize_an_unaffordable_run():
+    value = accounting_receipt(status="INCOMPLETE_TECHNICAL", total="6.01")
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+@pytest.mark.parametrize("over_field,under_field", [("input_token_count", "output_token_count"), ("output_token_count", "input_token_count")])
+def test_receipt_token_caps_cannot_be_hidden_by_equal_total_cost(mode, over_field, under_field):
+    value = accounting_receipt(mode)
+    # Equal rates preserve the exact total cost while one token class breaches its cap.
+    value[over_field] = 16001
+    value[under_field] = 15999
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+def test_contract_import_does_not_load_provider_sdk_or_network_clients():
+    script = (
+        "import sys; sys.path.insert(0, 'scripts'); import airtravel_execution_contract; "
+        "assert not any(k in sys.modules for k in ('openai', 'httpx', 'requests', 'aiohttp'))"
+    )
+    subprocess.run([sys.executable, "-I", "-c", script], cwd=ROOT, check=True)
+
+
+NEWLINE_CASES = (
+    [
+        ("config", field)
+        for field in (
+            "model",
+            "provider_host",
+            "max_usd",
+            "price_schedule.source",
+            "price_schedule.checked_at_utc",
+            "price_schedule.input_usd_per_million_tokens",
+            "price_schedule.output_usd_per_million_tokens",
+        )
+    ]
+    + [
+        ("grant", field)
+        for field in (
+            "nonce",
+            "invocation_id",
+            "run_id",
+            "model",
+            "provider_host",
+            "max_usd",
+            "code_sha",
+            "input_manifest_sha256",
+            "config_sha256",
+            "price_schedule_sha256",
+            "command_sha256",
+            "private_root",
+            "issued_at_utc",
+            "expires_at_utc",
+        )
+    ]
+    + [
+        ("receipt", field)
+        for field in (
+            "run_id",
+            "model",
+            "provider_host",
+            "max_usd",
+            "code_sha",
+            "input_manifest_sha256",
+            "config_sha256",
+            "price_schedule_sha256",
+            "event_log_sha256",
+            "pipeline_output_sha256",
+            "ledger_sha256",
+            "spent_usd",
+            "reserved_usd",
+            "created_at_utc",
+        )
+    ]
+)
+
+
+def contract_instance(kind):
+    config, manifest, grant = bindings()
+    if kind == "config":
+        return config_data()
+    if kind == "grant":
+        return grant
+    return contract.build_receipt_skeleton(
+        config=config, manifest=manifest, run_id="run-001", mode="prepare", now=NOW
+    )
+
+
+def parse_contract_instance(kind, value):
+    if kind == "config":
+        return contract.ExecutionConfig.from_dict(value).to_dict()
+    if kind == "grant":
+        return contract.ExecutionGrant.from_dict(value).to_dict()
+    return contract.parse_execution_receipt(value)
+
+
+@pytest.mark.parametrize(("kind", "field"), NEWLINE_CASES)
+@pytest.mark.parametrize("boundary", ["schema", "parser"])
+def test_trailing_newline_rejected_without_normalization(kind, field, boundary):
+    value = contract_instance(kind)
+    target = value
+    parts = field.split(".")
+    for key in parts[:-1]:
+        target = target[key]
+    canonical = target[parts[-1]]
+    if canonical is None:
+        canonical = "a" * 64
+    target[parts[-1]] = canonical + "\n"
+    if boundary == "schema":
+        assert list(validator(kind).iter_errors(value)), f"{kind}.{field} accepted newline"
+    else:
+        with pytest.raises(contract.ContractValidationError):
+            parse_contract_instance(kind, value)
+    assert target[parts[-1]] == canonical + "\n"
+
+
+@pytest.mark.parametrize("kind", ["config", "grant", "receipt"])
+def test_canonical_contracts_remain_schema_and_parser_valid(kind):
+    value = contract_instance(kind)
+    validator(kind).validate(value)
+    assert parse_contract_instance(kind, value) == value
+
+
+PUBLIC_DOC_ROOT = ROOT / "docs" / "research" / "phd-proposal"
+
+
+def public_document(name: str) -> str:
+    path = PUBLIC_DOC_ROOT / f"2026-09-12-airtravel-api-{name}.md"
+    assert path.is_file(), f"missing public review document: {path.name}"
+    return " ".join(path.read_text(encoding="utf-8").split())
+
+
+def test_public_protocol_preserves_data_and_claim_boundaries():
+    text = public_document("execution-protocol")
+    assert "VEGO ZIP" in text and "not sent to an external provider" in text
+    assert "QuRE" in text and "NOT_ADMITTED" in text
+    assert "public AirTravel" in text and "N=4" in text
+    assert "does not establish accuracy" in text
+    assert "reporting-only" in text and "no automatic correction" in text
+    assert "Agent-4" in text and "NOT_AVAILABLE" in text
+    assert "$6" in text and "6.00" in text
+    assert "<API_KEY>" not in text
+    assert "external_data/airtravel-api-runs/<run_id>" not in text
+
+
+def test_public_grant_template_cannot_be_mistaken_for_execution_authority():
+    text = public_document("execution-grant-template")
+    assert "TEMPLATE_ONLY_NOT_AUTHORIZATION" in text
+    assert "human" in text and "one-time" in text
+    for field in (
+        "model",
+        "price_schedule",
+        "checked_at_utc",
+        "max_calls",
+        "max_rounds",
+        "call_inventory_sha256",
+        "command_sha256",
+        "private_root",
+        "expires_at_utc",
+        "nonce",
+        "invocation_id",
+        "code_sha",
+        "input_manifest_sha256",
+        "config_sha256",
+    ):
+        assert f"`{field}`" in text
+    assert "does not authorize VEGO ZIP or QuRE" in text
+    assert "fresh" in text and "fake_preflight_authorization.json" in text
+    assert "no private hash or actual grant" in text
+
+
+def test_public_review_packet_preserves_unexecuted_preflight_and_boundaries():
+    text = public_document("preflight-review-packet")
+    assert "PREFLIGHT_PREPARED_AWAITING_FRESH_EXECUTION_GRANT" in text
+    assert "documented but unexecuted" in text
+    assert "fresh, hash-bound local fake-preflight authorization" in text
+    assert "external_provider_call_count=0" in text
+    assert "scientific_result_count=0" in text
+    assert "does not size the isolated lane" in text
+    assert "max_rounds" in text and "call_inventory_sha256" in text
+    assert "api.openai.com" in text and "not an operating-system sandbox" in text
+    assert (
+        "uv run python scripts/study1_airtravel_external_runner.py preflight "
+        "--config <private-config> --input-manifest <private-manifest> "
+        "--private-root external_data/airtravel-api-runs --run-id preflight-<safe-id>"
+    ) in text
