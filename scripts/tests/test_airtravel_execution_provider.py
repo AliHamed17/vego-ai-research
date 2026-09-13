@@ -763,8 +763,11 @@ def test_request_reservation_is_bound_to_its_task_context(monkeypatch):
 def test_cancellation_retains_reservation_and_redacts_text(monkeypatch):
     p, provider, ledger, sdk = constructed(monkeypatch)
     sdk.outcome = "cancelled"
-    with pytest.raises(asyncio.CancelledError, match="^CANCELLED$"):
+    # Python 3.10's asyncio runner clears the message on a task-level
+    # CancelledError; later versions preserve the sanitized marker.
+    with pytest.raises(asyncio.CancelledError) as raised:
         asyncio.run(provider.call(PROMPT, label="first"))
+    assert str(raised.value) in {"", "CANCELLED"}
     assert ledger.entries[0].status == "CANCELLED"
     assert ledger.reserved_usd == Decimal("5.60")
 

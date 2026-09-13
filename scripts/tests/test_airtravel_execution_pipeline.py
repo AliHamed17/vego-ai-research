@@ -509,8 +509,11 @@ def test_cancellation_persists_incomplete_receipt_and_closes_question(tmp_path, 
         return await original(self, prompt, label=label)
 
     monkeypatch.setattr(boundary.DeterministicFakeProvider, "call", cancel_answer)
-    with pytest.raises(asyncio.CancelledError, match="CANCELLED"):
+    # Python 3.10's asyncio runner clears the message on a task-level
+    # CancelledError; the persisted receipt is the authoritative code.
+    with pytest.raises(asyncio.CancelledError) as raised:
         run_fixture(tmp_path, rows=outcomes(qa_cases=("01",)))
+    assert str(raised.value) in {"", "CANCELLED"}
     manifest_text = (tmp_path / "pipeline_manifest.json").read_text()
     assert "Synthetic private" not in manifest_text
     receipt = json.loads(manifest_text)["receipt"]

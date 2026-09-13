@@ -59,7 +59,7 @@ PROTECTED_FUNCTIONS = frozenset(
         "phase4_variability_analysis",
     }
 )
-PROTECTED_AST_SHA256 = "c785b77fe31e97ece79a484b43c3ad3f85a0d2e7a3c7d7bfb174a9260839a717"
+PROTECTED_AST_SHA256 = "134b5d36051b306377e1705107e872858db21240b2a76bceab65567a15295f3f"
 
 
 def _count(value: int) -> int:
@@ -74,6 +74,30 @@ def _phase_totals(case_count: int, field: str) -> dict[str, int]:
     for site in CALL_SITES:
         result[site.phase] += getattr(site, field) * (case_count if site.per_case else 1)
     return result
+
+
+def _canonical_ast_value(value: object) -> object:
+    """Serialize selected AST nodes without Python-version-only fields.
+
+    ``ast.dump`` gained fields such as ``type_params`` in newer interpreters;
+    including those empty fields made the historical source fingerprint vary
+    across the supported CI matrix.  The normalized tuple retains every
+    semantic field while omitting only version-specific empty metadata.
+    """
+    if isinstance(value, ast.AST):
+        return (
+            type(value).__name__,
+            tuple(
+                (name, _canonical_ast_value(field))
+                for name, field in ast.iter_fields(value)
+                if name not in {"type_params"}
+            ),
+        )
+    if isinstance(value, list):
+        return tuple(_canonical_ast_value(item) for item in value)
+    if isinstance(value, tuple):
+        return tuple(_canonical_ast_value(item) for item in value)
+    return value
 
 
 def verify_legacy_call_source(source_path: Path | None = None) -> bool:
@@ -99,7 +123,7 @@ def verify_legacy_call_source(source_path: Path | None = None) -> bool:
             )
         ]
         fingerprint = hashlib.sha256(
-            ast.dump(ast.Module(body=nodes, type_ignores=[]), include_attributes=False).encode()
+            repr(_canonical_ast_value(nodes)).encode("utf-8")
         ).hexdigest()
         labels = set()
         for node in ast.walk(ast.Module(body=nodes, type_ignores=[])):
