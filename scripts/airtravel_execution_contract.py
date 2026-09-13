@@ -988,6 +988,69 @@ def validate_execution_grant(
         raise GrantValidationError("invalid execution binding") from None
 
 
+def _validate_receipt_accounting(value: Mapping[str, Any], reservation: FullRunReservation) -> None:
+    """Check internal accounting, not authenticity of the referenced private ledger.
+
+    Planning/admission receipts have no live ledger, even when their proposed
+    full allocation is unaffordable. A started run must have the affordable full
+    allocation. Each OK call releases exactly one conservative slot; failed or
+    unknown attempts retain their slot. Only measured OK usage contributes to
+    spend; unknown failure costs remain covered, not treated as free attempts.
+    RUNNING/FAILED are not states in this version's schema.
+    """
+    status, mode = value["status"], value["mode"]
+    calls, external_calls = value["physical_call_count"], value["external_provider_call_count"]
+    if external_calls > calls or calls > reservation.authorized_call_count:
+        raise ContractValidationError("receipt call ceiling mismatch")
+    if mode == "execute" and external_calls != calls:
+        raise ContractValidationError("receipt provider attempt mismatch")
+    if (status in {"NOT_STARTED", "PASS"}) != (value["technical_error_code"] == "NONE"):
+        raise ContractValidationError("receipt status and error mismatch")
+
+    cost = Decimal(value["simulated_spent_usd"] if mode == "preflight" else value["spent_usd"])
+    reserved = Decimal(value["reserved_usd"])
+    ceiling = Decimal(value["max_usd"])
+    if status in {"PASS", "INCOMPLETE_TECHNICAL"} and reservation.full_run_usd > ceiling:
+        raise ContractValidationError("receipt admitted unaffordable full-run reservation")
+    if status in {"NOT_STARTED", "BLOCKED"} or mode == "prepare":
+        if (
+            calls or external_calls or value["input_token_count"] or value["output_token_count"]
+            or cost or reserved or value["ledger_sha256"] is not None
+            or (mode == "prepare" and status == "INCOMPLETE_TECHNICAL")
+        ):
+            raise ContractValidationError("receipt admission cannot contain live accounting")
+        return
+
+    if value["ledger_sha256"] is None or reserved > reservation.full_run_usd:
+        raise ContractValidationError("receipt live reservation or ledger mismatch")
+    # Use integer ratios, not rounded Decimal division: even a sub-precision
+    # fractional-slot mutation must fail after an attacker recomputes the hashes.
+    reserve_num, reserve_den = reserved.as_integer_ratio()
+    slot_num, slot_den = reservation.per_call_usd.as_integer_ratio()
+    held_slots, remainder = divmod(reserve_num * slot_den, reserve_den * slot_num)
+    successful_calls = reservation.authorized_call_count - held_slots
+    if remainder or not 0 <= successful_calls <= calls:
+        raise ContractValidationError("receipt reservation does not match successful call slots")
+    if status == "PASS" and (
+        successful_calls != calls or calls < build_call_inventory(value["max_rounds"])["minimum_calls"]
+    ):
+        raise ContractValidationError("receipt PASS requires complete call accounting")
+    if (
+        value["input_token_count"] > successful_calls * reservation.max_input_tokens
+        or value["output_token_count"] > successful_calls * reservation.max_output_tokens
+    ):
+        raise ContractValidationError("receipt token ceiling mismatch")
+    with localcontext() as ctx:
+        ctx.prec = 100
+        prices = reservation.price_schedule
+        measured_cost = (
+            value["input_token_count"] * prices.input_usd_per_million_tokens
+            + value["output_token_count"] * prices.output_usd_per_million_tokens
+        ) / Decimal("1000000")
+        if cost != measured_cost or cost + reserved > reservation.full_run_usd:
+            raise ContractValidationError("receipt cost does not match reserved usage")
+
+
 def parse_execution_receipt(value: Mapping[str, Any]) -> dict[str, Any]:
     """Validate a private receipt and return a detached copy without trimming strings."""
     _schema_validate("receipt", value)
@@ -1011,6 +1074,7 @@ def parse_execution_receipt(value: Mapping[str, Any]) -> dict[str, Any]:
         build_call_inventory(value["max_rounds"])
     ):
         raise ContractValidationError("receipt inventory mismatch")
+    _validate_receipt_accounting(value, reservation)
     _parse_timestamp(value["created_at_utc"])
     return _json_value(value)
 

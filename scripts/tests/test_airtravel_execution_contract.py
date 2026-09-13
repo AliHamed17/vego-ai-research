@@ -840,6 +840,199 @@ def test_receipt_skeleton_is_controlled_and_contains_no_text_payloads():
     )
 
 
+def accounting_receipt(mode="execute", status="PASS", *, total="6.00"):
+    """Hand-calculated synthetic accounting only; no pipeline/provider execution."""
+    cfg = full_budget_config(total)
+    manifest = contract.build_input_manifest(
+        verification=verification_data(), config=cfg, code_sha=COMMIT
+    )
+    value = contract.build_receipt_skeleton(
+        config=cfg, manifest=manifest, run_id="accounting-only", mode=mode, now=NOW
+    )
+    value.update(status=status, containment_check="PASS")
+    if status in {"BLOCKED", "INCOMPLETE_TECHNICAL"}:
+        value["technical_error_code"] = "BUDGET_EXCEEDED" if status == "BLOCKED" else "TIMEOUT"
+    if mode != "prepare" and status in {"PASS", "INCOMPLETE_TECHNICAL"}:
+        # PASS: 16 successful calls. Incomplete: one success and one failed call.
+        success = 16 if status == "PASS" else 1
+        value.update(
+            physical_call_count=16 if status == "PASS" else 2,
+            external_provider_call_count=(16 if status == "PASS" else 2) if mode == "execute" else 0,
+            input_token_count=success * 1000,
+            output_token_count=success * 1000,
+            ledger_sha256="d" * 64,
+            event_log_sha256="e" * 64,
+            pipeline_output_sha256="f" * 64,
+        )
+        if total == "6.00":
+            cost, reserve = ("0.96", "5.04") if status == "PASS" else ("0.06", "5.94")
+        else:
+            cost, reserve = ("0.9616", "5.0484") if status == "PASS" else ("0.0601", "5.9499")
+        value["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = cost
+        value["reserved_usd"] = reserve
+    return value
+
+
+def rehashed_accounting_receipt(value):
+    """Recompute supplied nested hashes; rejection must be semantic, not hash-only."""
+    reservation = value["full_run_reservation"]
+    reservation["price_schedule_sha256"] = contract.canonical_json_sha256(reservation["price_schedule"])
+    value["price_schedule_sha256"] = reservation["price_schedule_sha256"]
+    value["full_run_reservation_sha256"] = contract.canonical_json_sha256(reservation)
+    # Round-trip under its new external receipt digest, as a rehashed stored file.
+    raw = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    assert hashlib.sha256(raw).hexdigest() == contract.canonical_json_sha256(value)
+    return json.loads(raw)
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight", "execute"])
+@pytest.mark.parametrize("status", ["NOT_STARTED", "PASS", "BLOCKED"])
+def test_receipt_status_accounting_accepts_legitimate_states(mode, status):
+    value = accounting_receipt(mode, status)
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight", "execute"])
+@pytest.mark.parametrize("status", ["NOT_STARTED", "BLOCKED"])
+def test_receipt_admission_can_report_unaffordable_plan_without_spend(mode, status):
+    value = accounting_receipt(mode, status, total="6.01")
+    assert value["full_run_reservation"]["full_run_usd"] == "6.01"
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+
+
+@pytest.mark.parametrize("mode", ["prepare", "preflight", "execute"])
+def test_receipt_pass_rejects_rehashed_but_unaffordable_full_reservation(mode):
+    value = accounting_receipt(mode, total="6.01")
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+@pytest.mark.parametrize("status", ["PASS", "INCOMPLETE_TECHNICAL"])
+@pytest.mark.parametrize(
+    "field,bad",
+    [
+        ("physical_call_count", 101),
+        ("external_provider_call_count", 101),
+        ("reserved_usd", "6.01"),
+        ("reserved_usd", "5.039"),  # not an integral number of held call slots
+        ("reserved_usd", "0.00"),  # releases more slots than physical calls
+        ("input_token_count", 100001),
+        ("output_token_count", 100001),
+        ("ledger_sha256", None),
+        ("active_cost", "6.01"),
+        ("active_cost", "0.95"),  # plausible under cap, wrong for token usage
+        ("active_cost", "0.00"),
+    ],
+)
+def test_receipt_rejects_rehashed_impossible_accounting(mode, status, field, bad):
+    value = accounting_receipt(mode, status)
+    contract.parse_execution_receipt(value)
+    if field == "active_cost":
+        field = "simulated_spent_usd" if mode == "preflight" else "spent_usd"
+    value[field] = bad
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_pass_cannot_hide_failed_calls_or_skip_minimum_workflow(mode):
+    failed = accounting_receipt(mode, "INCOMPLETE_TECHNICAL")
+    # Meet the minimum with 16 physical calls, but only 15 successful releases.
+    failed.update(
+        physical_call_count=16, external_provider_call_count=16 if mode == "execute" else 0,
+        input_token_count=15000, output_token_count=15000, reserved_usd="5.10",
+    )
+    failed["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "0.90"
+    contract.parse_execution_receipt(failed)
+    failed.update(status="PASS", technical_error_code="NONE")
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(failed))
+    skipped = accounting_receipt(mode)
+    skipped.update(
+        physical_call_count=1, external_provider_call_count=1 if mode == "execute" else 0,
+        input_token_count=1000, output_token_count=1000, reserved_usd="5.94",
+    )
+    skipped["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "0.06"
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(skipped))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_incomplete_preserves_unknown_failed_call_reservations(mode):
+    value = accounting_receipt(mode, "INCOMPLETE_TECHNICAL")
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+    value.update(input_token_count=0, output_token_count=0, reserved_usd="6.00")
+    value["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "0.00"
+    # Two attempted, unbillable/unknown outcomes: both full slots remain held.
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+    value.update(physical_call_count=0, external_provider_call_count=0)
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_exact_full_cap_is_valid_but_no_fictitious_running_or_failed_status(mode):
+    value = accounting_receipt(mode)
+    value.update(
+        physical_call_count=100, external_provider_call_count=100 if mode == "execute" else 0,
+        input_token_count=100000, output_token_count=100000, reserved_usd="0.00",
+    )
+    value["simulated_spent_usd" if mode == "preflight" else "spent_usd"] = "6.00"
+    assert contract.parse_execution_receipt(rehashed_accounting_receipt(value)) == value
+    for status in ("RUNNING", "FAILED"):
+        with pytest.raises(contract.ContractValidationError):
+            contract.parse_execution_receipt({**value, "status": status})
+
+
+@pytest.mark.parametrize("mode,status", [("prepare", "PASS"), ("execute", "NOT_STARTED"), ("preflight", "BLOCKED")])
+@pytest.mark.parametrize("field,bad", [("physical_call_count", 1), ("input_token_count", 1), ("output_token_count", 1), ("reserved_usd", "0.06"), ("ledger_sha256", "a" * 64)])
+def test_receipt_admission_and_prepare_cannot_claim_live_accounting(mode, status, field, bad):
+    value = accounting_receipt(mode, status)
+    value[field] = bad
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+def test_receipt_execute_cannot_hide_external_attempts_as_fake_calls():
+    value = accounting_receipt()
+    value["external_provider_call_count"] = 15
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("status,code", [("PASS", "TIMEOUT"), ("NOT_STARTED", "TIMEOUT"), ("BLOCKED", "NONE"), ("INCOMPLETE_TECHNICAL", "NONE")])
+def test_receipt_status_cannot_contradict_technical_error(status, code):
+    value = accounting_receipt(status=status)
+    value["technical_error_code"] = code
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+def test_receipt_cannot_round_away_reservation_tampering(mode):
+    value = accounting_receipt(mode)
+    value["reserved_usd"] = "5.04" + "0" * 150 + "1"
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+def test_receipt_incomplete_does_not_authorize_an_unaffordable_run():
+    value = accounting_receipt(status="INCOMPLETE_TECHNICAL", total="6.01")
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
+@pytest.mark.parametrize("mode", ["preflight", "execute"])
+@pytest.mark.parametrize("over_field,under_field", [("input_token_count", "output_token_count"), ("output_token_count", "input_token_count")])
+def test_receipt_token_caps_cannot_be_hidden_by_equal_total_cost(mode, over_field, under_field):
+    value = accounting_receipt(mode)
+    # Equal rates preserve the exact total cost while one token class breaches its cap.
+    value[over_field] = 16001
+    value[under_field] = 15999
+    with pytest.raises(contract.ContractValidationError):
+        contract.parse_execution_receipt(rehashed_accounting_receipt(value))
+
+
 def test_contract_import_does_not_load_provider_sdk_or_network_clients():
     script = (
         "import sys; sys.path.insert(0, 'scripts'); import airtravel_execution_contract; "
