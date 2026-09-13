@@ -37,6 +37,84 @@ def modules():
     )
 
 
+@pytest.mark.parametrize("denial", ["proxy", "host", "logging", "runtime_host", "runtime_redirect"])
+def test_runner_egress_denial_persists_controlled_receipt_and_ledger(
+    workspace, monkeypatch, capsys, denial
+):
+    import airtravel_execution_provider as boundary
+    from test_airtravel_execution_provider import LocalSDK, install_synthetic_sdk_logging
+
+    _, runner, root, _, cfg_path, _ = workspace
+    manifest, path = prepare_manifest(workspace)
+    cfg = contract.ExecutionConfig.from_json(cfg_path)
+    command = command_for(workspace, "execute", path, "synthetic-egress-denied")
+    write(root / command[command.index("--grant") + 1], grant_for(cfg, manifest, command))
+    sdk = LocalSDK()
+    sdk.install(monkeypatch)
+    install_synthetic_sdk_logging(monkeypatch)
+    private_url = "https://SYNTHETIC_DENIED_ENDPOINT.invalid/secret"
+    reason, physical = "UNSUPPORTED_TRANSPORT_CONFIG", 0
+    if denial == "proxy":
+        monkeypatch.setenv("HTTPS_PROXY", private_url)
+    elif denial == "host":
+        monkeypatch.setenv("OPENAI_BASE_URL", private_url)
+    elif denial == "logging":
+        monkeypatch.setenv("OPENAI_LOG", "SYNTHETIC_PRIVATE_LOG_SETTING")
+        reason = "SDK_LOGGING_UNSAFE"
+    else:
+        reason = "HOST_REJECTED" if denial == "runtime_host" else "REDIRECT_REJECTED"
+        physical = int(denial == "runtime_redirect")
+        original = boundary.OpenAIProvider.construct_after_grant
+
+        def constructed(*args, **kwargs):
+            provider = original(*args, **kwargs)
+            if denial == "runtime_host":
+                async def rejected_request():
+                    await provider._before_request(SimpleNamespace(method="POST", url=private_url))
+                sdk.before_transport = rejected_request
+            else:
+                sdk.outcome = "redirect"
+            return provider
+
+        monkeypatch.setattr(boundary.OpenAIProvider, "construct_after_grant", constructed)
+    assert runner.main(command) == 2
+    output = root / contract.PRIVATE_PARENT / "synthetic-egress-denied"
+    receipt = contract.parse_execution_receipt(json.loads((output / "receipt.json").read_text()))
+    ledger = json.loads((output / "ledger.json").read_text())
+    assert receipt["status"] == "INCOMPLETE_TECHNICAL"
+    assert receipt["technical_error_code"] == "EGRESS_BLOCKED"
+    assert ledger["denied_attempts"] == [{"code": "EGRESS_BLOCKED", "reason": reason}]
+    assert receipt["physical_call_count"] == receipt["external_provider_call_count"] == physical
+    assert len(sdk.requests) == physical
+    if not denial.startswith("runtime"):
+        assert ledger["entries"] == []
+        assert sdk.client_options is sdk.http_options is sdk.transport_options is None
+    captured = capsys.readouterr()
+    emitted = captured.out + captured.err + "".join(item.read_text() for item in output.iterdir())
+    assert private_url not in emitted and "SYNTHETIC_PRIVATE_LOG_SETTING" not in emitted
+
+
+def test_prepare_and_synthetic_preflight_ignore_unsafe_sdk_logging(workspace, monkeypatch):
+    _, runner, _, _, cfg_path, _ = workspace
+    original = builtins.__import__
+    sdk_imports = []
+
+    def blocked(name, *args, **kwargs):
+        if name.split(".")[0] in {"openai", "httpx", "httpcore"}:
+            sdk_imports.append(name)
+            raise AssertionError("SDK import is forbidden in a synthetic preflight")
+        return original(name, *args, **kwargs)
+
+    monkeypatch.setattr("os.environ", {"OPENAI_LOG": "debug"})
+    monkeypatch.setattr(builtins, "__import__", blocked)
+    manifest, path = prepare_manifest(workspace)
+    cfg = contract.ExecutionConfig.from_json(cfg_path)
+    command = command_for(workspace, "preflight", path, "synthetic-logging-preflight")
+    write(path.parent / "fake_preflight_authorization.json", grant_for(cfg, manifest, command, "preflight"))
+    assert runner.main(command) == 0
+    assert sdk_imports == []
+
+
 def test_composition_gate_and_strict_cli_are_available():
     modules()
 

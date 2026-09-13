@@ -49,6 +49,7 @@ _CODES = frozenset(
         "REDIRECT_REJECTED",
         "HOST_REJECTED",
         "SDK_UNAVAILABLE",
+        "SDK_LOGGING_UNSAFE",
         "CONSTRUCTION_FAILED",
         "TIMEOUT",
         "PROVIDER_ERROR",
@@ -59,6 +60,9 @@ _CODES = frozenset(
     }
 )
 _TOKEN = object()
+_EGRESS_CODES = frozenset({
+    "UNSUPPORTED_TRANSPORT_CONFIG", "HOST_REJECTED", "REDIRECT_REJECTED", "SDK_LOGGING_UNSAFE",
+})
 
 
 class TechnicalProviderFailure(RuntimeError):
@@ -170,6 +174,7 @@ class BudgetLedger:
             raise TechnicalProviderFailure("UNBOUNDED_PRICE_SCHEDULE")
         self._config = config
         self._entries: list[LedgerEntry] = []
+        self._denied_attempts: list[dict[str, str]] = []
         self._lock = RLock()
         self._reserve_per_attempt = self._cost(config.max_input_tokens, config.max_output_tokens)
         self._full_run_reservation = config.full_run_reservation
@@ -321,6 +326,14 @@ class BudgetLedger:
                 spent_usd=self._cost(input_tokens, output_tokens) if code == "OK" else Decimal("0"),
             )
 
+    def _deny_egress(self, reason: str) -> None:
+        """A denied route is metadata, not a reservation or physical request."""
+        if reason not in _EGRESS_CODES:
+            raise TechnicalProviderFailure("PROVIDER_ERROR") from None
+        with self._lock:
+            self._denied_attempts.append({"code": "EGRESS_BLOCKED", "reason": reason})
+        raise TechnicalProviderFailure(reason) from None
+
     def to_dict(self) -> dict[str, Any]:
         """Private serializable metadata; no raw prompts, outputs or exceptions."""
         return {
@@ -342,6 +355,7 @@ class BudgetLedger:
             "output_token_count": sum(entry.output_tokens or 0 for entry in self._entries),
             "spent_usd": format(self.spent_usd, "f"),
             "reserved_usd": format(self.reserved_usd, "f"),
+            "denied_attempts": [dict(row) for row in self._denied_attempts],
             "entries": [
                 {
                     key: format(value, "f") if isinstance(value, Decimal) else value
@@ -399,6 +413,49 @@ def _failure_code(error: BaseException) -> str:
             break
         error = error.__cause__
     return "PROVIDER_ERROR"
+
+
+def receipt_error_code(error: BaseException) -> str:
+    """Map only controlled provider codes to the existing receipt vocabulary."""
+    code = _failure_code(error)
+    if code in _EGRESS_CODES:
+        return "EGRESS_BLOCKED"
+    if code == "RUN_TIMEOUT":
+        return "TIMEOUT"
+    return code if code in {
+        "TIMEOUT", "BUDGET_EXCEEDED", "CALL_CAP_EXCEEDED", "MALFORMED_RESPONSE",
+    } else "INTERNAL_FAILURE"
+
+
+def _guard_sdk_logging(ledger: BudgetLedger) -> None:
+    """Fail closed before SDK import/use; isolate only SDK/transport log paths.
+
+    Root handlers remain untouched. Null sinks at every existing family logger
+    also contain future descendants and prevent logging.lastResort fallback.
+    This is not a sandbox against hostile concurrent logging reconfiguration.
+    """
+    import logging
+    import os
+
+    if os.environ.get("OPENAI_LOG"):
+        ledger._deny_egress("SDK_LOGGING_UNSAFE")
+    families = {"openai", "httpx", "httpcore"}
+    loggers = {logging.getLogger(name) for name in families}
+    loggers.update(
+        logger for name, logger in list(logging.Logger.manager.loggerDict.items())
+        if name.split(".")[0] in families and isinstance(logger, logging.Logger)
+    )
+    if any(
+        logger.getEffectiveLevel() <= logging.DEBUG
+        or any(type(handler) is not logging.NullHandler for handler in logger.handlers)
+        for logger in loggers
+    ):
+        ledger._deny_egress("SDK_LOGGING_UNSAFE")
+    for logger in loggers:
+        logger.setLevel(logging.CRITICAL + 1)
+        logger.propagate = False
+        if not logger.handlers:
+            logger.addHandler(logging.NullHandler())
 
 
 def _response(value: Mapping[str, Any], config: ExecutionConfig) -> dict[str, Any]:
@@ -523,6 +580,8 @@ class OpenAIProvider:
             "OPENAI_PROXY",
             "OPENAI_WEBSOCKET_BASE_URL",
         }
+        if type(ledger) is not BudgetLedger or ledger.config != config or ledger.entries:
+            raise TechnicalProviderFailure("LEDGER_CONFIG_MISMATCH")
         if (
             options
             or config.provider_host != "api.openai.com"
@@ -531,9 +590,7 @@ class OpenAIProvider:
                 for name in forbidden_environment
             )
         ):
-            raise TechnicalProviderFailure("UNSUPPORTED_TRANSPORT_CONFIG")
-        if type(ledger) is not BudgetLedger or ledger.config != config or ledger.entries:
-            raise TechnicalProviderFailure("LEDGER_CONFIG_MISMATCH")
+            ledger._deny_egress("UNSUPPORTED_TRANSPORT_CONFIG")
         try:
             reservation = require_full_run_budget(config)
             if not ledger.full_run_reserve_active or ledger.reserved_usd != reservation.full_run_usd:
@@ -547,6 +604,7 @@ class OpenAIProvider:
             )
         except Exception:
             raise TechnicalProviderFailure("INVALID_GRANT") from None
+        _guard_sdk_logging(ledger)
         provider = cls(_token=_TOKEN)
         provider._ledger = ledger
         provider._grant = grant
@@ -559,6 +617,7 @@ class OpenAIProvider:
             import httpx
             from openai import AsyncOpenAI
 
+            _guard_sdk_logging(ledger)
             transport = httpx.AsyncHTTPTransport(retries=0, trust_env=False, verify=True)
             http_client = httpx.AsyncClient(
                 transport=transport,
@@ -578,6 +637,8 @@ class OpenAIProvider:
             )
         except ImportError:
             raise TechnicalProviderFailure("SDK_UNAVAILABLE") from None
+        except TechnicalProviderFailure:
+            raise
         except Exception:
             raise TechnicalProviderFailure("CONSTRUCTION_FAILED") from None
         return provider
@@ -594,12 +655,13 @@ class OpenAIProvider:
             raise TechnicalProviderFailure("INVALID_GRANT")
         if time.monotonic_ns() >= self._deadline_monotonic_ns:
             raise TechnicalProviderFailure("RUN_TIMEOUT")
+        _guard_sdk_logging(ledger)
 
     async def _before_request(self, request: Any) -> None:
         import asyncio
 
         if request.method != "POST" or str(request.url) != REQUEST_URL:
-            raise TechnicalProviderFailure("HOST_REJECTED")
+            self._ledger._deny_egress("HOST_REJECTED")
         permission = self._attempt_context.get()
         if permission is None or permission.owner is not asyncio.current_task():
             raise TechnicalProviderFailure("UNRESERVED_REQUEST")
@@ -612,7 +674,7 @@ class OpenAIProvider:
 
     async def _after_response(self, response: Any) -> None:
         if 300 <= response.status_code < 400:
-            raise TechnicalProviderFailure("REDIRECT_REJECTED")
+            self._ledger._deny_egress("REDIRECT_REJECTED")
 
     async def call(
         self,

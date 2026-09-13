@@ -240,8 +240,13 @@ def main(argv=None) -> int:
             if pipeline
             else ("PASS", "NONE")
         )
-    except (Exception, KeyboardInterrupt):
-        pass  # No exception string, prompt, path, grant or credential is emitted.
+    except (Exception, KeyboardInterrupt) as error:
+        # Preserve provider denial only after authorization loaded this lane.
+        # Prepare/preflight gate failures never trigger an SDK/provider import.
+        if ledger is not None:
+            from airtravel_execution_provider import receipt_error_code
+
+            code = receipt_error_code(error)
     finally:
         if root is not None:
             try:

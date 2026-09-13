@@ -179,6 +179,31 @@ def test_zero_qa_requires_all_four_cases_and_all_stage_receipts(tmp_path):
     assert ledger.external_provider_call_count == 0
 
 
+@pytest.mark.parametrize("phase", ["context", "answer"])
+@pytest.mark.parametrize("reason", ["HOST_REJECTED", "REDIRECT_REJECTED", "SDK_LOGGING_UNSAFE"])
+def test_pipeline_preserves_sanitized_egress_denial(tmp_path, monkeypatch, phase, reason):
+    original = boundary.DeterministicFakeProvider.call
+
+    async def rejected(self, prompt, *, label):
+        if phase == "context" or "/answer/" in label:
+            try:
+                raise boundary.TechnicalProviderFailure(reason)
+            except boundary.TechnicalProviderFailure as error:
+                raise RuntimeError("SYNTHETIC_PRIVATE_PROVIDER_EXCEPTION") from error
+        return await original(self, prompt, label=label)
+
+    monkeypatch.setattr(boundary.DeterministicFakeProvider, "call", rejected)
+    result, recorder, ledger = run_fixture(tmp_path, rows=outcomes(qa_cases=("01",)))
+    assert result.status == "INCOMPLETE_TECHNICAL"
+    assert result.receipt["technical_error_code"] == "EGRESS_BLOCKED"
+    assert ledger.external_provider_call_count == 0
+    assert result.detector_path is None
+    if phase == "answer":
+        assert recorder.events[-1]["termination_reason"] == "INCOMPLETE_TECHNICAL"
+    for path in tmp_path.iterdir():
+        assert "SYNTHETIC_PRIVATE_PROVIDER_EXCEPTION" not in path.read_text(encoding="utf-8")
+
+
 def test_empty_unfinished_run_is_not_a_valid_zero_qa_result(tmp_path):
     result, _, _ = run_fixture(tmp_path, rows=["malformed"])
     assert result.status == "INCOMPLETE_TECHNICAL"

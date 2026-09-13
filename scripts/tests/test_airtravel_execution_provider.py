@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import asyncio
+import builtins
 import importlib
 import json
+import logging
 import subprocess
 import sys
 import time
+from contextlib import closing
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
@@ -20,6 +23,20 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 contract = importlib.import_module("airtravel_execution_contract")
 PROMPT = {"system": "Return JSON.", "user": "Synthetic fixture."}
+
+
+@pytest.fixture(autouse=True)
+def isolated_sdk_logging(monkeypatch):
+    install_synthetic_sdk_logging(monkeypatch)
+
+
+def install_synthetic_sdk_logging(monkeypatch):
+    """Use synthetic SDK logger state without changing unrelated test handlers."""
+    monkeypatch.setattr(logging.Logger.manager, "loggerDict", {
+        name: logger for name, logger in logging.Logger.manager.loggerDict.items()
+        if name.split(".")[0] not in {"openai", "httpx", "httpcore"}
+    })
+    monkeypatch.setattr(logging.getLogger(), "level", logging.WARNING)
 
 
 def module():
@@ -206,6 +223,186 @@ def constructed(monkeypatch, cfg=None):
     sdk.install(monkeypatch)
     provider = p.OpenAIProvider.construct_after_grant(cfg, ledger, **authorization(cfg))
     return p, provider, ledger, sdk
+
+
+@pytest.mark.parametrize("setting", ["debug", "info", " ", "SYNTHETIC_ENV_SENTINEL"])
+def test_sdk_logging_environment_rejects_before_import_without_sentinel_leak(
+    monkeypatch, tmp_path, capsys, setting
+):
+    p = module()
+    cfg = config()
+    ledger = p.BudgetLedger(cfg)
+    sdk = LocalSDK()
+    sdk.install(monkeypatch)
+    prompt = "SYNTHETIC_PROMPT_LOG_SENTINEL"
+    answer = "SYNTHETIC_ANSWER_LOG_SENTINEL"
+    monkeypatch.setenv("OPENAI_LOG", setting)
+    imports = []
+    original = builtins.__import__
+    logger = logging.getLogger("openai._base_client")
+
+    def observed_import(name, *args, **kwargs):
+        if name in {"openai", "httpx"}:
+            imports.append(name)
+            logger.error("%s %s", prompt, answer)
+        return original(name, *args, **kwargs)
+
+    outside = tmp_path / "outside-private-root.log"
+    with closing(logging.FileHandler(outside, encoding="utf-8")) as handler:
+        root = logging.getLogger()
+        monkeypatch.setattr(root, "handlers", [
+            *root.handlers, handler, logging.StreamHandler(sys.stdout),
+            logging.StreamHandler(sys.stderr),
+        ])
+        monkeypatch.setattr(builtins, "__import__", observed_import)
+        with pytest.raises(p.TechnicalProviderFailure, match="^SDK_LOGGING_UNSAFE$") as failed:
+            p.OpenAIProvider.construct_after_grant(cfg, ledger, **authorization(cfg))
+        handler.flush()
+        captured = capsys.readouterr()
+        emitted = captured.out + captured.err + outside.read_text(encoding="utf-8")
+        assert prompt not in emitted and answer not in emitted and setting not in str(failed.value)
+    assert imports == []
+    assert sdk.client_options is sdk.http_options is sdk.transport_options is None
+    assert ledger.physical_call_count == ledger.external_provider_call_count == 0
+
+
+@pytest.mark.parametrize("name,state", [
+    ("openai._base_client", "handler"), ("httpx", "handler"),
+    ("httpcore.http11", "handler"), ("openai", "debug"),
+    ("httpx", "debug"), ("httpcore.connection", "debug"), ("", "debug"),
+])
+def test_preconfigured_sdk_logger_rejects_before_import_without_environment(
+    monkeypatch, tmp_path, capsys, name, state
+):
+    p = module()
+    cfg = config()
+    sdk = LocalSDK()
+    sdk.install(monkeypatch)
+    logger = logging.getLogger(name)
+    imports = []
+    original = builtins.__import__
+    sentinel = "SYNTHETIC_PRECONFIGURED_LOG_SENTINEL"
+
+    def observed_import(module_name, *args, **kwargs):
+        if module_name in {"openai", "httpx"}:
+            imports.append(module_name)
+            logging.getLogger("openai._base_client").error(sentinel)
+        return original(module_name, *args, **kwargs)
+
+    outside = tmp_path / "outside-handler.log"
+    with closing(logging.FileHandler(outside, encoding="utf-8")) as handler:
+        if state == "handler":
+            monkeypatch.setattr(logger, "handlers", [handler])
+        else:
+            monkeypatch.setattr(logger, "level", logging.DEBUG)
+        monkeypatch.setattr(builtins, "__import__", observed_import)
+        with pytest.raises(p.TechnicalProviderFailure, match="^SDK_LOGGING_UNSAFE$"):
+            p.OpenAIProvider.construct_after_grant(cfg, p.BudgetLedger(cfg), **authorization(cfg))
+        handler.flush()
+        captured = capsys.readouterr()
+        assert sentinel not in captured.out + captured.err + outside.read_text(encoding="utf-8")
+    assert imports == []
+    assert sdk.client_options is sdk.http_options is sdk.transport_options is None
+
+
+def test_safe_sdk_logging_state_sinks_sdk_records_without_muting_application(
+    monkeypatch, tmp_path, capsys
+):
+    p = module()
+    cfg = config()
+    sdk = LocalSDK()
+    sdk.install(monkeypatch)
+    original = builtins.__import__
+    prompt = "SYNTHETIC_SAFE_PROMPT_SENTINEL"
+    answer = "SYNTHETIC_SAFE_ANSWER_SENTINEL"
+    unrelated = logging.getLogger("synthetic.application")
+    monkeypatch.setattr(unrelated, "level", logging.WARNING)
+    monkeypatch.setattr(unrelated, "handlers", [])
+    monkeypatch.setattr(unrelated, "propagate", True)
+    before = unrelated.level, unrelated.disabled, unrelated.propagate, unrelated.handlers
+    # A nonpropagating child must not fall through to logging.lastResort.
+    logging.getLogger("httpcore.existing").propagate = False
+
+    def observed_import(name, *args, **kwargs):
+        if name in {"openai", "httpx"}:
+            for family in ("openai", "httpx", "httpcore", "httpcore.existing"):
+                logging.getLogger(family + ".new_child").error("%s %s", prompt, answer)
+        return original(name, *args, **kwargs)
+
+    outside = tmp_path / "outside-safe-state.log"
+    with closing(logging.FileHandler(outside, encoding="utf-8")) as handler:
+        root = logging.getLogger()
+        monkeypatch.setattr(root, "handlers", [*root.handlers, handler])
+        root_state = root.level, root.disabled, root.handlers
+        monkeypatch.setattr(builtins, "__import__", observed_import)
+        provider = p.OpenAIProvider.construct_after_grant(cfg, p.BudgetLedger(cfg), **authorization(cfg))
+        unrelated.warning("SYNTHETIC_APPLICATION_LOG_REMAINS_VISIBLE")
+        asyncio.run(provider.aclose())
+        handler.flush()
+        captured = capsys.readouterr()
+        emitted = captured.out + captured.err + outside.read_text(encoding="utf-8")
+        assert prompt not in emitted and answer not in emitted
+        assert "SYNTHETIC_APPLICATION_LOG_REMAINS_VISIBLE" in outside.read_text(encoding="utf-8")
+        assert (root.level, root.disabled, root.handlers) == root_state
+    assert (unrelated.level, unrelated.disabled, unrelated.propagate, unrelated.handlers) == before
+    assert sdk.requests == []
+
+
+def test_runtime_logging_reconfiguration_is_blocked_before_prompt_reaches_sdk(monkeypatch):
+    p, provider, ledger, sdk = constructed(monkeypatch)
+    monkeypatch.setenv("OPENAI_LOG", "debug")
+    with pytest.raises(p.TechnicalProviderFailure, match="^SDK_LOGGING_UNSAFE$"):
+        asyncio.run(provider.call(PROMPT, label="first"))
+    assert sdk.requests == []
+    assert ledger.entries == ()
+    assert ledger.physical_call_count == ledger.external_provider_call_count == 0
+    assert ledger.to_dict()["denied_attempts"] == [
+        {"code": "EGRESS_BLOCKED", "reason": "SDK_LOGGING_UNSAFE"}
+    ]
+
+
+@pytest.mark.parametrize("denial", ["proxy", "host"])
+def test_construction_egress_denial_has_separate_controlled_ledger_row(monkeypatch, denial):
+    p = module()
+    cfg = config()
+    ledger = p.BudgetLedger(cfg)
+    sdk = LocalSDK()
+    sdk.install(monkeypatch)
+    private_url = "https://SYNTHETIC_PRIVATE_ENDPOINT.invalid/secret"
+    options = {"base_url": private_url} if denial == "host" else {}
+    if denial == "proxy":
+        monkeypatch.setenv("HTTPS_PROXY", private_url)
+    with pytest.raises(p.TechnicalProviderFailure, match="^UNSUPPORTED_TRANSPORT_CONFIG$"):
+        p.OpenAIProvider.construct_after_grant(cfg, ledger, **authorization(cfg), **options)
+    snapshot = ledger.to_dict()
+    assert snapshot["denied_attempts"] == [
+        {"code": "EGRESS_BLOCKED", "reason": "UNSUPPORTED_TRANSPORT_CONFIG"}
+    ]
+    assert snapshot["entries"] == []
+    assert snapshot["physical_call_count"] == snapshot["external_provider_call_count"] == 0
+    assert private_url not in json.dumps(snapshot)
+    assert sdk.client_options is sdk.http_options is sdk.transport_options is None
+
+
+@pytest.mark.parametrize("denial,physical", [("host", 0), ("redirect", 1)])
+def test_runtime_egress_denial_ledger_is_distinct_from_physical_calls(monkeypatch, denial, physical):
+    p, provider, ledger, sdk = constructed(monkeypatch)
+    private_url = "https://SYNTHETIC_RUNTIME_ENDPOINT.invalid/secret"
+    if denial == "host":
+        async def rejected_request():
+            await provider._before_request(SimpleNamespace(method="POST", url=private_url))
+        sdk.before_transport = rejected_request
+    else:
+        sdk.outcome = "redirect"
+    reason = "HOST_REJECTED" if denial == "host" else "REDIRECT_REJECTED"
+    with pytest.raises(p.TechnicalProviderFailure, match=f"^{reason}$"):
+        asyncio.run(provider.call(PROMPT, label="first"))
+    snapshot = ledger.to_dict()
+    assert snapshot["denied_attempts"] == [{"code": "EGRESS_BLOCKED", "reason": reason}]
+    assert snapshot["physical_call_count"] == snapshot["external_provider_call_count"] == physical
+    assert len(sdk.requests) == physical
+    assert ledger.entries[0].status == reason
+    assert private_url not in json.dumps(snapshot)
 
 
 def test_whole_run_allocation_exists_before_first_transport_and_timeout_keeps_it(monkeypatch):

@@ -43,6 +43,7 @@ from airtravel_execution_provider import (
     ProviderProtocol,
     TechnicalProviderFailure,
     guarded_call,
+    receipt_error_code,
 )
 
 
@@ -98,7 +99,7 @@ _IDENTITY_FIELDS = (
     "case_id", "guideline_id", "pattern_id", "round_index", "run_id", "episode_id",
 )
 _TERMINAL = {"CONVERGED": True, "TERMINATED_MAX_ROUNDS": False, "INCOMPLETE_TECHNICAL": None}
-_CODES = {"MALFORMED_RESPONSE", "TIMEOUT", "BUDGET_EXCEEDED", "CALL_CAP_EXCEEDED", "INTERNAL_FAILURE"}
+_CODES = {"MALFORMED_RESPONSE", "TIMEOUT", "BUDGET_EXCEEDED", "CALL_CAP_EXCEEDED", "EGRESS_BLOCKED", "INTERNAL_FAILURE"}
 _FILES = ("qa_events.jsonl", "pipeline_manifest.json", "episode_projection.json", "detector_v1.json")
 _SOURCE_TIERS = frozenset({
     "language_manual", "domain_description", "candidate_model", "prior_stage_output",
@@ -417,8 +418,7 @@ async def route_question_answer(
         success = True
         return {"question_event": question_event, "answer": answer}
     except TechnicalProviderFailure as error:
-        code = "TIMEOUT" if error.code == "RUN_TIMEOUT" else error.code
-        raise PipelineFailure(code) from None
+        raise PipelineFailure(receipt_error_code(error)) from None
     except (QACommunicationValidationError, ValueError, TypeError, KeyError):
         raise PipelineFailure() from None
     finally:
@@ -583,8 +583,7 @@ async def run_airtravel_pipeline(
         error_code = "INTERNAL_FAILURE"
         cancelled = True
     except TechnicalProviderFailure as error:
-        code = "TIMEOUT" if error.code == "RUN_TIMEOUT" else error.code
-        error_code = code if code in _CODES else "INTERNAL_FAILURE"
+        error_code = receipt_error_code(error)
     except PipelineFailure as error:
         error_code = error.code
     except (QACommunicationValidationError, ValueError, TypeError, KeyError):
