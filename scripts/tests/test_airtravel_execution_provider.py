@@ -38,13 +38,13 @@ def config(**changes):
         run_timeout_seconds=30,
         max_retries=1,
         concurrency=1,
-        max_calls=2,
+        max_calls=28,
         max_input_tokens=1000,
         max_output_tokens=100,
         price_schedule=contract.PriceSchedule(
             "https://openai.com/api/pricing/",
             datetime.now(timezone.utc),
-            Decimal("200"),
+            Decimal("150"),
             Decimal("500"),
         ),
     )
@@ -72,6 +72,9 @@ def authorization(cfg):
         source_archive_sha256="8cf82e2ab2d2ce3da9a7ec4165e760ae1e0d9af14468f5aa2a3883037d8da701",
         source_commit="253b26dc704d523209a5cba79686f8f7fab57d63",
         runtime_files=files,
+        max_rounds=cfg.max_rounds,
+        call_inventory_sha256=cfg.call_inventory_sha256,
+        full_run_reservation=cfg.full_run_reservation,
     )
     command = [
         "runner.py",
@@ -92,6 +95,8 @@ def authorization(cfg):
             "max_retries",
             "concurrency",
             "max_calls",
+            "max_rounds",
+            "call_inventory_sha256",
             "max_input_tokens",
             "max_output_tokens",
         )
@@ -110,6 +115,7 @@ def authorization(cfg):
         price_schedule_sha256=cfg.price_schedule.sha256,
         command_sha256=contract.command_fingerprint(command),
         private_root=contract.PRIVATE_PARENT + "/test-run",
+        full_run_reservation=cfg.full_run_reservation,
         **fields,
     )
     return {"grant": grant, "manifest": manifest, "current_commit": "a" * 40, "command": command}
@@ -202,6 +208,40 @@ def constructed(monkeypatch, cfg=None):
     return p, provider, ledger, sdk
 
 
+def test_whole_run_allocation_exists_before_first_transport_and_timeout_keeps_it(monkeypatch):
+    from test_airtravel_execution_contract import full_budget_config
+
+    p, provider, ledger, sdk = constructed(monkeypatch, full_budget_config())
+    observed = []
+
+    async def inspect_reserve():
+        observed.append((ledger.full_run_reserve_active, ledger.reserved_usd))
+
+    sdk.before_transport = inspect_reserve
+    sdk.outcome = "timeout"
+    with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
+        asyncio.run(provider.call(PROMPT, label="first"))
+    assert observed == [(True, Decimal("6.00"))]
+    assert ledger.reserved_usd == Decimal("6.00")
+    assert ledger.unallocated_usd == Decimal("5.94")
+    assert ledger.entries[0].reserved_usd == Decimal("0.06")
+    assert ledger.physical_call_count == 1
+
+
+def test_full_run_unaffordable_rejects_before_client_construction(monkeypatch):
+    from test_airtravel_execution_contract import full_budget_config
+
+    p = module()
+    cfg = full_budget_config("6.01")
+    sdk = LocalSDK()
+    sdk.install(monkeypatch)
+    with pytest.raises(p.TechnicalProviderFailure, match="^BUDGET_EXCEEDED$"):
+        ledger = p.BudgetLedger(cfg)
+        p.OpenAIProvider.construct_after_grant(cfg, ledger, **authorization(cfg))
+    assert sdk.client_options is None
+    assert sdk.requests == []
+
+
 def test_every_physical_attempt_reserves_and_unknown_cost_is_retained():
     p = module()
     ledger = p.BudgetLedger(config())
@@ -209,25 +249,24 @@ def test_every_physical_attempt_reserves_and_unknown_cost_is_retained():
     with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
         asyncio.run(p.guarded_call(fake, ledger, PROMPT, label="first"))
     assert ledger.physical_call_count == 1
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
     result = asyncio.run(p.guarded_call(fake, ledger, PROMPT, label="second", retry_of=1))
     assert result["output"] == {"ok": True}
     assert ledger.physical_call_count == 2
     assert ledger.external_provider_call_count == 0
-    assert ledger.spent_usd == Decimal("0.0045")
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.spent_usd == Decimal("0.004")
+    assert ledger.reserved_usd == Decimal("5.40")
     assert ledger.entries[1].retry_of == 1
     assert fake.external_provider_call_count == 0
 
 
 def test_reservation_failure_precedes_first_request():
     p = module()
-    ledger = p.BudgetLedger(config(max_input_tokens=40000))
     fake = p.DeterministicFakeProvider(["ok"])
     with pytest.raises(p.TechnicalProviderFailure, match="^BUDGET_EXCEEDED$"):
+        ledger = p.BudgetLedger(config(max_input_tokens=40000))
         asyncio.run(p.guarded_call(fake, ledger, PROMPT, label="first"))
-    assert ledger.physical_call_count == fake.physical_call_count == 0
-    assert ledger.entries == ()
+    assert fake.physical_call_count == 0
 
 
 def test_explicit_config_call_cap_stops_even_when_money_remains():
@@ -267,7 +306,7 @@ def test_malformed_response_is_redacted_and_reservation_retained(outcome):
         p.TechnicalProviderFailure, match="^(MALFORMED_RESPONSE|TOKEN_CAP_EXCEEDED)$"
     ):
         asyncio.run(p.guarded_call(fake, ledger, PROMPT, label="first"))
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
     assert ledger.spent_usd == 0
     assert ledger.entries[0].input_tokens is None
 
@@ -395,8 +434,8 @@ def test_sdk_disables_automatic_retries_and_direct_call_uses_ledger(monkeypatch)
     result = asyncio.run(provider.call(PROMPT, label="first"))
     assert result["output"] == {"ok": True}
     assert ledger.physical_call_count == 1
-    assert ledger.spent_usd == Decimal("0.0045")
-    assert ledger.reserved_usd == 0
+    assert ledger.spent_usd == Decimal("0.004")
+    assert ledger.reserved_usd == Decimal("5.40")
     assert sdk.requests[0]["max_completion_tokens"] == 100
     assert sdk.requests[0]["stream"] is False
     asyncio.run(provider.aclose())
@@ -419,7 +458,7 @@ def test_sdk_failure_is_controlled_and_never_automatically_retried(monkeypatch, 
     with pytest.raises(p.TechnicalProviderFailure, match=f"^{code}$") as failed:
         asyncio.run(provider.call(PROMPT, label="first"))
     assert failed.value.__suppress_context__
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
     assert ledger.spent_usd == 0
     assert len(sdk.requests) == 1
     assert "private" not in repr(ledger.entries)
@@ -470,13 +509,11 @@ def test_ledger_snapshot_has_only_controlled_metadata():
 
 
 def test_zero_price_schedule_fails_closed():
-    p = module()
     cfg = config()
-    cfg = replace(
-        cfg, price_schedule=replace(cfg.price_schedule, input_usd_per_million_tokens=Decimal("0"))
-    )
-    with pytest.raises(p.TechnicalProviderFailure, match="^UNBOUNDED_PRICE_SCHEDULE$"):
-        p.BudgetLedger(cfg)
+    with pytest.raises(contract.ContractValidationError, match="unbounded price schedule"):
+        replace(
+            cfg, price_schedule=replace(cfg.price_schedule, input_usd_per_million_tokens=Decimal("0"))
+        )
 
 
 def test_internal_call_without_reservation_cannot_reach_sdk(monkeypatch):
@@ -532,7 +569,7 @@ def test_cancellation_retains_reservation_and_redacts_text(monkeypatch):
     with pytest.raises(asyncio.CancelledError, match="^CANCELLED$"):
         asyncio.run(provider.call(PROMPT, label="first"))
     assert ledger.entries[0].status == "CANCELLED"
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
 
 
 def test_timeout_is_enforced_even_if_transport_never_finishes(monkeypatch):
@@ -541,14 +578,14 @@ def test_timeout_is_enforced_even_if_transport_never_finishes(monkeypatch):
     with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
         asyncio.run(provider.call(PROMPT, label="first"))
     assert ledger.physical_call_count == 1
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
 
 
 def test_whole_reservation_exists_at_transport_boundary(monkeypatch):
     p, provider, ledger, sdk = constructed(monkeypatch)
 
     async def check():
-        assert ledger.reserved_usd == Decimal("0.25")
+        assert ledger.reserved_usd == Decimal("5.60")
         assert ledger.spent_usd == 0
 
     sdk.before_transport = check
@@ -611,7 +648,7 @@ def test_async_timeout_type_on_python310_is_controlled(monkeypatch):
     sdk.before_transport = timed_out
     with pytest.raises(p.TechnicalProviderFailure, match="^TIMEOUT$"):
         asyncio.run(provider.call(PROMPT, label="first"))
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
 
 
 def test_inherited_child_task_cannot_consume_parent_reservation(monkeypatch):
@@ -687,7 +724,7 @@ def test_cancellation_suppressed_late_dispatch_stays_blocked(monkeypatch):
     assert sdk.requests == []
     assert ledger.physical_call_count == ledger.external_provider_call_count == 0
     assert ledger.entries[0].status == "TIMEOUT"
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
     assert ledger.spent_usd == 0
 
 
@@ -709,7 +746,7 @@ def test_cancellation_suppressed_late_result_cannot_settle_success(monkeypatch):
     assert len(sdk.requests) == 1
     assert ledger.physical_call_count == 1
     assert ledger.entries[0].status == "TIMEOUT"
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
     assert ledger.spent_usd == 0
 
 
@@ -728,5 +765,5 @@ def test_deadline_expired_without_cancellation_cannot_settle_success(monkeypatch
         asyncio.run(provider.call(PROMPT, label="first"))
     assert ledger.physical_call_count == 1
     assert ledger.entries[0].status == "TIMEOUT"
-    assert ledger.reserved_usd == Decimal("0.25")
+    assert ledger.reserved_usd == Decimal("5.60")
     assert ledger.spent_usd == 0

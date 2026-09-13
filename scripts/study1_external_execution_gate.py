@@ -290,6 +290,7 @@ def _fake_authorization(raw, config, manifest, command, now):
         )
     }
     expected.update(
+        **contract._budget_binding(config.full_run_reservation),
         max_usd="6.00",
         config_sha256=config.sha256,
         input_manifest_sha256=manifest.sha256,
@@ -336,8 +337,8 @@ def evaluate_gate(
         contract.assert_safe_run_id(parsed["run_id"])
         if config.concurrency != 1 or config.max_retries != 0:
             raise contract.GrantValidationError("unsupported isolated-lane policy")
-        if contract.build_call_inventory(config.max_rounds)["maximum_calls"] > config.max_calls:
-            raise contract.GrantValidationError("inventory exceeds configured call cap")
+        # Pure full-run admission must precede durable attempt consumption below.
+        contract.require_full_run_budget(config)
         paths = input_manifest.verification_inputs if input_manifest is not None else ()
         fresh = contract.build_input_manifest(
             verification=verification,
@@ -385,6 +386,8 @@ def evaluate_gate(
             _invocation_digest(mode, config, input_manifest, command, run_root, grant),
         )
         return _Decision("PASS", mode, mode == "execute", _permission=permit)
+    except contract.FullRunBudgetError:
+        return _Decision("BLOCKED", mode, technical_error_code="BUDGET_EXCEEDED")
     except Exception:
         return _Decision("BLOCKED", mode, technical_error_code="GRANT_INVALID")
 
@@ -462,7 +465,8 @@ def compose_receipt(
             "output_token_count",
         ):
             receipt[key] = value[key]
-        receipt["spent_usd"] = contract._decimal_string(ledger.spent_usd)
+        cost_field = "simulated_spent_usd" if mode == "preflight" else "spent_usd"
+        receipt[cost_field] = contract._decimal_string(ledger.spent_usd)
         receipt["reserved_usd"] = contract._decimal_string(ledger.reserved_usd)
         path = write_private(run_root, "ledger.json", value)
         receipt["ledger_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()

@@ -16,7 +16,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
-from test_airtravel_execution_contract import config_data
+from test_airtravel_execution_contract import config_data, full_budget_config
 from test_verify_text2uml_airtravel_runtime import make_verified_inputs
 
 contract = importlib.import_module("airtravel_execution_contract")
@@ -39,6 +39,56 @@ def modules():
 
 def test_composition_gate_and_strict_cli_are_available():
     modules()
+
+
+@pytest.mark.parametrize("total,expected", [("6.00", "PASS"), ("6.01", "BLOCKED")])
+def test_full_run_budget_gate_precedes_nonce_and_provider(workspace, monkeypatch, total, expected):
+    gate, _, root, inputs, _, _ = workspace
+    cfg = full_budget_config(total)
+    evidence = verifier.verify_pack(**inputs)
+    manifest = contract.build_input_manifest(
+        verification=evidence, config=cfg, code_sha=gate.current_commit()
+    )
+    path = root / contract.PRIVATE_PARENT / "bound" / "input_manifest.json"
+    command = command_for(workspace, "execute", path, "budget-gate")
+    raw = grant_for(cfg, manifest, command)
+    run_root = contract.assert_private_empty_run_root(Path(contract.PRIVATE_PARENT), "budget-gate")
+    attempts = forbid_provider_imports(monkeypatch)
+    result = gate.evaluate_gate(
+        mode="execute", config=cfg, verification=evidence, input_manifest=manifest,
+        grant=raw, current_commit=manifest.code_sha, command=command, run_root=run_root,
+    )
+    assert result["status"] == expected
+    if expected == "BLOCKED":
+        assert result["technical_error_code"] == "BUDGET_EXCEEDED"
+    assert attempts == []
+    assert (root / gate.CONTROL_PARENT).exists() is (expected == "PASS")
+
+
+def test_full_execute_cli_unaffordable_has_zero_client_and_transport_attempts(workspace, monkeypatch):
+    gate, runner, root, _, cfg_path, _ = workspace
+    original, path = prepare_manifest(workspace)
+    cfg = full_budget_config("6.01")
+    manifest = replace(
+        original, config_sha256=cfg.sha256, max_rounds=cfg.max_rounds,
+        call_inventory_sha256=cfg.call_inventory_sha256,
+        full_run_reservation=cfg.full_run_reservation,
+    )
+    write(cfg_path, cfg.to_dict())
+    path = path.parent / "unaffordable_input_manifest.json"
+    write(path, manifest.to_dict())
+    command = command_for(workspace, "execute", path, "unaffordable")
+    grant_path = root / command[command.index("--grant") + 1]
+    write(grant_path, grant_for(cfg, manifest, command))
+    attempts = forbid_provider_imports(monkeypatch)
+    assert runner.main(command) == 2
+    receipt = json.loads((root / contract.PRIVATE_PARENT / "unaffordable" / "receipt.json").read_text())
+    assert receipt["status"] == "BLOCKED"
+    assert receipt["technical_error_code"] == "BUDGET_EXCEEDED"
+    assert receipt["physical_call_count"] == receipt["external_provider_call_count"] == 0
+    assert receipt["full_run_reservation"]["full_run_usd"] == "6.01"
+    assert not (root / gate.CONTROL_PARENT).exists()
+    assert attempts == []
 
 
 def test_untracked_qa_shadow_blocks_gate_and_is_never_imported(workspace):
@@ -223,6 +273,7 @@ def grant_for(cfg, manifest, command, mode="execute"):
     ):
         raw[name] = getattr(cfg, name)
     raw["max_usd"] = "6.00"
+    raw.update(contract._budget_binding(cfg.full_run_reservation))
     raw["private_root"] = f"{contract.PRIVATE_PARENT}/{raw['run_id']}"
     if mode == "preflight":
         raw["schema_version"] = "airtravel-local-fake-preflight-grant-v1"
@@ -305,6 +356,9 @@ def test_authorized_fake_preflight_has_full_hash_bound_zero_external_receipt(wor
     ):
         assert receipt[field] == hashlib.sha256((output / filename).read_bytes()).hexdigest()
     assert receipt["scientific_result_count"] == 0
+    assert receipt["spent_usd"] == "0.00"
+    assert receipt["cost_basis"] == "LOCAL_FAKE_SIMULATION"
+    assert receipt["simulated_spent_usd"] != "0.00"
 
 
 @pytest.mark.parametrize(

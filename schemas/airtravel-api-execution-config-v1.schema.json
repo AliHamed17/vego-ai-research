@@ -5,6 +5,9 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "authorized_call_count",
+    "full_run_reservation",
+    "full_run_reservation_sha256",
     "schema_version",
     "model",
     "provider_host",
@@ -21,6 +24,33 @@
     "price_schedule"
   ],
   "properties": {
+    "authorized_call_count": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+    "full_run_reservation_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"},
+    "full_run_reservation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "policy", "authorized_call_count", "call_inventory_sha256", "max_input_tokens", "max_output_tokens", "price_schedule", "price_schedule_sha256", "per_call_usd", "full_run_usd"],
+      "properties": {
+        "schema_version": {"const": "airtravel-full-run-reservation-v1"},
+        "policy": {"const": "CANONICAL_ISOLATED_INVENTORY_MAXIMUM"},
+        "authorized_call_count": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "call_inventory_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"},
+        "max_input_tokens": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "max_output_tokens": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "price_schedule_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"},
+        "per_call_usd": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(?:[0-9]{2}|[0-9]{2,}[1-9])(?![\\s\\S])"},
+        "full_run_usd": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(?:[0-9]{2}|[0-9]{2,}[1-9])(?![\\s\\S])"},
+        "price_schedule": {
+          "type": "object", "additionalProperties": false,
+          "required": ["source", "checked_at_utc", "input_usd_per_million_tokens", "output_usd_per_million_tokens"],
+          "properties": {
+            "source": {"type": "string", "format": "uri", "pattern": "^https://[^\\s]+(?![\\s\\S])", "maxLength": 2048},
+            "checked_at_utc": {"type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z(?![\\s\\S])"},
+            "input_usd_per_million_tokens": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(?:[0-9]{2}|[0-9]{2,}[1-9])(?![\\s\\S])"},
+            "output_usd_per_million_tokens": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(?:[0-9]{2}|[0-9]{2,}[1-9])(?![\\s\\S])"}
+          }
+        }
+      }
+    },
     "max_rounds": {"type": "integer", "minimum": 1, "maximum": 10},
     "call_inventory_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"},
     "schema_version": {

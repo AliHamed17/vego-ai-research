@@ -137,8 +137,9 @@ class _AttemptPermission:
 class BudgetLedger:
     """Immutable config bound ledger; exact Decimal money, no optimistic refunds.
 
-    Unknown-cost failures keep the full reservation. Known successful usage
-    releases its reservation and records full uncached input/output rates.
+    Before request one, every authorized slot is allocated at both token caps.
+    Unknown-cost failures keep their allocation. Known successful usage
+    releases only its slot and records full uncached input/output rates.
     Physical counts advance at the request hook, or the local fake call boundary.
     Reservations that fail before transport are retained but are not physical calls.
     A timeout is not evidence that the remote service avoided billing.
@@ -171,6 +172,21 @@ class BudgetLedger:
         self._entries: list[LedgerEntry] = []
         self._lock = RLock()
         self._reserve_per_attempt = self._cost(config.max_input_tokens, config.max_output_tokens)
+        self._full_run_reservation = config.full_run_reservation
+        if self._full_run_reservation.full_run_usd > config.max_usd:
+            raise TechnicalProviderFailure("BUDGET_EXCEEDED")
+        self._full_run_reserve_active = True
+
+    @property
+    def full_run_reserve_active(self) -> bool:
+        return self._full_run_reserve_active
+
+    @property
+    def unallocated_usd(self) -> Decimal:
+        """Held slots not yet assigned to any attempt; failures never restore slots."""
+        with localcontext() as ctx:
+            ctx.prec = 100
+            return self._full_run_reservation.full_run_usd - len(self._entries) * self.reserve_per_attempt
 
     @property
     def config(self) -> ExecutionConfig:
@@ -196,7 +212,7 @@ class BudgetLedger:
     def reserved_usd(self) -> Decimal:
         with localcontext() as ctx:
             ctx.prec = 100
-            return sum(
+            return self.unallocated_usd + sum(
                 (entry.reserved_usd for entry in self._entries if entry.status != "OK"),
                 Decimal("0"),
             )
@@ -259,7 +275,11 @@ class BudgetLedger:
                     raise TechnicalProviderFailure("RETRY_CAP_EXCEEDED")
             if len(self._entries) >= self._config.max_calls:
                 raise TechnicalProviderFailure("CALL_CAP_EXCEEDED")
-            if self.spent_usd + self.reserved_usd + self.reserve_per_attempt > self._config.max_usd:
+            if (
+                not self.full_run_reserve_active
+                or self.unallocated_usd < self.reserve_per_attempt
+                or self.spent_usd + self.reserved_usd > self._config.max_usd
+            ):
                 raise TechnicalProviderFailure("BUDGET_EXCEEDED")
             entry = LedgerEntry(
                 len(self._entries) + 1,
@@ -307,6 +327,15 @@ class BudgetLedger:
             "config_sha256": self._config.sha256,
             "max_calls": self._config.max_calls,
             "max_usd": format(self._config.max_usd, "f"),
+            "full_run_reservation": self._full_run_reservation.to_dict(),
+            "full_run_reservation_sha256": self._full_run_reservation.sha256,
+            "authorized_call_count": self._full_run_reservation.authorized_call_count,
+            "full_run_reserve_active": self.full_run_reserve_active,
+            "unallocated_usd": format(self.unallocated_usd, "f"),
+            "cost_basis": "PLANNED_ONLY" if not self._entries else (
+                "PROVIDER_USAGE" if any(entry.external for entry in self._entries)
+                else "LOCAL_FAKE_SIMULATION"
+            ),
             "physical_call_count": self.physical_call_count,
             "external_provider_call_count": self.external_provider_call_count,
             "input_token_count": sum(entry.input_tokens or 0 for entry in self._entries),
@@ -482,7 +511,7 @@ class OpenAIProvider:
         import os
         import time
 
-        from airtravel_execution_contract import validate_execution_grant
+        from airtravel_execution_contract import require_full_run_budget, validate_execution_grant
 
         forbidden_environment = {
             "HTTP_PROXY",
@@ -506,6 +535,9 @@ class OpenAIProvider:
         if type(ledger) is not BudgetLedger or ledger.config != config or ledger.entries:
             raise TechnicalProviderFailure("LEDGER_CONFIG_MISMATCH")
         try:
+            reservation = require_full_run_budget(config)
+            if not ledger.full_run_reserve_active or ledger.reserved_usd != reservation.full_run_usd:
+                raise TechnicalProviderFailure("LEDGER_CONFIG_MISMATCH")
             validate_execution_grant(
                 grant,
                 config=config,

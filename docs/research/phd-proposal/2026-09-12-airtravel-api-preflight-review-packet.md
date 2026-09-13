@@ -21,7 +21,7 @@ No measured scientific result is supplied by this package.
 | --- | --- |
 | Pinned archive, 143 source entries, five-file mapping, reference separation | `scripts/verify_text2uml_airtravel_runtime.py` |
 | Immutable config, prospective manifest, grant/receipt schemas and inventory | `scripts/airtravel_execution_contract.py`; `schemas/airtravel-api-execution-*-v1.schema.json` |
-| Per-attempt Decimal reservation, physical calls, deadlines and host guard | `scripts/airtravel_execution_provider.py` |
+| Whole-run Decimal allocation, per-attempt slot drawdown, physical calls, deadlines and host guard | `scripts/airtravel_execution_provider.py` |
 | Isolated workflow, actual Q&A correlation, lifecycle and terminal integrity | `scripts/airtravel_execution_pipeline.py` |
 | Fresh verification, current bytes, command, one-time consumption, containment | `scripts/study1_external_execution_gate.py` |
 | Mode selection and fixed fake-only route | `scripts/study1_airtravel_external_runner.py` |
@@ -79,14 +79,20 @@ mutating a running process, or deleting the durable control store.
 Before any future execution, fill and review the exact model, supported token
 envelope, dated prices, round/call inventory, per-call timeout and whole-run
 timeout in config and the fresh grant. Those values are not chosen here.
-The present per-attempt budget guard is not proof of upfront full-run funding;
-whole-run affordability/reservation requirements remain a pre-authorization
-review item. Maximum authorized spend is $6 (`6.00`), not a spend report.
+The gate now requires `authorized_call_count=max_calls=isolated_inventory.maximum_calls`
+and recomputes the full allocation before any nonce claim or SDK construction.
+At both frozen token caps, full input/output rates determine the per-call cost;
+authorized slots multiply that cost. More than $6 (`6.00`) blocks. Config,
+manifest, grant and receipt bind calculation metadata and its hash; the ledger
+holds the full allocation before request one. A timeout or unknown bill retains
+its slot. This is conditional on reviewed model/pricing/token assumptions, not
+a live price quote or proof that any particular model is affordable.
 
 For the exact future local fake invocation require:
 
 - `external_provider_call_count=0`, API calls zero, actual API spend zero;
-- `scientific_result_count=0`; fake token/cost ledger values are engineering
+- `scientific_result_count=0`, `cost_basis=LOCAL_FAKE_SIMULATION`, `spent_usd=0.00`;
+  `simulated_spent_usd` and fake token/reservation ledger values are engineering
   calibration values, never real usage or billed spend;
 - exact input/config/code/inventory binding, output/ledger/event hashes,
   containment `PASS`, terminal technical code `NONE`;
@@ -127,6 +133,12 @@ candidate label, not evidence of accuracy, benefit, intervention effectiveness,
 generalisation, or system superiority.
 
 ## Local implementation checkpoint — 2026-09-13
+
+This table is a historical Task 6 checkpoint, **not** test evidence for the later
+authority-compatibility and full-run-budget corrections. Their final commit must
+be independently reviewed and all release checks rerun. The full-run-budget
+correction starts at evidence-parent `38d15e5b1d189caf44fcb5701725af889ec58158`;
+it does not authorize or execute a fake preflight or provider run.
 
 This checkpoint supersedes the initial full-suite failures after the
 test-isolation correction at the implementation-parent SHA above. All listed

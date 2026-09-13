@@ -6,6 +6,8 @@ This document contains no private hash or actual grant. It creates no authority,
 nonce, signature, or execution record. A human owner must review the final exact
 code and complete a fresh, one-time, hash-bound authorization privately.
 It does not authorize VEGO ZIP or QuRE, a corpus change, a retry, or extra runs.
+Earlier private configurations/grants without the mandatory full-run reservation
+fields are rejected, not silently upgraded. A template is never a grant.
 
 ## Choose exactly one authority
 
@@ -33,10 +35,12 @@ All blank values below are **NOT SET**. This table is not executable grant JSON.
 | `checked_at_utc` | Time at which the price source and supported model/token envelope were verified. |
 | `price_schedule_sha256` | Canonical digest of that dated schedule. Prices are not claimed current by this template. |
 | `max_usd` | `6.00` maximum USD for the authorized invocation, including uncertain-cost attempts. |
-| `max_calls` | Physical-call safety ceiling, at least the verified isolated inventory maximum. |
+| `max_calls`, `authorized_call_count` | Both must equal the verified isolated inventory maximum exactly. No smaller or larger cap is admitted. |
 | `max_rounds` | Frozen integer round limit, 1–10; never inferred from `max_calls`. |
 | `call_inventory_sha256` | Digest from the canonical isolated inventory for those rounds. |
 | `max_input_tokens`, `max_output_tokens` | Verified per-call ceilings consistent with model envelope, prices, and budget. |
+| `full_run_reservation` | Immutable calculation: authorized slots, inventory hash, token caps, dated full price schedule/hash, per-call cost and total full-run allocation; policy `CANONICAL_ISOLATED_INVENTORY_MAXIMUM`. |
+| `full_run_reservation_sha256` | Canonical calculation hash, identical across config, manifest, grant and receipt. The gate independently recomputes it. |
 | `timeout_seconds`, `run_timeout_seconds` | Exact per-call and whole-run deadlines. |
 | `max_retries`, `concurrency` | `0` and `1` respectively for this lane. No automatic retry. |
 | `command_sha256` | Digest over the exact **mode-and-options argv**, excluding the `uv run python` launcher and script path. |
@@ -55,9 +59,11 @@ same binding fields with its separate schema/version and mode.
 1. Verify current code/file hashes, corpus and five runtime hashes, private
    root containment, reference exclusion, and exact command fingerprint.
 2. Verify the isolated call inventory; do not use the legacy orchestrator bound.
-3. Confirm model tokenization/envelope and dated prices. Review worst-case
-   affordability explicitly: per-attempt reservation alone does not prove a
-   whole-run upfront reservation or guaranteed completion within $6.
+3. Confirm model tokenization/envelope and dated prices. Recompute the full
+   reservation as authorized slots times the conservative capped input/output
+   cost. It must be at most $6 before a nonce can be consumed or a client created.
+   The ledger must hold this full allocation before request one. This calculation
+   is not a guarantee of scientific or technical completion.
 4. Confirm independent code review and green CI on the exact final SHA.
 5. For a local fake grant, authorize only the documented local fake command.
    For a later provider grant, require a separate reviewed local preflight

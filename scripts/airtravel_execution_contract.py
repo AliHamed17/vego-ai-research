@@ -16,7 +16,7 @@ import subprocess
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from decimal import Decimal
+from decimal import Decimal, localcontext
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -50,6 +50,10 @@ class ContractValidationError(ValueError):
 
 class GrantValidationError(ContractValidationError):
     """An execution grant is missing, invalid, stale, or mismatched."""
+
+
+class FullRunBudgetError(ContractValidationError):
+    """The whole frozen allocation is unaffordable; no attempt may be consumed."""
 
 
 class ContainmentError(ContractValidationError):
@@ -199,6 +203,116 @@ _ONE_ROUND_SHA256 = canonical_json_sha256(build_call_inventory(1))
 
 
 @dataclass(frozen=True)
+class FullRunReservation:
+    """Exact conservative allocation for every permitted slot, including unused ones."""
+
+    authorized_call_count: int
+    call_inventory_sha256: str
+    max_input_tokens: int
+    max_output_tokens: int
+    price_schedule: PriceSchedule
+
+    def __post_init__(self) -> None:
+        if any(
+            type(value) is not int or not 1 <= value <= 1_000_000_000
+            for value in (self.authorized_call_count, self.max_input_tokens, self.max_output_tokens)
+        ):
+            raise ContractValidationError("invalid reservation limits")
+        _digest(self.call_inventory_sha256)
+        if type(self.price_schedule) is not PriceSchedule:
+            raise ContractValidationError("immutable reservation prices required")
+        for rate in (
+            self.price_schedule.input_usd_per_million_tokens,
+            self.price_schedule.output_usd_per_million_tokens,
+        ):
+            if (
+                type(rate) is not Decimal or not rate.is_finite() or rate <= 0
+                or rate > Decimal("1000000") or len(rate.as_tuple().digits) > 24
+                or rate.as_tuple().exponent < -18
+            ):
+                raise ContractValidationError("unbounded price schedule")
+        # A dated, canonical price record is part of the calculation, not a live quote.
+        self.price_schedule.to_dict()
+
+    @property
+    def per_call_usd(self) -> Decimal:
+        with localcontext() as ctx:
+            ctx.prec = 100
+            return (
+                self.max_input_tokens * self.price_schedule.input_usd_per_million_tokens
+                + self.max_output_tokens * self.price_schedule.output_usd_per_million_tokens
+            ) / Decimal("1000000")
+
+    @property
+    def full_run_usd(self) -> Decimal:
+        with localcontext() as ctx:
+            ctx.prec = 100
+            return self.authorized_call_count * self.per_call_usd
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "airtravel-full-run-reservation-v1",
+            "policy": "CANONICAL_ISOLATED_INVENTORY_MAXIMUM",
+            "authorized_call_count": self.authorized_call_count,
+            "call_inventory_sha256": self.call_inventory_sha256,
+            "max_input_tokens": self.max_input_tokens,
+            "max_output_tokens": self.max_output_tokens,
+            "price_schedule": self.price_schedule.to_dict(),
+            "price_schedule_sha256": self.price_schedule.sha256,
+            "per_call_usd": _decimal_string(self.per_call_usd),
+            "full_run_usd": _decimal_string(self.full_run_usd),
+        }
+
+    @property
+    def sha256(self) -> str:
+        return canonical_json_sha256(self.to_dict())
+
+    @classmethod
+    def from_dict(cls, value: Mapping[str, Any]) -> FullRunReservation:
+        try:
+            price = value["price_schedule"]
+            result = cls(
+                authorized_call_count=value["authorized_call_count"],
+                call_inventory_sha256=value["call_inventory_sha256"],
+                max_input_tokens=value["max_input_tokens"],
+                max_output_tokens=value["max_output_tokens"],
+                price_schedule=PriceSchedule(
+                    source=price["source"],
+                    checked_at_utc=_parse_timestamp(price["checked_at_utc"]),
+                    input_usd_per_million_tokens=Decimal(price["input_usd_per_million_tokens"]),
+                    output_usd_per_million_tokens=Decimal(price["output_usd_per_million_tokens"]),
+                ),
+            )
+            if canonical_json_sha256(value) != result.sha256:
+                raise ContractValidationError("reservation calculation mismatch")
+            return result
+        except (KeyError, TypeError, ValueError, ArithmeticError):
+            raise ContractValidationError("invalid full-run reservation") from None
+
+
+def _budget_binding(reservation: FullRunReservation) -> dict[str, Any]:
+    if type(reservation) is not FullRunReservation:
+        raise ContractValidationError("immutable full-run reservation required")
+    return {
+        "authorized_call_count": reservation.authorized_call_count,
+        "full_run_reservation": reservation.to_dict(),
+        "full_run_reservation_sha256": reservation.sha256,
+    }
+
+
+def _take_budget_binding(data: dict[str, Any]) -> FullRunReservation:
+    try:
+        count = data.pop("authorized_call_count")
+        digest = data.pop("full_run_reservation_sha256")
+        result = FullRunReservation.from_dict(data.pop("full_run_reservation"))
+        if type(count) is not int or count != result.authorized_call_count or digest != result.sha256:
+            raise ContractValidationError("full-run reservation binding mismatch")
+        return result
+    except KeyError:
+        raise ContractValidationError("explicit full-run reservation required") from None
+
+
+@dataclass(frozen=True)
 class ExecutionConfig:
     """Frozen configuration; the only permitted total cap is exactly USD 6.00."""
 
@@ -218,6 +332,13 @@ class ExecutionConfig:
     @property
     def call_inventory_sha256(self) -> str:
         return canonical_json_sha256(build_call_inventory(self.max_rounds))
+
+    @property
+    def full_run_reservation(self) -> FullRunReservation:
+        return FullRunReservation(
+            self.max_calls, self.call_inventory_sha256, self.max_input_tokens,
+            self.max_output_tokens, self.price_schedule,
+        )
 
     def __post_init__(self) -> None:
         if not isinstance(self.price_schedule, PriceSchedule):
@@ -242,6 +363,7 @@ class ExecutionConfig:
             "max_input_tokens": self.max_input_tokens,
             "max_output_tokens": self.max_output_tokens,
             "price_schedule": self.price_schedule.to_dict(),
+            **_budget_binding(self.full_run_reservation),
         }
 
     @property
@@ -252,6 +374,7 @@ class ExecutionConfig:
     def from_dict(cls, value: Mapping[str, Any]) -> ExecutionConfig:
         _schema_validate("config", value)
         data = dict(value)
+        reservation = _take_budget_binding(data)
         data.pop("schema_version")
         inventory_sha256 = data.pop("call_inventory_sha256")
         price = dict(data.pop("price_schedule"))
@@ -262,11 +385,30 @@ class ExecutionConfig:
         result = cls(**data, price_schedule=PriceSchedule(**price))
         if result.call_inventory_sha256 != inventory_sha256:
             raise ContractValidationError("call inventory hash mismatch")
+        if result.full_run_reservation != reservation:
+            raise ContractValidationError("full-run reservation mismatch")
         return result
 
     @classmethod
     def from_json(cls, path: Path) -> ExecutionConfig:
         return cls.from_dict(_load_json(path))
+
+
+def require_full_run_budget(config: ExecutionConfig) -> FullRunReservation:
+    """Pure admission check before nonce consumption, SDK import or transport.
+
+    The one admitted policy uses exactly the isolated inventory maximum. Lower
+    level synthetic ledger tests may use smaller caps; they are not executable
+    lane configurations. No legacy orchestrator formula enters this derivation.
+    """
+    if type(config) is not ExecutionConfig:
+        raise ContractValidationError("execution configuration required")
+    reservation = config.full_run_reservation
+    if config.max_calls != build_call_inventory(config.max_rounds)["maximum_calls"]:
+        raise ContractValidationError("authorized call count differs from isolated inventory")
+    if reservation.full_run_usd > config.max_usd:
+        raise FullRunBudgetError("full-run budget exceeds authorized ceiling")
+    return reservation
 
 
 def _digest(value: str) -> str:
@@ -347,12 +489,16 @@ class VerifiedInputManifest:
     source_archive_sha256: str
     source_commit: str
     runtime_files: tuple[RuntimeFileBinding, ...]
+    full_run_reservation: FullRunReservation
     max_rounds: int = 1
     call_inventory_sha256: str = _ONE_ROUND_SHA256
     verification_inputs: tuple[tuple[str, str], ...] = ()
 
     def __post_init__(self) -> None:
         _commit(self.code_sha)
+        _budget_binding(self.full_run_reservation)
+        if self.full_run_reservation.call_inventory_sha256 != self.call_inventory_sha256:
+            raise ContractValidationError("manifest reservation inventory mismatch")
         if self.call_inventory_sha256 != canonical_json_sha256(
             build_call_inventory(self.max_rounds)
         ):
@@ -397,6 +543,7 @@ class VerifiedInputManifest:
             "max_rounds": self.max_rounds,
             "call_inventory_sha256": self.call_inventory_sha256,
             "verification_inputs": dict(self.verification_inputs),
+            **_budget_binding(self.full_run_reservation),
         }
 
     @property
@@ -407,6 +554,7 @@ class VerifiedInputManifest:
     def from_dict(cls, value: Mapping[str, Any]) -> VerifiedInputManifest:
         try:
             data = dict(value)
+            reservation = _take_budget_binding(data)
             if not {"max_rounds", "call_inventory_sha256"} <= data.keys():
                 raise ContractValidationError("explicit manifest inventory required")
             if (
@@ -424,7 +572,8 @@ class VerifiedInputManifest:
                     raise ContractValidationError("invalid byte transformation")
                 rows.append(RuntimeFileBinding(**row))
             return cls(
-                **data, runtime_files=tuple(rows), verification_inputs=tuple(sorted(inputs.items()))
+                **data, runtime_files=tuple(rows), verification_inputs=tuple(sorted(inputs.items())),
+                full_run_reservation=reservation,
             )
         except (ValueError, TypeError, KeyError):
             raise ContractValidationError("malformed input manifest") from None
@@ -534,6 +683,7 @@ def build_input_manifest(
             max_rounds=config.max_rounds,
             call_inventory_sha256=config.call_inventory_sha256,
             verification_inputs=verification_inputs,
+            full_run_reservation=config.full_run_reservation,
         )
     except (KeyError, TypeError, AttributeError, ValueError):
         raise ContractValidationError("missing or invalid verifier evidence") from None
@@ -711,12 +861,22 @@ class ExecutionGrant:
     max_usd: Decimal
     command_sha256: str
     private_root: str
+    full_run_reservation: FullRunReservation
     max_rounds: int = 1
     call_inventory_sha256: str = _ONE_ROUND_SHA256
 
     def __post_init__(self) -> None:
         try:
             _schema_validate("grant", self.to_dict())
+            reservation = self.full_run_reservation
+            if (
+                reservation.authorized_call_count != self.max_calls
+                or reservation.call_inventory_sha256 != self.call_inventory_sha256
+                or reservation.max_input_tokens != self.max_input_tokens
+                or reservation.max_output_tokens != self.max_output_tokens
+                or reservation.price_schedule.sha256 != self.price_schedule_sha256
+            ):
+                raise GrantValidationError("grant reservation mismatch")
             if self.call_inventory_sha256 != canonical_json_sha256(
                 build_call_inventory(self.max_rounds)
             ):
@@ -736,6 +896,7 @@ class ExecutionGrant:
             issued_at_utc=_timestamp(self.issued_at_utc),
             expires_at_utc=_timestamp(self.expires_at_utc),
             max_usd=_decimal_string(self.max_usd),
+            **_budget_binding(self.full_run_reservation),
         )
         return result
 
@@ -744,11 +905,12 @@ class ExecutionGrant:
         try:
             _schema_validate("grant", value)
             data = dict(value)
+            reservation = _take_budget_binding(data)
             data.pop("schema_version")
             for key in ("issued_at_utc", "expires_at_utc"):
                 data[key] = _parse_timestamp(data[key])
             data["max_usd"] = Decimal(data["max_usd"])
-            return cls(**data)
+            return cls(**data, full_run_reservation=reservation)
         except (ContractValidationError, TypeError, ValueError):
             raise GrantValidationError("invalid grant schema") from None
 
@@ -783,6 +945,7 @@ def validate_execution_grant(
         if (
             manifest.max_rounds != config.max_rounds
             or manifest.call_inventory_sha256 != config.call_inventory_sha256
+            or manifest.full_run_reservation != config.full_run_reservation
         ):
             raise GrantValidationError("manifest inventory mismatch")
         if grant.input_manifest_sha256 != manifest.sha256:
@@ -791,6 +954,8 @@ def validate_execution_grant(
             raise GrantValidationError("code commit mismatch")
         if grant.price_schedule_sha256 != config.price_schedule.sha256:
             raise GrantValidationError("price schedule hash mismatch")
+        if grant.full_run_reservation != config.full_run_reservation:
+            raise GrantValidationError("full-run reservation mismatch")
         for field in (
             "model",
             "provider_host",
@@ -826,6 +991,22 @@ def validate_execution_grant(
 def parse_execution_receipt(value: Mapping[str, Any]) -> dict[str, Any]:
     """Validate a private receipt and return a detached copy without trimming strings."""
     _schema_validate("receipt", value)
+    expected_basis = {"prepare": "PLANNED_ONLY", "preflight": "LOCAL_FAKE_SIMULATION", "execute": "PROVIDER_USAGE"}[value["mode"]]
+    if value["cost_basis"] != expected_basis:
+        raise ContractValidationError("receipt cost basis mismatch")
+    if value["mode"] != "execute" and (
+        value["spent_usd"] != "0.00" or value["external_provider_call_count"] != 0
+    ):
+        raise ContractValidationError("non-provider receipt cannot claim spend or external calls")
+    if value["mode"] != "preflight" and value["simulated_spent_usd"] != "0.00":
+        raise ContractValidationError("simulation cost is preflight-only")
+    reservation = _take_budget_binding(dict(value))
+    if (
+        reservation.call_inventory_sha256 != value["call_inventory_sha256"]
+        or reservation.price_schedule.sha256 != value["price_schedule_sha256"]
+        or reservation.authorized_call_count != build_call_inventory(value["max_rounds"])["maximum_calls"]
+    ):
+        raise ContractValidationError("receipt reservation mismatch")
     if value["call_inventory_sha256"] != canonical_json_sha256(
         build_call_inventory(value["max_rounds"])
     ):
@@ -848,6 +1029,7 @@ def build_receipt_skeleton(
         manifest.config_sha256 != config.sha256
         or manifest.max_rounds != config.max_rounds
         or manifest.call_inventory_sha256 != config.call_inventory_sha256
+        or manifest.full_run_reservation != config.full_run_reservation
     ):
         raise ContractValidationError("configuration hash mismatch")
     receipt = {
@@ -865,11 +1047,14 @@ def build_receipt_skeleton(
         "max_usd": _decimal_string(config.max_usd),
         "max_rounds": config.max_rounds,
         "call_inventory_sha256": config.call_inventory_sha256,
+        **_budget_binding(config.full_run_reservation),
         "physical_call_count": 0,
         "external_provider_call_count": 0,
         "input_token_count": 0,
         "output_token_count": 0,
         "spent_usd": "0.00",
+        "simulated_spent_usd": "0.00",
+        "cost_basis": {"prepare": "PLANNED_ONLY", "preflight": "LOCAL_FAKE_SIMULATION", "execute": "PROVIDER_USAGE"}[mode],
         "reserved_usd": "0.00",
         "scientific_result_count": 0,
         "technical_error_code": "NONE",

@@ -188,6 +188,7 @@ def main(argv=None) -> int:
                 command=command,
             )
             if decision["status"] != "PASS":
+                code = decision["technical_error_code"]
                 raise contract.GrantValidationError("prepare blocked")
             gate.write_private(root, "input_manifest.json", manifest.to_dict(), immutable=True)
         else:
@@ -215,6 +216,7 @@ def main(argv=None) -> int:
                 run_root=root,
             )
             if decision["status"] != "PASS":
+                code = decision["technical_error_code"]
                 raise contract.GrantValidationError("authorization blocked")
             from airtravel_execution_provider import BudgetLedger
 

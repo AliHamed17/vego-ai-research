@@ -38,7 +38,7 @@ COMMAND = [
 
 
 def config_data() -> dict:
-    return {
+    data = {
         "schema_version": "airtravel-api-execution-config-v1",
         "model": "test-model",
         "provider_host": "api.openai.com",
@@ -59,6 +59,86 @@ def config_data() -> dict:
             "output_usd_per_million_tokens": "0.60",
         },
     }
+    reservation = contract.FullRunReservation(
+        28, data["call_inventory_sha256"], 10000, 2000,
+        contract.PriceSchedule(
+            "https://openai.com/api/pricing/", datetime(2026, 9, 13, 11, tzinfo=timezone.utc),
+            Decimal("0.15"), Decimal("0.60"),
+        ),
+    )
+    data.update(contract._budget_binding(reservation))
+    return data
+
+
+def full_budget_config(total: str = "6.00"):
+    """100 authorized slots, 1,000 input/output tokens; hand-derived cost."""
+    cfg = contract.ExecutionConfig.from_dict(config_data())
+    return replace(
+        cfg, max_rounds=4, max_calls=100, max_input_tokens=1000, max_output_tokens=1000,
+        price_schedule=replace(
+            cfg.price_schedule, input_usd_per_million_tokens=Decimal("30.00")
+            if total == "6.00" else Decimal("30.10"),
+            output_usd_per_million_tokens=Decimal("30.00"),
+        ),
+    )
+
+
+def test_full_run_reservation_uses_all_authorized_slots_and_exact_decimal_boundary():
+    cfg = full_budget_config()
+    reservation = cfg.full_run_reservation.to_dict()
+    assert reservation["authorized_call_count"] == 100
+    assert reservation["per_call_usd"] == "0.06"
+    assert reservation["full_run_usd"] == "6.00"
+    assert contract.require_full_run_budget(cfg).full_run_usd == Decimal("6.00")
+    with pytest.raises(contract.ContractValidationError, match="full-run budget"):
+        contract.require_full_run_budget(full_budget_config("6.01"))
+
+
+@pytest.mark.parametrize("count", [99, 101])
+def test_full_run_budget_rejects_call_cap_not_equal_to_inventory(count):
+    with pytest.raises(contract.ContractValidationError, match="authorized call count"):
+        contract.require_full_run_budget(replace(full_budget_config(), max_calls=count))
+
+
+@pytest.mark.parametrize("kind", ["config", "manifest", "grant", "receipt"])
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("authorized_call_count", 27),
+        ("full_run_reservation_sha256", "f" * 64),
+        ("per_call_usd", "0.01"),
+        ("full_run_usd", "0.01"),
+        ("max_input_tokens", 1),
+        ("max_output_tokens", 1),
+        ("price_schedule_sha256", "f" * 64),
+        ("policy", "PER_ATTEMPT_ONLY"),
+        ("call_inventory_sha256", "f" * 64),
+        ("remove_reservation", None),
+    ],
+)
+def test_all_contracts_reject_reservation_calculation_tampering(kind, field, value):
+    cfg, manifest, grant = bindings()
+    raw, parse = {
+        "config": (cfg.to_dict(), contract.ExecutionConfig.from_dict),
+        "manifest": (manifest.to_dict(), contract.VerifiedInputManifest.from_dict),
+        "grant": (grant, contract.ExecutionGrant.from_dict),
+        "receipt": (
+            contract.build_receipt_skeleton(config=cfg, manifest=manifest, run_id="run-001", mode="execute"),
+            contract.parse_execution_receipt,
+        ),
+    }[kind]
+    parse(raw)  # prove the unmodified counterpart is valid
+    if field == "remove_reservation":
+        del raw["full_run_reservation"]
+    elif field in {"authorized_call_count", "full_run_reservation_sha256"}:
+        raw[field] = value
+    else:
+        raw["full_run_reservation"][field] = value
+        # Rehash the tampered object: validation must recompute the arithmetic,
+        # not merely compare a supplied digest to the supplied object.
+        raw["full_run_reservation_sha256"] = contract.canonical_json_sha256(raw["full_run_reservation"])
+    with pytest.raises(contract.ContractValidationError):
+        parse(raw)
 
 
 def verification_data() -> dict:
@@ -171,6 +251,7 @@ def bindings():
         "max_usd": "6.00",
         "command_sha256": contract.command_fingerprint(COMMAND),
         "private_root": "external_data/airtravel-api-runs/run-001",
+        **contract._budget_binding(config.full_run_reservation),
     }
     return config, manifest, grant
 
@@ -226,6 +307,10 @@ def test_manifest_rounds_cannot_be_rebound_under_an_unchanged_config_hash():
         manifest,
         max_rounds=2,
         call_inventory_sha256=contract.canonical_json_sha256(contract.build_call_inventory(2)),
+        full_run_reservation=replace(
+            manifest.full_run_reservation,
+            call_inventory_sha256=contract.canonical_json_sha256(contract.build_call_inventory(2)),
+        ),
     )
     raw["input_manifest_sha256"] = changed.sha256
     with pytest.raises(contract.GrantValidationError):

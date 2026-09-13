@@ -51,8 +51,12 @@ Markdown document alone is not a binding.
 
 ## Calls and the $6 ceiling
 
-`max_usd` is exactly `6.00`. Decimal accounting reserves a conservative amount
-before each physical attempt; unknown-cost failures retain their reservation.
+`max_usd` is exactly `6.00`. Before nonce consumption or provider construction,
+the gate recomputes a conservative **whole-run** allocation using the frozen
+call count, both token caps, and the dated uncached Decimal price schedule.
+The ledger activates that whole allocation before request one; each attempt
+draws one slot from it. Unknown-cost failures retain their allocation, and unused
+slots remain reserved. Successful known usage releases only that attempt's slot.
 SDK automatic retries are disabled. This lane permits `max_retries=0` and
 `concurrency=1`, with per-call and whole-run deadlines.
 
@@ -62,13 +66,26 @@ four context calls plus three stages per case; each stage permits one generation
 and at most one answer per round. For frozen `R=max_rounds`, its completed-path
 minimum is 16 calls and its maximum is `4 * (1 + 3 * R * 2)` calls. Failures may
 stop earlier. `max_rounds` and `call_inventory_sha256` bind every contract.
-The safety cap cannot define the workflow's round semantics.
+The only admitted policy is
+`authorized_call_count = max_calls = isolated_inventory.maximum_calls`.
+A larger or smaller configured call cap is rejected; it cannot redefine rounds.
+
+`per_call_usd = (max_input_tokens * input_rate + max_output_tokens * output_rate) / 1000000`.
+`full_run_usd = authorized_call_count * per_call_usd`.
+Rates are USD per million tokens. No cached-token discount or optimistic refund
+is assumed. `full_run_usd > 6.00` blocks before a nonce, client, or request.
+The calculation inputs, derived values, policy, and calculation hash are bound
+in config, prospective manifest, grant, and receipt. Any mismatch is rejected.
 
 The legacy `4 + 3N` / `82 + 61N` calculation belongs to the protected legacy
 graph only; it is not the isolated lane's upper bound. A prospective model's
 dated prices and supported token envelope must be reviewed before approval.
-Per-attempt budget enforcement does **not** prove that the entire worst-case
-workflow is affordable or that an upfront full-run reservation exists.
+The affordability check is relative to the human-reviewed prices and supported
+token envelope; it is not a live price quote or a guarantee of successful
+completion. No particular model is selected or declared affordable here.
+Fake preflight has `cost_basis=LOCAL_FAKE_SIMULATION`: `spent_usd=0.00`;
+its separately named `simulated_spent_usd` and reservation ledger are engineering
+calculations, not provider charges.
 
 ## Evidence and interpretation
 

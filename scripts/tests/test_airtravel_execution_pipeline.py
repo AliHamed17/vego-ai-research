@@ -71,6 +71,7 @@ def frame(cfg, *, run_id="synthetic-run", max_rounds=2):
         source_archive_sha256=contract.PUBLIC_AIRTRAVEL_ARCHIVE_SHA256,
         source_commit=contract.PUBLIC_AIRTRAVEL_COMMIT,
         max_rounds=cfg.max_rounds, call_inventory_sha256=cfg.call_inventory_sha256,
+        full_run_reservation=cfg.full_run_reservation,
         runtime_files=tuple(
             contract.RuntimeFileBinding(source, path, len(text.encode()), hashlib.sha256(text.encode()).hexdigest())
             for source, (path, text) in zip(source_paths, files, strict=True)
@@ -306,18 +307,24 @@ def test_no_events_or_provider_call_after_terminal(tmp_path):
     assert result.status == "PASS"
 
 
-@pytest.mark.parametrize("code", ["TIMEOUT", "BUDGET_EXCEEDED", "CALL_CAP_EXCEEDED"])
+@pytest.mark.parametrize("code", ["TIMEOUT", "CALL_CAP_EXCEEDED"])
 def test_provider_failures_close_open_episode_with_controlled_code(tmp_path, code):
     cfg = config(max_calls=2) if code == "CALL_CAP_EXCEEDED" else config()
-    if code == "BUDGET_EXCEEDED":
-        cfg = config(price_schedule=replace(config().price_schedule,
-                     input_usd_per_million_tokens=Decimal("5000")))
     rows = [envelope({"context": "Synthetic context."}), decision(question=question(), complete=False), "timeout"]
     result, recorder, _ = run_fixture(tmp_path, cfg=cfg, rows=rows)
     assert result.status == "INCOMPLETE_TECHNICAL"
     assert result.receipt["technical_error_code"] == code
     if recorder.events:
         assert recorder.events[-1]["termination_reason"] == "INCOMPLETE_TECHNICAL"
+
+
+def test_unaffordable_pipeline_is_rejected_before_any_episode_or_output(tmp_path):
+    cfg = config(price_schedule=replace(config().price_schedule,
+                 input_usd_per_million_tokens=Decimal("5000")))
+    with pytest.raises(boundary.TechnicalProviderFailure, match="^BUDGET_EXCEEDED$"):
+        run_fixture(tmp_path, cfg=cfg, rows=outcomes(qa_cases=("01",)))
+    assert not list(tmp_path.rglob("*.jsonl"))
+    assert not list(tmp_path.rglob("*.json"))
 
 
 @pytest.mark.parametrize("label", ["C1", "C2", "C3", "Alternative", "Non-Satisfied"])
