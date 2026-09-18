@@ -35,6 +35,47 @@ logger = logging.getLogger(__name__)
 # ── Q&A loop termination guard ─────────────────────────────────────────────
 MAX_QA_ROUNDS = 10
 
+# Phase-4 skill 4-1 sees every case at once (it detects patterns recurring ACROSS
+# cases), so the per-case payload is compacted to the structured fields it reasons
+# over rather than chunked. Verbose free text is dropped — at 10 cases the full
+# payload exceeded the model's per-request TPM ceiling and failed the whole phase.
+PHASE4_FRAGMENT_KEY_CHARS = 80
+PHASE4_MAX_OUTPUT_TOKENS = 6000
+
+
+def _compact_compliance_vector(cv: dict) -> dict:
+    return {
+        "case_id": cv.get("case_id"),
+        "coverage_summary": cv.get("coverage_summary"),
+        "existing_mapping": [
+            {"guideline_id": m.get("guideline_id"),
+             "compliance_status": m.get("compliance_status")}
+            for m in cv.get("existing_mapping", [])
+        ],
+    }
+
+
+def _compact_uncovered(uf: dict) -> dict:
+    return {
+        "case_id": uf.get("case_id"),
+        "uncovered_fragments": [
+            {"label": f.get("label"), "severity": f.get("severity"),
+             "fragment": (f.get("fragment") or "")[:PHASE4_FRAGMENT_KEY_CHARS]}
+            for f in uf.get("uncovered_fragments", [])
+        ],
+    }
+
+
+def _compact_guidelines(rg: dict) -> dict:
+    return {
+        "domain_identifier": rg.get("domain_identifier"),
+        "reference_guidelines": [
+            {"id": g.get("id"), "guideline_name": g.get("guideline_name"),
+             "related_template_id": g.get("related_template_id")}
+            for g in rg.get("reference_guidelines", [])
+        ],
+    }
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Phase 1 — Language Advisor: build language template
@@ -69,11 +110,24 @@ async def phase1_build_language_template(
 # Phase 2 — Domain Advisor: build/update reference guidelines (Q&A loop)
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _scope_rejected_questions(result: dict, asked: list[dict]) -> list[dict]:
+    """Questions the answering agent declined via `scope_errors` (wrong recipient).
+
+    Returns them stripped of their id so the sibling agent allocates a fresh one.
+    Without this, a rejected question was silently dropped and never answered.
+    """
+    rejected_ids = {e.get("question_id") for e in (result.get("scope_errors") or [])}
+    if not rejected_ids:
+        return []
+    return [{"question": q.get("question")} for q in asked if q.get("id") in rejected_ids]
+
+
 async def _answer_lang_questions(
     questions: list[dict],
     state: PipelineState,
     registry: QARegistry,
     client: LLMClient,
+    _rerouted: bool = False,
 ) -> list[dict]:
     """Route Q_lang questions to Agent 1 and record answers."""
     if not questions:
@@ -88,6 +142,12 @@ async def _answer_lang_questions(
     answers = result.get("questions_answers", [])
     await registry.record_answers(answers, "lang")
     state.lang_qa_history = registry.lang_qa.copy()
+    if not _rerouted:
+        misrouted = _scope_rejected_questions(result, questions)
+        if misrouted:
+            logger.info("Rerouting %d Agent-1-rejected question(s) to Agent 2.", len(misrouted))
+            answers = answers + await _answer_dom_questions(
+                misrouted, state, registry, client, _rerouted=True)
     return answers
 
 
@@ -96,6 +156,7 @@ async def _answer_dom_questions(
     state: PipelineState,
     registry: QARegistry,
     client: LLMClient,
+    _rerouted: bool = False,
 ) -> list[dict]:
     """Route Q_dom questions to Agent 2 and record answers."""
     if not questions:
@@ -111,6 +172,12 @@ async def _answer_dom_questions(
     answers = result.get("questions_answers", [])
     await registry.record_answers(answers, "dom")
     state.dom_qa_history = registry.dom_qa.copy()
+    if not _rerouted:
+        misrouted = _scope_rejected_questions(result, questions)
+        if misrouted:
+            logger.info("Rerouting %d Agent-2-rejected question(s) to Agent 1.", len(misrouted))
+            answers = answers + await _answer_lang_questions(
+                misrouted, state, registry, client, _rerouted=True)
     return answers
 
 
@@ -227,8 +294,11 @@ async def _phase3_one_case(
             q_lang = resolved.get("questions_to_language_advisor", [])
             q_dom = resolved.get("questions_to_domain_advisor", [])
 
+            # Merge every round so the next round's prompt reflects the running,
+            # progressively-resolved vector rather than the stale round-1 state.
+            cv = _merge_resolved_into_cv(cv, resolved)
+
             if not q_lang and not q_dom:
-                cv = _merge_resolved_into_cv(cv, resolved)
                 break
 
             if q_lang:
@@ -239,7 +309,6 @@ async def _phase3_one_case(
                 await _answer_dom_questions(q_dom, state, registry, client)
         else:
             logger.warning("Case %s skill 3-2 reached MAX_QA_ROUNDS.", case_id)
-            cv = _merge_resolved_into_cv(cv, resolved)  # type: ignore[possibly-undefined]
 
         # ── Skill 3-3: audit uncovered fragments (Q&A loop) ─────────────────
         audit_result: dict = {}
@@ -320,7 +389,13 @@ async def phase3_evaluate_cases(
         _phase3_one_case(case, state, registry, client, state_path, sem)
         for case in cases
     ]
-    await asyncio.gather(*tasks)
+    # Let every case task finish before propagating, so a failure in one case
+    # cannot leave sibling tasks running (and still writing state/logs) after
+    # the caller has moved on. Re-raise the first real error once all settle.
+    outcomes = await asyncio.gather(*tasks, return_exceptions=True)
+    for outcome in outcomes:
+        if isinstance(outcome, BaseException):
+            raise outcome
 
     state.mark_done("phase3")
     state.save(state_path)
@@ -347,13 +422,16 @@ async def phase4_variability_analysis(
     # ── Skill 4-1: identify deviation patterns ───────────────────────────────
     logger.info("Phase 4 — skill 4-1: identify_deviation_patterns")
     prompt41 = a4.identify_deviation_patterns_prompt(
-        compliance_vectors=list(state.compliance_vectors.values()),
-        uncovered_fragment_classifications=list(state.uncovered_fragments.values()),
-        reference_guidelines=state.reference_guidelines,
+        compliance_vectors=[_compact_compliance_vector(c)
+                            for c in state.compliance_vectors.values()],
+        uncovered_fragment_classifications=[_compact_uncovered(u)
+                                            for u in state.uncovered_fragments.values()],
+        reference_guidelines=_compact_guidelines(state.reference_guidelines),
         domain_identifier=cfg.get("domain_identifier", ""),
         min_recurrence_threshold=cfg.get("min_recurrence_threshold", 1),
     )
-    patterns = await client.call(prompt41, label="agent4/identify_patterns")
+    patterns = await client.call(prompt41, label="agent4/identify_patterns",
+                                 max_tokens=PHASE4_MAX_OUTPUT_TOKENS)
     state.deviation_patterns = patterns
     state.save(state_path)
 
@@ -420,10 +498,12 @@ async def phase4_variability_analysis(
                 prompt_upd, label=f"agent2/guidelines_feedback_r{round_n}"
             )
             updated_gl["_domain_description"] = extended_domain
+            # Keep the latest guidelines every round, so hitting MAX_QA_ROUNDS
+            # does not discard the most Q&A-informed version that was just paid for.
+            state.reference_guidelines = updated_gl
 
             q_lang = updated_gl.get("questions_to_language_advisor", [])
             if not q_lang:
-                state.reference_guidelines = updated_gl
                 break
             await _answer_lang_questions(q_lang, state, registry, client)
         else:
@@ -589,6 +669,7 @@ async def run_setting(
     registry = QARegistry()
     registry.lang_qa = list(state.lang_qa_history)
     registry.dom_qa  = list(state.dom_qa_history)
+    registry.seed_counters_from_history()
 
     client = LLMClient(
         api_key=cfg.get("api_key"),

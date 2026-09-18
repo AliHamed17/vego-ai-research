@@ -9,11 +9,14 @@ processed concurrently.
 from __future__ import annotations
 
 import asyncio
+import re
 from dataclasses import dataclass, field
 from typing import Literal
 
 
 QAScope = Literal["lang", "dom"]
+
+_ID_RE = re.compile(r"^Q_(lang|dom)_(\d+)$")
 
 
 @dataclass
@@ -27,6 +30,19 @@ class QARegistry:
     # Accumulated Q&A history keyed by question ID
     lang_qa: list[dict] = field(default_factory=list)
     dom_qa: list[dict] = field(default_factory=list)
+
+    def seed_counters_from_history(self) -> None:
+        """Advance each counter past the highest id already present in lang_qa /
+        dom_qa. Called on resume so a restarted run never re-issues an id that a
+        previous run already assigned to a different question (which silently
+        misattributed one case's answer to another)."""
+        for scope, records in (("lang", self.lang_qa), ("dom", self.dom_qa)):
+            highest = self._counters[scope]
+            for rec in records:
+                m = _ID_RE.match(str(rec.get("question_id") or rec.get("id") or ""))
+                if m and m.group(1) == scope:
+                    highest = max(highest, int(m.group(2)))
+            self._counters[scope] = highest
 
     async def next_id(self, scope: QAScope) -> str:
         async with self._lock:
