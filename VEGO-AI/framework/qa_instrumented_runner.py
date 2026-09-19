@@ -81,7 +81,8 @@ class DeterministicFixtureClient:
     def __init__(self) -> None:
         self.phase2_round = 0
 
-    async def call(self, prompt: dict[str, Any], *, label: str) -> dict[str, Any]:
+    async def call(self, prompt: dict[str, Any], *, label: str,
+                   max_tokens: int | None = None) -> dict[str, Any]:
         if label == "agent1/build_language_template":
             return {"language_name": "FixtureUML", "guidelines": [], "agent1_capabilities": ["fixture"]}
         if label.startswith("agent2/guidelines_round"):
@@ -125,12 +126,13 @@ class InstrumentedLLMClientProxy:
         self.calls: list[dict[str, Any]] = []
         self._pending: dict[str, list[dict[str, Any]]] = {}
 
-    async def call(self, prompt: dict[str, Any], *, label: str) -> dict[str, Any]:
+    async def call(self, prompt: dict[str, Any], *, label: str,
+                   max_tokens: int | None = None) -> dict[str, Any]:
         context = _ROUTE_CONTEXT.get()
         token = _correlation_token(context, label, self.run_id, self.setting_id)
         self.calls.append({"label": label, "prompt_sha256": _sha(prompt),
                            "prompt_length": len(json.dumps(prompt, ensure_ascii=False))})
-        result = await self.fake.call(prompt, label=label)
+        result = await self.fake.call(prompt, label=label, max_tokens=max_tokens)
         if self.recorder and (result.get("questions_to_language_advisor") or result.get("questions_to_domain_advisor")):
             pending = []
             producer = _producer_metadata(label, self.run_id, self.setting_id)
