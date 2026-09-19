@@ -2,7 +2,7 @@
   "schemaVersion": "ExperimentBenchmarkSnapshot-v1",
   "generatedAt": "2026-07-26T16:00:00+03:00",
   "publicationTier": "tracked_sanitized",
-  "inputProjectionSha256": "15aa7634aca3eb27029f8fde171d21a3123c9cb0790b1cd833d937648cef5470",
+  "inputProjectionSha256": "d488c104f290e2fdfde92fbdae90088f53243aa24dcf230ea5fde7850c42d30d",
   "standardSha256": "1b9a814e3498ac97ac5da84e5eb15894c15583c87456491af363c3a805e3c7c5",
   "programState": {
     "registeredExperiments": 41,
@@ -6126,7 +6126,7 @@
     },
     {
       "path": "docs/research/bigui/baseline-comparison-results-v1.json",
-      "sha256": "4d1ec97a31e28248cdba1baf4b4d4ce362df94c17facf1c4b0f967c54be0e8ce",
+      "sha256": "86d73ceb1e166f6abfbbb74af683bdaaf9665fab3dd980c986368114db44c8a5",
       "role": "Paper, architecture, comparison, and thesis-readiness results."
     }
   ]
