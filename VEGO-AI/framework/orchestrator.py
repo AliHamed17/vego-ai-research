@@ -110,6 +110,9 @@ async def phase1_build_language_template(
 # Phase 2 — Domain Advisor: build/update reference guidelines (Q&A loop)
 # ══════════════════════════════════════════════════════════════════════════════
 
+ANSWER_REQUIRED_FIELDS = ("answer", "confidence", "evidence")
+
+
 def _report_unanswered(asked: list[dict], answers: list[dict], scope: str) -> list[str]:
     """Surface questions that came back with no answer instead of dropping them.
 
@@ -123,6 +126,25 @@ def _report_unanswered(asked: list[dict], answers: list[dict], scope: str) -> li
             scope, len(missing), len(asked), ", ".join(str(m) for m in missing),
         )
     return [str(m) for m in missing]
+
+
+def _report_malformed_answers(answers: list[dict], scope: str) -> list[str]:
+    """Surface answers missing a field downstream analysis depends on.
+
+    A persisted answer without confidence or evidence is indistinguishable from one
+    that was never sought, so the gap is named rather than silently stored."""
+    faults = []
+    for answer in answers:
+        if not isinstance(answer, dict):
+            faults.append("non-dict answer entry")
+            continue
+        absent = [f for f in ANSWER_REQUIRED_FIELDS if not str(answer.get(f) or "").strip()]
+        if absent:
+            faults.append(f"{answer.get('question_id') or '<no id>'} missing {'/'.join(absent)}")
+    if faults:
+        logger.warning("Q&A scope %s: %d malformed answer(s): %s",
+                       scope, len(faults), "; ".join(faults))
+    return faults
 
 
 def _scope_rejected_questions(result: dict, asked: list[dict]) -> list[dict]:
@@ -143,6 +165,7 @@ async def _answer_lang_questions(
     registry: QARegistry,
     client: LLMClient,
     _rerouted: bool = False,
+    provenance: dict | None = None,
 ) -> list[dict]:
     """Route Q_lang questions to Agent 1 and record answers."""
     if not questions:
@@ -156,14 +179,15 @@ async def _answer_lang_questions(
     result = await client.call(prompt, label="agent1/answer_language_questions")
     answers = result.get("questions_answers", [])
     _report_unanswered(questions, answers, "lang")
-    await registry.record_answers(answers, "lang")
+    _report_malformed_answers(answers, "lang")
+    await registry.record_answers(answers, "lang", questions, provenance)
     state.lang_qa_history = registry.lang_qa.copy()
     if not _rerouted:
         misrouted = _scope_rejected_questions(result, questions)
         if misrouted:
             logger.info("Rerouting %d Agent-1-rejected question(s) to Agent 2.", len(misrouted))
             answers = answers + await _answer_dom_questions(
-                misrouted, state, registry, client, _rerouted=True)
+                misrouted, state, registry, client, _rerouted=True, provenance=provenance)
     return answers
 
 
@@ -173,6 +197,7 @@ async def _answer_dom_questions(
     registry: QARegistry,
     client: LLMClient,
     _rerouted: bool = False,
+    provenance: dict | None = None,
 ) -> list[dict]:
     """Route Q_dom questions to Agent 2 and record answers."""
     if not questions:
@@ -187,14 +212,15 @@ async def _answer_dom_questions(
     result = await client.call(prompt, label="agent2/answer_domain_questions")
     answers = result.get("questions_answers", [])
     _report_unanswered(questions, answers, "dom")
-    await registry.record_answers(answers, "dom")
+    _report_malformed_answers(answers, "dom")
+    await registry.record_answers(answers, "dom", questions, provenance)
     state.dom_qa_history = registry.dom_qa.copy()
     if not _rerouted:
         misrouted = _scope_rejected_questions(result, questions)
         if misrouted:
             logger.info("Rerouting %d Agent-2-rejected question(s) to Agent 1.", len(misrouted))
             answers = answers + await _answer_lang_questions(
-                misrouted, state, registry, client, _rerouted=True)
+                misrouted, state, registry, client, _rerouted=True, provenance=provenance)
     return answers
 
 
@@ -245,10 +271,10 @@ async def phase2_build_reference_guidelines(
 
         if q_lang:
             logger.info("Phase 2 — %d language question(s) raised; routing to Agent 1.", len(q_lang))
-            await _answer_lang_questions(q_lang, state, registry, client)
+            await _answer_lang_questions(q_lang, state, registry, client, provenance={"asked_by": "agent2", "round_index": round_n, "source_skill": "guidelines_round"})
         if q_dom:
             logger.info("Phase 2 — %d domain question(s) raised; routing to Agent 2.", len(q_dom))
-            await _answer_dom_questions(q_dom, state, registry, client)
+            await _answer_dom_questions(q_dom, state, registry, client, provenance={"asked_by": "agent2", "round_index": round_n, "source_skill": "guidelines_round"})
         is_first = False
     else:
         logger.warning("Phase 2 reached MAX_QA_ROUNDS=%d without converging.", MAX_QA_ROUNDS)
@@ -320,10 +346,10 @@ async def _phase3_one_case(
 
             if q_lang:
                 logger.info("  Case %s — %d lang Q(s) → Agent 1", case_id, len(q_lang))
-                await _answer_lang_questions(q_lang, state, registry, client)
+                await _answer_lang_questions(q_lang, state, registry, client, provenance={"asked_by": "agent3", "case_id": case_id, "round_index": round_n, "source_skill": "resolve"})
             if q_dom:
                 logger.info("  Case %s — %d dom Q(s) → Agent 2", case_id, len(q_dom))
-                await _answer_dom_questions(q_dom, state, registry, client)
+                await _answer_dom_questions(q_dom, state, registry, client, provenance={"asked_by": "agent3", "case_id": case_id, "round_index": round_n, "source_skill": "resolve"})
         else:
             logger.warning("Case %s skill 3-2 reached MAX_QA_ROUNDS.", case_id)
 
@@ -350,9 +376,9 @@ async def _phase3_one_case(
                 break
 
             if q_lang:
-                await _answer_lang_questions(q_lang, state, registry, client)
+                await _answer_lang_questions(q_lang, state, registry, client, provenance={"asked_by": "agent3", "case_id": case_id, "round_index": round_n, "source_skill": "audit"})
             if q_dom:
-                await _answer_dom_questions(q_dom, state, registry, client)
+                await _answer_dom_questions(q_dom, state, registry, client, provenance={"asked_by": "agent3", "case_id": case_id, "round_index": round_n, "source_skill": "audit"})
         else:
             logger.warning("Case %s skill 3-3 reached MAX_QA_ROUNDS.", case_id)
 
@@ -473,9 +499,9 @@ async def phase4_variability_analysis(
             break
 
         if q_lang:
-            await _answer_lang_questions(q_lang, state, registry, client)
+            await _answer_lang_questions(q_lang, state, registry, client, provenance={"asked_by": "agent4", "round_index": round_n, "source_skill": "classify"})
         if q_dom:
-            await _answer_dom_questions(q_dom, state, registry, client)
+            await _answer_dom_questions(q_dom, state, registry, client, provenance={"asked_by": "agent4", "round_index": round_n, "source_skill": "classify"})
     else:
         logger.warning("Phase 4 skill 4-2 reached MAX_QA_ROUNDS.")
 
@@ -522,7 +548,7 @@ async def phase4_variability_analysis(
             q_lang = updated_gl.get("questions_to_language_advisor", [])
             if not q_lang:
                 break
-            await _answer_lang_questions(q_lang, state, registry, client)
+            await _answer_lang_questions(q_lang, state, registry, client, provenance={"asked_by": "agent2", "round_index": round_n, "source_skill": "guidelines_feedback"})
         else:
             logger.warning("Guidelines feedback loop reached MAX_QA_ROUNDS.")
 
@@ -683,7 +709,7 @@ async def run_setting(
     logger.info("===== Setting: %s =====", setting_id)
 
     state = PipelineState.load_or_new(state_path)
-    registry = QARegistry()
+    registry = QARegistry(setting_id=setting_id)
     registry.lang_qa = list(state.lang_qa_history)
     registry.dom_qa  = list(state.dom_qa_history)
     registry.seed_counters_from_history()

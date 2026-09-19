@@ -47,12 +47,12 @@ CURRENT_RUNTIME_LOCKS = {
         # Re-locked for PR #48, which deliberately changes this file: phase-4
         # payload compaction, rejected-question rerouting, per-round merges of
         # the compliance vector and guidelines, gather() error propagation.
-        "63efa9c05de8f16127aa56025ae7f2cd22d6b19e9581947b334f448a0b5197b5"
+        "c8cfee8495c6ba31c1ee7c300a1170fbd90c148a1ee8a7718682d877c7243b24"
     ),
     "VEGO-AI/framework/qa_registry.py": (
         # Re-locked for PR #48: seed_counters_from_history() added so question
         # ids continue rather than restart when a run resumes.
-        "0d3580a8c11d55899a5fba3889ddb3fb7beb9b3e4be5ab591c6bc98d3c4984eb"
+        "49e77df66b33ffa4f83d7f83fa8e9765fd9b6f2bc942efbfe246c66445398e03"
     ),
     "VEGO-AI/framework/state.py": (
         "d8492a623804065b86905d6183979c322d6f83376bf91026e718c615eea1730d"
