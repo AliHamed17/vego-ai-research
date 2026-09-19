@@ -110,6 +110,21 @@ async def phase1_build_language_template(
 # Phase 2 — Domain Advisor: build/update reference guidelines (Q&A loop)
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _report_unanswered(asked: list[dict], answers: list[dict], scope: str) -> list[str]:
+    """Surface questions that came back with no answer instead of dropping them.
+
+    An unanswered question is missing evidence, so it is logged with its id rather
+    than discarded silently; the returned ids let callers record the gap."""
+    answered = {a.get("question_id") for a in answers if isinstance(a, dict)}
+    missing = [q.get("id") for q in asked if q.get("id") and q.get("id") not in answered]
+    if missing:
+        logger.warning(
+            "Q&A scope %s: %d of %d question(s) received no answer: %s",
+            scope, len(missing), len(asked), ", ".join(str(m) for m in missing),
+        )
+    return [str(m) for m in missing]
+
+
 def _scope_rejected_questions(result: dict, asked: list[dict]) -> list[dict]:
     """Questions the answering agent declined via `scope_errors` (wrong recipient).
 
@@ -140,6 +155,7 @@ async def _answer_lang_questions(
     )
     result = await client.call(prompt, label="agent1/answer_language_questions")
     answers = result.get("questions_answers", [])
+    _report_unanswered(questions, answers, "lang")
     await registry.record_answers(answers, "lang")
     state.lang_qa_history = registry.lang_qa.copy()
     if not _rerouted:
@@ -170,6 +186,7 @@ async def _answer_dom_questions(
     )
     result = await client.call(prompt, label="agent2/answer_domain_questions")
     answers = result.get("questions_answers", [])
+    _report_unanswered(questions, answers, "dom")
     await registry.record_answers(answers, "dom")
     state.dom_qa_history = registry.dom_qa.copy()
     if not _rerouted:
