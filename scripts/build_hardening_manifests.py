@@ -47,7 +47,7 @@ CURRENT_RUNTIME_LOCKS = {
         # Re-locked for PR #48, which deliberately changes this file: phase-4
         # payload compaction, rejected-question rerouting, per-round merges of
         # the compliance vector and guidelines, gather() error propagation.
-        "86efa1fa2e63e820c3ae7757c2491d25ff8dffc628b05b2f3952bf7aecb6596f"
+        "63efa9c05de8f16127aa56025ae7f2cd22d6b19e9581947b334f448a0b5197b5"
     ),
     "VEGO-AI/framework/qa_registry.py": (
         # Re-locked for PR #48: seed_counters_from_history() added so question

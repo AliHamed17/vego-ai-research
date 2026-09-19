@@ -72,7 +72,7 @@
     },
     "VEGO-AI/framework/orchestrator.py": {
       "basis": "pre-hardening-current-baseline",
-      "sha256": "86efa1fa2e63e820c3ae7757c2491d25ff8dffc628b05b2f3952bf7aecb6596f"
+      "sha256": "63efa9c05de8f16127aa56025ae7f2cd22d6b19e9581947b334f448a0b5197b5"
     },
     "VEGO-AI/framework/qa_registry.py": {
       "basis": "pre-hardening-current-baseline",
