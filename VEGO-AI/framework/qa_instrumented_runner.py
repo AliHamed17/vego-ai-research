@@ -47,6 +47,24 @@ def _correlation_token(context: dict[str, Any] | None, label: str, run_id: str,
             or f"{run_id}|{setting_id}|{label}")
 
 
+_ASKED_ID_RE = re.compile(r'(?<!question_)"id"\s*:\s*"(Q_(?:lang|dom)_\d{3})"')
+
+
+def asked_question_ids(prompt: Any) -> list[str]:
+    """Question ids actually put to the agent, in order, excluding template examples.
+
+    The answer prompts embed literal example ids in their OUTPUT FORMAT block, as
+    "question_id", and in prose. Only the questions block renders an id as a bare
+    "id" member, so that key is what separates a real question from an example."""
+    if isinstance(prompt, dict) and isinstance(prompt.get("question_id"), str):
+        return [prompt["question_id"]]
+    parts = prompt.values() if isinstance(prompt, dict) else [prompt]
+    found: list[str] = []
+    for part in parts:
+        found.extend(_ASKED_ID_RE.findall(str(part)))
+    return list(dict.fromkeys(found))
+
+
 def _sha(value: Any) -> str:
     payload = json.dumps(value, sort_keys=True, ensure_ascii=False, default=str).encode()
     return hashlib.sha256(payload).hexdigest()
@@ -81,7 +99,8 @@ class DeterministicFixtureClient:
     def __init__(self) -> None:
         self.phase2_round = 0
 
-    async def call(self, prompt: dict[str, Any], *, label: str) -> dict[str, Any]:
+    async def call(self, prompt: dict[str, Any], *, label: str,
+                   max_tokens: int | None = None) -> dict[str, Any]:
         if label == "agent1/build_language_template":
             return {"language_name": "FixtureUML", "guidelines": [], "agent1_capabilities": ["fixture"]}
         if label.startswith("agent2/guidelines_round"):
@@ -125,12 +144,13 @@ class InstrumentedLLMClientProxy:
         self.calls: list[dict[str, Any]] = []
         self._pending: dict[str, list[dict[str, Any]]] = {}
 
-    async def call(self, prompt: dict[str, Any], *, label: str) -> dict[str, Any]:
+    async def call(self, prompt: dict[str, Any], *, label: str,
+                   max_tokens: int | None = None) -> dict[str, Any]:
         context = _ROUTE_CONTEXT.get()
         token = _correlation_token(context, label, self.run_id, self.setting_id)
         self.calls.append({"label": label, "prompt_sha256": _sha(prompt),
                            "prompt_length": len(json.dumps(prompt, ensure_ascii=False))})
-        result = await self.fake.call(prompt, label=label)
+        result = await self.fake.call(prompt, label=label, max_tokens=max_tokens)
         if self.recorder and (result.get("questions_to_language_advisor") or result.get("questions_to_domain_advisor")):
             pending = []
             producer = _producer_metadata(label, self.run_id, self.setting_id)
@@ -144,15 +164,15 @@ class InstrumentedLLMClientProxy:
         self.calls[-1]["answer_sha256"] = _sha(result)
         self.calls[-1]["answer_length"] = len(json.dumps(result, ensure_ascii=False))
         if self.recorder and label in {"agent1/answer_language_questions", "agent2/answer_domain_questions"}:
-            all_ids = list(dict.fromkeys(re.findall(r"Q_(?:lang|dom)_\d{3}", json.dumps(prompt, ensure_ascii=False))))
+            all_ids = asked_question_ids(prompt)
             context = _ROUTE_CONTEXT.get()
             pending = self._pending.pop(token, [])
             if not pending and context and context.get("question_texts"):
                 pending = [{**context, "question": text} for text in context["question_texts"]]
             if not pending:
                 raise QACommunicationValidationError("Q&A answer cannot be correlated to producer metadata")
-            # Prompts may include prior Q&A history.  The producer's pending
-            # list identifies the current suffix; never correlate historical IDs.
+            # asked_question_ids returns only the ids of the questions actually put
+            # to the agent, in order, so the current exchange is the trailing slice.
             ids = all_ids[-len(pending):]
             if len(ids) != len(pending):
                 raise QACommunicationValidationError(

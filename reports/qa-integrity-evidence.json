@@ -1,0 +1,101 @@
+{
+ "baseline_passed": 25,
+ "mutations": [
+  {
+   "id": "M1-id-correlation",
+   "guards": "the harness must ignore OUTPUT FORMAT example ids",
+   "applied": true,
+   "caught": true,
+   "n_failed": 7,
+   "n_passed": 18,
+   "failing_tests": [
+    "test_correlation_holds_for_both_scopes",
+    "test_domain_example_ids_are_never_returned_when_unasked",
+    "test_domain_ids_exclude_output_format_examples",
+    "test_ids_preserve_the_order_they_were_asked_in",
+    "test_instrumented_harness_ignores_output_format_example_ids",
+    "test_language_ids_exclude_output_format_examples"
+   ]
+  },
+  {
+   "id": "M2-unanswered-reporting",
+   "guards": "unanswered questions must not be dropped silently",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_unanswered_questions_are_reported"
+   ]
+  },
+  {
+   "id": "M3-malformed-reporting",
+   "guards": "answers missing confidence or evidence must be named",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_malformed_answers_are_reported"
+   ]
+  },
+  {
+   "id": "M4-provenance",
+   "guards": "the asking agent and round must be persisted with each answer",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_persisted_answers_carry_their_provenance"
+   ]
+  },
+  {
+   "id": "M5-question-text",
+   "guards": "the originating question text must be persisted with its answer",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_every_answer_joins_back_to_its_question_text"
+   ]
+  },
+  {
+   "id": "M6-setting-id",
+   "guards": "ids restart per setting, so each record must name its setting",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_persisted_answers_carry_the_setting_so_ids_cannot_be_merged_across_settings"
+   ]
+  },
+  {
+   "id": "M7-reroute",
+   "guards": "a scope-rejected question must be rerouted, not dropped",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_a_scope_rejected_question_is_rerouted_not_dropped"
+   ]
+  },
+  {
+   "id": "M8-resume-seeding",
+   "guards": "a resumed run must not re-issue ids from the prior run",
+   "applied": true,
+   "caught": true,
+   "n_failed": 1,
+   "n_passed": 24,
+   "failing_tests": [
+    "test_resumed_registry_does_not_reissue_ids"
+   ]
+  }
+ ],
+ "caught": 8,
+ "applied": 8,
+ "all_guarded": true
+}

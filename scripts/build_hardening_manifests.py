@@ -44,10 +44,15 @@ CURRENT_BASELINE_BYTE_HASHES = {
 }
 CURRENT_RUNTIME_LOCKS = {
     "VEGO-AI/framework/orchestrator.py": (
-        "fca4b885ee07381db0f02e558b1aebf25bdc7c27da1c471fd3103d7e0e2d5b88"
+        # Re-locked for PR #48, which deliberately changes this file: phase-4
+        # payload compaction, rejected-question rerouting, per-round merges of
+        # the compliance vector and guidelines, gather() error propagation.
+        "c8cfee8495c6ba31c1ee7c300a1170fbd90c148a1ee8a7718682d877c7243b24"
     ),
     "VEGO-AI/framework/qa_registry.py": (
-        "ab189d3fd954ea03ba891f5746b36eff8889baeff73d7594f820e68f8762ad5f"
+        # Re-locked for PR #48: seed_counters_from_history() added so question
+        # ids continue rather than restart when a run resumes.
+        "49e77df66b33ffa4f83d7f83fa8e9765fd9b6f2bc942efbfe246c66445398e03"
     ),
     "VEGO-AI/framework/state.py": (
         "d8492a623804065b86905d6183979c322d6f83376bf91026e718c615eea1730d"
